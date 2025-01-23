@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function toggleMenu() {
         hamburger.classList.toggle('active');
-        sidebar.classList.toggle('active');
+        sidebar.classList.toggle('show');
         overlay.classList.toggle('active');
         body.classList.toggle('menu-open');
     }
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Cerrar menú cuando se presiona la tecla Escape
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+        if (e.key === 'Escape' && sidebar.classList.contains('show')) {
             toggleMenu();
         }
     });
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
             hamburger.classList.remove('active');
-            sidebar.classList.remove('active');
+            sidebar.classList.remove('show');
             overlay.classList.remove('active');
             body.classList.remove('menu-open');
         }
