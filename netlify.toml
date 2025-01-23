@@ -1,6 +1,37 @@
 [build]
-  publish = "/"
-  command = ""
+  publish = "public"
+  command = "npm run build"
+
+[[redirects]]
+  from = "http://onlinesellweb.netlify.app/*"
+  to = "https://onlinesellweb.netlify.app/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/legal"
+  to = "/legal.html"
+  status = 200
+
+[[redirects]]
+  from = "/planes"
+  to = "/planes.html"
+  status = 200
+
+[[redirects]]
+  from = "/mi-experiencia"
+  to = "/mi-experiencia.html"
+  status = 200
+
+[[redirects]]
+  from = "/contacto"
+  to = "/contacto.html"
+  status = 200
 
 [[redirects]]
   from = "/*"

@@ -1,1 +1,14 @@
+# Redirigir HTTP a HTTPS
+http://onlinesellweb.netlify.app/* https://onlinesellweb.netlify.app/:splat 301!
+
+# Redirigir la página de inicio
+/ /index.html 200
+
+# Redirigir rutas específicas
+/legal /legal.html 200
+/planes /planes.html 200
+/mi-experiencia /mi-experiencia.html 200
+/contacto /contacto.html 200
+
+# Redirigir todas las demás rutas a la página de inicio (para aplicaciones SPA)
 /* /index.html 200
