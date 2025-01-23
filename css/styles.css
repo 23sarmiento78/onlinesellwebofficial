@@ -59,26 +59,29 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
 }
 
 .nav-logo {
     height: 50px;
-    margin: 0 1rem;
+    margin-left: 2rem;
 }
 
 .nav-links {
+    margin-right: 2rem;
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap;
 }
 
 .nav-link {
     color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     text-decoration: none;
     padding: 0.5rem 1rem;
     transition: color 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .nav-link:hover,
@@ -96,8 +99,9 @@ body {
 .banner {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 100vh;
     overflow: hidden;
+    margin-top: 70px;
 }
 
 .banner-image {
@@ -121,6 +125,23 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
     margin-bottom: 2rem;
     font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.whatsapp-button {
+    display: inline-block;
+    background-color: #25d366;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.whatsapp-button:hover {
+    background-color: #128c7e;
 }
 
 /* Contenido principal */
@@ -240,24 +261,61 @@ body {
 .footer {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 2rem 1rem;
+    padding: 3rem 0;
+    margin-top: 4rem;
 }
 
 .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .footer-section {
     text-align: center;
 }
 
-.footer-link {
+.footer-logo {
+    height: 80px;
+    margin-bottom: 1rem;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
     color: white;
     text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #007bff;
+}
+
+address {
+    font-style: normal;
+    line-height: 1.6;
+}
+
+address a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+address a:hover {
+    color: #007bff;
 }
 
 /* Botones */
