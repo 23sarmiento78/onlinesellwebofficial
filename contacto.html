@@ -54,25 +54,55 @@
                     <p>📍 Dirección: Argentina, Córdoba, Villa Carlos Paz</p>
                 </div>
                 
-                <div class="card" style="flex: 1; min-width: 300px;">
+                <div class="card">
                     <h2>Formulario de Contacto</h2>
-                    <form style="display: flex; flex-direction: column;">
-                        <input type="text" placeholder="Nombre completo" required 
-                               style="margin-bottom: 1rem; padding: 0.5rem; border-radius: 5px; border: none;">
+                    <form name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field">
+                        <p class="hidden">
+                            <label>No llenes esto si eres humano: <input name="bot-field" /></label>
+                        </p>
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo *</label>
+                            <input type="text" id="nombre" name="nombre" required 
+                                   class="form-control"
+                                   placeholder="Tu nombre completo">
+                        </div>
                         
-                        <input type="email" placeholder="Correo electrónico" required 
-                               style="margin-bottom: 1rem; padding: 0.5rem; border-radius: 5px; border: none;">
+                        <div class="form-group">
+                            <label for="email">Correo electrónico *</label>
+                            <input type="email" id="email" name="email" required 
+                                   class="form-control"
+                                   placeholder="tu@email.com">
+                        </div>
                         
-                        <input type="tel" placeholder="Teléfono" 
-                               style="margin-bottom: 1rem; padding: 0.5rem; border-radius: 5px; border: none;">
+                        <div class="form-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" 
+                                   class="form-control"
+                                   placeholder="+54 XXX XXXXXXX">
+                        </div>
                         
-                        <textarea placeholder="Mensaje" required 
-                                  style="margin-bottom: 1rem; padding: 0.5rem; border-radius: 5px; border: none; min-height: 150px;"></textarea>
+                        <div class="form-group">
+                            <label for="asunto">Asunto *</label>
+                            <input type="text" id="asunto" name="asunto" required 
+                                   class="form-control"
+                                   placeholder="Asunto de tu mensaje">
+                        </div>
                         
-                        <button type="submit" 
-                                style="padding: 0.5rem; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                            Enviar mensaje
-                        </button>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje *</label>
+                            <textarea id="mensaje" name="mensaje" required 
+                                    class="form-control"
+                                    rows="5" 
+                                    placeholder="Escribe tu mensaje aquí..."></textarea>
+                        </div>
+
+                        <div data-netlify-recaptcha="true"></div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                Enviar Mensaje
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
