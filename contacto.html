@@ -91,54 +91,98 @@
                 
                 <div class="card">
                     <h2>Formulario de Contacto</h2>
-                    <form name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field">
-                        <p class="hidden">
-                            <label>No llenes esto si eres humano: <input name="bot-field" /></label>
-                        </p>
-                        <div class="form-group">
-                            <label for="nombre">Nombre completo *</label>
-                            <input type="text" id="nombre" name="nombre" required 
-                                   class="form-control"
-                                   placeholder="Tu nombre completo">
+                    <form id="contact-form" method="POST" data-netlify="true" data-netlify-recaptcha="true" onsubmit="return validateForm()">
+                        <input type="hidden" name="form-name" value="contact">
+                        <!-- Honeypot field -->
+                        <div class="hidden" style="display:none;">
+                            <label>No llenar este campo: <input name="bot-field" /></label>
                         </div>
                         
                         <div class="form-group">
-                            <label for="email">Correo electrónico *</label>
-                            <input type="email" id="email" name="email" required 
-                                   class="form-control"
-                                   placeholder="tu@email.com">
+                            <label for="name">Nombre *</label>
+                            <input type="text" id="name" name="name" required 
+                                   pattern="[A-Za-zÀ-ÿ\s]{2,50}" 
+                                   title="Por favor ingresa un nombre válido (2-50 caracteres, solo letras)"
+                                   autocomplete="name">
                         </div>
                         
                         <div class="form-group">
-                            <label for="telefono">Teléfono</label>
-                            <input type="tel" id="telefono" name="telefono" 
-                                   class="form-control"
-                                   placeholder="+54 XXX XXXXXXX">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required
+                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                   title="Por favor ingresa un email válido"
+                                   autocomplete="email">
                         </div>
                         
                         <div class="form-group">
-                            <label for="asunto">Asunto *</label>
-                            <input type="text" id="asunto" name="asunto" required 
-                                   class="form-control"
-                                   placeholder="Asunto de tu mensaje">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" id="phone" name="phone"
+                                   pattern="[0-9+\s-]{6,20}"
+                                   title="Por favor ingresa un número de teléfono válido"
+                                   autocomplete="tel">
                         </div>
                         
                         <div class="form-group">
-                            <label for="mensaje">Mensaje *</label>
-                            <textarea id="mensaje" name="mensaje" required 
-                                    class="form-control"
-                                    rows="5" 
-                                    placeholder="Escribe tu mensaje aquí..."></textarea>
+                            <label for="message">Mensaje *</label>
+                            <textarea id="message" name="message" required
+                                      minlength="10" maxlength="1000"
+                                      title="El mensaje debe tener entre 10 y 1000 caracteres"></textarea>
                         </div>
 
+                        <!-- reCAPTCHA -->
                         <div data-netlify-recaptcha="true"></div>
                         
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
-                                Enviar Mensaje
-                            </button>
-                        </div>
+                        <button type="submit" class="btn-primary">Enviar Mensaje</button>
                     </form>
+
+                    <script>
+                        function validateForm() {
+                            // Validación del nombre
+                            const name = document.getElementById('name').value;
+                            if (!/^[A-Za-zÀ-ÿ\s]{2,50}$/.test(name)) {
+                                alert('Por favor ingresa un nombre válido');
+                                return false;
+                            }
+
+                            // Validación del email
+                            const email = document.getElementById('email').value;
+                            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+                                alert('Por favor ingresa un email válido');
+                                return false;
+                            }
+
+                            // Validación del teléfono (si se proporciona)
+                            const phone = document.getElementById('phone').value;
+                            if (phone && !/^[0-9+\s-]{6,20}$/.test(phone)) {
+                                alert('Por favor ingresa un número de teléfono válido');
+                                return false;
+                            }
+
+                            // Validación del mensaje
+                            const message = document.getElementById('message').value;
+                            if (message.length < 10 || message.length > 1000) {
+                                alert('El mensaje debe tener entre 10 y 1000 caracteres');
+                                return false;
+                            }
+
+                            // Sanitización básica
+                            const sanitizeInput = (str) => {
+                                return str.replace(/[<>]/g, '');
+                            };
+
+                            document.getElementById('name').value = sanitizeInput(name);
+                            document.getElementById('email').value = sanitizeInput(email);
+                            document.getElementById('phone').value = sanitizeInput(phone);
+                            document.getElementById('message').value = sanitizeInput(message);
+
+                            return true;
+                        }
+
+                        // Prevenir ataques XSS en la URL
+                        if (window.location.href.includes('<script>')) {
+                            window.location.href = '/';
+                        }
+                    </script>
                 </div>
             </div>
         </div>
