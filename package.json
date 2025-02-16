@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "netlify-plugin-formspree": "^1.0.1"
+  }
+}
