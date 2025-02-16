@@ -1,9 +1,8 @@
 {
   "devDependencies": {
     "netlify-plugin-formspree": "^1.0.1"
+  },
+  "scripts": {
+    "build": "your_build_command_here"
   }
-}
-
-{
-  "build": "your_build_command_here"
 }
