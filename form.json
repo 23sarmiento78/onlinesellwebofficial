@@ -1,0 +1,22 @@
+{
+  "name": "contact",
+  "method": "POST",
+  "action": "https://formspree.io/f/{your_form_id}",
+  "fields": [
+    {
+      "name": "name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "email",
+      "type": "email",
+      "required": true
+    },
+    {
+      "name": "message",
+      "type": "textarea",
+      "required": true
+    }
+  ]
+}
