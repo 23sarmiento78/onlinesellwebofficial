@@ -3,3 +3,7 @@
     "netlify-plugin-formspree": "^1.0.1"
   }
 }
+
+{
+  "build": "your_build_command_here"
+}
