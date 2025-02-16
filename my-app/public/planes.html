@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Metatítulos -->
 <meta name="title" content="Crea tu Página Web con Nosotros - Mantenimiento Gratis el Primer Mes">
@@ -73,167 +72,290 @@
 <meta name="twitter:title" content="Online Sell Web: Construcción y Soporte Gratuito de Sitios Web">
 <meta name="twitter:title" content="Página Web y Mantenimiento: Primer Mes Gratis con Online Sell Web">
 <meta name="twitter:title" content="Diseño y Mantenimiento Web Gratis el Primer Mes con Online Sell Web">
-    <link rel="stylesheet" href="css/styles.css">
-    <title>Online Sell Web - Marketing Digital y Gestión de Redes Sociales</title>
+    <link rel="stylesheet" href="../src/css/styles.css">
+    <title>OSW | Planes</title>
+    <link rel="icon" type="image/png" href="../src/logos-he-imagenes/logo-sell.png">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5ZCGMRFV8Z"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-  
+
         gtag('config', 'G-5ZCGMRFV8Z');
     </script>
-    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Contrata el mejor servicio de programación">
+    <meta property="og:description" content="Mantenimiento gratis por un mes. El mejor servicio de programación a tu alcance y a tu presupuesto">
+    <meta property="og:image" content="https://onlinesellweb.netlify.app/logos-he-imagenes/descarga (1).jpeg">
+    <meta property="og:url" content="https://onlinesellweb.netlify.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Online Sell Web">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "Online Sell Web",
+            "url": "https://onlinesellweb.netlify.app"
+        },
+        "serviceType": "Digital Marketing",
+        "areaServed": {
+            "@type": "State",
+            "name": "Córdoba"
+        },
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Servicios de Marketing Digital",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Plan Básico",
+                        "description": "Gestión básica de redes sociales y marketing digital"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Plan Profesional",
+                        "description": "Gestión profesional de redes sociales y estrategias de marketing avanzadas"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Plan Empresarial",
+                        "description": "Solución completa de marketing digital y gestión de marca"
+                    }
+                }
+            ]
+        }
+    }
+    </script>
+    <style>
+        .nav-main {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            margin-right: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        .logo-text {
+            margin-left: 2rem;
+        }
+
+        .banner {
+            position: relative;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        .banner-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .banner-title {
+            color: white;
+            font-size: 3rem;
+        }
+
+        .whatsapp-button {
+            background-color: #25D366;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #1DAF4B;
+        }
+
+        .main-content {
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-justify {
+            text-align: justify;
+        }
+
+        .pricing-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .pricing-card {
+            background-color: transparent;
+            border-color: blue;
+            padding: 2rem;
+            margin: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card.featured {
+            background-color: transparent;
+            
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+      
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #3e8e41;
+        }
+
+      
+    </style>
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-    
-    <div class="rocket" aria-hidden="true"></div>
-    
     <nav class="nav-main">
-        <div class="logo-container">
-            <span class="logo-text">OSW Design</span>
-        </div>
+        <div class="logo-text">OSW Design</div>
         <div class="nav-links">
-            <a href="mi-experiencia.html" class="nav-link">Mi Experiencia</a>
-            <a href="planes.html" class="nav-link">Planes</a>
+            <a href="index.html" class="nav-link">Inicio</a>
             <a href="contacto.html" class="nav-link">Contacto</a>
+            <a href="mi-experiencia.html" class="nav-link">Mi Experiencia</a>
             <a href="legal.html" class="nav-link">Legal</a>
         </div>
     </nav>
 
-    <!-- Overlay para cuando el menú está abierto -->
-    <div class="overlay"></div>
+     <!-- Banner Principal -->
+     <section class="banner" role="banner">
+        <img src="../src/logos-he-imagenes/descarga (1).jpeg" 
+             alt="Marketing Digital y Redes Sociales" 
+             class="banner-image">
+        <div class="banner-content">
+            <h1 class="banner-title">Potencia tu Marca en el Mundo Digital</h1>
+            <p class="banner-subtitle">Gestión profesional de redes sociales y estrategias de marketing digital</p>
+            <a href="https://wa.me/+543541237972" 
+               target="_blank" 
+               class="whatsapp-button"
+               aria-label="Contactar por WhatsApp"
+               rel="noopener noreferrer">
+                ¡Comienza Ahora!
+            </a>
+        </div>
+    </section>
 
-    <div id="loading-image">
-        <img src="logos-he-imagenes/logo-sell.png" alt="Logo" class="loading-image">
-    </div>
-
-    <main id="main-content" role="main">
-        <!-- Banner Principal -->
-        <section class="banner" role="banner">
-            <img src="logos-he-imagenes/descarga (1).jpeg" 
-                 alt="Marketing Digital y Redes Sociales" 
-                 class="banner-image">
-            <div class="banner-content">
-                <h1 class="banner-title">Potencia tu Marca en el Mundo Digital</h1>
-                <p class="banner-subtitle">Gestión profesional de redes sociales y estrategias de marketing digital</p>
-                <a href="https://wa.me/+543541237972" 
-                   target="_blank" 
-                   class="whatsapp-button"
-                   aria-label="Contactar por WhatsApp"
-                   rel="noopener noreferrer">
-                    ¡Comienza Ahora!
-                </a>
-            </div>
-        </section>
-
-        <!-- Servicios Principales -->
-        <section class="services-section">
-            <div class="container">
-                <h2 class="section-title">Nuestros Servicios</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <span class="service-icon">🌐</span>
-                        <h3>Desarrollo Web</h3>
-                        <ul class="service-list">
-                            <li>Sitios web profesionales</li>
-                            <li>Diseño responsive</li>
-                            <li>Landing pages</li>
-                            <li>Optimización SEO</li>
+    <main class="main-content">
+        <div class="container">
+            <h1 class="text-center">Nuestros Planes</h1>
+            <div class="text-justify">
+                <div class="pricing-container">
+                    <!-- Plan Básico -->
+                    <div class="pricing-card">
+                        <h2>Plan Básico</h2>
+                        <div class="price">$150</div>
+                        <p>Ideal para pequeños negocios que están comenzando</p>
+                        <ul>
+                            <li>Diseño web personalizado</li>
+                            <li>Hasta 5 páginas</li>
+                            <li>Formulario de contacto</li>
+                            <li>Optimización para móviles</li>
+                            <li>Integración con redes sociales</li>
+                            <li>1 mes de mantenimiento gratuito</li>
                         </ul>
+                        <div class="pricing-footer">
+                            <a href="https://wa.me/+543541237972?text=Hola%2C%20estoy%20interesado%20en%20el%20Plan%20B%C3%A1sico.%20Me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20desarrollo%20de%20mi%20sitio%20web." target="_blank" class="btn btn-primary">Contratar Plan Básico</a>
+                        </div>
                     </div>
-                    <div class="service-card">
-                        <span class="service-icon">🎨</span>
-                        <h3>Diseño Gráfico</h3>
-                        <ul class="service-list">
-                            <li>Logos e identidad visual</li>
-                            <li>Material publicitario</li>
-                            <li>Diseño de redes sociales</li>
-                            <li>Branding corporativo</li>
+
+                    <!-- Plan Profesional -->
+                    <div class="pricing-card">
+                        <h2>Plan Profesional</h2>
+                        <div class="price">$300</div>
+                        <p>Perfecto para negocios en crecimiento</p>
+                        <ul>
+                            <li>Todo lo del Plan Básico</li>
+                            <li>Hasta 10 páginas</li>
+                            <li>Blog integrado</li>
+                            <li>SEO básico</li>
+                            <li>Galería de imágenes</li>
+                            <li>3 meses de mantenimiento</li>
+                            <li>Análisis de tráfico</li>
                         </ul>
+                        <div class="pricing-footer">
+                            <a href="https://wa.me/+543541237972?text=Hola%2C%20estoy%20interesado%20en%20el%20Plan%20Profesional.%20Me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20detalles%20sobre%20las%20caracter%C3%ADsticas%20y%20c%C3%B3mo%20podr%C3%ADa%20beneficiar%20a%20mi%20negocio." target="_blank" class="btn btn-primary">Contratar Plan Profesional</a>
+                        </div>
                     </div>
-                    <div class="service-card">
-                        <span class="service-icon">👥</span>
-                        <h3>Diseño UX/UI</h3>
-                        <ul class="service-list">
-                            <li>Experiencia de usuario</li>
-                            <li>Interfaces intuitivas</li>
-                            <li>Prototipos interactivos</li>
-                            <li>Arquitectura de información</li>
+
+                    <!-- Plan Empresarial -->
+                    <div class="pricing-card">
+                        <h2>Plan Empresarial</h2>
+                        <div class="price">$500</div>
+                        <p>Para negocios que buscan una solución completa</p>
+                        <ul>
+                            <li>Todo lo del Plan Profesional</li>
+                            <li>Páginas ilimitadas</li>
+                            <li>E-commerce integrado</li>
+                            <li>SEO avanzado</li>
+                            <li>Sistema de reservas</li>
+                            <li>6 meses de mantenimiento</li>
+                            <li>Certificado SSL</li>
+                            <li>Copias de seguridad automáticas</li>
                         </ul>
+                        <div class="pricing-footer">
+                            <a href="https://wa.me/+543541237972?text=Hola%2C%20me%20interesa%20el%20Plan%20Empresarial.%20Quisiera%20saber%20m%C3%A1s%20sobre%20las%20funcionalidades%20avanzadas%20y%20c%C3%B3mo%20podr%C3%ADamos%20comenzar%20con%20el%20desarrollo." target="_blank" class="btn btn-primary">Contratar Plan Empresarial</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Por Qué Elegirnos -->
-        <section class="section">
-            <h2 class="section-title">¿Por Qué Elegirnos?</h2>
-            <div class="cards-container">
-                <div class="card">
-                    <div class="card-icon">💡</div>
-                    <h3 class="card-title">Diseño Creativo</h3>
-                    <p class="card-text">Creamos diseños únicos que reflejan la identidad de tu marca y conectan con tu audiencia</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🎯</div>
-                    <h3 class="card-title">Enfoque en Resultados</h3>
-                    <p class="card-text">Desarrollamos soluciones que no solo se ven bien, sino que también generan resultados medibles</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🤝</div>
-                    <h3 class="card-title">Atención Personalizada</h3>
-                    <p class="card-text">Trabajamos de cerca contigo para entender tus necesidades y superar tus expectativas</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Casos de Éxito -->
-        <section class="section">
-            <h2 class="section-title">Casos de Éxito</h2>
-            <div class="cards-container">
-                <div class="card success-card">
-                    <h3 class="card-title">Hgaruna</h3>
-                    <img src="logos-he-imagenes/Captura de pantalla 2025-01-22 221221.png" 
-                         alt="Caso de éxito: Hgaruna - Diseño web y branding" 
-                         class="card-image">
-                    <p class="card-text">Desarrollo web completo y diseño de marca que resultó en un aumento del 150% en consultas online</p>
-                    <a href="https://es.hgaruna.org/" 
-                       target="_blank" 
-                       class="btn-outline"
-                       rel="noopener noreferrer">Ver Proyecto →</a>
-                </div>
-                <div class="card success-card">
-                    <h3 class="card-title">Ferresa</h3>
-                    <img src="logos-he-imagenes/ferresa.png" 
-                         alt="Caso de éxito: Ferresa - Diseño UX y desarrollo web" 
-                         class="card-image">
-                    <p class="card-text">Rediseño de interfaz y experiencia de usuario que mejoró la tasa de conversión en un 120%</p>
-                    <a href="https://ferresatanques.netlify.app/" 
-                       target="_blank" 
-                       class="btn-outline"
-                       rel="noopener noreferrer">Ver Proyecto →</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call to Action -->
-        <section class="cta-section">
-            <h2>¿Listo para Transformar tu Presencia Digital?</h2>
-            <p>Descubre cómo podemos ayudarte a destacar con un diseño profesional y una experiencia de usuario excepcional</p>
-            <div class="cta-buttons">
-                <a href="planes.html" class="btn-primary">Ver Planes</a>
-                <a href="contacto.html" class="btn-secondary">Contactar</a>
-            </div>
-        </section>
+        </div>
     </main>
 
     <footer class="footer" role="contentinfo">
         <div class="footer-container">
             <div class="footer-section">
-                <img src="logos-he-imagenes/logo-sell.png" alt="Online Sell Web Logo" class="footer-logo">
+                <img src="../src/logos-he-imagenes/logo-sell.png" alt="Online Sell Web Logo" class="footer-logo">
                 <h3>Online Sell Web</h3>
                 <p>Tu socio en marketing digital</p>
             </div>
@@ -259,24 +381,7 @@
             </div>
         </div>
     </footer>
-    
-    <!-- Scripts -->
-    <script src="js/nav.js"></script>
-    <script>
-        // Función para ocultar la barra lateral
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('show');
-        }
 
-        // Ocultar la imagen de carga después de 2 segundos
-        window.onload = function() {
-            setTimeout(function() {
-                const loadingImage = document.getElementById('loading-image');
-                loadingImage.style.opacity = '0';
-                setTimeout(() => loadingImage.style.display = 'none', 1000);
-            }, 2000);
-        };
-    </script>
+  
 </body>
 </html>
