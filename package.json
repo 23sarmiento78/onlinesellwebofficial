@@ -6,7 +6,7 @@
     "joi": "^17.13.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.1",
     "uuid": "^11.0.5"
   },
   "scripts": {
@@ -16,6 +16,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "netlify-plugin-formspree": "^1.0.1"
+    "netlify-plugin-formspree": "^0.0.3"
   }
 }
