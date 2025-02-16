@@ -309,54 +309,7 @@ textarea.form-control {
                         <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
                     </form>
                     
-                    <script>
-                        function validateForm() {
-                            // Validación del nombre
-                            const name = document.getElementById('name').value;
-                            if (!/^[A-Za-zÀ-ÿ\s]{2,50}$/.test(name)) {
-                                alert('Por favor ingresa un nombre válido');
-                                return false;
-                            }
-
-                            // Validación del email
-                            const email = document.getElementById('email').value;
-                            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
-                                alert('Por favor ingresa un email válido');
-                                return false;
-                            }
-
-                            // Validación del teléfono (si se proporciona)
-                            const phone = document.getElementById('phone').value;
-                            if (phone && !/^[0-9+\s-]{6,20}$/.test(phone)) {
-                                alert('Por favor ingresa un número de teléfono válido');
-                                return false;
-                            }
-
-                            // Validación del mensaje
-                            const message = document.getElementById('message').value;
-                            if (message.length < 10 || message.length > 1000) {
-                                alert('El mensaje debe tener entre 10 y 1000 caracteres');
-                                return false;
-                            }
-
-                            // Sanitización básica
-                            const sanitizeInput = (str) => {
-                                return str.replace(/[<>]/g, '');
-                            };
-
-                            document.getElementById('name').value = sanitizeInput(name);
-                            document.getElementById('email').value = sanitizeInput(email);
-                            document.getElementById('phone').value = sanitizeInput(phone);
-                            document.getElementById('message').value = sanitizeInput(message);
-
-                            return true;
-                        }
-
-                        // Prevenir ataques XSS en la URL
-                        if (window.location.href.includes('<script>')) {
-                            window.location.href = '/';
-                        }
-                    </script>
+                   
                 </div>
             </div>
         </div>
