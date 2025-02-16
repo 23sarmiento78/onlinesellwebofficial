@@ -285,7 +285,7 @@ textarea.form-control {
                 </div>
                 <div class="card">
                     <h2>Formulario de Contacto</h2>
-                    <form id="contact-form" method="POST" data-netlify="true" data-netlify-recaptcha="true" onsubmit="return validateForm()">
+                    <form id="contact-form" method="POST" action="https://formspree.io/f/mzzdjozp" onsubmit="return validateForm()">
                         <input type="hidden" name="form-name" value="contact">
                         <div class="hidden">
                             <label>No llenar este campo: <input name="bot-field" /></label>
@@ -306,9 +306,9 @@ textarea.form-control {
                             <label for="message">Mensaje *</label>
                             <textarea id="message" name="message" required minlength="10" maxlength="1000" title="El mensaje debe tener entre 10 y 1000 caracteres" class="form-control"></textarea>
                         </div>
-                        <div data-netlify-recaptcha="true"></div>
                         <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
                     </form>
+                    
                     <script>
                         function validateForm() {
                             // Validación del nombre
