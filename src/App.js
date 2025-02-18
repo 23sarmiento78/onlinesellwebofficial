@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import logo from './assets/logo-sell.png'; // Actualiza la ruta
+import logo from './assets/logo-sell.png'; // Asegúrate de que la ruta sea correcta
 
 function App() {
   return (
