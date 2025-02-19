@@ -31,6 +31,7 @@ body {
     min-height: 100vh;
     width: 100%;
     overflow-x: hidden;
+    overflow-y: auto;
     background-image: url('../logos-he-imagenes/fondo-negro.png');
     background-size: cover;
     background-attachment: fixed;
@@ -646,11 +647,10 @@ body {
 .page-wrapper {
     min-height: 100vh;
     width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow: visible; /* Permitir scroll */
 }
 
 /* Hero Section */
@@ -859,9 +859,11 @@ body {
 
 /* Footer */
 .site-footer {
+    position: relative;
+    width: 100%;
     background: var(--secondary-color);
-    padding: 4rem 2rem;
-    border-top: 1px solid rgba(199, 171, 110, 0.1);
+    padding: 3rem var(--container-padding);
+    margin-top: auto;
 }
 
 .footer-grid {
@@ -1344,131 +1346,171 @@ body {
 
 /* Estilos para la página de contacto */
 .contact-page {
+    flex: 1;
     padding-top: var(--header-height);
-}
-
-.contact-hero {
-    min-height: 40vh;
-    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem var(--container-padding);
-    margin-bottom: 2rem;
+    flex-direction: column;
 }
 
 .contact-section {
+    flex: 1;
     padding: 2rem var(--container-padding);
 }
 
+/* Grid de contacto */
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
+/* Información de contacto */
 .contact-info {
-    background: rgba(255, 255, 255, 0.05);
     padding: 2rem;
-    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(199, 171, 110, 0.1), rgba(26, 26, 26, 0.95));
+    border-radius: 15px;
     height: fit-content;
+    max-width: 100%;
+}
+
+.contact-info h2 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
 }
 
 .info-items {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .info-item {
     display: flex;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .info-item i {
-    color: var(--primary-color);
     font-size: 1.5rem;
-}
-
-.info-content h3 {
-    margin-bottom: 0.5rem;
-    color: var(--text-light);
-}
-
-.info-content p, 
-.info-content a {
-    color: var(--text-gray);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.info-content a:hover {
     color: var(--primary-color);
+    background: rgba(199, 171, 110, 0.1);
+    padding: 1rem;
+    border-radius: 50%;
 }
 
+/* Formulario de contacto */
 .contact-form-container {
-  
-    padding: 2rem;
-    border-radius: 12px;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 15px;
 }
 
 .contact-form-container h2 {
+    color: var(--primary-color);
     margin-bottom: 2rem;
-    color: var(--text-light);
+    font-size: 1.8rem;
 }
 
+/* Estilos para el formulario de contacto */
 .form-group {
     margin-bottom: 1.5rem;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     color: var(--text-light);
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 500;
+    font-size: 0.95rem;
 }
 
+/* Estilos unificados para inputs y textareas */
 .form-control {
     width: 100%;
-    padding: 0.75rem 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
+    padding: 1rem 1.2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(199, 171, 110, 0.2);
+    border-radius: 8px;
     color: var(--text-light);
     font-size: 1rem;
+    font-family: inherit; /* Para que el textarea use la misma fuente */
+    line-height: 1.5;
     transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Estados de hover y focus */
+.form-control:hover {
+    border-color: rgba(199, 171, 110, 0.4);
 }
 
 .form-control:focus {
     outline: none;
     border-color: var(--primary-color);
-    background: rgba(199, 171, 110, 0.1);
+    background: rgba(199, 171, 110, 0.05);
+    box-shadow: 0 0 0 3px rgba(199, 171, 110, 0.1);
 }
 
-.form-control::placeholder {
-    color: var(--text-gray);
-}
-
+/* Ajustes específicos para textarea */
 textarea.form-control {
-    min-height: 150px;
+    min-height: 120px;
+    max-height: 300px;
     resize: vertical;
+    padding: 1rem 1.2rem;
+}
+
+/* Ajustes responsive */
+@media (max-width: 768px) {
+    .form-control {
+        padding: 0.9rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    textarea.form-control {
+        min-height: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-control {
+        padding: 0.8rem;
+    }
+
+    textarea.form-control {
+        min-height: 80px;
+    }
 }
 
 .submit-button {
-    background: var(--primary-color);
-    color: var(--background-dark);
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem 2rem;
+    background: var(--primary-color);
+    color: var(--background-dark);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -1476,131 +1518,57 @@ textarea.form-control {
 .submit-button:hover {
     background: #d4b87d;
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(199, 171, 110, 0.3);
 }
 
 .submit-button i {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
 }
 
-/* Ajustes responsive para el formulario de contacto */
-@media (max-width: 768px) {
+.submit-button:hover i {
+    transform: translateX(5px);
+}
+
+/* Media queries */
+@media (max-width: 992px) {
     .contact-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-    
+
     .contact-info {
         order: 2;
     }
-    
+
     .contact-form-container {
         order: 1;
     }
-
-    .info-item {
-        flex-direction: row;
-        align-items: center;
-        padding: 0.8rem;
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 8px;
-    }
-
-    .info-content {
-        flex: 1;
-    }
-
-    .contact-form-container,
-    .contact-info {
-        padding: 1.5rem;
-    }
-
-    .form-group {
-        margin-bottom: 1.2rem;
-    }
-
-    .form-group label {
-        font-size: 0.95rem;
-        margin-bottom: 0.4rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .contact-section {
-        padding: 1.5rem var(--container-padding);
-    }
-    
-    .contact-form-container,
-    .contact-info {
-        padding: 1.2rem;
-        border-radius: 8px;
-    }
-    
-    .form-control {
-        padding: 0.8rem 1rem;
-        font-size: 0.95rem;
-    }
-    
-    textarea.form-control {
-        min-height: 100px;
-    }
-
-    .submit-button {
-        width: 100%;
-        justify-content: center;
-        padding: 0.9rem 1.5rem;
-        font-size: 0.95rem;
-    }
-
-    .info-items {
-        gap: 1rem;
-    }
-
-    .info-item {
-        padding: 0.7rem;
-    }
-
-    .info-item i {
-        font-size: 1.3rem;
-    }
-
-    .info-content h3 {
-        font-size: 1rem;
-        margin-bottom: 0.3rem;
-    }
-
-    .info-content p,
-    .info-content a {
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 360px) {
-    .contact-form-container,
-    .contact-info {
-        padding: 1rem;
-    }
-
-    .form-group {
-        margin-bottom: 1rem;
-    }
-
-    .form-control {
-        padding: 0.7rem 0.9rem;
-    }
-
-    .submit-button {
-        padding: 0.8rem 1.2rem;
-    }
-}
-
-/* Ajustes de espaciado para el footer en la página de contacto */
-.contact-page .site-footer {
-    margin-top: 2rem;
 }
 
 @media (max-width: 768px) {
-    .contact-page .site-footer {
-        margin-top: 1rem;
+    body.menu-open {
+        overflow: hidden; /* Solo bloquear scroll cuando el menú está abierto */
+    }
+
+    body:not(.menu-open) {
+        overflow-y: auto; /* Permitir scroll cuando el menú está cerrado */
+    }
+
+    .page-wrapper {
+        overflow: visible;
+    }
+
+    .contact-page {
+        overflow: visible;
+    }
+
+    .contact-section {
+        padding: 1.5rem var(--container-padding);
+    }
+
+    .contact-grid {
+        padding: 1.5rem;
     }
 }
 
@@ -2141,4 +2109,40 @@ section {
 .menu-toggle,
 .menu-button {
     display: none !important;
+}
+
+/* Ajustes para el scroll */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    overflow-y: auto;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.contact-page {
+    flex: 1;
+    padding-top: var(--header-height);
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-section {
+    flex: 1;
+    padding: 2rem var(--container-padding);
+}
+
+/* Asegurar que el footer se mantenga al final */
+.site-footer {
+    margin-top: auto;
 }
