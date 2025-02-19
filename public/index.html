@@ -38,201 +38,239 @@
         gtag('config', 'G-5ZCGMRFV8Z');
     </script>
 </head>
-<body>
-
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<body class="dark-theme">
     
-    <div class="rocket" aria-hidden="true"></div>
-    
-    <nav class="nav-main">
-        <div class="logo-container">
-            <span class="logo-text">OSW Design</span>
-        </div>
-        <div class="nav-links">
-            <a href="mi-experiencia.html" class="nav-link">Mi Experiencia</a>
-            <a href="planes.html" class="nav-link">Planes</a>
-            <a href="contacto.html" class="nav-link">Contacto</a>
-            <a href="legal.html" class="nav-link">Legal</a>
-        </div>
-    </nav>
+        <!-- Header al estilo Nolvus -->
+        <header class="site-header">
+            <nav class="nav-main">
+                <div class="nav-brand">
+                    <a href="index.html" class="logo-container">
+                        <img src="logos-he-imagenes/logo-sell.png" alt="OSW Design" class="nav-logo">
+                        <span class="brand-text">OSW</span>
+                    </a>
+                </div>
+                
+                <button class="hamburger-menu" aria-label="Menú">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+        
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Inicio</span>
+                    </a>
+                    <a href="planes.html" class="nav-link">
+                        <i class="fas fa-tags"></i>
+                        <span>Planes</span>
+                    </a>
+                    <a href="mi-experiencia.html" class="nav-link">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Mi Experiencia</span>
+                    </a>
+                    <a href="contacto.html" class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contacto</span>
+                    </a>
+                    <a href="legal.html" class="nav-link">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Legal</span>
+                    </a>
+                </div>
+            </nav>
+        </header>
 
-    <!-- Overlay para cuando el menú está abierto -->
-    <div class="overlay"></div>
+        <main id="main-content" role="main">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-background">
+                    <div class="hero-overlay"></div>
+                </div>
+                <div class="hero-content">
+                    <h1 class="hero-title">Desarrollo Web Profesional</h1>
+                    <p class="hero-subtitle">Creamos experiencias digitales únicas con React, JavaScript y tecnologías modernas</p>
+                    <div class="hero-cta">
+                        <a href="planes.html" class="cta-button primary">Ver Planes</a>
+                        <a href="#tech-stack" class="cta-button secondary">Tecnologías</a>
+                    </div>
+                </div>
+            </section>
 
-    <div id="loading-image">
-        <img src="logos-he-imagenes/logo-sell.png" alt="Logo" class="loading-image">
-    </div>
+            <!-- Stack Tecnológico -->
+            <section id="tech-stack" class="tech-section">
+                <div class="container">
+                    <h2 class="section-title">Stack Tecnológico</h2>
+                    <div class="tech-grid">
+                        <div class="tech-card">
+                            <i class="tech-icon fab fa-react"></i>
+                            <h3>React</h3>
+                            <p>Interfaces modernas y dinámicas con el framework más popular</p>
+                        </div>
+                        <div class="tech-card">
+                            <i class="tech-icon fab fa-js"></i>
+                            <h3>JavaScript</h3>
+                            <p>Desarrollo frontend robusto y funcionalidad avanzada</p>
+                        </div>
+                        <div class="tech-card">
+                            <i class="tech-icon fab fa-node-js"></i>
+                            <h3>Node.js</h3>
+                            <p>Backend escalable y de alto rendimiento</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <main id="main-content" role="main">
-        <!-- Banner Principal -->
-        <section class="banner" role="banner">
-            <img src="logos-he-imagenes/descarga (1).jpeg" 
-                 alt="Marketing Digital y Redes Sociales" 
-                 class="banner-image">
-            <div class="banner-content">
-                <h1 class="banner-title">Potencia tu Marca en el Mundo Digital</h1>
-                <p class="banner-subtitle">Gestión profesional de redes sociales y estrategias de marketing digital</p>
-                <a href="https://wa.me/+543541237972" 
-                   target="_blank" 
-                   class="whatsapp-button"
-                   aria-label="Contactar por WhatsApp"
-                   rel="noopener noreferrer">
-                    ¡Comienza Ahora!
-                </a>
-            </div>
-        </section>
+            <!-- Servicios Especializados -->
+            <section class="services-section">
+                <div class="container">
+                    <h2 class="section-title">Soluciones Web Personalizadas</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Desarrollo Web Full Stack</h3>
+                            <ul class="service-features">
+                                <li>Aplicaciones React modernas</li>
+                                <li>APIs RESTful</li>
+                                <li>Bases de datos optimizadas</li>
+                                <li>Integración de servicios</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h3>Desarrollo Responsive</h3>
+                            <ul class="service-features">
+                                <li>Diseño mobile-first</li>
+                                <li>Optimización multiplataforma</li>
+                                <li>PWAs avanzadas</li>
+                                <li>Rendimiento optimizado</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3>Optimización y Rendimiento</h3>
+                            <ul class="service-features">
+                                <li>SEO técnico avanzado</li>
+                                <li>Optimización de carga</li>
+                                <li>Caché y compresión</li>
+                                <li>Métricas Core Web Vitals</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Servicios Principales -->
-        <section class="services-section">
+            <!-- Proceso de Desarrollo -->
+            <section class="process-section">
+                <div class="container">
+                    <h2 class="section-title">Nuestro Proceso</h2>
+                    <div class="process-timeline">
+                        <div class="process-step">
+                            <div class="step-number">01</div>
+                            <h3>Planificación</h3>
+                            <p>Análisis detallado de requisitos y arquitectura del proyecto</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">02</div>
+                            <h3>Diseño</h3>
+                            <p>Creación de prototipos y experiencia de usuario</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">03</div>
+                            <h3>Desarrollo</h3>
+                            <p>Implementación con las últimas tecnologías</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">04</div>
+                            <h3>Pruebas</h3>
+                            <p>Testing exhaustivo y optimización</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Características Destacadas -->
+            <section class="features-section">
+                <div class="container">
+                    <h2 class="section-title">Características Premium</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-bolt feature-icon"></i>
+                            <h3>Alto Rendimiento</h3>
+                            <p>Optimización avanzada para tiempos de carga ultrarrápidos</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <h3>Seguridad Robusta</h3>
+                            <p>Protección contra vulnerabilidades y cifrado SSL</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-code-branch feature-icon"></i>
+                            <h3>Código Limpio</h3>
+                            <p>Desarrollo modular y mantenible</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-chart-line feature-icon"></i>
+                            <h3>Escalabilidad</h3>
+                            <p>Preparado para crecer con tu negocio</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Final -->
+            <section class="cta-section">
+                <div class="container">
+                    <h2>¿Listo para Iniciar tu Proyecto?</h2>
+                    <p>Obtén una consulta gratuita y descubre cómo podemos ayudarte</p>
+                    <div class="cta-buttons">
+                        <a href="https://wa.me/+543541237972" class="cta-button primary" target="_blank" rel="noopener noreferrer">
+                            Contactar Ahora
+                        </a>
+                        <a href="planes.html" class="cta-button secondary">Ver Planes</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer estilo Nolvus -->
+        <footer class="site-footer">
             <div class="container">
-                <h2 class="section-title">Nuestros Servicios</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <span class="service-icon">🌐</span>
-                        <h3>Desarrollo Web</h3>
-                        <ul class="service-list">
-                            <li>Sitios web profesionales</li>
-                            <li>Diseño responsive</li>
-                            <li>Landing pages</li>
-                            <li>Optimización SEO</li>
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <img src="logos-he-imagenes/logo-sell.png" alt="Online Sell Web Logo" class="footer-logo">
+                        <h3>Online Sell Web</h3>
+                        <p>Tu socio en marketing digital</p>
+                    </div>
+                    <div class="footer-links">
+                        <h3>Enlaces Rápidos</h3>
+                        <ul>
+                            <li><a href="index.html">Inicio</a></li>
+                            <li><a href="planes.html">Planes</a></li>
+                            <li><a href="mi-experiencia.html">Mi Experiencia</a></li>
+                            <li><a href="contacto.html">Contacto</a></li>
+                            <li><a href="legal.html">Legal</a></li>
                         </ul>
                     </div>
-                    <div class="service-card">
-                        <span class="service-icon">🎨</span>
-                        <h3>Diseño Gráfico</h3>
-                        <ul class="service-list">
-                            <li>Logos e identidad visual</li>
-                            <li>Material publicitario</li>
-                            <li>Diseño de redes sociales</li>
-                            <li>Branding corporativo</li>
-                        </ul>
-                    </div>
-                    <div class="service-card">
-                        <span class="service-icon">👥</span>
-                        <h3>Diseño UX/UI</h3>
-                        <ul class="service-list">
-                            <li>Experiencia de usuario</li>
-                            <li>Interfaces intuitivas</li>
-                            <li>Prototipos interactivos</li>
-                            <li>Arquitectura de información</li>
-                        </ul>
+                    <div class="footer-contact">
+                        <h3>Contacto</h3>
+                        <address>
+                            <p>📱 WhatsApp: <a href="tel:+543541237972">+54 3541 237972</a></p>
+                            <p>📧 Email: <a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
+                            <p>📍 Villa Carlos Paz, Córdoba, Argentina</p>
+                        </address>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Por Qué Elegirnos -->
-        <section class="section">
-            <h2 class="section-title">¿Por Qué Elegirnos?</h2>
-            <div class="cards-container">
-                <div class="card">
-                    <div class="card-icon">💡</div>
-                    <h3 class="card-title">Diseño Creativo</h3>
-                    <p class="card-text">Creamos diseños únicos que reflejan la identidad de tu marca y conectan con tu audiencia</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🎯</div>
-                    <h3 class="card-title">Enfoque en Resultados</h3>
-                    <p class="card-text">Desarrollamos soluciones que no solo se ven bien, sino que también generan resultados medibles</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🤝</div>
-                    <h3 class="card-title">Atención Personalizada</h3>
-                    <p class="card-text">Trabajamos de cerca contigo para entender tus necesidades y superar tus expectativas</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Casos de Éxito -->
-        <section class="section">
-            <h2 class="section-title">Casos de Éxito</h2>
-            <div class="cards-container">
-                <div class="card success-card">
-                    <h3 class="card-title">Hgaruna</h3>
-                    <img src="logos-he-imagenes/Captura de pantalla 2025-01-22 221221.png" 
-                         alt="Caso de éxito: Hgaruna - Diseño web y branding" 
-                         class="card-image">
-                    <p class="card-text">Desarrollo web completo y diseño de marca que resultó en un aumento del 150% en consultas online</p>
-                    <a href="https://es.hgaruna.org/" 
-                       target="_blank" 
-                       class="btn-outline"
-                       rel="noopener noreferrer">Ver Proyecto →</a>
-                </div>
-                <div class="card success-card">
-                    <h3 class="card-title">Ferresa</h3>
-                    <img src="logos-he-imagenes/ferresa.png" 
-                         alt="Caso de éxito: Ferresa - Diseño UX y desarrollo web" 
-                         class="card-image">
-                    <p class="card-text">Rediseño de interfaz y experiencia de usuario que mejoró la tasa de conversión en un 120%</p>
-                    <a href="https://ferresatanques.netlify.app/" 
-                       target="_blank" 
-                       class="btn-outline"
-                       rel="noopener noreferrer">Ver Proyecto →</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call to Action -->
-        <section class="cta-section">
-            <h2>¿Listo para Transformar tu Presencia Digital?</h2>
-            <p>Descubre cómo podemos ayudarte a destacar con un diseño profesional y una experiencia de usuario excepcional</p>
-            <div class="cta-buttons">
-                <a href="planes.html" class="btn-primary">Ver Planes</a>
-                <a href="contacto.html" class="btn-secondary">Contactar</a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer" role="contentinfo">
-        <div class="footer-container">
-            <div class="footer-section">
-                <img src="logos-he-imagenes/logo-sell.png" alt="Online Sell Web Logo" class="footer-logo">
-                <h3>Online Sell Web</h3>
-                <p>Tu socio en marketing digital</p>
-            </div>
-            <div class="footer-section">
-                <h3>Enlaces Rápidos</h3>
-                <nav aria-label="Enlaces del pie de página">
-                    <ul class="footer-links">
-                        <li><a href="index.html" aria-current="page">Inicio</a></li>
-                        <li><a href="planes.html">Planes</a></li>
-                        <li><a href="mi-experiencia.html">Mi Experiencia</a></li>
-                        <li><a href="contacto.html">Contacto</a></li>
-                        <li><a href="legal.html">Legal</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="footer-section">
-                <h3>Contacto</h3>
-                <address>
-                    <p>📱 WhatsApp: <a href="tel:+543541237972">+54 3541 237972</a></p>
-                    <p>📧 Email: <a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
-                    <p>📍 Villa Carlos Paz, Córdoba, Argentina</p>
-                </address>
-            </div>
-        </div>
-    </footer>
-    
-    <!-- Scripts -->
-    <script src="js/nav.js"></script>
-    <script>
-        // Función para ocultar la barra lateral
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('show');
-        }
-
-        // Ocultar la imagen de carga después de 2 segundos
-        window.onload = function() {
-            setTimeout(function() {
-                const loadingImage = document.getElementById('loading-image');
-                loadingImage.style.opacity = '0';
-                setTimeout(() => loadingImage.style.display = 'none', 1000);
-            }, 2000);
-        };
-    </script>
-
-<div id="root"></div>
+        </footer>
+    </div>
+<script src="js/nav.js"></script>
 </body>
 </html>
 

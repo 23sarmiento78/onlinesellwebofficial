@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>OSW | Legal</title>
     <link rel="icon" type="image/png" href="logos-he-imagenes/logo-sell.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5ZCGMRFV8Z"></script>
     <script>
@@ -57,141 +58,229 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Online Sell Web">
 </head>
-<body class="body-style">
-    <nav class="nav-main">
-        <div class="logo-text">OSW Design</div>
-        <div class="nav-links">
-            <a href="index.html" class="nav-link">Inicio</a>
-            <a href="mi-experiencia.html" class="nav-link">Mi Experiencia</a>
-            <a href="planes.html" class="nav-link">Planes</a>
-            <a href="contacto.html" class="nav-link">Contacto</a>
+<body class="dark-theme">
+     <!-- Header al estilo Nolvus -->
+     <header class="site-header">
+        <nav class="nav-main">
+            <div class="nav-brand">
+                <a href="index.html" class="logo-container">
+                    <img src="logos-he-imagenes/logo-sell.png" alt="OSW Design" class="nav-logo">
+                    <span class="brand-text">OSW</span>
+                </a>
+            </div>
+            
+            <button class="hamburger-menu" aria-label="Menú">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+    
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="planes.html" class="nav-link">
+                    <i class="fas fa-tags"></i>
+                    <span>Planes</span>
+                </a>
+                <a href="mi-experiencia.html" class="nav-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Mi Experiencia</span>
+                </a>
+                <a href="contacto.html" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contacto</span>
+                </a>
+                <a href="legal.html" class="nav-link">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Legal</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="legal-page">
+       <!-- Hero Section -->
+       <section class="hero-section">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
         </div>
-    </nav>
-
-   
-
-    <!-- Banner Principal -->
-    <section class="banner" role="banner">
-        <img src="logos-he-imagenes/descarga (1).jpeg" 
-             alt="Marketing Digital y Redes Sociales" 
-             class="banner-image">
-        <div class="banner-content">
-            <h1 class="banner-title">Potencia tu Marca en el Mundo Digital</h1>
-            <p class="banner-subtitle">Gestión profesional de redes sociales y estrategias de marketing digital</p>
-            <a href="https://wa.me/+543541237972" 
-               target="_blank" 
-               class="whatsapp-button"
-               aria-label="Contactar por WhatsApp"
-               rel="noopener noreferrer">
-                ¡Comienza Ahora!
-            </a>
+        <div class="hero-content">
+            <h1 class="hero-title">Desarrollo Web Profesional</h1>
+            <p class="hero-subtitle">Creamos experiencias digitales únicas con React, JavaScript y tecnologías modernas</p>
+            <div class="hero-cta">
+                <a href="planes.html" class="cta-button primary">Ver Planes</a>
+                <a href="#tech-stack" class="cta-button secondary">Tecnologías</a>
+            </div>
         </div>
     </section>
 
-    <main class="main-content">
-        <div class="container">
-            <h1 class="text-center">Información Legal</h1>
-            <div class="text-justify">
-                <section class="legal-section">
-                    <h2>Proceso de Cotización y Contratación</h2>
-                    
-                    <h3>1. Contacto Inicial</h3>
-                    <p>El proceso comienza cuando el cliente se pone en contacto a través de nuestro formulario de contacto, correo electrónico o teléfono. En este primer contacto, recopilaremos información básica sobre el proyecto.</p>
 
-                    <h3>2. Evaluación y Cotización</h3>
-                    <p>Una vez recibida la información inicial, realizaremos un análisis detallado de las necesidades y enviaremos una cotización formal dentro de las 48 horas hábiles. La cotización incluirá:</p>
+        <section class="legal-section">
+            <div class="container">
+                <!-- Navegación de Secciones -->
+                <div class="legal-nav">
                     <ul>
-                        <li>Desglose detallado de servicios</li>
-                        <li>Tiempo estimado de desarrollo</li>
-                        <li>Costos asociados</li>
-                        <li>Términos de pago</li>
+                        <li><a href="#proceso">Proceso de Contratación</a></li>
+                        <li><a href="#pagos">Política de Pagos</a></li>
+                        <li><a href="#garantias">Garantías y Soporte</a></li>
+                        <li><a href="#codigo">Política de Código Fuente</a></li>
+                        <li><a href="#privacidad">Privacidad y Datos</a></li>
                     </ul>
+                </div>
 
-                    <h3>3. Acuerdo y Contrato</h3>
-                    <p>Al aceptar la cotización, se procederá a la firma de un contrato que especificará:</p>
-                    <ul>
-                        <li>Alcance del proyecto</li>
-                        <li>Cronograma de trabajo</li>
-                        <li>Términos de pago</li>
-                        <li>Derechos y responsabilidades</li>
-                        <li>Política de cambios y modificaciones</li>
-                    </ul>
+                <!-- Contenido Legal -->
+                <div class="legal-content">
+                    <section id="proceso" class="legal-block">
+                        <div class="legal-card">
+                            <div class="card-header">
+                                <i class="fas fa-handshake"></i>
+                                <h2>Proceso de Cotización y Contratación</h2>
+                            </div>
+                            <div class="card-content">
+                                <h3>1. Contacto Inicial</h3>
+                                <p>El proceso comienza cuando el cliente se pone en contacto a través de nuestro formulario de contacto, correo electrónico o teléfono. En este primer contacto, recopilaremos información básica sobre el proyecto.</p>
 
-                    <h3>4. Proceso de Pago</h3>
-                    <p>Nuestro esquema de pago estándar es:</p>
-                    <ul>
-                        <li>50% de anticipo al iniciar el proyecto</li>
-                        <li>50% al finalizar el proyecto</li>
-                    </ul>
+                                <h3>2. Evaluación y Cotización</h3>
+                                <p>Una vez recibida la información inicial, realizaremos un análisis detallado de las necesidades y enviaremos una cotización formal dentro de las 48 horas hábiles.</p>
+                                <ul class="legal-list">
+                                    <li><i class="fas fa-check"></i> Desglose detallado de servicios</li>
+                                    <li><i class="fas fa-check"></i> Tiempo estimado de desarrollo</li>
+                                    <li><i class="fas fa-check"></i> Costos asociados</li>
+                                    <li><i class="fas fa-check"></i> Términos de pago</li>
+                                </ul>
 
-                    <h3>5. Garantías y Soporte</h3>
-                    <p>Todos nuestros servicios incluyen:</p>
-                    <ul>
-                        <li>1 mes de mantenimiento gratuito</li>
-                        <li>Garantía de satisfacción</li>
-                        <li>Soporte técnico durante el desarrollo</li>
-                        <li>Capacitación básica para el manejo del sitio</li>
-                    </ul>
+                                <h3>3. Acuerdo y Contrato</h3>
+                                <p>Al aceptar la cotización, se procederá a la firma de un contrato que especificará:</p>
+                                <ul class="legal-list">
+                                    <li><i class="fas fa-check"></i> Alcance del proyecto</li>
+                                    <li><i class="fas fa-check"></i> Cronograma de trabajo</li>
+                                    <li><i class="fas fa-check"></i> Términos de pago</li>
+                                    <li><i class="fas fa-check"></i> Derechos y responsabilidades</li>
+                                    <li><i class="fas fa-check"></i> Política de cambios y modificaciones</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
 
-                    <h3>6. Política de Modificaciones</h3>
-                    <p>Durante el desarrollo del proyecto:</p>
-                    <ul>
-                        <li>Se permiten ajustes menores sin costo adicional</li>
-                        <li>Cambios significativos serán cotizados por separado</li>
-                        <li>Toda modificación debe ser solicitada por escrito</li>
-                    </ul>
+                    <section id="pagos" class="legal-block">
+                        <div class="legal-card">
+                            <div class="card-header">
+                                <i class="fas fa-credit-card"></i>
+                                <h2>Proceso de Pago</h2>
+                            </div>
+                            <div class="card-content">
+                                <p>Nuestro esquema de pago estándar es:</p>
+                                <div class="payment-terms">
+                                    <div class="payment-item">
+                                        <span class="payment-percentage">50%</span>
+                                        <p>Anticipo al iniciar el proyecto</p>
+                                    </div>
+                                    <div class="payment-item">
+                                        <span class="payment-percentage">50%</span>
+                                        <p>Al finalizar el proyecto</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
-                    <h3>7. Política de Entrega del Código Fuente</h3>
-                    <p>Respecto a la entrega del código fuente de los proyectos:</p>
-                    <ul>
-                        <li>Por defecto, el código fuente no se incluye en la entrega del proyecto</li>
-                        <li>Esta política existe para proteger nuestra propiedad intelectual y mantener la seguridad de nuestros desarrollos</li>
-                        <li>Si el cliente desea obtener el código fuente completo del proyecto, esto tiene un costo adicional de USD 60</li>
-                        <li>La entrega del código fuente incluye:
-                            <ul>
-                                <li>Todos los archivos fuente del proyecto</li>
-                                <li>Documentación básica del código</li>
-                                <li>Instrucciones de implementación</li>
-                            </ul>
-                        </li>
-                        <li>La transferencia del código fuente requiere la firma de un acuerdo adicional</li>
-                    </ul>
+                    <section id="garantias" class="legal-block">
+                        <div class="legal-card">
+                            <div class="card-header">
+                                <i class="fas fa-shield-alt"></i>
+                                <h2>Garantías y Soporte</h2>
+                            </div>
+                            <div class="card-content">
+                                <p>Todos nuestros servicios incluyen:</p>
+                                <ul class="legal-list">
+                                    <li><i class="fas fa-star"></i> 1 mes de mantenimiento gratuito</li>
+                                    <li><i class="fas fa-star"></i> Garantía de satisfacción</li>
+                                    <li><i class="fas fa-star"></i> Soporte técnico durante el desarrollo</li>
+                                    <li><i class="fas fa-star"></i> Capacitación básica para el manejo del sitio</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
 
-                    <p style="margin-top: 2rem;">Para más información o consultas específicas sobre nuestros términos legales, no dude en contactarnos.</p>
-                </section>
+                    <section id="codigo" class="legal-block">
+                        <div class="legal-card">
+                            <div class="card-header">
+                                <i class="fas fa-code"></i>
+                                <h2>Política de Código Fuente</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="code-policy">
+                                    <p>Respecto a la entrega del código fuente de los proyectos:</p>
+                                    <ul class="legal-list">
+                                        <li><i class="fas fa-info-circle"></i> Por defecto, el código fuente no se incluye en la entrega del proyecto</li>
+                                        <li><i class="fas fa-lock"></i> Esta política existe para proteger nuestra propiedad intelectual</li>
+                                        <li><i class="fas fa-dollar-sign"></i> La adquisición del código fuente tiene un costo adicional de USD 60</li>
+                                        <li><i class="fas fa-file-code"></i> La entrega incluye:
+                                            <ul>
+                                                <li>Archivos fuente completos</li>
+                                                <li>Documentación básica</li>
+                                                <li>Instrucciones de implementación</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="privacidad" class="legal-block">
+                        <div class="legal-card">
+                            <div class="card-header">
+                                <i class="fas fa-user-shield"></i>
+                                <h2>Privacidad y Protección de Datos</h2>
+                            </div>
+                            <div class="card-content">
+                                <p>Nos comprometemos a proteger tu privacidad y datos personales:</p>
+                                <ul class="legal-list">
+                                    <li><i class="fas fa-check"></i> Cumplimiento de normativas de protección de datos</li>
+                                    <li><i class="fas fa-check"></i> Almacenamiento seguro de información</li>
+                                    <li><i class="fas fa-check"></i> No compartimos datos con terceros</li>
+                                    <li><i class="fas fa-check"></i> Acceso controlado a información sensible</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
-        </div>
+        </section>
     </main>
 
-    <footer class="footer" role="contentinfo">
-        <div class="footer-container">
-            <div class="footer-section">
-                <img src="logos-he-imagenes/logo-sell.png" alt="Online Sell Web Logo" class="footer-logo">
-                <h3>Online Sell Web</h3>
-                <p>Tu socio en marketing digital</p>
-            </div>
-            <div class="footer-section">
-                <h3>Enlaces Rápidos</h3>
-                <nav aria-label="Enlaces del pie de página">
-                    <ul class="footer-links">
-                        <li><a href="index.html" aria-current="page">Inicio</a></li>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logos-he-imagenes/logo-sell.png" alt="Online Sell Web Logo" class="footer-logo">
+                    <h3>Online Sell Web</h3>
+                    <p>Tu socio en marketing digital</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
                         <li><a href="planes.html">Planes</a></li>
                         <li><a href="mi-experiencia.html">Mi Experiencia</a></li>
                         <li><a href="contacto.html">Contacto</a></li>
                         <li><a href="legal.html">Legal</a></li>
                     </ul>
-                </nav>
-            </div>
-            <div class="footer-section">
-                <h3>Contacto</h3>
-                <address>
-                    <p>📱 WhatsApp: <a href="tel:+543541237972">+54 3541 237972</a></p>
-                    <p>📧 Email: <a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
-                    <p>📍 Villa Carlos Paz, Córdoba, Argentina</p>
-                </address>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contacto</h3>
+                    <address>
+                        <p>📱 WhatsApp: <a href="tel:+543541237972">+54 3541 237972</a></p>
+                        <p>📧 Email: <a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
+                        <p>📍 Villa Carlos Paz, Córdoba, Argentina</p>
+                    </address>
+                </div>
             </div>
         </div>
     </footer>
-    
+    <script src="js/nav.js"></script>
 </body>
 </html>

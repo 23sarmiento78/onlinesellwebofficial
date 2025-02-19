@@ -40,6 +40,7 @@
     <meta name="twitter:title" content="Diseño y Mantenimiento Web Gratis el Primer Mes con Online Sell Web">
     <link rel="icon" type="image/png" href="../src/logos-he-imagenes/logo-sell.png">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>OSW | Contacto</title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5ZCGMRFV8Z"></script>
@@ -83,241 +84,156 @@
         }
     }
     </script>
-
-    <style>
-  /* Estilo del contenedor del formulario */
-#contact-form {
-    background-color: #1e1e1e;
-    padding: 4rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* Estilo individual de los campos del formulario */
-.form-group {
-    margin-bottom: 1.5rem;
-    position: relative;
-}
-
-/* Estilo de las etiquetas */
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-/* Estilo de los campos de entrada */
-.form-control {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
-    background-color: #2a2a2a;
-    color: #ffffff;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-/* Estilo de los campos de entrada al mantener el enfoque */
-.form-control:focus {
-    outline: none;
-    border-color: #00aaff;
-    background-color: rgba(0, 170, 255, 0.15);
-    box-shadow: 0 0 0 2px rgba(0, 170, 255, 0.25);
-}
-
-/* Estilo del texto de marcador de posición */
-.form-control::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-    font-style: italic;
-}
-
-/* Estilo específico del área de texto */
-textarea.form-control {
-    min-height: 150px;
-    resize: vertical;
-}
-
-/* Estilo para ocultar elementos */
-.hidden {
-    display: none;
-}
-
-/* Estilo de los mensajes de error */
-.form-error {
-    color: #ff4444;
-    background-color: rgba(255, 68, 68, 0.1);
-    border: 1px solid #ff4444;
-    padding: 8px;
-    border-radius: 4px;
-    margin-top: 4px;
-}
-
-/* Estilo del botón del formulario */
-.btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    text-align: center;
-    min-width: 150px;
-    cursor: pointer;
-}
-
-/* Estilo del botón primario */
-.btn-primary {
-    background-color: #00aaff;
-    color: white;
-    border: 2px solid #00aaff;
-}
-
-.btn-primary:hover {
-    background-color: #0086cc;
-    border-color: #0086cc;
-}
-
-/* Estilo del botón de contorno */
-.btn-outline {
-    background-color: transparent;
-    color: white;
-    border: 2px solid white;
-}
-
-.btn-outline:hover {
-    background-color: white;
-    color: #000;
-}
-
-/* Estilo del formulario en dispositivos móviles */
-@media (max-width: 768px) {
-    .form-group {
-        margin-bottom: 1rem;
-    }
-    
-    .form-control {
-        padding: 0.5rem 1rem;
-    }
-    
-    textarea.form-control {
-        min-height: 120px;
-    }
-    
-    .btn {
-        padding: 0.5rem 1rem;
-        min-width: 100px;
-    }
-}
-
-    </style>
 </head>
-<body class="body-style">
-    <nav class="nav-main">
-        <div class="logo-text">OSW Design</div>
-        <div class="nav-links">
-            <a href="index.html" class="nav-link">Inicio</a>
-            <a href="mi-experiencia.html" class="nav-link">Mi Experiencia</a>
-            <a href="planes.html" class="nav-link">Planes</a>
-            <a href="legal.html" class="nav-link">Legal</a>
-        </div>
-    </nav>
+<body class="dark-theme">
+    <div class="page-wrapper">
+        <header class="site-header">
+             <!-- Header al estilo Nolvus -->
+        <header class="site-header">
+            <nav class="nav-main">
+                <div class="nav-brand">
+                    <a href="index.html" class="logo-container">
+                        <img src="logos-he-imagenes/logo-sell.png" alt="OSW Design" class="nav-logo">
+                        <span class="brand-text">OSW</span>
+                    </a>
+                </div>
+                
+                <button class="hamburger-menu" aria-label="Menú">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+        
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Inicio</span>
+                    </a>
+                    <a href="planes.html" class="nav-link">
+                        <i class="fas fa-tags"></i>
+                        <span>Planes</span>
+                    </a>
+                    <a href="mi-experiencia.html" class="nav-link">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Mi Experiencia</span>
+                    </a>
+                    <a href="contacto.html" class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contacto</span>
+                    </a>
+                    <a href="legal.html" class="nav-link">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Legal</span>
+                    </a>
+                </div>
+            </nav>
+        </header>
+        <main class="contact-page">
+           <!-- Hero Section -->
+           <section class="hero-section">
+            <div class="hero-background">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">Desarrollo Web Profesional</h1>
+                <p class="hero-subtitle">Creamos experiencias digitales únicas con React, JavaScript y tecnologías modernas</p>
+                <div class="hero-cta">
+                    <a href="planes.html" class="cta-button primary">Ver Planes</a>
+                    <a href="#tech-stack" class="cta-button secondary">Tecnologías</a>
+                </div>
+            </div>
+        </section>
 
-   
- <!-- Banner Principal -->
- <section class="banner" role="banner">
-    <img src="logos-he-imagenes/descarga (1).jpeg" 
-         alt="Marketing Digital y Redes Sociales" 
-         class="banner-image">
-    <div class="banner-content">
-        <h1 class="banner-title">Potencia tu Marca en el Mundo Digital</h1>
-        <p class="banner-subtitle">Gestión profesional de redes sociales y estrategias de marketing digital</p>
-        <a href="https://wa.me/+543541237972" 
-           target="_blank" 
-           class="whatsapp-button"
-           aria-label="Contactar por WhatsApp"
-           rel="noopener noreferrer">
-            ¡Comienza Ahora!
-        </a>
+
+            <section class="contact-section">
+                <div class="container">
+                    <div class="contact-grid">
+                        <!-- Información de Contacto -->
+                        <div class="contact-info">
+                            <h2>Información de Contacto</h2>
+                            <div class="info-items">
+                                <div class="info-item">
+                                    <i class="fas fa-phone"></i>
+                                    <div class="info-content">
+                                        <h3>Teléfono</h3>
+                                        <p><a href="tel:+543541237972">+54 3541 237972</a></p>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <div class="info-content">
+                                        <h3>Email</h3>
+                                        <p><a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div class="info-content">
+                                        <h3>Ubicación</h3>
+                                        <p>Villa Carlos Paz, Córdoba, Argentina</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario de Contacto -->
+                        <div class="contact-form-container">
+                            <h2>Envíanos un Mensaje</h2>
+                            <form id="contact-form" action="#" method="POST">
+                                <div class="form-group">
+                                    <label for="name">Nombre *</label>
+                                    <input type="text" id="name" name="name" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email *</label>
+                                    <input type="email" id="email" name="email" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Mensaje *</label>
+                                    <textarea id="message" name="message" class="form-control" required></textarea>
+                                </div>
+                                <button type="submit" class="submit-button">
+                                    <span>Enviar Mensaje</span>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <img src="logos-he-imagenes/logo-sell.png" alt="Online Sell Web Logo" class="footer-logo">
+                        <h3>Online Sell Web</h3>
+                        <p>Tu socio en marketing digital</p>
+                    </div>
+                    <div class="footer-links">
+                        <h3>Enlaces Rápidos</h3>
+                        <ul>
+                            <li><a href="index.html">Inicio</a></li>
+                            <li><a href="planes.html">Planes</a></li>
+                            <li><a href="mi-experiencia.html">Mi Experiencia</a></li>
+                            <li><a href="contacto.html">Contacto</a></li>
+                            <li><a href="legal.html">Legal</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-contact">
+                        <h3>Contacto</h3>
+                        <address>
+                            <p>📱 WhatsApp: <a href="tel:+543541237972">+54 3541 237972</a></p>
+                            <p>📧 Email: <a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
+                            <p>📍 Villa Carlos Paz, Córdoba, Argentina</p>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
-</section>
 
-    <main class="main-content">
-        <div class="container">
-            <h1 class="text-center">Contacto</h1>
-            <div class="text-justify">
-                <div class="card">
-                    <h2>Información de Contacto</h2>
-                    <p> Teléfono: <a href="tel:+543541237972">+54 3541 237972</a></p>
-                    <p> Email: <a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
-                    <p> Dirección: Argentina, Córdoba, Villa Carlos Paz</p>
-                </div>
-                <div class="card">
-                    <h2>Formulario de Contacto</h2>
-                    <form id="contact-form" method="POST" action="https://formspree.io/f/mkgoqyjo" onsubmit="return validateForm()">
-                        <input type="hidden" name="form-name" value="contact">
-                        <div class="hidden">
-                            <label>No llenar este campo: <input name="bot-field" /></label>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Nombre *</label>
-                            <input type="text" id="name" name="name" required pattern="[A-Za-zÀ-ÿ\s]{2,50}" title="Por favor ingresa un nombre válido (2-50 caracteres, solo letras)" autocomplete="name" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Por favor ingresa un email válido" autocomplete="email" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Teléfono</label>
-                            <input type="tel" id="phone" name="phone" pattern="[0-9+\s-]{6,20}" title="Por favor ingresa un número de teléfono válido" autocomplete="tel" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Mensaje *</label>
-                            <textarea id="message" name="message" required minlength="10" maxlength="1000" title="El mensaje debe tener entre 10 y 1000 caracteres" class="form-control"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
-                    </form>
-                    
-                   
-                </div>
-            </div>
-        </div>
-    </main>
-
-   <footer class="footer" role="contentinfo">
-        <div class="footer-container">
-            <div class="footer-section">
-                <img src="logos-he-imagenes/logo-sell.png" alt="Online Sell Web Logo" class="footer-logo">
-                <h3>Online Sell Web</h3>
-                <p>Tu socio en marketing digital</p>
-            </div>
-            <div class="footer-section">
-                <h3>Enlaces Rápidos</h3>
-                <nav aria-label="Enlaces del pie de página">
-                    <ul class="footer-links">
-                        <li><a href="index.html" aria-current="page">Inicio</a></li>
-                        <li><a href="planes.html">Planes</a></li>
-                        <li><a href="mi-experiencia.html">Mi Experiencia</a></li>
-                        <li><a href="contacto.html">Contacto</a></li>
-                        <li><a href="legal.html">Legal</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="footer-section">
-                <h3>Contacto</h3>
-                <address>
-                    <p>📱 WhatsApp: <a href="tel:+543541237972">+54 3541 237972</a></p>
-                    <p>📧 Email: <a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
-                    <p>📍 Villa Carlos Paz, Córdoba, Argentina</p>
-                </address>
-            </div>
-        </div>
-    </footer>
-    
+    <script src="js/nav.js"></script>
 </body>
 </html>

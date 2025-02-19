@@ -58,101 +58,238 @@
     <meta property="og:site_name" content="Online Sell Web">
     
 </head>
-<body>
-    <!-- Barra superior -->
-<nav class="nav-main" style="background-color: rgba(0, 0, 0, 0.8); padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
-    <div style="margin-left: 2rem;">
-        <span class="logo-text">OSW Design</span>
-    </div>
-    <div class="nav-links" style="margin-right: 2rem;">
-        <a href="index.html" class="nav-link" style="color: white; text-decoration: none; margin: 0 1rem;">Inicio</a>
-        <a href="contacto.html" class="nav-link" style="color: white; text-decoration: none; margin: 0 1rem;">Contacto</a>
-        <a href="planes.html" class="nav-link" style="color: white; text-decoration: none; margin: 0 1rem;">Planes</a>
-        <a href="legal.html" class="nav-link" style="color: white; text-decoration: none; margin: 0 1rem;">Legal</a>
-    </div>
-</nav>
-
-
-
-
+<body class="dark-theme">
+    <div class="page-wrapper"> 
+     <!-- Header al estilo Nolvus -->
+     <!-- Header al estilo Nolvus -->
+     <header class="site-header">
+        <nav class="nav-main">
+            <div class="nav-brand">
+                <a href="index.html" class="logo-container">
+                    <img src="logos-he-imagenes/logo-sell.png" alt="OSW Design" class="nav-logo">
+                    <span class="brand-text">OSW</span>
+                </a>
+            </div>
+            
+            <button class="hamburger-menu" aria-label="Menú">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
     
- <!-- Banner Principal -->
- <section class="banner" role="banner">
-    <img src="logos-he-imagenes/descarga (1).jpeg" 
-         alt="Marketing Digital y Redes Sociales" 
-         class="banner-image">
-    <div class="banner-content">
-        <h1 class="banner-title">Potencia tu Marca en el Mundo Digital</h1>
-        <p class="banner-subtitle">Gestión profesional de redes sociales y estrategias de marketing digital</p>
-        <a href="https://wa.me/+543541237972" 
-           target="_blank" 
-           class="whatsapp-button"
-           aria-label="Contactar por WhatsApp"
-           rel="noopener noreferrer">
-            ¡Comienza Ahora!
-        </a>
-    </div>
-</section>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="planes.html" class="nav-link">
+                    <i class="fas fa-tags"></i>
+                    <span>Planes</span>
+                </a>
+                <a href="mi-experiencia.html" class="nav-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Mi Experiencia</span>
+                </a>
+                <a href="contacto.html" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contacto</span>
+                </a>
+                <a href="legal.html" class="nav-link">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Legal</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    
+ 
 
-    <main class="main-content" style="min-height: calc(100vh - 200px); padding: 2rem; color: white;">
-        <div class="container" style="max-width: 800px; margin: 0 auto; background-color: rgba(0, 0, 0, 0.8); padding: 2rem; border-radius: 10px;">
-            <div class="card">
-                <h1 class="text-center">Mi Experiencia</h1>
-                
-                <div class="text-justify">
-                    <div class="profile-container" style="display: flex; align-items: start; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;">
-                        <div class="profile-image-container" style="flex: 0 0 300px; margin: 0 auto;">
-                            <img src="logos-he-imagenes/israel.jpg" alt="Israel Sarmiento" class="profile-image" style="width: 100%; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-                        </div>
-                        <div class="profile-content" style="flex: 1; min-width: 300px;">
-                            <h2>Israel Sarmiento - Programador, Diseñador Web, Diseñador UX y Diseñador Gráfico</h2>
-                            
-                            <p>Con más de dos años de experiencia en el mercado, Israel Sarmiento se ha destacado en la creación de páginas web, servicios de marketing y ventas. Su enfoque se centra en el contacto directo con el cliente, escuchando atentamente sus necesidades y elaborando proyectos personalizados que se adaptan perfectamente a cada uno de ellos.</p>
+    <main class="experience-page">
+       <!-- Hero Section -->
+       <section class="hero-section">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Desarrollo Web Profesional</h1>
+            <p class="hero-subtitle">Creamos experiencias digitales únicas con React, JavaScript y tecnologías modernas</p>
+            <div class="hero-cta">
+                <a href="planes.html" class="cta-button primary">Ver Planes</a>
+                <a href="#tech-stack" class="cta-button secondary">Tecnologías</a>
+            </div>
+        </div>
+    </section>
 
-                            <p>Israel se dedica a trabajar con pequeñas empresas y clientes particulares que están en las etapas iniciales de su negocio, ofreciendo precios altamente competitivos, los más bajos del mercado. Su compromiso con la calidad y la satisfacción del cliente lo ha convertido en una opción preferida para aquellos que buscan soluciones efectivas sin comprometer su presupuesto.</p>
 
-                            <p>Además de su habilidad en programación y diseño web, Israel también es un experto en diseño UX (experiencia de usuario) y diseño gráfico, asegurando que cada proyecto no solo funcione a la perfección, sino que también se vea atractivo y profesional.</p>
-
-                            <h3>Casos de Éxito</h3>
-                            <p>Entre sus clientes se encuentran Hgaruna, una tienda de ventas a domicilio en productos para el hogar, y Ferre.sa, un negocio en Venezuela que se encarga de la venta de termotanques hidroneumáticos. Ambas empresas han confiado en la capacidad y calidad del trabajo de Israel para impulsar su presencia en línea y mejorar su estrategia de marketing.</p>
-
-                            <p>Con Israel Sarmiento, puedes estar seguro de que obtendrás un servicio de alta calidad, adaptado a tus necesidades específicas y a un precio que no romperá tu presupuesto.</p>
+        <!-- Perfil Profesional -->
+        <section class="profile-section">
+            <div class="container">
+                <div class="profile-grid">
+                    <div class="profile-image">
+                        <img src="logos-he-imagenes/israel.jpg" alt="Israel Sarmiento" class="profile-photo">
+                    </div>
+                    <div class="profile-content">
+                        <h2 class="section-title">Sobre Mí</h2>
+                        <p class="profile-text">
+                            Soy un desarrollador web full stack especializado en crear experiencias digitales excepcionales. Con más de 2 años de experiencia, me dedico a transformar ideas en soluciones web innovadoras y funcionales.
+                        </p>
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">2+</span>
+                                <span class="stat-label">Años de Experiencia</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">20+</span>
+                                <span class="stat-label">Proyectos Completados</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Clientes Satisfechos</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Habilidades Técnicas -->
+        <section class="skills-section">
+            <div class="container">
+                <h2 class="section-title">Habilidades Técnicas</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Frontend Development</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <span class="skill-name">React.js</span>
+                                <div class="skill-bar" style="width: 90%"></div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">JavaScript</span>
+                                <div class="skill-bar" style="width: 85%"></div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">HTML5/CSS3</span>
+                                <div class="skill-bar" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Backend Development</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <span class="skill-name">Node.js</span>
+                                <div class="skill-bar" style="width: 80%"></div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">APIs RESTful</span>
+                                <div class="skill-bar" style="width: 85%"></div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Bases de Datos</span>
+                                <div class="skill-bar" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Especialidades -->
+        <section class="specialties-section">
+            <div class="container">
+                <h2 class="section-title">Especialidades</h2>
+                <div class="specialties-grid">
+                    <div class="specialty-card">
+                        <i class="fas fa-code specialty-icon"></i>
+                        <h3>Desarrollo Web</h3>
+                        <p>Creación de aplicaciones web modernas y responsivas utilizando las últimas tecnologías.</p>
+                    </div>
+                    <div class="specialty-card">
+                        <i class="fas fa-paint-brush specialty-icon"></i>
+                        <h3>Diseño UX/UI</h3>
+                        <p>Diseño de interfaces intuitivas y experiencias de usuario excepcionales.</p>
+                    </div>
+                    <div class="specialty-card">
+                        <i class="fas fa-mobile-alt specialty-icon"></i>
+                        <h3>Desarrollo Responsive</h3>
+                        <p>Sitios web adaptables a todos los dispositivos y tamaños de pantalla.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enfoque de Trabajo -->
+        <section class="approach-section">
+            <div class="container">
+                <h2 class="section-title">Mi Enfoque</h2>
+                <div class="approach-content">
+                    <p class="approach-text">
+                        Mi filosofía de trabajo se basa en tres pilares fundamentales:
+                    </p>
+                    <div class="approach-grid">
+                        <div class="approach-item">
+                            <h3>Calidad</h3>
+                            <p>Cada línea de código está escrita con atención al detalle y siguiendo las mejores prácticas.</p>
+                        </div>
+                        <div class="approach-item">
+                            <h3>Comunicación</h3>
+                            <p>Mantengo una comunicación clara y constante con mis clientes durante todo el proceso.</p>
+                        </div>
+                        <div class="approach-item">
+                            <h3>Resultados</h3>
+                            <p>Me enfoco en entregar soluciones que generen valor real para tu negocio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>¿Listo para Comenzar tu Proyecto?</h2>
+                <p>Permíteme ayudarte a llevar tu visión al siguiente nivel</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/+543541237972" class="cta-button primary" target="_blank" rel="noopener noreferrer">
+                        Contactar Ahora
+                    </a>
+                    <a href="planes.html" class="cta-button secondary">Ver Planes</a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="footer" role="contentinfo">
-        <div class="footer-container">
-            <div class="footer-section">
-                <img src="logos-he-imagenes/logo-sell.png" alt="Online Sell Web Logo" class="footer-logo">
-                <h3>Online Sell Web</h3>
-                <p>Tu socio en marketing digital</p>
-            </div>
-            <div class="footer-section">
-                <h3>Enlaces Rápidos</h3>
-                <nav aria-label="Enlaces del pie de página">
-                    <ul class="footer-links">
-                        <li><a href="index.html" aria-current="page">Inicio</a></li>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logos-he-imagenes/logo-sell.png" alt="Online Sell Web Logo" class="footer-logo">
+                    <h3>Online Sell Web</h3>
+                    <p>Tu socio en marketing digital</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
                         <li><a href="planes.html">Planes</a></li>
                         <li><a href="mi-experiencia.html">Mi Experiencia</a></li>
                         <li><a href="contacto.html">Contacto</a></li>
                         <li><a href="legal.html">Legal</a></li>
                     </ul>
-                </nav>
-            </div>
-            <div class="footer-section">
-                <h3>Contacto</h3>
-                <address>
-                    <p>📱 WhatsApp: <a href="tel:+543541237972">+54 3541 237972</a></p>
-                    <p>📧 Email: <a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
-                    <p>📍 Villa Carlos Paz, Córdoba, Argentina</p>
-                </address>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contacto</h3>
+                    <address>
+                        <p>📱 WhatsApp: <a href="tel:+543541237972">+54 3541 237972</a></p>
+                        <p>📧 Email: <a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
+                        <p>📍 Villa Carlos Paz, Córdoba, Argentina</p>
+                    </address>
+                </div>
             </div>
         </div>
     </footer>
-    
+    <script src="js/nav.js"></script>
+</div>
 </body>
 </html>
