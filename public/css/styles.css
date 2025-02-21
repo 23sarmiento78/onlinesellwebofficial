@@ -39,6 +39,7 @@ body {
     font-family: 'Roboto', sans-serif;
     color: var(--text-primary);
     line-height: 1.6;
+    list-style: none;
 }
 
 /* Navegación principal */
@@ -861,9 +862,10 @@ body {
 .site-footer {
     position: relative;
     width: 100%;
-    background: var(--secondary-color);
+    background: black;
     padding: 3rem var(--container-padding);
     margin-top: auto;
+    
 }
 
 .footer-grid {
@@ -871,6 +873,8 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 3rem;
 }
+
+
 
 .footer-logo {
     height: 60px;
@@ -892,16 +896,24 @@ body {
     color: var(--primary-color);
 }
 
+.no-list-style {
+    list-style: none;
+}
+
+.no-text-decoration {
+    text-decoration: none;
+}
+
+
 /* Títulos de Sección */
 .section-title {
-    text-align: center;
-    color: var(--primary-color);
     font-size: 2.5rem;
+    text-align: center;
     margin-bottom: 3rem;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    color: var(--primary-color);
 }
+
+
 
 /* Animaciones */
 @keyframes fadeIn {
@@ -2145,4 +2157,281 @@ body {
 /* Asegurar que el footer se mantenga al final */
 .site-footer {
     margin-top: auto;
+}
+
+/* Estilos para la sección de portfolio */
+.portfolio-section {
+    padding: 4rem var(--container-padding);
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.portfolio-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+}
+
+.portfolio-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.portfolio-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    color: var(--text-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Estilos para el blog */
+.blog-section {
+    padding: 4rem var(--container-padding);
+    background: var(--background-dark);
+}
+
+.blog-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.blog-title-main {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.blog-description {
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.blog-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary-color);
+}
+
+.blog-image-container {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+
+.blog-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.blog-card:hover .blog-image {
+    transform: scale(1.05);
+}
+
+.blog-content {
+    padding: 1.5rem;
+}
+
+.blog-category {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: rgba(199, 171, 110, 0.1);
+    color: var(--primary-color);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.blog-title {
+    font-size: 1.3rem;
+    margin: 0.5rem 0;
+    line-height: 1.4;
+    color: var(--text-light);
+}
+
+.blog-excerpt {
+    color: var(--text-light-muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.blog-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.blog-date {
+    color: var(--text-light-muted);
+    font-size: 0.9rem;
+}
+
+.blog-read-more {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.3s ease;
+}
+
+.blog-read-more:hover {
+    gap: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .blog-title-main {
+        font-size: 2rem;
+    }
+}
+
+/* Estilos para artículos individuales */
+.article-section {
+    padding: 4rem var(--container-padding);
+    background: var(--background-dark);
+}
+
+.article-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.article-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.article-category {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: rgba(199, 171, 110, 0.1);
+    color: var(--primary-color);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.article-title {
+    font-size: 2.5rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.article-meta {
+    color: var(--text-light-muted);
+    font-size: 0.9rem;
+}
+
+.article-main-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.article-body {
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+.article-intro {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--text-light-muted);
+}
+
+.article-body h2 {
+    color: var(--primary-color);
+    margin: 2rem 0 1rem;
+    font-size: 1.8rem;
+}
+
+.article-cta {
+    margin-top: 4rem;
+    padding: 2rem;
+    background: rgba(199, 171, 110, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.article-cta h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .article-content {
+        padding: 1.5rem;
+    }
+
+    .article-title {
+        font-size: 2rem;
+    }
 }

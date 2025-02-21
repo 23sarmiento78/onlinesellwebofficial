@@ -1,0 +1,168 @@
+html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Metatítulos y SEO -->
+    <meta name="title" content="Optimización de Rendimiento en React | Online Sell Web">
+    <meta name="description" content="Aprende técnicas avanzadas para mejorar el rendimiento de tus aplicaciones React. Desde code splitting hasta memorización, descubre cómo crear apps React más rápidas.">
+    <meta name="keywords" content="React, optimización React, rendimiento React, React performance, React.js, JavaScript">
+    
+    <link rel="shortcut icon" href="../logos-he-imagenes/logo-sell.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Optimización de Rendimiento en React - Online Sell Web</title>
+</head>
+<body class="dark-theme">
+    <!-- Header al estilo Nolvus -->
+    <header class="site-header">
+        <nav class="nav-main">
+            <div class="nav-brand">
+                <a href="index.html" class="logo-container">
+                    <img src="logos-he-imagenes/logo-sell.png" alt="OSW Design" class="nav-logo">
+                    <span class="brand-text">OSW</span>
+                </a>
+            </div>
+            
+            <button class="hamburger-menu" aria-label="Menú">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+    
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="planes.html" class="nav-link">
+                    <i class="fas fa-tags"></i>
+                    <span>Planes</span>
+                </a>
+                <a href="mi-experiencia.html" class="nav-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Mi Experiencia</span>
+                </a>
+                <a href="contacto.html" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contacto</span>
+                </a>
+                <a href="legal.html" class="nav-link">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Legal</span>
+                </a>
+                <a href="blog.html" class="nav-link">
+                    <i class="fas fas fa-envelope"></i>
+                    <span>blog</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-section">
+           <!-- Hero Section -->
+           <section class="hero-section">
+            <div class="hero-background">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">Desarrollo Web Profesional</h1>
+                <p class="hero-subtitle">Creamos experiencias digitales únicas con React, JavaScript y tecnologías modernas</p>
+                <div class="hero-cta">
+                    <a href="planes.html" class="cta-button primary">Ver Planes</a>
+                    <a href="#tech-stack" class="cta-button secondary">Tecnologías</a>
+                </div>
+            </div>
+        </section>
+        <article class="article-content">
+            <header class="article-header">
+                <span class="article-category">React</span>
+                <h1 class="article-title">Optimización de Rendimiento en React</h1>
+                <div class="article-meta">
+                    <span class="article-date">20 de Febrero, 2025</span>
+                    <span class="article-author">Por Israel Sarmiento</span>
+                </div>
+            </header>
+
+           <!--  <img src="../blog/react-performance.jpg" alt="Optimización de React" class="article-main-image">  -->
+            
+            <div class="article-body">
+                <p class="article-intro">
+                    El rendimiento es crucial en las aplicaciones web modernas. En este artículo, exploraremos técnicas avanzadas para optimizar tus aplicaciones React y mejorar su eficiencia.
+                </p>
+
+                <h2>1. Uso Efectivo de useMemo y useCallback</h2>
+                <p>La memorización es una técnica poderosa para evitar renderizados innecesarios. Los hooks <code>useMemo</code> y <code>useCallback</code> ayudan a memorizar valores y funciones, respectivamente, reduciendo la carga en el renderizado.</p>
+
+                <h2>2. Code Splitting con React.lazy</h2>
+                <p>Dividir el código en chunks más pequeños mediante <code>React.lazy</code> y <code>Suspense</code> permite cargar solo los componentes necesarios en el momento adecuado, mejorando el tiempo de carga inicial.</p>
+
+                <h2>3. Evitar Renderizados Innecesarios</h2>
+                <p>Utiliza <code>React.memo</code> para memorizar componentes funcionales y evitar renderizados innecesarios cuando las props no cambian. Asegúrate de usar <code>shouldComponentUpdate</code> en componentes de clase para lograr lo mismo.</p>
+
+                <h2>4. Optimización de Listas con react-virtualized</h2>
+                <p>Las listas grandes pueden afectar el rendimiento. Librerías como <code>react-virtualized</code> permiten renderizar solo los elementos visibles, mejorando significativamente la eficiencia.</p>
+
+                <h2>5. Utilizar Key Adecuadas en Listas</h2>
+                <p>Asegúrate de usar keys únicas y estables en listas para ayudar a React a identificar qué elementos han cambiado, mejorando así el rendimiento del renderizado.</p>
+
+                <h2>6. Evitar el Uso Extensivo de Inline Functions y Inline Objects</h2>
+                <p>Las funciones y objetos inline pueden causar renderizados innecesarios. Define las funciones fuera del renderizado y usa variables para objetos que no cambian con frecuencia.</p>
+
+                <h2>7. Monitoreo del Rendimiento</h2>
+                <p>Utiliza herramientas de monitoreo como React Developer Tools y Performance Monitor para identificar cuellos de botella y áreas de mejora en tu aplicación React.</p>
+
+                <h2>8. Optimización del Estado Global</h2>
+                <p>Gestiona el estado global de manera eficiente utilizando librerías como Redux, Zustand o Recoil. Evita actualizaciones innecesarias del estado que puedan desencadenar renderizados adicionales.</p>
+
+                <h2>9. Componentes Funcionales vs. Componentes de Clase</h2>
+                <p>Opta por componentes funcionales y hooks en lugar de componentes de clase siempre que sea posible. Los hooks ofrecen un manejo de estado y efectos más eficiente.</p>
+
+                <h2>10. Caché y Persistencia</h2>
+                <p>Implementa estrategias de caché para datos que no cambian frecuentemente. Librerías como SWR y React Query ofrecen soluciones eficientes para la gestión de datos en caché.</p>
+
+                <div class="article-cta">
+                    <h3>¿Necesitas ayuda con tu aplicación React?</h3>
+                    <p>Contáctanos para una consulta gratuita y descubre cómo podemos ayudarte a optimizar y mejorar el rendimiento de tu aplicación React.</p>
+                    <a href="../contacto.html" class="cta-button primary">Contactar Ahora</a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logos-he-imagenes/logo-sell.png" alt="Online Sell Web Logo" class="footer-logo">
+                    <h3>Online Sell Web</h3>
+                    <p>Tu socio en marketing digital</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="planes.html">Planes</a></li>
+                        <li><a href="mi-experiencia.html">Mi Experiencia</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                        <li><a href="legal.html">Legal</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contacto</h3>
+                    <address>
+                        <p>📱 WhatsApp: <a href="tel:+543541237972" style="list-style: none; text-decoration: none; color: aliceblue;" class="no-text-decoration">+54 3541 237972</a></p>
+                        <p>📧 Email: <a href="mailto:23sarmiento@gmail.com" style="list-style: none; text-decoration: none; color: aliceblue;" class="no-text-decoration">23sarmiento@gmail.com</a></p>
+                        <p>📍 Villa Carlos Paz, Córdoba, Argentina</p>
+                    </address>
+                </div>
+                
+            </div>
+        </div>
+    </footer>
+    <script src="js/nav.js"></script>
+   
+    </body>
+</html>
