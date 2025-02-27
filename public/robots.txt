@@ -1,3 +1,5 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /ruta-a-no-rastrear/
+
+Allow: /sitemap.xml
+Sitemap: https://onlinesellweb.netlify.app/sitemap.xml
