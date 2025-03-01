@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 /* Nuevas variables de color */
 :root {
     --primary-bg: #0d0d0d;
@@ -16,6 +18,8 @@
     --gradient-dark: linear-gradient(to right, #0d0d0d, #1a1a1a);
     --header-height: 70px;
     --container-padding: 2rem;
+    --button-bg: #007bff;
+    --button-hover-bg: #0056b3;
 }
 
 @media (max-width: 768px) {
@@ -32,12 +36,12 @@ body {
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    background-image: url('../logos-he-imagenes/fondo-negro.png');
+    background-color: #0d0d0d;
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
     font-family: 'Roboto', sans-serif;
-    color: var(--text-primary);
+    color: var(--text-light);
     line-height: 1.6;
     list-style: none;
 }
@@ -50,7 +54,7 @@ body {
     width: 100%;
     height: var(--header-height);
     z-index: 9999;
-    background: var(--nav-bg);
+    background: #ffffff;
     backdrop-filter: blur(10px);
 }
 
@@ -91,8 +95,8 @@ body {
 
 /* Menú hamburguesa */
 .hamburger-menu {
-    display: none; /* Oculto por defecto en desktop */
-    background: none;
+    display: none;
+    background: #ffffff;
     border: none;
     cursor: pointer;
     padding: 0.5rem;
@@ -103,7 +107,7 @@ body {
     width: 25px;
     height: 2px;
     margin: 5px 0;
-    background-color: var(--primary-color);
+    background-color: #0d0d0d;
     transition: all 0.3s ease;
 }
 
@@ -115,7 +119,7 @@ body {
 }
 
 .nav-link {
-    color: var(--text-light);
+    color: #0d0d0d;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -132,7 +136,7 @@ body {
 /* Media queries para móvil */
 @media (max-width: 768px) {
     .hamburger-menu {
-        display: block; /* Mostrar en móvil */
+        display: block;
         position: relative;
         z-index: 10000;
     }
@@ -143,7 +147,7 @@ body {
         left: 0;
         width: 100%;
         height: calc(100vh - var(--header-height));
-        background: var(--nav-bg);
+        background: #ffffff;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
@@ -157,6 +161,7 @@ body {
     }
 
     .nav-link {
+        color: #0d0d0d;
         width: 100%;
         justify-content: center;
         padding: 1rem;
@@ -213,10 +218,9 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding-left: var(--container-padding);
-    padding-right: var(--container-padding);
+    padding: 0 1rem;
     box-sizing: border-box;
 }
 
@@ -289,24 +293,21 @@ body {
 }
 
 .service-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    padding: 2.5rem;
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 2rem;
     text-align: center;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .service-icon {
     font-size: 3rem;
-    margin-bottom: 1.5rem;
-    display: block;
+    color: var(--button-bg);
 }
 
 .service-list {
@@ -512,7 +513,7 @@ body {
 
 /* Estilos generales */
 body {
-    background-image: url('../logos-he-imagenes/fondo-negro.png');
+  background-color: #0d0d0d;
     background-size: cover;
     background-attachment: fixed;
     font-family: Arial, sans-serif;
@@ -565,7 +566,7 @@ body {
 
 /* Estilos generales */
 body {
-    background-image: url('../logos-he-imagenes/fondo-negro.png');
+    background-color: #0d0d0d;
     background-size: cover;
     background-attachment: fixed;
     font-family: Arial, sans-serif;
@@ -663,7 +664,8 @@ body {
     justify-content: center;
     text-align: center;
     padding: 0 2rem;
-    background: var(--gradient-dark);
+    color: var(--text-primary);
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../logos-he-imagenes/fondo-hero.jpg') center/cover no-repeat; /* Agrega un gradiente oscuro sobre la imagen */
 }
 
 .hero-background {
@@ -671,8 +673,13 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    z-index: 1;
+    height: 100vh; /* Asegúrate de que ocupe toda la altura del héroe */
+    background-image: url('../logos-he-imagenes/fondo-hero.jpg'); /* Ajusta la ruta aquí */
+    background-size: cover; /* Asegúrate de que la imagen cubra toda la sección */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    filter: brightness(1); /* Asegúrate de que el brillo esté en 1 para que no se oscurezca */
+    z-index: 1; /* Asegúrate de que esté en el nivel correcto */
 }
 
 .hero-overlay {
@@ -681,7 +688,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(13, 13, 13, 0.7);
+    background-color: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad si es necesario */
+    z-index: 1; /* Asegúrate de que esté detrás del contenido */
 }
 
 .hero-content {
@@ -702,6 +710,7 @@ body {
     color: var(--text-light);
     margin-bottom: 2rem;
 }
+
 
 /* Sección Tecnologías */
 .tech-section {
@@ -839,12 +848,17 @@ body {
 .cta-button {
     display: inline-block;
     padding: 1rem 2rem;
-    border-radius: 4px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--button-bg);
+    color: white;
     text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: var(--button-hover-bg);
 }
 
 .cta-button.primary {
@@ -909,8 +923,8 @@ body {
 .section-title {
     font-size: 2.5rem;
     text-align: center;
-    margin-bottom: 3rem;
-    color: var(--primary-color);
+    margin: 2rem 0;
+    color: var(--accent-color);
 }
 
 
@@ -1087,8 +1101,8 @@ body {
 }
 
 .specialty-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .specialty-icon {

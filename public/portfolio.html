@@ -16,6 +16,10 @@
     <link rel="shortcut icon" href="logos-he-imagenes/logo-sell.png" type="image/x-icon">
     <link rel="stylesheet" href="css/styles.css">
     <title>Portfolio - Online Sell Web</title>
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Mismo nav que otras páginas -->
@@ -24,10 +28,11 @@
         <h1>Nuestros Proyectos</h1>
         <div class="portfolio-grid">
             <article class="portfolio-item">
-                <img src="portfolio/proyecto1.jpg" alt="Proyecto E-commerce" class="portfolio-image">
+                <img src="portfolio/proyecto1.jpg" alt="E-commerce de Moda - Tienda online completa" class="portfolio-image" loading="lazy">
                 <div class="portfolio-overlay">
                     <h3>E-commerce de Moda</h3>
                     <p>Tienda online completa con sistema de pagos y gestión de inventario</p>
+                    <a href="proyecto1.html" class="view-details">Ver detalles</a>
                 </div>
             </article>
             <!-- Más proyectos... -->
