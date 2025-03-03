@@ -1,4 +1,5 @@
 User-agent: *
-Allow: /
+Disallow: /ruta-a-no-rastrear/
 
+Allow: /sitemap.xml
 Sitemap: https://onlinesellweb.netlify.app/sitemap.xml
