@@ -33,11 +33,7 @@
   to = "/contacto.html"
   status = 200
 
-[[redirects]]
-  from = "/sitemap.xml"
-  to = "/path/to/your/sitemap.xml"
-  status = 200
-  force = true
+
 
   [[plugins]]
 package = "@netlify/plugin-sitemap"
