@@ -39,6 +39,9 @@
   status = 200
   force = true
 
+  [[plugins]]
+package = "@netlify/plugin-sitemap"
+
 [[redirects]]
   from = "/robots.txt"
   to = "/robots.txt"
@@ -59,3 +62,21 @@
 
 [functions]
   directory = "functions"
+
+[plugins.inputs]
+buildDir = "public"
+exclude = [
+  './build-dir/path-to/file.html',  # Ejemplo de archivo a excluir
+  '**/**/child-one.html'  # Ejemplo de patrón glob
+]
+# filePath = "some/subfolder/sitemap.xml"  # Solo si necesitas una subcarpeta
+
+[[plugins]]
+package = "@netlify/plugin-sitemap"
+
+  [plugins.inputs]
+  buildDir = "public"
+  changeFreq = "daily"
+  priority = 0.5
+  baseUrl = "https://onlinesellweb.netlify.app/"
+  urlPrefix = "/es/"
