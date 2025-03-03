@@ -1,6 +1,6 @@
 [build]
   command = "npm run build"
-  publish = "build"
+  publish = "public"
 
 [[redirects]]
   from = "http://onlinesellweb.netlify.app/*"
@@ -34,9 +34,16 @@
   status = 200
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
   status = 200
+  force = true
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+  force = true
 
 [[headers]]
   for = "/*"
@@ -49,3 +56,6 @@
 
 [[plugins]]
   package = "netlify-plugin-formspree"
+
+[functions]
+  directory = "functions"
