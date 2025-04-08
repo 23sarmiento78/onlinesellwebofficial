@@ -3,8 +3,8 @@
   publish = "public"
 
 [[redirects]]
-  from = "http://onlinesellweb.netlify.app/*"
-  to = "https://onlinesellweb.netlify.app/:splat"
+  from = "https://service.hgaruna.org/*"
+  to = "https://service.hgaruna.org/:splat"
   status = 301
   force = true
 
@@ -55,7 +55,7 @@
   buildDir = "public"
   changeFreq = "daily"
   priority = 0.5
-  baseUrl = "https://onlinesellweb.netlify.app/"
+  baseUrl = "https://service.hgaruna.org/"
   urlPrefix = "/es/"
 
 [[plugins]]
