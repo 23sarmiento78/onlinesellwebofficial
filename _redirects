@@ -1,5 +1,5 @@
 # Redirigir HTTP a HTTPS
-http://onlinesellweb.netlify.app/* https://onlinesellweb.netlify.app/:splat 301!
+http://service.hgaruna.org/* https://service.hgaruna.org/:splat 301!
 
 # Redirigir la página de inicio
 / /index.html 200
