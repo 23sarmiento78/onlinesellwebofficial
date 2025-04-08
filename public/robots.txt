@@ -1,5 +1,7 @@
 User-agent: *
-Disallow: /ruta-a-no-rastrear/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /logs/
+Allow: /
 
-Allow: /sitemap.xml
-Sitemap: https://onlinesellweb.netlify.app/sitemap.xml
+Sitemap: https://service.hgaruna.org/sitemap.xml

@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://onlinesellweb.netlify.app/</loc>
+    <loc>https://service.hgaruna.org/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/blog/tendencias</loc>
+    <loc>https://service.hgaruna.org/blog/tendencias</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/planes</loc>
+    <loc>https://service.hgaruna.org/planes</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/legal</loc>
+    <loc>https://service.hgaruna.org/legal</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/mi-experiencia</loc>
+    <loc>https://service.hgaruna.org/mi-experiencia</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/blog/react-optimizacion</loc>
+    <loc>https://service.hgaruna.org/blog/react-optimizacion</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/blog/seo-estrategias</loc>
+    <loc>https://service.hgaruna.org/blog/seo-estrategias</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/contacto</loc>
+    <loc>https://service.hgaruna.org/contacto</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/blog</loc>
+    <loc>https://service.hgaruna.org/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/blog/web3</loc>
+    <loc>https://service.hgaruna.org/blog/web3</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/blog/ecomerce</loc>
+    <loc>https://service.hgaruna.org/blog/ecomerce</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/blog/rendimiento</loc>
+    <loc>https://service.hgaruna.org/blog/rendimiento</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/blog/ia</loc>
+    <loc>https://service.hgaruna.org/blog/ia</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/blog/diseñoresponsive.html</loc>
+    <loc>https://service.hgaruna.org/blog/diseñoresponsive.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/blog/seguridad</loc>
+    <loc>https://service.hgaruna.org/blog/seguridad</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinesellweb.netlify.app/blog/nextjs</loc>
+    <loc>https://service.hgaruna.org/blog/nextjs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
