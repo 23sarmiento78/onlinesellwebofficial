@@ -2,11 +2,7 @@
   command = "npm run build"
   publish = "public"
 
-[[redirects]]
-  from = "https://service.hgaruna.org/*"
-  to = "https://service.hgaruna.org/:splat"
-  status = 301
-  force = true
+# ⚠️ Redirección eliminada: causaba bucle de redirección infinito
 
 [[redirects]]
   from = "/"
@@ -46,7 +42,6 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin" 
-   
 
 [[plugins]]
   package = "@netlify/plugin-sitemap"
