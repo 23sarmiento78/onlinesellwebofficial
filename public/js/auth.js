@@ -1,68 +1,94 @@
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.netlifyIdentity) {
-    // Función para actualizar la interfaz de usuario basada en el estado de autenticación
-    const updateUI = () => {
-      const user = netlifyIdentity.currentUser();
-      const loginButton = document.getElementById('login-button');
-      const userDropdown = document.getElementById('user-dropdown');
-      const userDisplayName = document.getElementById('user-display-name');
+let auth0Client = null;
 
-      if (user) {
-        // Usuario logueado
-        if (loginButton) loginButton.style.display = 'none';
-        if (userDropdown) userDropdown.style.display = 'block';
-        if (userDisplayName) {
-          userDisplayName.textContent = `Hola, ${user.user_metadata.full_name || user.email}!`;
-        }
+document.addEventListener('DOMContentLoaded', async () => {
+  auth0Client = await createAuth0Client({
+    domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com', // Reemplaza con tu dominio de Auth0
+    client_id: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab', // Reemplaza con tu Client ID de Auth0
+    redirect_uri: window.location.origin
+  });
 
-        // Redirigir si está en la página de admin y no tiene rol de admin (opcional, si implementas roles)
-        // const currentPath = window.location.pathname;
-        // if (currentPath.includes('/admin/') && !user.app_metadata.roles?.includes('admin')) {
-        //   window.location.href = '/';
-        // }
+  // Handle callback after authentication
+  const query = window.location.search;
+  if (query.includes("code=") && query.includes("state=")) {
+    await auth0Client.handleRedirectCallback();
+    window.history.replaceState({}, document.title, "/");
+  }
 
-      } else {
-        // Usuario no logueado
-        if (loginButton) loginButton.style.display = 'inline-block';
-        if (userDropdown) userDropdown.style.display = 'none';
+  updateUI();
+});
 
-        // Si está en la página de admin y no está logueado, redirigir
-        const currentPath = window.location.pathname;
-        if (currentPath.includes('/admin/')) {
-          alert('Acceso denegado. Por favor, inicie sesión para acceder a la administración.');
-          window.location.href = '/';
+async function login() {
+  await auth0Client.loginWithRedirect({
+    redirect_uri: window.location.origin
+  });
+}
+
+async function logout() {
+  await auth0Client.logout({
+    returnTo: window.location.origin
+  });
+}
+
+async function updateUI() {
+  const isAuthenticated = await auth0Client.isAuthenticated();
+  const loginButton = document.getElementById('login-button');
+  const userDropdown = document.getElementById('user-dropdown');
+  const userDisplayName = document.getElementById('user-display-name');
+  const authButtonsContainer = document.getElementById('auth-buttons-container');
+  const logoutButtonDropdown = document.getElementById('logout-button-dropdown');
+
+  if (authButtonsContainer) {
+    if (isAuthenticated) {
+      loginButton.style.display = 'none';
+      userDropdown.style.display = 'block';
+
+      const user = await auth0Client.getUser();
+      if (user && userDisplayName) {
+        userDisplayName.textContent = `Hola, ${user.name || user.nickname || user.email}!`;
+      }
+
+      // Special handling for admin page
+      const currentPath = window.location.pathname;
+      if (currentPath.includes('admin.html')) {
+        const adminContent = document.getElementById('admin-content');
+        if (adminContent) {
+          adminContent.style.display = 'block';
         }
       }
-    };
 
-    // Inicializar el widget y actualizar la UI
-    netlifyIdentity.on('init', updateUI);
-    netlifyIdentity.on('login', updateUI);
-    netlifyIdentity.on('logout', updateUI);
-
-    // Manejar clics de los botones de login/logout
-    const loginButton = document.getElementById('login-button');
-    const logoutButtonDropdown = document.getElementById('logout-button-dropdown');
-
-    if (loginButton) {
-      loginButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        netlifyIdentity.open(); // Abre el modal de inicio de sesión
-      });
-    }
-
-    if (logoutButtonDropdown) {
-      logoutButtonDropdown.addEventListener('click', (e) => {
-        e.preventDefault();
-        netlifyIdentity.logout();
-      });
-    }
-
-    // Asegurarse de que el widget se inicialice incluso si no hay un evento init
-    // Esto puede ser útil si el script se carga después de que el evento init ya se disparó
-    if (netlifyIdentity.currentUser()) {
-      updateUI();
+    } else {
+      loginButton.style.display = 'inline-block';
+      userDropdown.style.display = 'none';
+      // Special handling for admin page if not authenticated
+      const currentPath = window.location.pathname;
+      if (currentPath.includes('admin.html')) {
+        const adminContent = document.getElementById('admin-content');
+        if (adminContent) {
+          adminContent.style.display = 'none'; // Ocultar el contenido de admin
+          alert('Acceso denegado. Por favor, inicie sesión para acceder a la administración.');
+          window.location.href = '/'; // Redirigir a la página principal
+        }
+      }
     }
   }
+}
+
+// Add event listeners after auth0Client is initialized
+document.addEventListener('DOMContentLoaded', () => {
+  const loginButton = document.getElementById('login-button');
+  const logoutButtonDropdown = document.getElementById('logout-button-dropdown');
+
+  if (loginButton) {
+    loginButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      login();
+    });
+  }
+
+  if (logoutButtonDropdown) {
+    logoutButtonDropdown.addEventListener('click', (e) => {
+      e.preventDefault();
+      logout();
+    });
+  }
 });
-  
