@@ -2,8 +2,8 @@ let auth0Client = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   auth0Client = await Auth0Client.createAuth0Client({
-    domain: 'YOUR_AUTH0_DOMAIN', // Reemplaza con tu dominio de Auth0
-    client_id: 'YOUR_AUTH0_CLIENT_ID', // Reemplaza con tu Client ID de Auth0
+    domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com', // Reemplaza con tu dominio de Auth0
+    client_id: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab', // Reemplaza con tu Client ID de Auth0
     redirect_uri: window.location.origin
   });
 
