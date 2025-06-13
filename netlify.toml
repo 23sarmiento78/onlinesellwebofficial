@@ -1,6 +1,6 @@
 [build]
   command = "npm run build"
-  publish = "public"
+  publish = "dist"
 
 [[redirects]]
   from = "/"
@@ -9,17 +9,17 @@
 
 [[redirects]]
   from = "/legal"
-  to = "/legal.html"
+  to = "/legal/"
   status = 200
 
 [[redirects]]
   from = "/planes"
-  to = "/planes.html"
+  to = "/planes/"
   status = 200
 
 [[redirects]]
   from = "/mi-experiencia"
-  to = "/mi-experiencia.html"
+  to = "/mi-experiencia/"
   status = 200
 
 [[redirects]]
@@ -35,7 +35,7 @@
 
 [[redirects]]
   from = "/admin"
-  to = "/admin.html"
+  to = "/admin/"
   status = 200
 
 [[headers]]
@@ -50,7 +50,7 @@
   package = "@netlify/plugin-sitemap"
 
   [plugins.inputs]
-  buildDir = "public"
+  buildDir = "dist"
   changeFreq = "daily"
   priority = 0.5
   baseUrl = "https://service.hgaruna.org"
