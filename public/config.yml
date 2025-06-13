@@ -4,7 +4,7 @@ backend:
   auth_url: "https://TU_AUTH0_DOMAIN/authorize"
   app_id: "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab"
   base_url: "dev-b0qip4vee7sg3q7e.us.auth0.com"
-  auth_scope: "openid profile email"
+  auth_scope: "openid"
   branch: main # o el nombre de tu rama principal (master/main)
 
 media_folder: "public/uploads" # Dónde se guardarán las imágenes subidas
