@@ -78,9 +78,18 @@
                         </li>
                     </ul>
                     <div id="auth-buttons-container" class="d-flex align-items-center ms-lg-3">
-                        <span id="user-display-name" class="me-2 text-white" style="display: none;"></span>
                         <a href="#" id="login-button" class="nav-link contact-btn me-2">Iniciar Sesión</a>
-                        <button id="logout-button" class="btn btn-outline-light btn-sm" style="display: none;">Cerrar Sesión</button>
+
+                        <div id="user-dropdown" class="dropdown" style="display: none;">
+                            <a class="nav-link contact-btn dropdown-toggle me-2" href="#" role="button" id="userDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span id="user-display-name"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userDropdownMenuLink">
+                                <li><a class="dropdown-item" href="/admin.html">Admin</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" id="logout-button-dropdown">Cerrar Sesión</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

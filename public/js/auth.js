@@ -32,24 +32,24 @@ async function logout() {
 async function updateUI() {
   const isAuthenticated = await auth0Client.isAuthenticated();
   const loginButton = document.getElementById('login-button');
-  const logoutButton = document.getElementById('logout-button');
+  const userDropdown = document.getElementById('user-dropdown');
   const userDisplayName = document.getElementById('user-display-name');
   const authButtonsContainer = document.getElementById('auth-buttons-container');
+  const logoutButtonDropdown = document.getElementById('logout-button-dropdown');
 
   if (authButtonsContainer) {
     if (isAuthenticated) {
       loginButton.style.display = 'none';
-      logoutButton.style.display = 'inline-block';
+      userDropdown.style.display = 'block';
 
       const user = await auth0Client.getUser();
       if (user && userDisplayName) {
         userDisplayName.textContent = `Hola, ${user.name || user.nickname || user.email}!`;
-        userDisplayName.style.display = 'inline-block';
       }
 
       // Special handling for admin page
       const currentPath = window.location.pathname;
-      if (currentPath.includes('admin/index.html')) {
+      if (currentPath.includes('admin.html')) {
         const adminContent = document.getElementById('admin-content');
         if (adminContent) {
           adminContent.style.display = 'block';
@@ -58,14 +58,10 @@ async function updateUI() {
 
     } else {
       loginButton.style.display = 'inline-block';
-      logoutButton.style.display = 'none';
-      if (userDisplayName) {
-        userDisplayName.style.display = 'none';
-      }
-
+      userDropdown.style.display = 'none';
       // Special handling for admin page if not authenticated
       const currentPath = window.location.pathname;
-      if (currentPath.includes('admin/index.html')) {
+      if (currentPath.includes('admin.html')) {
         const adminContent = document.getElementById('admin-content');
         if (adminContent) {
           adminContent.style.display = 'none'; // Ocultar el contenido de admin
@@ -80,7 +76,7 @@ async function updateUI() {
 // Add event listeners after auth0Client is initialized
 document.addEventListener('DOMContentLoaded', () => {
   const loginButton = document.getElementById('login-button');
-  const logoutButton = document.getElementById('logout-button');
+  const logoutButtonDropdown = document.getElementById('logout-button-dropdown');
 
   if (loginButton) {
     loginButton.addEventListener('click', (e) => {
@@ -89,8 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (logoutButton) {
-    logoutButton.addEventListener('click', (e) => {
+  if (logoutButtonDropdown) {
+    logoutButtonDropdown.addEventListener('click', (e) => {
       e.preventDefault();
       logout();
     });
