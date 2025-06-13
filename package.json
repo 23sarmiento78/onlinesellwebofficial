@@ -4,18 +4,18 @@
   "private": true,
   "dependencies": {
     "@astrojs/sitemap": "^3.4.1",
+    "astro": "^5.9.3",
     "bootstrap": "^5.3.3",
     "globby": "^14.1.0",
     "netlify-cms": "^2.10.192",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-dom": "^18.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "devDependencies": {
     "@netlify/plugin-sitemap": "^0.8.1",
@@ -32,5 +32,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/23sarmiento78/onlinesellwebofficial.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/23sarmiento78/onlinesellwebofficial/issues"
+  },
+  "homepage": "https://github.com/23sarmiento78/onlinesellwebofficial#readme"
 }

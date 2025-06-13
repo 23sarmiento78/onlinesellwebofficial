@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Online Sell Web - Marketing Digital y Gestión de Redes Sociales"
+  description="Desarrollo web y mantenimiento gratis."
+  keywords="Desarrollo web, Diseño de páginas web, Creación de sitios web, Mantenimiento web gratuito, Soporte técnico web, Sitio web profesional, Página web personalizada, Primer mes gratuito, Diseño web atractivo, Presencia en línea, Solución web completa, Mantenimiento web mensual, Diseño y desarrollo web, Servicio de diseño web, Lanzamiento de sitio web"
+  ogTitle="Crea tu Página Web con Nosotros - Mantenimiento Gratis el Primer Mes"
+  ogDescription="¿Necesitas una página web profesional? En Online Sell Web diseñamos y desarrollamos tu sitio web, y te ofrecemos el primer mes de mantenimiento completamente gratis. ¡Conéctate con nosotros hoy y transforma tu presencia en línea!"
+  ogImage="https://service.hgaruna.org//logos-he-imagenes/logo3.png"
+  ogUrl="https://service.hgaruna.org/"
+  twitterTitle="Crea tu Página Web con Nosotros - Mantenimiento Gratis el Primer Mes"
+  twitterDescription="¿Necesitas una página web profesional? En Online Sell Web diseñamos y desarrollamos tu sitio web, y te ofrecemos el primer mes de mantenimiento completamente gratis. ¡Conéctate con nosotros hoy y transforma tu presencia en línea!"
+  twitterImage="https://service.hgaruna.org/nes/logo3.png"
+  twitterUrl="https://service.hgaruna.org/"
+>
+  <section class="hero-section">
+    <div class="hero-background">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">Desarrollo Web Profesional - Optimización de Velocidad de Carga</h1>
+      <p class="hero-subtitle">Creamos experiencias digitales únicas con React, JavaScript y tecnologías modernas</p>
+      <div class="hero-cta">
+        <a href="/planes/" class="cta-button primary">Ver Planes</a>
+        <a href="#tech-stack" class="cta-button secondary">Tecnologías</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- La sección del blog será gestionada por src/pages/blog/index.astro y los artículos individuales. -->
+  <!-- Eliminado el contenido duplicado del blog de aquí. -->
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Información de Contacto -->
+        <div class="contact-info">
+          <h2>Información de Contacto</h2>
+          <div class="info-items">
+            <div class="info-item">
+              <i class="fas fa-phone"></i>
+              <div class="info-content">
+                <h3>Teléfono</h3>
+                <p><a href="tel:+543541237972" style="list-style: none; text-decoration: none; color: aliceblue;"
+                  >+54 3541 237972</a
+                ></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-envelope"></i>
+              <div class="info-content">
+                <h3>Email</h3>
+                <p><a href="mailto:23sarmiento@gmail.com" style="list-style: none; text-decoration: none; color: aliceblue;"
+                  >23sarmiento@gmail.com</a
+                ></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div class="info-content">
+                <h3>Ubicación</h3>
+                <p>Villa Carlos Paz, Córdoba, Argentina</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulario de Contacto -->
+        <div class="contact-form-container">
+          <h1>Envíanos un Mensaje</h1>
+          <form action="https://formspree.io/f/mkgoqyjo" method="POST">
+            <div class="form-group">
+              <label for="name">Nombre *</label>
+              <input type="text" id="name" name="name" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="_replyto" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Teléfono (Opcional)</label>
+              <input type="tel" id="phone" name="phone" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="message">Tu Mensaje *</label>
+              <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout> 

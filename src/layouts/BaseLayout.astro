@@ -1,0 +1,223 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogUrl?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+  twitterUrl?: string;
+}
+
+const {
+  title,
+  description,
+  keywords,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  ogUrl,
+  twitterTitle,
+  twitterDescription,
+  twitterImage,
+  twitterUrl,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Metatítulos -->
+    <meta name="title" content={title} />
+
+    <!-- Meta Descripciones -->
+    <meta name="description" content={description} />
+
+    <!-- Palabras Clave -->
+    {keywords && <meta name="keywords" content={keywords} />}
+
+    <!-- Open Graph (contiene las múltiples variaciones) -->
+    {ogTitle && <meta property="og:title" content={ogTitle} />}
+    {ogDescription && <meta property="og:description" content={ogDescription} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogUrl && <meta property="og:url" content={ogUrl} />}
+    <meta name="google-site-verification" content="-JGciS_X8xCGpkt3affZHWRlY8Aly7LVq1BusI0iaTw" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    {twitterTitle && <meta name="twitter:title" content={twitterTitle} />}
+    {twitterDescription && <meta name="twitter:description" content={twitterDescription} />}
+    {twitterImage && <meta name="twitter:image" content={twitterImage} />}
+    {twitterUrl && <meta name="twitter:url" content={twitterUrl} />}
+
+    <link rel="shortcut icon" href="/logos-he-imagenes/logo3.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
+
+    <title>{title}</title>
+    <!-- Google tag (gtag.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-5ZCGMRFV8Z');
+    </script>
+  </head>
+  <body class="dark-theme">
+    <!-- Header adaptado -->
+    <header class="main-header">
+      <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+          <div class="navbar-brand-wrapper">
+            <a class="navbar-brand" href="/">
+              <img src="/logos-he-imagenes/logo3.png" alt="OSW Logo" />
+            </a>
+          </div>
+
+          <!-- Botón de colapso para el menú de hamburguesa -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Menú colapsable -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a href="/" class="nav-link">
+                  <i class="fas fa-home"></i>
+                  <span>Inicio</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/planes/" class="nav-link">
+                  <i class="fas fa-tags"></i>
+                  <span>Planes</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/mi-experiencia/" class="nav-link">
+                  <i class="fas fa-user-tie"></i>
+                  <span>Mi Experiencia</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/blog/" class="nav-link">
+                  <i class="fas fa-newspaper"></i>
+                  <span>Blog</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/legal/" class="nav-link">
+                  <i class="fas fa-shield-alt"></i>
+                  <span>Legal</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="https://wa.link/6t7cxa" class="nav-link contact-btn">
+                  <i class="bi bi-telephone-fill"></i> Cotizar ahora
+                </a>
+              </li>
+            </ul>
+            <div id="auth-buttons-container" class="d-flex align-items-center ms-lg-3">
+              <a href="#" id="login-button" class="nav-link contact-btn me-2">Iniciar Sesión</a>
+
+              <div id="user-dropdown" class="dropdown" style="display: none;">
+                <a
+                  class="nav-link contact-btn dropdown-toggle me-2"
+                  href="#"
+                  role="button"
+                  id="userDropdownMenuLink"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <span id="user-display-name"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userDropdownMenuLink">
+                  <li><a class="dropdown-item" href="/admin/">Admin</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#" id="logout-button-dropdown">Cerrar Sesión</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Hero Section -->
+    </header>
+
+    <main id="main-content" role="main" style="margin-top: 50px;">
+      <slot />
+    </main>
+
+    <!-- Footer estilo Nolvus -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img src="/logos-he-imagenes/logo3.png" alt="Online Sell Web Logo" class="footer-logo" loading="lazy" />
+            <h3>Online Sell Web</h3>
+            <p class="slogan">Tu éxito en línea, nuestra misión.</p>
+            <div class="social-links">
+              <a href="https://www.facebook.com/profile.php?id=61557007626922" target="_blank" aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="https://www.instagram.com/onlinesellweb/" target="_blank" aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://wa.link/6t7cxa" target="_blank" aria-label="WhatsApp"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <h4>Navegación</h4>
+            <ul>
+              <li><a href="/">Inicio</a></li>
+              <li><a href="/planes/">Planes</a></li>
+              <li><a href="/mi-experiencia/">Mi Experiencia</a></li>
+              <li><a href="/legal/">Legal</a></li>
+              <li><a href="https://wa.link/6t7cxa">Contacto</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h4>Contáctanos</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Villa Carlos Paz, Argentina</p>
+            <p><i class="fas fa-envelope"></i> 23sarmiento@gmail.com</p>
+            <p><i class="fas fa-phone"></i> +54 3541 237972</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; {new Date().getFullYear()} Online Sell Web. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+    <script src="/js/auth.js" is:inline></script>
+    <script src="/js/main.js" is:inline></script>
+  </body>
+</html> 
