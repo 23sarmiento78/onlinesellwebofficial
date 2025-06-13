@@ -1,0 +1,25 @@
+backend:
+  name: oauth
+  provider: auth0
+  auth_url: "https://TU_AUTH0_DOMAIN/authorize"
+  app_id: "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab"
+  base_url: "dev-b0qip4vee7sg3q7e.us.auth0.com"
+  auth_scope: "openid profile email"
+  branch: main # o el nombre de tu rama principal (master/main)
+
+media_folder: "static/uploads" # Dónde se guardarán las imágenes subidas
+public_folder: "/uploads" # La ruta pública de las imágenes
+
+collections:
+  - name: "article" # Un nombre único para tu colección
+    label: "Artículos" # Etiqueta que se mostrará en el CMS
+    folder: "_posts" # La carpeta donde se guardarán tus artículos (por ejemplo, como archivos Markdown)
+    create: true # Permitir crear nuevos artículos
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Formato del nombre de archivo (ej. 2023-10-27-mi-articulo.md)
+    fields: # Los campos que tendrá cada artículo
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Fecha", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: true}
+      - {label: "Cuerpo", name: "body", widget: "markdown", required: true}
+      - {label: "Imagen Principal", name: "image", widget: "image", required: false}
+      - {label: "Descripción Corta", name: "description", widget: "text", required: false}
+      - {label: "Autor", name: "author", widget: "string", default: "Tu Nombre", required: false} 

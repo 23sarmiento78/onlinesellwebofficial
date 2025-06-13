@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Next.js 14</title>
 </head>
 <body>
+    <div id="auth-buttons-container" class="d-flex align-items-center p-3">
+        <span id="user-display-name" class="me-2" style="display: none;"></span>
+        <button id="login-button" class="btn btn-primary btn-sm me-2">Iniciar Sesión</button>
+        <button id="logout-button" class="btn btn-outline-light btn-sm" style="display: none;">Cerrar Sesión</button>
+    </div>
 
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+    <script src="../js/auth.js"></script>
 </body>
 </html> 

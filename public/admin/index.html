@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administración de Artículos</title>
+</head>
+<body>
+    <div id="auth-buttons-container" class="d-flex align-items-center p-3">
+        <span id="user-display-name" class="me-2" style="display: none;"></span>
+        <button id="login-button" class="btn btn-primary btn-sm me-2">Iniciar Sesión</button>
+        <button id="logout-button" class="btn btn-outline-light btn-sm" style="display: none;">Cerrar Sesión</button>
+    </div>
+
+    <div id="admin-content" style="display: none;">
+        <!-- Incluir el script de Decap CMS -->
+        <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    </div>
+
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+  <script src="../js/auth.js"></script>
+
+  <script>
+    // Lógica para proteger la página de administración
+    document.addEventListener('DOMContentLoaded', function() {
+        const adminContent = document.getElementById('admin-content');
+        // Asumimos que isAuthenticated() de auth.js está disponible en el scope global o que el localStorage ya fue seteado.
+        // Para un sitio estático, la forma más sencilla es verificar el localStorage directamente.
+        const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+        const isAuthenticated = new Date().getTime() < expiresAt;
+
+        if (isAuthenticated) {
+            adminContent.style.display = 'block';
+        } else {
+            alert('Acceso denegado. Por favor, inicie sesión para acceder a la administración.');
+            // Opcional: Redirigir a la página principal o a una página de login específica
+            window.location.href = '/'; 
+        }
+    });
+  </script>
+</body>
+</html> 
