@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@astrojs/sitemap": "^3.4.1",
     "bootstrap": "^5.3.3",
     "globby": "^14.1.0",
     "netlify-cms": "^2.10.192",

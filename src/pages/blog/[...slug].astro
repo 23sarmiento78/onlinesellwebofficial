@@ -1,0 +1,50 @@
+---
+import { CollectionEntry, getCollection } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles'); // 'articles' es el nombre de la colección en config.yml
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+}
+
+const { article } = Astro.props;
+const { Content } = await article.render();
+---
+<ArticleLayout
+  title={article.data.title}
+  description={article.data.description}
+  image={article.data.image}
+  url={Astro.url.toString()}
+>
+  <main class="article-section">
+    <div class="container">
+      <div class="article-content">
+        <div class="article-header">
+          <!-- Aquí puedes añadir la categoría si la incluyes en el frontmatter -->
+          <h1 class="article-title">{article.data.title}</h1>
+          <div class="article-meta">
+            <span><i class="far fa-calendar-alt"></i> {new Date(article.data.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            <!-- Puedes añadir un cálculo de tiempo de lectura aquí si lo deseas -->
+          </div>
+        </div>
+        {article.data.image && <img src={article.data.image} alt={article.data.title} class="article-main-image" />}
+        <div class="article-body">
+          <Content />
+        </div>
+        <!-- Si quieres la sección de CTA al final del artículo, la puedes incluir aquí -->
+        <div class="article-cta">
+            <h3>¿Listo para llevar tu SEO al siguiente nivel?</h3>
+            <p>Contáctanos hoy para una consulta gratuita y descubre cómo podemos ayudarte a mejorar tu posicionamiento en Google.</p>
+            <a href="https://wa.link/6t7cxa" class="cta-button primary">¡Hablemos!</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</ArticleLayout> 
