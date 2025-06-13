@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "globby": "^14.1.0",
+    "netlify-cms": "^2.10.192",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1"
