@@ -1,6 +1,6 @@
 const auth0 = new auth0.WebAuth({
-  domain: 'YOUR_AUTH0_DOMAIN', // Reemplaza con tu dominio de Auth0
-  clientID: 'YOUR_AUTH0_CLIENT_ID', // Reemplaza con tu Client ID de Auth0
+  domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com', // Reemplaza con tu dominio de Auth0
+  clientID: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab', // Reemplaza con tu Client ID de Auth0
   redirectUri: window.location.origin,
   responseType: 'token id_token',
   scope: 'openid profile email'
