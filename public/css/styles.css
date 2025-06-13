@@ -53,7 +53,7 @@ body {
 }
 
 .navbar {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: var(--nav-bg);
   padding: 0.8rem 0;
   position: fixed;
   top: 0;
@@ -61,7 +61,7 @@ body {
   z-index: 1030;
   transition: transform 0.3s ease;
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .navbar-brand-wrapper {
@@ -95,7 +95,7 @@ body {
 }
 
 .navbar-nav .nav-link {
-  color: #000;
+  color: var(--text-primary);
   font-weight: 500;
   padding: 0.5rem 1rem;
   transition: all 0.3s ease;
@@ -103,7 +103,7 @@ body {
 }
 
 .navbar-nav .nav-link:hover {
-  color: #0a58ca;
+  color: var(--accent-color);
 }
 
 .nav-link::after {
@@ -113,7 +113,7 @@ body {
   height: 2px;
   bottom: 0;
   left: 50%;
-  background: #0d6efd;
+  background: var(--accent-color);
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }
@@ -162,7 +162,7 @@ body {
     width: 25px;
     height: 2px;
     margin: 5px 0;
-    background-color: #0d0d0d;
+    background-color: var(--text-primary);
     transition: all 0.3s ease;
 }
 
@@ -949,15 +949,7 @@ body {
     animation: fadeIn 0.6s ease forwards;
 }
 
-/* Estilos específicos para la página de experiencia */
-.experience-page .hero-section {
-    height: 60vh;
-    background: linear-gradient(rgba(13, 13, 13, 0.8), rgba(13, 13, 13, 0.9)),
-                url('../logos-he-imagenes/code-bg.jpg') center/cover;
-    margin-top: 0;
-    position: relative;
-}
-
+/* Estilos para la página de experiencia */
 .experience-page .hero-content {
     text-align: center;
     position: relative;
@@ -1199,10 +1191,6 @@ body {
     .specialties-grid,
     .approach-grid {
         grid-template-columns: 1fr;
-    }
-
-    .experience-page .hero-section {
-        height: 50vh;
     }
 }
 
