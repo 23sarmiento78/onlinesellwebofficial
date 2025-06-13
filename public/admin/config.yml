@@ -7,7 +7,7 @@ backend:
   auth_scope: "openid profile email"
   branch: main # o el nombre de tu rama principal (master/main)
 
-media_folder: "static/uploads" # Dónde se guardarán las imágenes subidas
+media_folder: "public/uploads" # Dónde se guardarán las imágenes subidas
 public_folder: "/uploads" # La ruta pública de las imágenes
 
 collections:
