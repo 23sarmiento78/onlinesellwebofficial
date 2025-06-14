@@ -1494,24 +1494,64 @@ textarea.form-control {
 }
 
 /* Ajustes responsive */
+@media (max-width: 992px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+    .contact-info {
+        margin-bottom: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
     .form-control {
-        padding: 0.9rem 1rem;
-        font-size: 0.95rem;
+        width: 100%; /* Asegura que los campos ocupen todo el ancho */
+        margin-bottom: 1rem; /* Espaciado entre campos */
     }
 
     textarea.form-control {
-        min-height: 100px;
+        min-height: 120px; /* Altura mínima para el área de texto */
+    }
+
+    .navbar-nav .nav-link.contact-btn {
+        padding: 0.75rem 1.5rem; /* Ajusta el padding para que se vean más como botones */
+        margin-top: 1rem; /* Espacio superior */
+        width: 100%; /* Ocupa todo el ancho disponible */
+        text-align: center; /* Centra el texto */
+        display: block; /* Asegura que tomen el ancho completo */
+    }
+
+    #login-button.contact-btn {
+        background: var(--accent-color); /* Un color de fondo diferente para el botón de login */
+        color: var(--background-dark) !important; /* Texto oscuro para contraste */
+    }
+    #login-button.contact-btn:hover {
+        background: #e0b86a; /* Color de hover */
+        color: var(--background-dark) !important;
+    }
+
+    #user-dropdown .dropdown-toggle.contact-btn {
+        background: var(--accent-color);
+        color: var(--background-dark) !important;
+    }
+    #user-dropdown .dropdown-toggle.contact-btn:hover {
+        background: #e0b86a;
+        color: var(--background-dark) !important;
     }
 }
 
 @media (max-width: 576px) {
     .form-control {
-        padding: 0.8rem;
+        font-size: 1rem;
+        padding: 0.6rem 0.8rem;
     }
 
     textarea.form-control {
-        min-height: 80px;
+        min-height: 100px;
+    }
+
+    .contact-section .contact-form-container h2 {
+        font-size: 1.8rem;
     }
 }
 
@@ -1551,15 +1591,9 @@ textarea.form-control {
 @media (max-width: 992px) {
     .contact-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
     }
-
     .contact-info {
-        order: 2;
-    }
-
-    .contact-form-container {
-        order: 1;
+        margin-bottom: 2rem;
     }
 }
 
