@@ -43,6 +43,14 @@ async function updateUI() {
       userDropdown.style.display = 'block';
 
       const user = await auth0Client.getUser();
+      const authorizedEmail = '23sarmiento@gmail.com'; // ¡IMPORTANTE: Reemplaza con tu correo electrónico de Auth0!
+
+      if (user && user.email !== authorizedEmail) {
+        await logout(); // Desconectar al usuario no autorizado
+        alert('Acceso denegado. Solo el usuario autorizado puede iniciar sesión.');
+        return; // Detener la ejecución adicional de updateUI
+      }
+
       if (user && userDisplayName) {
         userDisplayName.textContent = `Hola, ${user.name || user.nickname || user.email}!`;
       }
