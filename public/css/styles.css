@@ -20,6 +20,7 @@
     --container-padding: 2rem;
     --button-bg: #007bff;
     --button-hover-bg: #0056b3;
+    --button-uniform-width: 200px; /* Nuevo: Ancho uniforme para botones clave */
 }
 
 @media (max-width: 768px) {
@@ -127,6 +128,11 @@ body {
   padding: 0.5rem 1.5rem !important;
   color: #fff !important;
   transition: all 0.3s ease !important;
+  width: var(--button-uniform-width); /* Aplicar ancho uniforme */
+  box-sizing: border-box;
+  display: flex; /* Usar flexbox para centrar contenido */
+  justify-content: center;
+  align-items: center;
 }
 
 .contact-btn:hover {
@@ -512,6 +518,13 @@ body {
     .success-card {
         margin: 0 1rem;
     }
+
+    .contact-btn, /* Asegurar que los botones tomen el ancho completo en móvil */
+    .cta-button {
+        width: 100%;
+        max-width: 300px; /* Limitar el ancho máximo en pantallas pequeñas para que no se extiendan demasiado */
+        margin: 0 auto; /* Centrar los botones cuando toman ancho completo */
+    }
 }
 
 /* Estilos generales */
@@ -849,7 +862,9 @@ body {
 }
 
 .cta-button {
-    display: inline-block;
+    display: flex; /* Usar flexbox para centrar contenido y controlar el ancho */
+    align-items: center;
+    justify-content: center;
     padding: 1rem 2rem;
     border: none;
     border-radius: 5px;
@@ -858,6 +873,8 @@ body {
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s ease;
+    width: var(--button-uniform-width); /* Aplicar ancho uniforme */
+    box-sizing: border-box;
 }
 
 .cta-button:hover {
@@ -1512,6 +1529,18 @@ textarea.form-control {
 
     textarea.form-control {
         min-height: 80px;
+    }
+}
+
+@media (max-width: 420px) {
+    .form-control {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+
+    .submit-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
     }
 }
 
