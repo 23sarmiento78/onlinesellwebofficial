@@ -103,49 +103,49 @@ const {
 
           <!-- Menú colapsable -->
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
+            <ul class="main-nav">
+              <li>
                 <a href="/" class="nav-link">
                   <i class="fas fa-home"></i>
                   <span>Inicio</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li>
                 <a href="/planes/" class="nav-link">
                   <i class="fas fa-tags"></i>
                   <span>Planes</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li>
                 <a href="/mi-experiencia/" class="nav-link">
                   <i class="fas fa-user-tie"></i>
                   <span>Mi Experiencia</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li>
                 <a href="/blog/" class="nav-link">
                   <i class="fas fa-newspaper"></i>
                   <span>Blog</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li>
                 <a href="/legal/" class="nav-link">
                   <i class="fas fa-shield-alt"></i>
                   <span>Legal</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="https://wa.link/6t7cxa" class="nav-link contact-btn">
-                  <i class="bi bi-telephone-fill"></i> Cotizar ahora
+              <li>
+                <a href="https://wa.link/6t7cxa" class="btn-filled">
+                   Cotizar ahora
                 </a>
               </li>
             </ul>
-            <div id="auth-buttons-container" class="d-flex align-items-center ms-lg-3">
-              <a href="#" id="login-button" class="nav-link contact-btn me-2">Iniciar Sesión</a>
+            <div id="auth-buttons-container">
+              <a href="#" id="login-button" class="btn-outline">Iniciar Sesión</a>
 
               <div id="user-dropdown" class="dropdown" style="display: none;">
                 <a
-                  class="nav-link contact-btn dropdown-toggle me-2"
+                  class="dropdown-toggle"
                   href="#"
                   role="button"
                   id="userDropdownMenuLink"
@@ -211,6 +211,9 @@ const {
         </div>
         <div class="footer-bottom">
           <p>&copy; {new Date().getFullYear()} Online Sell Web. Todos los derechos reservados.</p>
+          <button id="theme-toggle" class="btn-outline theme-toggle-btn" aria-label="Alternar tema oscuro/claro">
+            <i class="fas fa-sun"></i>
+          </button>
         </div>
       </div>
     </footer>
@@ -219,6 +222,113 @@ const {
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
     <script src="/js/auth.js" is:inline></script>
     <script src="/js/main.js" is:inline></script>
+    <script>
+      // Script para manejar el tema oscuro/claro
+      document.addEventListener('DOMContentLoaded', () => {
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Cargar el tema guardado o usar el tema oscuro por defecto
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          body.classList.remove('dark-theme', 'light-theme');
+          body.classList.add(savedTheme);
+          updateThemeToggleIcon(savedTheme);
+        } else {
+          body.classList.add('dark-theme'); // Tema oscuro por defecto
+          updateThemeToggleIcon('dark-theme');
+        }
+
+        themeToggle.addEventListener('click', () => {
+          if (body.classList.contains('dark-theme')) {
+            body.classList.remove('dark-theme');
+            body.classList.add('light-theme');
+            localStorage.setItem('theme', 'light-theme');
+            updateThemeToggleIcon('light-theme');
+          } else {
+            body.classList.remove('light-theme');
+            body.classList.add('dark-theme');
+            localStorage.setItem('theme', 'dark-theme');
+            updateThemeToggleIcon('dark-theme');
+          }
+        });
+
+        function updateThemeToggleIcon(currentTheme) {
+          const icon = themeToggle.querySelector('i');
+          if (currentTheme === 'dark-theme') {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+          } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+          }
+        }
+      });
+
+      // Script para ocultar el botón de login y mostrar el dropdown si el usuario está logueado
+      document.addEventListener('DOMContentLoaded', () => {
+        const loginButton = document.getElementById('login-button');
+        const userDropdown = document.getElementById('user-dropdown');
+        const userDisplayName = document.getElementById('user-display-name');
+        const logoutButtonDropdown = document.getElementById('logout-button-dropdown');
+
+        // Función para verificar si el usuario está logueado (puedes reemplazar con tu lógica de Auth0)
+        function checkIfUserIsLoggedIn() {
+          // Aquí deberías integrar la lógica de Auth0 para verificar si el usuario está autenticado
+          // Por ahora, es un placeholder
+          const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; // Ejemplo simple
+          return isLoggedIn;
+        }
+
+        function getUserProfileName() {
+          // Aquí deberías obtener el nombre del perfil del usuario de Auth0
+          // Por ahora, es un placeholder
+          return localStorage.getItem('userName') || 'Usuario'; // Ejemplo simple
+        }
+
+        if (checkIfUserIsLoggedIn()) {
+          loginButton.style.display = 'none';
+          userDropdown.style.display = 'block';
+          userDisplayName.textContent = getUserProfileName();
+        } else {
+          loginButton.style.display = 'block';
+          userDropdown.style.display = 'none';
+        }
+
+        // Manejar el logout (puedes reemplazar con tu lógica de Auth0)
+        logoutButtonDropdown.addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('userName');
+          window.location.reload(); // Recargar la página para reflejar el cambio
+        });
+
+        // Redirigir el botón de login (puedes reemplazar con tu lógica de Auth0)
+        loginButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          // Redirigir a la página de login de Auth0 o iniciar el flujo de login
+          alert('Simulando inicio de sesión. En una aplicación real, esto redirigiría a Auth0.');
+          // Ejemplo: localStorage.setItem('isLoggedIn', 'true');
+          // localStorage.setItem('userName', 'MiUsuario');
+          // window.location.reload();
+        });
+      });
+    </script>
     <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/f6ab0c5fa0f73bab894709899/f732c2f3acec06ae9ef054f6f.js");</script>
+    <script>
+      // Script para manejar el cambio de estilo del navbar al hacer scroll
+      document.addEventListener('DOMContentLoaded', () => {
+        const navbar = document.querySelector('.navbar');
+        const headerHeight = document.querySelector('.main-header').offsetHeight;
+
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > headerHeight / 2) { // O a partir de cierta cantidad de scroll
+            navbar.classList.add('scrolled');
+          } else {
+            navbar.classList.remove('scrolled');
+          }
+        });
+      });
+    </script>
   </body>
 </html> 

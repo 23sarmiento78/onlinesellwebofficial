@@ -1,5 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const latestArticles = (await getCollection('articles'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -29,8 +34,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
-  <!-- La sección del blog será gestionada por src/pages/blog/index.astro y los artículos individuales. -->
-  <!-- Eliminado el contenido duplicado del blog de aquí. -->
+  <!-- Sección de los Últimos Artículos del Blog -->
+  <section class="blog-section">
+    <div class="container">
+      <div class="blog-header">
+        <h2 class="blog-title-main">Últimos Artículos</h2>
+        <p class="blog-description">Mantente al día con nuestras últimas publicaciones sobre desarrollo web y marketing digital.</p>
+      </div>
+      <div class="blog-grid">
+        {
+          latestArticles.map((article) => (
+            <a href={`/blog/${article.slug}`} class="blog-card">
+              <div class="blog-image-container">
+                <img src={article.data.image} alt={article.data.title} class="blog-image"/>
+              </div>
+              <div class="blog-content">
+                <span class="blog-category">{article.data.category}</span>
+                <h2 class="blog-title">{article.data.title}</h2>
+                <p class="blog-excerpt">{article.data.description}</p>
+                <div class="blog-footer">
+                  <span class="blog-date">{article.data.date.toLocaleDateString()}</span>
+                  <span class="blog-read-more">Leer más →</span>
+                </div>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
   <section class="contact-section">
     <div class="container">
