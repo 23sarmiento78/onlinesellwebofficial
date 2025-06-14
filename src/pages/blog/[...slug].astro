@@ -15,7 +15,24 @@ const { Content } = await article.render();
 ---
 
 <ArticleLayout title={article.data.title} description={article.data.description} image={article.data.image}>
-  <h1>{article.data.title}</h1>
-  <p>Fecha: {article.data.date.toLocaleDateString()}</p>
-  <Content />
+  <section class="article-section">
+    <div class="container article-content">
+      <header class="article-header">
+        <span class="article-category">{article.data.category}</span>
+        <h1 class="article-title">{article.data.title}</h1>
+        <div class="article-meta">
+          <span class="article-date">Publicado el {article.data.date.toLocaleDateString()}</span>
+        </div>
+        {article.data.image && <img src={article.data.image} alt={article.data.title} class="article-main-image" />}
+      </header>
+      <div class="article-body">
+        <Content />
+      </div>
+      <div class="article-cta">
+        <h3>¿Te gustó este artículo?</h3>
+        <p>No dudes en compartirlo o contactarnos si tienes alguna pregunta.</p>
+        <!-- Aquí podrías añadir botones para compartir en redes sociales o un formulario de contacto -->
+      </div>
+    </div>
+  </section>
 </ArticleLayout> 

@@ -9,15 +9,24 @@ const articles = (await getCollection('articles')).sort(
 
 <ArticleLayout title="Blog" description="Descubre los últimos artículos en nuestro blog.">
   <h1>Nuestro Blog</h1>
-  <ul>
+  <div class="blog-grid">
     {
       articles.map((article) => (
-        <li>
-          <a href={`/blog/${article.slug}`}>{article.data.title}</a>
-          <p>{article.data.date.toLocaleDateString()}</p>
-          <p>{article.data.description}</p>
-        </li>
+        <a href={`/blog/${article.slug}`} class="blog-card">
+          <div class="blog-image-container">
+            <img src={article.data.image} alt={article.data.title} class="blog-image"/>
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">{article.data.category}</span>
+            <h2 class="blog-title">{article.data.title}</h2>
+            <p class="blog-excerpt">{article.data.description}</p>
+            <div class="blog-footer">
+              <span class="blog-date">{article.data.date.toLocaleDateString()}</span>
+              <span class="blog-read-more">Leer más →</span>
+            </div>
+          </div>
+        </a>
       ))
     }
-  </ul>
+  </div>
 </ArticleLayout> 
