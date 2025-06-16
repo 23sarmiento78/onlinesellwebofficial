@@ -106,7 +106,7 @@ ul, ol {
 }
 
 .navbar-brand img {
-  height: 60px;
+  height: 80px;
   width: auto;
   margin-right: 10px;
 }
@@ -181,7 +181,7 @@ ul, ol {
 }
 
 .nav-logo {
-    height: 40px;
+    height: 80px;
     width: auto;
 }
 
@@ -1135,13 +1135,17 @@ body {
 }
 
 .footer-grid {
+    position: relative;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 1.5fr 1fr 1fr;
     gap: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .footer-logo {
-    height: 60px;
+    height: 80px;
+    width: auto;
     margin-bottom: 1rem;
 }
 
@@ -2237,9 +2241,12 @@ textarea.form-control {
 }
 
 .footer-grid {
+    position: relative;
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr;
     gap: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 /* Media Queries mejorados para layouts responsivos */
