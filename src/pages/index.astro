@@ -44,7 +44,7 @@ const latestArticles = (await getCollection('articles'))
       <div class="blog-grid">
         {
           latestArticles.map((article) => (
-            <a href={`/blog/${article.slug}`} class="blog-card">
+            <a href={`/blog/${article.slug}/`} class="blog-card">
               <div class="blog-image-container">
                 <img src={article.data.image} alt={article.data.title} class="blog-image"/>
               </div>

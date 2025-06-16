@@ -1,7 +1,6 @@
 ---
 title: El futuro de la inteligencia artificial en el desarrollo web
 date: 2025-06-13
-image: /uploads/pexels-cottonbro-6153354.jpg
 description: "Descripción corta: Descubre cómo la IA está revolucionando el
   desarrollo web, desde la optimización de código hasta la automatización de
   procesos. Exploramos casos de uso reales y tendencias emergentes que están

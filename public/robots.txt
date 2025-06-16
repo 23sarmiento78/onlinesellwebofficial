@@ -4,4 +4,4 @@ Disallow: /tmp/
 Disallow: /logs/
 Allow: /
 
-Sitemap: https://service.hgaruna.org/sitemap.xml
+Sitemap: https://service.hgaruna.org/sitemap-index.xml
