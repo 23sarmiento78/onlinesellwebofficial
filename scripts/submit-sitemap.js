@@ -4,7 +4,7 @@ const path = require('path');
 const xml2js = require('xml2js');
 
 const INDEXING_FUNCTION_URL = 'https://service.hgaruna.org/.netlify/functions/index-page';
-const SITEMAP_PATH = path.resolve(__dirname, '../public/sitemap.xml'); // Asume que tu sitemap.xml está en public/
+const SITEMAP_PATH = path.resolve(__dirname, '../dist/sitemap-index.xml'); // Ruta corregida
 
 async function submitUrlForIndexing(url) {
     try {

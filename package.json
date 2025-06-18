@@ -9,7 +9,9 @@
     "globby": "^14.1.0",
     "netlify-cms": "^2.10.192",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "googleapis": "^129.0.0",
+    "google-auth-library": "^9.4.1"
   },
   "scripts": {
     "dev": "astro dev",
