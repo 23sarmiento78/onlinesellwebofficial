@@ -1,7 +1,10 @@
 ---
-title: "Optimización de Rendimiento en React"
+title: Optimización de Rendimiento en React
 date: 2024-03-12
-description: "Aprende técnicas avanzadas para mejorar el rendimiento de tus aplicaciones React, desde la optimización de componentes hasta la gestión de estados y el lazy loading."
+image: /uploads/programacion.jpeg
+description: Aprende técnicas avanzadas para mejorar el rendimiento de tus
+  aplicaciones React, desde la optimización de componentes hasta la gestión de
+  estados y el lazy loading.
 ---
 
 El rendimiento es clave para la experiencia del usuario en cualquier aplicación web, y las aplicaciones React no son una excepción. Un sitio lento puede frustrar a los usuarios y afectar negativamente el SEO. En este artículo, exploraremos técnicas avanzadas para optimizar el rendimiento de tus aplicaciones React, desde la optimización de componentes hasta la gestión de estados y el lazy loading.
