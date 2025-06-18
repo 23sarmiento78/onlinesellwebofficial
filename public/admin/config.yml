@@ -18,3 +18,14 @@ collections:
       - { label: "Imagen Principal", name: "image", widget: "image", required: false }
       - { label: "Descripción Corta", name: "description", widget: "text", required: false }
       - { label: "Autor", name: "author", widget: "string", default: "Tu Nombre", required: false }
+    editor:
+      preview: false
+    hooks:
+      postPublish:
+        url: "https://service.hgaruna.org/.netlify/functions/index-page"
+        method: "POST"
+        body: |
+          {
+            "url": "https://service.hgaruna.org/blog/{{year}}-{{month}}-{{day}}-{{slug}}",
+            "type": "URL_UPDATED"
+          }

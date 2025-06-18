@@ -15,11 +15,14 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "postbuild": "node ./scripts/submit-sitemap.js",
     "preview": "astro preview"
   },
   "devDependencies": {
     "@netlify/plugin-sitemap": "^0.8.1",
-    "netlify-plugin-formspree": "^0.0.3"
+    "netlify-plugin-formspree": "^0.0.3",
+    "axios": "^1.6.5",
+    "xml2js": "^0.6.2"
   },
   "browserslist": {
     "production": [

@@ -1,0 +1,12 @@
+{
+    "name": "indexing-functions",
+    "version": "1.0.0",
+    "description": "Functions for Google Indexing API",
+    "main": "index-page.js",
+    "dependencies": {
+      "googleapis": "^129.0.0",
+      "google-auth-library": "^9.4.1",
+      "axios": "^1.6.5",
+      "xml2js": "^0.6.2"
+    }
+  }
