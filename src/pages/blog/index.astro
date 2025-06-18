@@ -7,7 +7,18 @@ const articles = (await getCollection('articles')).sort(
 );
 ---
 
-<ArticleLayout title="Blog" description="Descubre los últimos artículos en nuestro blog.">
+<ArticleLayout
+  title="Blog de hgaruna - Artículos de Desarrollo Web y Marketing"
+  description="Explora los últimos artículos de hgaruna sobre desarrollo web, diseño UX/UI, marketing digital y tendencias tecnológicas."
+  ogTitle="Blog de hgaruna: Ideas y Tendencias en Desarrollo Web"
+  ogDescription="Mantente al día con las últimas noticias y guías de hgaruna sobre desarrollo web, SEO, marketing digital y mucho más."
+  ogImage="/logos-he-imagenes/logo3.png"
+  ogUrl="https://service.hgaruna.org/blog/"
+  twitterTitle="Blog hgaruna: Novedades en Web y Marketing"
+  twitterDescription="Artículos, tutoriales y análisis de expertos en desarrollo web y marketing digital de hgaruna."
+  twitterImage="/logos-he-imagenes/logo3.png"
+  twitterUrl="https://service.hgaruna.org/blog/"
+>
   <h1>Nuestro Blog</h1>
   <div class="blog-grid">
     {

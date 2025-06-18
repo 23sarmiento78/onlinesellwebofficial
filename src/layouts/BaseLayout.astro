@@ -57,6 +57,43 @@ const {
     {twitterImage && <meta name="twitter:image" content={twitterImage} />}
     {twitterUrl && <meta name="twitter:url" content={twitterUrl} />}
 
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "name": "hgaruna",
+            "url": "https://service.hgaruna.org/",
+            "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+54-3541-237972",
+              "contactType": "Customer Service",
+              "email": "23sarmiento@gmail.com"
+            },
+            "sameAs": [
+              "https://www.facebook.com/profile.php?id=61557007626922",
+              "https://www.instagram.com/onlinesellweb/"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "url": "https://service.hgaruna.org/",
+            "name": "hgaruna",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://service.hgaruna.org/blog/?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+    </script>
+
     <link rel="shortcut icon" href="/logos-he-imagenes/logo3.png" type="image/x-icon" />
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
@@ -84,7 +121,7 @@ const {
         <div class="container">
           <div class="navbar-brand-wrapper">
             <a class="navbar-brand" href="/">
-              <img id="nav-logo" src="\logos-he-imagenes\logonegro-Photoroom.png" alt="OSW Logo" />
+              <img id="nav-logo" src="\logos-he-imagenes\logonegro-Photoroom.png" alt="Logo de hgaruna" />
             </a>
           </div>
 
@@ -177,8 +214,8 @@ const {
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
-            <img id="footer-logo" src="\logos-he-imagenes\logonegro-Photoroom.png" alt="Online Sell Web Logo" class="footer-logo" loading="lazy" />
-            <h3>Online Sell Web</h3>
+            <img id="footer-logo" src="\logos-he-imagenes\logonegro-Photoroom.png" alt="Logo de hgaruna" class="footer-logo" loading="lazy" />
+            <h3>hgaruna</h3>
             <p class="slogan">Tu éxito en línea, nuestra misión.</p>
             <div class="social-links">
               <a href="https://www.facebook.com/profile.php?id=61557007626922" target="_blank" aria-label="Facebook"
@@ -210,7 +247,7 @@ const {
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Online Sell Web. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} hgaruna. Todos los derechos reservados.</p>
           <button id="theme-toggle" class="btn-outline theme-toggle-btn" aria-label="Alternar tema oscuro/claro">
             <i class="fas fa-sun"></i>
           </button>
