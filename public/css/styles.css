@@ -37,7 +37,7 @@ body {
     padding: 0;
     min-height: 100vh;
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Asegurar que no haya desbordamiento horizontal */
     overflow-y: auto;
     background-color: var(--background-dark);
     background-size: cover;
@@ -417,11 +417,11 @@ ul, ol {
 }
 
 .container {
-    width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    box-sizing: border-box;
+    margin: 0 auto; /* Centrar el contenedor principal */
+    padding: 0 var(--container-padding); /* Mantener padding lateral */
+    width: 100%; /* Asegurar que el contenedor ocupe el 100% del ancho disponible */
+    box-sizing: border-box; /* Incluir padding en el cálculo del ancho */
 }
 
 /* Logo mejorado */
@@ -1805,48 +1805,33 @@ textarea.form-control {
 
 @media (max-width: 768px) {
     .contact-form-container {
-        padding: 1.5rem;
+        width: 100% !important; 
+        max-width: 400px; 
+        margin: 0 auto !important; 
+        padding: 1rem; 
+        display: block !important; /* Asegurar que se comporte como un bloque para el centrado de margen */
     }
-
     .contact-form-container h2 {
         font-size: 1.6rem;
-        margin-bottom: 1rem;
-    }
-
-    .form-group label {
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .form-control {
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-    }
-
-    textarea.form-control {
-        min-height: 90px;
-    }
-
-    .submit-button {
-        padding: 0.9rem 1.5rem;
-        font-size: 1rem;
-        gap: 0.6rem;
     }
 }
 
 @media (max-width: 576px) {
+    .contact-section {
+        padding: 3rem var(--container-padding);
+    }
+    .modern-form {
+        padding: 1.5rem;
+        width: 100% !important; /* Forzar ancho completo */
+        margin: 0 auto !important; /* Forzar centrado */
+        display: block !important; /* Asegurar que se comporte como un bloque para el centrado de margen */
+    }
     .contact-form-container {
-        border-radius: 15px;
-        padding: 1.2rem;
-    }
-
-    .contact-form-container h2 {
-        font-size: 1.4rem;
-    }
-
-    .submit-button {
-        font-size: 0.9rem;
-        padding: 0.8rem 1rem;
+        padding: 0.5rem; 
+        max-width: 100%; 
+        margin: 0 auto !important; /* Forzar centrado */
+        width: 100% !important; /* Forzar ancho completo */
+        display: block !important; /* Asegurar que se comporte como un bloque para el centrado de margen */
     }
 }
 
@@ -3025,6 +3010,8 @@ body {
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-color);
+    width: 100%; /* Asegurar que ocupe el 100% del contenedor */
+    box-sizing: border-box; /* Incluir padding y borde en el ancho */
 }
 
 @media (min-width: 768px) {
@@ -3109,4 +3096,161 @@ body {
 /* Asegura que el contenedor del formulario responda correctamente */
 .contact-form-container {
     padding: 1rem; /* Ajusta el padding para el contenedor */
+}
+
+/* --- Estilos para la Sección de Contacto (Página Principal) --- */
+.contact-section {
+    padding: 4rem var(--container-padding); /* Añadir padding lateral */
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    text-align: center; /* Centrar el texto en la sección */
+    display: flex; /* Usar flexbox */
+    flex-direction: column; /* Apilar elementos verticalmente */
+    align-items: center; /* Centrar horizontalmente los elementos hijos */
+    width: 100%; /* Asegurar que la sección ocupe todo el ancho */
+    box-sizing: border-box; /* Incluir padding en el cálculo del ancho */
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Info on left, form on right */
+    gap: 3rem;
+    align-items: flex-start;
+    max-width: 1200px;
+    width: 100%; /* Asegurar que ocupe todo el ancho disponible */
+    margin: 0 auto; /* Centrar la cuadrícula */
+    text-align: left;
+    padding: 3rem 0;
+    box-sizing: border-box; /* Incluir padding en el cálculo del ancho */
+}
+
+@media (max-width: 992px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0; 
+        width: 100%; 
+        margin: 0 auto; /* Asegurar centrado en pantallas medianas */
+    }
+    .contact-info {
+        padding: 2rem;
+    }
+    .contact-form-container {
+        padding: 1.5rem;
+        max-width: 500px; 
+        margin: 0 auto; 
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-form-container {
+        width: 100%; 
+        max-width: 400px; 
+        margin: 0 auto; 
+        padding: 1rem; 
+    }
+    .contact-form-container h2 {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-section {
+        padding: 3rem var(--container-padding);
+    }
+    .modern-form {
+        padding: 1.5rem;
+    }
+    .contact-form-container {
+        padding: 0.5rem; 
+        max-width: 100%; 
+        margin: 0 auto; /* Asegurar centrado en pantallas muy pequeñas */
+    }
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 100%;
+        padding: 0 1rem; /* Asegurar padding para que el contenido no se pegue a los bordes */
+        box-sizing: border-box;
+    }
+}
+
+/* Reafirmar estilos para contact-section */
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4rem var(--container-padding); /* Asegura padding consistente */
+}
+
+/* Ajustes para contact-grid en móviles */
+@media (max-width: 992px) {
+    .contact-grid {
+        grid-template-columns: 1fr; /* Columnas apiladas */
+        gap: 2rem;
+        width: 100%;
+        max-width: 500px; /* Limitar ancho para tabletas */
+        margin: 0 auto; /* Centrar la cuadrícula */
+        box-sizing: border-box;
+    }
+    .contact-info {
+        padding: 2rem;
+    }
+    .contact-form-container {
+        padding: 1.5rem;
+        max-width: 500px; 
+        margin: 0 auto; 
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-form-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto; /* Centrar el contenedor del formulario */
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-form-container {
+        width: 100%;
+        max-width: 100%; /* Permitir ancho completo en pantallas muy pequeñas */
+        margin: 0 auto; /* Forzar centrado */
+        padding: 0.5rem;
+        box-sizing: border-box;
+    }
+    .modern-form {
+        width: 100%;
+        margin: 0 auto; /* Forzar centrado del formulario interno */
+        padding: 1.5rem;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 480px) { /* Nuevo media query para pantallas muy pequeñas */
+    .contact-section {
+        padding: 2rem 1rem; /* Ajustar padding para pantallas muy pequeñas */
+    }
+    .contact-grid {
+        max-width: 100%; /* Asegurar que la cuadrícula puede encogerse completamente */
+        padding: 0; /* Eliminar padding extra */
+    }
+    .contact-form-container {
+        padding: 1rem; /* Ajustar padding dentro del contenedor del formulario */
+    }
+    .modern-form {
+        padding: 1rem; /* Ajustar padding dentro del formulario mismo */
+    }
+    .contact-form-container h2 {
+        font-size: 1.5rem; /* Reducir ligeramente el tamaño del título */
+    }
 }
