@@ -6,12 +6,45 @@ interface Props {
   image?: string;
   ogUrl?: string;
   twitterUrl?: string;
+  // Nuevas propiedades para SEO
+  seo_metadata?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    ogTitle?: string;
+    ogDescription?: string;
+    ogImage?: string;
+    twitterTitle?: string;
+    twitterDescription?: string;
+    twitterImage?: string;
+  };
 }
 
-const { title, description, image, ogUrl, twitterUrl } = Astro.props;
+const { title, description, image, ogUrl, twitterUrl, seo_metadata } = Astro.props;
+
+// Definir valores SEO, usando los campos del CMS si existen, de lo contrario, los valores predeterminados
+const finalMetaTitle = seo_metadata?.metaTitle || title;
+const finalMetaDescription = seo_metadata?.metaDescription || description || "";
+const finalOgTitle = seo_metadata?.ogTitle || title;
+const finalOgDescription = seo_metadata?.ogDescription || description || "";
+const finalOgImage = seo_metadata?.ogImage || image;
+const finalTwitterTitle = seo_metadata?.twitterTitle || title;
+const finalTwitterDescription = seo_metadata?.twitterDescription || description || "";
+const finalTwitterImage = seo_metadata?.twitterImage || image;
+
 ---
 
-<BaseLayout title={title} description={description || ""} ogImage={image} ogUrl={ogUrl} twitterUrl={twitterUrl}>
+<BaseLayout
+  title={finalMetaTitle}
+  description={finalMetaDescription}
+  ogTitle={finalOgTitle}
+  ogDescription={finalOgDescription}
+  ogImage={finalOgImage}
+  ogUrl={ogUrl}
+  twitterTitle={finalTwitterTitle}
+  twitterDescription={finalTwitterDescription}
+  twitterImage={finalTwitterImage}
+  twitterUrl={twitterUrl}
+>
   <main class="article-main">
     {image && (
       <div class="article-image-container">
