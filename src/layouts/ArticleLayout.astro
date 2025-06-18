@@ -12,7 +12,12 @@ const { title, description, image, ogUrl, twitterUrl } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description || ""} ogImage={image} ogUrl={ogUrl} twitterUrl={twitterUrl}>
-  <main>
+  <main class="article-main">
+    {image && (
+      <div class="article-image-container">
+        <img src={image} alt={title} class="article-image" loading="lazy" />
+      </div>
+    )}
     <slot />
   </main>
 </BaseLayout> 
