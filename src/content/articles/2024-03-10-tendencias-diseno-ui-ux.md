@@ -1,7 +1,9 @@
 ---
-title: "Tendencias de Diseño UI/UX que Dominarán 2024"
+title: Tendencias de Diseño UI/UX que Dominarán 2024
 date: 2024-03-10
-description: "Explora las últimas tendencias en diseño de interfaces y experiencia de usuario que definirán el futuro del diseño web en 2024."
+image: /uploads/programacion.jpeg
+description: Explora las últimas tendencias en diseño de interfaces y
+  experiencia de usuario que definirán el futuro del diseño web en 2024.
 ---
 
 El diseño de interfaces de usuario (UI) y la experiencia de usuario (UX) están en constante evolución. Para 2024, varias tendencias están emergiendo que no solo mejorarán la estética de nuestros productos digitales, sino que también harán que las interacciones sean más intuitivas, accesibles y personalizadas. Aquí exploramos las tendencias clave que definirán el futuro del diseño web y de aplicaciones.
