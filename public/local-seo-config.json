@@ -1,0 +1,45 @@
+{
+  "localBusiness": {
+    "name": "hgaruna",
+    "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
+    "address": {
+      "streetAddress": "Villa Carlos Paz",
+      "addressLocality": "Villa Carlos Paz",
+      "addressRegion": "Córdoba",
+      "postalCode": "5152",
+      "addressCountry": "AR"
+    },
+    "geo": {
+      "latitude": "-31.4201",
+      "longitude": "-64.4998"
+    },
+    "contact": {
+      "telephone": "+54-3541-237972",
+      "email": "23sarmiento@gmail.com"
+    },
+    "services": [
+      "Desarrollo Web Profesional",
+      "Diseño de Sitios Web",
+      "Marketing Digital",
+      "SEO Local",
+      "Mantenimiento Web",
+      "E-commerce"
+    ],
+    "serviceArea": [
+      "Villa Carlos Paz",
+      "Córdoba Capital",
+      "Valle de Punilla",
+      "Sierras de Córdoba"
+    ],
+    "keywords": [
+      "desarrollo web villa carlos paz",
+      "diseño web carlos paz",
+      "marketing digital córdoba",
+      "sitios web profesionales villa carlos paz",
+      "seo local carlos paz",
+      "mantenimiento web córdoba",
+      "e-commerce villa carlos paz",
+      "programación web carlos paz"
+    ]
+  }
+} 

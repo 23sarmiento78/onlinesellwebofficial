@@ -1,0 +1,428 @@
+{
+  "businessInfo": {
+    "businessName": "hgaruna - Desarrollo Web Villa Carlos Paz",
+    "location": "Villa Carlos Paz, Córdoba",
+    "services": [
+      "Desarrollo Web Profesional",
+      "Diseño de Sitios Web",
+      "Marketing Digital",
+      "SEO Local",
+      "E-commerce",
+      "Mantenimiento Web"
+    ],
+    "localKeywords": [
+      "Villa Carlos Paz",
+      "Carlos Paz",
+      "Córdoba",
+      "Valle de Punilla",
+      "Sierras de Córdoba"
+    ]
+  },
+  "monthlyPosts": [
+    {
+      "day": 1,
+      "date": "1/1/2025",
+      "category": "casosExito",
+      "content": "🎉 ¡Nuevo sitio web lanzado en Villa Carlos Paz! Marketing Digital para hotel. Diseño moderno y funcional que potencia la presencia online de nuestros clientes locales. #DesarrolloWeb #VillaCarlosPaz #MarketingDigital",
+      "hashtags": [
+        "#DesarrolloWeb",
+        "#VillaCarlosPaz",
+        "#MarketingDigital"
+      ],
+      "suggestedImage": "trabajo-completado.jpg"
+    },
+    {
+      "day": 2,
+      "date": "2/1/2025",
+      "category": "casosExito",
+      "content": "🚀 Otro éxito en Villa Carlos Paz: Diseño de Sitios Web implementado con excelentes resultados. Nuestros clientes locales confían en hgaruna para su transformación digital. #ÉxitoLocal #DesarrolloWeb #VillaCarlosPaz",
+      "hashtags": [
+        "#DesarrolloWeb",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "trabajo-completado.jpg"
+    },
+    {
+      "day": 3,
+      "date": "3/1/2025",
+      "category": "informativos",
+      "content": "📈 CRECIMIENTO: El e-commerce en Córdoba creció un 32% este año. ¿Tu negocio en Villa Carlos Paz está listo para vender online? #Ecommerce #Crecimiento #CarlosPaz",
+      "hashtags": [
+        "#Ecommerce",
+        "#Crecimiento",
+        "#CarlosPaz"
+      ],
+      "suggestedImage": "estadisticas.jpg"
+    },
+    {
+      "day": 4,
+      "date": "4/1/2025",
+      "category": "ofertas",
+      "content": "🎯 PROMOCIÓN LOCAL: Sitios web para restaurantes y hoteles en Valle de Punilla. Diseño personalizado + SEO local incluido. ¡Potencia tu negocio turístico! #Turismo #WebProfesional #CarlosPaz",
+      "hashtags": [
+        "#Turismo",
+        "#WebProfesional",
+        "#CarlosPaz"
+      ],
+      "suggestedImage": "oferta-especial.jpg"
+    },
+    {
+      "day": 5,
+      "date": "5/1/2025",
+      "category": "ofertas",
+      "content": "🔥 OFERTA ESPECIAL: Desarrollo web profesional para negocios en Villa Carlos Paz. 20% de descuento en tu primer proyecto. ¡Solo hasta fin de mes! #OfertaEspecial #DesarrolloWeb #VillaCarlosPaz",
+      "hashtags": [
+        "#OfertaEspecial",
+        "#DesarrolloWeb",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "oferta-especial.jpg"
+    },
+    {
+      "day": 6,
+      "date": "6/1/2025",
+      "category": "casosExito",
+      "content": "🚀 Otro éxito en Villa Carlos Paz: E-commerce implementado con excelentes resultados. Nuestros clientes locales confían en hgaruna para su transformación digital. #ÉxitoLocal #DesarrolloWeb #VillaCarlosPaz",
+      "hashtags": [
+        "#DesarrolloWeb",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "trabajo-completado.jpg"
+    },
+    {
+      "day": 7,
+      "date": "7/1/2025",
+      "category": "tips",
+      "content": "📱 TIP MARKETING: Las redes sociales son clave para negocios locales en Carlos Paz. Mantén contenido fresco y conecta con tu comunidad. #RedesSociales #MarketingLocal #CarlosPaz",
+      "hashtags": [
+        "#RedesSociales",
+        "#MarketingLocal",
+        "#CarlosPaz"
+      ],
+      "suggestedImage": "consejo-web.jpg"
+    },
+    {
+      "day": 8,
+      "date": "8/1/2025",
+      "category": "testimonios",
+      "content": "🌟 'hgaruna transformó mi presencia online. Mi restaurante en Valle de Punilla ahora tiene reservas online.' - Cliente feliz. #ÉxitoCliente #Restaurante #CarlosPaz",
+      "hashtags": [
+        "#Restaurante",
+        "#CarlosPaz"
+      ],
+      "suggestedImage": "cliente-feliz.jpg"
+    },
+    {
+      "day": 9,
+      "date": "9/1/2025",
+      "category": "informativos",
+      "content": "📊 ESTADÍSTICAS: El 78% de las búsquedas locales terminan en una compra. ¿Tu negocio en Villa Carlos Paz está visible online? #Estadísticas #MarketingLocal #CarlosPaz",
+      "hashtags": [
+        "#Estad",
+        "#MarketingLocal",
+        "#CarlosPaz"
+      ],
+      "suggestedImage": "estadisticas.jpg"
+    },
+    {
+      "day": 10,
+      "date": "10/1/2025",
+      "category": "informativos",
+      "content": "📈 CRECIMIENTO: El e-commerce en Córdoba creció un 32% este año. ¿Tu negocio en Villa Carlos Paz está listo para vender online? #Ecommerce #Crecimiento #CarlosPaz",
+      "hashtags": [
+        "#Ecommerce",
+        "#Crecimiento",
+        "#CarlosPaz"
+      ],
+      "suggestedImage": "estadisticas.jpg"
+    },
+    {
+      "day": 11,
+      "date": "11/1/2025",
+      "category": "testimonios",
+      "content": "💫 'Profesionalismo y resultados. Mi negocio en Villa Carlos Paz creció gracias a mi nueva web.' - Cliente recomendado. #Recomendación #Crecimiento #VillaCarlosPaz",
+      "hashtags": [
+        "#Recomendaci",
+        "#Crecimiento",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "cliente-feliz.jpg"
+    },
+    {
+      "day": 12,
+      "date": "12/1/2025",
+      "category": "casosExito",
+      "content": "✅ Proyecto completado: SEO Local para empresa en Villa Carlos Paz. Resultados increíbles en visibilidad y conversiones. ¿Tu negocio necesita una web profesional? ¡Contáctanos! #WebProfesional #CarlosPaz #NegociosLocales",
+      "hashtags": [
+        "#WebProfesional",
+        "#CarlosPaz",
+        "#NegociosLocales"
+      ],
+      "suggestedImage": "trabajo-completado.jpg"
+    },
+    {
+      "day": 13,
+      "date": "13/1/2025",
+      "category": "informativos",
+      "content": "📈 CRECIMIENTO: El e-commerce en Córdoba creció un 32% este año. ¿Tu negocio en Villa Carlos Paz está listo para vender online? #Ecommerce #Crecimiento #CarlosPaz",
+      "hashtags": [
+        "#Ecommerce",
+        "#Crecimiento",
+        "#CarlosPaz"
+      ],
+      "suggestedImage": "estadisticas.jpg"
+    },
+    {
+      "day": 14,
+      "date": "14/1/2025",
+      "category": "tips",
+      "content": "💡 TIP SEO LOCAL: ¿Sabías que el 46% de las búsquedas en Google son locales? Optimiza tu sitio web para aparecer en búsquedas de 'Villa Carlos Paz'. #SEOLocal #MarketingDigital #CarlosPaz",
+      "hashtags": [
+        "#SEOLocal",
+        "#MarketingDigital",
+        "#CarlosPaz"
+      ],
+      "suggestedImage": "consejo-web.jpg"
+    },
+    {
+      "day": 15,
+      "date": "15/1/2025",
+      "category": "ofertas",
+      "content": "🎯 PROMOCIÓN LOCAL: Sitios web para restaurantes y hoteles en Valle de Punilla. Diseño personalizado + SEO local incluido. ¡Potencia tu negocio turístico! #Turismo #WebProfesional #CarlosPaz",
+      "hashtags": [
+        "#Turismo",
+        "#WebProfesional",
+        "#CarlosPaz"
+      ],
+      "suggestedImage": "oferta-especial.jpg"
+    },
+    {
+      "day": 16,
+      "date": "16/1/2025",
+      "category": "casosExito",
+      "content": "🎉 ¡Nuevo sitio web lanzado en Villa Carlos Paz! SEO Local para comercio. Diseño moderno y funcional que potencia la presencia online de nuestros clientes locales. #DesarrolloWeb #VillaCarlosPaz #MarketingDigital",
+      "hashtags": [
+        "#DesarrolloWeb",
+        "#VillaCarlosPaz",
+        "#MarketingDigital"
+      ],
+      "suggestedImage": "trabajo-completado.jpg"
+    },
+    {
+      "day": 17,
+      "date": "17/1/2025",
+      "category": "tips",
+      "content": "🔍 CONSEJO WEB: Un sitio web responsivo es fundamental para negocios en Villa Carlos Paz. Los turistas y locales buscan desde móviles. ¿Tu web está optimizada? #DiseñoWeb #Responsive #VillaCarlosPaz",
+      "hashtags": [
+        "#Dise",
+        "#Responsive",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "consejo-web.jpg"
+    },
+    {
+      "day": 18,
+      "date": "18/1/2025",
+      "category": "ofertas",
+      "content": "⚡ OFERTA LIMITADA: E-commerce completo para comercios en Villa Carlos Paz. Incluye diseño + configuración + capacitación. ¡No te quedes sin tu tienda online! #Ecommerce #VillaCarlosPaz #NegociosDigitales",
+      "hashtags": [
+        "#Ecommerce",
+        "#VillaCarlosPaz",
+        "#NegociosDigitales"
+      ],
+      "suggestedImage": "oferta-especial.jpg"
+    },
+    {
+      "day": 19,
+      "date": "19/1/2025",
+      "category": "casosExito",
+      "content": "🎉 ¡Nuevo sitio web lanzado en Villa Carlos Paz! SEO Local para consultorio. Diseño moderno y funcional que potencia la presencia online de nuestros clientes locales. #DesarrolloWeb #VillaCarlosPaz #MarketingDigital",
+      "hashtags": [
+        "#DesarrolloWeb",
+        "#VillaCarlosPaz",
+        "#MarketingDigital"
+      ],
+      "suggestedImage": "trabajo-completado.jpg"
+    },
+    {
+      "day": 20,
+      "date": "20/1/2025",
+      "category": "testimonios",
+      "content": "💫 'Profesionalismo y resultados. Mi negocio en Villa Carlos Paz creció gracias a mi nueva web.' - Cliente recomendado. #Recomendación #Crecimiento #VillaCarlosPaz",
+      "hashtags": [
+        "#Recomendaci",
+        "#Crecimiento",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "cliente-feliz.jpg"
+    },
+    {
+      "day": 21,
+      "date": "21/1/2025",
+      "category": "informativos",
+      "content": "🌐 TENDENCIA: Los sitios web de comercios locales en Córdoba aumentaron un 45% en 2024. ¿Ya tienes el tuyo? #Tendencias #ComercioLocal #VillaCarlosPaz",
+      "hashtags": [
+        "#Tendencias",
+        "#ComercioLocal",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "estadisticas.jpg"
+    },
+    {
+      "day": 22,
+      "date": "22/1/2025",
+      "category": "casosExito",
+      "content": "🎉 ¡Nuevo sitio web lanzado en Villa Carlos Paz! Marketing Digital para estudio. Diseño moderno y funcional que potencia la presencia online de nuestros clientes locales. #DesarrolloWeb #VillaCarlosPaz #MarketingDigital",
+      "hashtags": [
+        "#DesarrolloWeb",
+        "#VillaCarlosPaz",
+        "#MarketingDigital"
+      ],
+      "suggestedImage": "trabajo-completado.jpg"
+    },
+    {
+      "day": 23,
+      "date": "23/1/2025",
+      "category": "testimonios",
+      "content": "💫 'Profesionalismo y resultados. Mi negocio en Villa Carlos Paz creció gracias a mi nueva web.' - Cliente recomendado. #Recomendación #Crecimiento #VillaCarlosPaz",
+      "hashtags": [
+        "#Recomendaci",
+        "#Crecimiento",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "cliente-feliz.jpg"
+    },
+    {
+      "day": 24,
+      "date": "24/1/2025",
+      "category": "testimonios",
+      "content": "⭐ 'Excelente trabajo en mi sitio web. Ahora recibo más consultas desde Villa Carlos Paz y alrededores.' - Cliente satisfecho de Carlos Paz. #Testimonio #Satisfacción #VillaCarlosPaz",
+      "hashtags": [
+        "#Testimonio",
+        "#Satisfacci",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "cliente-feliz.jpg"
+    },
+    {
+      "day": 25,
+      "date": "25/1/2025",
+      "category": "testimonios",
+      "content": "💫 'Profesionalismo y resultados. Mi negocio en Villa Carlos Paz creció gracias a mi nueva web.' - Cliente recomendado. #Recomendación #Crecimiento #VillaCarlosPaz",
+      "hashtags": [
+        "#Recomendaci",
+        "#Crecimiento",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "cliente-feliz.jpg"
+    },
+    {
+      "day": 26,
+      "date": "26/1/2025",
+      "category": "informativos",
+      "content": "📈 CRECIMIENTO: El e-commerce en Córdoba creció un 32% este año. ¿Tu negocio en Villa Carlos Paz está listo para vender online? #Ecommerce #Crecimiento #CarlosPaz",
+      "hashtags": [
+        "#Ecommerce",
+        "#Crecimiento",
+        "#CarlosPaz"
+      ],
+      "suggestedImage": "estadisticas.jpg"
+    },
+    {
+      "day": 27,
+      "date": "27/1/2025",
+      "category": "testimonios",
+      "content": "⭐ 'Excelente trabajo en mi sitio web. Ahora recibo más consultas desde Villa Carlos Paz y alrededores.' - Cliente satisfecho de Córdoba. #Testimonio #Satisfacción #VillaCarlosPaz",
+      "hashtags": [
+        "#Testimonio",
+        "#Satisfacci",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "cliente-feliz.jpg"
+    },
+    {
+      "day": 28,
+      "date": "28/1/2025",
+      "category": "testimonios",
+      "content": "⭐ 'Excelente trabajo en mi sitio web. Ahora recibo más consultas desde Villa Carlos Paz y alrededores.' - Cliente satisfecho de Valle de Punilla. #Testimonio #Satisfacción #VillaCarlosPaz",
+      "hashtags": [
+        "#Testimonio",
+        "#Satisfacci",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "cliente-feliz.jpg"
+    },
+    {
+      "day": 29,
+      "date": "29/1/2025",
+      "category": "ofertas",
+      "content": "🔥 OFERTA ESPECIAL: Desarrollo web profesional para negocios en Villa Carlos Paz. 20% de descuento en tu primer proyecto. ¡Solo hasta fin de mes! #OfertaEspecial #DesarrolloWeb #VillaCarlosPaz",
+      "hashtags": [
+        "#OfertaEspecial",
+        "#DesarrolloWeb",
+        "#VillaCarlosPaz"
+      ],
+      "suggestedImage": "oferta-especial.jpg"
+    },
+    {
+      "day": 30,
+      "date": "30/1/2025",
+      "category": "casosExito",
+      "content": "🎉 ¡Nuevo sitio web lanzado en Villa Carlos Paz! Mantenimiento Web para restaurante. Diseño moderno y funcional que potencia la presencia online de nuestros clientes locales. #DesarrolloWeb #VillaCarlosPaz #MarketingDigital",
+      "hashtags": [
+        "#DesarrolloWeb",
+        "#VillaCarlosPaz",
+        "#MarketingDigital"
+      ],
+      "suggestedImage": "trabajo-completado.jpg"
+    }
+  ],
+  "suggestedPhotos": [
+    "Sitios web desarrollados para clientes locales",
+    "Reuniones con clientes en Villa Carlos Paz",
+    "Certificaciones y logros profesionales",
+    "Proceso de trabajo y metodología",
+    "Antes y después de proyectos"
+  ],
+  "services": [
+    {
+      "name": "Desarrollo Web Profesional",
+      "description": "Desarrollo Web Profesional especializado para negocios en Villa Carlos Paz y alrededores",
+      "price": "Consultar"
+    },
+    {
+      "name": "Diseño de Sitios Web",
+      "description": "Diseño de Sitios Web especializado para negocios en Villa Carlos Paz y alrededores",
+      "price": "Consultar"
+    },
+    {
+      "name": "Marketing Digital",
+      "description": "Marketing Digital especializado para negocios en Villa Carlos Paz y alrededores",
+      "price": "Consultar"
+    },
+    {
+      "name": "SEO Local",
+      "description": "SEO Local especializado para negocios en Villa Carlos Paz y alrededores",
+      "price": "Consultar"
+    },
+    {
+      "name": "E-commerce",
+      "description": "E-commerce especializado para negocios en Villa Carlos Paz y alrededores",
+      "price": "Consultar"
+    },
+    {
+      "name": "Mantenimiento Web",
+      "description": "Mantenimiento Web especializado para negocios en Villa Carlos Paz y alrededores",
+      "price": "Consultar"
+    }
+  ],
+  "hours": {
+    "monday": "9:00-18:00",
+    "tuesday": "9:00-18:00",
+    "wednesday": "9:00-18:00",
+    "thursday": "9:00-18:00",
+    "friday": "9:00-18:00",
+    "saturday": "10:00-14:00",
+    "sunday": "Cerrado"
+  }
+}

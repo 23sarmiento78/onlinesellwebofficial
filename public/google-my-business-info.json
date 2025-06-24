@@ -1,0 +1,81 @@
+{
+  "businessInfo": {
+    "name": "hgaruna - Desarrollo Web Villa Carlos Paz",
+    "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba. Creamos sitios web personalizados para negocios locales con las mejores tecnologías.",
+    "category": "Desarrollo de Software",
+    "subcategories": [
+      "Desarrollo Web",
+      "Marketing Digital",
+      "Diseño Web",
+      "SEO Local"
+    ],
+    "address": {
+      "streetAddress": "Villa Carlos Paz",
+      "addressLocality": "Villa Carlos Paz",
+      "addressRegion": "Córdoba",
+      "postalCode": "5152",
+      "addressCountry": "AR"
+    },
+    "contact": {
+      "phone": "+54-3541-237972",
+      "email": "23sarmiento@gmail.com",
+      "website": "https://service.hgaruna.org"
+    },
+    "hours": {
+      "monday": "9:00-18:00",
+      "tuesday": "9:00-18:00",
+      "wednesday": "9:00-18:00",
+      "thursday": "9:00-18:00",
+      "friday": "9:00-18:00",
+      "saturday": "10:00-14:00",
+      "sunday": "Cerrado"
+    },
+    "services": [
+      {
+        "name": "Desarrollo Web Profesional",
+        "description": "Sitios web personalizados para negocios en Villa Carlos Paz"
+      },
+      {
+        "name": "Diseño Web Responsivo",
+        "description": "Diseños que se adaptan a todos los dispositivos"
+      },
+      {
+        "name": "SEO Local",
+        "description": "Optimización para búsquedas locales en Villa Carlos Paz"
+      },
+      {
+        "name": "Marketing Digital",
+        "description": "Estrategias de marketing digital para empresas locales"
+      },
+      {
+        "name": "E-commerce",
+        "description": "Tiendas online para negocios en Villa Carlos Paz"
+      },
+      {
+        "name": "Mantenimiento Web",
+        "description": "Soporte técnico y mantenimiento continuo"
+      }
+    ],
+    "serviceArea": [
+      "Villa Carlos Paz",
+      "Córdoba Capital",
+      "Valle de Punilla",
+      "Sierras de Córdoba",
+      "Cosquín",
+      "La Falda",
+      "Capilla del Monte"
+    ],
+    "keywords": [
+      "desarrollo web villa carlos paz",
+      "diseño web carlos paz",
+      "marketing digital córdoba",
+      "sitios web profesionales villa carlos paz",
+      "seo local carlos paz",
+      "mantenimiento web córdoba",
+      "e-commerce villa carlos paz",
+      "programación web carlos paz",
+      "diseño de páginas web villa carlos paz",
+      "creación de sitios web córdoba"
+    ]
+  }
+} 

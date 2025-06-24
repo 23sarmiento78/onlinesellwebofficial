@@ -1,0 +1,171 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "hgaruna",
+      "alternateName": "hgaruna Desarrollo Web Villa Carlos Paz",
+      "url": "https://service.hgaruna.org/",
+      "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+      "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba. Creamos sitios web personalizados para negocios locales.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Villa Carlos Paz",
+        "addressRegion": "Córdoba",
+        "addressCountry": "AR",
+        "postalCode": "5152"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+54-3541-237972",
+          "contactType": "Customer Service",
+          "email": "23sarmiento@gmail.com",
+          "availableLanguage": "Spanish"
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+54-3541-237972",
+          "contactType": "Sales",
+          "email": "23sarmiento@gmail.com",
+          "availableLanguage": "Spanish"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61557007626922",
+        "https://www.instagram.com/onlinesellweb/"
+      ],
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Villa Carlos Paz"
+        },
+        {
+          "@type": "City",
+          "name": "Córdoba"
+        },
+        {
+          "@type": "City",
+          "name": "Cosquín"
+        },
+        {
+          "@type": "City",
+          "name": "La Falda"
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios de Desarrollo Web Villa Carlos Paz",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Desarrollo Web Profesional",
+              "description": "Sitios web personalizados para negocios en Villa Carlos Paz y Córdoba",
+              "provider": {
+                "@type": "Organization",
+                "name": "hgaruna"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "E-commerce",
+              "description": "Tiendas online para comercios de Villa Carlos Paz",
+              "provider": {
+                "@type": "Organization",
+                "name": "hgaruna"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "SEO Local",
+              "description": "Optimización para búsquedas locales en Villa Carlos Paz",
+              "provider": {
+                "@type": "Organization",
+                "name": "hgaruna"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "LocalBusiness",
+      "name": "hgaruna - Desarrollo Web Villa Carlos Paz",
+      "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
+      "url": "https://service.hgaruna.org/",
+      "telephone": "+54-3541-237972",
+      "email": "23sarmiento@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Villa Carlos Paz",
+        "addressRegion": "Córdoba",
+        "addressCountry": "AR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "-31.4201",
+        "longitude": "-64.4998"
+      },
+      "serviceArea": {
+        "@type": "City",
+        "name": "Villa Carlos Paz"
+      },
+      "priceRange": "$$",
+      "openingHours": "Mo-Fr 09:00-18:00, Sa 10:00-14:00",
+      "currenciesAccepted": "ARS",
+      "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+      "category": "Desarrollo de Software"
+    },
+    {
+      "@type": "WebSite",
+      "url": "https://service.hgaruna.org/",
+      "name": "hgaruna - Desarrollo Web Villa Carlos Paz",
+      "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://service.hgaruna.org/blog/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cuánto cuesta un sitio web en Villa Carlos Paz?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Los precios varían según las necesidades. Tenemos planes desde $150 hasta $500. Consulta gratuita disponible."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Hacen SEO local para Villa Carlos Paz?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, especializamos en SEO local para que aparezcas en búsquedas de Villa Carlos Paz y alrededores."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuánto tiempo toma desarrollar un sitio web?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende de la complejidad. Sitios básicos en 1-2 semanas, proyectos complejos en 3-4 semanas."
+          }
+        }
+      ]
+    }
+  ]
+}

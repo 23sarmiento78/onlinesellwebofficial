@@ -1,0 +1,24 @@
+{
+  "timestamp": "2025-06-24T23:10:54.079Z",
+  "optimizations": [
+    "Meta tags optimizados para Villa Carlos Paz",
+    "Schema.org estructurado avanzado",
+    "Sitemap XML optimizado",
+    "Robots.txt mejorado",
+    "Palabras clave organizadas por intención",
+    "Local SEO optimizado"
+  ],
+  "nextSteps": [
+    "Implementar meta tags en las páginas",
+    "Añadir Schema.org al BaseLayout",
+    "Actualizar robots.txt",
+    "Enviar sitemap a Google Search Console",
+    "Crear contenido basado en palabras clave",
+    "Implementar breadcrumbs estructurados"
+  ],
+  "metrics": {
+    "totalKeywords": 24,
+    "targetLocation": "Villa Carlos Paz, Córdoba, Argentina",
+    "pagesOptimized": 6
+  }
+}
