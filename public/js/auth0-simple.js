@@ -3,7 +3,7 @@ class Auth0Simple {
   constructor() {
     this.config = {
       domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com',
-      clientId: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab',
+      clientID: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab',
       redirectUri: 'https://service.hgaruna.org/admin/',
       audience: 'https://service.hgaruna.org/api',
       scope: 'openid profile email'
@@ -20,6 +20,9 @@ class Auth0Simple {
     console.log('🚀 Inicializando Auth0 Simple...');
     
     try {
+      // Validar configuración
+      this.validateConfig();
+      
       // Cargar SDK de Auth0
       await this.loadAuth0SDK();
       
@@ -32,8 +35,19 @@ class Auth0Simple {
       console.log('✅ Auth0 Simple inicializado');
     } catch (error) {
       console.error('❌ Error inicializando Auth0:', error);
-      this.showError('Error cargando Auth0');
+      this.showError('Error cargando Auth0: ' + error.message);
     }
+  }
+
+  validateConfig() {
+    const required = ['domain', 'clientID', 'redirectUri'];
+    const missing = required.filter(field => !this.config[field]);
+    
+    if (missing.length > 0) {
+      throw new Error(`Configuración incompleta. Faltan: ${missing.join(', ')}`);
+    }
+    
+    console.log('✅ Configuración validada:', this.config);
   }
 
   async loadAuth0SDK() {
