@@ -3,13 +3,48 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager</title>
-  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+  <title>Panel de Administración - hgaruna</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+    }
+    
+    .admin-container {
+      min-height: 100vh;
+    }
+    
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-size: 18px;
+      color: #666;
+    }
+  </style>
 </head>
 <body>
-  <!-- Incluir el script de Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
-  <!-- Incluir el widget de Netlify Identity -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <div class="admin-container">
+    <div class="loading">
+      <i class="material-icons" style="margin-right: 10px;">hourglass_empty</i>
+      Cargando panel de administración...
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/auth.js"></script>
+  
+  <script>
+    // Verificar autenticación al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+      // El sistema de autenticación se inicializa automáticamente
+      // y mostrará el formulario de login si no está autenticado
+      // o el panel de bienvenida si está autenticado
+    });
+  </script>
 </body>
 </html> 

@@ -84,7 +84,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <script src="/js/foro.js" is:inline></script>
   <script src="/js/auto-forum-publisher.js" is:inline></script>
-  <script src="/js/test-auto-publisher.js" is:inline></script>
   
   <script>
     // Script para habilitar/deshabilitar el botón de publicar
@@ -97,26 +96,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           publishButton.disabled = !postInput.value.trim();
         });
       }
-      
-      // Simular publicación automática de artículo existente
-      setTimeout(() => {
-        if (window.simulateArticlePublication) {
-          const articleData = {
-            id: '2025-01-22-desarrollo-web-villa-carlos-paz',
-            title: 'Desarrollo Web Profesional en Villa Carlos Paz: Potenciando Negocios Locales',
-            description: 'Descubre cómo el desarrollo web profesional está transformando los negocios en Villa Carlos Paz, Córdoba. Soluciones digitales a medida para empresas locales.',
-            category: 'Desarrollo Web Local',
-            tags: ['Villa Carlos Paz', 'Desarrollo Web', 'Marketing Digital', 'Córdoba', 'Negocios Locales', 'SEO Local'],
-            image: '/logos-he-imagenes/programacion.jpeg',
-            publishedAt: '2025-01-22',
-            author: 'hgaruna',
-            articleUrl: '/blog/2025-01-22-desarrollo-web-villa-carlos-paz/'
-          };
-          
-          // Simular la publicación automática
-          window.simulateArticlePublication(articleData);
-        }
-      }, 2000);
     });
   </script>
 </BaseLayout> 
