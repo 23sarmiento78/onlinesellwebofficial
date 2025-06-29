@@ -6,6 +6,7 @@ class Auth0Simple {
       clientID: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab',
       redirectUri: 'https://service.hgaruna.org/admin/',
       audience: 'https://service.hgaruna.org/api',
+      responseType: 'token id_token',
       scope: 'openid profile email'
     };
     
@@ -21,61 +22,91 @@ class Auth0Simple {
     
     try {
       // Validar configuración
+      console.log('🔍 Validando configuración...');
       this.validateConfig();
       
       // Cargar SDK de Auth0
+      console.log('📦 Cargando SDK de Auth0...');
       await this.loadAuth0SDK();
       
+      // Verificar que auth0 esté disponible
+      if (typeof auth0 === 'undefined') {
+        throw new Error('El SDK de Auth0 no se cargó correctamente');
+      }
+      
       // Inicializar Auth0
+      console.log('🔧 Inicializando WebAuth...');
       this.auth0 = new auth0.WebAuth(this.config);
       
       // Verificar sesión existente
+      console.log('🔍 Verificando sesión existente...');
       this.checkSession();
       
-      console.log('✅ Auth0 Simple inicializado');
+      console.log('✅ Auth0 Simple inicializado correctamente');
     } catch (error) {
       console.error('❌ Error inicializando Auth0:', error);
-      this.showError('Error cargando Auth0: ' + error.message);
+      console.error('❌ Stack trace:', error.stack);
+      this.showError(`Error cargando Auth0: ${error.message}`);
     }
   }
 
   validateConfig() {
-    const required = ['domain', 'clientID', 'redirectUri'];
+    const required = ['domain', 'clientID', 'redirectUri', 'responseType'];
     const missing = required.filter(field => !this.config[field]);
     
     if (missing.length > 0) {
       throw new Error(`Configuración incompleta. Faltan: ${missing.join(', ')}`);
     }
     
-    console.log('✅ Configuración validada:', this.config);
+    console.log('✅ Configuración validada:', {
+      domain: this.config.domain,
+      clientID: this.config.clientID,
+      redirectUri: this.config.redirectUri,
+      responseType: this.config.responseType,
+      scope: this.config.scope
+    });
   }
 
   async loadAuth0SDK() {
     return new Promise((resolve, reject) => {
       if (typeof auth0 !== 'undefined') {
+        console.log('✅ SDK de Auth0 ya cargado');
         resolve();
         return;
       }
 
+      console.log('📦 Cargando SDK de Auth0...');
       const script = document.createElement('script');
-      script.src = 'https://cdn.auth0.com/js/auth0/9.19.2/auth0.min.js';
-      script.onload = resolve;
-      script.onerror = reject;
+      script.src = 'https://cdn.auth0.com/js/auth0/9.22.2/auth0.min.js';
+      script.onload = () => {
+        console.log('✅ SDK de Auth0 cargado exitosamente');
+        resolve();
+      };
+      script.onerror = (error) => {
+        console.error('❌ Error cargando SDK de Auth0:', error);
+        reject(new Error('No se pudo cargar el SDK de Auth0'));
+      };
       document.head.appendChild(script);
     });
   }
 
   checkSession() {
-    if (!this.auth0) return;
+    if (!this.auth0) {
+      console.log('❌ Auth0 no está disponible, mostrando login');
+      this.showLogin();
+      return;
+    }
 
+    console.log('🔍 Verificando sesión...');
     this.auth0.checkSession({}, (err, authResult) => {
       if (err) {
-        console.log('❌ No hay sesión activa');
+        console.log('❌ No hay sesión activa:', err.error);
         this.showLogin();
       } else if (authResult && authResult.accessToken) {
         console.log('✅ Sesión activa encontrada');
         this.handleAuthSuccess(authResult);
       } else {
+        console.log('❌ No hay token de acceso');
         this.showLogin();
       }
     });
@@ -232,7 +263,19 @@ class Auth0Simple {
   }
 
   isLoggedIn() {
-    return this.isAuthenticated;
+    const hasToken = localStorage.getItem('auth0_token');
+    const hasUser = localStorage.getItem('auth0_user');
+    
+    const isLoggedIn = this.isAuthenticated && hasToken && hasUser;
+    
+    console.log('🔍 Verificando login:', {
+      isAuthenticated: this.isAuthenticated,
+      hasToken: !!hasToken,
+      hasUser: !!hasUser,
+      result: isLoggedIn
+    });
+    
+    return isLoggedIn;
   }
 }
 

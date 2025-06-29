@@ -7,7 +7,12 @@ class AdminPanel {
     this.init();
   }
 
-  init() {
+  async init() {
+    console.log('🔄 Inicializando AdminPanel...');
+    
+    // Esperar a que Auth0Simple esté listo
+    await this.waitForAuth0();
+    
     // Verificar autenticación
     if (!window.auth0Simple || !window.auth0Simple.isLoggedIn()) {
       console.log('❌ Usuario no autenticado');
@@ -20,6 +25,21 @@ class AdminPanel {
     this.setupEventListeners();
     this.loadDashboard();
     this.updateUserInfo();
+  }
+
+  async waitForAuth0() {
+    return new Promise((resolve) => {
+      const checkAuth0 = () => {
+        if (window.auth0Simple && typeof window.auth0Simple.isLoggedIn === 'function') {
+          console.log('✅ Auth0Simple está listo');
+          resolve();
+        } else {
+          console.log('⏳ Esperando Auth0Simple...');
+          setTimeout(checkAuth0, 100);
+        }
+      };
+      checkAuth0();
+    });
   }
 
   setupNavigation() {
@@ -73,6 +93,14 @@ class AdminPanel {
       e.preventDefault();
       this.saveForumPost();
     });
+
+    // Debug
+    const debugBtn = document.getElementById('debug-btn');
+    if (debugBtn) {
+      debugBtn.addEventListener('click', () => {
+        this.showDebugInfo();
+      });
+    }
   }
 
   showSection(section) {
@@ -469,18 +497,96 @@ class AdminPanel {
       }
     }
   }
+
+  showDebugInfo() {
+    const auth0Info = {
+      isAuthenticated: window.auth0Simple ? window.auth0Simple.isAuthenticated : 'No disponible',
+      hasToken: !!localStorage.getItem('auth0_token'),
+      hasUser: !!localStorage.getItem('auth0_user'),
+      user: window.auth0Simple ? window.auth0Simple.getUser() : 'No disponible',
+      token: localStorage.getItem('auth0_token') ? 'Presente' : 'No disponible'
+    };
+
+    const debugInfo = `
+      <div style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border: 2px solid #3498db;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 500px;
+        width: 90%;
+        z-index: 10000;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      ">
+        <h3 style="color: #3498db; margin-bottom: 15px;">🔍 Información de Debug</h3>
+        
+        <div style="margin-bottom: 15px;">
+          <h4>Estado de Auth0:</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li>✅ Autenticado: ${auth0Info.isAuthenticated}</li>
+            <li>🔑 Token: ${auth0Info.hasToken}</li>
+            <li>👤 Usuario: ${auth0Info.hasUser}</li>
+            <li>📧 Email: ${auth0Info.user ? auth0Info.user.email : 'No disponible'}</li>
+          </ul>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <h4>Estado del Panel:</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li>📊 Artículos cargados: ${this.articles.length}</li>
+            <li>💬 Posts del foro: ${this.forumPosts.length}</li>
+            <li>📍 Sección actual: ${this.currentSection}</li>
+          </ul>
+        </div>
+        
+        <div style="text-align: center;">
+          <button onclick="this.parentElement.parentElement.remove()" style="
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+          ">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', debugInfo);
+  }
 }
 
 // Hacer la clase AdminPanel globalmente accesible
 window.AdminPanel = AdminPanel;
 
 // Instanciar AdminPanel cuando el usuario esté autenticado
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  console.log('🚀 DOM cargado, esperando Auth0Simple...');
+  
   // Esperar a que Auth0Simple se inicialice
-  setTimeout(() => {
-    if (window.auth0Simple && window.auth0Simple.isLoggedIn()) {
-      window.adminPanel = new AdminPanel();
-      console.log('✅ AdminPanel inicializado');
-    }
-  }, 1000);
+  await new Promise((resolve) => {
+    const checkAuth0 = () => {
+      if (window.auth0Simple && typeof window.auth0Simple.isLoggedIn === 'function') {
+        console.log('✅ Auth0Simple está listo, verificando autenticación...');
+        resolve();
+      } else {
+        setTimeout(checkAuth0, 100);
+      }
+    };
+    checkAuth0();
+  });
+  
+  // Verificar si el usuario está autenticado
+  if (window.auth0Simple && window.auth0Simple.isLoggedIn()) {
+    window.adminPanel = new AdminPanel();
+    console.log('✅ AdminPanel inicializado');
+  } else {
+    console.log('❌ Usuario no autenticado, no se inicializa AdminPanel');
+  }
 }); 
