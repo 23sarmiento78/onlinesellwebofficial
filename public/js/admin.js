@@ -471,27 +471,6 @@ class AdminPanel {
       }
     }
   }
-
-  // Funciones adicionales para el panel
-  managePages() {
-    this.showAlert('Gestión de páginas - Próximamente', 'info');
-  }
-
-  manageMedia() {
-    this.showAlert('Gestión de medios - Próximamente', 'info');
-  }
-
-  manageCategories() {
-    this.showAlert('Gestión de categorías - Próximamente', 'info');
-  }
-
-  manageTags() {
-    this.showAlert('Gestión de etiquetas - Próximamente', 'info');
-  }
-
-  manageSystemSettings() {
-    this.showAlert('Configuración del sistema - Próximamente', 'info');
-  }
 }
 
 // Hacer la clase AdminPanel globalmente accesible

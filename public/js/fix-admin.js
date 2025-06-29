@@ -210,20 +210,18 @@ async function createFixedAdminManager() {
         },
         
         // Funciones adicionales
-        showLinkedInIntegration: () => {
-            console.log('🔗 Mostrando integración de LinkedIn');
-            alert('Configuración de LinkedIn - Función en desarrollo');
-        },
-        
-        showDetailedStats: () => {
-            console.log('📊 Mostrando estadísticas detalladas');
-            alert('Estadísticas detalladas - Función en desarrollo');
-        },
-        
-        manageSystemSettings: () => {
-            console.log('⚙️ Mostrando configuración del sistema');
-            alert('Configuración del sistema - Función en desarrollo');
-        }
+        // showLinkedInIntegration: () => {
+        //     console.log('🔗 Mostrando integración de LinkedIn');
+        //     alert('Configuración de LinkedIn - Función en desarrollo');
+        // },
+        // showDetailedStats: () => {
+        //     console.log('📊 Mostrando estadísticas detalladas');
+        //     alert('Estadísticas detalladas - Función en desarrollo');
+        // },
+        // manageSystemSettings: () => {
+        //     console.log('⚙️ Mostrando configuración del sistema');
+        //     alert('Configuración del sistema - Función en desarrollo');
+        // }
     };
     
     // Reemplazar el adminManager existente
@@ -235,7 +233,7 @@ async function createFixedAdminManager() {
     const functions = [
         'showCreateArticleForm', 'showEditArticleForm', 'createArticle', 'updateArticle', 'deleteArticle', 'listArticles',
         'showCreateForumPostForm', 'showEditForumPostForm', 'createForumPost', 'updateForumPost', 'deleteForumPost', 'listForumPosts',
-        'login', 'logout', 'isAuthenticated', 'showLinkedInIntegration', 'showDetailedStats', 'manageSystemSettings'
+        'login', 'logout', 'isAuthenticated'
     ];
     
     functions.forEach(func => {
