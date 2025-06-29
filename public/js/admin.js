@@ -8,6 +8,14 @@ class AdminPanel {
   }
 
   init() {
+    // Verificar autenticación
+    if (!window.auth0Simple || !window.auth0Simple.isLoggedIn()) {
+      console.log('❌ Usuario no autenticado');
+      return;
+    }
+
+    console.log('✅ Usuario autenticado, inicializando panel');
+    
     this.setupNavigation();
     this.setupEventListeners();
     this.loadDashboard();
@@ -114,8 +122,6 @@ class AdminPanel {
       ]);
     } catch (error) {
       console.error('Error cargando dashboard:', error);
-      // No showAlert here to avoid loop if API is down
-      // this.showAlert('Error cargando estadísticas', 'error');
     }
   }
 
@@ -141,7 +147,7 @@ class AdminPanel {
 
   async loadArticles() {
     const container = document.getElementById('articles-list');
-    if (!container) return; // Add null check
+    if (!container) return;
     container.innerHTML = '<div class="loading">Cargando artículos...</div>';
 
     try {
@@ -156,7 +162,7 @@ class AdminPanel {
 
   renderArticles(articles) {
     const container = document.getElementById('articles-list');
-    if (!container) return; // Add null check
+    if (!container) return;
 
     if (articles.length === 0) {
       container.innerHTML = '<div class="text-center">No hay artículos publicados</div>';
@@ -198,7 +204,7 @@ class AdminPanel {
 
   async loadForumPosts() {
     const container = document.getElementById('forum-posts-list');
-    if (!container) return; // Add null check
+    if (!container) return;
     container.innerHTML = '<div class="loading">Cargando publicaciones...</div>';
 
     try {
@@ -213,7 +219,7 @@ class AdminPanel {
 
   renderForumPosts(posts) {
     const container = document.getElementById('forum-posts-list');
-    if (!container) return; // Add null check
+    if (!container) return;
 
     if (posts.length === 0) {
       container.innerHTML = '<div class="text-center">No hay publicaciones en el foro</div>';
@@ -350,7 +356,7 @@ class AdminPanel {
   }
 
   async apiCall(endpoint, method = 'GET', data = null) {
-    const token = localStorage.getItem('auth0_token');
+    const token = window.auth0Simple.getToken();
     if (!token) {
       throw new Error('No hay token de autenticación');
     }
@@ -395,7 +401,6 @@ class AdminPanel {
       color: white;
       font-weight: 600;
       z-index: 10000;
-      animation: slideIn 0.3s ease;
     `;
 
     if (type === 'success') {
@@ -409,21 +414,20 @@ class AdminPanel {
     document.body.appendChild(alertDiv);
 
     setTimeout(() => {
-      alertDiv.style.animation = 'slideOut 0.3s ease';
-      setTimeout(() => alertDiv.remove(), 300);
+      alertDiv.remove();
     }, 3000);
   }
 
   updateUserInfo() {
-    const user = JSON.parse(localStorage.getItem('auth0_user') || '{}');
-    document.getElementById('user-name').textContent = user.name || 'Administrador';
-    document.getElementById('user-avatar').textContent = (user.name || 'A').charAt(0).toUpperCase();
+    const user = window.auth0Simple.getUser();
+    if (user) {
+      document.getElementById('user-name').textContent = user.name || 'Administrador';
+      document.getElementById('user-avatar').textContent = (user.name || 'A').charAt(0).toUpperCase();
+    }
   }
 
   logout() {
-    localStorage.removeItem('auth0_token');
-    localStorage.removeItem('auth0_user');
-    window.location.href = '/admin/';
+    window.auth0Simple.logout();
   }
 
   editArticle(id) {
@@ -470,13 +474,13 @@ class AdminPanel {
 // Hacer la clase AdminPanel globalmente accesible
 window.AdminPanel = AdminPanel;
 
-// Instanciar AdminPanel inmediatamente para que esté disponible globalmente.
-window.adminPanel = new AdminPanel();
-
-// Verificar que se haya creado correctamente
-console.log('✅ AdminPanel inicializado:', window.adminPanel ? 'Disponible' : 'No disponible');
-
-// Asegurar que adminManager pueda acceder al panel si ya existe
-if (window.adminManager) {
-  console.log('✅ adminManager encontrado, vinculando con adminPanel');
-} 
+// Instanciar AdminPanel cuando el usuario esté autenticado
+document.addEventListener('DOMContentLoaded', () => {
+  // Esperar a que Auth0Simple se inicialice
+  setTimeout(() => {
+    if (window.auth0Simple && window.auth0Simple.isLoggedIn()) {
+      window.adminPanel = new AdminPanel();
+      console.log('✅ AdminPanel inicializado');
+    }
+  }, 1000);
+}); 
