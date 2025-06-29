@@ -669,6 +669,20 @@
                   Ver Estadísticas
                 </button>
               </div>
+              
+              <!-- Botón de depuración temporal -->
+              <div class="setting-item">
+                <h4>🐛 Depuración</h4>
+                <p>Herramientas para diagnosticar problemas de autenticación.</p>
+                <button class="btn btn-info" onclick="window.simpleAuth.debugAuthState()">
+                  <i class="fas fa-bug"></i>
+                  Debug Estado
+                </button>
+                <button class="btn btn-warning" onclick="window.simpleAuth.logout()">
+                  <i class="fas fa-sign-out-alt"></i>
+                  Cerrar Sesión
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -693,24 +707,18 @@
     document.addEventListener('DOMContentLoaded', () => {
       console.log('🚀 Inicializando panel de administración...');
       
-      // 1. Inicializar Integración de LinkedIn (si existe)
+      // 1. Crear instancia global de SimpleAuth
+      window.simpleAuth = new SimpleAuth();
+      
+      // 2. Inicializar SimpleAuth (esto manejará la autenticación y mostrará login/panel)
+      window.simpleAuth.init();
+      
+      // 3. Inicializar Integración de LinkedIn (si existe)
       if (typeof LinkedInIntegration !== 'undefined') {
         window.linkedInIntegration = new LinkedInIntegration();
         console.log('✅ Integración de LinkedIn inicializada');
       } else {
         console.warn('⚠️ LinkedInIntegration no encontrado');
-      }
-      
-      // 2. Crear instancia global de SimpleAuth
-      window.simpleAuth = new SimpleAuth();
-      window.simpleAuth.init(); // Esto verificará la sesión y mostrará login/panel si es necesario
-
-      // 3. Vincular AdminPanel con adminManager, si ambos están disponibles
-      if (window.adminManager && window.adminPanel) {
-        window.adminManager.adminPanel = window.adminPanel;
-        console.log('✅ adminManager vinculado a adminPanel');
-      } else {
-        console.warn('⚠️ adminManager o adminPanel no encontrados para vincular');
       }
 
       console.log('✅ Proceso de inicialización completado.');
