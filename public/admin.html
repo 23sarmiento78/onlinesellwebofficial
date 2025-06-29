@@ -691,9 +691,17 @@
                   <i class="fas fa-trash"></i>
                   Limpiar Tokens
                 </button>
-                <button class="btn btn-success" onclick="window.simulateLogin()">
+                <button class="btn btn-success" onclick="window.simulateLogin()" style="margin-right: 10px;">
                   <i class="fas fa-magic"></i>
                   Simular Login
+                </button>
+                <button class="btn btn-warning" onclick="window.diagnoseAdminPanel()" style="margin-right: 10px;">
+                  <i class="fas fa-stethoscope"></i>
+                  Diagnosticar Panel
+                </button>
+                <button class="btn btn-primary" onclick="window.verifyForms()">
+                  <i class="fas fa-clipboard-check"></i>
+                  Verificar Formularios
                 </button>
               </div>
             </div>
@@ -708,15 +716,17 @@
   <script src="/js/linkedin-integration.js"></script>
   <script src="/js/test-linkedin-auth.js"></script>
   <script src="/js/test-admin-auth.js"></script>
-  <script src="/js/auth.js"></script>
   <script src="/js/admin.js"></script>
+  <script src="/js/admin-fix.js"></script>
+  <script src="/js/fix-admin.js"></script>
+  <script src="/js/debug-admin.js"></script>
+  <script src="/js/auth.js"></script>
   
   <script>
-    // Inicializar el sistema de autenticación
     document.addEventListener('DOMContentLoaded', () => {
       console.log('🚀 Inicializando panel de administración...');
       
-      // Inicializar integración de LinkedIn
+      // 1. Inicializar Integración de LinkedIn (si existe)
       if (typeof LinkedInIntegration !== 'undefined') {
         window.linkedInIntegration = new LinkedInIntegration();
         console.log('✅ Integración de LinkedIn inicializada');
@@ -724,41 +734,19 @@
         console.warn('⚠️ LinkedInIntegration no encontrado');
       }
       
-      // Crear instancia global del sistema de autenticación
+      // 2. Crear instancia global de SimpleAuth
       window.simpleAuth = new SimpleAuth();
-      
-      // Inicializar el sistema
-      window.simpleAuth.init();
-      
-      // Verificar autenticación antes de inicializar el panel
-      const token = localStorage.getItem('auth_token') || localStorage.getItem('admin_token');
-      
-      if (token) {
-        console.log('✅ Token encontrado, inicializando panel...');
-        
-        // Esperar un momento para que todos los scripts se carguen
-        setTimeout(() => {
-          // Verificar que el panel de administración se haya inicializado
-          if (window.adminPanel) {
-            console.log('✅ Panel de administración disponible');
-            // Hacer el panel disponible globalmente para adminManager
-            window.adminManager.adminPanel = window.adminPanel;
-          } else {
-            console.warn('⚠️ Panel de administración no encontrado');
-            // Intentar crear una instancia si no existe
-            if (typeof AdminPanel !== 'undefined') {
-              window.adminPanel = new AdminPanel();
-              window.adminManager.adminPanel = window.adminPanel;
-              console.log('✅ Panel de administración creado manualmente');
-            }
-          }
-          
-          console.log('✅ Panel de administración inicializado');
-        }, 100);
+      window.simpleAuth.init(); // Esto verificará la sesión y mostrará login/panel si es necesario
+
+      // 3. Vincular AdminPanel con adminManager, si ambos están disponibles
+      if (window.adminManager && window.adminPanel) {
+        window.adminManager.adminPanel = window.adminPanel;
+        console.log('✅ adminManager vinculado a adminPanel');
       } else {
-        console.log('❌ No hay token, mostrando formulario de login');
-        // El sistema de autenticación ya maneja esto automáticamente
+        console.warn('⚠️ adminManager o adminPanel no encontrados para vincular');
       }
+
+      console.log('✅ Proceso de inicialización completado.');
     });
   </script>
 </body>

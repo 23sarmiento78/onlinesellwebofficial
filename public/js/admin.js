@@ -114,7 +114,8 @@ class AdminPanel {
       ]);
     } catch (error) {
       console.error('Error cargando dashboard:', error);
-      this.showAlert('Error cargando estadísticas', 'error');
+      // No showAlert here to avoid loop if API is down
+      // this.showAlert('Error cargando estadísticas', 'error');
     }
   }
 
@@ -140,6 +141,7 @@ class AdminPanel {
 
   async loadArticles() {
     const container = document.getElementById('articles-list');
+    if (!container) return; // Add null check
     container.innerHTML = '<div class="loading">Cargando artículos...</div>';
 
     try {
@@ -154,7 +156,8 @@ class AdminPanel {
 
   renderArticles(articles) {
     const container = document.getElementById('articles-list');
-    
+    if (!container) return; // Add null check
+
     if (articles.length === 0) {
       container.innerHTML = '<div class="text-center">No hay artículos publicados</div>';
       return;
@@ -195,6 +198,7 @@ class AdminPanel {
 
   async loadForumPosts() {
     const container = document.getElementById('forum-posts-list');
+    if (!container) return; // Add null check
     container.innerHTML = '<div class="loading">Cargando publicaciones...</div>';
 
     try {
@@ -203,13 +207,14 @@ class AdminPanel {
       this.renderForumPosts(posts);
     } catch (error) {
       console.error('Error cargando publicaciones del foro:', error);
-      container.innerHTML = '<div class="alert alert-error">Error cargando publicaciones</div>';
+      container.innerHTML = '<div class="alert alert-error">Error cargando publicaciones del foro</div>';
     }
   }
 
   renderForumPosts(posts) {
     const container = document.getElementById('forum-posts-list');
-    
+    if (!container) return; // Add null check
+
     if (posts.length === 0) {
       container.innerHTML = '<div class="text-center">No hay publicaciones en el foro</div>';
       return;
@@ -251,16 +256,15 @@ class AdminPanel {
   showArticleModal(article = null) {
     const modal = document.getElementById('article-modal');
     const title = document.getElementById('article-modal-title');
-    const form = document.getElementById('article-form');
-
+    
     if (article) {
       title.textContent = 'Editar Artículo';
       this.fillArticleForm(article);
     } else {
       title.textContent = 'Nuevo Artículo';
-      form.reset();
+      document.getElementById('article-form').reset();
     }
-
+    
     modal.classList.remove('d-none');
   }
 
@@ -274,7 +278,7 @@ class AdminPanel {
     document.getElementById('article-content').value = article.content || '';
     document.getElementById('article-category').value = article.category || '';
     document.getElementById('article-image').value = article.image || '';
-    document.getElementById('article-tags').value = article.tags ? article.tags.join(', ') : '';
+    document.getElementById('article-tags').value = (article.tags || []).join(', ');
   }
 
   async saveArticle() {
@@ -348,6 +352,10 @@ class AdminPanel {
   async apiCall(endpoint, method = 'GET', data = null) {
     const token = localStorage.getItem('auth_token') || localStorage.getItem('admin_token');
     if (!token) {
+      // Si no hay token, forzar logout para redirigir al login
+      if (window.simpleAuth) {
+        window.simpleAuth.logout();
+      }
       throw new Error('No hay token de autenticación');
     }
 
@@ -486,19 +494,17 @@ class AdminPanel {
   }
 }
 
-// Inicializar el panel de administración
-let adminPanel;
+// Hacer la clase AdminPanel globalmente accesible
+window.AdminPanel = AdminPanel;
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Verificar autenticación usando ambas claves de token
-  const token = localStorage.getItem('auth_token') || localStorage.getItem('admin_token');
-  if (!token) {
-    // Si no hay token, redirigir a la página de admin para mostrar el login
-    window.location.href = '/admin/';
-    return;
-  }
+// Instanciar AdminPanel inmediatamente para que esté disponible globalmente.
+// La lógica de si mostrar el panel o el login se manejará en auth.js a través de SimpleAuth.
+window.adminPanel = new AdminPanel();
 
-  adminPanel = new AdminPanel();
-  // Hacer el panel disponible globalmente
-  window.adminPanel = adminPanel;
-}); 
+// Verificar que se haya creado correctamente
+console.log('✅ AdminPanel inicializado:', window.adminPanel ? 'Disponible' : 'No disponible');
+
+// Asegurar que adminManager pueda acceder al panel si ya existe
+if (window.adminManager) {
+  console.log('✅ adminManager encontrado, vinculando con adminPanel');
+} 
