@@ -10,14 +10,16 @@ class Auth0Auth {
   async init() {
     console.log('🔐 Inicializando Auth0...');
     
-    // Configuración de Auth0
-    const config = {
+    // Usar configuración externa si está disponible
+    const config = window.AUTH0_CONFIG || {
       domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com',
       clientId: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab',
       redirectUri: window.location.origin + '/admin/',
       audience: 'https://service.hgaruna.org/api',
       scope: 'openid profile email'
     };
+
+    console.log('📋 Configuración Auth0:', config);
 
     try {
       // Cargar Auth0 desde CDN si no está disponible
@@ -28,11 +30,11 @@ class Auth0Auth {
       // Inicializar Auth0
       this.auth0 = new auth0.WebAuth(config);
       
-      // Verificar sesión existente
-      this.checkSession();
-      
       // Configurar eventos
       this.setupEventListeners();
+      
+      // Verificar sesión existente
+      this.checkSession();
       
       console.log('✅ Auth0 inicializado correctamente');
     } catch (error) {
@@ -52,15 +54,24 @@ class Auth0Auth {
   }
 
   checkSession() {
-    if (!this.auth0) return;
+    if (!this.auth0) {
+      console.log('❌ Auth0 no inicializado, mostrando login');
+      this.handleUnauthenticated();
+      return;
+    }
 
+    console.log('🔍 Verificando sesión...');
+    
     this.auth0.checkSession({}, (err, authResult) => {
       if (err) {
         console.log('❌ No hay sesión activa:', err.error);
         this.handleUnauthenticated();
-      } else {
+      } else if (authResult && authResult.accessToken) {
         console.log('✅ Sesión activa encontrada');
         this.handleAuthenticationResult(authResult);
+      } else {
+        console.log('❌ No hay token válido');
+        this.handleUnauthenticated();
       }
     });
   }
@@ -218,16 +229,23 @@ class Auth0Auth {
   }
 
   showAdminPanel() {
-    const adminContainer = document.querySelector('.admin-container') || document.body;
+    console.log('🏠 Mostrando panel de administración...');
     
-    // Mostrar el panel original de admin.html
-    const adminContent = document.getElementById('admin-content');
-    if (adminContent) {
-      adminContent.style.display = 'block';
+    // Si ya estamos en admin.html, solo mostrar el contenido
+    if (window.location.pathname.includes('admin.html')) {
+      console.log('✅ Ya estamos en admin.html, mostrando contenido');
       return;
     }
     
-    // Si no existe, mostrar mensaje de carga
+    // Si estamos en /admin/, redirigir a admin.html
+    if (window.location.pathname.includes('/admin/')) {
+      console.log('🔄 Redirigiendo a admin.html...');
+      window.location.href = '/admin.html';
+      return;
+    }
+    
+    // Para otras páginas, mostrar mensaje de carga
+    const adminContainer = document.querySelector('.admin-container') || document.body;
     adminContainer.innerHTML = `
       <div class="admin-panel">
         <div class="loading-container">
@@ -364,11 +382,13 @@ class Auth0Auth {
 }
 
 // Inicializar Auth0 cuando el DOM esté listo
-let auth0Auth;
-
 document.addEventListener('DOMContentLoaded', () => {
-  auth0Auth = new Auth0Auth();
-  window.auth0Auth = auth0Auth;
+  console.log('🚀 DOM cargado, inicializando Auth0...');
+  
+  // Solo inicializar si no existe ya
+  if (!window.auth0Auth) {
+    window.auth0Auth = new Auth0Auth();
+  }
 });
 
 // Exportar para uso global
