@@ -11,7 +11,6 @@
   # Variables específicas para funciones (más limitadas)
   [functions.environment]
     NETLIFY_DATABASE_URL = ""
-    ADMIN_TOKEN = ""
     INDEXNOW_KEY = ""
     INDEXNOW_HOST = "service.hgaruna.org"
 

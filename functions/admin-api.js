@@ -1,354 +1,233 @@
-// API de Administración - Sistema Limpio
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
 
 // Configuración de Auth0
-const AUTH0_CONFIG = {
-  domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com',
-  audience: 'https://service.hgaruna.org/api'
-};
+const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'dev-b0qip4vee7sg3q7e.us.auth0.com';
+const AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE || 'https://service.hgaruna.org/api';
 
-// Cliente JWKS para validar tokens
+// Cliente JWKS para verificar tokens
 const client = jwksClient({
-  jwksUri: `https://${AUTH0_CONFIG.domain}/.well-known/jwks.json`
+    jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`
 });
 
 // Función para obtener la clave pública
 function getKey(header, callback) {
-  client.getSigningKey(header.kid, (err, key) => {
-    const signingKey = key.publicKey || key.rsaPublicKey;
-    callback(null, signingKey);
-  });
-}
-
-// Función para validar token JWT
-function validateToken(token) {
-  return new Promise((resolve, reject) => {
-    jwt.verify(token, getKey, {
-      audience: AUTH0_CONFIG.audience,
-      issuer: `https://${AUTH0_CONFIG.domain}/`,
-      algorithms: ['RS256']
-    }, (err, decoded) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(decoded);
-      }
+    client.getSigningKey(header.kid, function(err, key) {
+        const signingKey = key.publicKey || key.rsaPublicKey;
+        callback(null, signingKey);
     });
-  });
 }
 
-// Middleware de autenticación
-async function authenticateUser(event) {
-  try {
-    const authHeader = event.headers.authorization || event.headers.Authorization;
-    
+// Función para verificar el token JWT
+function verifyToken(token) {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, getKey, {
+            audience: AUTH0_AUDIENCE,
+            issuer: `https://${AUTH0_DOMAIN}/`,
+            algorithms: ['RS256']
+        }, (err, decoded) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(decoded);
+            }
+        });
+    });
+}
+
+// Función para extraer el token del header Authorization
+function extractToken(authHeader) {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      throw new Error('Token de autorización requerido');
+        return null;
     }
-
-    const token = authHeader.substring(7);
-    const decoded = await validateToken(token);
-    
-    return decoded;
-  } catch (error) {
-    throw new Error('Token inválido: ' + error.message);
-  }
+    return authHeader.substring(7);
 }
 
-// Datos simulados (en producción usarías una base de datos)
-let articles = [
-  {
-    id: '1',
-    title: 'Desarrollo Web en Villa Carlos Paz',
-    description: 'Servicios profesionales de desarrollo web',
-    content: 'Contenido del artículo...',
-    category: 'Desarrollo Web',
-    image: '/images/web-dev.jpg',
-    tags: ['web', 'desarrollo', 'villa carlos paz'],
-    date: '2024-01-15T10:00:00Z',
-    author: 'hgaruna'
-  }
-];
-
-let forumPosts = [
-  {
-    id: '1',
-    title: 'Bienvenidos al foro',
-    content: '¡Bienvenidos a nuestro foro de desarrollo web!',
-    category: 'General',
-    date: '2024-01-15T10:00:00Z',
-    author: 'hgaruna',
-    likes: 5,
-    comments: [],
-    shares: 2
-  }
-];
-
-// Función principal del handler
-exports.handler = async (event, context) => {
-  // Configurar CORS
-  const headers = {
-    'Access-Control-Allow-Origin': 'https://service.hgaruna.org',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
-  };
-
-  // Manejar preflight requests
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: ''
-    };
-  }
-
-  try {
-    // Autenticar usuario
-    const user = await authenticateUser(event);
-    console.log('✅ Usuario autenticado:', user.email);
-
-    const path = event.path.replace('/.netlify/functions/admin-api', '');
-    const method = event.httpMethod;
-
-    // Rutas de artículos
-    if (path.startsWith('/articles')) {
-      return await handleArticles(path, method, event, headers);
-    }
-
-    // Rutas del foro
-    if (path.startsWith('/forum-posts')) {
-      return await handleForumPosts(path, method, event, headers);
-    }
-
-    // Ruta no encontrada
-    return {
-      statusCode: 404,
-      headers,
-      body: JSON.stringify({ message: 'Ruta no encontrada' })
-    };
-
-  } catch (error) {
-    console.error('❌ Error en API:', error);
+// Middleware para verificar autenticación
+async function requireAuth(event) {
+    const authHeader = event.headers.authorization || event.headers.Authorization;
+    const token = extractToken(authHeader);
     
-    return {
-      statusCode: 401,
-      headers,
-      body: JSON.stringify({ 
-        message: 'No autorizado',
-        error: error.message 
-      })
+    if (!token) {
+        throw new Error('Token no proporcionado');
+    }
+    
+    try {
+        const decoded = await verifyToken(token);
+        return decoded;
+    } catch (error) {
+        throw new Error('Token inválido');
+    }
+}
+
+// Función principal de la API
+exports.handler = async (event, context) => {
+    // Configurar CORS
+    const headers = {
+        'Access-Control-Allow-Origin': 'https://service.hgaruna.org',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Content-Type': 'application/json'
     };
-  }
+
+    // Manejar preflight requests
+    if (event.httpMethod === 'OPTIONS') {
+        return {
+            statusCode: 200,
+            headers,
+            body: ''
+        };
+    }
+
+    try {
+        // Verificar autenticación para todas las rutas excepto OPTIONS
+        const user = await requireAuth(event);
+        
+        const { path } = event;
+        const method = event.httpMethod;
+
+        // Rutas de la API
+        if (path.includes('/api/articles')) {
+            return handleArticles(event, method, user);
+        } else if (path.includes('/api/forum-posts')) {
+            return handleForumPosts(event, method, user);
+        } else if (path.includes('/api/stats')) {
+            return handleStats(event, method, user);
+        } else {
+            return {
+                statusCode: 404,
+                headers,
+                body: JSON.stringify({ error: 'Ruta no encontrada' })
+            };
+        }
+
+    } catch (error) {
+        console.error('Error en la API:', error);
+        
+        return {
+            statusCode: 401,
+            headers,
+            body: JSON.stringify({ 
+                error: 'No autorizado',
+                message: error.message 
+            })
+        };
+    }
 };
 
-// Manejar rutas de artículos
-async function handleArticles(path, method, event, headers) {
-  const articleId = path.split('/')[2];
+// Manejador para artículos
+function handleArticles(event, method, user) {
+    const headers = {
+        'Access-Control-Allow-Origin': 'https://service.hgaruna.org',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Content-Type': 'application/json'
+    };
 
-  switch (method) {
-    case 'GET':
-      if (articleId) {
-        const article = articles.find(a => a.id === articleId);
-        if (!article) {
-          return {
-            statusCode: 404,
-            headers,
-            body: JSON.stringify({ message: 'Artículo no encontrado' })
-          };
-        }
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(article)
-        };
-      } else {
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(articles)
-        };
-      }
-
-    case 'POST':
-      const newArticle = JSON.parse(event.body);
-      newArticle.id = Date.now().toString();
-      newArticle.date = new Date().toISOString();
-      articles.push(newArticle);
-      
-      return {
-        statusCode: 201,
-        headers,
-        body: JSON.stringify(newArticle)
-      };
-
-    case 'PUT':
-      if (!articleId) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({ message: 'ID de artículo requerido' })
-        };
-      }
-      
-      const updateData = JSON.parse(event.body);
-      const articleIndex = articles.findIndex(a => a.id === articleId);
-      
-      if (articleIndex === -1) {
-        return {
-          statusCode: 404,
-          headers,
-          body: JSON.stringify({ message: 'Artículo no encontrado' })
-        };
-      }
-      
-      articles[articleIndex] = { ...articles[articleIndex], ...updateData };
-      
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify(articles[articleIndex])
-      };
-
-    case 'DELETE':
-      if (!articleId) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({ message: 'ID de artículo requerido' })
-        };
-      }
-      
-      const deleteIndex = articles.findIndex(a => a.id === articleId);
-      
-      if (deleteIndex === -1) {
-        return {
-          statusCode: 404,
-          headers,
-          body: JSON.stringify({ message: 'Artículo no encontrado' })
-        };
-      }
-      
-      articles.splice(deleteIndex, 1);
-      
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({ message: 'Artículo eliminado' })
-      };
-
-    default:
-      return {
-        statusCode: 405,
-        headers,
-        body: JSON.stringify({ message: 'Método no permitido' })
-      };
-  }
+    switch (method) {
+        case 'GET':
+            return {
+                statusCode: 200,
+                headers,
+                body: JSON.stringify({
+                    message: 'Lista de artículos',
+                    user: user.sub,
+                    articles: []
+                })
+            };
+        
+        case 'POST':
+            const body = JSON.parse(event.body || '{}');
+            return {
+                statusCode: 201,
+                headers,
+                body: JSON.stringify({
+                    message: 'Artículo creado',
+                    article: body,
+                    user: user.sub
+                })
+            };
+        
+        default:
+            return {
+                statusCode: 405,
+                headers,
+                body: JSON.stringify({ error: 'Método no permitido' })
+            };
+    }
 }
 
-// Manejar rutas del foro
-async function handleForumPosts(path, method, event, headers) {
-  const postId = path.split('/')[2];
+// Manejador para publicaciones del foro
+function handleForumPosts(event, method, user) {
+    const headers = {
+        'Access-Control-Allow-Origin': 'https://service.hgaruna.org',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Content-Type': 'application/json'
+    };
 
-  switch (method) {
-    case 'GET':
-      if (postId) {
-        const post = forumPosts.find(p => p.id === postId);
-        if (!post) {
-          return {
-            statusCode: 404,
+    switch (method) {
+        case 'GET':
+            return {
+                statusCode: 200,
+                headers,
+                body: JSON.stringify({
+                    message: 'Lista de publicaciones del foro',
+                    user: user.sub,
+                    posts: []
+                })
+            };
+        
+        case 'POST':
+            const body = JSON.parse(event.body || '{}');
+            return {
+                statusCode: 201,
+                headers,
+                body: JSON.stringify({
+                    message: 'Publicación creada',
+                    post: body,
+                    user: user.sub
+                })
+            };
+        
+        default:
+            return {
+                statusCode: 405,
+                headers,
+                body: JSON.stringify({ error: 'Método no permitido' })
+            };
+    }
+}
+
+// Manejador para estadísticas
+function handleStats(event, method, user) {
+    const headers = {
+        'Access-Control-Allow-Origin': 'https://service.hgaruna.org',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Content-Type': 'application/json'
+    };
+
+    if (method === 'GET') {
+        return {
+            statusCode: 200,
             headers,
-            body: JSON.stringify({ message: 'Publicación no encontrada' })
-          };
-        }
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(post)
+            body: JSON.stringify({
+                message: 'Estadísticas del sitio',
+                user: user.sub,
+                stats: {
+                    totalArticles: 0,
+                    totalPosts: 0,
+                    totalUsers: 0,
+                    lastActivity: new Date().toISOString()
+                }
+            })
         };
-      } else {
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(forumPosts)
-        };
-      }
+    }
 
-    case 'POST':
-      const newPost = JSON.parse(event.body);
-      newPost.id = Date.now().toString();
-      newPost.date = new Date().toISOString();
-      newPost.likes = 0;
-      newPost.comments = [];
-      newPost.shares = 0;
-      forumPosts.push(newPost);
-      
-      return {
-        statusCode: 201,
-        headers,
-        body: JSON.stringify(newPost)
-      };
-
-    case 'PUT':
-      if (!postId) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({ message: 'ID de publicación requerido' })
-        };
-      }
-      
-      const updateData = JSON.parse(event.body);
-      const postIndex = forumPosts.findIndex(p => p.id === postId);
-      
-      if (postIndex === -1) {
-        return {
-          statusCode: 404,
-          headers,
-          body: JSON.stringify({ message: 'Publicación no encontrada' })
-        };
-      }
-      
-      forumPosts[postIndex] = { ...forumPosts[postIndex], ...updateData };
-      
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify(forumPosts[postIndex])
-      };
-
-    case 'DELETE':
-      if (!postId) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({ message: 'ID de publicación requerido' })
-        };
-      }
-      
-      const deleteIndex = forumPosts.findIndex(p => p.id === postId);
-      
-      if (deleteIndex === -1) {
-        return {
-          statusCode: 404,
-          headers,
-          body: JSON.stringify({ message: 'Publicación no encontrada' })
-        };
-      }
-      
-      forumPosts.splice(deleteIndex, 1);
-      
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({ message: 'Publicación eliminada' })
-      };
-
-    default:
-      return {
+    return {
         statusCode: 405,
         headers,
-        body: JSON.stringify({ message: 'Método no permitido' })
-      };
-  }
+        body: JSON.stringify({ error: 'Método no permitido' })
+    };
 } 

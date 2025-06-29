@@ -1,15 +1,20 @@
-// Configuración de Auth0 - Sistema Limpio
-const AUTH0_CONFIG = {
-  domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com',
-  clientId: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab',
-  clientSecret: 'W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS',
-  redirectUri: 'https://service.hgaruna.org/admin.html',
-  logoutUri: 'https://service.hgaruna.org/',
-  audience: 'https://service.hgaruna.org/api',
-  scope: 'openid profile email'
+// Configuración de Auth0
+const auth0Config = {
+    domain: "dev-b0qip4vee7sg3q7e.us.auth0.com",
+    clientId: "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab",
+    authorizationParams: {
+        redirect_uri: window.location.origin + "/admin/",
+        audience: "https://service.hgaruna.org/api"
+    },
+    cacheLocation: "localstorage"
 };
 
-// Hacer la configuración globalmente accesible
-window.AUTH0_CONFIG = AUTH0_CONFIG;
+// Inicializar Auth0
+let auth0 = null;
 
-console.log('✅ Configuración de Auth0 cargada'); 
+const configureClient = async () => {
+    auth0 = await auth0.createAuth0Client(auth0Config);
+};
+
+// Configurar el cliente cuando se carga la página
+configureClient(); 
