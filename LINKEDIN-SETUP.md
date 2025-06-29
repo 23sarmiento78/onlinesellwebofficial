@@ -46,8 +46,8 @@
 3. Agrega las siguientes variables:
 
 ```
-LINKEDIN_CLIENT_ID=77w90bvizsj1y9
-LINKEDIN_CLIENT_SECRET=WPL_AP1.aca8d5j54e9SZ5p5.W0ifCg==
+LINKEDIN_CLIENT_ID=tu_client_id_aqui
+LINKEDIN_CLIENT_SECRET=tu_client_secret_aqui
 ```
 
 ### 5. Actualizar Configuración en el Código

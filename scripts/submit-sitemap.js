@@ -8,10 +8,13 @@ const SITEMAP_PATH = path.resolve(__dirname, '../dist/sitemap-index.xml');
 
 async function submitUrlForIndexing(url) {
     try {
-        const response = await axios.post(INDEXING_FUNCTION_URL, { url: url });
+        const response = await axios.post(INDEXING_FUNCTION_URL, { url: url }, {
+            timeout: 5000 // 5 segundos de timeout
+        });
         console.log(`URL ${url} enviada con éxito:`, response.data);
     } catch (error) {
         console.error(`Error al enviar URL ${url}:`, error.response ? error.response.data : error.message);
+        // No fallar el build por errores de red
     }
 }
 
@@ -53,8 +56,12 @@ async function processSitemap() {
     } catch (error) {
         console.error('Error al parsear el sitemap:', error.message);
         // No fallar el build por este error
-        process.exit(0);
     }
 }
 
-processSitemap(); 
+// Ejecutar el proceso y asegurar que no falle el build
+processSitemap().catch(error => {
+    console.error('Error general en el proceso de sitemap:', error.message);
+    // Siempre salir con código 0 para no fallar el build
+    process.exit(0);
+}); 
