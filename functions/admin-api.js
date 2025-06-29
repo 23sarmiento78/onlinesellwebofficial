@@ -1,12 +1,40 @@
 const { MongoClient } = require('mongodb');
+const jwt = require('jsonwebtoken');
+const jwksClient = require('jwks-rsa');
 
 // Configuración optimizada - solo variables necesarias
 const MONGODB_URI = process.env.NETLIFY_DATABASE_URL;
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'default-admin-token';
+const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'hgaruna.us.auth0.com';
+const AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE || 'https://service.hgaruna.org/api';
 
-// Validar token de administración
-function validateAdminToken(token) {
-    return token === ADMIN_TOKEN;
+// Cliente JWKS para verificar tokens de Auth0
+const client = jwksClient({
+  jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`
+});
+
+// Función para obtener la clave pública
+function getKey(header, callback) {
+  client.getSigningKey(header.kid, function(err, key) {
+    const signingKey = key.publicKey || key.rsaPublicKey;
+    callback(null, signingKey);
+  });
+}
+
+// Validar token de Auth0
+function validateAuth0Token(token) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, getKey, {
+      audience: AUTH0_AUDIENCE,
+      issuer: `https://${AUTH0_DOMAIN}/`,
+      algorithms: ['RS256']
+    }, (err, decoded) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(decoded);
+      }
+    });
+  });
 }
 
 // Conectar a MongoDB
@@ -50,12 +78,16 @@ exports.handler = async (event, context) => {
         }
 
         const token = authHeader.replace('Bearer ', '');
-        if (!validateAdminToken(token)) {
-            return {
-                statusCode: 403,
-                headers,
-                body: JSON.stringify({ error: 'Token de autorización inválido' })
-            };
+        
+        try {
+          await validateAuth0Token(token);
+        } catch (error) {
+          console.error('❌ Error validando token de Auth0:', error);
+          return {
+            statusCode: 403,
+            headers,
+            body: JSON.stringify({ error: 'Token de autorización inválido o expirado' })
+          };
         }
 
         const client = await connectToDatabase();

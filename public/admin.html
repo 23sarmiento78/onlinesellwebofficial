@@ -688,15 +688,12 @@
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      console.log('🚀 Inicializando panel de administración...');
+      console.log('🚀 Inicializando panel de administración con Auth0...');
       
-      // 1. Crear instancia global de SimpleAuth
-      window.simpleAuth = new SimpleAuth();
+      // 1. Crear instancia global de Auth0Auth
+      window.auth0Auth = new Auth0Auth();
       
-      // 2. Inicializar SimpleAuth (esto manejará la autenticación y mostrará login/panel)
-      window.simpleAuth.init();
-      
-      // 3. Inicializar Integración de LinkedIn (si existe) después de un delay
+      // 2. Inicializar Integración de LinkedIn (si existe) después de un delay
       setTimeout(() => {
         if (typeof LinkedInIntegration !== 'undefined') {
           window.linkedInIntegration = new LinkedInIntegration();
