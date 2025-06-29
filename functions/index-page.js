@@ -60,6 +60,9 @@ exports.handler = async (event, context) => {
       case 'stats':
         return await handleStats(db, headers);
       
+      case 'views':
+        return await handleViews(db, httpMethod, action, id, body, headers);
+      
       default:
         return {
           statusCode: 404,
@@ -239,6 +242,102 @@ async function handleStats(db, headers) {
     statusCode: 200,
     headers,
     body: JSON.stringify(stats)
+  };
+}
+
+async function handleViews(db, method, action, id, body, headers) {
+  const collection = db.collection('views');
+
+  switch (method) {
+    case 'POST':
+      if (action === 'create') {
+        const viewData = JSON.parse(body);
+        const view = {
+          page: viewData.page || '/',
+          userAgent: viewData.userAgent || req.headers['user-agent'],
+          ip: viewData.ip || req.ip,
+          timestamp: new Date(),
+          date: new Date().toISOString().split('T')[0] // YYYY-MM-DD
+        };
+        
+        await collection.insertOne(view);
+        
+        return {
+          statusCode: 201,
+          headers,
+          body: JSON.stringify({ success: true, view: view })
+        };
+      }
+      break;
+
+    case 'GET':
+      if (action === 'stats') {
+        const { period = 'all' } = id;
+        
+        let dateFilter = {};
+        const today = new Date();
+        
+        if (period === 'today') {
+          const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+          dateFilter = { timestamp: { $gte: startOfDay } };
+        } else if (period === 'week') {
+          const startOfWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+          dateFilter = { timestamp: { $gte: startOfWeek } };
+        } else if (period === 'month') {
+          const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+          dateFilter = { timestamp: { $gte: startOfMonth } };
+        }
+        
+        // Total de vistas
+        const totalViews = await collection.countDocuments(dateFilter);
+        
+        // Vistas por página
+        const viewsByPage = await collection
+          .aggregate([
+            { $match: dateFilter },
+            { $group: { _id: '$page', count: { $sum: 1 } } },
+            { $sort: { count: -1 } }
+          ]).toArray();
+        
+        // Vistas por día (últimos 30 días)
+        const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+        const dailyViews = await collection
+          .aggregate([
+            { $match: { timestamp: { $gte: thirtyDaysAgo } } },
+            { $group: { _id: '$date', count: { $sum: 1 } } },
+            { $sort: { _id: 1 } }
+          ]).toArray();
+        
+        // Vistas únicas (por IP)
+        const uniqueViews = await collection
+          .distinct('ip', dateFilter);
+        
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({
+            totalViews,
+            uniqueViews: uniqueViews.length,
+            viewsByPage,
+            dailyViews,
+            period
+          })
+        };
+      } else if (id === 'total') {
+        const totalViews = await collection.countDocuments();
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ totalViews })
+        };
+      }
+      break;
+  }
+
+  return {
+    statusCode: 400,
+    headers,
+    body: JSON.stringify({ error: 'Invalid request' })
   };
 }
 
