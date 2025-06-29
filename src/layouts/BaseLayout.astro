@@ -234,6 +234,14 @@ const {
                 <i class="fab fa-whatsapp"></i>
                 <span>Cotizar Ahora</span>
               </a>
+              
+              <!-- Botón de Admin (solo visible si está autenticado) -->
+              <a href="/admin/" id="admin-button" class="nav-btn admin" style="display: none;">
+                <i class="fas fa-cog"></i>
+                <span>Admin</span>
+              </a>
+              
+              <!-- Botón de Login/Logout -->
               <a href="#" id="login-button" class="nav-btn secondary">
                 <i class="fas fa-user"></i>
                 <span>Iniciar Sesión</span>
@@ -396,52 +404,94 @@ const {
         });
       });
 
-      // Script para manejar el login/logout
+      // Script para manejar el login/logout y admin
       document.addEventListener('DOMContentLoaded', () => {
         const loginButton = document.getElementById('login-button');
+        const adminButton = document.getElementById('admin-button');
 
-        // Función para verificar si el usuario está logueado
+        // Función para verificar si el usuario está logueado usando el nuevo sistema
         function checkIfUserIsLoggedIn() {
-          const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-          return isLoggedIn;
+          const authUser = localStorage.getItem('auth_user');
+          const authToken = localStorage.getItem('auth_token');
+          return authUser && authToken;
         }
 
         function getUserProfileName() {
-          return localStorage.getItem('userName') || 'Usuario';
+          try {
+            const authUser = localStorage.getItem('auth_user');
+            if (authUser) {
+              const user = JSON.parse(authUser);
+              return user.name || user.email.split('@')[0];
+            }
+          } catch (error) {
+            console.error('Error al obtener nombre de usuario:', error);
+          }
+          return 'Usuario';
         }
 
-        function updateLoginButton() {
+        function updateAuthButtons() {
           if (checkIfUserIsLoggedIn()) {
+            // Usuario autenticado
             loginButton.innerHTML = `
               <i class="fas fa-user"></i>
               <span>${getUserProfileName()}</span>
             `;
-            loginButton.addEventListener('click', handleLogout);
+            loginButton.href = '#';
+            loginButton.onclick = handleLogout;
+            
+            // Mostrar botón de admin
+            if (adminButton) {
+              adminButton.style.display = 'inline-flex';
+            }
           } else {
+            // Usuario no autenticado
             loginButton.innerHTML = `
               <i class="fas fa-user"></i>
               <span>Iniciar Sesión</span>
             `;
-            loginButton.addEventListener('click', handleLogin);
+            loginButton.href = '#';
+            loginButton.onclick = handleLogin;
+            
+            // Ocultar botón de admin
+            if (adminButton) {
+              adminButton.style.display = 'none';
+            }
           }
         }
 
         function handleLogin(e) {
           e.preventDefault();
-          alert('Simulando inicio de sesión. En una aplicación real, esto redirigiría a Auth0.');
-          // Ejemplo: localStorage.setItem('isLoggedIn', 'true');
-          // localStorage.setItem('userName', 'MiUsuario');
-          // updateLoginButton();
+          // Usar el nuevo sistema de autenticación
+          if (window.simpleAuth) {
+            window.simpleAuth.showLoginForm();
+          } else {
+            // Fallback si el sistema no está cargado
+            window.location.href = '/admin/';
+          }
         }
 
         function handleLogout(e) {
           e.preventDefault();
-          localStorage.removeItem('isLoggedIn');
-          localStorage.removeItem('userName');
-          updateLoginButton();
+          // Usar el nuevo sistema de autenticación
+          if (window.simpleAuth) {
+            window.simpleAuth.logout();
+          } else {
+            // Fallback si el sistema no está cargado
+            localStorage.removeItem('auth_user');
+            localStorage.removeItem('auth_token');
+            updateAuthButtons();
+          }
         }
 
-        updateLoginButton();
+        // Actualizar botones al cargar la página
+        updateAuthButtons();
+        
+        // Escuchar cambios en localStorage para actualizar en tiempo real
+        window.addEventListener('storage', (e) => {
+          if (e.key === 'auth_user' || e.key === 'auth_token') {
+            updateAuthButtons();
+          }
+        });
       });
     </script>
     <script>
