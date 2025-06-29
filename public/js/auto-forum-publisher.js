@@ -1,277 +1,260 @@
 // Sistema Automatizado de Publicación en Foro
 class AutoForumPublisher {
   constructor() {
-    this.foroManager = window.foroManager;
+    this.apiUrl = '/api/forum-posts';
+    this.articlesUrl = '/api/articles';
+    this.checkInterval = 5 * 60 * 1000; // 5 minutos
+    this.publishedArticles = new Set();
     this.init();
   }
 
-  init() {
-    // Escuchar eventos de publicación de artículos
-    this.setupArticleListeners();
+  async init() {
+    // Cargar artículos ya publicados
+    await this.loadPublishedArticles();
     
-    // Verificar si hay artículos nuevos que necesiten publicación en foro
-    this.checkForNewArticles();
+    // Iniciar verificación periódica
+    this.startPeriodicCheck();
+    
+    // Verificar inmediatamente
+    await this.checkForNewArticles();
   }
 
-  // Configurar listeners para detectar nuevas publicaciones de artículos
-  setupArticleListeners() {
-    // Escuchar cambios en el localStorage (simulación de nueva publicación)
-    window.addEventListener('storage', (e) => {
-      if (e.key === 'new_article_published') {
-        const articleData = JSON.parse(e.newValue);
-        if (articleData) {
-          this.createForumPostFromArticle(articleData);
+  async loadPublishedArticles() {
+    try {
+      const response = await fetch(this.apiUrl);
+      if (response.ok) {
+        const posts = await response.json();
+        posts.forEach(post => {
+          if (post.articleId) {
+            this.publishedArticles.add(post.articleId);
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error cargando publicaciones existentes:', error);
+    }
+  }
+
+  startPeriodicCheck() {
+    setInterval(async () => {
+      await this.checkForNewArticles();
+    }, this.checkInterval);
+  }
+
+  async checkForNewArticles() {
+    try {
+      const response = await fetch(this.articlesUrl);
+      if (!response.ok) {
+        throw new Error('Error obteniendo artículos');
+      }
+
+      const articles = await response.json();
+      const newArticles = articles.filter(article => 
+        !this.publishedArticles.has(article._id)
+      );
+
+      for (const article of newArticles) {
+        await this.publishArticleToForum(article);
+      }
+    } catch (error) {
+      console.error('Error verificando nuevos artículos:', error);
+    }
+  }
+
+  async publishArticleToForum(article) {
+    try {
+      const forumPost = {
+        title: `📝 ${article.title}`,
+        content: this.generateForumContent(article),
+        author: 'hgaruna',
+        date: new Date().toISOString(),
+        tags: article.tags || [],
+        category: 'Artículos del Blog',
+        articleId: article._id,
+        likes: 0,
+        comments: [],
+        shares: 0
+      };
+
+      const response = await fetch(this.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(forumPost)
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        this.publishedArticles.add(article._id);
+        console.log('✅ Artículo publicado en el foro:', article.title);
+        
+        // Compartir en LinkedIn si está configurado
+        await this.shareToLinkedIn(forumPost);
+        
+        return result;
+      } else {
+        throw new Error('Error publicando en el foro');
+      }
+    } catch (error) {
+      console.error('Error publicando artículo en el foro:', error);
+    }
+  }
+
+  generateForumContent(article) {
+    const maxLength = 500;
+    let content = article.description || article.content || '';
+    
+    // Truncar si es muy largo
+    if (content.length > maxLength) {
+      content = content.substring(0, maxLength) + '...';
+    }
+
+    return `${content}\n\n📖 Lee el artículo completo: ${window.location.origin}/blog/${article.slug || article._id}\n\n#${(article.tags || []).join(' #')}`;
+  }
+
+  async shareToLinkedIn(forumPost) {
+    try {
+      // Verificar si LinkedIn está conectado
+      if (window.linkedInIntegration && window.linkedInIntegration.isAuthenticated()) {
+        // Verificar configuración de auto-share
+        const autoShare = document.getElementById('auto-share')?.checked ?? true;
+        
+        if (autoShare) {
+          await window.linkedInIntegration.sharePost({
+            title: forumPost.title,
+            content: forumPost.content,
+            tags: forumPost.tags
+          });
+          
+          console.log('✅ Publicación compartida en LinkedIn');
+          
+          // Mostrar notificación
+          this.showNotification('Publicación compartida en LinkedIn', 'success');
         }
       }
-    });
-
-    // También escuchar eventos personalizados
-    document.addEventListener('articlePublished', (e) => {
-      this.createForumPostFromArticle(e.detail);
-    });
-  }
-
-  // Verificar artículos existentes que no tengan publicación en foro
-  checkForNewArticles() {
-    const publishedArticles = this.getPublishedArticles();
-    const forumPosts = this.foroManager ? this.foroManager.posts : [];
-    
-    publishedArticles.forEach(article => {
-      const hasForumPost = forumPosts.some(post => 
-        post.articleId === article.id || 
-        post.content.includes(article.title.substring(0, 30))
-      );
-      
-      if (!hasForumPost) {
-        console.log(`📝 Creando publicación automática para: ${article.title}`);
-        this.createForumPostFromArticle(article);
-      } else {
-        console.log(`✅ Artículo ya tiene publicación en foro: ${article.title}`);
-      }
-    });
-  }
-
-  // Obtener artículos publicados (simulado)
-  getPublishedArticles() {
-    // En un entorno real, esto vendría de la API del blog
-    const savedArticles = localStorage.getItem('published_articles');
-    if (savedArticles) {
-      return JSON.parse(savedArticles);
+    } catch (error) {
+      console.error('Error compartiendo en LinkedIn:', error);
+      // No mostrar error al usuario, solo log
     }
-    
-    // Artículos de ejemplo basados en el contenido del blog
-    return [
-      {
-        id: '2025-01-22-desarrollo-web-villa-carlos-paz',
-        title: 'Desarrollo Web Profesional en Villa Carlos Paz: Potenciando Negocios Locales',
-        description: 'Descubre cómo el desarrollo web profesional está transformando los negocios en Villa Carlos Paz, Córdoba. Soluciones digitales a medida para empresas locales.',
-        category: 'Desarrollo Web Local',
-        tags: ['Villa Carlos Paz', 'Desarrollo Web', 'Marketing Digital', 'Córdoba', 'Negocios Locales', 'SEO Local'],
-        image: '/logos-he-imagenes/programacion.jpeg',
-        publishedAt: '2025-01-22',
-        author: 'hgaruna',
-        articleUrl: '/blog/2025-01-22-desarrollo-web-villa-carlos-paz/'
-      },
-      {
-        id: '2024-03-15-10-estrategias-seo-avanzadas',
-        title: '10 Estrategias SEO Avanzadas para 2024',
-        description: 'Descubre las técnicas más efectivas de SEO para mejorar el posicionamiento de tu sitio web en los motores de búsqueda.',
-        category: 'SEO',
-        tags: ['SEO', 'Marketing Digital', 'Posicionamiento', 'Google', 'Optimización'],
-        image: '/logos-he-imagenes/programacion.jpeg',
-        publishedAt: '2024-03-15',
-        author: 'hgaruna',
-        articleUrl: '/blog/2024-03-15-10-estrategias-seo-avanzadas/'
-      },
-      {
-        id: '2024-03-12-react-optimizacion',
-        title: 'Optimización de React: Mejores Prácticas para 2024',
-        description: 'Aprende las técnicas más efectivas para optimizar aplicaciones React y mejorar el rendimiento de tus proyectos web.',
-        category: 'Desarrollo Web',
-        tags: ['React', 'JavaScript', 'Optimización', 'Frontend', 'Performance'],
-        image: '/logos-he-imagenes/programacion.jpeg',
-        publishedAt: '2024-03-12',
-        author: 'hgaruna',
-        articleUrl: '/blog/2024-03-12-react-optimizacion/'
-      },
-      {
-        id: '2024-03-10-tendencias-diseno-ui-ux',
-        title: 'Tendencias de Diseño UI/UX para 2024',
-        description: 'Explora las tendencias más importantes en diseño de interfaces y experiencia de usuario que dominarán este año.',
-        category: 'Diseño Web',
-        tags: ['UI/UX', 'Diseño', 'Tendencias', 'Interfaces', 'Experiencia de Usuario'],
-        image: '/logos-he-imagenes/programacion.jpeg',
-        publishedAt: '2024-03-10',
-        author: 'hgaruna',
-        articleUrl: '/blog/2024-03-10-tendencias-diseno-ui-ux/'
-      },
-      {
-        id: '2025-06-13-el-futuro-de-la-inteligencia-artificial-en-el-desarrollo-web',
-        title: 'El Futuro de la Inteligencia Artificial en el Desarrollo Web',
-        description: 'Descubre cómo la IA está transformando el desarrollo web y qué podemos esperar en los próximos años.',
-        category: 'Tecnología',
-        tags: ['Inteligencia Artificial', 'IA', 'Desarrollo Web', 'Futuro', 'Innovación'],
-        image: '/logos-he-imagenes/programacion.jpeg',
-        publishedAt: '2025-06-13',
-        author: 'hgaruna',
-        articleUrl: '/blog/2025-06-13-el-futuro-de-la-inteligencia-artificial-en-el-desarrollo-web/'
-      }
-    ];
   }
 
-  // Crear publicación en foro basada en artículo
-  createForumPostFromArticle(article) {
-    if (!this.foroManager) {
-      console.error('❌ ForoManager no está disponible');
-      return;
-    }
-
-    // Generar contenido para el foro
-    const forumContent = this.generateForumContent(article);
+  showNotification(message, type = 'info') {
+    // Crear notificación elegante
+    const notification = document.createElement('div');
+    notification.className = `auto-publisher-notification ${type}`;
+    notification.innerHTML = `
+      <div class="notification-content">
+        <i class="material-icons">${type === 'success' ? 'check_circle' : 'info'}</i>
+        <span>${message}</span>
+      </div>
+    `;
     
-    // Crear la publicación en el foro
-    const forumPost = this.foroManager.createPost(
-      forumContent,
-      article.image,
-      article.category
-    );
-
-    // Agregar metadatos del artículo
-    forumPost.articleId = article.id;
-    forumPost.articleTitle = article.title;
-    forumPost.articleUrl = article.articleUrl || `/blog/${article.id}/`;
-    forumPost.tags = article.tags;
-    forumPost.isAutoGenerated = true;
-    forumPost.articleAuthor = article.author;
-    forumPost.articlePublishedAt = article.publishedAt;
-
-    // Guardar la publicación actualizada
-    this.foroManager.savePosts();
-
-    console.log(`✅ Publicación automática creada en foro para: ${article.title}`);
+    document.body.appendChild(notification);
+    
+    // Agregar estilos si no existen
+    if (!document.getElementById('auto-publisher-styles')) {
+      const style = document.createElement('style');
+      style.id = 'auto-publisher-styles';
+      style.textContent = `
+        .auto-publisher-notification {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: white;
+          border-radius: 12px;
+          padding: 1rem 1.5rem;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          z-index: 10000;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          border-left: 4px solid #4CAF50;
+        }
+        
+        .auto-publisher-notification.show {
+          transform: translateX(0);
+        }
+        
+        .auto-publisher-notification.success {
+          border-left-color: #4CAF50;
+        }
+        
+        .auto-publisher-notification.info {
+          border-left-color: #2196F3;
+        }
+        
+        .auto-publisher-notification.error {
+          border-left-color: #f44336;
+        }
+        
+        .notification-content {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: #333;
+          font-weight: 500;
+        }
+        
+        .notification-content i {
+          font-size: 1.2rem;
+        }
+        
+        .auto-publisher-notification.success .notification-content i {
+          color: #4CAF50;
+        }
+        
+        .auto-publisher-notification.info .notification-content i {
+          color: #2196F3;
+        }
+        
+        .auto-publisher-notification.error .notification-content i {
+          color: #f44336;
+        }
+      `;
+      document.head.appendChild(style);
+    }
     
     // Mostrar notificación
-    if (this.foroManager.showNotification) {
-      this.foroManager.showNotification(
-        `📝 Artículo "${article.title}" publicado automáticamente en el foro`,
-        'success'
-      );
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Ocultar después de 5 segundos
+    setTimeout(() => {
+      notification.classList.remove('show');
+      setTimeout(() => notification.remove(), 300);
+    }, 5000);
+  }
+
+  // Método para publicar manualmente un artículo
+  async publishArticleManually(articleId) {
+    try {
+      const response = await fetch(`${this.articlesUrl}/${articleId}`);
+      if (!response.ok) {
+        throw new Error('Artículo no encontrado');
+      }
+
+      const article = await response.json();
+      return await this.publishArticleToForum(article);
+    } catch (error) {
+      console.error('Error publicando artículo manualmente:', error);
+      throw error;
     }
-    
-    // Disparar evento para integración futura con LinkedIn
-    this.triggerLinkedInIntegration(forumPost, article);
   }
 
-  // Generar contenido para el foro basado en el artículo
-  generateForumContent(article) {
-    const content = `
-🚀 **¡Nuevo artículo publicado!** 
-
-📖 **${article.title}**
-
-${this.generateSummary(article.description)}
-
-🔗 **Lee el artículo completo:** [${article.title}](${article.articleUrl})
-
-📅 **Publicado:** ${new Date(article.publishedAt).toLocaleDateString('es-ES')}
-👨‍💻 **Autor:** ${article.author}
-
-💡 **¿Qué opinas sobre este tema?** Comparte tus experiencias y conocimientos en los comentarios.
-
-#${article.tags.map(tag => tag.replace(/\s+/g, '')).join(' #')} #hgaruna #DesarrolloWeb
-    `.trim();
-
-    return content;
-  }
-
-  // Generar resumen del artículo
-  generateSummary(description) {
-    // Limitar a 200 caracteres y agregar puntos suspensivos si es necesario
-    if (description.length <= 200) {
-      return description;
-    }
-    
-    return description.substring(0, 200).trim() + '...';
-  }
-
-  // Disparar evento para integración con LinkedIn (futuro)
-  triggerLinkedInIntegration(forumPost, article) {
-    const linkedInData = {
-      forumPost: forumPost,
-      article: article,
-      timestamp: new Date().toISOString()
-    };
-
-    // Guardar datos para integración futura
-    localStorage.setItem('linkedin_integration_queue', JSON.stringify(linkedInData));
-    
-    // Disparar evento personalizado
-    document.dispatchEvent(new CustomEvent('linkedinIntegrationReady', {
-      detail: linkedInData
-    }));
-
-    console.log('🔗 Datos preparados para integración con LinkedIn:', linkedInData);
-  }
-
-  // Método para publicar manualmente un artículo en el foro
-  manualPublishArticle(articleData) {
-    this.createForumPostFromArticle(articleData);
-  }
-
-  // Obtener estadísticas de publicaciones automáticas
-  getAutoPublishStats() {
-    const forumPosts = this.foroManager ? this.foroManager.posts : [];
-    const autoPosts = forumPosts.filter(post => post.isAutoGenerated);
-    
+  // Obtener estadísticas de publicación
+  getStats() {
     return {
-      totalAutoPosts: autoPosts.length,
-      totalForumPosts: forumPosts.length,
-      autoPostsPercentage: forumPosts.length > 0 ? (autoPosts.length / forumPosts.length * 100).toFixed(1) : 0
+      totalPublished: this.publishedArticles.size,
+      checkInterval: this.checkInterval,
+      isRunning: true
     };
   }
 }
 
-// Función para simular la publicación de un nuevo artículo
-function simulateArticlePublication(articleData) {
-  console.log('🤖 Simulando publicación automática de artículo:', articleData.title);
-  
-  // Guardar en localStorage para simular nueva publicación
-  localStorage.setItem('new_article_published', JSON.stringify(articleData));
-  
-  // Disparar evento personalizado
-  document.dispatchEvent(new CustomEvent('articlePublished', {
-    detail: articleData
-  }));
-}
-
-// Función para publicar artículo manualmente desde el admin
-function publishArticleToForum(articleData) {
-  if (window.autoForumPublisher) {
-    window.autoForumPublisher.manualPublishArticle(articleData);
-    return true;
-  }
-  return false;
-}
-
-// Inicializar cuando el DOM esté listo
+// Inicializar cuando se carga la página
+let autoForumPublisher;
 document.addEventListener('DOMContentLoaded', () => {
-  // Esperar a que el ForoManager esté disponible
-  const checkForoManager = setInterval(() => {
-    if (window.foroManager) {
-      clearInterval(checkForoManager);
-      window.autoForumPublisher = new AutoForumPublisher();
-      console.log('✅ AutoForumPublisher inicializado');
-      
-      // Mostrar estadísticas iniciales
-      setTimeout(() => {
-        const stats = window.autoForumPublisher.getAutoPublishStats();
-        console.log('📊 Estadísticas iniciales:', stats);
-      }, 1000);
-    }
-  }, 100);
+  autoForumPublisher = new AutoForumPublisher();
 });
 
-// Exportar para uso global
-window.AutoForumPublisher = AutoForumPublisher;
-window.simulateArticlePublication = simulateArticlePublication;
-window.publishArticleToForum = publishArticleToForum; 
+// Hacer disponible globalmente
+window.autoForumPublisher = autoForumPublisher; 

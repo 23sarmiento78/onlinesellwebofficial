@@ -63,6 +63,9 @@ exports.handler = async (event, context) => {
       case 'views':
         return await handleViews(db, httpMethod, action, id, body, headers);
       
+      case 'linkedin':
+        return await handleLinkedIn(db, httpMethod, action, id, body, headers);
+      
       default:
         return {
           statusCode: 404,
@@ -452,4 +455,139 @@ async function handleIndexNow(url) {
             })
         };
     }
+}
+
+async function handleLinkedIn(db, method, action, id, body, headers) {
+  const clientId = process.env.LINKEDIN_CLIENT_ID;
+  const clientSecret = process.env.LINKEDIN_CLIENT_SECRET;
+
+  if (!clientId || !clientSecret) {
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: 'LinkedIn credentials not configured' })
+    };
+  }
+
+  switch (method) {
+    case 'POST':
+      if (action === 'token') {
+        try {
+          const { code, redirect_uri } = JSON.parse(body);
+          
+          if (!code) {
+            return {
+              statusCode: 400,
+              headers,
+              body: JSON.stringify({ error: 'Authorization code required' })
+            };
+          }
+
+          // Intercambiar código por token de acceso
+          const tokenResponse = await fetch('https://www.linkedin.com/oauth/v2/accessToken', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+              grant_type: 'authorization_code',
+              code: code,
+              client_id: clientId,
+              client_secret: clientSecret,
+              redirect_uri: redirect_uri
+            })
+          });
+
+          if (!tokenResponse.ok) {
+            const errorData = await tokenResponse.text();
+            console.error('LinkedIn token error:', errorData);
+            return {
+              statusCode: 400,
+              headers,
+              body: JSON.stringify({ error: 'Failed to exchange code for token' })
+            };
+          }
+
+          const tokenData = await tokenResponse.json();
+          
+          // Guardar token en la base de datos para referencia
+          await db.collection('linkedin_tokens').insertOne({
+            access_token: tokenData.access_token,
+            expires_in: tokenData.expires_in,
+            created_at: new Date(),
+            user_id: 'admin' // Por ahora hardcodeado
+          });
+
+          return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({
+              access_token: tokenData.access_token,
+              expires_in: tokenData.expires_in
+            })
+          };
+        } catch (error) {
+          console.error('LinkedIn token exchange error:', error);
+          return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ error: 'Internal server error' })
+          };
+        }
+      }
+      break;
+
+    case 'GET':
+      if (action === 'profile') {
+        try {
+          const { access_token } = id;
+          
+          if (!access_token) {
+            return {
+              statusCode: 400,
+              headers,
+              body: JSON.stringify({ error: 'Access token required' })
+            };
+          }
+
+          // Obtener perfil de LinkedIn
+          const profileResponse = await fetch('https://api.linkedin.com/v2/me', {
+            headers: {
+              'Authorization': `Bearer ${access_token}`,
+              'X-Restli-Protocol-Version': '2.0.0'
+            }
+          });
+
+          if (!profileResponse.ok) {
+            return {
+              statusCode: 400,
+              headers,
+              body: JSON.stringify({ error: 'Failed to get LinkedIn profile' })
+            };
+          }
+
+          const profileData = await profileResponse.json();
+          
+          return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify(profileData)
+          };
+        } catch (error) {
+          console.error('LinkedIn profile error:', error);
+          return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ error: 'Internal server error' })
+          };
+        }
+      }
+      break;
+  }
+
+  return {
+    statusCode: 400,
+    headers,
+    body: JSON.stringify({ error: 'Invalid LinkedIn request' })
+  };
 } 
