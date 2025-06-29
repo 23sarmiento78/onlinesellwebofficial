@@ -2,9 +2,9 @@ const https = require('https');
 const querystring = require('querystring');
 
 // Configuración
-const CLIENT_ID = 'TU_CLIENT_ID_AQUI';
-const CLIENT_SECRET = 'TU_CLIENT_SECRET_AQUI';
-const REDIRECT_URI = 'https://tu-dominio.netlify.app/.netlify/functions/linkedin-callback';
+const CLIENT_ID = '77w90bvizsj1y9';
+const CLIENT_SECRET = 'WPL_AP1.aca8d5j54e9SZ5p5.W0ifCg==';
+const REDIRECT_URI = 'https://service.hgaruna.org.app/.netlify/functions/linkedin-callback';
 
 // Función para intercambiar código por token
 function exchangeCodeForToken(authorizationCode) {
