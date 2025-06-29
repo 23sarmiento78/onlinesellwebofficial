@@ -496,4 +496,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   adminPanel = new AdminPanel();
+  // Hacer el panel disponible globalmente
+  window.adminPanel = adminPanel;
 }); 

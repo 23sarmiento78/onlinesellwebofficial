@@ -689,6 +689,7 @@
   <!-- Scripts -->
   <script src="/js/linkedin-config.js"></script>
   <script src="/js/linkedin-integration.js"></script>
+  <script src="/js/test-linkedin-auth.js"></script>
   <script src="/js/auth.js"></script>
   <script src="/js/admin.js"></script>
   
@@ -711,7 +712,25 @@
       // Inicializar el sistema
       window.simpleAuth.init();
       
-      console.log('✅ Panel de administración inicializado');
+      // Esperar un momento para que todos los scripts se carguen
+      setTimeout(() => {
+        // Verificar que el panel de administración se haya inicializado
+        if (window.adminPanel) {
+          console.log('✅ Panel de administración disponible');
+          // Hacer el panel disponible globalmente para adminManager
+          window.adminManager.adminPanel = window.adminPanel;
+        } else {
+          console.warn('⚠️ Panel de administración no encontrado');
+          // Intentar crear una instancia si no existe
+          if (typeof AdminPanel !== 'undefined') {
+            window.adminPanel = new AdminPanel();
+            window.adminManager.adminPanel = window.adminPanel;
+            console.log('✅ Panel de administración creado manualmente');
+          }
+        }
+        
+        console.log('✅ Panel de administración inicializado');
+      }, 100);
     });
   </script>
 </body>
