@@ -156,6 +156,7 @@ const {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <title>{title}</title>
     <!-- Google tag (gtag.js) -->
@@ -172,31 +173,22 @@ const {
     </script>
   </head>
   <body class="dark-theme">
-    <!-- Header adaptado -->
+    <!-- Header con estilos OTIF -->
     <header class="main-header">
-      <nav class="navbar navbar-expand-lg fixed-top">
+      <nav class="navbar">
         <div class="container">
-          <div class="navbar-brand-wrapper">
-            <a class="navbar-brand" href="/">
-              <img id="nav-logo" src="\logos-he-imagenes\logonegro-Photoroom.png" alt="Logo de hgaruna" />
-            </a>
-          </div>
+          <a class="navbar-brand" href="/">
+            <img id="nav-logo" src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo de hgaruna" />
+            <span>hgaruna</span>
+          </a>
 
-          <!-- Botón de colapso para el menú de hamburguesa -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+          <!-- Botón de menú móvil -->
+          <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <!-- Menú colapsable -->
-          <div class="collapse navbar-collapse" id="navbarNav">
+          <!-- Menú principal -->
+          <div class="navbar-collapse">
             <ul class="main-nav">
               <li>
                 <a href="/" class="nav-link">
@@ -223,43 +215,33 @@ const {
                 </a>
               </li>
               <li>
+                <a href="/foro/" class="nav-link">
+                  <i class="fas fa-comments"></i>
+                  <span>Foro</span>
+                </a>
+              </li>
+              <li>
                 <a href="/legal/" class="nav-link">
                   <i class="fas fa-shield-alt"></i>
                   <span>Legal</span>
                 </a>
               </li>
-              <li>
-                <a href="https://wa.link/6t7cxa" class="btn-filled">
-                   Cotizar ahora
-                </a>
-              </li>
             </ul>
-            <div id="auth-buttons-container">
-              <a href="#" id="login-button" class="btn-outline">Iniciar Sesión</a>
-
-              <div id="user-dropdown" class="dropdown" style="display: none;">
-                <a
-                  class="dropdown-toggle"
-                  href="#"
-                  role="button"
-                  id="userDropdownMenuLink"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span id="user-display-name"></span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userDropdownMenuLink">
-                  <li><a class="dropdown-item" href="/admin/">Admin</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item" href="#" id="logout-button-dropdown">Cerrar Sesión</a></li>
-                </ul>
-              </div>
+            
+            <!-- Botones de acción -->
+            <div class="nav-actions">
+              <a href="https://wa.link/6t7cxa" class="nav-btn primary" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span>Cotizar Ahora</span>
+              </a>
+              <a href="#" id="login-button" class="nav-btn secondary">
+                <i class="fas fa-user"></i>
+                <span>Iniciar Sesión</span>
+              </a>
             </div>
           </div>
         </div>
       </nav>
-
-      <!-- Hero Section -->
     </header>
 
     <main id="main-content" role="main" style="margin-top: 50px;">
@@ -292,6 +274,8 @@ const {
               <li><a href="/">Inicio</a></li>
               <li><a href="/planes/">Planes</a></li>
               <li><a href="/mi-experiencia/">Mi Experiencia</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/foro/">Foro</a></li>
               <li><a href="/legal/">Legal</a></li>
               <li><a href="https://wa.link/6t7cxa">Contacto</a></li>
             </ul>
@@ -317,15 +301,42 @@ const {
     <script src="/js/auth.js" is:inline></script>
     <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/f6ab0c5fa0f73bab894709899/f732c2f3acec06ae9ef054f6f.js");</script>
     <script>
-      // Script para manejar el tema oscuro/claro
+      // Script para manejar el tema oscuro/claro y navegación
       document.addEventListener('DOMContentLoaded', () => {
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
         const navLogo = document.getElementById('nav-logo');
         const footerLogo = document.getElementById('footer-logo');
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
 
         const darkLogo = '/logos-he-imagenes/logo3.png';
         const lightLogo = '/logos-he-imagenes/logonegro-Photoroom.png';
+
+        // Función para manejar el menú móvil
+        if (navbarToggler && navbarCollapse) {
+          navbarToggler.addEventListener('click', () => {
+            navbarToggler.classList.toggle('active');
+            navbarCollapse.classList.toggle('show');
+          });
+
+          // Cerrar menú al hacer clic en un enlace
+          const navLinks = document.querySelectorAll('.nav-link');
+          navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+              navbarToggler.classList.remove('active');
+              navbarCollapse.classList.remove('show');
+            });
+          });
+
+          // Cerrar menú al hacer clic fuera
+          document.addEventListener('click', (e) => {
+            if (!navbarToggler.contains(e.target) && !navbarCollapse.contains(e.target)) {
+              navbarToggler.classList.remove('active');
+              navbarCollapse.classList.remove('show');
+            }
+          });
+        }
 
         function updateLogoBasedOnTheme(currentTheme) {
           if (currentTheme === 'dark-theme') {
@@ -334,6 +345,15 @@ const {
           } else {
             if (navLogo) navLogo.src = lightLogo;
             if (footerLogo) footerLogo.src = lightLogo;
+          }
+        }
+
+        function updateThemeToggleIcon(currentTheme) {
+          const icon = themeToggle.querySelector('i');
+          if (currentTheme === 'dark-theme') {
+            icon.className = 'fas fa-sun';
+          } else {
+            icon.className = 'fas fa-moon';
           }
         }
 
@@ -366,65 +386,62 @@ const {
           }
         });
 
-        function updateThemeToggleIcon(currentTheme) {
-          const icon = themeToggle.querySelector('i');
-          if (currentTheme === 'dark-theme') {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-          } else {
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
+        // Marcar enlace activo en navegación
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
           }
-        }
+        });
       });
 
-      // Script para ocultar el botón de login y mostrar el dropdown si el usuario está logueado
+      // Script para manejar el login/logout
       document.addEventListener('DOMContentLoaded', () => {
         const loginButton = document.getElementById('login-button');
-        const userDropdown = document.getElementById('user-dropdown');
-        const userDisplayName = document.getElementById('user-display-name');
-        const logoutButtonDropdown = document.getElementById('logout-button-dropdown');
 
-        // Función para verificar si el usuario está logueado (puedes reemplazar con tu lógica de Auth0)
+        // Función para verificar si el usuario está logueado
         function checkIfUserIsLoggedIn() {
-          // Aquí deberías integrar la lógica de Auth0 para verificar si el usuario está autenticado
-          // Por ahora, es un placeholder
-          const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; // Ejemplo simple
+          const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
           return isLoggedIn;
         }
 
         function getUserProfileName() {
-          // Aquí deberías obtener el nombre del perfil del usuario de Auth0
-          // Por ahora, es un placeholder
-          return localStorage.getItem('userName') || 'Usuario'; // Ejemplo simple
+          return localStorage.getItem('userName') || 'Usuario';
         }
 
-        if (checkIfUserIsLoggedIn()) {
-          loginButton.style.display = 'none';
-          userDropdown.style.display = 'block';
-          userDisplayName.textContent = getUserProfileName();
-        } else {
-          loginButton.style.display = 'block';
-          userDropdown.style.display = 'none';
+        function updateLoginButton() {
+          if (checkIfUserIsLoggedIn()) {
+            loginButton.innerHTML = `
+              <i class="fas fa-user"></i>
+              <span>${getUserProfileName()}</span>
+            `;
+            loginButton.addEventListener('click', handleLogout);
+          } else {
+            loginButton.innerHTML = `
+              <i class="fas fa-user"></i>
+              <span>Iniciar Sesión</span>
+            `;
+            loginButton.addEventListener('click', handleLogin);
+          }
         }
 
-        // Manejar el logout (puedes reemplazar con tu lógica de Auth0)
-        logoutButtonDropdown.addEventListener('click', (e) => {
+        function handleLogin(e) {
           e.preventDefault();
-          localStorage.removeItem('isLoggedIn');
-          localStorage.removeItem('userName');
-          window.location.reload(); // Recargar la página para reflejar el cambio
-        });
-
-        // Redirigir el botón de login (puedes reemplazar con tu lógica de Auth0)
-        loginButton.addEventListener('click', (e) => {
-          e.preventDefault();
-          // Redirigir a la página de login de Auth0 o iniciar el flujo de login
           alert('Simulando inicio de sesión. En una aplicación real, esto redirigiría a Auth0.');
           // Ejemplo: localStorage.setItem('isLoggedIn', 'true');
           // localStorage.setItem('userName', 'MiUsuario');
-          // window.location.reload();
-        });
+          // updateLoginButton();
+        }
+
+        function handleLogout(e) {
+          e.preventDefault();
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('userName');
+          updateLoginButton();
+        }
+
+        updateLoginButton();
       });
     </script>
     <script>

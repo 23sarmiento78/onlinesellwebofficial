@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Foro hgaruna - Comunidad de Desarrollo Web en Villa Carlos Paz"
+  description="Únete a nuestra comunidad de desarrollo web en Villa Carlos Paz. Comparte experiencias, aprende sobre nuevas tecnologías y conecta con otros profesionales del sector."
+  keywords="foro desarrollo web villa carlos paz, comunidad programadores córdoba, networking tecnología, desarrollo web argentina"
+>
+  <div class="foro-container">
+    <!-- Header del Foro -->
+    <div class="foro-header">
+      <h1>Foro de la Comunidad</h1>
+      <p>Comparte experiencias, aprende sobre nuevas tecnologías y conecta con otros profesionales del desarrollo web en Villa Carlos Paz</p>
+    </div>
+
+    <!-- Controles del Foro -->
+    <div class="foro-controls">
+      <div class="foro-filters">
+        <button class="filter-btn active" data-category="all">Todos</button>
+        <button class="filter-btn" data-category="Desarrollo Web">Desarrollo Web</button>
+        <button class="filter-btn" data-category="SEO">SEO</button>
+        <button class="filter-btn" data-category="Marketing Digital">Marketing Digital</button>
+        <button class="filter-btn" data-category="Tecnología">Tecnología</button>
+        <button class="filter-btn" data-category="Proyectos">Proyectos</button>
+        <button class="filter-btn" data-category="Consejos">Consejos</button>
+      </div>
+      
+      <div class="foro-search">
+        <i class="material-icons">search</i>
+        <input type="text" placeholder="Buscar en el foro..." />
+      </div>
+    </div>
+
+    <!-- Crear Publicación -->
+    <div class="create-post">
+      <div class="create-post-header">
+        <img src="/logos-he-imagenes/logo3.png" alt="hgaruna" class="create-post-avatar" />
+        <div>
+          <strong>hgaruna</strong>
+          <div style="font-size: 0.875rem; color: #64748b;">¿Qué quieres compartir?</div>
+        </div>
+      </div>
+      
+      <textarea 
+        class="create-post-input" 
+        placeholder="Comparte tus experiencias, proyectos, preguntas o consejos con la comunidad..."
+        id="newPostContent"
+      ></textarea>
+      
+      <div class="create-post-actions">
+        <div class="create-post-options">
+          <button class="option-btn">
+            <i class="material-icons">image</i>
+            Imagen
+          </button>
+          <button class="option-btn">
+            <i class="material-icons">link</i>
+            Enlace
+          </button>
+          <select class="post-category" style="padding: 8px 12px; border: 2px solid #e2e8f0; border-radius: 8px; background: white; color: #475569;">
+            <option value="General">General</option>
+            <option value="Desarrollo Web">Desarrollo Web</option>
+            <option value="SEO">SEO</option>
+            <option value="Marketing Digital">Marketing Digital</option>
+            <option value="Tecnología">Tecnología</option>
+            <option value="Proyectos">Proyectos</option>
+            <option value="Consejos">Consejos</option>
+          </select>
+        </div>
+        
+        <button class="post-btn" id="publishButton" disabled>
+          <i class="material-icons">send</i>
+          Publicar
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="main-content">
+      <!-- Las publicaciones se cargarán dinámicamente aquí -->
+    </div>
+  </div>
+
+  <script src="/js/foro.js" is:inline></script>
+  <script src="/js/auto-forum-publisher.js" is:inline></script>
+  <script src="/js/test-auto-publisher.js" is:inline></script>
+  
+  <script>
+    // Script para habilitar/deshabilitar el botón de publicar
+    document.addEventListener('DOMContentLoaded', () => {
+      const postInput = document.getElementById('newPostContent');
+      const publishButton = document.getElementById('publishButton');
+      
+      if (postInput && publishButton) {
+        postInput.addEventListener('input', () => {
+          publishButton.disabled = !postInput.value.trim();
+        });
+      }
+      
+      // Simular publicación automática de artículo existente
+      setTimeout(() => {
+        if (window.simulateArticlePublication) {
+          const articleData = {
+            id: '2025-01-22-desarrollo-web-villa-carlos-paz',
+            title: 'Desarrollo Web Profesional en Villa Carlos Paz: Potenciando Negocios Locales',
+            description: 'Descubre cómo el desarrollo web profesional está transformando los negocios en Villa Carlos Paz, Córdoba. Soluciones digitales a medida para empresas locales.',
+            category: 'Desarrollo Web Local',
+            tags: ['Villa Carlos Paz', 'Desarrollo Web', 'Marketing Digital', 'Córdoba', 'Negocios Locales', 'SEO Local'],
+            image: '/logos-he-imagenes/programacion.jpeg',
+            publishedAt: '2025-01-22',
+            author: 'hgaruna',
+            articleUrl: '/blog/2025-01-22-desarrollo-web-villa-carlos-paz/'
+          };
+          
+          // Simular la publicación automática
+          window.simulateArticlePublication(articleData);
+        }
+      }, 2000);
+    });
+  </script>
+</BaseLayout> 

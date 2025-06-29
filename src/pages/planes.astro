@@ -38,186 +38,284 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }
     )}
   </script>
-  <main class="pricing-page">
-    <!-- Hero Section -->
-    <section class="hero-section" aria-label="Introducción a los Planes de Desarrollo Web">
-      <div class="hero-background">
-        <div class="hero-overlay"></div>
-      </div>
-      <div class="hero-content">
-        <h1 class="hero-title">Planes de Desarrollo Web y Marketing</h1>
-        <p class="hero-subtitle">Creamos experiencias digitales únicas con React, JavaScript y tecnologías modernas</p>
-        <div class="hero-cta">
-          <a href="/planes/" class="cta-button primary">Ver Planes</a>
-          <a href="#tech-stack" class="cta-button secondary">Tecnologías</a>
-        </div>
-      </div>
-    </section>
 
-    <!-- Sección de Planes -->
-    <section class="pricing-section" aria-label="Nuestros Planes de Precios">
-      <div class="container">
-        <div class="pricing-header">
-          <h2 class="section-title">Elige el Plan Perfecto para Ti</h2>
-          <p class="section-subtitle">Todos los planes incluyen 1 mes de mantenimiento gratuito</p>
-        </div>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-background">
+      <img src="/logos-he-imagenes/fondo-hero.jpg" alt="Fondo hero" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Planes de Desarrollo Web que Transforman Negocios</h1>
+      <p class="hero-subtitle">Elige el plan perfecto para tu negocio. Todos incluyen 1 mes de mantenimiento gratuito y soporte técnico personalizado. ¡No más excusas para no tener un sitio web profesional!</p>
+      <div class="hero-cta">
+        <a href="#planes" class="cta-button primary">
+          <i class="fas fa-eye"></i>
+          Ver Planes y Precios
+        </a>
+        <a href="https://wa.me/+543541237972?text=Hola%2C%20quiero%20saber%20cu%C3%A1l%20es%20el%20mejor%20plan%20para%20mi%20negocio" class="cta-button secondary" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+          ¿Cuál Plan Me Conviene?
+        </a>
+      </div>
+    </div>
+  </section>
 
-        <div class="pricing-grid">
-          <!-- Plan Básico -->
-          <div class="pricing-card">
-            <div class="pricing-card-header">
-              <h3>Plan Básico</h3>
-              <div class="price-container">
-                <span class="currency">$</span>
-                <span class="price">150</span>
-                <span class="period">/único pago</span>
-              </div>
-              <p class="price-subtitle">Ideal para comenzar</p>
+  <!-- Sección de Planes -->
+  <section id="planes" class="pricing-section">
+    <div class="container">
+      <div class="blog-header">
+        <h2 class="blog-title-main">Planes Diseñados para el Éxito de tu Negocio</h2>
+        <p class="blog-description">Cada plan está pensado para diferentes etapas de tu negocio. Elige el que mejor se adapte a tus necesidades actuales y futuras.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Plan Básico -->
+        <div class="pricing-card">
+          <div class="pricing-card-header">
+            <h3>Plan Básico</h3>
+            <div class="price-container">
+              <span class="currency">$</span>
+              <span class="price">150</span>
+              <span class="period">/único pago</span>
             </div>
-            <div class="pricing-features">
-              <ul>
-                <li><i class="fas fa-check"></i> Diseño web personalizado</li>
-                <li><i class="fas fa-check"></i> Hasta 5 páginas</li>
-                <li><i class="fas fa-check"></i> Formulario de contacto</li>
-                <li><i class="fas fa-check"></i> Optimización para móviles</li>
-                <li><i class="fas fa-check"></i> Integración con redes sociales</li>
-                <li class="featured"><i class="fas fa-star"></i> 1 mes de mantenimiento gratuito</li>
-              </ul>
-            </div>
-            <div class="pricing-footer">
-              <a
-                href="https://wa.me/+543541237972?text=Hola%2C%20estoy%20interesado%20en%20el%20Plan%20B%C3%A1sico"
-                class="cta-button primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Elegir Plan Básico
-              </a>
+            <p class="price-subtitle">Perfecto para comenzar</p>
+            <div class="price-savings">
+              <span class="savings-badge">Ahorras $200</span>
             </div>
           </div>
+          <div class="pricing-features">
+            <ul>
+              <li><i class="fas fa-check"></i> Diseño web personalizado y moderno</li>
+              <li><i class="fas fa-check"></i> Hasta 5 páginas optimizadas</li>
+              <li><i class="fas fa-check"></i> Formulario de contacto funcional</li>
+              <li><i class="fas fa-check"></i> Optimización para móviles (responsive)</li>
+              <li><i class="fas fa-check"></i> Integración con redes sociales</li>
+              <li><i class="fas fa-check"></i> Velocidad de carga optimizada</li>
+              <li class="featured"><i class="fas fa-star"></i> 1 mes de mantenimiento gratuito</li>
+              <li class="featured"><i class="fas fa-star"></i> Soporte técnico incluido</li>
+            </ul>
+          </div>
+          <div class="pricing-footer">
+            <a
+              href="https://wa.me/+543541237972?text=Hola%2C%20quiero%20el%20Plan%20B%C3%A1sico%20de%20%24150%20para%20mi%20negocio"
+              class="cta-button primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fas fa-rocket"></i>
+              ¡Quiero el Plan Básico!
+            </a>
+            <p class="delivery-time">Entrega en 7-10 días</p>
+          </div>
+        </div>
 
-          <!-- Plan Profesional -->
-          <div class="pricing-card featured-card">
-            <div class="pricing-card-header">
-              <h3>Plan Profesional</h3>
-              <div class="price-container">
-                <span class="currency">$</span>
-                <span class="price">300</span>
-                <span class="period">/único pago</span>
-              </div>
-              <p class="price-subtitle">Más características para tu negocio</p>
+        <!-- Plan Profesional -->
+        <div class="pricing-card featured-card">
+          <div class="pricing-card-header">
+            <div class="featured-badge">Más Popular</div>
+            <h3>Plan Profesional</h3>
+            <div class="price-container">
+              <span class="currency">$</span>
+              <span class="price">300</span>
+              <span class="period">/único pago</span>
             </div>
-            <div class="pricing-features">
-              <ul>
-                <li><i class="fas fa-check"></i> Diseño web personalizado premium</li>
-                <li><i class="fas fa-check"></i> Hasta 10 páginas</li>
-                <li><i class="fas fa-check"></i> Formulario de contacto avanzado</li>
-                <li><i class="fas fa-check"></i> Optimización SEO básica</li>
-                <li><i class="fas fa-check"></i> Integración con Google Analytics</li>
-                <li><i class="fas fa-check"></i> Galerías de imágenes y sliders</li>
-                <li class="featured"><i class="fas fa-star"></i> 1 mes de mantenimiento gratuito</li>
-              </ul>
-            </div>
-            <div class="pricing-footer">
-              <a
-                href="https://wa.me/+543541237972?text=Hola%2C%20estoy%20interesado%20en%20el%20Plan%20Profesional"
-                class="cta-button primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Elegir Plan Profesional
-              </a>
+            <p class="price-subtitle">El favorito de nuestros clientes</p>
+            <div class="price-savings">
+              <span class="savings-badge">Ahorras $400</span>
             </div>
           </div>
+          <div class="pricing-features">
+            <ul>
+              <li><i class="fas fa-check"></i> Todo del Plan Básico +</li>
+              <li><i class="fas fa-check"></i> Diseño web premium personalizado</li>
+              <li><i class="fas fa-check"></i> Hasta 10 páginas optimizadas</li>
+              <li><i class="fas fa-check"></i> Formulario de contacto avanzado</li>
+              <li><i class="fas fa-check"></i> Optimización SEO básica incluida</li>
+              <li><i class="fas fa-check"></i> Integración con Google Analytics</li>
+              <li><i class="fas fa-check"></i> Galerías de imágenes y sliders</li>
+              <li><i class="fas fa-check"></i> Blog integrado (opcional)</li>
+              <li class="featured"><i class="fas fa-star"></i> 1 mes de mantenimiento gratuito</li>
+              <li class="featured"><i class="fas fa-star"></i> Soporte prioritario 24/7</li>
+            </ul>
+          </div>
+          <div class="pricing-footer">
+            <a
+              href="https://wa.me/+543541237972?text=Hola%2C%20quiero%20el%20Plan%20Profesional%20de%20%24300%20que%20es%20el%20m%C3%A1s%20popular"
+              class="cta-button primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fas fa-crown"></i>
+              ¡Quiero el Plan Profesional!
+            </a>
+            <p class="delivery-time">Entrega en 10-14 días</p>
+          </div>
+        </div>
 
-          <!-- Plan Empresarial -->
-          <div class="pricing-card">
-            <div class="pricing-card-header">
-              <h3>Plan Empresarial</h3>
-              <div class="price-container">
-                <span class="currency">$</span>
-                <span class="price">500</span>
-                <span class="period">/único pago</span>
-              </div>
-              <p class="price-subtitle">Solución completa para empresas</p>
+        <!-- Plan Empresarial -->
+        <div class="pricing-card">
+          <div class="pricing-card-header">
+            <h3>Plan Empresarial</h3>
+            <div class="price-container">
+              <span class="currency">$</span>
+              <span class="price">500</span>
+              <span class="period">/único pago</span>
             </div>
-            <div class="pricing-features">
-              <ul>
-                <li><i class="fas fa-check"></i> Diseño web personalizado de alta gama</li>
-                <li><i class="fas fa-check"></i> Páginas ilimitadas</li>
-                <li><i class="fas fa-check"></i> E-commerce básico (hasta 10 productos)</li>
-                <li><i class="fas fa-check"></i> Optimización SEO avanzada</li>
-                <li><i class="fas fa-check"></i> Integración con CRM</li>
-                <li><i class="fas fa-check"></i> Soporte prioritario</li>
-                <li class="featured"><i class="fas fa-star"></i> 1 mes de mantenimiento gratuito</li>
-              </ul>
+            <p class="price-subtitle">Para negocios serios</p>
+            <div class="price-savings">
+              <span class="savings-badge">Ahorras $800</span>
             </div>
-            <div class="pricing-footer">
-              <a
-                href="https://wa.me/+543541237972?text=Hola%2C%20estoy%20interesado%20en%20el%20Plan%20Empresarial"
-                class="cta-button primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Elegir Plan Empresarial
-              </a>
-            </div>
+          </div>
+          <div class="pricing-features">
+            <ul>
+              <li><i class="fas fa-check"></i> Todo del Plan Profesional +</li>
+              <li><i class="fas fa-check"></i> Diseño web de alta gama</li>
+              <li><i class="fas fa-check"></i> Páginas ilimitadas</li>
+              <li><i class="fas fa-check"></i> E-commerce básico (hasta 10 productos)</li>
+              <li><i class="fas fa-check"></i> Optimización SEO avanzada</li>
+              <li><i class="fas fa-check"></i> Integración con CRM</li>
+              <li><i class="fas fa-check"></i> Panel de administración</li>
+              <li><i class="fas fa-check"></i> Backup automático</li>
+              <li class="featured"><i class="fas fa-star"></i> 1 mes de mantenimiento gratuito</li>
+              <li class="featured"><i class="fas fa-star"></i> Soporte VIP prioritario</li>
+            </ul>
+          </div>
+          <div class="pricing-footer">
+            <a
+              href="https://wa.me/+543541237972?text=Hola%2C%20quiero%20el%20Plan%20Empresarial%20de%20%24500%20para%20mi%20empresa"
+              class="cta-button primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fas fa-building"></i>
+              ¡Quiero el Plan Empresarial!
+            </a>
+            <p class="delivery-time">Entrega en 14-21 días</p>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- Sección de Testimonios -->
-    <section class="testimonials-section" aria-label="Testimonios de Clientes">
-      <div class="container">
-        <h2 class="section-title">Lo que Nuestros Clientes Dicen</h2>
-        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="testimonial-card">
-                <p class="testimonial-text">
-                  "Estoy increíblemente satisfecho con mi nueva página web. La atención al detalle y la profesionalidad superaron mis expectativas. ¡Totalmente recomendados!"
-                </p>
-                <p class="testimonial-author">Ana G., Dueña de Boutique</p>
+      <!-- Sección de Garantías -->
+      <div class="guarantees-section">
+        <h3>¿Por qué Confiar en hgaruna?</h3>
+        <div class="guarantees-grid">
+          <div class="guarantee-item">
+            <i class="fas fa-shield-alt"></i>
+            <h4>Garantía de Satisfacción</h4>
+            <p>Si no estás satisfecho, te devolvemos tu dinero. Sin preguntas.</p>
+          </div>
+          <div class="guarantee-item">
+            <i class="fas fa-clock"></i>
+            <h4>Entrega Puntual</h4>
+            <p>Te entregamos tu sitio web en el tiempo prometido o es gratis.</p>
+          </div>
+          <div class="guarantee-item">
+            <i class="fas fa-headset"></i>
+            <h4>Soporte Incluido</h4>
+            <p>1 mes de mantenimiento gratuito y soporte técnico personalizado.</p>
+          </div>
+          <div class="guarantee-item">
+            <i class="fas fa-mobile-alt"></i>
+            <h4>Diseño Responsivo</h4>
+            <p>Tu sitio web se ve perfecto en todos los dispositivos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonios Section -->
+  <section class="testimonios">
+    <div class="container">
+      <div class="blog-header">
+        <h2 class="blog-title-main">Lo que Nuestros Clientes Dicen</h2>
+        <p class="blog-description">Experiencias reales de clientes satisfechos en Villa Carlos Paz</p>
+      </div>
+      <div class="testimonios-grid">
+        <div class="testimonio-card">
+          <p>"Estoy increíblemente satisfecho con mi nueva página web. La atención al detalle y la profesionalidad superaron mis expectativas. ¡Totalmente recomendados!"</p>
+          <span class="testimonio-author">Ana G., Dueña de Boutique</span>
+        </div>
+        <div class="testimonio-card">
+          <p>"La velocidad de carga de mi sitio web es impresionante. Mis clientes lo notaron de inmediato. ¡Gracias por el excelente trabajo!"</p>
+          <span class="testimonio-author">Carlos R., Gerente de Restaurante</span>
+        </div>
+        <div class="testimonio-card">
+          <p>"El mantenimiento gratuito del primer mes fue un salvavidas. Pude centrarme en mi negocio mientras ellos se encargaban de todo lo técnico."</p>
+          <span class="testimonio-author">Sofía L., Emprendedora Digital</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contacto" class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Información de Contacto -->
+        <div class="contact-info">
+          <h2>¿Tienes Dudas?</h2>
+          <p style="margin-bottom: 32px; color: var(--hgaruna-text-light);">Contáctanos para resolver cualquier consulta sobre nuestros planes y servicios.</p>
+          <div class="info-items">
+            <div class="info-item">
+              <i class="fas fa-phone"></i>
+              <div class="info-content">
+                <h3>Teléfono</h3>
+                <p><a href="tel:+543541237972">+54 3541 237972</a></p>
               </div>
             </div>
-            <div class="carousel-item">
-              <div class="testimonial-card">
-                <p class="testimonial-text">
-                  "La velocidad de carga de mi sitio web es impresionante. Mis clientes lo notaron de inmediato. ¡Gracias por el excelente trabajo!"
-                </p>
-                <p class="testimonial-author">Carlos R., Gerente de Restaurante</p>
+            <div class="info-item">
+              <i class="fas fa-envelope"></i>
+              <div class="info-content">
+                <h3>Email</h3>
+                <p><a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
               </div>
             </div>
-            <div class="carousel-item">
-              <div class="testimonial-card">
-                <p class="testimonial-text">
-                  "El mantenimiento gratuito del primer mes fue un salvavidas. Pude centrarme en mi negocio mientras ellos se encargaban de todo lo técnico."
-                </p>
-                <p class="testimonial-author">Sofía L., Emprendedora Digital</p>
+            <div class="info-item">
+              <i class="fab fa-whatsapp"></i>
+              <div class="info-content">
+                <h3>WhatsApp</h3>
+                <p><a href="https://wa.link/6t7cxa" target="_blank">Enviar mensaje directo</a></p>
               </div>
             </div>
           </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#testimonialCarousel"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#testimonialCarousel"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+        </div>
+
+        <!-- Formulario de Contacto -->
+        <div class="contact-form-container">
+          <h2>Envíanos un Mensaje</h2>
+          <form action="https://formspree.io/f/mkgoqyjo" method="POST" class="modern-form">
+            <div class="form-group-modern">
+              <label for="name">Nombre completo</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group-modern">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group-modern">
+              <label for="phone">Teléfono</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group-modern">
+              <label for="plan">Plan de interés</label>
+              <select id="plan" name="plan">
+                <option value="">Selecciona un plan</option>
+                <option value="basico">Plan Básico</option>
+                <option value="profesional">Plan Profesional</option>
+                <option value="empresarial">Plan Empresarial</option>
+                <option value="personalizado">Plan Personalizado</option>
+              </select>
+            </div>
+            <div class="form-group-modern">
+              <label for="message">Mensaje</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="cta-button primary">Enviar Mensaje</button>
+          </form>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 </BaseLayout> 

@@ -114,22 +114,146 @@ const latestArticles = (await getCollection('articles'))
       }
     )}
   </script>
-  <section class="hero-section" aria-label="Introducción y Servicios Principales">
+
+  <!-- Hero Section -->
+  <section class="hero-section">
     <div class="hero-background">
-      <div class="hero-overlay"></div>
+      <img src="/logos-he-imagenes/fondo-hero.jpg" alt="Fondo hero" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1 class="hero-title">hgaruna: Desarrollo Web y Presencia Digital</h1>
-      <p class="hero-subtitle">Creamos experiencias digitales únicas con React, JavaScript y tecnologías modernas</p>
+      <h1 class="hero-title">Transforma tu Negocio en Villa Carlos Paz con un Sitio Web Profesional</h1>
+      <p class="hero-subtitle">¿Tu competencia ya tiene sitio web y tú no? No te quedes atrás. Creamos sitios web que venden, con las mejores tecnologías y precios accesibles para negocios locales.</p>
       <div class="hero-cta">
-        <a href="/planes/" class="cta-button primary">Ver Planes</a>
-        <a href="#tech-stack" class="cta-button secondary">Tecnologías</a>
+        <a href="/planes/" class="cta-button primary">
+          <i class="fas fa-rocket"></i>
+          ¡Quiero mi Sitio Web YA!
+        </a>
+        <a href="https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz" class="cta-button secondary" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+          Consulta Gratuita
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">20+</span>
+          <span class="stat-label">Sitios Web Creados</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Clientes Satisfechos</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">24h</span>
+          <span class="stat-label">Tiempo de Respuesta</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Sección de los Últimos Artículos del Blog -->
-  <section class="blog-section" aria-label="Últimos Artículos del Blog">
+  <!-- Servicios Section -->
+  <section id="servicios" class="servicios">
+    <div class="container">
+      <div class="blog-header">
+        <h2 class="blog-title-main">¿Por qué los Negocios de Villa Carlos Paz Eligen hgaruna?</h2>
+        <p class="blog-description">No somos solo desarrolladores web, somos tu socio digital para hacer crecer tu negocio local</p>
+      </div>
+      <div class="servicios-grid">
+        <div class="servicio-card">
+          <img src="/logos-he-imagenes/programacion.jpeg" alt="Desarrollo Web">
+          <h3>Sitios Web que Venden</h3>
+          <p>No solo creamos sitios web bonitos, creamos sitios web que convierten visitantes en clientes. Diseño enfocado en resultados.</p>
+          <div class="servicio-features">
+            <span><i class="fas fa-check"></i> Diseño Responsivo</span>
+            <span><i class="fas fa-check"></i> Optimizado para Móviles</span>
+            <span><i class="fas fa-check"></i> Velocidad de Carga</span>
+          </div>
+          <a href="/planes/" class="btn btn-primary">Desde $150</a>
+        </div>
+        <div class="servicio-card">
+          <img src="/logos-he-imagenes/programacion.jpeg" alt="E-commerce">
+          <h3>Vende Online 24/7</h3>
+          <p>Tu negocio nunca duerme. Con nuestras tiendas online, puedes vender tus productos o servicios las 24 horas del día.</p>
+          <div class="servicio-features">
+            <span><i class="fas fa-check"></i> Pasarelas de Pago</span>
+            <span><i class="fas fa-check"></i> Gestión de Inventario</span>
+            <span><i class="fas fa-check"></i> Reportes de Ventas</span>
+          </div>
+          <a href="/planes/" class="btn btn-primary">Desde $300</a>
+        </div>
+        <div class="servicio-card">
+          <img src="/logos-he-imagenes/programacion.jpeg" alt="SEO Local">
+          <h3>Aparece Primero en Google</h3>
+          <p>Cuando alguien busque tu negocio en Villa Carlos Paz, queremos que aparezcas primero. SEO local especializado.</p>
+          <div class="servicio-features">
+            <span><i class="fas fa-check"></i> Google My Business</span>
+            <span><i class="fas fa-check"></i> Reseñas Locales</span>
+            <span><i class="fas fa-check"></i> Palabras Clave Locales</span>
+          </div>
+          <a href="/planes/" class="btn btn-primary">Incluido en Planes</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beneficios Section -->
+  <section class="beneficios">
+    <div class="container">
+      <div class="blog-header">
+        <h2 class="blog-title-main">¿Qué Pasa si NO Tienes un Sitio Web?</h2>
+        <p class="blog-description">Los números no mienten: los negocios con presencia web crecen más rápido</p>
+      </div>
+      <div class="beneficios-grid">
+        <div class="beneficio-card warning">
+          <i class="fas fa-exclamation-triangle beneficio-icon"></i>
+          <h3>Pierdes Clientes</h3>
+          <p>El 81% de las personas investigan online antes de comprar. Sin sitio web, no te encuentran.</p>
+        </div>
+        <div class="beneficio-card warning">
+          <i class="fas fa-chart-line-down beneficio-icon"></i>
+          <h3>Tu Competencia Te Gana</h3>
+          <p>Mientras tú no tienes sitio web, tu competencia ya está vendiendo online y captando clientes.</p>
+        </div>
+        <div class="beneficio-card warning">
+          <i class="fas fa-clock beneficio-icon"></i>
+          <h3>Horarios Limitados</h3>
+          <p>Tu negocio solo funciona cuando estás abierto. Un sitio web vende las 24 horas.</p>
+        </div>
+        <div class="beneficio-card success">
+          <i class="fas fa-rocket beneficio-icon"></i>
+          <h3>Con hgaruna: Crecimiento Garantizado</h3>
+          <p>Nuestros clientes ven un aumento del 200% en consultas en los primeros 3 meses.</p>
+        </div>
+        <div class="beneficio-card success">
+          <i class="fas fa-users beneficio-icon"></i>
+          <h3>Más Clientes Locales</h3>
+          <p>Los turistas y residentes te encuentran fácilmente cuando buscan en Google.</p>
+        </div>
+        <div class="beneficio-card success">
+          <i class="fas fa-dollar-sign beneficio-icon"></i>
+          <h3>ROI Inmediato</h3>
+          <p>Recuperas la inversión en el primer mes con los nuevos clientes que lleguen.</p>
+        </div>
+      </div>
+      <div class="cta-section">
+        <h3>¿Listo para Transformar tu Negocio?</h3>
+        <p>No esperes más. Cada día sin sitio web es un día perdiendo clientes.</p>
+        <div class="cta-buttons">
+          <a href="/planes/" class="cta-button primary large">
+            <i class="fas fa-rocket"></i>
+            ¡Quiero mi Sitio Web AHORA!
+          </a>
+          <a href="https://wa.me/+543541237972?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20servicios%20de%20desarrollo%20web" class="cta-button secondary large" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            Hablar con un Experto
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="blog-section">
     <div class="container">
       <div class="blog-header">
         <h2 class="blog-title-main">Últimos Artículos</h2>
@@ -158,62 +282,122 @@ const latestArticles = (await getCollection('articles'))
     </div>
   </section>
 
-  <section class="contact-section" aria-label="Información de Contacto y Formulario">
+  <!-- Contact Section -->
+  <section class="contact-section">
     <div class="container">
+      <div class="contact-header">
+        <h2 class="blog-title-main">¿Listo para Hacer Crecer tu Negocio?</h2>
+        <p class="blog-description">No dejes que tu competencia te gane. Contáctanos hoy mismo y comienza tu transformación digital.</p>
+      </div>
+      
       <div class="contact-grid">
         <!-- Información de Contacto -->
         <div class="contact-info">
-          <h2>Información de Contacto</h2>
+          <h3>Hablemos de tu Proyecto</h3>
+          <p style="margin-bottom: 32px; color: var(--hgaruna-text-light);">Estamos aquí para ayudarte a hacer crecer tu negocio en Villa Carlos Paz. ¡La primera consulta es completamente gratuita!</p>
+          
           <div class="info-items">
             <div class="info-item">
               <i class="fas fa-phone"></i>
               <div class="info-content">
-                <h3>Teléfono</h3>
-                <p><a href="tel:+543541237972" style="list-style: none; text-decoration: none; color: aliceblue;"
-                  >+54 3541 237972</a
-                ></p>
+                <h4>Llamada Directa</h4>
+                <p><a href="tel:+543541237972">+54 3541 237972</a></p>
+                <small>Lunes a Viernes 9:00 - 18:00</small>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fab fa-whatsapp"></i>
+              <div class="info-content">
+                <h4>WhatsApp</h4>
+                <p><a href="https://wa.me/+543541237972" target="_blank">+54 3541 237972</a></p>
+                <small>Respuesta en menos de 1 hora</small>
               </div>
             </div>
             <div class="info-item">
               <i class="fas fa-envelope"></i>
               <div class="info-content">
-                <h3>Email</h3>
-                <p><a href="mailto:23sarmiento@gmail.com" style="list-style: none; text-decoration: none; color: aliceblue;"
-                  >23sarmiento@gmail.com</a
-                ></p>
+                <h4>Email</h4>
+                <p><a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
+                <small>Respuesta en 24 horas</small>
               </div>
             </div>
             <div class="info-item">
               <i class="fas fa-map-marker-alt"></i>
               <div class="info-content">
-                <h3>Ubicación</h3>
-                <p>Villa Carlos Paz, Córdoba, Argentina</p>
+                <h4>Ubicación</h4>
+                <p>Villa Carlos Paz, Córdoba</p>
+                <small>Atendemos toda la región</small>
               </div>
             </div>
+          </div>
+          
+          <div class="contact-cta">
+            <h4>¿Prefieres WhatsApp?</h4>
+            <p>Es la forma más rápida de contactarnos</p>
+            <a href="https://wa.me/+543541237972?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20servicios%20de%20desarrollo%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz" class="cta-button primary" target="_blank">
+              <i class="fab fa-whatsapp"></i>
+              ¡Chatear Ahora!
+            </a>
           </div>
         </div>
 
         <!-- Formulario de Contacto -->
         <div class="contact-form-container">
-          <h2>Envíanos un Mensaje</h2>
+          <h3>Cuéntanos Sobre tu Proyecto</h3>
+          <p style="margin-bottom: 24px; color: var(--hgaruna-text-light);">Completa el formulario y te contactaremos en menos de 2 horas con una propuesta personalizada.</p>
+          
           <form action="https://formspree.io/f/mkgoqyjo" method="POST" class="modern-form">
             <div class="form-group-modern">
-              <label for="name">Nombre</label>
-              <input type="text" id="name" name="name" required placeholder="Tu nombre completo" />
+              <label for="name">Nombre completo *</label>
+              <input type="text" id="name" name="name" required placeholder="Tu nombre completo">
             </div>
             <div class="form-group-modern">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="_replyto" required placeholder="tu.email@ejemplo.com" />
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required placeholder="tu@email.com">
             </div>
             <div class="form-group-modern">
-              <label for="phone">Teléfono (Opcional)</label>
-              <input type="tel" id="phone" name="phone" placeholder="Ej. +54 9 11 1234 5678" />
+              <label for="phone">Teléfono</label>
+              <input type="tel" id="phone" name="phone" placeholder="+54 9 3541 123456">
             </div>
-            <div class="form-group-modern full-width">
-              <label for="message">Tu Mensaje</label>
-              <textarea id="message" name="message" rows="5" required placeholder="Describe tu proyecto o consulta aquí..."></textarea>
+            <div class="form-group-modern">
+              <label for="business">Nombre de tu negocio</label>
+              <input type="text" id="business" name="business" placeholder="Ej: Restaurante La Esquina">
             </div>
-            <button type="submit" class="submit-button-modern">Enviar Mensaje</button>
+            <div class="form-group-modern">
+              <label for="service">¿Qué necesitas? *</label>
+              <select id="service" name="service" required>
+                <option value="">Selecciona lo que necesitas</option>
+                <option value="sitio-web">Sitio Web Profesional</option>
+                <option value="e-commerce">Tienda Online</option>
+                <option value="seo">SEO Local</option>
+                <option value="marketing">Marketing Digital</option>
+                <option value="rediseno">Rediseño de Sitio Web</option>
+                <option value="mantenimiento">Mantenimiento Web</option>
+                <option value="otro">Otro (especificar)</option>
+              </select>
+            </div>
+            <div class="form-group-modern">
+              <label for="budget">Presupuesto aproximado</label>
+              <select id="budget" name="budget">
+                <option value="">Selecciona tu presupuesto</option>
+                <option value="150-300">$150 - $300</option>
+                <option value="300-500">$300 - $500</option>
+                <option value="500-1000">$500 - $1000</option>
+                <option value="1000+">Más de $1000</option>
+                <option value="no-se">No sé, necesito asesoría</option>
+              </select>
+            </div>
+            <div class="form-group-modern">
+              <label for="message">Cuéntanos más sobre tu proyecto *</label>
+              <textarea id="message" name="message" required placeholder="Describe tu proyecto, objetivos, timeline, etc. Cuanto más detalles nos des, mejor podremos ayudarte." rows="4"></textarea>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="cta-button primary large">
+                <i class="fas fa-paper-plane"></i>
+                ¡Enviar Propuesta Gratuita!
+              </button>
+              <p class="form-note">* Recibirás una propuesta personalizada en menos de 2 horas</p>
+            </div>
           </form>
         </div>
       </div>
