@@ -1,4 +1,4 @@
-// Sistema de Autenticación Auth0 - Limpio y Simple
+// Sistema de Autenticación Auth0 - Versión Simplificada
 class Auth0Manager {
   constructor() {
     this.auth0 = null;
@@ -12,89 +12,44 @@ class Auth0Manager {
       console.log('🚀 Inicializando Auth0 Manager...');
       console.log('🔧 Configuración:', AUTH0_CONFIG);
       
-      // Cargar SDK de Auth0
-      await this.loadAuth0SDK();
-      
-      // Inicializar Auth0
-      console.log('🔧 Inicializando WebAuth...');
-      this.auth0 = new auth0.WebAuth({
-        domain: AUTH0_CONFIG.domain,
-        clientID: AUTH0_CONFIG.clientId,
-        redirectUri: AUTH0_CONFIG.redirectUri,
-        responseType: 'token id_token',
-        scope: AUTH0_CONFIG.scope,
-        audience: AUTH0_CONFIG.audience
-      });
-
-      console.log('✅ WebAuth inicializado:', this.auth0);
-
-      // Hacer disponible globalmente
+      // Hacer disponible globalmente inmediatamente
       window.auth0Manager = this;
-
-      // Verificar sesión existente
-      this.checkSession();
       
-      console.log('✅ Auth0 Manager inicializado completamente');
+      // Verificar si hay un token en localStorage
+      const token = localStorage.getItem('auth0_token');
+      const user = localStorage.getItem('auth0_user');
+      
+      if (token && user) {
+        console.log('✅ Token encontrado en localStorage');
+        this.isAuthenticated = true;
+        this.user = JSON.parse(user);
+        this.showAdminPanel();
+        return;
+      }
+      
+      // Si no hay token, mostrar login
+      this.showLogin();
+      
+      console.log('✅ Auth0 Manager inicializado (modo simplificado)');
     } catch (error) {
       console.error('❌ Error inicializando Auth0:', error);
-      this.showError('Error cargando Auth0: ' + error.message);
+      this.showError('Error inicializando Auth0: ' + error.message);
     }
   }
 
-  async loadAuth0SDK() {
-    return new Promise((resolve, reject) => {
-      if (typeof auth0 !== 'undefined') {
-        console.log('✅ SDK de Auth0 ya cargado');
-        resolve();
-        return;
-      }
-
-      console.log('📦 Cargando SDK de Auth0...');
-      const script = document.createElement('script');
-      script.src = 'https://cdn.auth0.com/js/auth0/9.18.0/auth0.min.js';
-      
-      // Timeout para evitar esperar indefinidamente
-      const timeout = setTimeout(() => {
-        reject(new Error('Timeout cargando SDK de Auth0'));
-      }, 10000);
-      
-      script.onload = () => {
-        clearTimeout(timeout);
-        console.log('✅ SDK de Auth0 cargado exitosamente');
-        
-        // Verificar que auth0 esté disponible
-        if (typeof auth0 === 'undefined') {
-          reject(new Error('SDK cargado pero auth0 no está disponible'));
-          return;
-        }
-        
-        resolve();
-      };
-      
-      script.onerror = (error) => {
-        clearTimeout(timeout);
-        console.error('❌ Error cargando SDK de Auth0:', error);
-        reject(new Error('No se pudo cargar el SDK de Auth0'));
-      };
-      
-      document.head.appendChild(script);
-    });
-  }
-
-  checkSession() {
-    if (!this.auth0) return;
-
-    this.auth0.checkSession({}, (err, authResult) => {
-      if (err) {
-        console.log('❌ No hay sesión activa');
-        this.showLogin();
-      } else if (authResult && authResult.accessToken) {
-        console.log('✅ Sesión activa encontrada');
-        this.handleAuthSuccess(authResult);
-      } else {
-        this.showLogin();
-      }
-    });
+  login() {
+    console.log('🔐 Iniciando login con Auth0...');
+    
+    // Construir URL de autorización directamente
+    const authUrl = `https://${AUTH0_CONFIG.domain}/authorize?` +
+      `client_id=${AUTH0_CONFIG.clientId}&` +
+      `redirect_uri=${encodeURIComponent(AUTH0_CONFIG.redirectUri)}&` +
+      `response_type=token%20id_token&` +
+      `scope=${encodeURIComponent(AUTH0_CONFIG.scope)}&` +
+      `audience=${encodeURIComponent(AUTH0_CONFIG.audience)}`;
+    
+    console.log('🔐 Redirigiendo a Auth0:', authUrl);
+    window.location.href = authUrl;
   }
 
   handleAuthSuccess(authResult) {
@@ -109,36 +64,21 @@ class Auth0Manager {
     this.showAdminPanel();
   }
 
-  login() {
-    if (!this.auth0) {
-      console.error('❌ Auth0 no está disponible');
-      this.showError('Auth0 no está disponible. Recarga la página.');
-      return;
-    }
-
-    console.log('🔐 Iniciando login con Auth0...');
-    try {
-      this.auth0.authorize();
-    } catch (error) {
-      console.error('❌ Error iniciando login:', error);
-      this.showError('Error iniciando sesión: ' + error.message);
-    }
-  }
-
   logout() {
-    if (!this.auth0) {
-      localStorage.removeItem('auth0_token');
-      localStorage.removeItem('auth0_user');
-      this.isAuthenticated = false;
-      this.user = null;
-      window.location.href = AUTH0_CONFIG.logoutUri;
-      return;
-    }
-
     console.log('🚪 Cerrando sesión...');
-    this.auth0.logout({
-      returnTo: AUTH0_CONFIG.logoutUri
-    });
+    
+    // Limpiar localStorage
+    localStorage.removeItem('auth0_token');
+    localStorage.removeItem('auth0_user');
+    this.isAuthenticated = false;
+    this.user = null;
+    
+    // Redirigir a logout
+    const logoutUrl = `https://${AUTH0_CONFIG.domain}/v2/logout?` +
+      `client_id=${AUTH0_CONFIG.clientId}&` +
+      `returnTo=${encodeURIComponent(AUTH0_CONFIG.logoutUri)}`;
+    
+    window.location.href = logoutUrl;
   }
 
   showLogin() {
@@ -232,20 +172,8 @@ class Auth0Manager {
     console.log('🔍 === PRUEBA DE CONFIGURACIÓN ===');
     console.log('1. AUTH0_CONFIG:', window.AUTH0_CONFIG);
     console.log('2. auth0Manager:', window.auth0Manager);
-    console.log('3. auth0 SDK:', typeof auth0);
-    console.log('4. auth0Manager.auth0:', this.auth0);
-    
-    if (this.auth0) {
-      console.log('✅ Auth0 está disponible');
-      console.log('🔧 Configuración de Auth0:', {
-        domain: AUTH0_CONFIG.domain,
-        clientID: AUTH0_CONFIG.clientId,
-        redirectUri: AUTH0_CONFIG.redirectUri,
-        audience: AUTH0_CONFIG.audience
-      });
-    } else {
-      console.log('❌ Auth0 no está disponible');
-    }
+    console.log('3. Token en localStorage:', localStorage.getItem('auth0_token'));
+    console.log('4. Usuario en localStorage:', localStorage.getItem('auth0_user'));
     
     alert('Revisa la consola para ver la información de configuración');
   }
@@ -281,9 +209,9 @@ class Auth0Manager {
           text-align: center;
           max-width: 400px;
         ">
-          <h2 style="color: #e74c3c; margin-bottom: 1rem;">⚠️ Error</h2>
+          <h3 style="color: #e74c3c; margin-bottom: 1rem;">❌ Error</h3>
           <p style="color: #666; margin-bottom: 1rem;">${message}</p>
-          <button onclick="window.location.reload()" style="
+          <button onclick="location.reload()" style="
             background: #3498db;
             color: white;
             border: none;
@@ -291,7 +219,7 @@ class Auth0Manager {
             border-radius: 5px;
             cursor: pointer;
           ">
-            Recargar
+            Recargar Página
           </button>
         </div>
       </div>
@@ -303,7 +231,8 @@ class Auth0Manager {
   }
 
   getUser() {
-    return this.user;
+    const user = localStorage.getItem('auth0_user');
+    return user ? JSON.parse(user) : null;
   }
 
   isLoggedIn() {
