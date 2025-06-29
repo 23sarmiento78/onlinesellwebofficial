@@ -4,7 +4,7 @@ const jwksClient = require('jwks-rsa');
 
 // Configuración optimizada - solo variables necesarias
 const MONGODB_URI = process.env.NETLIFY_DATABASE_URL;
-const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'hgaruna.us.auth0.com';
+const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'dev-b0qip4vee7sg3q7e.us.auth0.com';
 const AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE || 'https://service.hgaruna.org/api';
 
 // Cliente JWKS para verificar tokens de Auth0

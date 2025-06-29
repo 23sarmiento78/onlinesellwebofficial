@@ -160,9 +160,11 @@
   AUTH0_CLIENT_ID = "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab"
   AUTH0_CLIENT_SECRET = "W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS"
   AUTH0_AUDIENCE = "https://service.hgaruna.org/api"
+  SITE_URL = "https://service.hgaruna.org"
 
 [context.deploy-preview.environment]
   AUTH0_DOMAIN = "dev-b0qip4vee7sg3q7e.us.auth0.com"
   AUTH0_CLIENT_ID = "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab"
   AUTH0_CLIENT_SECRET = "W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS"
   AUTH0_AUDIENCE = "https://service.hgaruna.org/api"
+  SITE_URL = "https://service.hgaruna.org"
