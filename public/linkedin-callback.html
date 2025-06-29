@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticación LinkedIn - hgaruna</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .callback-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .success {
+            color: #4CAF50;
+        }
+        
+        .error {
+            color: #f44336;
+        }
+        
+        .btn {
+            background: #0077b5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #005885;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="callback-container">
+        <div id="status">
+            <div class="loading"></div>
+            <span>Procesando autenticación...</span>
+        </div>
+    </div>
+
+    <script>
+        // Configuración de LinkedIn
+        const LINKEDIN_CONFIG = {
+            CLIENT_ID: '77w90bvizsj1y9',
+            CLIENT_SECRET: 'WPL_AP1.aca8d5j54e9SZ5p5.W0ifCg==',
+            REDIRECT_URI: window.location.origin + '/linkedin-callback.html'
+        };
+
+        async function handleCallback() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const error = urlParams.get('error');
+            const state = urlParams.get('state');
+
+            const statusDiv = document.getElementById('status');
+
+            if (error) {
+                statusDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ Error de Autenticación</h3>
+                        <p>Error: ${error}</p>
+                        <p>Descripción: ${urlParams.get('error_description') || 'Error desconocido'}</p>
+                        <button class="btn" onclick="window.close()">Cerrar</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (!code) {
+                statusDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ Código de Autorización No Encontrado</h3>
+                        <p>No se recibió el código de autorización de LinkedIn.</p>
+                        <button class="btn" onclick="window.close()">Cerrar</button>
+                    </div>
+                `;
+                return;
+            }
+
+            try {
+                // Intercambiar código por token
+                const tokenResponse = await exchangeCodeForToken(code);
+                
+                if (tokenResponse.access_token) {
+                    statusDiv.innerHTML = `
+                        <div class="success">
+                            <h3>✅ Autenticación Exitosa</h3>
+                            <p>Tu cuenta de LinkedIn ha sido conectada correctamente.</p>
+                            <p>Esta ventana se cerrará automáticamente.</p>
+                        </div>
+                    `;
+
+                    // Enviar mensaje a la ventana padre
+                    if (window.opener) {
+                        window.opener.postMessage({
+                            type: 'linkedin_auth_success',
+                            access_token: tokenResponse.access_token
+                        }, window.location.origin);
+                    }
+
+                    // Cerrar ventana después de 2 segundos
+                    setTimeout(() => {
+                        window.close();
+                    }, 2000);
+                } else {
+                    throw new Error('No se recibió el token de acceso');
+                }
+            } catch (error) {
+                console.error('Error en callback:', error);
+                statusDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ Error Intercambiando Token</h3>
+                        <p>Error: ${error.message}</p>
+                        <button class="btn" onclick="window.close()">Cerrar</button>
+                    </div>
+                `;
+            }
+        }
+
+        async function exchangeCodeForToken(code) {
+            try {
+                // Usar la función de Netlify para intercambiar el código
+                const response = await fetch('/.netlify/functions/linkedin-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        code: code,
+                        redirect_uri: LINKEDIN_CONFIG.REDIRECT_URI
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Error en el servidor');
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('Error intercambiando código:', error);
+                throw error;
+            }
+        }
+
+        // Ejecutar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', handleCallback);
+    </script>
+</body>
+</html> 

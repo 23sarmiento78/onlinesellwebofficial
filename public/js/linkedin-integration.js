@@ -23,12 +23,16 @@ class LinkedInIntegration {
 
   // Autenticación con LinkedIn
   async authenticate() {
+    const state = this.generateState();
     const authUrl = `https://www.linkedin.com/oauth/v2/authorization?` +
       `response_type=code&` +
       `client_id=${this.clientId}&` +
       `redirect_uri=${encodeURIComponent(this.redirectUri)}&` +
       `scope=${encodeURIComponent(this.scope)}&` +
-      `state=${this.generateState()}`;
+      `state=${state}`;
+
+    // Guardar el estado para verificación
+    sessionStorage.setItem('linkedin_auth_state', state);
 
     // Abrir ventana de autenticación
     const authWindow = window.open(authUrl, 'linkedin_auth', 
@@ -36,22 +40,41 @@ class LinkedInIntegration {
 
     return new Promise((resolve, reject) => {
       // Escuchar mensaje de la ventana de autenticación
-      window.addEventListener('message', (event) => {
+      const messageHandler = (event) => {
         if (event.origin !== window.location.origin) return;
         
         if (event.data.type === 'linkedin_auth_success') {
           this.accessToken = event.data.access_token;
           localStorage.setItem('linkedin_access_token', this.accessToken);
+          sessionStorage.removeItem('linkedin_auth_state');
+          window.removeEventListener('message', messageHandler);
           authWindow.close();
           resolve(true);
         } else if (event.data.type === 'linkedin_auth_error') {
+          sessionStorage.removeItem('linkedin_auth_state');
+          window.removeEventListener('message', messageHandler);
           authWindow.close();
           reject(new Error(event.data.error));
         }
-      });
+      };
+
+      window.addEventListener('message', messageHandler);
+
+      // Verificar si la ventana se cerró manualmente
+      const checkClosed = setInterval(() => {
+        if (authWindow.closed) {
+          clearInterval(checkClosed);
+          window.removeEventListener('message', messageHandler);
+          sessionStorage.removeItem('linkedin_auth_state');
+          reject(new Error('Autenticación cancelada por el usuario'));
+        }
+      }, 1000);
 
       // Timeout después de 5 minutos
       setTimeout(() => {
+        clearInterval(checkClosed);
+        window.removeEventListener('message', messageHandler);
+        sessionStorage.removeItem('linkedin_auth_state');
         authWindow.close();
         reject(new Error('Timeout en autenticación'));
       }, 300000);
@@ -61,7 +84,7 @@ class LinkedInIntegration {
   // Intercambiar código por token de acceso
   async exchangeCodeForToken(code) {
     try {
-      const response = await fetch('/api/linkedin/token', {
+      const response = await fetch('/.netlify/functions/linkedin-token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +93,8 @@ class LinkedInIntegration {
       });
 
       if (!response.ok) {
-        throw new Error('Error intercambiando código por token');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error intercambiando código por token');
       }
 
       const data = await response.json();
