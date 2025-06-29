@@ -23,9 +23,7 @@ class Auth0Auth {
 
     try {
       // Cargar Auth0 desde CDN si no está disponible
-      if (typeof auth0 === 'undefined') {
-        await this.loadAuth0Script();
-      }
+      await this.loadAuth0Script();
 
       // Inicializar Auth0
       this.auth0 = new auth0.WebAuth(config);
@@ -45,10 +43,22 @@ class Auth0Auth {
 
   async loadAuth0Script() {
     return new Promise((resolve, reject) => {
+      // Verificar si ya está cargado
+      if (typeof auth0 !== 'undefined') {
+        resolve();
+        return;
+      }
+
       const script = document.createElement('script');
       script.src = 'https://cdn.auth0.com/js/auth0/9.19.2/auth0.min.js';
-      script.onload = resolve;
-      script.onerror = reject;
+      script.onload = () => {
+        console.log('✅ SDK de Auth0 cargado correctamente');
+        resolve();
+      };
+      script.onerror = (error) => {
+        console.error('❌ Error cargando SDK de Auth0:', error);
+        reject(error);
+      };
       document.head.appendChild(script);
     });
   }

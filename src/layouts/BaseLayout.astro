@@ -416,14 +416,14 @@ const {
 
         // Función para verificar si el usuario está logueado usando el nuevo sistema
         function checkIfUserIsLoggedIn() {
-          const authUser = localStorage.getItem('auth_user');
-          const authToken = localStorage.getItem('auth_token');
+          const authUser = localStorage.getItem('auth0_user');
+          const authToken = localStorage.getItem('auth0_token');
           return authUser && authToken;
         }
 
         function getUserProfileName() {
           try {
-            const authUser = localStorage.getItem('auth_user');
+            const authUser = localStorage.getItem('auth0_user');
             if (authUser) {
               const user = JSON.parse(authUser);
               return user.name || user.email.split('@')[0];
@@ -466,9 +466,9 @@ const {
 
         function handleLogin(e) {
           e.preventDefault();
-          // Usar el nuevo sistema de autenticación
-          if (window.simpleAuth) {
-            window.simpleAuth.showLoginForm();
+          // Usar el nuevo sistema de Auth0
+          if (window.auth0Auth) {
+            window.auth0Auth.login();
           } else {
             // Fallback si el sistema no está cargado
             window.location.href = '/admin/';
@@ -477,13 +477,13 @@ const {
 
         function handleLogout(e) {
           e.preventDefault();
-          // Usar el nuevo sistema de autenticación
-          if (window.simpleAuth) {
-            window.simpleAuth.logout();
+          // Usar el nuevo sistema de Auth0
+          if (window.auth0Auth) {
+            window.auth0Auth.logout();
           } else {
             // Fallback si el sistema no está cargado
-            localStorage.removeItem('auth_user');
-            localStorage.removeItem('auth_token');
+            localStorage.removeItem('auth0_user');
+            localStorage.removeItem('auth0_token');
             updateAuthButtons();
           }
         }
@@ -493,7 +493,7 @@ const {
         
         // Escuchar cambios en localStorage para actualizar en tiempo real
         window.addEventListener('storage', (e) => {
-          if (e.key === 'auth_user' || e.key === 'auth_token') {
+          if (e.key === 'auth0_user' || e.key === 'auth0_token') {
             updateAuthButtons();
           }
         });
@@ -519,7 +519,6 @@ const {
     <script src="/js/analytics.js" is:inline></script>
     <script src="/js/linkedin-config.js" is:inline></script>
     <script src="/js/linkedin-integration.js" is:inline></script>
-    <script src="/js/auth.js" is:inline></script>
     <script src="/js/auto-forum-publisher.js" is:inline></script>
     <script src="/js/indexnow.js" is:inline></script>
     <script src="/js/google-analytics.js" is:inline></script>

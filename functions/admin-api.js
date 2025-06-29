@@ -94,34 +94,43 @@ exports.handler = async (event, context) => {
         const db = client.db();
 
         // Determinar la acción basada en el método HTTP y la ruta
-        const path = event.path.replace('/.netlify/functions/admin-api/', '');
+        const path = event.path.replace('/.netlify/functions/admin-api', '');
         const method = event.httpMethod;
+
+        console.log('🔍 Ruta solicitada:', path);
+        console.log('📋 Método:', method);
 
         let result;
 
         switch (method) {
             case 'GET':
-                if (path === 'articles' || path === '') {
+                if (path === '/articles' || path === '/') {
                     const articles = await db.collection('articles').find({}).sort({ date: -1 }).toArray();
-                    result = { articles };
-                } else if (path === 'forum-posts' || path === 'posts') {
+                    result = articles;
+                } else if (path === '/forum-posts' || path === '/posts') {
                     const posts = await db.collection('forum-posts').find({}).sort({ date: -1 }).toArray();
-                    result = { posts };
-                } else if (path.startsWith('articles/')) {
-                    const articleId = path.replace('articles/', '');
+                    result = posts;
+                } else if (path.startsWith('/articles/')) {
+                    const articleId = path.replace('/articles/', '');
                     const article = await db.collection('articles').findOne({ _id: articleId });
-                    result = { article };
-                } else if (path.startsWith('posts/')) {
-                    const postId = path.replace('posts/', '');
+                    result = article;
+                } else if (path.startsWith('/posts/')) {
+                    const postId = path.replace('/posts/', '');
                     const post = await db.collection('forum-posts').findOne({ _id: postId });
-                    result = { post };
+                    result = post;
+                } else {
+                    return {
+                        statusCode: 404,
+                        headers,
+                        body: JSON.stringify({ error: 'Ruta no encontrada' })
+                    };
                 }
                 break;
 
             case 'POST':
                 const body = JSON.parse(event.body || '{}');
                 
-                if (path === 'articles' || path === '') {
+                if (path === '/articles' || path === '/') {
                     const article = {
                         ...body,
                         _id: body.slug || Date.now().toString(),
@@ -131,7 +140,7 @@ exports.handler = async (event, context) => {
                     
                     await db.collection('articles').insertOne(article);
                     result = { success: true, article };
-                } else if (path === 'forum-posts' || path === 'posts') {
+                } else if (path === '/forum-posts' || path === '/posts') {
                     const post = {
                         ...body,
                         _id: Date.now().toString(),
@@ -141,14 +150,20 @@ exports.handler = async (event, context) => {
                     
                     await db.collection('forum-posts').insertOne(post);
                     result = { success: true, post };
+                } else {
+                    return {
+                        statusCode: 404,
+                        headers,
+                        body: JSON.stringify({ error: 'Ruta no encontrada' })
+                    };
                 }
                 break;
 
             case 'PUT':
                 const updateBody = JSON.parse(event.body || '{}');
                 
-                if (path.startsWith('articles/')) {
-                    const articleId = path.replace('articles/', '');
+                if (path.startsWith('/articles/')) {
+                    const articleId = path.replace('/articles/', '');
                     const updateData = { ...updateBody, updatedAt: new Date().toISOString() };
                     delete updateData._id; // No permitir actualizar el ID
                     
@@ -157,8 +172,8 @@ exports.handler = async (event, context) => {
                         { $set: updateData }
                     );
                     result = { success: true };
-                } else if (path.startsWith('posts/')) {
-                    const postId = path.replace('posts/', '');
+                } else if (path.startsWith('/posts/')) {
+                    const postId = path.replace('/posts/', '');
                     const updateData = { ...updateBody, updatedAt: new Date().toISOString() };
                     delete updateData._id; // No permitir actualizar el ID
                     
@@ -167,18 +182,30 @@ exports.handler = async (event, context) => {
                         { $set: updateData }
                     );
                     result = { success: true };
+                } else {
+                    return {
+                        statusCode: 404,
+                        headers,
+                        body: JSON.stringify({ error: 'Ruta no encontrada' })
+                    };
                 }
                 break;
 
             case 'DELETE':
-                if (path.startsWith('articles/')) {
-                    const articleId = path.replace('articles/', '');
+                if (path.startsWith('/articles/')) {
+                    const articleId = path.replace('/articles/', '');
                     await db.collection('articles').deleteOne({ _id: articleId });
                     result = { success: true };
-                } else if (path.startsWith('posts/')) {
-                    const postId = path.replace('posts/', '');
+                } else if (path.startsWith('/posts/')) {
+                    const postId = path.replace('/posts/', '');
                     await db.collection('forum-posts').deleteOne({ _id: postId });
                     result = { success: true };
+                } else {
+                    return {
+                        statusCode: 404,
+                        headers,
+                        body: JSON.stringify({ error: 'Ruta no encontrada' })
+                    };
                 }
                 break;
 

@@ -5,7 +5,9 @@ const oldTokens = [
   'auth_token',
   'admin_token', 
   'auth_user',
-  'admin_user'
+  'admin_user',
+  'access_token',
+  'id_token'
 ];
 
 oldTokens.forEach(token => {
@@ -15,4 +17,24 @@ oldTokens.forEach(token => {
   }
 });
 
-console.log('✅ Limpieza completada'); 
+// Limpiar también sessionStorage
+sessionStorage.clear();
+console.log('✅ sessionStorage limpiado');
+
+// Eliminar variables globales del sistema anterior
+if (window.simpleAuth) {
+  delete window.simpleAuth;
+  console.log('✅ simpleAuth eliminado');
+}
+
+console.log('✅ Limpieza completada');
+
+// Función para limpiar todo manualmente
+window.cleanAllAuth = function() {
+  console.log('🧹 Limpieza manual iniciada...');
+  localStorage.clear();
+  sessionStorage.clear();
+  if (window.simpleAuth) delete window.simpleAuth;
+  console.log('✅ Todo limpiado manualmente');
+  window.location.reload();
+}; 
