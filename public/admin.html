@@ -39,11 +39,17 @@
   <script src="/js/auth.js"></script>
   
   <script>
-    // Verificar autenticación al cargar la página
+    // Inicializar el sistema de autenticación
     document.addEventListener('DOMContentLoaded', () => {
-      // El sistema de autenticación se inicializa automáticamente
-      // y mostrará el formulario de login si no está autenticado
-      // o el panel de bienvenida si está autenticado
+      console.log('🚀 Inicializando sistema de autenticación...');
+      
+      // Crear instancia global del sistema de autenticación
+      window.simpleAuth = new SimpleAuth();
+      
+      // Inicializar el sistema
+      window.simpleAuth.init();
+      
+      console.log('✅ Sistema de autenticación inicializado');
     });
   </script>
 </body>
