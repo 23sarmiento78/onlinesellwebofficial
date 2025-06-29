@@ -669,20 +669,6 @@
                   Ver Estadísticas
                 </button>
               </div>
-              
-              <!-- Botón de depuración temporal -->
-              <div class="setting-item">
-                <h4>🐛 Depuración</h4>
-                <p>Herramientas para diagnosticar problemas de autenticación.</p>
-                <button class="btn btn-info" onclick="window.simpleAuth.debugAuthState()">
-                  <i class="fas fa-bug"></i>
-                  Debug Estado
-                </button>
-                <button class="btn btn-warning" onclick="window.simpleAuth.logout()">
-                  <i class="fas fa-sign-out-alt"></i>
-                  Cerrar Sesión
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -694,12 +680,9 @@
   <script src="/js/auth-fix.js"></script>
   <script src="/js/linkedin-config.js"></script>
   <script src="/js/linkedin-integration.js"></script>
-  <script src="/js/test-linkedin-auth.js"></script>
-  <script src="/js/test-admin-auth.js"></script>
   <script src="/js/admin.js"></script>
   <script src="/js/admin-fix.js"></script>
   <script src="/js/fix-admin.js"></script>
-  <script src="/js/debug-admin.js"></script>
   <script src="/js/form-setup.js"></script>
   <script src="/js/auth.js"></script>
   
@@ -713,13 +696,15 @@
       // 2. Inicializar SimpleAuth (esto manejará la autenticación y mostrará login/panel)
       window.simpleAuth.init();
       
-      // 3. Inicializar Integración de LinkedIn (si existe)
-      if (typeof LinkedInIntegration !== 'undefined') {
-        window.linkedInIntegration = new LinkedInIntegration();
-        console.log('✅ Integración de LinkedIn inicializada');
-      } else {
-        console.warn('⚠️ LinkedInIntegration no encontrado');
-      }
+      // 3. Inicializar Integración de LinkedIn (si existe) después de un delay
+      setTimeout(() => {
+        if (typeof LinkedInIntegration !== 'undefined') {
+          window.linkedInIntegration = new LinkedInIntegration();
+          console.log('✅ Integración de LinkedIn inicializada');
+        } else {
+          console.warn('⚠️ LinkedInIntegration no encontrado');
+        }
+      }, 1000);
 
       console.log('✅ Proceso de inicialización completado.');
     });
