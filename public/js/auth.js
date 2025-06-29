@@ -12,8 +12,8 @@ class Auth0Auth {
     
     // Configuración de Auth0
     const config = {
-      domain: 'hgaruna.us.auth0.com',
-      clientId: 'tu-client-id-aqui',
+      domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com',
+      clientId: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab', // Reemplazar con tu Client ID real
       redirectUri: window.location.origin + '/admin/',
       audience: 'https://service.hgaruna.org/api',
       scope: 'openid profile email'
