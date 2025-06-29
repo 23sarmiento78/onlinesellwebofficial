@@ -2,15 +2,60 @@
 class Analytics {
   constructor() {
     this.apiUrl = '/.netlify/functions/admin-api/views';
+    this.isAuthenticated = false;
     this.init();
+    
+    // Escuchar cambios de autenticación
+    document.addEventListener('auth0:authChanged', (event) => {
+      this.handleAuthChange(event.detail);
+    });
   }
 
   async init() {
-    // Registrar la vista actual
-    await this.recordView();
+    // Verificar autenticación
+    this.checkAuthentication();
+    
+    // Solo registrar vista si está autenticado o es una página pública
+    if (this.isAuthenticated || this.isPublicPage()) {
+      await this.recordView();
+    } else {
+      console.log('🔒 Analytics: Usuario no autenticado, saltando registro de vista');
+    }
     
     // Configurar para registrar navegación SPA si es necesario
     this.setupSPATracking();
+  }
+
+  checkAuthentication() {
+    const token = localStorage.getItem('auth0_token');
+    const user = localStorage.getItem('auth0_user');
+    this.isAuthenticated = !!(token && user);
+    
+    console.log('🔍 Analytics - Estado de autenticación:', {
+      hasToken: !!token,
+      hasUser: !!user,
+      isAuthenticated: this.isAuthenticated
+    });
+  }
+
+  isPublicPage() {
+    // Páginas públicas que no requieren autenticación para analytics
+    const publicPages = ['/', '/blog', '/planes', '/contacto', '/legal', '/politicas-privacidad'];
+    return publicPages.includes(window.location.pathname);
+  }
+
+  getAuthHeaders() {
+    const token = localStorage.getItem('auth0_token');
+    if (!token) {
+      return {
+        'Content-Type': 'application/json'
+      };
+    }
+    
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
   }
 
   async recordView() {
@@ -24,9 +69,7 @@ class Analytics {
 
       const response = await fetch(this.apiUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: this.getAuthHeaders(),
         body: JSON.stringify(viewData)
       });
 
@@ -78,13 +121,21 @@ class Analytics {
   // Método para obtener estadísticas
   async getStats(period = 'all') {
     try {
-      const response = await fetch(`/.netlify/functions/admin-api/views/stats?period=${period}`);
+      if (!this.isAuthenticated) {
+        console.log('🔒 Analytics: No autenticado, no se pueden obtener estadísticas');
+        return null;
+      }
+
+      const response = await fetch(`/.netlify/functions/admin-api/views/stats?period=${period}`, {
+        headers: this.getAuthHeaders()
+      });
+      
       if (response.ok) {
         return await response.json();
       }
-      throw new Error('Error obteniendo estadísticas');
+      throw new Error(`Error obteniendo estadísticas: ${response.status}`);
     } catch (error) {
-      console.error('Error obteniendo estadísticas:', error);
+      console.error('❌ Analytics: Error obteniendo estadísticas:', error);
       return null;
     }
   }
@@ -92,15 +143,39 @@ class Analytics {
   // Método para obtener total de vistas
   async getTotalViews() {
     try {
-      const response = await fetch('/.netlify/functions/admin-api/views/total');
+      if (!this.isAuthenticated) {
+        console.log('🔒 Analytics: No autenticado, no se pueden obtener estadísticas');
+        return 0;
+      }
+
+      const response = await fetch('/.netlify/functions/admin-api/views/total', {
+        headers: this.getAuthHeaders()
+      });
+      
       if (response.ok) {
         const data = await response.json();
         return data.totalViews;
       }
-      throw new Error('Error obteniendo total de vistas');
+      throw new Error(`Error obteniendo total de vistas: ${response.status}`);
     } catch (error) {
-      console.error('Error obteniendo total de vistas:', error);
+      console.error('❌ Analytics: Error obteniendo total de vistas:', error);
       return 0;
+    }
+  }
+
+  handleAuthChange(authData) {
+    const wasAuthenticated = this.isAuthenticated;
+    this.isAuthenticated = authData.isAuthenticated;
+    
+    console.log('🔄 Analytics: Cambio de autenticación detectado', {
+      wasAuthenticated,
+      isAuthenticated: this.isAuthenticated
+    });
+    
+    if (!wasAuthenticated && this.isAuthenticated) {
+      // Usuario se acaba de autenticar, registrar vista
+      console.log('✅ Analytics: Usuario autenticado, registrando vista...');
+      this.recordView();
     }
   }
 }

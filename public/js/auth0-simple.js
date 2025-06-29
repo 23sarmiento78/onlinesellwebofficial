@@ -77,7 +77,7 @@ class Auth0Simple {
 
       console.log('📦 Cargando SDK de Auth0...');
       const script = document.createElement('script');
-      script.src = 'https://cdn.auth0.com/js/auth0/9.22.2/auth0.min.js';
+      script.src = 'https://cdn.auth0.com/js/auth0/9.19.2/auth0.min.js';
       script.onload = () => {
         console.log('✅ SDK de Auth0 cargado exitosamente');
         resolve();
@@ -121,7 +121,24 @@ class Auth0Simple {
     localStorage.setItem('auth0_user', JSON.stringify(authResult.idTokenPayload));
     
     console.log('✅ Usuario autenticado:', this.user.name);
+    
+    // Notificar a otros scripts que la autenticación cambió
+    this.notifyAuthChange();
+    
     this.showAdminPanel();
+  }
+
+  notifyAuthChange() {
+    // Disparar evento personalizado para que otros scripts sepan que la autenticación cambió
+    const event = new CustomEvent('auth0:authChanged', {
+      detail: {
+        isAuthenticated: this.isAuthenticated,
+        user: this.user
+      }
+    });
+    document.dispatchEvent(event);
+    
+    console.log('📢 Auth0: Evento de cambio de autenticación disparado');
   }
 
   login() {
@@ -138,6 +155,9 @@ class Auth0Simple {
     if (!this.auth0) {
       localStorage.removeItem('auth0_token');
       localStorage.removeItem('auth0_user');
+      this.isAuthenticated = false;
+      this.user = null;
+      this.notifyAuthChange();
       window.location.href = '/';
       return;
     }

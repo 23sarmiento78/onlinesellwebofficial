@@ -5,10 +5,24 @@ class AutoForumPublisher {
     this.articlesUrl = '/.netlify/functions/admin-api/articles';
     this.checkInterval = 5 * 60 * 1000; // 5 minutos
     this.publishedArticles = new Set();
+    this.isAuthenticated = false;
     this.init();
+    
+    // Escuchar cambios de autenticación
+    document.addEventListener('auth0:authChanged', (event) => {
+      this.handleAuthChange(event.detail);
+    });
   }
 
   async init() {
+    // Verificar si el usuario está autenticado
+    if (!this.checkAuthentication()) {
+      console.log('🔒 AutoForumPublisher: Usuario no autenticado, deshabilitando');
+      return;
+    }
+
+    console.log('✅ AutoForumPublisher: Usuario autenticado, iniciando...');
+    
     // Cargar artículos ya publicados
     await this.loadPublishedArticles();
     
@@ -19,9 +33,45 @@ class AutoForumPublisher {
     await this.checkForNewArticles();
   }
 
+  checkAuthentication() {
+    // Verificar si hay un token de Auth0
+    const token = localStorage.getItem('auth0_token');
+    const user = localStorage.getItem('auth0_user');
+    
+    this.isAuthenticated = !!(token && user);
+    
+    console.log('🔍 AutoForumPublisher - Estado de autenticación:', {
+      hasToken: !!token,
+      hasUser: !!user,
+      isAuthenticated: this.isAuthenticated
+    });
+    
+    return this.isAuthenticated;
+  }
+
+  getAuthHeaders() {
+    const token = localStorage.getItem('auth0_token');
+    if (!token) {
+      throw new Error('No hay token de autenticación');
+    }
+    
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+  }
+
   async loadPublishedArticles() {
     try {
-      const response = await fetch(this.apiUrl);
+      if (!this.isAuthenticated) {
+        console.log('🔒 AutoForumPublisher: No autenticado, saltando carga de publicaciones');
+        return;
+      }
+
+      const response = await fetch(this.apiUrl, {
+        headers: this.getAuthHeaders()
+      });
+      
       if (response.ok) {
         const posts = await response.json();
         posts.forEach(post => {
@@ -29,23 +79,36 @@ class AutoForumPublisher {
             this.publishedArticles.add(post.articleId);
           }
         });
+        console.log(`✅ AutoForumPublisher: Cargadas ${posts.length} publicaciones existentes`);
+      } else {
+        console.error('❌ AutoForumPublisher: Error cargando publicaciones:', response.status);
       }
     } catch (error) {
-      console.error('Error cargando publicaciones existentes:', error);
+      console.error('❌ AutoForumPublisher: Error cargando publicaciones existentes:', error);
     }
   }
 
   startPeriodicCheck() {
     setInterval(async () => {
-      await this.checkForNewArticles();
+      if (this.isAuthenticated) {
+        await this.checkForNewArticles();
+      }
     }, this.checkInterval);
   }
 
   async checkForNewArticles() {
     try {
-      const response = await fetch(this.articlesUrl);
+      if (!this.isAuthenticated) {
+        console.log('🔒 AutoForumPublisher: No autenticado, saltando verificación');
+        return;
+      }
+
+      const response = await fetch(this.articlesUrl, {
+        headers: this.getAuthHeaders()
+      });
+      
       if (!response.ok) {
-        throw new Error('Error obteniendo artículos');
+        throw new Error(`Error obteniendo artículos: ${response.status}`);
       }
 
       const articles = await response.json();
@@ -53,11 +116,13 @@ class AutoForumPublisher {
         !this.publishedArticles.has(article._id)
       );
 
+      console.log(`🔍 AutoForumPublisher: Encontrados ${newArticles.length} artículos nuevos`);
+
       for (const article of newArticles) {
         await this.publishArticleToForum(article);
       }
     } catch (error) {
-      console.error('Error verificando nuevos artículos:', error);
+      console.error('❌ AutoForumPublisher: Error verificando nuevos artículos:', error);
     }
   }
 
@@ -78,9 +143,7 @@ class AutoForumPublisher {
 
       const response = await fetch(this.apiUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: this.getAuthHeaders(),
         body: JSON.stringify(forumPost)
       });
 
@@ -247,6 +310,26 @@ class AutoForumPublisher {
       checkInterval: this.checkInterval,
       isRunning: true
     };
+  }
+
+  handleAuthChange(authData) {
+    const wasAuthenticated = this.isAuthenticated;
+    this.isAuthenticated = authData.isAuthenticated;
+    
+    console.log('🔄 AutoForumPublisher: Cambio de autenticación detectado', {
+      wasAuthenticated,
+      isAuthenticated: this.isAuthenticated
+    });
+    
+    if (!wasAuthenticated && this.isAuthenticated) {
+      // Usuario se acaba de autenticar
+      console.log('✅ AutoForumPublisher: Usuario autenticado, iniciando...');
+      this.init();
+    } else if (wasAuthenticated && !this.isAuthenticated) {
+      // Usuario se acaba de desautenticar
+      console.log('🔒 AutoForumPublisher: Usuario desautenticado, deteniendo...');
+      this.publishedArticles.clear();
+    }
   }
 }
 
