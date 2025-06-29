@@ -1,35 +1,248 @@
 const { google } = require('googleapis');
 const { Buffer } = require('buffer'); // Importa Buffer explícitamente
+const { MongoClient } = require('mongodb');
 
 const INDEXNOW_API_ENDPOINT = "https://api.indexnow.org/IndexNow";
 
-exports.handler = async function(event, context) {
-    if (event.httpMethod !== 'POST') {
+// Conexión a MongoDB (gratis con MongoDB Atlas)
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const DB_NAME = 'hgaruna';
+
+let cachedDb = null;
+
+async function connectToDatabase() {
+  if (cachedDb) {
+    return cachedDb;
+  }
+  
+  const client = await MongoClient.connect(MONGODB_URI);
+  const db = client.db(DB_NAME);
+  cachedDb = db;
+  return db;
+}
+
+exports.handler = async (event, context) => {
+  // CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+  };
+
+  // Handle preflight requests
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: ''
+    };
+  }
+
+  try {
+    const db = await connectToDatabase();
+    const { path, httpMethod, body } = event;
+    
+    // Parse the path to determine the resource and action
+    const pathParts = path.replace('/.netlify/functions/', '').split('/');
+    const resource = pathParts[1]; // 'articles' or 'forum-posts'
+    const action = pathParts[2]; // 'create', 'list', 'update', 'delete'
+    const id = pathParts[3]; // ID for specific operations
+
+    console.log(`API Request: ${httpMethod} ${resource}/${action} ${id || ''}`);
+
+    switch (resource) {
+      case 'articles':
+        return await handleArticles(db, httpMethod, action, id, body, headers);
+      
+      case 'forum-posts':
+        return await handleForumPosts(db, httpMethod, action, id, body, headers);
+      
+      case 'stats':
+        return await handleStats(db, headers);
+      
+      default:
         return {
-            statusCode: 405,
-            body: 'Método no permitido. Usa POST.'
+          statusCode: 404,
+          headers,
+          body: JSON.stringify({ error: 'Resource not found' })
         };
     }
 
-    let requestBody;
-    try {
-        requestBody = JSON.parse(event.body);
-    } catch (e) {
+  } catch (error) {
+    console.error('Database error:', error);
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: 'Internal server error' })
+    };
+  }
+};
+
+async function handleArticles(db, method, action, id, body, headers) {
+  const collection = db.collection('articles');
+
+  switch (method) {
+    case 'GET':
+      if (action === 'list') {
+        const articles = await collection.find({}).sort({ date: -1 }).toArray();
         return {
-            statusCode: 400,
-            body: 'El cuerpo de la solicitud debe ser un JSON válido.'
+          statusCode: 200,
+          headers,
+          body: JSON.stringify(articles)
         };
-    }
-
-    const { url } = requestBody;
-
-    if (!url) {
+      } else if (id) {
+        const article = await collection.findOne({ _id: id });
         return {
-            statusCode: 400,
-            body: 'Falta el parámetro "url" en el cuerpo JSON.'
+          statusCode: 200,
+          headers,
+          body: JSON.stringify(article)
         };
-    }
+      }
+      break;
 
+    case 'POST':
+      if (action === 'create') {
+        const articleData = JSON.parse(body);
+        articleData._id = `article_${Date.now()}`;
+        articleData.date = new Date().toISOString();
+        articleData.slug = articleData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        
+        await collection.insertOne(articleData);
+        
+        return {
+          statusCode: 201,
+          headers,
+          body: JSON.stringify({ success: true, article: articleData })
+        };
+      }
+      break;
+
+    case 'PUT':
+      if (id) {
+        const updateData = JSON.parse(body);
+        await collection.updateOne({ _id: id }, { $set: updateData });
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ success: true })
+        };
+      }
+      break;
+
+    case 'DELETE':
+      if (id) {
+        await collection.deleteOne({ _id: id });
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ success: true })
+        };
+      }
+      break;
+  }
+
+  return {
+    statusCode: 400,
+    headers,
+    body: JSON.stringify({ error: 'Invalid request' })
+  };
+}
+
+async function handleForumPosts(db, method, action, id, body, headers) {
+  const collection = db.collection('forum_posts');
+
+  switch (method) {
+    case 'GET':
+      if (action === 'list') {
+        const posts = await collection.find({}).sort({ timestamp: -1 }).toArray();
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify(posts)
+        };
+      } else if (id) {
+        const post = await collection.findOne({ _id: id });
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify(post)
+        };
+      }
+      break;
+
+    case 'POST':
+      if (action === 'create') {
+        const postData = JSON.parse(body);
+        postData._id = `post_${Date.now()}`;
+        postData.timestamp = new Date().toISOString();
+        postData.likes = 0;
+        postData.comments = [];
+        
+        await collection.insertOne(postData);
+        
+        return {
+          statusCode: 201,
+          headers,
+          body: JSON.stringify({ success: true, post: postData })
+        };
+      }
+      break;
+
+    case 'PUT':
+      if (id) {
+        const updateData = JSON.parse(body);
+        await collection.updateOne({ _id: id }, { $set: updateData });
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ success: true })
+        };
+      }
+      break;
+
+    case 'DELETE':
+      if (id) {
+        await collection.deleteOne({ _id: id });
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ success: true })
+        };
+      }
+      break;
+  }
+
+  return {
+    statusCode: 400,
+    headers,
+    body: JSON.stringify({ error: 'Invalid request' })
+  };
+}
+
+async function handleStats(db, headers) {
+  const articlesCollection = db.collection('articles');
+  const forumCollection = db.collection('forum_posts');
+
+  const [articlesCount, forumPostsCount] = await Promise.all([
+    articlesCollection.countDocuments(),
+    forumCollection.countDocuments()
+  ]);
+
+  const stats = {
+    articles: articlesCount,
+    forumPosts: forumPostsCount,
+    comments: 0, // TODO: Implement comments counting
+    views: (articlesCount * 150) + (forumPostsCount * 75) // Simulated
+  };
+
+  return {
+    statusCode: 200,
+    headers,
+    body: JSON.stringify(stats)
+  };
+}
+
+async function handleIndexNow(url) {
     // Decodificar la clave de servicio de Google desde la variable de entorno
     let googlePrivateKey;
     try {
@@ -140,4 +353,4 @@ exports.handler = async function(event, context) {
             })
         };
     }
-}; 
+} 
