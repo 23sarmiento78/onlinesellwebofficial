@@ -563,5 +563,51 @@
   <script src="/js/auth0-config.js"></script>
   <script src="/js/auth0-manager.js"></script>
   <script src="/js/admin-panel.js"></script>
+  <script>
+    // Inicialización final
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🚀 DOM cargado, iniciando sistema...');
+      
+      // Verificar si hay un hash de Auth0 (callback)
+      if (window.location.hash) {
+        console.log('🔐 Procesando callback de Auth0...');
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        
+        if (params.get('access_token')) {
+          console.log('✅ Token recibido, procesando...');
+          // Limpiar el hash
+          window.location.hash = '';
+          
+          // Crear Auth0Manager y procesar el token
+          if (!window.auth0Manager) {
+            window.auth0Manager = new Auth0Manager();
+          }
+          
+          // Procesar el token manualmente
+          const authResult = {
+            accessToken: params.get('access_token'),
+            idToken: params.get('id_token'),
+            idTokenPayload: JSON.parse(atob(params.get('id_token').split('.')[1]))
+          };
+          
+          window.auth0Manager.handleAuthSuccess(authResult);
+          return;
+        }
+      }
+      
+      // Crear instancia de Auth0Manager
+      if (!window.auth0Manager) {
+        console.log('🔧 Creando Auth0Manager...');
+        window.auth0Manager = new Auth0Manager();
+      }
+      
+      // Crear instancia de AdminPanel
+      if (!window.adminPanel) {
+        console.log('🔧 Creando AdminPanel...');
+        window.adminPanel = new AdminPanel();
+      }
+    });
+  </script>
 </body>
 </html> 

@@ -15,7 +15,8 @@ class AdminPanel {
     
     // Verificar autenticación
     if (!window.auth0Manager || !window.auth0Manager.isLoggedIn()) {
-      console.log('❌ Usuario no autenticado');
+      console.log('❌ Usuario no autenticado, mostrando login');
+      window.auth0Manager.showLogin();
       return;
     }
 
@@ -29,12 +30,20 @@ class AdminPanel {
 
   async waitForAuth0() {
     return new Promise((resolve) => {
+      let attempts = 0;
+      const maxAttempts = 50; // 5 segundos máximo
+      
       const checkAuth0 = () => {
+        attempts++;
+        console.log(`⏳ Esperando Auth0Manager... (intento ${attempts}/${maxAttempts})`);
+        
         if (window.auth0Manager && typeof window.auth0Manager.isLoggedIn === 'function') {
           console.log('✅ Auth0Manager está listo');
           resolve();
+        } else if (attempts >= maxAttempts) {
+          console.error('❌ Timeout esperando Auth0Manager');
+          resolve();
         } else {
-          console.log('⏳ Esperando Auth0Manager...');
           setTimeout(checkAuth0, 100);
         }
       };
