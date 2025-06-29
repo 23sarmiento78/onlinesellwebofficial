@@ -1,0 +1,113 @@
+{
+  "site": {
+    "name": "hgaruna",
+    "title": "Desarrollo Web Villa Carlos Paz | Diseño Web Profesional | hgaruna",
+    "description": "Desarrollo web profesional en Villa Carlos Paz, Córdoba. Creamos sitios web personalizados, e-commerce y marketing digital para negocios locales. Precios accesibles desde $150.",
+    "url": "https://service.hgaruna.org",
+    "language": "es",
+    "region": "AR",
+    "location": "Villa Carlos Paz, Córdoba, Argentina"
+  },
+  "keywords": {
+    "primary": [
+      "desarrollo web villa carlos paz",
+      "diseño web villa carlos paz",
+      "programador web villa carlos paz",
+      "diseñador web villa carlos paz",
+      "crear sitio web villa carlos paz",
+      "marketing digital villa carlos paz",
+      "agencia digital villa carlos paz",
+      "web developer villa carlos paz",
+      "tienda online villa carlos paz",
+      "e-commerce villa carlos paz"
+    ],
+    "secondary": [
+      "seo local villa carlos paz",
+      "google my business villa carlos paz",
+      "posicionamiento web córdoba",
+      "desarrollo de software villa carlos paz",
+      "diseño web responsivo villa carlos paz",
+      "sitios web profesionales villa carlos paz",
+      "marketing digital córdoba",
+      "publicidad digital villa carlos paz",
+      "redes sociales villa carlos paz",
+      "google ads villa carlos paz"
+    ],
+    "longtail": [
+      "cuánto cuesta un sitio web en villa carlos paz",
+      "mejor programador web villa carlos paz",
+      "diseñador web profesional villa carlos paz",
+      "crear tienda online villa carlos paz",
+      "seo local para negocios villa carlos paz",
+      "marketing digital para empresas villa carlos paz",
+      "desarrollo web para restaurantes villa carlos paz",
+      "sitio web para hotel villa carlos paz",
+      "e-commerce para comercios villa carlos paz",
+      "posicionamiento en google villa carlos paz"
+    ]
+  },
+  "pages": {
+    "home": {
+      "title": "Desarrollo Web Villa Carlos Paz | Diseño Web Profesional | hgaruna",
+      "description": "Desarrollo web profesional en Villa Carlos Paz, Córdoba. Creamos sitios web personalizados, e-commerce y marketing digital para negocios locales. Precios accesibles desde $150.",
+      "keywords": "desarrollo web villa carlos paz, diseño web carlos paz, marketing digital córdoba, sitios web profesionales, seo local, e-commerce villa carlos paz"
+    },
+    "desarrollo-web": {
+      "title": "Desarrollo Web Villa Carlos Paz | Programador Web Profesional | hgaruna",
+      "description": "Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web para negocios locales. Precios accesibles desde $150.",
+      "keywords": "desarrollo web villa carlos paz, programador web villa carlos paz, diseñador web villa carlos paz, crear sitio web villa carlos paz"
+    },
+    "diseño-web": {
+      "title": "Diseño Web Villa Carlos Paz | Diseñador Web Profesional | hgaruna",
+      "description": "Diseño web profesional en Villa Carlos Paz, Córdoba. Diseñador web especializado en sitios web modernos y atractivos para negocios locales.",
+      "keywords": "diseño web villa carlos paz, diseñador web villa carlos paz, crear sitio web villa carlos paz, diseño de páginas web villa carlos paz"
+    },
+    "marketing-digital": {
+      "title": "Marketing Digital Villa Carlos Paz | Agencia Digital | hgaruna",
+      "description": "Marketing digital profesional en Villa Carlos Paz, Córdoba. Estrategias de marketing digital para negocios locales. SEO, redes sociales, Google Ads.",
+      "keywords": "marketing digital villa carlos paz, agencia digital villa carlos paz, seo villa carlos paz, google ads villa carlos paz"
+    }
+  },
+  "local": {
+    "business_name": "hgaruna",
+    "address": {
+      "street": "Villa Carlos Paz",
+      "city": "Villa Carlos Paz",
+      "state": "Córdoba",
+      "country": "Argentina",
+      "postal_code": "5152"
+    },
+    "coordinates": {
+      "latitude": "-31.4201",
+      "longitude": "-64.4998"
+    },
+    "phone": "+54-3541-237972",
+    "email": "23sarmiento@gmail.com",
+    "services": [
+      "Desarrollo Web Profesional",
+      "Diseño Web Responsivo",
+      "E-commerce",
+      "SEO Local",
+      "Marketing Digital",
+      "Google My Business",
+      "Redes Sociales"
+    ],
+    "service_areas": [
+      "Villa Carlos Paz",
+      "Córdoba",
+      "Cosquín",
+      "La Falda",
+      "Villa General Belgrano",
+      "Alta Gracia"
+    ]
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/profile.php?id=61557007626922",
+    "instagram": "https://www.instagram.com/onlinesellweb/",
+    "whatsapp": "https://wa.me/+543541237972"
+  },
+  "analytics": {
+    "google_analytics": "G-5ZCGMRFV8Z",
+    "google_search_console": "-JGciS_X8xCGpkt3affZHWRlY8Aly7LVq1BusI0iaTw"
+  }
+} 

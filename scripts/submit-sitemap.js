@@ -1,67 +1,114 @@
-const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
-const xml2js = require('xml2js');
+#!/usr/bin/env node
 
-const INDEXING_FUNCTION_URL = 'https://service.hgaruna.org/.netlify/functions/index-page';
-const SITEMAP_PATH = path.resolve(__dirname, '../dist/sitemap-index.xml');
+/**
+ * Script para enviar sitemap a múltiples motores de búsqueda
+ * Mejora el SEO del sitio enviando el sitemap a Google, Bing y otros motores
+ */
 
-async function submitUrlForIndexing(url) {
-    try {
-        const response = await axios.post(INDEXING_FUNCTION_URL, { url: url }, {
-            timeout: 5000 // 5 segundos de timeout
-        });
-        console.log(`URL ${url} enviada con éxito:`, response.data);
-    } catch (error) {
-        console.error(`Error al enviar URL ${url}:`, error.response ? error.response.data : error.message);
-        // No fallar el build por errores de red
-    }
+const https = require('https');
+const http = require('http');
+
+const SITEMAP_URL = 'https://service.hgaruna.org/sitemap.xml';
+const SITE_URL = 'https://service.hgaruna.org/';
+
+// URLs de envío de sitemap
+const SUBMISSION_URLS = {
+  google: `https://www.google.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`,
+  bing: `https://www.bing.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`,
+  yandex: `https://blogs.yandex.com/pings/?status=success&url=${encodeURIComponent(SITEMAP_URL)}`,
+  duckduckgo: `https://duckduckgo.com/?q=site:${encodeURIComponent(SITE_URL)}`
+};
+
+// Función para hacer petición HTTP
+function makeRequest(url, engine) {
+  return new Promise((resolve, reject) => {
+    const protocol = url.startsWith('https:') ? https : http;
+    
+    const req = protocol.get(url, (res) => {
+      let data = '';
+      
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+      
+      res.on('end', () => {
+        console.log(`✅ ${engine}: Sitemap enviado exitosamente (${res.statusCode})`);
+        resolve({ engine, status: res.statusCode, data });
+      });
+    });
+    
+    req.on('error', (error) => {
+      console.log(`❌ ${engine}: Error al enviar sitemap - ${error.message}`);
+      reject({ engine, error: error.message });
+    });
+    
+    req.setTimeout(10000, () => {
+      req.destroy();
+      console.log(`⏰ ${engine}: Timeout al enviar sitemap`);
+      reject({ engine, error: 'Timeout' });
+    });
+  });
 }
 
-async function processSitemap() {
-    if (!fs.existsSync(SITEMAP_PATH)) {
-        console.log('Sitemap no encontrado en:', SITEMAP_PATH);
-        return;
-    }
-
-    const sitemapContent = fs.readFileSync(SITEMAP_PATH, 'utf8');
-    const parser = new xml2js.Parser();
-
+// Función principal
+async function submitSitemap() {
+  console.log('🚀 Iniciando envío de sitemap a motores de búsqueda...');
+  console.log(`📍 Sitemap URL: ${SITEMAP_URL}`);
+  console.log('---');
+  
+  const results = [];
+  
+  // Enviar a todos los motores de búsqueda
+  for (const [engine, url] of Object.entries(SUBMISSION_URLS)) {
     try {
-        const result = await parser.parseStringPromise(sitemapContent);
-        
-        // Verificar la estructura del sitemap
-        if (result.sitemapindex && result.sitemapindex.sitemap) {
-            // Es un sitemap index, procesar cada sitemap individual
-            const sitemaps = result.sitemapindex.sitemap;
-            for (const sitemap of sitemaps) {
-                const sitemapUrl = sitemap.loc[0];
-                console.log(`Procesando sitemap: ${sitemapUrl}`);
-                // Aquí podrías hacer una petición para obtener el contenido del sitemap individual
-                // Por ahora, solo enviamos la URL del sitemap
-                await submitUrlForIndexing(sitemapUrl);
-            }
-        } else if (result.urlset && result.urlset.url) {
-            // Es un sitemap normal con URLs
-            const urls = result.urlset.url.map(item => item.loc[0]);
-            for (const url of urls) {
-                await submitUrlForIndexing(url);
-            }
-        } else {
-            console.log('Estructura de sitemap no reconocida');
-            console.log('Estructura encontrada:', JSON.stringify(result, null, 2));
-        }
-        
-        console.log('Proceso de sitemap completado.');
+      const result = await makeRequest(url, engine);
+      results.push(result);
+      
+      // Esperar un poco entre envíos para no sobrecargar
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
     } catch (error) {
-        console.error('Error al parsear el sitemap:', error.message);
-        // No fallar el build por este error
+      results.push(error);
     }
+  }
+  
+  // Resumen de resultados
+  console.log('---');
+  console.log('📊 Resumen de envío de sitemap:');
+  
+  const successful = results.filter(r => !r.error).length;
+  const failed = results.filter(r => r.error).length;
+  
+  console.log(`✅ Exitosos: ${successful}`);
+  console.log(`❌ Fallidos: ${failed}`);
+  
+  if (successful > 0) {
+    console.log('🎉 Sitemap enviado exitosamente a los motores de búsqueda');
+    console.log('📈 Esto mejorará la indexación y SEO del sitio');
+  }
+  
+  // Información adicional
+  console.log('---');
+  console.log('💡 Consejos adicionales para SEO:');
+  console.log('• Verifica que el sitemap esté actualizado');
+  console.log('• Revisa Google Search Console para ver la indexación');
+  console.log('• Optimiza las palabras clave en cada página');
+  console.log('• Mantén contenido fresco y relevante');
+  
+  return results;
 }
 
-// Ejecutar el proceso y asegurar que no falle el build
-processSitemap().catch(error => {
-    console.error('Error general en el proceso de sitemap:', error.message);
-    // Siempre salir con código 0 para no fallar el build
-    process.exit(0);
-}); 
+// Ejecutar si se llama directamente
+if (require.main === module) {
+  submitSitemap()
+    .then(() => {
+      console.log('✅ Proceso completado');
+      process.exit(0);
+    })
+    .catch((error) => {
+      console.error('❌ Error en el proceso:', error);
+      process.exit(1);
+    });
+}
+
+module.exports = { submitSitemap, SUBMISSION_URLS }; 

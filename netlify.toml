@@ -5,6 +5,15 @@
 [build.environment]
   NODE_VERSION = "18"
 
+[functions]
+  directory = "functions"
+  # Variables específicas para funciones (más limitadas)
+  [functions.environment]
+    NETLIFY_DATABASE_URL = ""
+    ADMIN_TOKEN = ""
+    INDEXNOW_KEY = ""
+    INDEXNOW_HOST = "service.hgaruna.org"
+
 [[redirects]]
   from = "/"
   to = "/index.html"
@@ -154,6 +163,3 @@
 
 [[plugins]]
   package = "netlify-plugin-formspree"
-
-[functions]
-  directory = "functions"

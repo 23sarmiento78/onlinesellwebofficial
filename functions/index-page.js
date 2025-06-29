@@ -1,6 +1,7 @@
 const { google } = require('googleapis');
 const { Buffer } = require('buffer'); // Importa Buffer explícitamente
 const { MongoClient } = require('mongodb');
+const axios = require('axios');
 
 const INDEXNOW_API_ENDPOINT = "https://api.indexnow.org/IndexNow";
 
@@ -9,6 +10,10 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://atlas-sql-6860db038f84
 const DB_NAME = 'hgaruna';
 
 let cachedDb = null;
+
+// Configuración optimizada - solo variables necesarias
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY;
+const INDEXNOW_HOST = process.env.INDEXNOW_HOST || 'service.hgaruna.org';
 
 async function connectToDatabase() {
   if (cachedDb) {
@@ -19,6 +24,33 @@ async function connectToDatabase() {
   const db = client.db(DB_NAME);
   cachedDb = db;
   return db;
+}
+
+// Función para enviar URL a IndexNow
+async function submitToIndexNow(url) {
+    if (!INDEXNOW_KEY) {
+        console.log('INDEXNOW_KEY no configurada, saltando envío a IndexNow');
+        return { success: false, reason: 'INDEXNOW_KEY no configurada' };
+    }
+
+    try {
+        const response = await axios.post('https://api.indexnow.org/indexnow', {
+            host: INDEXNOW_HOST,
+            key: INDEXNOW_KEY,
+            urlList: [url]
+        }, {
+            timeout: 5000,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        console.log(`URL enviada a IndexNow: ${url}`);
+        return { success: true, response: response.data };
+    } catch (error) {
+        console.error(`Error enviando URL a IndexNow: ${url}`, error.message);
+        return { success: false, error: error.message };
+    }
 }
 
 exports.handler = async (event, context) => {

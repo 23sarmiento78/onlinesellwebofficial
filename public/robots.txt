@@ -1,22 +1,24 @@
 User-agent: *
 Allow: /
 
-# Sitemaps
-Sitemap: https://service.hgaruna.org/sitemap-index.xml
-Sitemap: https://service.hgaruna.org/local-sitemap.xml
-Sitemap: https://service.hgaruna.org/optimized-sitemap.xml
+# Sitemap
+Sitemap: https://service.hgaruna.org/sitemap.xml
 
-# Crawl-delay para ser amigable con los servidores
+# Crawl-delay
 Crawl-delay: 1
 
-# Permitir acceso a recursos importantes
-Allow: /css/
-Allow: /js/
-Allow: /logos-he-imagenes/
-Allow: /uploads/
+# Allow important pages
+Allow: /desarrollo-web-villa-carlos-paz/
+Allow: /diseño-web-villa-carlos-paz/
+Allow: /marketing-digital-villa-carlos-paz/
+Allow: /planes/
+Allow: /blog/
+Allow: /foro/
 
-# Bloquear archivos innecesarios
+# Disallow admin and private areas
 Disallow: /admin/
-Disallow: /private/
-Disallow: /*.json$
-Disallow: /*.txt$
+Disallow: /functions/
+Disallow: /scripts/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /_posts/
