@@ -284,34 +284,34 @@ class AdminPanel {
       content: document.getElementById('article-content').value,
       category: document.getElementById('article-category').value,
       image: document.getElementById('article-image').value,
-      tags: document.getElementById('article-tags').value.split(',').map(tag => tag.trim()).filter(tag => tag)
+      tags: document.getElementById('article-tags').value.split(',').map(tag => tag.trim()).filter(tag => tag),
+      date: new Date().toISOString(),
+      author: 'hgaruna'
     };
 
     try {
-      await this.apiCall('/articles', 'POST', formData);
-      this.showAlert('Artículo guardado correctamente', 'success');
+      const response = await this.apiCall('/articles', 'POST', formData);
+      this.showAlert('Artículo guardado exitosamente', 'success');
       this.hideArticleModal();
       this.loadArticles();
-      this.loadDashboard();
     } catch (error) {
       console.error('Error guardando artículo:', error);
-      this.showAlert('Error guardando artículo', 'error');
+      this.showAlert('Error guardando artículo: ' + error.message, 'error');
     }
   }
 
   showForumModal(post = null) {
     const modal = document.getElementById('forum-modal');
     const title = document.getElementById('forum-modal-title');
-    const form = document.getElementById('forum-form');
-
+    
     if (post) {
       title.textContent = 'Editar Publicación';
       this.fillForumForm(post);
     } else {
       title.textContent = 'Nueva Publicación';
-      form.reset();
+      document.getElementById('forum-form').reset();
     }
-
+    
     modal.classList.remove('d-none');
   }
 
@@ -329,23 +329,24 @@ class AdminPanel {
     const formData = {
       title: document.getElementById('forum-title').value,
       content: document.getElementById('forum-content').value,
-      category: document.getElementById('forum-category').value
+      category: document.getElementById('forum-category').value,
+      date: new Date().toISOString(),
+      author: 'hgaruna'
     };
 
     try {
-      await this.apiCall('/forum-posts', 'POST', formData);
-      this.showAlert('Publicación guardada correctamente', 'success');
+      const response = await this.apiCall('/forum-posts', 'POST', formData);
+      this.showAlert('Publicación guardada exitosamente', 'success');
       this.hideForumModal();
       this.loadForumPosts();
-      this.loadDashboard();
     } catch (error) {
       console.error('Error guardando publicación:', error);
-      this.showAlert('Error guardando publicación', 'error');
+      this.showAlert('Error guardando publicación: ' + error.message, 'error');
     }
   }
 
   async apiCall(endpoint, method = 'GET', data = null) {
-    const token = localStorage.getItem('auth_token');
+    const token = localStorage.getItem('admin_token');
     if (!token) {
       throw new Error('No hay token de autenticación');
     }
@@ -362,50 +363,65 @@ class AdminPanel {
       options.body = JSON.stringify(data);
     }
 
-    const response = await fetch(`/.netlify/functions/admin-api${endpoint}`, options);
-    
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Error en la API');
-    }
+    try {
+      const response = await fetch(`/.netlify/functions/admin-api${endpoint}`, options);
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error en la petición');
+      }
 
-    return await response.json();
+      return await response.json();
+    } catch (error) {
+      console.error('Error en API call:', error);
+      throw error;
+    }
   }
 
   showAlert(message, type = 'success') {
-    const alert = document.createElement('div');
-    alert.className = `alert alert-${type}`;
-    alert.textContent = message;
-    
-    const container = document.querySelector('.main-content');
-    container.insertBefore(alert, container.firstChild);
-    
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type}`;
+    alertDiv.textContent = message;
+    alertDiv.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 5px;
+      color: white;
+      font-weight: 600;
+      z-index: 10000;
+      animation: slideIn 0.3s ease;
+    `;
+
+    if (type === 'success') {
+      alertDiv.style.background = '#27ae60';
+    } else if (type === 'error') {
+      alertDiv.style.background = '#e74c3c';
+    } else {
+      alertDiv.style.background = '#3498db';
+    }
+
+    document.body.appendChild(alertDiv);
+
     setTimeout(() => {
-      alert.remove();
-    }, 5000);
+      alertDiv.style.animation = 'slideOut 0.3s ease';
+      setTimeout(() => alertDiv.remove(), 300);
+    }, 3000);
   }
 
   updateUserInfo() {
-    const user = JSON.parse(localStorage.getItem('auth_user') || '{}');
-    const avatar = document.getElementById('user-avatar');
-    const name = document.getElementById('user-name');
-    
-    if (user.name) {
-      avatar.textContent = user.name.charAt(0).toUpperCase();
-      name.textContent = user.name;
-    } else if (user.email) {
-      avatar.textContent = user.email.charAt(0).toUpperCase();
-      name.textContent = user.email;
-    }
+    const user = JSON.parse(localStorage.getItem('admin_user') || '{}');
+    document.getElementById('user-name').textContent = user.name || 'Administrador';
+    document.getElementById('user-avatar').textContent = (user.name || 'A').charAt(0).toUpperCase();
   }
 
   logout() {
-    localStorage.removeItem('auth_user');
-    localStorage.removeItem('auth_token');
-    window.location.href = '/';
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_user');
+    window.location.href = '/admin/';
   }
 
-  // Métodos para editar y eliminar
   editArticle(id) {
     const article = this.articles.find(a => a.id === id);
     if (article) {
@@ -416,13 +432,12 @@ class AdminPanel {
   async deleteArticle(id) {
     if (confirm('¿Estás seguro de que quieres eliminar este artículo?')) {
       try {
-        await this.apiCall('/articles', 'DELETE', { id });
-        this.showAlert('Artículo eliminado correctamente', 'success');
+        await this.apiCall(`/articles/${id}`, 'DELETE');
+        this.showAlert('Artículo eliminado exitosamente', 'success');
         this.loadArticles();
-        this.loadDashboard();
       } catch (error) {
         console.error('Error eliminando artículo:', error);
-        this.showAlert('Error eliminando artículo', 'error');
+        this.showAlert('Error eliminando artículo: ' + error.message, 'error');
       }
     }
   }
@@ -437,15 +452,35 @@ class AdminPanel {
   async deleteForumPost(id) {
     if (confirm('¿Estás seguro de que quieres eliminar esta publicación?')) {
       try {
-        await this.apiCall('/forum-posts', 'DELETE', { id });
-        this.showAlert('Publicación eliminada correctamente', 'success');
+        await this.apiCall(`/forum-posts/${id}`, 'DELETE');
+        this.showAlert('Publicación eliminada exitosamente', 'success');
         this.loadForumPosts();
-        this.loadDashboard();
       } catch (error) {
         console.error('Error eliminando publicación:', error);
-        this.showAlert('Error eliminando publicación', 'error');
+        this.showAlert('Error eliminando publicación: ' + error.message, 'error');
       }
     }
+  }
+
+  // Funciones adicionales para el panel
+  managePages() {
+    this.showAlert('Gestión de páginas - Próximamente', 'info');
+  }
+
+  manageMedia() {
+    this.showAlert('Gestión de medios - Próximamente', 'info');
+  }
+
+  manageCategories() {
+    this.showAlert('Gestión de categorías - Próximamente', 'info');
+  }
+
+  manageTags() {
+    this.showAlert('Gestión de etiquetas - Próximamente', 'info');
+  }
+
+  manageSystemSettings() {
+    this.showAlert('Configuración del sistema - Próximamente', 'info');
   }
 }
 
@@ -454,9 +489,9 @@ let adminPanel;
 
 document.addEventListener('DOMContentLoaded', () => {
   // Verificar autenticación
-  const token = localStorage.getItem('auth_token');
+  const token = localStorage.getItem('admin_token');
   if (!token) {
-    window.location.href = '/';
+    window.location.href = '/admin/';
     return;
   }
 
