@@ -1,6 +1,7 @@
 [build]
   command = "npm run build"
-  publish = "dist"
+  publish = "public"
+  functions = "functions"
 
 [build.environment]
   NODE_VERSION = "18"
@@ -46,22 +47,12 @@
   force = true
 
 [[redirects]]
-  from = "/admin"
+  from = "/admin/*"
   to = "/admin.html"
   status = 200
 
 [[redirects]]
-  from = "/admin/"
-  to = "/admin.html"
-  status = 200
-
-[[redirects]]
-  from = "/api/admin/*"
-  to = "/.netlify/functions/admin-api/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/admin-api/*"
+  from = "/api/*"
   to = "/.netlify/functions/admin-api/:splat"
   status = 200
 
@@ -163,3 +154,15 @@
 
 [[plugins]]
   package = "netlify-plugin-formspree"
+
+[context.production.environment]
+  AUTH0_DOMAIN = "dev-b0qip4vee7sg3q7e.us.auth0.com"
+  AUTH0_CLIENT_ID = "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab"
+  AUTH0_CLIENT_SECRET = "W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS"
+  AUTH0_AUDIENCE = "https://service.hgaruna.org/api"
+
+[context.deploy-preview.environment]
+  AUTH0_DOMAIN = "dev-b0qip4vee7sg3q7e.us.auth0.com"
+  AUTH0_CLIENT_ID = "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab"
+  AUTH0_CLIENT_SECRET = "W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS"
+  AUTH0_AUDIENCE = "https://service.hgaruna.org/api"

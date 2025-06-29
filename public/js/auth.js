@@ -373,10 +373,26 @@ class Auth0Auth {
         <div class="login-card">
           <h2>⚠️ Auth0 No Disponible</h2>
           <p>El sistema de autenticación no está configurado correctamente.</p>
-          <p>Por favor, configura Auth0 o contacta al administrador.</p>
+          <p><strong>Posibles causas:</strong></p>
+          <ul style="text-align: left; margin: 1rem 0;">
+            <li>Las variables de entorno no están configuradas en Netlify</li>
+            <li>Las URLs en Auth0 no coinciden con tu dominio</li>
+            <li>El SDK de Auth0 no se cargó correctamente</li>
+          </ul>
+          <p><strong>Para solucionarlo:</strong></p>
+          <ol style="text-align: left; margin: 1rem 0;">
+            <li>Configura las variables de entorno en Netlify</li>
+            <li>Actualiza las URLs en Auth0 Dashboard</li>
+            <li>Verifica que tu dominio esté en las URLs permitidas</li>
+          </ol>
+          <button onclick="window.location.reload()" class="auth0-btn" style="margin-top: 1rem;">
+            🔄 Recargar Página
+          </button>
         </div>
       </div>
     `;
+    
+    this.addLoginStyles();
   }
 
   // Obtener token de acceso para API calls
