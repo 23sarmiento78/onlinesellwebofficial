@@ -679,6 +679,23 @@
                   Configurar Sistema
                 </button>
               </div>
+              
+              <div class="setting-item">
+                <h4>🐛 Debugging y Testing</h4>
+                <p>Herramientas para diagnosticar problemas de autenticación y funcionamiento.</p>
+                <button class="btn btn-info" onclick="window.testAdminAuth()" style="margin-right: 10px;">
+                  <i class="fas fa-bug"></i>
+                  Probar Autenticación
+                </button>
+                <button class="btn btn-danger" onclick="window.clearAllTokens()" style="margin-right: 10px;">
+                  <i class="fas fa-trash"></i>
+                  Limpiar Tokens
+                </button>
+                <button class="btn btn-success" onclick="window.simulateLogin()">
+                  <i class="fas fa-magic"></i>
+                  Simular Login
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -690,6 +707,7 @@
   <script src="/js/linkedin-config.js"></script>
   <script src="/js/linkedin-integration.js"></script>
   <script src="/js/test-linkedin-auth.js"></script>
+  <script src="/js/test-admin-auth.js"></script>
   <script src="/js/auth.js"></script>
   <script src="/js/admin.js"></script>
   
@@ -712,25 +730,35 @@
       // Inicializar el sistema
       window.simpleAuth.init();
       
-      // Esperar un momento para que todos los scripts se carguen
-      setTimeout(() => {
-        // Verificar que el panel de administración se haya inicializado
-        if (window.adminPanel) {
-          console.log('✅ Panel de administración disponible');
-          // Hacer el panel disponible globalmente para adminManager
-          window.adminManager.adminPanel = window.adminPanel;
-        } else {
-          console.warn('⚠️ Panel de administración no encontrado');
-          // Intentar crear una instancia si no existe
-          if (typeof AdminPanel !== 'undefined') {
-            window.adminPanel = new AdminPanel();
-            window.adminManager.adminPanel = window.adminPanel;
-            console.log('✅ Panel de administración creado manualmente');
-          }
-        }
+      // Verificar autenticación antes de inicializar el panel
+      const token = localStorage.getItem('auth_token') || localStorage.getItem('admin_token');
+      
+      if (token) {
+        console.log('✅ Token encontrado, inicializando panel...');
         
-        console.log('✅ Panel de administración inicializado');
-      }, 100);
+        // Esperar un momento para que todos los scripts se carguen
+        setTimeout(() => {
+          // Verificar que el panel de administración se haya inicializado
+          if (window.adminPanel) {
+            console.log('✅ Panel de administración disponible');
+            // Hacer el panel disponible globalmente para adminManager
+            window.adminManager.adminPanel = window.adminPanel;
+          } else {
+            console.warn('⚠️ Panel de administración no encontrado');
+            // Intentar crear una instancia si no existe
+            if (typeof AdminPanel !== 'undefined') {
+              window.adminPanel = new AdminPanel();
+              window.adminManager.adminPanel = window.adminPanel;
+              console.log('✅ Panel de administración creado manualmente');
+            }
+          }
+          
+          console.log('✅ Panel de administración inicializado');
+        }, 100);
+      } else {
+        console.log('❌ No hay token, mostrando formulario de login');
+        // El sistema de autenticación ya maneja esto automáticamente
+      }
     });
   </script>
 </body>

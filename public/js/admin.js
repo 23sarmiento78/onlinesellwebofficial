@@ -346,7 +346,7 @@ class AdminPanel {
   }
 
   async apiCall(endpoint, method = 'GET', data = null) {
-    const token = localStorage.getItem('admin_token');
+    const token = localStorage.getItem('auth_token') || localStorage.getItem('admin_token');
     if (!token) {
       throw new Error('No hay token de autenticación');
     }
@@ -411,12 +411,14 @@ class AdminPanel {
   }
 
   updateUserInfo() {
-    const user = JSON.parse(localStorage.getItem('admin_user') || '{}');
+    const user = JSON.parse(localStorage.getItem('auth_user') || localStorage.getItem('admin_user') || '{}');
     document.getElementById('user-name').textContent = user.name || 'Administrador';
     document.getElementById('user-avatar').textContent = (user.name || 'A').charAt(0).toUpperCase();
   }
 
   logout() {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('auth_user');
     localStorage.removeItem('admin_token');
     localStorage.removeItem('admin_user');
     window.location.href = '/admin/';
@@ -488,9 +490,10 @@ class AdminPanel {
 let adminPanel;
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Verificar autenticación
-  const token = localStorage.getItem('admin_token');
+  // Verificar autenticación usando ambas claves de token
+  const token = localStorage.getItem('auth_token') || localStorage.getItem('admin_token');
   if (!token) {
+    // Si no hay token, redirigir a la página de admin para mostrar el login
     window.location.href = '/admin/';
     return;
   }
