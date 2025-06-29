@@ -14,6 +14,29 @@ Tu aplicación Auth0 ya está configurada con las siguientes credenciales:
 - **Allowed Logout URLs**: `https://service.hgaruna.org/`, `https://service.hgaruna.org/admin/`
 - **Allowed Web Origins**: `https://service.hgaruna.org`
 
+## 🔧 Configuración en Netlify
+
+### Variables de Entorno Requeridas
+
+Ve a tu **Dashboard de Netlify** → **Site settings** → **Environment variables** y agrega:
+
+```bash
+AUTH0_DOMAIN=dev-b0qip4vee7sg3q7e.us.auth0.com
+AUTH0_CLIENT_ID=3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab
+AUTH0_CLIENT_SECRET=W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS
+AUTH0_AUDIENCE=https://service.hgaruna.org/api
+SITE_URL=https://service.hgaruna.org
+```
+
+### Pasos para Configurar Variables de Entorno:
+
+1. **Ve a Netlify Dashboard**: https://app.netlify.com/
+2. **Selecciona tu sitio**: `service.hgaruna.org`
+3. **Ve a Settings**: Pestaña "Site settings"
+4. **Environment variables**: Sección "Environment variables"
+5. **Agrega cada variable** con los valores exactos de arriba
+6. **Guarda los cambios**
+
 ## 🚀 Cómo Usar el Sistema
 
 ### 1. Acceder al Panel de Administración
@@ -96,16 +119,42 @@ headers: {
 - Verifica que las URLs estén configuradas correctamente
 - Revisa la configuración de allowed origins
 
+### Error: "Variables de entorno no encontradas"
+- Verifica que las variables estén configuradas en Netlify
+- Confirma que los nombres sean exactos (mayúsculas/minúsculas)
+- Revisa los logs de Netlify Functions
+
+## 📊 Verificación de Configuración
+
+Ejecuta el script de verificación:
+
+```bash
+node scripts/verify-auth0-setup.js
+```
+
+Este script verificará:
+- ✅ Archivos necesarios presentes
+- ✅ Dependencias instaladas
+- ✅ Configuración en archivos
+- ✅ Variables de entorno en netlify.toml
+
 ## 📞 Soporte
 
 Si tienes problemas:
 1. Revisa la consola del navegador
 2. Verifica los logs de Netlify Functions
 3. Confirma la configuración de Auth0
-4. Contacta al administrador del sistema
+4. Verifica las variables de entorno en Netlify
+5. Contacta al administrador del sistema
 
 ## 🎉 ¡Listo!
 
 Tu sistema de autenticación Auth0 está completamente configurado y funcionando. Puedes acceder al panel de administración en:
 
-**https://service.hgaruna.org/admin/** 
+**https://service.hgaruna.org/admin/**
+
+### 🔗 Enlaces Útiles:
+- **Panel de Admin**: https://service.hgaruna.org/admin/
+- **Dashboard Auth0**: https://manage.auth0.com/dashboard/us/dev-b0qip4vee7sg3q7e
+- **Netlify Dashboard**: https://app.netlify.com/
+- **Logs de Netlify**: https://app.netlify.com/sites/[tu-site]/functions 

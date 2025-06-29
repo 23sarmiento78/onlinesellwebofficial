@@ -37,14 +37,22 @@ class Auth0Manager {
   async loadAuth0SDK() {
     return new Promise((resolve, reject) => {
       if (typeof auth0 !== 'undefined') {
+        console.log('✅ SDK de Auth0 ya cargado');
         resolve();
         return;
       }
 
+      console.log('📦 Cargando SDK de Auth0...');
       const script = document.createElement('script');
-      script.src = 'https://cdn.auth0.com/js/auth0/9.19.2/auth0.min.js';
-      script.onload = resolve;
-      script.onerror = reject;
+      script.src = 'https://cdn.auth0.com/js/auth0/9.18.0/auth0.min.js';
+      script.onload = () => {
+        console.log('✅ SDK de Auth0 cargado exitosamente');
+        resolve();
+      };
+      script.onerror = (error) => {
+        console.error('❌ Error cargando SDK de Auth0:', error);
+        reject(new Error('No se pudo cargar el SDK de Auth0'));
+      };
       document.head.appendChild(script);
     });
   }
