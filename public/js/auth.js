@@ -22,8 +22,12 @@ class Auth0Auth {
     console.log('📋 Configuración Auth0:', config);
 
     try {
-      // Cargar Auth0 desde CDN si no está disponible
-      await this.loadAuth0Script();
+      // Cargar Auth0 usando el cargador robusto
+      if (window.Auth0Loader) {
+        await window.Auth0Loader.load();
+      } else {
+        await this.loadAuth0Script();
+      }
 
       // Inicializar Auth0
       this.auth0 = new auth0.WebAuth(config);

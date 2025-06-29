@@ -1,8 +1,8 @@
 // Sistema Automatizado de Publicación en Foro
 class AutoForumPublisher {
   constructor() {
-    this.apiUrl = '/api/forum-posts';
-    this.articlesUrl = '/api/articles';
+    this.apiUrl = '/.netlify/functions/admin-api/forum-posts';
+    this.articlesUrl = '/.netlify/functions/admin-api/articles';
     this.checkInterval = 5 * 60 * 1000; // 5 minutos
     this.publishedArticles = new Set();
     this.init();

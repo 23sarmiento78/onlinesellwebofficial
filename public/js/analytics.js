@@ -1,7 +1,7 @@
 // Sistema de Analytics para registrar vistas reales
 class Analytics {
   constructor() {
-    this.apiUrl = '/api/views';
+    this.apiUrl = '/.netlify/functions/admin-api/views';
     this.init();
   }
 
@@ -78,7 +78,7 @@ class Analytics {
   // Método para obtener estadísticas
   async getStats(period = 'all') {
     try {
-      const response = await fetch(`/api/views/stats?period=${period}`);
+      const response = await fetch(`/.netlify/functions/admin-api/views/stats?period=${period}`);
       if (response.ok) {
         return await response.json();
       }
@@ -92,7 +92,7 @@ class Analytics {
   // Método para obtener total de vistas
   async getTotalViews() {
     try {
-      const response = await fetch('/api/views/total');
+      const response = await fetch('/.netlify/functions/admin-api/views/total');
       if (response.ok) {
         const data = await response.json();
         return data.totalViews;

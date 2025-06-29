@@ -118,6 +118,39 @@ exports.handler = async (event, context) => {
                     const postId = path.replace('/posts/', '');
                     const post = await db.collection('forum-posts').findOne({ _id: postId });
                     result = post;
+                } else if (path === '/views') {
+                    const view = {
+                        ...body,
+                        _id: Date.now().toString(),
+                        timestamp: new Date().toISOString(),
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    await db.collection('views').insertOne(view);
+                    result = { success: true, view };
+                } else if (path === '/views/stats') {
+                    const period = event.queryStringParameters?.period || 'all';
+                    let query = {};
+                    
+                    if (period === 'today') {
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        query.timestamp = { $gte: today.toISOString() };
+                    } else if (period === 'week') {
+                        const weekAgo = new Date();
+                        weekAgo.setDate(weekAgo.getDate() - 7);
+                        query.timestamp = { $gte: weekAgo.toISOString() };
+                    } else if (period === 'month') {
+                        const monthAgo = new Date();
+                        monthAgo.setMonth(monthAgo.getMonth() - 1);
+                        query.timestamp = { $gte: monthAgo.toISOString() };
+                    }
+                    
+                    const views = await db.collection('views').find(query).toArray();
+                    result = { views, period };
+                } else if (path === '/views/total') {
+                    const totalViews = await db.collection('views').countDocuments();
+                    result = { totalViews };
                 } else {
                     return {
                         statusCode: 404,
@@ -150,6 +183,16 @@ exports.handler = async (event, context) => {
                     
                     await db.collection('forum-posts').insertOne(post);
                     result = { success: true, post };
+                } else if (path === '/views') {
+                    const view = {
+                        ...body,
+                        _id: Date.now().toString(),
+                        timestamp: new Date().toISOString(),
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    await db.collection('views').insertOne(view);
+                    result = { success: true, view };
                 } else {
                     return {
                         statusCode: 404,
