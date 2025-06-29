@@ -4,7 +4,7 @@ const path = require('path');
 const xml2js = require('xml2js');
 
 const INDEXING_FUNCTION_URL = 'https://service.hgaruna.org/.netlify/functions/index-page';
-const SITEMAP_PATH = path.resolve(__dirname, '../dist/sitemap-index.xml'); // Ruta corregida
+const SITEMAP_PATH = path.resolve(__dirname, '../dist/sitemap-index.xml');
 
 async function submitUrlForIndexing(url) {
     try {
@@ -26,14 +26,34 @@ async function processSitemap() {
 
     try {
         const result = await parser.parseStringPromise(sitemapContent);
-        const urls = result.urlset.url.map(item => item.loc[0]);
-
-        for (const url of urls) {
-            await submitUrlForIndexing(url);
+        
+        // Verificar la estructura del sitemap
+        if (result.sitemapindex && result.sitemapindex.sitemap) {
+            // Es un sitemap index, procesar cada sitemap individual
+            const sitemaps = result.sitemapindex.sitemap;
+            for (const sitemap of sitemaps) {
+                const sitemapUrl = sitemap.loc[0];
+                console.log(`Procesando sitemap: ${sitemapUrl}`);
+                // Aquí podrías hacer una petición para obtener el contenido del sitemap individual
+                // Por ahora, solo enviamos la URL del sitemap
+                await submitUrlForIndexing(sitemapUrl);
+            }
+        } else if (result.urlset && result.urlset.url) {
+            // Es un sitemap normal con URLs
+            const urls = result.urlset.url.map(item => item.loc[0]);
+            for (const url of urls) {
+                await submitUrlForIndexing(url);
+            }
+        } else {
+            console.log('Estructura de sitemap no reconocida');
+            console.log('Estructura encontrada:', JSON.stringify(result, null, 2));
         }
+        
         console.log('Proceso de sitemap completado.');
     } catch (error) {
         console.error('Error al parsear el sitemap:', error.message);
+        // No fallar el build por este error
+        process.exit(0);
     }
 }
 

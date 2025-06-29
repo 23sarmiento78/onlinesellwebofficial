@@ -1,10 +1,10 @@
 const https = require('https');
 const querystring = require('querystring');
 
-// Configuración
-const CLIENT_ID = '77w90bvizsj1y9';
-const CLIENT_SECRET = 'WPL_AP1.aca8d5j54e9SZ5p5.W0ifCg==';
-const REDIRECT_URI = 'https://service.hgaruna.org.app/.netlify/functions/linkedin-callback';
+// Configuración - Usar variables de entorno
+const CLIENT_ID = process.env.LINKEDIN_CLIENT_ID || 'TU_CLIENT_ID_AQUI';
+const CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET || 'TU_CLIENT_SECRET_AQUI';
+const REDIRECT_URI = process.env.LINKEDIN_REDIRECT_URI || 'https://tu-dominio.netlify.app/.netlify/functions/linkedin-callback';
 
 // Función para intercambiar código por token
 function exchangeCodeForToken(authorizationCode) {
@@ -61,7 +61,7 @@ console.log('🔗 Generador de Token de LinkedIn');
 console.log('=====================================\n');
 
 console.log('📋 Pasos para obtener el token:');
-console.log('1. Reemplaza TU_CLIENT_ID_AQUI y TU_CLIENT_SECRET_AQUI en este script');
+console.log('1. Configura las variables de entorno LINKEDIN_CLIENT_ID y LINKEDIN_CLIENT_SECRET');
 console.log('2. Construye la URL de autorización:');
 console.log(`   https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=r_liteprofile%20w_member_social%20r_organization_social`);
 console.log('3. Abre esa URL en tu navegador y autoriza la aplicación');
