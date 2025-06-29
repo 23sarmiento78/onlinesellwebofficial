@@ -1,31 +1,32 @@
-const { MongoClient } = require('mongodb');
+// API de Administración - Sistema Limpio
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
 
-// Configuración optimizada - solo variables necesarias
-const MONGODB_URI = process.env.NETLIFY_DATABASE_URL;
-const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'dev-b0qip4vee7sg3q7e.us.auth0.com';
-const AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE || 'https://service.hgaruna.org/api';
+// Configuración de Auth0
+const AUTH0_CONFIG = {
+  domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com',
+  audience: 'https://service.hgaruna.org/api'
+};
 
-// Cliente JWKS para verificar tokens de Auth0
+// Cliente JWKS para validar tokens
 const client = jwksClient({
-  jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`
+  jwksUri: `https://${AUTH0_CONFIG.domain}/.well-known/jwks.json`
 });
 
 // Función para obtener la clave pública
 function getKey(header, callback) {
-  client.getSigningKey(header.kid, function(err, key) {
+  client.getSigningKey(header.kid, (err, key) => {
     const signingKey = key.publicKey || key.rsaPublicKey;
     callback(null, signingKey);
   });
 }
 
-// Validar token de Auth0
-function validateAuth0Token(token) {
+// Función para validar token JWT
+function validateToken(token) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, getKey, {
-      audience: AUTH0_AUDIENCE,
-      issuer: `https://${AUTH0_DOMAIN}/`,
+      audience: AUTH0_CONFIG.audience,
+      issuer: `https://${AUTH0_CONFIG.domain}/`,
       algorithms: ['RS256']
     }, (err, decoded) => {
       if (err) {
@@ -37,247 +38,317 @@ function validateAuth0Token(token) {
   });
 }
 
-// Conectar a MongoDB
-async function connectToDatabase() {
-    if (!MONGODB_URI) {
-        throw new Error('NETLIFY_DATABASE_URL no está configurada');
-    }
+// Middleware de autenticación
+async function authenticateUser(event) {
+  try {
+    const authHeader = event.headers.authorization || event.headers.Authorization;
     
-    const client = new MongoClient(MONGODB_URI);
-    await client.connect();
-    return client;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      throw new Error('Token de autorización requerido');
+    }
+
+    const token = authHeader.substring(7);
+    const decoded = await validateToken(token);
+    
+    return decoded;
+  } catch (error) {
+    throw new Error('Token inválido: ' + error.message);
+  }
 }
 
-// Función principal
+// Datos simulados (en producción usarías una base de datos)
+let articles = [
+  {
+    id: '1',
+    title: 'Desarrollo Web en Villa Carlos Paz',
+    description: 'Servicios profesionales de desarrollo web',
+    content: 'Contenido del artículo...',
+    category: 'Desarrollo Web',
+    image: '/images/web-dev.jpg',
+    tags: ['web', 'desarrollo', 'villa carlos paz'],
+    date: '2024-01-15T10:00:00Z',
+    author: 'hgaruna'
+  }
+];
+
+let forumPosts = [
+  {
+    id: '1',
+    title: 'Bienvenidos al foro',
+    content: '¡Bienvenidos a nuestro foro de desarrollo web!',
+    category: 'General',
+    date: '2024-01-15T10:00:00Z',
+    author: 'hgaruna',
+    likes: 5,
+    comments: [],
+    shares: 2
+  }
+];
+
+// Función principal del handler
 exports.handler = async (event, context) => {
-    // Configurar CORS
-    const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+  // Configurar CORS
+  const headers = {
+    'Access-Control-Allow-Origin': 'https://service.hgaruna.org',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+  };
+
+  // Manejar preflight requests
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: ''
+    };
+  }
+
+  try {
+    // Autenticar usuario
+    const user = await authenticateUser(event);
+    console.log('✅ Usuario autenticado:', user.email);
+
+    const path = event.path.replace('/.netlify/functions/admin-api', '');
+    const method = event.httpMethod;
+
+    // Rutas de artículos
+    if (path.startsWith('/articles')) {
+      return await handleArticles(path, method, event, headers);
+    }
+
+    // Rutas del foro
+    if (path.startsWith('/forum-posts')) {
+      return await handleForumPosts(path, method, event, headers);
+    }
+
+    // Ruta no encontrada
+    return {
+      statusCode: 404,
+      headers,
+      body: JSON.stringify({ message: 'Ruta no encontrada' })
     };
 
-    // Manejar preflight requests
-    if (event.httpMethod === 'OPTIONS') {
-        return {
-            statusCode: 200,
-            headers,
-            body: ''
-        };
-    }
+  } catch (error) {
+    console.error('❌ Error en API:', error);
+    
+    return {
+      statusCode: 401,
+      headers,
+      body: JSON.stringify({ 
+        message: 'No autorizado',
+        error: error.message 
+      })
+    };
+  }
+};
 
-    try {
-        // Validar token de administración
-        const authHeader = event.headers.authorization || event.headers.Authorization;
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return {
-                statusCode: 401,
-                headers,
-                body: JSON.stringify({ error: 'Token de autorización requerido' })
-            };
-        }
+// Manejar rutas de artículos
+async function handleArticles(path, method, event, headers) {
+  const articleId = path.split('/')[2];
 
-        const token = authHeader.replace('Bearer ', '');
-        
-        try {
-          await validateAuth0Token(token);
-        } catch (error) {
-          console.error('❌ Error validando token de Auth0:', error);
+  switch (method) {
+    case 'GET':
+      if (articleId) {
+        const article = articles.find(a => a.id === articleId);
+        if (!article) {
           return {
-            statusCode: 403,
+            statusCode: 404,
             headers,
-            body: JSON.stringify({ error: 'Token de autorización inválido o expirado' })
+            body: JSON.stringify({ message: 'Artículo no encontrado' })
           };
         }
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify(article)
+        };
+      } else {
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify(articles)
+        };
+      }
 
-        const client = await connectToDatabase();
-        const db = client.db();
+    case 'POST':
+      const newArticle = JSON.parse(event.body);
+      newArticle.id = Date.now().toString();
+      newArticle.date = new Date().toISOString();
+      articles.push(newArticle);
+      
+      return {
+        statusCode: 201,
+        headers,
+        body: JSON.stringify(newArticle)
+      };
 
-        // Determinar la acción basada en el método HTTP y la ruta
-        const path = event.path.replace('/.netlify/functions/admin-api', '');
-        const method = event.httpMethod;
+    case 'PUT':
+      if (!articleId) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ message: 'ID de artículo requerido' })
+        };
+      }
+      
+      const updateData = JSON.parse(event.body);
+      const articleIndex = articles.findIndex(a => a.id === articleId);
+      
+      if (articleIndex === -1) {
+        return {
+          statusCode: 404,
+          headers,
+          body: JSON.stringify({ message: 'Artículo no encontrado' })
+        };
+      }
+      
+      articles[articleIndex] = { ...articles[articleIndex], ...updateData };
+      
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify(articles[articleIndex])
+      };
 
-        console.log('🔍 Ruta solicitada:', path);
-        console.log('📋 Método:', method);
+    case 'DELETE':
+      if (!articleId) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ message: 'ID de artículo requerido' })
+        };
+      }
+      
+      const deleteIndex = articles.findIndex(a => a.id === articleId);
+      
+      if (deleteIndex === -1) {
+        return {
+          statusCode: 404,
+          headers,
+          body: JSON.stringify({ message: 'Artículo no encontrado' })
+        };
+      }
+      
+      articles.splice(deleteIndex, 1);
+      
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ message: 'Artículo eliminado' })
+      };
 
-        let result;
+    default:
+      return {
+        statusCode: 405,
+        headers,
+        body: JSON.stringify({ message: 'Método no permitido' })
+      };
+  }
+}
 
-        switch (method) {
-            case 'GET':
-                if (path === '/articles' || path === '/') {
-                    const articles = await db.collection('articles').find({}).sort({ date: -1 }).toArray();
-                    result = articles;
-                } else if (path === '/forum-posts' || path === '/posts') {
-                    const posts = await db.collection('forum-posts').find({}).sort({ date: -1 }).toArray();
-                    result = posts;
-                } else if (path.startsWith('/articles/')) {
-                    const articleId = path.replace('/articles/', '');
-                    const article = await db.collection('articles').findOne({ _id: articleId });
-                    result = article;
-                } else if (path.startsWith('/posts/')) {
-                    const postId = path.replace('/posts/', '');
-                    const post = await db.collection('forum-posts').findOne({ _id: postId });
-                    result = post;
-                } else if (path === '/views') {
-                    const view = {
-                        ...body,
-                        _id: Date.now().toString(),
-                        timestamp: new Date().toISOString(),
-                        createdAt: new Date().toISOString()
-                    };
-                    
-                    await db.collection('views').insertOne(view);
-                    result = { success: true, view };
-                } else if (path === '/views/stats') {
-                    const period = event.queryStringParameters?.period || 'all';
-                    let query = {};
-                    
-                    if (period === 'today') {
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        query.timestamp = { $gte: today.toISOString() };
-                    } else if (period === 'week') {
-                        const weekAgo = new Date();
-                        weekAgo.setDate(weekAgo.getDate() - 7);
-                        query.timestamp = { $gte: weekAgo.toISOString() };
-                    } else if (period === 'month') {
-                        const monthAgo = new Date();
-                        monthAgo.setMonth(monthAgo.getMonth() - 1);
-                        query.timestamp = { $gte: monthAgo.toISOString() };
-                    }
-                    
-                    const views = await db.collection('views').find(query).toArray();
-                    result = { views, period };
-                } else if (path === '/views/total') {
-                    const totalViews = await db.collection('views').countDocuments();
-                    result = { totalViews };
-                } else {
-                    return {
-                        statusCode: 404,
-                        headers,
-                        body: JSON.stringify({ error: 'Ruta no encontrada' })
-                    };
-                }
-                break;
+// Manejar rutas del foro
+async function handleForumPosts(path, method, event, headers) {
+  const postId = path.split('/')[2];
 
-            case 'POST':
-                const body = JSON.parse(event.body || '{}');
-                
-                if (path === '/articles' || path === '/') {
-                    const article = {
-                        ...body,
-                        _id: body.slug || Date.now().toString(),
-                        date: new Date().toISOString(),
-                        createdAt: new Date().toISOString()
-                    };
-                    
-                    await db.collection('articles').insertOne(article);
-                    result = { success: true, article };
-                } else if (path === '/forum-posts' || path === '/posts') {
-                    const post = {
-                        ...body,
-                        _id: Date.now().toString(),
-                        date: new Date().toISOString(),
-                        createdAt: new Date().toISOString()
-                    };
-                    
-                    await db.collection('forum-posts').insertOne(post);
-                    result = { success: true, post };
-                } else if (path === '/views') {
-                    const view = {
-                        ...body,
-                        _id: Date.now().toString(),
-                        timestamp: new Date().toISOString(),
-                        createdAt: new Date().toISOString()
-                    };
-                    
-                    await db.collection('views').insertOne(view);
-                    result = { success: true, view };
-                } else {
-                    return {
-                        statusCode: 404,
-                        headers,
-                        body: JSON.stringify({ error: 'Ruta no encontrada' })
-                    };
-                }
-                break;
-
-            case 'PUT':
-                const updateBody = JSON.parse(event.body || '{}');
-                
-                if (path.startsWith('/articles/')) {
-                    const articleId = path.replace('/articles/', '');
-                    const updateData = { ...updateBody, updatedAt: new Date().toISOString() };
-                    delete updateData._id; // No permitir actualizar el ID
-                    
-                    await db.collection('articles').updateOne(
-                        { _id: articleId },
-                        { $set: updateData }
-                    );
-                    result = { success: true };
-                } else if (path.startsWith('/posts/')) {
-                    const postId = path.replace('/posts/', '');
-                    const updateData = { ...updateBody, updatedAt: new Date().toISOString() };
-                    delete updateData._id; // No permitir actualizar el ID
-                    
-                    await db.collection('forum-posts').updateOne(
-                        { _id: postId },
-                        { $set: updateData }
-                    );
-                    result = { success: true };
-                } else {
-                    return {
-                        statusCode: 404,
-                        headers,
-                        body: JSON.stringify({ error: 'Ruta no encontrada' })
-                    };
-                }
-                break;
-
-            case 'DELETE':
-                if (path.startsWith('/articles/')) {
-                    const articleId = path.replace('/articles/', '');
-                    await db.collection('articles').deleteOne({ _id: articleId });
-                    result = { success: true };
-                } else if (path.startsWith('/posts/')) {
-                    const postId = path.replace('/posts/', '');
-                    await db.collection('forum-posts').deleteOne({ _id: postId });
-                    result = { success: true };
-                } else {
-                    return {
-                        statusCode: 404,
-                        headers,
-                        body: JSON.stringify({ error: 'Ruta no encontrada' })
-                    };
-                }
-                break;
-
-            default:
-                return {
-                    statusCode: 405,
-                    headers,
-                    body: JSON.stringify({ error: 'Método no permitido' })
-                };
+  switch (method) {
+    case 'GET':
+      if (postId) {
+        const post = forumPosts.find(p => p.id === postId);
+        if (!post) {
+          return {
+            statusCode: 404,
+            headers,
+            body: JSON.stringify({ message: 'Publicación no encontrada' })
+          };
         }
-
-        await client.close();
-
         return {
-            statusCode: 200,
-            headers,
-            body: JSON.stringify(result)
+          statusCode: 200,
+          headers,
+          body: JSON.stringify(post)
         };
-
-    } catch (error) {
-        console.error('Error en admin-api:', error);
-        
+      } else {
         return {
-            statusCode: 500,
-            headers,
-            body: JSON.stringify({ 
-                error: 'Error interno del servidor',
-                details: error.message 
-            })
+          statusCode: 200,
+          headers,
+          body: JSON.stringify(forumPosts)
         };
-    }
-}; 
+      }
+
+    case 'POST':
+      const newPost = JSON.parse(event.body);
+      newPost.id = Date.now().toString();
+      newPost.date = new Date().toISOString();
+      newPost.likes = 0;
+      newPost.comments = [];
+      newPost.shares = 0;
+      forumPosts.push(newPost);
+      
+      return {
+        statusCode: 201,
+        headers,
+        body: JSON.stringify(newPost)
+      };
+
+    case 'PUT':
+      if (!postId) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ message: 'ID de publicación requerido' })
+        };
+      }
+      
+      const updateData = JSON.parse(event.body);
+      const postIndex = forumPosts.findIndex(p => p.id === postId);
+      
+      if (postIndex === -1) {
+        return {
+          statusCode: 404,
+          headers,
+          body: JSON.stringify({ message: 'Publicación no encontrada' })
+        };
+      }
+      
+      forumPosts[postIndex] = { ...forumPosts[postIndex], ...updateData };
+      
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify(forumPosts[postIndex])
+      };
+
+    case 'DELETE':
+      if (!postId) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ message: 'ID de publicación requerido' })
+        };
+      }
+      
+      const deleteIndex = forumPosts.findIndex(p => p.id === postId);
+      
+      if (deleteIndex === -1) {
+        return {
+          statusCode: 404,
+          headers,
+          body: JSON.stringify({ message: 'Publicación no encontrada' })
+        };
+      }
+      
+      forumPosts.splice(deleteIndex, 1);
+      
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ message: 'Publicación eliminada' })
+      };
+
+    default:
+      return {
+        statusCode: 405,
+        headers,
+        body: JSON.stringify({ message: 'Método no permitido' })
+      };
+  }
+} 
