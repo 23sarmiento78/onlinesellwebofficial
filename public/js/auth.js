@@ -13,7 +13,7 @@ class Auth0Auth {
     // Configuración de Auth0
     const config = {
       domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com',
-      clientId: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab', // Reemplazar con tu Client ID real
+      clientId: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab',
       redirectUri: window.location.origin + '/admin/',
       audience: 'https://service.hgaruna.org/api',
       scope: 'openid profile email'
@@ -85,9 +85,9 @@ class Auth0Auth {
     this.isAuthenticated = true;
     this.currentUser = authResult.idTokenPayload;
     
-    // Guardar tokens
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
+    // Guardar tokens con nombres consistentes
+    localStorage.setItem('auth0_token', authResult.accessToken);
+    localStorage.setItem('auth0_user', JSON.stringify(authResult.idTokenPayload));
     
     console.log('✅ Usuario autenticado:', this.currentUser.name);
     
@@ -104,8 +104,8 @@ class Auth0Auth {
     this.currentUser = null;
     
     // Limpiar tokens
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
+    localStorage.removeItem('auth0_token');
+    localStorage.removeItem('auth0_user');
     
     if (window.location.pathname.includes('admin')) {
       this.showLoginForm();
@@ -349,7 +349,7 @@ class Auth0Auth {
 
   // Obtener token de acceso para API calls
   getAccessToken() {
-    return localStorage.getItem('access_token');
+    return localStorage.getItem('auth0_token');
   }
 
   // Verificar si está autenticado

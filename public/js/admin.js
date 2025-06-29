@@ -350,12 +350,8 @@ class AdminPanel {
   }
 
   async apiCall(endpoint, method = 'GET', data = null) {
-    const token = localStorage.getItem('auth_token') || localStorage.getItem('admin_token');
+    const token = localStorage.getItem('auth0_token');
     if (!token) {
-      // Si no hay token, forzar logout para redirigir al login
-      if (window.simpleAuth) {
-        window.simpleAuth.logout();
-      }
       throw new Error('No hay token de autenticación');
     }
 
@@ -419,16 +415,14 @@ class AdminPanel {
   }
 
   updateUserInfo() {
-    const user = JSON.parse(localStorage.getItem('auth_user') || localStorage.getItem('admin_user') || '{}');
+    const user = JSON.parse(localStorage.getItem('auth0_user') || '{}');
     document.getElementById('user-name').textContent = user.name || 'Administrador';
     document.getElementById('user-avatar').textContent = (user.name || 'A').charAt(0).toUpperCase();
   }
 
   logout() {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('auth_user');
-    localStorage.removeItem('admin_token');
-    localStorage.removeItem('admin_user');
+    localStorage.removeItem('auth0_token');
+    localStorage.removeItem('auth0_user');
     window.location.href = '/admin/';
   }
 
@@ -477,7 +471,6 @@ class AdminPanel {
 window.AdminPanel = AdminPanel;
 
 // Instanciar AdminPanel inmediatamente para que esté disponible globalmente.
-// La lógica de si mostrar el panel o el login se manejará en auth.js a través de SimpleAuth.
 window.adminPanel = new AdminPanel();
 
 // Verificar que se haya creado correctamente
