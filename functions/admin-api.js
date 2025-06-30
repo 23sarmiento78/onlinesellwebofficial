@@ -1,41 +1,11 @@
-const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
 
-// --- NUEVO LOGIN LOCAL ---
-const ADMIN_USER = process.env.ADMIN_USER || 'admin';
-const ADMIN_PASS = process.env.ADMIN_PASS || 'admin123';
-const JWT_SECRET = process.env.JWT_SECRET || 'hgaruna-jwt-secret-key-2025';
+// Configuración segura
 const ARTICLES_PATH = path.join(__dirname, '../public/data/articles.json');
 const FORUM_PATH = path.join(__dirname, '../public/data/forum-posts.json');
 
 exports.handler = async function(event, context) {
-  // --- LOGIN ---
-  if (event.httpMethod === 'POST' && event.path.endsWith('/login')) {
-    const { username, password } = JSON.parse(event.body || '{}');
-    if (username === ADMIN_USER && password === ADMIN_PASS) {
-      const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '2h' });
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ token })
-      };
-    } else {
-      return { statusCode: 401, body: JSON.stringify({ error: 'Credenciales inválidas' }) };
-    }
-  }
-
-  // --- PROTECCIÓN JWT ---
-  const authHeader = event.headers.authorization || '';
-  const token = authHeader.replace('Bearer ', '');
-  if (!token) {
-    return { statusCode: 401, body: 'No token provided' };
-  }
-  try {
-    jwt.verify(token, JWT_SECRET, { algorithms: ['HS256', 'HS384', 'HS512', 'HS1'] });
-  } catch (err) {
-    return { statusCode: 403, body: 'Token inválido' };
-  }
-
   if (event.httpMethod === 'POST') {
     const body = JSON.parse(event.body || '{}');
     if (body.action === 'create-article' && body.article) {

@@ -479,7 +479,7 @@
         <!-- Error Section -->
         <div id="error-section" class="error hidden">
             <h3>Error de Carga</h3>
-            <p id="error-message">No se pudo cargar el SDK de Auth0</p>
+            <p id="error-message" style="display:none"></p>
             <button onclick="location.reload()" class="btn">🔄 Recargar Página</button>
         </div>
 
@@ -654,11 +654,9 @@
         // Funciones para crear contenido
         async function createArticle(articleData) {
             try {
-                const token = await window.adminApp.auth0.getTokenSilently();
                 const response = await fetch('/.netlify/functions/admin-api/articles', {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(articleData)
@@ -680,11 +678,9 @@
 
         async function createForumPost(postData) {
             try {
-                const token = await window.adminApp.auth0.getTokenSilently();
                 const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(postData)
@@ -708,7 +704,6 @@
         class AdminApp {
             constructor() {
                 this.auth0 = null;
-                this._auth0CallbackProcessed = false; // Flag para evitar múltiples callbacks
                 this.init();
             }
 
@@ -716,32 +711,10 @@
                 console.log("🚀 Iniciando AdminApp...");
                 
                 try {
-                    // Cargar SDK de Auth0
-                    if (typeof auth0 === 'undefined') {
-                        console.log("📦 Cargando SDK de Auth0...");
-                        await this.loadAuth0SDK();
-                    }
-                    
-                    console.log("✅ SDK de Auth0 cargado");
-                    
-                    // Inicializar Auth0
-                    this.auth0 = await auth0.createAuth0Client({
-                        domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com',
-                        client_id: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab',
-                        authorizationParams: {
-                            redirect_uri: 'https://service.hgaruna.org/admin/',
-                            audience: 'https://service.hgaruna.org/api'
-                        }
-                    });
-                    
-                    console.log("✅ Auth0 inicializado");
-                    
-                    // Configurar event listeners
-                    this.setupEventListeners();
                     console.log("🔧 Configurando event listeners...");
                     
                     // Manejar callback de autenticación
-                    await this.handleAuthenticationCallback();
+                    // await this.handleAuthenticationCallback();
                     
                     // Actualizar UI
                     await this.updateUI();
@@ -753,25 +726,6 @@
             }
 
             async handleAuthenticationCallback() {
-                // Solo procesar callback de Auth0 si no es un callback de LinkedIn y no se ha procesado ya
-                if (window.location.search.includes("code=") && window.location.search.includes("state=") && !window.location.search.includes("linkedin") && !this._auth0CallbackProcessed) {
-                    try {
-                        console.log("🔄 Procesando callback de Auth0...");
-                        await this.auth0.handleRedirectCallback();
-                        window.history.replaceState({}, document.title, window.location.pathname);
-                        this._auth0CallbackProcessed = true; // Marcar como procesado
-                        console.log("✅ Callback de Auth0 procesado exitosamente");
-                    } catch (error) {
-                        console.error("❌ Error en callback de Auth0:", error);
-                        // Si hay error de estado inválido, limpiar y continuar
-                        if (error.message.includes("Invalid state")) {
-                            console.log("⚠️ Error de estado inválido, limpiando URL y continuando...");
-                            window.history.replaceState({}, document.title, window.location.pathname);
-                            this._auth0CallbackProcessed = true; // Marcar como procesado para evitar reintentos
-                        }
-                    }
-                }
-                
                 // Procesar callback de LinkedIn si existe
                 if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
                     const state = new URLSearchParams(window.location.search).get('state');
@@ -927,12 +881,8 @@
 
             async loadStats() {
                 try {
-                    const token = await this.auth0.getTokenSilently();
-                    console.log("🔑 Token obtenido para stats:", token ? "✅" : "❌");
-                    
                     const response = await fetch('/.netlify/functions/admin-api/stats', {
                         headers: {
-                            'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
                         }
                     });
@@ -964,12 +914,8 @@
 
             async loadArticles() {
                 try {
-                    const token = await this.auth0.getTokenSilently();
-                    console.log("🔑 Token obtenido para articles:", token ? "✅" : "❌");
-                    
                     const response = await fetch('/.netlify/functions/admin-api/articles', {
                         headers: {
-                            'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
                         }
                     });
@@ -1004,12 +950,8 @@
 
             async loadForumPosts() {
                 try {
-                    const token = await this.auth0.getTokenSilently();
-                    console.log("🔑 Token obtenido para forum posts:", token ? "✅" : "❌");
-                    
                     const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
                         headers: {
-                            'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
                         }
                     });
@@ -1115,7 +1057,6 @@
                     const response = await fetch('/.netlify/functions/linkedin-api/post', {
                         method: 'POST',
                         headers: {
-                            'Authorization': `Bearer ${await this.auth0.getTokenSilently()}`,
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
