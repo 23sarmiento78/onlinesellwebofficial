@@ -32,11 +32,14 @@ async function connectToDatabase() {
 
 exports.handler = async function(event, context) {
   try {
+    console.log('[admin-api] Nueva petición recibida:', { method: event.httpMethod, body: event.body });
     if (event.httpMethod === 'POST') {
       let body;
       try {
         body = JSON.parse(event.body || '{}');
+        console.log('[admin-api] Body parseado correctamente:', body);
       } catch (parseError) {
+        console.error('[admin-api] Error de parseo JSON:', parseError.message);
         return {
           statusCode: 400,
           body: JSON.stringify({ error: 'JSON inválido en el body', details: parseError.message })
@@ -44,6 +47,7 @@ exports.handler = async function(event, context) {
       }
       try {
         const client = await connectToDatabase();
+        console.log('[admin-api] Conexión a MongoDB exitosa');
         const db = client.db(DB_NAME);
         if (body.action === 'create-article' && body.article) {
           const newArticle = {
@@ -51,6 +55,7 @@ exports.handler = async function(event, context) {
             createdAt: new Date().toISOString()
           };
           await db.collection(ARTICLES_COLLECTION).insertOne(newArticle);
+          console.log('[admin-api] Artículo insertado:', newArticle);
           return {
             statusCode: 200,
             body: JSON.stringify({ success: true, article: newArticle })
@@ -62,22 +67,25 @@ exports.handler = async function(event, context) {
             createdAt: new Date().toISOString()
           };
           await db.collection(FORUM_COLLECTION).insertOne(newPost);
+          console.log('[admin-api] Post insertado:', newPost);
           return {
             statusCode: 200,
             body: JSON.stringify({ success: true, post: newPost })
           };
         }
         // Acción no reconocida
+        console.warn('[admin-api] Acción no reconocida o datos incompletos:', body);
         return {
           statusCode: 400,
           body: JSON.stringify({ error: 'Acción no reconocida o datos incompletos' })
         };
       } catch (e) {
-        console.log('[admin-api] ❌ Error en handler:', e.message);
+        console.error('[admin-api] ❌ Error en handler:', e.message, e);
         return { statusCode: 500, body: JSON.stringify({ error: 'Error guardando en la base de datos', details: e.message }) };
       }
     }
     // Respuesta protegida por defecto para otros métodos
+    console.log('[admin-api] Método no POST, acceso concedido');
     return {
       statusCode: 200,
       body: JSON.stringify({
