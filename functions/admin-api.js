@@ -1,18 +1,42 @@
 const jwt = require('jsonwebtoken');
+const jwksClient = require('jwks-rsa');
 const fs = require('fs').promises;
 const path = require('path');
 
-// Configuración
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+// Configuración de Auth0
+const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN;
+const AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE || 'https://service.hgaruna.org/api';
 const DATA_DIR = path.join(__dirname, '../public/data');
 
-// Verificar token JWT
-function verifyToken(token) {
-    try {
-        return jwt.verify(token, JWT_SECRET);
-    } catch (error) {
-        return null;
-    }
+// Cliente JWKS para validar tokens de Auth0
+const client = jwksClient({
+    jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`
+});
+
+// Función para obtener la clave pública
+function getKey(header, callback) {
+    client.getSigningKey(header.kid, function(err, key) {
+        const signingKey = key.publicKey || key.rsaPublicKey;
+        callback(null, signingKey);
+    });
+}
+
+// Verificar token de Auth0
+function verifyAuth0Token(token) {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, getKey, {
+            audience: AUTH0_AUDIENCE,
+            issuer: `https://${AUTH0_DOMAIN}/`,
+            algorithms: ['RS256']
+        }, (err, decoded) => {
+            if (err) {
+                console.error('Error verificando token:', err);
+                reject(err);
+            } else {
+                resolve(decoded);
+            }
+        });
+    });
 }
 
 // Función para leer archivos JSON
@@ -98,13 +122,16 @@ exports.handler = async (event, context) => {
         }
 
         const token = authHeader.substring(7);
-        const decoded = verifyToken(token);
+        let decoded;
         
-        if (!decoded) {
+        try {
+            decoded = await verifyAuth0Token(token);
+        } catch (error) {
+            console.error('Error validando token de Auth0:', error);
             return {
                 statusCode: 401,
                 headers,
-                body: JSON.stringify({ error: 'Token inválido' })
+                body: JSON.stringify({ error: 'Token inválido o expirado' })
             };
         }
 
@@ -114,6 +141,7 @@ exports.handler = async (event, context) => {
 
         console.log('Endpoint solicitado:', endpoint);
         console.log('Método HTTP:', event.httpMethod);
+        console.log('Usuario autenticado:', decoded.email);
 
         // Endpoint de estadísticas
         if (endpoint === 'stats') {
@@ -171,7 +199,7 @@ exports.handler = async (event, context) => {
 
                 // Publicar en LinkedIn si está habilitado
                 if (articleData.publishLinkedIn) {
-                    const linkedinContent = `${articleData.title}\n\n${articleData.description}\n\nLee más en nuestro blog: ${process.env.SITE_URL || 'https://tusitio.com'}`;
+                    const linkedinContent = `${articleData.title}\n\n${articleData.description}\n\nLee más en nuestro blog: ${process.env.SITE_URL || 'https://service.hgaruna.org'}`;
                     await publishToLinkedIn(linkedinContent, null);
                 }
 
@@ -219,9 +247,16 @@ exports.handler = async (event, context) => {
             }
 
             if (event.httpMethod === 'DELETE') {
-                const { id } = JSON.parse(event.body);
-                
-                const articleIndex = articlesFile.articles.findIndex(a => a.id === id);
+                const articleId = event.queryStringParameters?.id;
+                if (!articleId) {
+                    return {
+                        statusCode: 400,
+                        headers,
+                        body: JSON.stringify({ error: 'ID de artículo requerido' })
+                    };
+                }
+
+                const articleIndex = articlesFile.articles.findIndex(a => a.id === articleId);
                 if (articleIndex === -1) {
                     return {
                         statusCode: 404,
@@ -268,8 +303,7 @@ exports.handler = async (event, context) => {
                     createdAt: new Date().toISOString(),
                     updatedAt: new Date().toISOString(),
                     published: true,
-                    views: 0,
-                    replies: []
+                    views: 0
                 };
 
                 forumPostsFile.posts.push(newPost);
@@ -277,7 +311,7 @@ exports.handler = async (event, context) => {
 
                 // Publicar en LinkedIn si está habilitado
                 if (postData.publishLinkedIn) {
-                    const linkedinContent = `Nueva discusión en nuestro foro: ${postData.title}\n\n${postData.content.substring(0, 200)}...\n\nÚnete a la conversación: ${process.env.SITE_URL || 'https://tusitio.com'}/foro`;
+                    const linkedinContent = `${postData.title}\n\n${postData.content.substring(0, 200)}...\n\nLee más en nuestro foro: ${process.env.SITE_URL || 'https://service.hgaruna.org'}/foro`;
                     await publishToLinkedIn(linkedinContent, null);
                 }
 
@@ -319,15 +353,22 @@ exports.handler = async (event, context) => {
                     body: JSON.stringify({ 
                         success: true, 
                         post: forumPostsFile.posts[postIndex],
-                        message: 'Publicación actualizada exitosamente'
+                        message: 'Publicación del foro actualizada exitosamente'
                     })
                 };
             }
 
             if (event.httpMethod === 'DELETE') {
-                const { id } = JSON.parse(event.body);
-                
-                const postIndex = forumPostsFile.posts.findIndex(p => p.id === id);
+                const postId = event.queryStringParameters?.id;
+                if (!postId) {
+                    return {
+                        statusCode: 400,
+                        headers,
+                        body: JSON.stringify({ error: 'ID de publicación requerido' })
+                    };
+                }
+
+                const postIndex = forumPostsFile.posts.findIndex(p => p.id === postId);
                 if (postIndex === -1) {
                     return {
                         statusCode: 404,
@@ -344,41 +385,8 @@ exports.handler = async (event, context) => {
                     headers,
                     body: JSON.stringify({ 
                         success: true, 
-                        message: 'Publicación eliminada exitosamente'
+                        message: 'Publicación del foro eliminada exitosamente'
                     })
-                };
-            }
-        }
-
-        // Endpoint de LinkedIn
-        if (endpoint === 'linkedin') {
-            if (event.httpMethod === 'POST') {
-                const { content, linkedinToken } = JSON.parse(event.body);
-                
-                if (!content) {
-                    return {
-                        statusCode: 400,
-                        headers,
-                        body: JSON.stringify({ error: 'Contenido requerido' })
-                    };
-                }
-
-                const result = await publishToLinkedIn(content, linkedinToken);
-
-                return {
-                    statusCode: result.success ? 200 : 500,
-                    headers,
-                    body: JSON.stringify(result)
-                };
-            }
-
-            if (event.httpMethod === 'GET') {
-                const linkedinPosts = await readJsonFile('linkedin-posts.json') || { posts: [] };
-                
-                return {
-                    statusCode: 200,
-                    headers,
-                    body: JSON.stringify(linkedinPosts)
                 };
             }
         }
@@ -392,14 +400,10 @@ exports.handler = async (event, context) => {
 
     } catch (error) {
         console.error('Error en admin-api:', error);
-        
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ 
-                error: 'Error interno del servidor',
-                details: error.message 
-            })
+            body: JSON.stringify({ error: 'Error interno del servidor' })
         };
     }
 }; 
