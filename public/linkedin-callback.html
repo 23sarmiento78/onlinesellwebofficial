@@ -3,187 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autenticación LinkedIn - hgaruna</title>
+    <title>Conectando con LinkedIn...</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-        
-        .callback-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
+        .container {
             text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
         }
-        
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
         }
-        
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
-        .success {
-            color: #4CAF50;
-        }
-        
         .error {
-            color: #f44336;
+            background: rgba(255, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
         }
-        
+        .success {
+            background: rgba(0, 255, 0, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
         .btn {
-            background: #0077b5;
-            color: white;
+            background: white;
+            color: #667eea;
             border: none;
             padding: 12px 24px;
-            border-radius: 25px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 1rem;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            background: #005885;
-            transform: translateY(-2px);
+            font-size: 16px;
+            margin: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="callback-container">
-        <div id="status">
-            <div class="loading"></div>
-            <span>Procesando autenticación...</span>
+    <div class="container">
+        <div class="spinner"></div>
+        <h2>Conectando con LinkedIn...</h2>
+        <p id="status">Procesando autorización...</p>
+        <div id="error-container" class="error" style="display: none;"></div>
+        <div id="success-container" class="success" style="display: none;"></div>
+        <div id="buttons" style="display: none;">
+            <button class="btn" onclick="goToAdmin()">Ir al Panel de Administración</button>
+            <button class="btn" onclick="window.close()">Cerrar</button>
         </div>
     </div>
 
     <script>
-        // Configuración de LinkedIn
-        const LINKEDIN_CONFIG = {
-            CLIENT_ID: '77w90bvizsj1y9',
-            CLIENT_SECRET: 'WPL_AP1.aca8d5j54e9SZ5p5.W0ifCg==',
-            REDIRECT_URI: window.location.origin + '/linkedin-callback.html'
-        };
-
-        async function handleCallback() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-            const error = urlParams.get('error');
-            const state = urlParams.get('state');
-
-            const statusDiv = document.getElementById('status');
-
-            if (error) {
-                statusDiv.innerHTML = `
-                    <div class="error">
-                        <h3>❌ Error de Autenticación</h3>
-                        <p>Error: ${error}</p>
-                        <p>Descripción: ${urlParams.get('error_description') || 'Error desconocido'}</p>
-                        <button class="btn" onclick="window.close()">Cerrar</button>
-                    </div>
-                `;
-                return;
-            }
-
-            if (!code) {
-                statusDiv.innerHTML = `
-                    <div class="error">
-                        <h3>❌ Código de Autorización No Encontrado</h3>
-                        <p>No se recibió el código de autorización de LinkedIn.</p>
-                        <button class="btn" onclick="window.close()">Cerrar</button>
-                    </div>
-                `;
-                return;
-            }
-
-            try {
-                // Intercambiar código por token
-                const tokenResponse = await exchangeCodeForToken(code);
-                
-                if (tokenResponse.access_token) {
-                    statusDiv.innerHTML = `
-                        <div class="success">
-                            <h3>✅ Autenticación Exitosa</h3>
-                            <p>Tu cuenta de LinkedIn ha sido conectada correctamente.</p>
-                            <p>Esta ventana se cerrará automáticamente.</p>
-                        </div>
-                    `;
-
-                    // Enviar mensaje a la ventana padre
-                    if (window.opener) {
-                        window.opener.postMessage({
-                            type: 'linkedin_auth_success',
-                            access_token: tokenResponse.access_token
-                        }, window.location.origin);
-                    }
-
-                    // Cerrar ventana después de 2 segundos
-                    setTimeout(() => {
-                        window.close();
-                    }, 2000);
-                } else {
-                    throw new Error('No se recibió el token de acceso');
-                }
-            } catch (error) {
-                console.error('Error en callback:', error);
-                statusDiv.innerHTML = `
-                    <div class="error">
-                        <h3>❌ Error Intercambiando Token</h3>
-                        <p>Error: ${error.message}</p>
-                        <button class="btn" onclick="window.close()">Cerrar</button>
-                    </div>
-                `;
-            }
+        // Función para obtener parámetros de la URL
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         }
 
-        async function exchangeCodeForToken(code) {
+        // Función para mostrar error
+        function showError(message) {
+            document.getElementById('status').textContent = 'Error en la conexión';
+            document.getElementById('error-container').textContent = message;
+            document.getElementById('error-container').style.display = 'block';
+            document.getElementById('buttons').style.display = 'block';
+        }
+
+        // Función para mostrar éxito
+        function showSuccess(message) {
+            document.getElementById('status').textContent = '¡Conectado exitosamente!';
+            document.getElementById('success-container').textContent = message;
+            document.getElementById('success-container').style.display = 'block';
+            document.getElementById('buttons').style.display = 'block';
+        }
+
+        // Función para ir al panel de administración
+        function goToAdmin() {
+            window.location.href = '/admin/';
+        }
+
+        // Procesar la autorización de LinkedIn
+        async function processLinkedInAuth() {
             try {
-                // Usar la función de Netlify para intercambiar el código
-                const response = await fetch('/.netlify/functions/linkedin-token', {
+                const code = getUrlParameter('code');
+                const state = getUrlParameter('state');
+                const error = getUrlParameter('error');
+                const errorDescription = getUrlParameter('error_description');
+
+                // Verificar si hay error
+                if (error) {
+                    showError(`Error de LinkedIn: ${errorDescription || error}`);
+                    return;
+                }
+
+                // Verificar si tenemos el código de autorización
+                if (!code) {
+                    showError('No se recibió el código de autorización de LinkedIn');
+                    return;
+                }
+
+                // Verificar el estado para seguridad
+                const savedState = localStorage.getItem('linkedin_state');
+                if (state !== savedState) {
+                    showError('Error de seguridad: estado no válido');
+                    return;
+                }
+
+                console.log('🔗 Procesando autorización de LinkedIn...');
+                console.log('📋 Código:', code);
+                console.log('🔒 Estado:', state);
+
+                // Intercambiar código por token de acceso
+                const response = await fetch('/.netlify/functions/linkedin-api/auth', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         code: code,
-                        redirect_uri: LINKEDIN_CONFIG.REDIRECT_URI
+                        redirectUri: window.location.origin + '/admin/'
                     })
                 });
 
-                if (!response.ok) {
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Guardar el token de acceso
+                        localStorage.setItem('linkedin_token', data.accessToken);
+                        localStorage.setItem('linkedin_profile', JSON.stringify(data.profile));
+                        
+                        showSuccess('Tu cuenta de LinkedIn ha sido conectada exitosamente. Ahora puedes publicar contenido automáticamente.');
+                        
+                        // Limpiar el estado
+                        localStorage.removeItem('linkedin_state');
+                        
+                        console.log('✅ LinkedIn conectado exitosamente');
+                        console.log('👤 Perfil:', data.profile);
+                    } else {
+                        showError('Error al obtener el token de acceso: ' + data.message);
+                    }
+                } else {
                     const errorData = await response.json();
-                    throw new Error(errorData.message || 'Error en el servidor');
+                    showError('Error en el servidor: ' + (errorData.message || 'Error desconocido'));
                 }
 
-                return await response.json();
             } catch (error) {
-                console.error('Error intercambiando código:', error);
-                throw error;
+                console.error('❌ Error procesando autorización:', error);
+                showError('Error de conexión: ' + error.message);
             }
         }
 
-        // Ejecutar cuando se carga la página
-        document.addEventListener('DOMContentLoaded', handleCallback);
+        // Iniciar el proceso cuando la página se carga
+        document.addEventListener('DOMContentLoaded', processLinkedInAuth);
     </script>
 </body>
 </html> 

@@ -238,6 +238,46 @@ exports.handler = async (event, context) => {
             }
         }
 
+        // Endpoint para verificar token
+        if (endpoint === 'verify') {
+            if (event.httpMethod === 'POST') {
+                const { accessToken } = JSON.parse(event.body || '{}');
+
+                if (!accessToken) {
+                    return {
+                        statusCode: 400,
+                        headers,
+                        body: JSON.stringify({ error: 'Token de acceso requerido' })
+                    };
+                }
+
+                try {
+                    // Verificar el token intentando obtener el perfil
+                    const profile = await getLinkedInProfile(accessToken);
+                    
+                    return {
+                        statusCode: 200,
+                        headers,
+                        body: JSON.stringify({
+                            valid: true,
+                            profile: profile
+                        })
+                    };
+                } catch (error) {
+                    console.error('Token de LinkedIn inválido:', error);
+                    
+                    return {
+                        statusCode: 200,
+                        headers,
+                        body: JSON.stringify({
+                            valid: false,
+                            message: 'Token inválido o expirado'
+                        })
+                    };
+                }
+            }
+        }
+
         // Endpoint para obtener publicaciones
         if (endpoint === 'posts') {
             if (event.httpMethod === 'GET') {
