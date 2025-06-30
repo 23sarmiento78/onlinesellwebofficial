@@ -58,8 +58,40 @@ async function handleAuth() {
   }
 }
 
-if (loginBtn) loginBtn.onclick = async () => { await auth0Client.loginWithRedirect(); };
-if (logoutBtn) logoutBtn.onclick = async () => { await auth0Client.logout({ returnTo: AUTH0_REDIRECT_URI }); };
+// --- Gated content para mostrar token y perfil ---
+function updateUI() {
+  auth0Client.isAuthenticated().then(isAuthenticated => {
+    const gated = document.getElementById('gated-content');
+    if (!gated) return;
+    if (isAuthenticated) {
+      gated.classList.remove('hidden');
+      auth0Client.getTokenSilently().then(token => {
+        document.getElementById('ipt-access-token').textContent = token;
+      });
+      auth0Client.getUser().then(profile => {
+        document.getElementById('ipt-user-profile').textContent = JSON.stringify(profile, null, 2);
+      });
+    } else {
+      gated.classList.add('hidden');
+    }
+  });
+}
+
+window.onload = async () => {
+  await configureAuth0();
+  updateUI();
+  const isAuthenticated = await auth0Client.isAuthenticated();
+  if (isAuthenticated) return;
+  const query = window.location.search;
+  if (query.includes('code=') && query.includes('state=')) {
+    await auth0Client.handleRedirectCallback();
+    updateUI();
+    window.history.replaceState({}, document.title, '/admin/');
+  }
+};
+
+if (loginBtn) loginBtn.onclick = async () => { await auth0Client.loginWithRedirect({ authorizationParams: { redirect_uri: 'https://service.hgaruna.org/admin/' } }); };
+if (logoutBtn) logoutBtn.onclick = async () => { auth0Client.logout({ logoutParams: { returnTo: 'https://service.hgaruna.org/admin/' } }); };
 
 // Feed dinámico de artículos y posts del foro
 async function loadFeed() {

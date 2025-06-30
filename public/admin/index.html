@@ -69,6 +69,19 @@
   <div id="login-section">
     <button id="login-btn" class="btn-filled">Iniciar sesión</button>
   </div>
+  <div class="hidden" id="gated-content">
+    <p>
+      Estás viendo este contenido porque estás <strong>logueado</strong>.
+    </p>
+    <label>
+      Access token:
+      <pre id="ipt-access-token"></pre>
+    </label>
+    <label>
+      User profile:
+      <pre id="ipt-user-profile"></pre>
+    </label>
+  </div>
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
   <script src="/js/admin-app-new.js"></script>
 </body>
