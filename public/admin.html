@@ -4,364 +4,335 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración</title>
-    <!-- SDK de Auth0 - Versión más reciente -->
+    <!-- SDK de Auth0 -->
     <script src="https://unpkg.com/@auth0/auth0-spa-js@2.2.0/dist/auth0-spa-js.production.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap">
     <style>
-        :root {
-            --color-bg: #f7f8fa;
-            --color-white: #fff;
-            --color-primary: #4f8cff;
-            --color-secondary: #7b61ff;
-            --color-gray: #e5e7eb;
-            --color-dark: #22223b;
-            --color-light: #f1f3f7;
-            --color-border: #e0e0e0;
-            --color-accent: #a3bffa;
-        }
-        html, body {
-            height: 100%;
+        * {
             margin: 0;
             padding: 0;
-            font-family: 'Inter', Arial, sans-serif;
-            background: var(--color-bg);
-            color: var(--color-dark);
+            box-sizing: border-box;
         }
-        .layout {
-            display: flex;
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
             min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
-        .sidebar {
-            width: 250px;
-            background: var(--color-white);
-            border-right: 1px solid var(--color-border);
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px 0 0 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            z-index: 10;
-        }
-        .sidebar .logo {
-            font-size: 1.7em;
-            font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 40px;
-            letter-spacing: 1px;
-        }
-        .sidebar nav {
-            width: 100%;
-        }
-        .sidebar nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .sidebar nav ul li {
-            margin: 20px 0;
-        }
-        .sidebar nav ul li a {
-            display: flex;
-            align-items: center;
-            color: var(--color-dark);
-            text-decoration: none;
-            font-size: 1.1em;
-            padding: 10px 30px;
-            border-radius: 8px 0 0 8px;
-            transition: background 0.2s;
-        }
-        .sidebar nav ul li a.active, .sidebar nav ul li a:hover {
-            background: var(--color-accent);
-            color: var(--color-primary);
-        }
-        .sidebar nav ul li a i {
-            margin-right: 12px;
-            font-size: 1.3em;
-        }
-        .main-content {
-            margin-left: 250px;
-            flex: 1;
-            display: flex;
-            flex-direction: row;
-            min-height: 100vh;
-        }
-        .center-panel {
-            flex: 2;
-            padding: 40px 30px 30px 30px;
-            max-width: 800px;
-        }
-        .right-panel {
-            flex: 1;
-            padding: 40px 30px 30px 0;
-            min-width: 320px;
-            max-width: 400px;
-        }
-        .profile-header {
-            background: linear-gradient(90deg, var(--color-primary) 60%, var(--color-secondary) 100%);
-            color: var(--color-white);
-            border-radius: 18px;
-            padding: 32px 32px 24px 32px;
-            display: flex;
-            align-items: center;
-            margin-bottom: 32px;
-            box-shadow: 0 4px 24px rgba(79,140,255,0.08);
-        }
-        .profile-avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 4px solid var(--color-white);
-            object-fit: cover;
-            margin-right: 28px;
-            background: var(--color-gray);
-        }
-        .profile-info {
-            flex: 1;
-        }
-        .profile-info h2 {
-            margin: 0 0 6px 0;
-            font-size: 1.5em;
-            font-weight: 700;
-        }
-        .profile-info .email {
-            font-size: 1em;
-            opacity: 0.9;
-        }
-        .profile-info .linkedin-status {
-            margin-top: 10px;
-            font-size: 0.95em;
-            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
-        .profile-info .linkedin-status span {
-            margin-left: 8px;
+
+        .header h1 {
+            font-size: 2em;
         }
-        .feed-section {
-            margin-bottom: 32px;
+
+        .user-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
         }
-        .feed-title {
-            font-size: 1.2em;
-            font-weight: 600;
-            margin-bottom: 18px;
-            color: var(--color-primary);
-        }
-        .card-list {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-        .card {
-            background: var(--color-white);
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(79,140,255,0.06);
-            padding: 22px 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .card .card-title {
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .card .card-meta {
-            font-size: 0.95em;
-            color: #888;
-        }
-        .card .card-content {
-            font-size: 1em;
+
+        .user-info h3 {
             color: #333;
-            margin-top: 6px;
+            margin-bottom: 10px;
         }
-        .stats-section {
-            margin-top: 32px;
-            background: var(--color-white);
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(79,140,255,0.06);
-            padding: 22px 24px;
-        }
+
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
         }
+
         .stat-card {
-            background: var(--color-light);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
             border-radius: 8px;
-            padding: 18px 10px;
             text-align: center;
         }
+
         .stat-number {
-            font-size: 1.5em;
-            font-weight: 700;
-            color: var(--color-primary);
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
+
         .stat-label {
-            font-size: 1em;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .actions-section {
+            padding: 20px;
+        }
+
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .linkedin-status {
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px;
+        }
+
+        .linkedin-connected {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .linkedin-disconnected {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .content-section {
+            padding: 20px;
+        }
+
+        .content-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .content-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .content-meta {
+            font-size: 12px;
             color: #666;
         }
-        .actions-panel {
-            background: var(--color-white);
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(79,140,255,0.06);
-            padding: 28px 24px;
-            margin-bottom: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            align-items: stretch;
-        }
-        .actions-panel .btn {
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
             width: 100%;
-            padding: 14px 0;
-            font-size: 1.1em;
-            font-weight: 600;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
             border-radius: 8px;
-            border: none;
-            background: var(--color-primary);
-            color: var(--color-white);
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
             cursor: pointer;
-            margin-bottom: 0;
-            transition: background 0.2s;
         }
-        .actions-panel .btn:hover {
-            background: var(--color-secondary);
+
+        .close:hover {
+            color: black;
         }
-        .actions-panel .btn-linkedin {
-            background: #0077b5;
+
+        .form-group {
+            margin-bottom: 15px;
         }
-        .actions-panel .btn-linkedin:hover {
-            background: #005885;
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
-        @media (max-width: 1100px) {
-            .main-content {
-                flex-direction: column;
-            }
-            .center-panel, .right-panel {
-                max-width: 100%;
-                min-width: 0;
-                padding: 20px 10px;
-            }
-            .sidebar {
-                position: relative;
-                width: 100%;
-                flex-direction: row;
-                border-right: none;
-                border-bottom: 1px solid var(--color-border);
-                padding: 0;
-                height: 70px;
-                align-items: center;
-                justify-content: flex-start;
-            }
-            .sidebar .logo {
-                margin: 0 20px 0 10px;
-            }
-            .sidebar nav ul {
-                display: flex;
-                flex-direction: row;
-                gap: 10px;
-            }
-            .sidebar nav ul li {
-                margin: 0;
-            }
-            .main-content {
-                margin-left: 0;
-            }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
         }
-        @media (max-width: 800px) {
-            .main-content {
-                flex-direction: column;
-            }
-            .center-panel, .right-panel {
-                max-width: 100%;
-                min-width: 0;
-                padding: 10px 2vw;
-            }
-            .sidebar {
-                width: 100%;
-                height: 60px;
-                flex-direction: row;
-                border-right: none;
-                border-bottom: 1px solid var(--color-border);
-                padding: 0;
-            }
-            .sidebar .logo {
-                margin: 0 10px 0 10px;
-            }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .error {
+            color: red;
+            background: #ffe6e6;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="layout">
-        <aside class="sidebar">
-            <div class="logo">hgaruna</div>
-            <nav>
-                <ul>
-                    <li><a href="#" class="active"><i>🏠</i>Dashboard</a></li>
-                    <li><a href="#" id="nav-articles"><i>📝</i>Artículos</a></li>
-                    <li><a href="#" id="nav-foro"><i>💬</i>Foro</a></li>
-                    <li><a href="#" id="nav-config"><i>⚙️</i>Configuración</a></li>
-                </ul>
-            </nav>
-        </aside>
-        <div class="main-content">
-            <div class="center-panel">
-                <div class="profile-header">
-                    <img id="profile-avatar" class="profile-avatar" src="/public/logos-he-imagenes/israel.jpg" alt="Avatar">
-                    <div class="profile-info">
-                        <h2 id="profile-name">Usuario</h2>
-                        <div class="email" id="profile-email">usuario@ejemplo.com</div>
-                        <div class="linkedin-status" id="profile-linkedin-status">
-                            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" width="20" style="background:#fff;border-radius:50%;padding:2px;">
-                            <span id="linkedin-status-text">Desconectado</span>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Panel de Administración</h1>
+            <button id="logout-btn" class="btn btn-danger">Cerrar Sesión</button>
+        </div>
+
+        <!-- Loading Section -->
+        <div id="loading-section" class="loading">
+            <h2>Cargando...</h2>
+            <p>Inicializando sistema de autenticación</p>
+        </div>
+
+        <!-- Error Section -->
+        <div id="error-section" class="error hidden">
+            <h3>Error de Carga</h3>
+            <p id="error-message">No se pudo cargar el SDK de Auth0</p>
+            <button onclick="location.reload()" class="btn">🔄 Recargar Página</button>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div id="dashboard" class="hidden">
+            <!-- User Info -->
+            <div class="user-info">
+                <h3>Bienvenido, <span id="user-name">Usuario</span></h3>
+                <p>Email: <span id="user-email">usuario@ejemplo.com</span></p>
+            </div>
+
+            <!-- LinkedIn Status -->
+            <div id="linkedin-status" class="linkedin-disconnected">
+                <strong>LinkedIn:</strong> <span id="linkedin-status-text">Desconectado</span>
+                <button id="connect-linkedin-btn" class="btn btn-success" style="margin-left: 10px;">Conectar LinkedIn</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-articles">0</div>
+                    <div class="stat-label">Artículos</div>
                 </div>
-                <div class="feed-section">
-                    <div class="feed-title">Últimos Artículos</div>
-                    <div id="articles-feed" class="card-list"></div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-posts">0</div>
+                    <div class="stat-label">Publicaciones del Foro</div>
                 </div>
-                <div class="feed-section">
-                    <div class="feed-title">Últimas Publicaciones del Foro</div>
-                    <div id="forum-feed" class="card-list"></div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-views">0</div>
+                    <div class="stat-label">Vistas Totales</div>
                 </div>
-                <div class="stats-section">
-                    <div class="feed-title">Estadísticas</div>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-number" id="total-articles">0</div>
-                            <div class="stat-label">Artículos</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" id="total-posts">0</div>
-                            <div class="stat-label">Publicaciones Foro</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" id="total-views">0</div>
-                            <div class="stat-label">Vistas Totales</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" id="linkedin-posts">0</div>
-                            <div class="stat-label">Posts LinkedIn</div>
-                        </div>
-                    </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="linkedin-posts">0</div>
+                    <div class="stat-label">Posts en LinkedIn</div>
                 </div>
             </div>
-            <div class="right-panel">
-                <div class="actions-panel">
-                    <button id="new-article-btn" class="btn">📝 Nuevo Artículo</button>
-                    <button id="new-forum-post-btn" class="btn">💬 Nueva Publicación Foro</button>
-                    <button id="linkedin-post-btn" class="btn btn-linkedin">🔗 Publicar en LinkedIn</button>
-                    <button id="logout-btn" class="btn" style="background:#eee;color:#333;">Cerrar Sesión</button>
+
+            <!-- Actions -->
+            <div class="actions-section">
+                <h3>Acciones Rápidas</h3>
+                <button id="new-article-btn" class="btn btn-success">📝 Nuevo Artículo</button>
+                <button id="new-forum-post-btn" class="btn btn-success">💬 Nueva Publicación del Foro</button>
+                <button id="linkedin-post-btn" class="btn btn-warning">🔗 Publicar en LinkedIn</button>
+            </div>
+
+            <!-- Content Sections -->
+            <div class="content-section">
+                <h3>Últimos Artículos</h3>
+                <div id="articles-list" class="content-list">
+                    <p>Cargando artículos...</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3>Últimas Publicaciones del Foro</h3>
+                <div id="forum-posts-list" class="content-list">
+                    <p>Cargando publicaciones...</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal para Crear/Editar Artículo -->
+    <!-- Article Modal -->
     <div id="article-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('article-modal')">&times;</span>
@@ -398,7 +369,7 @@
         </div>
     </div>
 
-    <!-- Modal para Crear/Editar Publicación del Foro -->
+    <!-- Forum Modal -->
     <div id="forum-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('forum-modal')">&times;</span>
@@ -434,110 +405,6 @@
         </div>
     </div>
 
-    <!-- Estilos adicionales para modales -->
-    <style>
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 20px;
-            border-radius: 8px;
-            width: 80%;
-            max-width: 800px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .close:hover {
-            color: black;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        .btn {
-            background: var(--color-primary);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            text-decoration: none;
-            display: inline-block;
-            margin: 5px;
-        }
-        .btn:hover {
-            background: var(--color-secondary);
-        }
-        .btn-success {
-            background: #28a745;
-        }
-        .btn-success:hover {
-            background: #218838;
-        }
-        .btn-danger {
-            background: #dc3545;
-        }
-        .btn-danger:hover {
-            background: #c82333;
-        }
-        .btn-warning {
-            background: #ffc107;
-            color: #212529;
-        }
-        .btn-warning:hover {
-            background: #e0a800;
-        }
-        .hidden {
-            display: none;
-        }
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-        }
-        .error {
-            color: red;
-            background: #ffe6e6;
-            padding: 15px;
-            border-radius: 4px;
-            margin: 20px 0;
-        }
-    </style>
-
     <script>
         // Configuración de Auth0
         const auth0Config = {
@@ -549,72 +416,23 @@
             cacheLocation: "localstorage"
         };
 
-        // Variable global para el cliente Auth0
         let auth0Client = null;
 
-        // Función para verificar si el SDK se cargó correctamente
-        function checkSDKLoaded() {
-            return new Promise((resolve, reject) => {
-                let attempts = 0;
-                const maxAttempts = 50; // 5 segundos
-                
-                const check = () => {
-                    attempts++;
-                    
-                    if (typeof auth0 !== 'undefined' && auth0.createAuth0Client) {
-                        console.log("✅ SDK de Auth0 cargado correctamente");
-                        resolve(auth0);
-                    } else if (attempts >= maxAttempts) {
-                        reject(new Error("SDK de Auth0 no se pudo cargar después de 5 segundos"));
-                    } else {
-                        setTimeout(check, 100);
-                    }
-                };
-                
-                check();
-            });
-        }
-
-        // Función para inicializar el cliente Auth0
-        const configureClient = async () => {
-            try {
-                console.log("🔐 Inicializando Auth0...");
-                console.log("📋 Configuración:", auth0Config);
-                
-                // Esperar a que el SDK se cargue
-                const auth0SDK = await checkSDKLoaded();
-                
-                console.log("✅ Auth0 SDK disponible");
-                console.log("🔧 Métodos disponibles:", Object.keys(auth0SDK));
-                
-                // Crear el cliente
-                auth0Client = await auth0SDK.createAuth0Client(auth0Config);
-                console.log("✅ Auth0 client creado:", auth0Client);
-                
-                return auth0Client;
-            } catch (error) {
-                console.error("❌ Error inicializando Auth0:", error);
-                throw error;
-            }
-        };
-
         // Funciones de utilidad
-        function showSection(sectionId) {
-            // Ocultar todas las secciones
-            document.getElementById('dashboard').classList.add('hidden');
-            document.getElementById('articles-section').classList.add('hidden');
-            document.getElementById('forum-section').classList.add('hidden');
-            
-            // Mostrar la sección solicitada
-            document.getElementById(sectionId).classList.remove('hidden');
-        }
-
         function showModal(modalId) {
             document.getElementById(modalId).style.display = 'block';
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
+        }
+
+        function showSection(sectionId) {
+            document.getElementById('loading-section').classList.add('hidden');
+            document.getElementById('error-section').classList.add('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+            
+            document.getElementById(sectionId).classList.remove('hidden');
         }
 
         // Funciones para cargar datos
@@ -652,14 +470,16 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    const articlesList = document.getElementById('articles-feed');
+                    const articlesList = document.getElementById('articles-list');
                     
                     if (data.articles && data.articles.length > 0) {
-                        articlesList.innerHTML = data.articles.map(article => `
-                            <div class="card">
-                                <div class="card-title">${article.title}</div>
-                                <div class="card-meta">Creado: ${new Date(article.createdAt).toLocaleDateString()}</div>
-                                <div class="card-content">${article.description}</div>
+                        const lastArticles = data.articles.slice(-3).reverse();
+                        articlesList.innerHTML = lastArticles.map(article => `
+                            <div class="content-item">
+                                <div>
+                                    <div class="content-title">${article.title}</div>
+                                    <div class="content-meta">Creado: ${new Date(article.createdAt).toLocaleDateString()}</div>
+                                </div>
                             </div>
                         `).join('');
                     } else {
@@ -668,7 +488,7 @@
                 }
             } catch (error) {
                 console.error("Error cargando artículos:", error);
-                document.getElementById('articles-feed').innerHTML = '<p>Error al cargar artículos.</p>';
+                document.getElementById('articles-list').innerHTML = '<p>Error al cargar artículos.</p>';
             }
         }
 
@@ -684,14 +504,16 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    const postsList = document.getElementById('forum-feed');
+                    const postsList = document.getElementById('forum-posts-list');
                     
                     if (data.posts && data.posts.length > 0) {
-                        postsList.innerHTML = data.posts.map(post => `
-                            <div class="card">
-                                <div class="card-title">${post.title}</div>
-                                <div class="card-meta">Categoría: ${post.category} | Creado: ${new Date(post.createdAt).toLocaleDateString()}</div>
-                                <div class="card-content">${post.content}</div>
+                        const lastPosts = data.posts.slice(-5).reverse();
+                        postsList.innerHTML = lastPosts.map(post => `
+                            <div class="content-item">
+                                <div>
+                                    <div class="content-title">${post.title}</div>
+                                    <div class="content-meta">Categoría: ${post.category} | Creado: ${new Date(post.createdAt).toLocaleDateString()}</div>
+                                </div>
                             </div>
                         `).join('');
                     } else {
@@ -700,11 +522,11 @@
                 }
             } catch (error) {
                 console.error("Error cargando publicaciones del foro:", error);
-                document.getElementById('forum-feed').innerHTML = '<p>Error al cargar publicaciones.</p>';
+                document.getElementById('forum-posts-list').innerHTML = '<p>Error al cargar publicaciones.</p>';
             }
         }
 
-        // Funciones para crear/editar/eliminar contenido
+        // Funciones para crear contenido
         async function createArticle(articleData) {
             try {
                 const token = await auth0Client.getTokenSilently();
@@ -728,71 +550,6 @@
             } catch (error) {
                 console.error("Error creando artículo:", error);
                 alert('Error al crear el artículo');
-            }
-        }
-
-        async function editArticle(articleId) {
-            try {
-                const token = await auth0Client.getTokenSilently();
-                const response = await fetch(`/.netlify/functions/admin-api/articles/${articleId}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    const article = await response.json();
-                    
-                    // Llenar el formulario con los datos del artículo
-                    document.getElementById('article-title').value = article.title;
-                    document.getElementById('article-description').value = article.description;
-                    document.getElementById('article-content').value = article.content;
-                    document.getElementById('article-tags').value = article.tags.join(', ');
-                    document.getElementById('article-image').value = article.image || '';
-                    
-                    // Cambiar el título del modal
-                    document.getElementById('article-modal-title').textContent = 'Editar Artículo';
-                    
-                    // Agregar el ID del artículo al formulario
-                    document.getElementById('article-form').setAttribute('data-article-id', articleId);
-                    
-                    showModal('article-modal');
-                } else {
-                    alert('Error al cargar el artículo');
-                }
-            } catch (error) {
-                console.error("Error cargando artículo:", error);
-                alert('Error al cargar el artículo');
-            }
-        }
-
-        async function deleteArticle(articleId) {
-            if (!confirm('¿Estás seguro de que quieres eliminar este artículo?')) {
-                return;
-            }
-            
-            try {
-                const token = await auth0Client.getTokenSilently();
-                const response = await fetch('/.netlify/functions/admin-api/articles', {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ id: articleId })
-                });
-                
-                if (response.ok) {
-                    alert('Artículo eliminado exitosamente');
-                    loadArticles();
-                    loadStats();
-                } else {
-                    alert('Error al eliminar el artículo');
-                }
-            } catch (error) {
-                console.error("Error eliminando artículo:", error);
-                alert('Error al eliminar el artículo');
             }
         }
 
@@ -822,69 +579,6 @@
             }
         }
 
-        async function editForumPost(postId) {
-            try {
-                const token = await auth0Client.getTokenSilently();
-                const response = await fetch(`/.netlify/functions/admin-api/forum-posts/${postId}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    const post = await response.json();
-                    
-                    // Llenar el formulario con los datos de la publicación
-                    document.getElementById('forum-title').value = post.title;
-                    document.getElementById('forum-content').value = post.content;
-                    document.getElementById('forum-category').value = post.category;
-                    
-                    // Cambiar el título del modal
-                    document.getElementById('forum-modal-title').textContent = 'Editar Publicación del Foro';
-                    
-                    // Agregar el ID de la publicación al formulario
-                    document.getElementById('forum-form').setAttribute('data-post-id', postId);
-                    
-                    showModal('forum-modal');
-                } else {
-                    alert('Error al cargar la publicación');
-                }
-            } catch (error) {
-                console.error("Error cargando publicación:", error);
-                alert('Error al cargar la publicación');
-            }
-        }
-
-        async function deleteForumPost(postId) {
-            if (!confirm('¿Estás seguro de que quieres eliminar esta publicación?')) {
-                return;
-            }
-            
-            try {
-                const token = await auth0Client.getTokenSilently();
-                const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ id: postId })
-                });
-                
-                if (response.ok) {
-                    alert('Publicación eliminada exitosamente');
-                    loadForumPosts();
-                    loadStats();
-                } else {
-                    alert('Error al eliminar la publicación');
-                }
-            } catch (error) {
-                console.error("Error eliminando publicación:", error);
-                alert('Error al eliminar la publicación');
-            }
-        }
-
         // Aplicación principal
         class AdminApp {
             constructor() {
@@ -896,9 +590,12 @@
                 try {
                     console.log("🚀 Iniciando AdminApp...");
                     
+                    // Esperar a que el SDK se cargue
+                    await this.waitForSDK();
+                    
                     // Inicializar Auth0
-                    this.auth0 = await configureClient();
-                    console.log("✅ Auth0 inicializado en AdminApp");
+                    this.auth0 = await auth0.createAuth0Client(auth0Config);
+                    console.log("✅ Auth0 inicializado");
                     
                     // Configurar eventos
                     this.setupEventListeners();
@@ -915,58 +612,60 @@
                 }
             }
 
+            async waitForSDK() {
+                return new Promise((resolve, reject) => {
+                    let attempts = 0;
+                    const maxAttempts = 50;
+                    
+                    const check = () => {
+                        attempts++;
+                        
+                        if (typeof auth0 !== 'undefined' && auth0.createAuth0Client) {
+                            console.log("✅ SDK de Auth0 cargado");
+                            resolve();
+                        } else if (attempts >= maxAttempts) {
+                            reject(new Error("SDK de Auth0 no se pudo cargar"));
+                        } else {
+                            setTimeout(check, 100);
+                        }
+                    };
+                    
+                    check();
+                });
+            }
+
             setupEventListeners() {
                 console.log("🔧 Configurando event listeners...");
                 
-                // Botones de autenticación
-                const loginBtn = document.getElementById('login-btn');
-                if (loginBtn) {
-                    loginBtn.addEventListener('click', () => {
-                        console.log("👆 Botón de login clickeado");
-                        this.login();
-                    });
-                }
-
-                const logoutBtn = document.getElementById('logout-btn');
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', () => {
-                        console.log("👆 Botón de logout clickeado");
-                        this.logout();
-                    });
-                }
-
-                // Botones de navegación
-                document.getElementById('new-article-btn').addEventListener('click', () => {
-                    showSection('articles-section');
-                    loadArticles();
-                });
-
-                document.getElementById('new-forum-post-btn').addEventListener('click', () => {
-                    showSection('forum-section');
-                    loadForumPosts();
-                });
-
-                document.getElementById('back-to-dashboard-btn').addEventListener('click', () => {
-                    showSection('dashboard');
-                });
-
-                document.getElementById('back-to-dashboard-btn-2').addEventListener('click', () => {
-                    showSection('dashboard');
+                // Botón de logout
+                document.getElementById('logout-btn').addEventListener('click', () => {
+                    this.logout();
                 });
 
                 // Botones de creación
-                document.getElementById('create-article-btn').addEventListener('click', () => {
+                document.getElementById('new-article-btn').addEventListener('click', () => {
+                    console.log("📝 Abriendo modal de artículo");
                     showModal('article-modal');
                 });
 
-                document.getElementById('create-forum-post-btn').addEventListener('click', () => {
+                document.getElementById('new-forum-post-btn').addEventListener('click', () => {
+                    console.log("💬 Abriendo modal de foro");
                     showModal('forum-modal');
+                });
+
+                // Botón de LinkedIn
+                document.getElementById('linkedin-post-btn').addEventListener('click', () => {
+                    this.createLinkedInPost();
+                });
+
+                document.getElementById('connect-linkedin-btn').addEventListener('click', () => {
+                    this.connectLinkedIn();
                 });
 
                 // Formularios
                 document.getElementById('article-form').addEventListener('submit', (e) => {
                     e.preventDefault();
-                    const articleId = e.target.getAttribute('data-article-id');
+                    console.log("📝 Enviando formulario de artículo");
                     const formData = {
                         title: document.getElementById('article-title').value,
                         description: document.getElementById('article-description').value,
@@ -975,56 +674,27 @@
                         image: document.getElementById('article-image').value,
                         publishLinkedIn: document.getElementById('article-publish-linkedin').checked
                     };
-                    
-                    if (articleId) {
-                        // Editar artículo existente
-                        formData.id = articleId;
-                        updateArticle(formData);
-                    } else {
-                        // Crear nuevo artículo
-                        createArticle(formData);
-                    }
+                    createArticle(formData);
                 });
 
                 document.getElementById('forum-form').addEventListener('submit', (e) => {
                     e.preventDefault();
-                    const postId = e.target.getAttribute('data-post-id');
+                    console.log("💬 Enviando formulario de foro");
                     const formData = {
                         title: document.getElementById('forum-title').value,
                         content: document.getElementById('forum-content').value,
                         category: document.getElementById('forum-category').value,
                         publishLinkedIn: document.getElementById('forum-publish-linkedin').checked
                     };
-                    
-                    if (postId) {
-                        // Editar publicación existente
-                        formData.id = postId;
-                        updateForumPost(formData);
-                    } else {
-                        // Crear nueva publicación
-                        createForumPost(formData);
-                    }
-                });
-
-                // Botones de LinkedIn
-                document.getElementById('connect-linkedin-btn').addEventListener('click', () => {
-                    this.connectLinkedIn();
-                });
-
-                document.getElementById('linkedin-post-btn').addEventListener('click', () => {
-                    this.createLinkedInPost();
+                    createForumPost(formData);
                 });
             }
 
             async handleAuthenticationCallback() {
-                console.log("🔄 Verificando callback...");
-                
                 if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
                     try {
-                        console.log("🔄 Procesando callback...");
                         await this.auth0.handleRedirectCallback();
                         window.history.replaceState({}, document.title, window.location.pathname);
-                        console.log("✅ Callback procesado");
                     } catch (error) {
                         console.error("❌ Error en callback:", error);
                     }
@@ -1032,14 +702,8 @@
             }
 
             async updateUI() {
-                console.log("🎨 Actualizando UI...");
-                
                 try {
                     const isAuthenticated = await this.auth0.isAuthenticated();
-                    console.log("🔐 Estado de autenticación:", isAuthenticated);
-                    
-                    // Ocultar loading
-                    document.getElementById('loading-section').classList.add('hidden');
                     
                     if (isAuthenticated) {
                         this.showAuthenticatedUI();
@@ -1054,39 +718,29 @@
 
             showAuthenticatedUI() {
                 console.log("👤 Mostrando UI autenticada");
-                
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('user-controls').classList.remove('hidden');
-                document.getElementById('user-info').classList.remove('hidden');
-                document.getElementById('dashboard').classList.remove('hidden');
-                
+                showSection('dashboard');
                 this.loadUserInfo();
                 this.loadStats();
                 this.checkLinkedInStatus();
+                this.loadArticles();
+                this.loadForumPosts();
             }
 
             showLoginUI() {
-                console.log("🔓 Mostrando UI de login");
-                
-                document.getElementById('login-section').classList.remove('hidden');
-                document.getElementById('user-controls').classList.add('hidden');
-                document.getElementById('user-info').classList.add('hidden');
-                document.getElementById('dashboard').classList.add('hidden');
+                console.log("🔓 Redirigiendo a login");
+                this.login();
             }
 
             showError(message) {
-                document.getElementById('loading-section').classList.add('hidden');
                 document.getElementById('error-message').textContent = message;
-                document.getElementById('error-section').classList.remove('hidden');
+                showSection('error-section');
             }
 
             async loadUserInfo() {
                 try {
                     const user = await this.auth0.getUser();
-                    console.log("👤 Usuario:", user);
-                    
-                    document.getElementById('profile-name').textContent = user.name || user.nickname || 'Usuario';
-                    document.getElementById('profile-email').textContent = user.email || 'No disponible';
+                    document.getElementById('user-name').textContent = user.name || user.nickname || 'Usuario';
+                    document.getElementById('user-email').textContent = user.email || 'No disponible';
                 } catch (error) {
                     console.error("❌ Error cargando usuario:", error);
                 }
@@ -1097,70 +751,21 @@
             }
 
             async checkLinkedInStatus() {
-                // Verificar si hay token de LinkedIn guardado
                 const linkedinToken = localStorage.getItem('linkedin_token');
-                const statusElement = document.getElementById('profile-linkedin-status');
+                const statusElement = document.getElementById('linkedin-status');
                 const statusText = document.getElementById('linkedin-status-text');
-                const connectBtn = document.getElementById('connect-linkedin-btn');
                 
                 if (linkedinToken) {
-                    // Verificar si el token es válido
-                    try {
-                        const response = await fetch('/.netlify/functions/linkedin-api/verify', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                accessToken: linkedinToken
-                            })
-                        });
-                        
-                        if (response.ok) {
-                            const data = await response.json();
-                            if (data.valid) {
-                                statusElement.className = 'linkedin-status linkedin-connected';
-                                statusText.textContent = 'Conectado';
-                                connectBtn.textContent = 'Reconectar LinkedIn';
-                                
-                                // Mostrar información del perfil si está disponible
-                                const profile = localStorage.getItem('linkedin_profile');
-                                if (profile) {
-                                    const profileData = JSON.parse(profile);
-                                    console.log('👤 Perfil de LinkedIn:', profileData);
-                                    document.getElementById('profile-avatar').src = profileData.pictureUrl;
-                                }
-                            } else {
-                                // Token inválido, limpiar
-                                localStorage.removeItem('linkedin_token');
-                                localStorage.removeItem('linkedin_profile');
-                                this.showLinkedInDisconnected();
-                            }
-                        } else {
-                            this.showLinkedInDisconnected();
-                        }
-                    } catch (error) {
-                        console.error('Error verificando token de LinkedIn:', error);
-                        this.showLinkedInDisconnected();
-                    }
+                    statusElement.className = 'linkedin-status linkedin-connected';
+                    statusText.textContent = 'Conectado';
                 } else {
-                    this.showLinkedInDisconnected();
+                    statusElement.className = 'linkedin-status linkedin-disconnected';
+                    statusText.textContent = 'Desconectado';
                 }
             }
 
-            showLinkedInDisconnected() {
-                const statusElement = document.getElementById('profile-linkedin-status');
-                const statusText = document.getElementById('linkedin-status-text');
-                const connectBtn = document.getElementById('connect-linkedin-btn');
-                
-                statusElement.className = 'linkedin-status linkedin-disconnected';
-                statusText.textContent = 'Desconectado';
-                connectBtn.textContent = 'Conectar LinkedIn';
-            }
-
             async connectLinkedIn() {
-                // Redirigir a la página de autorización de LinkedIn
-                const clientId = '77w90bvizsj1y9'; // Credenciales reales de LinkedIn
+                const clientId = '77w90bvizsj1y9';
                 const redirectUri = encodeURIComponent(window.location.origin + '/admin/');
                 const scope = encodeURIComponent('openid profile w_member_social email');
                 const state = Math.random().toString(36).substring(7);
@@ -1215,7 +820,6 @@
 
             async login() {
                 try {
-                    console.log("🔐 Iniciando login...");
                     await this.auth0.loginWithRedirect();
                 } catch (error) {
                     console.error("❌ Error en login:", error);
@@ -1224,7 +828,6 @@
 
             async logout() {
                 try {
-                    console.log("🚪 Iniciando logout...");
                     await this.auth0.logout({
                         logoutParams: {
                             returnTo: window.location.origin
@@ -1233,58 +836,6 @@
                 } catch (error) {
                     console.error("❌ Error en logout:", error);
                 }
-            }
-        }
-
-        async function updateArticle(articleData) {
-            try {
-                const token = await auth0Client.getTokenSilently();
-                const response = await fetch('/.netlify/functions/admin-api/articles', {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(articleData)
-                });
-                
-                if (response.ok) {
-                    alert('Artículo actualizado exitosamente');
-                    closeModal('article-modal');
-                    loadArticles();
-                    loadStats();
-                } else {
-                    alert('Error al actualizar el artículo');
-                }
-            } catch (error) {
-                console.error("Error actualizando artículo:", error);
-                alert('Error al actualizar el artículo');
-            }
-        }
-
-        async function updateForumPost(postData) {
-            try {
-                const token = await auth0Client.getTokenSilently();
-                const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(postData)
-                });
-                
-                if (response.ok) {
-                    alert('Publicación actualizada exitosamente');
-                    closeModal('forum-modal');
-                    loadForumPosts();
-                    loadStats();
-                } else {
-                    alert('Error al actualizar la publicación');
-                }
-            } catch (error) {
-                console.error("Error actualizando publicación:", error);
-                alert('Error al actualizar la publicación');
             }
         }
 
