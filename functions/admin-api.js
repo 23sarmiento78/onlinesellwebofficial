@@ -1,5 +1,15 @@
 const { MongoClient } = require('mongodb');
 
+// Log para verificar si la variable de entorno está presente
+echoEnv();
+function echoEnv() {
+  if (!process.env.MONGODB_URI) {
+    console.log('[admin-api] ⚠️ Variable MONGODB_URI NO definida');
+  } else {
+    console.log('[admin-api] ✅ Variable MONGODB_URI definida');
+  }
+}
+
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://atlas-sql-6860db038f846f4c166252b6-17xoqn.a.query.mongodb.net/sample_mflix?ssl=true&authSource=admin';
 const DB_NAME = 'sample_mflix'; // Cambia por el nombre de tu base si es diferente
 const ARTICLES_COLLECTION = 'articles';
@@ -9,10 +19,15 @@ let cachedClient = null;
 
 async function connectToDatabase() {
   if (cachedClient) return cachedClient;
-  const client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-  await client.connect();
-  cachedClient = client;
-  return client;
+  try {
+    const client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    await client.connect();
+    cachedClient = client;
+    return client;
+  } catch (err) {
+    console.log('[admin-api] ❌ Error conectando a MongoDB:', err.message);
+    throw err;
+  }
 }
 
 exports.handler = async function(event, context) {
@@ -44,6 +59,7 @@ exports.handler = async function(event, context) {
         };
       }
     } catch (e) {
+      console.log('[admin-api] ❌ Error en handler:', e.message);
       return { statusCode: 500, body: JSON.stringify({ error: 'Error guardando en la base de datos', details: e.message }) };
     }
   }
