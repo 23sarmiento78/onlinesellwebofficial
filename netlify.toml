@@ -1,6 +1,6 @@
 [build]
   command = "npm run build"
-  publish = "dist"
+  publish = "public"
   functions = "functions"
 
 [build.environment]
@@ -13,6 +13,15 @@
     NETLIFY_DATABASE_URL = ""
     INDEXNOW_KEY = ""
     INDEXNOW_HOST = "service.hgaruna.org"
+
+[functions.admin-api]
+  included_files = ["public/data/**"]
+
+[functions.linkedin-api]
+  included_files = ["public/data/**"]
+
+[functions.auth0-callback]
+  included_files = ["public/data/**"]
 
 [[redirects]]
   from = "/"
@@ -51,8 +60,18 @@
   status = 200
 
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/admin-api/:splat"
+  from = "/.netlify/functions/admin-api/*"
+  to = "/.netlify/functions/admin-api"
+  status = 200
+
+[[redirects]]
+  from = "/.netlify/functions/auth0-callback"
+  to = "/.netlify/functions/auth0-callback"
+  status = 200
+
+[[redirects]]
+  from = "/.netlify/functions/linkedin-api/*"
+  to = "/.netlify/functions/linkedin-api"
   status = 200
 
 [[headers]]
@@ -158,10 +177,16 @@
   AUTH0_DOMAIN = "dev-b0qip4vee7sg3q7e.us.auth0.com"
   AUTH0_CLIENT_ID = "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab"
   AUTH0_CLIENT_SECRET = "W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS"
+  JWT_SECRET = "your-jwt-secret-key"
+  LINKEDIN_CLIENT_ID = "your-linkedin-client-id"
+  LINKEDIN_CLIENT_SECRET = "your-linkedin-client-secret"
   SITE_URL = "https://service.hgaruna.org"
 
 [context.deploy-preview.environment]
   AUTH0_DOMAIN = "dev-b0qip4vee7sg3q7e.us.auth0.com"
   AUTH0_CLIENT_ID = "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab"
   AUTH0_CLIENT_SECRET = "W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS"
+  JWT_SECRET = "your-jwt-secret-key"
+  LINKEDIN_CLIENT_ID = "your-linkedin-client-id"
+  LINKEDIN_CLIENT_SECRET = "your-linkedin-client-secret"
   SITE_URL = "https://service.hgaruna.org"

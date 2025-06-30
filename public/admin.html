@@ -14,7 +14,7 @@
             background-color: #f5f5f5;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             padding: 20px;
@@ -43,6 +43,7 @@
             font-size: 16px;
             text-decoration: none;
             display: inline-block;
+            margin: 5px;
         }
         .btn:hover {
             background: #0056b3;
@@ -52,6 +53,19 @@
         }
         .btn-danger:hover {
             background: #c82333;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-warning:hover {
+            background: #e0a800;
         }
         .user-info {
             background: #f8f9fa;
@@ -86,6 +100,130 @@
             padding: 15px;
             border-radius: 4px;
             margin: 20px 0;
+        }
+        .content-section {
+            margin-top: 30px;
+        }
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .content-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .content-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .content-item:last-child {
+            margin-bottom: 0;
+        }
+        .content-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .content-meta {
+            font-size: 12px;
+            color: #666;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .linkedin-status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .linkedin-connected {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .linkedin-disconnected {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
     </style>
 </head>
@@ -124,24 +262,137 @@
             <p>Email: <span id="user-email">usuario@ejemplo.com</span></p>
         </div>
 
-        <!-- Dashboard -->
+        <!-- Dashboard Principal -->
         <div id="dashboard" class="dashboard hidden">
-            <div class="card">
-                <h3>Gestión de Contenido</h3>
-                <p>Administra artículos, páginas y contenido del sitio.</p>
-                <button class="btn">Gestionar Contenido</button>
+            <!-- Estadísticas -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-articles">0</div>
+                    <div class="stat-label">Artículos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-posts">0</div>
+                    <div class="stat-label">Publicaciones del Foro</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-views">0</div>
+                    <div class="stat-label">Vistas Totales</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="linkedin-posts">0</div>
+                    <div class="stat-label">Posts en LinkedIn</div>
+                </div>
             </div>
-            
-            <div class="card">
-                <h3>Configuración</h3>
-                <p>Configura el sitio web y ajustes generales.</p>
-                <button class="btn">Configuración</button>
+
+            <!-- Estado de LinkedIn -->
+            <div id="linkedin-status" class="linkedin-disconnected">
+                <strong>LinkedIn:</strong> <span id="linkedin-status-text">Desconectado</span>
+                <button id="connect-linkedin-btn" class="btn btn-success" style="margin-left: 10px;">Conectar LinkedIn</button>
             </div>
-            
+
+            <!-- Acciones Rápidas -->
             <div class="card">
-                <h3>Estadísticas</h3>
-                <p>Ver estadísticas y análisis del sitio.</p>
-                <button class="btn">Ver Estadísticas</button>
+                <h3>Acciones Rápidas</h3>
+                <button id="new-article-btn" class="btn btn-success">📝 Nuevo Artículo</button>
+                <button id="new-forum-post-btn" class="btn btn-success">💬 Nueva Publicación del Foro</button>
+                <button id="linkedin-post-btn" class="btn btn-warning">🔗 Publicar en LinkedIn</button>
+            </div>
+        </div>
+
+        <!-- Sección de Gestión de Artículos -->
+        <div id="articles-section" class="content-section hidden">
+            <div class="content-header">
+                <h2>Gestión de Artículos</h2>
+                <button id="back-to-dashboard-btn" class="btn">← Volver al Dashboard</button>
+            </div>
+            <button id="create-article-btn" class="btn btn-success">📝 Crear Nuevo Artículo</button>
+            <div id="articles-list" class="content-list">
+                <p>Cargando artículos...</p>
+            </div>
+        </div>
+
+        <!-- Sección de Gestión del Foro -->
+        <div id="forum-section" class="content-section hidden">
+            <div class="content-header">
+                <h2>Gestión del Foro</h2>
+                <button id="back-to-dashboard-btn-2" class="btn">← Volver al Dashboard</button>
+            </div>
+            <button id="create-forum-post-btn" class="btn btn-success">💬 Crear Nueva Publicación</button>
+            <div id="forum-posts-list" class="content-list">
+                <p>Cargando publicaciones...</p>
+            </div>
+        </div>
+
+        <!-- Modal para Crear/Editar Artículo -->
+        <div id="article-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('article-modal')">&times;</span>
+                <h2 id="article-modal-title">Crear Nuevo Artículo</h2>
+                <form id="article-form">
+                    <div class="form-group">
+                        <label for="article-title">Título:</label>
+                        <input type="text" id="article-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="article-description">Descripción:</label>
+                        <textarea id="article-description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="article-content">Contenido (Markdown):</label>
+                        <textarea id="article-content" required style="min-height: 200px;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="article-tags">Tags (separados por comas):</label>
+                        <input type="text" id="article-tags">
+                    </div>
+                    <div class="form-group">
+                        <label for="article-image">URL de la imagen:</label>
+                        <input type="url" id="article-image">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="article-publish-linkedin"> Publicar automáticamente en LinkedIn
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-success">Guardar Artículo</button>
+                    <button type="button" class="btn" onclick="closeModal('article-modal')">Cancelar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para Crear/Editar Publicación del Foro -->
+        <div id="forum-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('forum-modal')">&times;</span>
+                <h2 id="forum-modal-title">Crear Nueva Publicación del Foro</h2>
+                <form id="forum-form">
+                    <div class="form-group">
+                        <label for="forum-title">Título:</label>
+                        <input type="text" id="forum-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="forum-content">Contenido:</label>
+                        <textarea id="forum-content" required style="min-height: 200px;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="forum-category">Categoría:</label>
+                        <select id="forum-category" required>
+                            <option value="">Seleccionar categoría</option>
+                            <option value="general">General</option>
+                            <option value="tecnologia">Tecnología</option>
+                            <option value="diseno">Diseño</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="programacion">Programación</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="forum-publish-linkedin"> Publicar automáticamente en LinkedIn
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-success">Guardar Publicación</button>
+                    <button type="button" class="btn" onclick="closeModal('forum-modal')">Cancelar</button>
+                </form>
             </div>
         </div>
     </div>
@@ -206,6 +457,303 @@
             }
         };
 
+        // Funciones de utilidad
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('articles-section').classList.add('hidden');
+            document.getElementById('forum-section').classList.add('hidden');
+            
+            // Mostrar la sección solicitada
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Funciones para cargar datos
+        async function loadStats() {
+            try {
+                const token = await auth0Client.getTokenSilently();
+                const response = await fetch('/.netlify/functions/admin-api/stats', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const stats = await response.json();
+                    document.getElementById('total-articles').textContent = stats.articles || 0;
+                    document.getElementById('total-posts').textContent = stats.posts || 0;
+                    document.getElementById('total-views').textContent = stats.views || 0;
+                    document.getElementById('linkedin-posts').textContent = stats.linkedinPosts || 0;
+                }
+            } catch (error) {
+                console.error("Error cargando estadísticas:", error);
+            }
+        }
+
+        async function loadArticles() {
+            try {
+                const token = await auth0Client.getTokenSilently();
+                const response = await fetch('/.netlify/functions/admin-api/articles', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const articlesList = document.getElementById('articles-list');
+                    
+                    if (data.articles && data.articles.length > 0) {
+                        articlesList.innerHTML = data.articles.map(article => `
+                            <div class="content-item">
+                                <div>
+                                    <div class="content-title">${article.title}</div>
+                                    <div class="content-meta">Creado: ${new Date(article.createdAt).toLocaleDateString()}</div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-warning" onclick="editArticle('${article.id}')">✏️ Editar</button>
+                                    <button class="btn btn-danger" onclick="deleteArticle('${article.id}')">🗑️ Eliminar</button>
+                                </div>
+                            </div>
+                        `).join('');
+                    } else {
+                        articlesList.innerHTML = '<p>No hay artículos publicados.</p>';
+                    }
+                }
+            } catch (error) {
+                console.error("Error cargando artículos:", error);
+                document.getElementById('articles-list').innerHTML = '<p>Error al cargar artículos.</p>';
+            }
+        }
+
+        async function loadForumPosts() {
+            try {
+                const token = await auth0Client.getTokenSilently();
+                const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const postsList = document.getElementById('forum-posts-list');
+                    
+                    if (data.posts && data.posts.length > 0) {
+                        postsList.innerHTML = data.posts.map(post => `
+                            <div class="content-item">
+                                <div>
+                                    <div class="content-title">${post.title}</div>
+                                    <div class="content-meta">Categoría: ${post.category} | Creado: ${new Date(post.createdAt).toLocaleDateString()}</div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-warning" onclick="editForumPost('${post.id}')">✏️ Editar</button>
+                                    <button class="btn btn-danger" onclick="deleteForumPost('${post.id}')">🗑️ Eliminar</button>
+                                </div>
+                            </div>
+                        `).join('');
+                    } else {
+                        postsList.innerHTML = '<p>No hay publicaciones del foro.</p>';
+                    }
+                }
+            } catch (error) {
+                console.error("Error cargando publicaciones del foro:", error);
+                document.getElementById('forum-posts-list').innerHTML = '<p>Error al cargar publicaciones.</p>';
+            }
+        }
+
+        // Funciones para crear/editar/eliminar contenido
+        async function createArticle(articleData) {
+            try {
+                const token = await auth0Client.getTokenSilently();
+                const response = await fetch('/.netlify/functions/admin-api/articles', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(articleData)
+                });
+                
+                if (response.ok) {
+                    alert('Artículo creado exitosamente');
+                    closeModal('article-modal');
+                    loadArticles();
+                    loadStats();
+                } else {
+                    alert('Error al crear el artículo');
+                }
+            } catch (error) {
+                console.error("Error creando artículo:", error);
+                alert('Error al crear el artículo');
+            }
+        }
+
+        async function editArticle(articleId) {
+            try {
+                const token = await auth0Client.getTokenSilently();
+                const response = await fetch(`/.netlify/functions/admin-api/articles/${articleId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const article = await response.json();
+                    
+                    // Llenar el formulario con los datos del artículo
+                    document.getElementById('article-title').value = article.title;
+                    document.getElementById('article-description').value = article.description;
+                    document.getElementById('article-content').value = article.content;
+                    document.getElementById('article-tags').value = article.tags.join(', ');
+                    document.getElementById('article-image').value = article.image || '';
+                    
+                    // Cambiar el título del modal
+                    document.getElementById('article-modal-title').textContent = 'Editar Artículo';
+                    
+                    // Agregar el ID del artículo al formulario
+                    document.getElementById('article-form').setAttribute('data-article-id', articleId);
+                    
+                    showModal('article-modal');
+                } else {
+                    alert('Error al cargar el artículo');
+                }
+            } catch (error) {
+                console.error("Error cargando artículo:", error);
+                alert('Error al cargar el artículo');
+            }
+        }
+
+        async function deleteArticle(articleId) {
+            if (!confirm('¿Estás seguro de que quieres eliminar este artículo?')) {
+                return;
+            }
+            
+            try {
+                const token = await auth0Client.getTokenSilently();
+                const response = await fetch('/.netlify/functions/admin-api/articles', {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: articleId })
+                });
+                
+                if (response.ok) {
+                    alert('Artículo eliminado exitosamente');
+                    loadArticles();
+                    loadStats();
+                } else {
+                    alert('Error al eliminar el artículo');
+                }
+            } catch (error) {
+                console.error("Error eliminando artículo:", error);
+                alert('Error al eliminar el artículo');
+            }
+        }
+
+        async function createForumPost(postData) {
+            try {
+                const token = await auth0Client.getTokenSilently();
+                const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(postData)
+                });
+                
+                if (response.ok) {
+                    alert('Publicación del foro creada exitosamente');
+                    closeModal('forum-modal');
+                    loadForumPosts();
+                    loadStats();
+                } else {
+                    alert('Error al crear la publicación');
+                }
+            } catch (error) {
+                console.error("Error creando publicación del foro:", error);
+                alert('Error al crear la publicación');
+            }
+        }
+
+        async function editForumPost(postId) {
+            try {
+                const token = await auth0Client.getTokenSilently();
+                const response = await fetch(`/.netlify/functions/admin-api/forum-posts/${postId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const post = await response.json();
+                    
+                    // Llenar el formulario con los datos de la publicación
+                    document.getElementById('forum-title').value = post.title;
+                    document.getElementById('forum-content').value = post.content;
+                    document.getElementById('forum-category').value = post.category;
+                    
+                    // Cambiar el título del modal
+                    document.getElementById('forum-modal-title').textContent = 'Editar Publicación del Foro';
+                    
+                    // Agregar el ID de la publicación al formulario
+                    document.getElementById('forum-form').setAttribute('data-post-id', postId);
+                    
+                    showModal('forum-modal');
+                } else {
+                    alert('Error al cargar la publicación');
+                }
+            } catch (error) {
+                console.error("Error cargando publicación:", error);
+                alert('Error al cargar la publicación');
+            }
+        }
+
+        async function deleteForumPost(postId) {
+            if (!confirm('¿Estás seguro de que quieres eliminar esta publicación?')) {
+                return;
+            }
+            
+            try {
+                const token = await auth0Client.getTokenSilently();
+                const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: postId })
+                });
+                
+                if (response.ok) {
+                    alert('Publicación eliminada exitosamente');
+                    loadForumPosts();
+                    loadStats();
+                } else {
+                    alert('Error al eliminar la publicación');
+                }
+            } catch (error) {
+                console.error("Error eliminando publicación:", error);
+                alert('Error al eliminar la publicación');
+            }
+        }
+
         // Aplicación principal
         class AdminApp {
             constructor() {
@@ -239,7 +787,7 @@
             setupEventListeners() {
                 console.log("🔧 Configurando event listeners...");
                 
-                // Botón de login
+                // Botones de autenticación
                 const loginBtn = document.getElementById('login-btn');
                 if (loginBtn) {
                     loginBtn.addEventListener('click', () => {
@@ -248,7 +796,6 @@
                     });
                 }
 
-                // Botón de logout
                 const logoutBtn = document.getElementById('logout-btn');
                 if (logoutBtn) {
                     logoutBtn.addEventListener('click', () => {
@@ -256,6 +803,86 @@
                         this.logout();
                     });
                 }
+
+                // Botones de navegación
+                document.getElementById('new-article-btn').addEventListener('click', () => {
+                    showSection('articles-section');
+                    loadArticles();
+                });
+
+                document.getElementById('new-forum-post-btn').addEventListener('click', () => {
+                    showSection('forum-section');
+                    loadForumPosts();
+                });
+
+                document.getElementById('back-to-dashboard-btn').addEventListener('click', () => {
+                    showSection('dashboard');
+                });
+
+                document.getElementById('back-to-dashboard-btn-2').addEventListener('click', () => {
+                    showSection('dashboard');
+                });
+
+                // Botones de creación
+                document.getElementById('create-article-btn').addEventListener('click', () => {
+                    showModal('article-modal');
+                });
+
+                document.getElementById('create-forum-post-btn').addEventListener('click', () => {
+                    showModal('forum-modal');
+                });
+
+                // Formularios
+                document.getElementById('article-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const articleId = e.target.getAttribute('data-article-id');
+                    const formData = {
+                        title: document.getElementById('article-title').value,
+                        description: document.getElementById('article-description').value,
+                        content: document.getElementById('article-content').value,
+                        tags: document.getElementById('article-tags').value.split(',').map(tag => tag.trim()),
+                        image: document.getElementById('article-image').value,
+                        publishLinkedIn: document.getElementById('article-publish-linkedin').checked
+                    };
+                    
+                    if (articleId) {
+                        // Editar artículo existente
+                        formData.id = articleId;
+                        updateArticle(formData);
+                    } else {
+                        // Crear nuevo artículo
+                        createArticle(formData);
+                    }
+                });
+
+                document.getElementById('forum-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const postId = e.target.getAttribute('data-post-id');
+                    const formData = {
+                        title: document.getElementById('forum-title').value,
+                        content: document.getElementById('forum-content').value,
+                        category: document.getElementById('forum-category').value,
+                        publishLinkedIn: document.getElementById('forum-publish-linkedin').checked
+                    };
+                    
+                    if (postId) {
+                        // Editar publicación existente
+                        formData.id = postId;
+                        updateForumPost(formData);
+                    } else {
+                        // Crear nueva publicación
+                        createForumPost(formData);
+                    }
+                });
+
+                // Botones de LinkedIn
+                document.getElementById('connect-linkedin-btn').addEventListener('click', () => {
+                    this.connectLinkedIn();
+                });
+
+                document.getElementById('linkedin-post-btn').addEventListener('click', () => {
+                    this.createLinkedInPost();
+                });
             }
 
             async handleAuthenticationCallback() {
@@ -303,6 +930,8 @@
                 document.getElementById('dashboard').classList.remove('hidden');
                 
                 this.loadUserInfo();
+                this.loadStats();
+                this.checkLinkedInStatus();
             }
 
             showLoginUI() {
@@ -332,6 +961,77 @@
                 }
             }
 
+            async loadStats() {
+                await loadStats();
+            }
+
+            async checkLinkedInStatus() {
+                // Verificar si hay token de LinkedIn guardado
+                const linkedinToken = localStorage.getItem('linkedin_token');
+                const statusElement = document.getElementById('linkedin-status');
+                const statusText = document.getElementById('linkedin-status-text');
+                const connectBtn = document.getElementById('connect-linkedin-btn');
+                
+                if (linkedinToken) {
+                    statusElement.className = 'linkedin-status linkedin-connected';
+                    statusText.textContent = 'Conectado';
+                    connectBtn.textContent = 'Reconectar LinkedIn';
+                } else {
+                    statusElement.className = 'linkedin-status linkedin-disconnected';
+                    statusText.textContent = 'Desconectado';
+                    connectBtn.textContent = 'Conectar LinkedIn';
+                }
+            }
+
+            async connectLinkedIn() {
+                // Redirigir a la página de autorización de LinkedIn
+                const clientId = 'YOUR_LINKEDIN_CLIENT_ID'; // Necesitarás configurar esto
+                const redirectUri = encodeURIComponent(window.location.origin + '/admin/');
+                const scope = encodeURIComponent('r_liteprofile w_member_social');
+                const state = Math.random().toString(36).substring(7);
+                
+                localStorage.setItem('linkedin_state', state);
+                
+                const authUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
+                
+                window.location.href = authUrl;
+            }
+
+            async createLinkedInPost() {
+                const linkedinToken = localStorage.getItem('linkedin_token');
+                if (!linkedinToken) {
+                    alert('Primero debes conectar tu cuenta de LinkedIn');
+                    return;
+                }
+
+                const content = prompt('Escribe el contenido para tu publicación de LinkedIn:');
+                if (!content) return;
+
+                try {
+                    const response = await fetch('/.netlify/functions/linkedin-api/post', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${await this.auth0.getTokenSilently()}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            content: content,
+                            linkedinToken: linkedinToken
+                        })
+                    });
+
+                    if (response.ok) {
+                        alert('Publicación creada exitosamente en LinkedIn');
+                        this.loadStats();
+                    } else {
+                        alert('Error al crear la publicación en LinkedIn');
+                    }
+                } catch (error) {
+                    console.error("Error creando publicación en LinkedIn:", error);
+                    alert('Error al crear la publicación en LinkedIn');
+                }
+            }
+
             async login() {
                 try {
                     console.log("🔐 Iniciando login...");
@@ -352,6 +1052,58 @@
                 } catch (error) {
                     console.error("❌ Error en logout:", error);
                 }
+            }
+        }
+
+        async function updateArticle(articleData) {
+            try {
+                const token = await auth0Client.getTokenSilently();
+                const response = await fetch('/.netlify/functions/admin-api/articles', {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(articleData)
+                });
+                
+                if (response.ok) {
+                    alert('Artículo actualizado exitosamente');
+                    closeModal('article-modal');
+                    loadArticles();
+                    loadStats();
+                } else {
+                    alert('Error al actualizar el artículo');
+                }
+            } catch (error) {
+                console.error("Error actualizando artículo:", error);
+                alert('Error al actualizar el artículo');
+            }
+        }
+
+        async function updateForumPost(postData) {
+            try {
+                const token = await auth0Client.getTokenSilently();
+                const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(postData)
+                });
+                
+                if (response.ok) {
+                    alert('Publicación actualizada exitosamente');
+                    closeModal('forum-modal');
+                    loadForumPosts();
+                    loadStats();
+                } else {
+                    alert('Error al actualizar la publicación');
+                }
+            } catch (error) {
+                console.error("Error actualizando publicación:", error);
+                alert('Error al actualizar la publicación');
             }
         }
 
