@@ -234,7 +234,7 @@ linkedinConnectBtn.onclick = function() {
     const code = params.get('code');
     const state = params.get('state');
     if (state === localStorage.getItem('linkedin_state')) {
-      fetch('/.netlify/functions/linkedin-api', {
+      fetch('/.netlify/functions/linkedin-api/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'exchange', code, redirectUri: LINKEDIN_REDIRECT_URI })
