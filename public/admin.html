@@ -729,7 +729,7 @@
                 
                 try {
                     // Cargar SDK de Auth0
-                    if (typeof Auth0Client === 'undefined') {
+                    if (typeof auth0 === 'undefined') {
                         console.log("📦 Cargando SDK de Auth0...");
                         await this.loadAuth0SDK();
                     }
@@ -737,7 +737,7 @@
                     console.log("✅ SDK de Auth0 cargado");
                     
                     // Inicializar Auth0
-                    this.auth0 = await Auth0Client.createAuth0Client({
+                    this.auth0 = await auth0.createAuth0Client({
                         domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com',
                         client_id: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab',
                         authorizationParams: {
@@ -1175,7 +1175,7 @@
 
             async loadAuth0SDK() {
                 return new Promise((resolve, reject) => {
-                    if (typeof Auth0Client !== 'undefined') {
+                    if (typeof auth0 !== 'undefined') {
                         resolve();
                         return;
                     }
