@@ -74,6 +74,16 @@
   to = "/.netlify/functions/linkedin-api"
   status = 200
 
+[[redirects]]
+  from = "/blog/:slug"
+  to = "/foro/articulos/:slug"
+  status = 301
+
+[[redirects]]
+  from = "/blog/:slug/"
+  to = "/foro/articulos/:slug"
+  status = 301
+
 [[headers]]
   for = "/admin.html"
   [headers.values]

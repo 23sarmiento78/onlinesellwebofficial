@@ -259,36 +259,6 @@ const latestArticles = (await getCollection('articles'))
     </div>
   </section>
 
-  <!-- Blog Section -->
-  <section class="blog-section">
-    <div class="container">
-      <div class="blog-header">
-        <h2 class="blog-title-main">Últimos Artículos</h2>
-        <p class="blog-description">Mantente al día con nuestras últimas publicaciones sobre desarrollo web y marketing digital.</p>
-      </div>
-      <div class="blog-grid">
-        {
-          latestArticles.map((article) => (
-            <a href={`/blog/${article.slug}/`} class="blog-card">
-              <div class="blog-image-container">
-                <img src={article.data.image} alt={article.data.title} class="blog-image"/>
-              </div>
-              <div class="blog-content">
-                <span class="blog-category">{article.data.category}</span>
-                <h2 class="blog-title">{article.data.title}</h2>
-                <p class="blog-excerpt">{article.data.description}</p>
-                <div class="blog-footer">
-                  <span class="blog-date">{article.data.date.toLocaleDateString()}</span>
-                  <span class="blog-read-more">Leer más →</span>
-                </div>
-              </div>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
   <!-- Contact Section -->
   <section class="contact-section">
     <div class="container">
@@ -410,4 +380,4 @@ const latestArticles = (await getCollection('articles'))
       </div>
     </div>
   </section>
-</BaseLayout> 
+</BaseLayout>

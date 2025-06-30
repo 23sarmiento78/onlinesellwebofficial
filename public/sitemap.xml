@@ -37,36 +37,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://service.hgaruna.org/blog/desarrollo-web-villa-carlos-paz/</loc>
-    <lastmod>2025-01-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://service.hgaruna.org/blog/tendencias-diseno-ui-ux/</loc>
-    <lastmod>2024-03-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://service.hgaruna.org/blog/react-optimizacion/</loc>
-    <lastmod>2024-03-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://service.hgaruna.org/blog/estrategias-seo-avanzadas/</loc>
-    <lastmod>2024-03-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://service.hgaruna.org/blog/futuro-inteligencia-artificial-desarrollo-web/</loc>
-    <lastmod>2025-06-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://service.hgaruna.org/foro/</loc>
     <lastmod>2025-01-29</lastmod>
     <changefreq>daily</changefreq>
@@ -74,12 +44,6 @@
   </url>
   <url>
     <loc>https://service.hgaruna.org/contacto/</loc>
-    <lastmod>2025-01-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://service.hgaruna.org/mi-experiencia/</loc>
     <lastmod>2025-01-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -96,4 +60,4 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-</urlset> 
+</urlset>
