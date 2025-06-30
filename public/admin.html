@@ -361,6 +361,183 @@
         </div>
     </div>
 
+    <!-- Modal para Crear/Editar Artículo -->
+    <div id="article-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('article-modal')">&times;</span>
+            <h2 id="article-modal-title">Crear Nuevo Artículo</h2>
+            <form id="article-form">
+                <div class="form-group">
+                    <label for="article-title">Título:</label>
+                    <input type="text" id="article-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="article-description">Descripción:</label>
+                    <textarea id="article-description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="article-content">Contenido (Markdown):</label>
+                    <textarea id="article-content" required style="min-height: 200px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="article-tags">Tags (separados por comas):</label>
+                    <input type="text" id="article-tags">
+                </div>
+                <div class="form-group">
+                    <label for="article-image">URL de la imagen:</label>
+                    <input type="url" id="article-image">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="article-publish-linkedin"> Publicar automáticamente en LinkedIn
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-success">Guardar Artículo</button>
+                <button type="button" class="btn" onclick="closeModal('article-modal')">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Crear/Editar Publicación del Foro -->
+    <div id="forum-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('forum-modal')">&times;</span>
+            <h2 id="forum-modal-title">Crear Nueva Publicación del Foro</h2>
+            <form id="forum-form">
+                <div class="form-group">
+                    <label for="forum-title">Título:</label>
+                    <input type="text" id="forum-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="forum-content">Contenido:</label>
+                    <textarea id="forum-content" required style="min-height: 200px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="forum-category">Categoría:</label>
+                    <select id="forum-category" required>
+                        <option value="">Seleccionar categoría</option>
+                        <option value="general">General</option>
+                        <option value="tecnologia">Tecnología</option>
+                        <option value="diseno">Diseño</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="programacion">Programación</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="forum-publish-linkedin"> Publicar automáticamente en LinkedIn
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-success">Guardar Publicación</button>
+                <button type="button" class="btn" onclick="closeModal('forum-modal')">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Estilos adicionales para modales -->
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: var(--color-secondary);
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+        .btn-danger {
+            background: #dc3545;
+        }
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        .hidden {
+            display: none;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        .error {
+            color: red;
+            background: #ffe6e6;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+    </style>
+
     <script>
         // Configuración de Auth0
         const auth0Config = {
