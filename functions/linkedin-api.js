@@ -171,9 +171,18 @@ exports.handler = async (event, context) => {
         // Endpoint para autorización
         if (endpoint === 'auth') {
             if (event.httpMethod === 'POST') {
+                console.log('🔗 Procesando autorización de LinkedIn...');
+                console.log('📋 Variables de entorno:');
+                console.log('- LINKEDIN_CLIENT_ID:', LINKEDIN_CLIENT_ID ? 'Configurado' : 'NO CONFIGURADO');
+                console.log('- LINKEDIN_CLIENT_SECRET:', LINKEDIN_CLIENT_SECRET ? 'Configurado' : 'NO CONFIGURADO');
+                
                 const { code, redirectUri } = JSON.parse(event.body || '{}');
+                console.log('📋 Datos recibidos:');
+                console.log('- code:', code ? 'Presente' : 'Ausente');
+                console.log('- redirectUri:', redirectUri);
 
                 if (!code || !redirectUri) {
+                    console.log('❌ Datos faltantes');
                     return {
                         statusCode: 400,
                         headers,
@@ -182,8 +191,13 @@ exports.handler = async (event, context) => {
                 }
 
                 try {
+                    console.log('🔄 Obteniendo token de acceso...');
                     const accessToken = await getLinkedInAccessToken(code, redirectUri);
+                    console.log('✅ Token obtenido:', accessToken ? 'Exitoso' : 'Fallido');
+                    
+                    console.log('🔄 Obteniendo perfil...');
                     const profile = await getLinkedInProfile(accessToken);
+                    console.log('✅ Perfil obtenido:', profile ? 'Exitoso' : 'Fallido');
 
                     return {
                         statusCode: 200,
@@ -195,12 +209,13 @@ exports.handler = async (event, context) => {
                         })
                     };
                 } catch (error) {
+                    console.error('❌ Error en autorización:', error.message);
                     return {
                         statusCode: 400,
                         headers,
-                        body: JSON.stringify({ 
-                            error: 'Error en autorización de LinkedIn',
-                            details: error.message 
+                        body: JSON.stringify({
+                            success: false,
+                            error: error.message
                         })
                     };
                 }
