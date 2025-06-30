@@ -3,8 +3,7 @@ const auth0Config = {
     domain: "dev-b0qip4vee7sg3q7e.us.auth0.com",
     clientId: "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab",
     authorizationParams: {
-        redirect_uri: window.location.origin + "/admin/",
-        audience: "https://service.hgaruna.org/api"
+        redirect_uri: window.location.origin + "/admin/"
     },
     cacheLocation: "localstorage"
 };
@@ -18,16 +17,6 @@ const configureClient = async () => {
         // Verificar que auth0 esté disponible
         if (typeof auth0 === 'undefined') {
             console.error("Auth0 SDK no está cargado");
-            return null;
-        }
-        
-        console.log("Auth0 SDK disponible:", auth0);
-        console.log("Métodos disponibles en auth0:", Object.keys(auth0));
-        
-        // Verificar si createAuth0Client está disponible
-        if (typeof auth0.createAuth0Client !== 'function') {
-            console.error("createAuth0Client no está disponible en auth0");
-            console.log("auth0.createAuth0Client:", auth0.createAuth0Client);
             return null;
         }
         

@@ -3,7 +3,6 @@ const jwksClient = require('jwks-rsa');
 
 // Configuración de Auth0
 const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'dev-b0qip4vee7sg3q7e.us.auth0.com';
-const AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE || 'https://service.hgaruna.org/api';
 
 // Cliente JWKS para verificar tokens
 const client = jwksClient({
@@ -22,7 +21,6 @@ function getKey(header, callback) {
 function verifyToken(token) {
     return new Promise((resolve, reject) => {
         jwt.verify(token, getKey, {
-            audience: AUTH0_AUDIENCE,
             issuer: `https://${AUTH0_DOMAIN}/`,
             algorithms: ['RS256']
         }, (err, decoded) => {
