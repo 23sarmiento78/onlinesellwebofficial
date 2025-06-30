@@ -167,6 +167,7 @@ exports.handler = async (event, context) => {
 
         console.log('LinkedIn API - Endpoint:', endpoint);
         console.log('LinkedIn API - Método:', event.httpMethod);
+        console.log('LinkedIn API - Body:', event.body);
 
         // Endpoint para autorización
         if (endpoint === 'auth') {
@@ -176,7 +177,34 @@ exports.handler = async (event, context) => {
                 console.log('- LINKEDIN_CLIENT_ID:', LINKEDIN_CLIENT_ID ? 'Configurado' : 'NO CONFIGURADO');
                 console.log('- LINKEDIN_CLIENT_SECRET:', LINKEDIN_CLIENT_SECRET ? 'Configurado' : 'NO CONFIGURADO');
                 
-                const { code, redirectUri } = JSON.parse(event.body || '{}');
+                if (!LINKEDIN_CLIENT_ID || !LINKEDIN_CLIENT_SECRET) {
+                    console.error('❌ Variables de entorno de LinkedIn no configuradas');
+                    return {
+                        statusCode: 500,
+                        headers,
+                        body: JSON.stringify({
+                            success: false,
+                            error: 'Configuración de LinkedIn incompleta'
+                        })
+                    };
+                }
+                
+                let bodyData;
+                try {
+                    bodyData = JSON.parse(event.body || '{}');
+                } catch (parseError) {
+                    console.error('❌ Error parseando body:', parseError);
+                    return {
+                        statusCode: 400,
+                        headers,
+                        body: JSON.stringify({
+                            success: false,
+                            error: 'Body JSON inválido'
+                        })
+                    };
+                }
+                
+                const { code, redirectUri } = bodyData;
                 console.log('📋 Datos recibidos:');
                 console.log('- code:', code ? 'Presente' : 'Ausente');
                 console.log('- redirectUri:', redirectUri);
@@ -186,7 +214,11 @@ exports.handler = async (event, context) => {
                     return {
                         statusCode: 400,
                         headers,
-                        body: JSON.stringify({ error: 'Código y redirect_uri requeridos' })
+                        body: JSON.stringify({ 
+                            success: false,
+                            error: 'Código y redirect_uri requeridos',
+                            received: { code: !!code, redirectUri: !!redirectUri }
+                        })
                     };
                 }
 
@@ -210,12 +242,14 @@ exports.handler = async (event, context) => {
                     };
                 } catch (error) {
                     console.error('❌ Error en autorización:', error.message);
+                    console.error('❌ Stack trace:', error.stack);
                     return {
                         statusCode: 400,
                         headers,
                         body: JSON.stringify({
                             success: false,
-                            error: error.message
+                            error: error.message,
+                            details: error.stack
                         })
                     };
                 }
