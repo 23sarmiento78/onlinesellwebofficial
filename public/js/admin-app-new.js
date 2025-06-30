@@ -61,24 +61,28 @@ window.onload = function() {
 async function loadFeed() {
   // Artículos
   try {
-    const res = await fetch('/data/articles.json');
+    const res = await fetch('/.netlify/functions/get-articles');
     const data = await res.json();
     const articles = Array.isArray(data) ? data : (data.articles || data);
     const latestArticles = articles.slice(0, 3);
     const container = document.getElementById('latest-articles');
     if (container) {
-      container.innerHTML = latestArticles.map(a => `
-        <div class="feed-card">
+      container.innerHTML = latestArticles.map((a, idx) => `
+        <div class="feed-card" data-article-idx="${idx}">
           <div class="feed-card-title">${a.title}</div>
           <div class="feed-card-meta">Por ${a.author} | ${a.createdAt ? new Date(a.createdAt).toLocaleString() : ''}</div>
           <div class="feed-card-content">${a.content?.slice(0, 120) || ''}${a.content && a.content.length > 120 ? '...' : ''}</div>
         </div>
       `).join('');
+      // Agregar evento para mostrar artículo completo
+      Array.from(container.querySelectorAll('.feed-card')).forEach((el, idx) => {
+        el.onclick = () => showFullArticle(articles[idx]);
+      });
     }
   } catch {}
   // Foro
   try {
-    const res = await fetch('/data/forum-posts.json');
+    const res = await fetch('/.netlify/functions/get-forum-posts');
     const data = await res.json();
     const posts = Array.isArray(data) ? data : (data.posts || data);
     const latestPosts = posts.slice(0, 3);
@@ -112,12 +116,16 @@ async function submitArticleForm(articleForm, articleResult) {
     seoKeywords: document.getElementById('article-seo-keywords').value,
     image: document.getElementById('article-image').value
   };
+  // Obtener token de LinkedIn si existe
+  const linkedinToken = localStorage.getItem('linkedin_token') || '';
+  // Construir URL del artículo (puedes ajustar la ruta según tu estructura)
+  const articleUrl = window.location.origin + '/blog/';
   const res = await fetch('/.netlify/functions/admin-api', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ action: 'create-article', article: body })
+    body: JSON.stringify({ action: 'create-article', article: body, linkedinToken, articleUrl })
   });
   const data = await res.json();
   if (res.ok) {
@@ -206,3 +214,24 @@ if (forumForm) {
     submitForumForm(forumForm, forumResult);
   };
 }
+
+// Mostrar artículo completo al hacer clic en el feed
+function showFullArticle(article) {
+  const modal = document.getElementById('article-modal');
+  if (!modal) return;
+  modal.querySelector('.modal-title').textContent = article.title;
+  modal.querySelector('.modal-author').textContent = article.author;
+  modal.querySelector('.modal-date').textContent = article.createdAt ? new Date(article.createdAt).toLocaleString() : '';
+  modal.querySelector('.modal-content').textContent = article.content;
+  modal.style.display = 'block';
+}
+
+// Cerrar modal de artículo completo
+window.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('article-modal');
+  if (modal) {
+    modal.querySelector('.modal-close').onclick = () => {
+      modal.style.display = 'none';
+    };
+  }
+});

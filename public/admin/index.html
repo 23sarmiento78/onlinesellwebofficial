@@ -90,6 +90,18 @@
       </div>
     </aside>
   </div>
+  <!-- Modal para mostrar artículo completo -->
+  <div id="article-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#fff; max-width:600px; width:90vw; margin:auto; border-radius:8px; padding:24px; position:relative; box-shadow:0 8px 32px rgba(0,0,0,0.2);">
+      <button class="modal-close" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+      <h2 class="modal-title" style="margin-top:0;"></h2>
+      <div class="modal-meta" style="color:#666; font-size:0.95em; margin-bottom:8px;">
+        <span class="modal-author"></span> | <span class="modal-date"></span>
+      </div>
+      <div class="modal-content" style="white-space:pre-line; margin-bottom:16px;"></div>
+    </div>
+  </div>
+  <!-- Fin modal artículo -->
   <script src="/js/admin-app-new.js"></script>
 </body>
 </html>

@@ -57,9 +57,43 @@ exports.handler = async function(event, context) {
           console.log('[admin-api] Intentando insertar artículo...');
           await db.collection(ARTICLES_COLLECTION).insertOne(newArticle);
           console.log('[admin-api] Artículo insertado correctamente');
+
+          // Crear post resumido en el foro
+          const resumen = newArticle.content.length > 200 ? newArticle.content.substring(0, 197) + '...' : newArticle.content;
+          const forumPost = {
+            title: newArticle.title,
+            content: resumen,
+            author: newArticle.author,
+            createdAt: newArticle.createdAt,
+            tags: newArticle.seoKeywords || '',
+            articleId: newArticle._id || null // para referencia cruzada
+          };
+          await db.collection(FORUM_COLLECTION).insertOne(forumPost);
+          console.log('[admin-api] Post de foro creado automáticamente');
+
+          // Automatizar publicación en LinkedIn (solo si hay token en el body)
+          if (body.linkedinToken) {
+            const linkedinContent = `${forumPost.title}\n\n${resumen}\n\n${forumPost.tags ? forumPost.tags.split(',').map(t => '#' + t.trim().replace(/\s+/g, '')).join(' ') : ''}\n\nLee el artículo completo en: ${body.articleUrl || ''}`;
+            try {
+              const linkedinRes = await fetch('https://service.hgaruna.org/.netlify/functions/linkedin-api/post', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: linkedinContent, accessToken: body.linkedinToken })
+              });
+              const linkedinData = await linkedinRes.json();
+              if (linkedinRes.ok && linkedinData.success) {
+                console.log('[admin-api] Publicado en LinkedIn');
+              } else {
+                console.warn('[admin-api] Error publicando en LinkedIn:', linkedinData.message || 'Error desconocido');
+              }
+            } catch (err) {
+              console.warn('[admin-api] Error al conectar con LinkedIn:', err.message);
+            }
+          }
+
           return {
             statusCode: 200,
-            body: JSON.stringify({ success: true, article: newArticle })
+            body: JSON.stringify({ success: true, article: newArticle, forumPost })
           };
         }
         if (body.action === 'create-forum-post' && body.post) {
