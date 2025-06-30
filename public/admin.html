@@ -167,7 +167,11 @@
     <aside class="metrics-panel social-widgets">
       <h2>Panel Social</h2>
       <div class="widget-box">
-        <button class="btn-filled" disabled><i class="fa-brands fa-linkedin"></i> Conectar LinkedIn</button>
+        <button id="linkedin-connect-btn" class="btn-filled"><i class="fa-brands fa-linkedin"></i> Conectar LinkedIn</button>
+        <span id="linkedin-status" style="margin-left:10px;font-size:0.98em;color:#2563eb;"></span>
+      </div>
+      <div class="widget-box">
+        <button id="linkedin-publish-btn" class="btn-outline"><i class="fa-brands fa-linkedin"></i> Publicar en LinkedIn</button>
       </div>
       <div class="widget-box">
         <button class="btn-outline" disabled><i class="fa-solid fa-user-plus"></i> Invitar usuario</button>
@@ -184,5 +188,93 @@
     </aside>
   </div>
   <script src="/js/admin-app-new.js"></script>
+  <script>
+// LinkedIn OAuth y publicación
+const LINKEDIN_CLIENT_ID = '77w90bvizsj1y9'; // Cambia por tu client_id real
+const LINKEDIN_REDIRECT_URI = window.location.origin + '/admin.html';
+const LINKEDIN_SCOPE = 'w_member_social r_liteprofile r_emailaddress';
+const linkedinConnectBtn = document.getElementById('linkedin-connect-btn');
+const linkedinStatus = document.getElementById('linkedin-status');
+const linkedinPublishBtn = document.getElementById('linkedin-publish-btn');
+
+function updateLinkedInStatus() {
+  const token = localStorage.getItem('linkedin_token');
+  if (token) {
+    linkedinStatus.textContent = 'Conectado';
+    linkedinConnectBtn.textContent = 'Desconectar LinkedIn';
+    linkedinConnectBtn.classList.remove('btn-filled');
+    linkedinConnectBtn.classList.add('btn-outline');
+    linkedinPublishBtn.disabled = false;
+  } else {
+    linkedinStatus.textContent = 'No conectado';
+    linkedinConnectBtn.textContent = 'Conectar LinkedIn';
+    linkedinConnectBtn.classList.add('btn-filled');
+    linkedinConnectBtn.classList.remove('btn-outline');
+    linkedinPublishBtn.disabled = true;
+  }
+}
+
+linkedinConnectBtn.onclick = function() {
+  const token = localStorage.getItem('linkedin_token');
+  if (token) {
+    localStorage.removeItem('linkedin_token');
+    updateLinkedInStatus();
+    return;
+  }
+  const state = Math.random().toString(36).substring(2);
+  localStorage.setItem('linkedin_state', state);
+  const authUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${LINKEDIN_CLIENT_ID}&redirect_uri=${encodeURIComponent(LINKEDIN_REDIRECT_URI)}&state=${state}&scope=${encodeURIComponent(LINKEDIN_SCOPE)}`;
+  window.location.href = authUrl;
+};
+
+// Procesar callback de LinkedIn
+(function handleLinkedInCallback() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('code') && params.has('state')) {
+    const code = params.get('code');
+    const state = params.get('state');
+    if (state === localStorage.getItem('linkedin_state')) {
+      fetch('/.netlify/functions/linkedin-api', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'exchange', code, redirectUri: LINKEDIN_REDIRECT_URI })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.access_token) {
+          localStorage.setItem('linkedin_token', data.access_token);
+          window.history.replaceState({}, document.title, window.location.pathname);
+          updateLinkedInStatus();
+          alert('¡Conexión con LinkedIn exitosa!');
+        } else {
+          alert('Error al conectar con LinkedIn');
+        }
+      });
+    }
+  }
+})();
+
+linkedinPublishBtn.onclick = function() {
+  const token = localStorage.getItem('linkedin_token');
+  if (!token) return alert('Primero conecta tu cuenta de LinkedIn');
+  const content = prompt('Escribe el contenido para publicar en LinkedIn:');
+  if (!content) return;
+  fetch('/.netlify/functions/linkedin-api', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'publish', token, content })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert('¡Publicado en LinkedIn!');
+    } else {
+      alert('Error al publicar en LinkedIn');
+    }
+  });
+};
+
+updateLinkedInStatus();
+  </script>
 </body>
 </html>
