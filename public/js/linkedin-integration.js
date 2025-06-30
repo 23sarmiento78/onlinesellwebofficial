@@ -125,10 +125,9 @@ class LinkedInIntegration {
   // Obtener perfil del usuario
   async getProfile() {
     try {
-      const response = await fetch(`https://api.linkedin.com/${this.apiVersion}/me`, {
+      const response = await fetch('https://api.linkedin.com/v2/userinfo', {
         headers: {
-          'Authorization': `Bearer ${this.accessToken}`,
-          'X-Restli-Protocol-Version': '2.0.0'
+          'Authorization': `Bearer ${this.accessToken}`
         }
       });
 
@@ -143,13 +142,75 @@ class LinkedInIntegration {
     }
   }
 
-  // Compartir publicación en LinkedIn
+  // Registrar y subir imagen/video a LinkedIn
+  async uploadMedia(file, type = 'IMAGE') {
+    const owner = `urn:li:person:${await this.getPersonURN()}`;
+    const recipe = type === 'IMAGE' ? 'urn:li:digitalmediaRecipe:feedshare-image' : 'urn:li:digitalmediaRecipe:feedshare-video';
+    // 1. Registrar upload
+    const registerRes = await fetch('https://api.linkedin.com/v2/assets?action=registerUpload', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`,
+        'Content-Type': 'application/json',
+        'X-Restli-Protocol-Version': '2.0.0'
+      },
+      body: JSON.stringify({
+        registerUploadRequest: {
+          recipes: [recipe],
+          owner,
+          serviceRelationships: [
+            { relationshipType: 'OWNER', identifier: 'urn:li:userGeneratedContent' }
+          ]
+        }
+      })
+    });
+    const regData = await registerRes.json();
+    const uploadUrl = regData.value.uploadMechanism['com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest'].uploadUrl;
+    const asset = regData.value.asset;
+    // 2. Subir archivo binario
+    await fetch(uploadUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      body: file
+    });
+    // 3. Devolver asset URN
+    return asset;
+  }
+
+  // Compartir publicación en LinkedIn (texto, artículo, imagen, video)
   async sharePost(postData) {
     try {
       if (!this.accessToken) {
         throw new Error('No hay token de acceso. Autentícate primero.');
       }
-
+      let shareMediaCategory = 'NONE';
+      let media = undefined;
+      // Imagen o video
+      if (postData.file && (postData.fileType === 'IMAGE' || postData.fileType === 'VIDEO')) {
+        shareMediaCategory = postData.fileType;
+        const asset = await this.uploadMedia(postData.file, postData.fileType);
+        media = [
+          {
+            status: 'READY',
+            media: asset,
+            title: postData.title ? { text: postData.title } : undefined,
+            description: postData.description ? { text: postData.description } : undefined
+          }
+        ];
+      } else if (postData.url) {
+        // Artículo/enlace
+        shareMediaCategory = 'ARTICLE';
+        media = [
+          {
+            status: 'READY',
+            originalUrl: postData.url,
+            title: postData.title ? { text: postData.title } : undefined,
+            description: postData.description ? { text: postData.description } : undefined
+          }
+        ];
+      }
       const shareData = {
         author: `urn:li:person:${await this.getPersonURN()}`,
         lifecycleState: 'PUBLISHED',
@@ -158,14 +219,14 @@ class LinkedInIntegration {
             shareCommentary: {
               text: this.formatPostForLinkedIn(postData)
             },
-            shareMediaCategory: 'NONE'
+            shareMediaCategory,
+            ...(media ? { media } : {})
           }
         },
         visibility: {
           'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC'
         }
       };
-
       const response = await fetch(`https://api.linkedin.com/${this.apiVersion}/ugcPosts`, {
         method: 'POST',
         headers: {
@@ -175,12 +236,10 @@ class LinkedInIntegration {
         },
         body: JSON.stringify(shareData)
       });
-
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(`Error compartiendo en LinkedIn: ${errorData.message}`);
       }
-
       const result = await response.json();
       console.log('✅ Publicación compartida en LinkedIn:', result);
       return result;
