@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración</title>
-    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+    <!-- SDK de Auth0 - Versión más reciente -->
+    <script src="https://unpkg.com/@auth0/auth0-spa-js@2.2.0/dist/auth0-spa-js.production.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -79,6 +80,13 @@
             padding: 20px;
             color: #666;
         }
+        .error {
+            color: red;
+            background: #ffe6e6;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -94,6 +102,13 @@
         <div id="loading-section" class="loading">
             <h2>Cargando...</h2>
             <p>Inicializando sistema de autenticación</p>
+        </div>
+
+        <!-- Sección de Error -->
+        <div id="error-section" class="error hidden">
+            <h3>Error de Carga</h3>
+            <p id="error-message">No se pudo cargar el SDK de Auth0</p>
+            <button onclick="location.reload()" class="btn">🔄 Recargar Página</button>
         </div>
 
         <!-- Sección de Login -->
@@ -146,22 +161,43 @@
         // Variable global para el cliente Auth0
         let auth0Client = null;
 
+        // Función para verificar si el SDK se cargó correctamente
+        function checkSDKLoaded() {
+            return new Promise((resolve, reject) => {
+                let attempts = 0;
+                const maxAttempts = 50; // 5 segundos
+                
+                const check = () => {
+                    attempts++;
+                    
+                    if (typeof auth0 !== 'undefined' && auth0.createAuth0Client) {
+                        console.log("✅ SDK de Auth0 cargado correctamente");
+                        resolve(auth0);
+                    } else if (attempts >= maxAttempts) {
+                        reject(new Error("SDK de Auth0 no se pudo cargar después de 5 segundos"));
+                    } else {
+                        setTimeout(check, 100);
+                    }
+                };
+                
+                check();
+            });
+        }
+
         // Función para inicializar el cliente Auth0
         const configureClient = async () => {
             try {
                 console.log("🔐 Inicializando Auth0...");
                 console.log("📋 Configuración:", auth0Config);
                 
-                // Verificar que auth0 esté disponible
-                if (typeof auth0 === 'undefined') {
-                    throw new Error("Auth0 SDK no está cargado");
-                }
+                // Esperar a que el SDK se cargue
+                const auth0SDK = await checkSDKLoaded();
                 
                 console.log("✅ Auth0 SDK disponible");
-                console.log("🔧 Métodos disponibles:", Object.keys(auth0));
+                console.log("🔧 Métodos disponibles:", Object.keys(auth0SDK));
                 
                 // Crear el cliente
-                auth0Client = await auth0.createAuth0Client(auth0Config);
+                auth0Client = await auth0SDK.createAuth0Client(auth0Config);
                 console.log("✅ Auth0 client creado:", auth0Client);
                 
                 return auth0Client;
@@ -281,12 +317,8 @@
 
             showError(message) {
                 document.getElementById('loading-section').classList.add('hidden');
-                document.getElementById('login-section').innerHTML = `
-                    <h2>❌ Error</h2>
-                    <p style="color: red;">${message}</p>
-                    <button onclick="location.reload()" class="btn">🔄 Recargar Página</button>
-                `;
-                document.getElementById('login-section').classList.remove('hidden');
+                document.getElementById('error-message').textContent = message;
+                document.getElementById('error-section').classList.remove('hidden');
             }
 
             async loadUserInfo() {
