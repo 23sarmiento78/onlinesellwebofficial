@@ -836,13 +836,9 @@
 
             async updateUI() {
                 try {
-                    const isAuthenticated = await this.auth0.isAuthenticated();
+                    // Eliminado: const isAuthenticated = await this.auth0.isAuthenticated();
                     
-                    if (isAuthenticated) {
-                        this.showAuthenticatedUI();
-                    } else {
-                        this.showLoginUI();
-                    }
+                    this.showAuthenticatedUI(); // Mostrar siempre la UI autenticada tras login local
                 } catch (error) {
                     console.error("❌ Error actualizando UI:", error);
                     this.showLoginUI();
@@ -861,7 +857,7 @@
 
             showLoginUI() {
                 console.log("🔓 Redirigiendo a login");
-                this.login();
+                // Eliminado: this.login();
             }
 
             showError(message) {
@@ -1084,7 +1080,8 @@
 
             async login() {
                 try {
-                    await this.auth0.loginWithRedirect();
+                    // Eliminado: await this.auth0.loginWithRedirect();
+                    // Aquí puedes poner lógica de login local si es necesario
                 } catch (error) {
                     console.error("❌ Error en login:", error);
                 }
@@ -1092,83 +1089,11 @@
 
             async logout() {
                 try {
-                    await this.auth0.logout({
-                        logoutParams: {
-                            returnTo: window.location.origin
-                        }
-                    });
+                    // Eliminado: await this.auth0.logout({ ... });
+                    // Aquí puedes poner lógica de logout local si es necesario
                 } catch (error) {
                     console.error("❌ Error en logout:", error);
                 }
-            }
-
-            async loadAuth0SDK() {
-                return new Promise((resolve, reject) => {
-                    if (typeof auth0 !== 'undefined') {
-                        resolve();
-                        return;
-                    }
-
-                    const script = document.createElement('script');
-                    script.src = 'https://unpkg.com/@auth0/auth0-spa-js@2.2.0/dist/auth0-spa-js.production.js';
-                    script.onload = () => resolve();
-                    script.onerror = () => reject(new Error('No se pudo cargar el SDK de Auth0'));
-                    document.head.appendChild(script);
-                });
-            }
-
-            setupEventListeners() {
-                // Botón de logout
-                document.getElementById('logout-btn').addEventListener('click', () => {
-                    this.logout();
-                });
-
-                // Botones de creación
-                document.getElementById('new-article-btn').addEventListener('click', () => {
-                    console.log("📝 Abriendo modal de artículo");
-                    showModal('article-modal');
-                });
-
-                document.getElementById('new-forum-post-btn').addEventListener('click', () => {
-                    console.log("💬 Abriendo modal de foro");
-                    showModal('forum-modal');
-                });
-
-                // Botón de LinkedIn
-                document.getElementById('linkedin-post-btn').addEventListener('click', () => {
-                    this.createLinkedInPost();
-                });
-
-                document.getElementById('connect-linkedin-btn').addEventListener('click', () => {
-                    this.connectLinkedIn();
-                });
-
-                // Formularios
-                document.getElementById('article-form').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    console.log("📝 Enviando formulario de artículo");
-                    const formData = {
-                        title: document.getElementById('article-title').value,
-                        description: document.getElementById('article-description').value,
-                        content: document.getElementById('article-content').value,
-                        tags: document.getElementById('article-tags').value.split(',').map(tag => tag.trim()),
-                        image: document.getElementById('article-image').value,
-                        publishLinkedIn: document.getElementById('article-publish-linkedin').checked
-                    };
-                    createArticle(formData);
-                });
-
-                document.getElementById('forum-form').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    console.log("💬 Enviando formulario de foro");
-                    const formData = {
-                        title: document.getElementById('forum-title').value,
-                        content: document.getElementById('forum-content').value,
-                        category: document.getElementById('forum-category').value,
-                        publishLinkedIn: document.getElementById('forum-publish-linkedin').checked
-                    };
-                    createForumPost(formData);
-                });
             }
         }
 
