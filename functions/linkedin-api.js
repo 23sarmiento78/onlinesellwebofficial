@@ -46,7 +46,7 @@ async function getLinkedInAccessToken(code, redirectUri) {
             body: new URLSearchParams({
                 grant_type: 'authorization_code',
                 code: code,
-                redirect_Uri: redirectUri,
+                redirect_uri: redirectUri,
                 client_id: LINKEDIN_CLIENT_ID,
                 client_secret: LINKEDIN_CLIENT_SECRET
             })
@@ -359,4 +359,4 @@ exports.handler = async (event, context) => {
             })
         };
     }
-}; 
+};
