@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - v2.0</title>
+    <title>Panel de Administración - v3.0 (Nuevo Diseño)</title>
     <!-- SDK de Auth0 -->
     <script src="https://unpkg.com/@auth0/auth0-spa-js@2.2.0/dist/auth0-spa-js.production.js"></script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -677,6 +677,8 @@
             async loadStats() {
                 try {
                     const token = await this.auth0.getTokenSilently();
+                    console.log("🔑 Token obtenido para stats:", token ? "✅" : "❌");
+                    
                     const response = await fetch('/.netlify/functions/admin-api/stats', {
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -690,15 +692,30 @@
                         document.getElementById('total-posts').textContent = stats.posts || 0;
                         document.getElementById('total-views').textContent = stats.views || 0;
                         document.getElementById('linkedin-posts').textContent = stats.linkedinPosts || 0;
+                        console.log("📊 Estadísticas cargadas:", stats);
+                    } else {
+                        console.error("❌ Error cargando stats:", response.status, response.statusText);
+                        // Mostrar valores por defecto
+                        document.getElementById('total-articles').textContent = '0';
+                        document.getElementById('total-posts').textContent = '0';
+                        document.getElementById('total-views').textContent = '0';
+                        document.getElementById('linkedin-posts').textContent = '0';
                     }
                 } catch (error) {
-                    console.error("Error cargando estadísticas:", error);
+                    console.error("❌ Error cargando estadísticas:", error);
+                    // Mostrar valores por defecto
+                    document.getElementById('total-articles').textContent = '0';
+                    document.getElementById('total-posts').textContent = '0';
+                    document.getElementById('total-views').textContent = '0';
+                    document.getElementById('linkedin-posts').textContent = '0';
                 }
             }
 
             async loadArticles() {
                 try {
                     const token = await this.auth0.getTokenSilently();
+                    console.log("🔑 Token obtenido para articles:", token ? "✅" : "❌");
+                    
                     const response = await fetch('/.netlify/functions/admin-api/articles', {
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -723,16 +740,22 @@
                         } else {
                             articlesList.innerHTML = '<p>No hay artículos publicados.</p>';
                         }
+                        console.log("📝 Artículos cargados:", data.articles?.length || 0);
+                    } else {
+                        console.error("❌ Error cargando articles:", response.status, response.statusText);
+                        document.getElementById('articles-list').innerHTML = '<p>Error al cargar artículos. Intenta recargar la página.</p>';
                     }
                 } catch (error) {
-                    console.error("Error cargando artículos:", error);
-                    document.getElementById('articles-list').innerHTML = '<p>Error al cargar artículos.</p>';
+                    console.error("❌ Error cargando artículos:", error);
+                    document.getElementById('articles-list').innerHTML = '<p>Error al cargar artículos. Intenta recargar la página.</p>';
                 }
             }
 
             async loadForumPosts() {
                 try {
                     const token = await this.auth0.getTokenSilently();
+                    console.log("🔑 Token obtenido para forum posts:", token ? "✅" : "❌");
+                    
                     const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -757,10 +780,14 @@
                         } else {
                             postsList.innerHTML = '<p>No hay publicaciones del foro.</p>';
                         }
+                        console.log("💬 Publicaciones del foro cargadas:", data.posts?.length || 0);
+                    } else {
+                        console.error("❌ Error cargando forum posts:", response.status, response.statusText);
+                        document.getElementById('forum-posts-list').innerHTML = '<p>Error al cargar publicaciones. Intenta recargar la página.</p>';
                     }
                 } catch (error) {
-                    console.error("Error cargando publicaciones del foro:", error);
-                    document.getElementById('forum-posts-list').innerHTML = '<p>Error al cargar publicaciones.</p>';
+                    console.error("❌ Error cargando publicaciones del foro:", error);
+                    document.getElementById('forum-posts-list').innerHTML = '<p>Error al cargar publicaciones. Intenta recargar la página.</p>';
                 }
             }
 
