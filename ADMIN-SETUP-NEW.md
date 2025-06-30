@@ -134,4 +134,29 @@ Tu nuevo sistema de administración está completamente configurado y funcionand
 - El sistema usa Auth0 SPA SDK para la autenticación del frontend
 - Todas las API están protegidas con JWT tokens
 - El sistema está preparado para expandir funcionalidades
-- Los estilos son básicos y pueden ser personalizados según necesidades 
+- Los estilos son básicos y pueden ser personalizados según necesidades
+
+# Guía rápida para el nuevo sistema admin
+
+## 1. Configura Auth0
+- Crea una aplicación SPA en Auth0.
+- Obtén tu dominio, client_id y audience.
+- Configura la API en Auth0 y copia la clave pública (JWK o PEM).
+
+## 2. Edita los archivos de configuración
+- En `public/js/admin-app-new.js` reemplaza:
+  - `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, `AUTH0_AUDIENCE` por tus valores reales.
+- En `functions/admin-api.js` reemplaza:
+  - `AUTH0_PUBLIC_KEY` por tu clave pública de Auth0 (o usa variable de entorno).
+
+## 3. Uso
+- Accede a `/admin/` y haz login con Auth0.
+- El panel mostrará tu email y permitirá hacer peticiones protegidas al backend.
+
+## 4. Seguridad
+- Nunca subas tus claves privadas al repositorio.
+- Usa variables de entorno para las claves sensibles en producción.
+
+---
+
+¿Dudas? Consulta la documentación de Auth0 o pide ayuda aquí.

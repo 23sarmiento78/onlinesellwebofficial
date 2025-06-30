@@ -1,0 +1,19 @@
+// Este archivo es un respaldo de los scripts admin antiguos. Si necesitas restaurar alguna funcionalidad, recupérala desde aquí.
+
+// admin-app.js
+// ...código original...
+
+// auth0-config.js
+// ...código original...
+
+// auth0-debug.js
+// ...código original...
+
+// auth0-test.js
+// ...código original...
+
+// form-setup.js
+// ...código original...
+
+// verify-forms.js
+// ...código original...

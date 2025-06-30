@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div id="admin-app">
+    <h1>Panel de Administración</h1>
+    <div id="login-section">
+      <button id="login-btn">Iniciar sesión</button>
+    </div>
+    <div id="dashboard" style="display:none;">
+      <p>Bienvenido, <span id="user-email"></span></p>
+      <button id="logout-btn">Cerrar sesión</button>
+      <h2>Gestión de Contenido</h2>
+      <button id="get-data-btn">Ver datos protegidos</button>
+      <pre id="api-response"></pre>
+      <hr>
+      <h3>Crear Artículo</h3>
+      <form id="article-form">
+        <label>Título:<br><input type="text" id="article-title" required></label><br>
+        <label>Contenido:<br><textarea id="article-content" required></textarea></label><br>
+        <label>Autor:<br><input type="text" id="article-author" required></label><br>
+        <label>Descripción SEO:<br><input type="text" id="article-seo-description" maxlength="160" required></label><br>
+        <label>Palabras clave SEO (separadas por coma):<br><input type="text" id="article-seo-keywords" required></label><br>
+        <label>Imagen destacada (URL):<br><input type="url" id="article-image"></label><br>
+        <button type="submit">Publicar artículo</button>
+      </form>
+      <div id="article-result"></div>
+      <hr>
+      <h3>Crear Publicación en el Foro</h3>
+      <form id="forum-form">
+        <label>Título:<br><input type="text" id="forum-title" required></label><br>
+        <label>Contenido:<br><textarea id="forum-content" required></textarea></label><br>
+        <label>Autor:<br><input type="text" id="forum-author" required></label><br>
+        <label>Etiquetas (separadas por coma):<br><input type="text" id="forum-tags"></label><br>
+        <button type="submit">Publicar en el foro</button>
+      </form>
+      <div id="forum-result"></div>
+    </div>
+  </div>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+  <script src="/js/admin-app-new.js"></script>
+</body>
+</html>
