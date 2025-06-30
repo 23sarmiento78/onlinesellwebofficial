@@ -31,45 +31,65 @@ async function connectToDatabase() {
 }
 
 exports.handler = async function(event, context) {
-  if (event.httpMethod === 'POST') {
-    const body = JSON.parse(event.body || '{}');
-    try {
-      const client = await connectToDatabase();
-      const db = client.db(DB_NAME);
-      if (body.action === 'create-article' && body.article) {
-        const newArticle = {
-          ...body.article,
-          createdAt: new Date().toISOString()
-        };
-        await db.collection(ARTICLES_COLLECTION).insertOne(newArticle);
+  try {
+    if (event.httpMethod === 'POST') {
+      let body;
+      try {
+        body = JSON.parse(event.body || '{}');
+      } catch (parseError) {
         return {
-          statusCode: 200,
-          body: JSON.stringify({ success: true, article: newArticle })
+          statusCode: 400,
+          body: JSON.stringify({ error: 'JSON inválido en el body', details: parseError.message })
         };
       }
-      if (body.action === 'create-forum-post' && body.post) {
-        const newPost = {
-          ...body.post,
-          createdAt: new Date().toISOString()
-        };
-        await db.collection(FORUM_COLLECTION).insertOne(newPost);
+      try {
+        const client = await connectToDatabase();
+        const db = client.db(DB_NAME);
+        if (body.action === 'create-article' && body.article) {
+          const newArticle = {
+            ...body.article,
+            createdAt: new Date().toISOString()
+          };
+          await db.collection(ARTICLES_COLLECTION).insertOne(newArticle);
+          return {
+            statusCode: 200,
+            body: JSON.stringify({ success: true, article: newArticle })
+          };
+        }
+        if (body.action === 'create-forum-post' && body.post) {
+          const newPost = {
+            ...body.post,
+            createdAt: new Date().toISOString()
+          };
+          await db.collection(FORUM_COLLECTION).insertOne(newPost);
+          return {
+            statusCode: 200,
+            body: JSON.stringify({ success: true, post: newPost })
+          };
+        }
+        // Acción no reconocida
         return {
-          statusCode: 200,
-          body: JSON.stringify({ success: true, post: newPost })
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Acción no reconocida o datos incompletos' })
         };
+      } catch (e) {
+        console.log('[admin-api] ❌ Error en handler:', e.message);
+        return { statusCode: 500, body: JSON.stringify({ error: 'Error guardando en la base de datos', details: e.message }) };
       }
-    } catch (e) {
-      console.log('[admin-api] ❌ Error en handler:', e.message);
-      return { statusCode: 500, body: JSON.stringify({ error: 'Error guardando en la base de datos', details: e.message }) };
     }
+    // Respuesta protegida por defecto para otros métodos
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: 'Acceso concedido al API admin',
+        date: new Date().toISOString()
+      })
+    };
+  } catch (fatalError) {
+    console.error('[admin-api] ❌ Error fatal:', fatalError);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Error interno inesperado', details: fatalError.message })
+    };
   }
-
-  // Respuesta protegida por defecto
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Acceso concedido al API admin',
-      date: new Date().toISOString()
-    })
-  };
 };
