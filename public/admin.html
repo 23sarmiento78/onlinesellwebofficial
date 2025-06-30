@@ -6,6 +6,8 @@
     <title>Panel de Administración - v3.0 (Nuevo Diseño)</title>
     <!-- SDK de Auth0 -->
     <script src="https://unpkg.com/@auth0/auth0-spa-js@2.2.0/dist/auth0-spa-js.production.js"></script>
+    <!-- Script de diagnóstico de Auth0 -->
+    <script src="js/auth0-debug.js"></script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -641,7 +643,8 @@
             domain: "dev-b0qip4vee7sg3q7e.us.auth0.com",
             clientId: "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab",
             authorizationParams: {
-                redirect_uri: "https://service.hgaruna.org/admin/"
+                redirect_uri: "https://service.hgaruna.org/admin/",
+                audience: "https://service.hgaruna.org/api"
             },
             cacheLocation: "localstorage"
         };
@@ -741,7 +744,7 @@
                         domain: 'dev-b0qip4vee7sg3q7e.us.auth0.com',
                         client_id: '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab',
                         authorizationParams: {
-                            redirect_uri: window.location.origin + '/admin/',
+                            redirect_uri: 'https://service.hgaruna.org/admin/',
                             audience: 'https://service.hgaruna.org/api'
                         }
                     });

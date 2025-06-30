@@ -3,7 +3,8 @@ const auth0Config = {
     domain: "dev-b0qip4vee7sg3q7e.us.auth0.com",
     clientId: "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab",
     authorizationParams: {
-        redirect_uri: window.location.origin + "/admin/"
+        redirect_uri: "https://service.hgaruna.org/admin/",
+        audience: "https://service.hgaruna.org/api"
     },
     cacheLocation: "localstorage"
 };
