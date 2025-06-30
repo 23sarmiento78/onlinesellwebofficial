@@ -74,6 +74,11 @@
         .hidden {
             display: none;
         }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -85,8 +90,14 @@
             </div>
         </div>
 
+        <!-- Sección de Loading -->
+        <div id="loading-section" class="loading">
+            <h2>Cargando...</h2>
+            <p>Inicializando sistema de autenticación</p>
+        </div>
+
         <!-- Sección de Login -->
-        <div id="login-section" class="login-section">
+        <div id="login-section" class="login-section hidden">
             <h2>Iniciar Sesión</h2>
             <p>Para acceder al panel de administración, debes iniciar sesión.</p>
             <button id="login-btn" class="btn">Iniciar Sesión</button>
@@ -120,7 +131,204 @@
         </div>
     </div>
 
-    <script src="js/auth0-config.js"></script>
-    <script src="js/admin-app.js"></script>
+    <script>
+        // Configuración de Auth0
+        const auth0Config = {
+            domain: "dev-b0qip4vee7sg3q7e.us.auth0.com",
+            clientId: "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab",
+            authorizationParams: {
+                redirect_uri: window.location.origin + "/admin/",
+                audience: "https://service.hgaruna.org/api"
+            },
+            cacheLocation: "localstorage"
+        };
+
+        // Variable global para el cliente Auth0
+        let auth0Client = null;
+
+        // Función para inicializar el cliente Auth0
+        const configureClient = async () => {
+            try {
+                console.log("🔐 Inicializando Auth0...");
+                console.log("📋 Configuración:", auth0Config);
+                
+                // Verificar que auth0 esté disponible
+                if (typeof auth0 === 'undefined') {
+                    throw new Error("Auth0 SDK no está cargado");
+                }
+                
+                console.log("✅ Auth0 SDK disponible");
+                console.log("🔧 Métodos disponibles:", Object.keys(auth0));
+                
+                // Crear el cliente
+                auth0Client = await auth0.createAuth0Client(auth0Config);
+                console.log("✅ Auth0 client creado:", auth0Client);
+                
+                return auth0Client;
+            } catch (error) {
+                console.error("❌ Error inicializando Auth0:", error);
+                throw error;
+            }
+        };
+
+        // Aplicación principal
+        class AdminApp {
+            constructor() {
+                this.auth0 = null;
+                this.init();
+            }
+
+            async init() {
+                try {
+                    console.log("🚀 Iniciando AdminApp...");
+                    
+                    // Inicializar Auth0
+                    this.auth0 = await configureClient();
+                    console.log("✅ Auth0 inicializado en AdminApp");
+                    
+                    // Configurar eventos
+                    this.setupEventListeners();
+                    
+                    // Manejar callback
+                    await this.handleAuthenticationCallback();
+                    
+                    // Actualizar UI
+                    await this.updateUI();
+                    
+                } catch (error) {
+                    console.error("❌ Error en AdminApp.init:", error);
+                    this.showError("Error al inicializar la aplicación: " + error.message);
+                }
+            }
+
+            setupEventListeners() {
+                console.log("🔧 Configurando event listeners...");
+                
+                // Botón de login
+                const loginBtn = document.getElementById('login-btn');
+                if (loginBtn) {
+                    loginBtn.addEventListener('click', () => {
+                        console.log("👆 Botón de login clickeado");
+                        this.login();
+                    });
+                }
+
+                // Botón de logout
+                const logoutBtn = document.getElementById('logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', () => {
+                        console.log("👆 Botón de logout clickeado");
+                        this.logout();
+                    });
+                }
+            }
+
+            async handleAuthenticationCallback() {
+                console.log("🔄 Verificando callback...");
+                
+                if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+                    try {
+                        console.log("🔄 Procesando callback...");
+                        await this.auth0.handleRedirectCallback();
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                        console.log("✅ Callback procesado");
+                    } catch (error) {
+                        console.error("❌ Error en callback:", error);
+                    }
+                }
+            }
+
+            async updateUI() {
+                console.log("🎨 Actualizando UI...");
+                
+                try {
+                    const isAuthenticated = await this.auth0.isAuthenticated();
+                    console.log("🔐 Estado de autenticación:", isAuthenticated);
+                    
+                    // Ocultar loading
+                    document.getElementById('loading-section').classList.add('hidden');
+                    
+                    if (isAuthenticated) {
+                        this.showAuthenticatedUI();
+                    } else {
+                        this.showLoginUI();
+                    }
+                } catch (error) {
+                    console.error("❌ Error actualizando UI:", error);
+                    this.showLoginUI();
+                }
+            }
+
+            showAuthenticatedUI() {
+                console.log("👤 Mostrando UI autenticada");
+                
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('user-controls').classList.remove('hidden');
+                document.getElementById('user-info').classList.remove('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                
+                this.loadUserInfo();
+            }
+
+            showLoginUI() {
+                console.log("🔓 Mostrando UI de login");
+                
+                document.getElementById('login-section').classList.remove('hidden');
+                document.getElementById('user-controls').classList.add('hidden');
+                document.getElementById('user-info').classList.add('hidden');
+                document.getElementById('dashboard').classList.add('hidden');
+            }
+
+            showError(message) {
+                document.getElementById('loading-section').classList.add('hidden');
+                document.getElementById('login-section').innerHTML = `
+                    <h2>❌ Error</h2>
+                    <p style="color: red;">${message}</p>
+                    <button onclick="location.reload()" class="btn">🔄 Recargar Página</button>
+                `;
+                document.getElementById('login-section').classList.remove('hidden');
+            }
+
+            async loadUserInfo() {
+                try {
+                    const user = await this.auth0.getUser();
+                    console.log("👤 Usuario:", user);
+                    
+                    document.getElementById('user-name').textContent = user.name || user.nickname || 'Usuario';
+                    document.getElementById('user-email').textContent = user.email || 'No disponible';
+                } catch (error) {
+                    console.error("❌ Error cargando usuario:", error);
+                }
+            }
+
+            async login() {
+                try {
+                    console.log("🔐 Iniciando login...");
+                    await this.auth0.loginWithRedirect();
+                } catch (error) {
+                    console.error("❌ Error en login:", error);
+                }
+            }
+
+            async logout() {
+                try {
+                    console.log("🚪 Iniciando logout...");
+                    await this.auth0.logout({
+                        logoutParams: {
+                            returnTo: window.location.origin
+                        }
+                    });
+                } catch (error) {
+                    console.error("❌ Error en logout:", error);
+                }
+            }
+        }
+
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("📄 DOM cargado, iniciando AdminApp...");
+            new AdminApp();
+        });
+    </script>
 </body>
 </html> 
