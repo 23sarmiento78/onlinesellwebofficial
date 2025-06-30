@@ -9,20 +9,34 @@ const dashboard = document.getElementById('admin-app');
 const loginSection = document.getElementById('login-section');
 const userEmail = document.getElementById('user-email');
 
-// Configuración Auth0 (desde archivo de respaldo)
-const AUTH0_DOMAIN = 'dev-b0qip4vee7sg3q7e.us.auth0.com';
-const AUTH0_CLIENT_ID = '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab';
-const AUTH0_AUDIENCE = 'https://service.hgaruna.org/api';
-const AUTH0_REDIRECT_URI = 'https://service.hgaruna.org/admin/';
+// Cargar configuración desde auth_config.json
+async function fetchAuthConfig() {
+  const res = await fetch('/auth_config.json');
+  return await res.json();
+}
 
+
+// Feedback visual si falla la carga de configuración o Auth0
 async function configureAuth0() {
-  auth0Client = await createAuth0Client({
-    domain: AUTH0_DOMAIN,
-    client_id: AUTH0_CLIENT_ID,
-    audience: AUTH0_AUDIENCE,
-    redirect_uri: AUTH0_REDIRECT_URI,
-    scope: 'openid profile email'
-  });
+  let config;
+  try {
+    config = await fetchAuthConfig();
+  } catch (e) {
+    alert('Error cargando la configuración de Auth0. Verifica el archivo auth_config.json.');
+    throw e;
+  }
+  try {
+    auth0Client = await createAuth0Client({
+      domain: config.domain,
+      client_id: config.clientId,
+      audience: config.audience,
+      redirect_uri: 'https://service.hgaruna.org/admin/',
+      scope: 'openid profile email'
+    });
+  } catch (e) {
+    alert('Error inicializando Auth0. Revisa los parámetros de configuración.');
+    throw e;
+  }
 }
 
 async function handleAuth() {

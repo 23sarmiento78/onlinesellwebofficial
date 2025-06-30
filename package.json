@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@astrojs/sitemap": "^3.4.1",
+    "@auth0/auth0-spa-js": "^2.2.0",
     "astro": "^5.9.3",
     "auth0-spa-js": "^1.6.5",
     "bootstrap": "^5.3.3",
