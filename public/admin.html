@@ -415,6 +415,54 @@
         .modal-content::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
         }
+
+        /* Estilos para notificaciones */
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            z-index: 10000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .notification-success {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+
+        .notification-error {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+        }
+
+        .notification-info {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+        }
     </style>
 </head>
 <body>
@@ -780,14 +828,126 @@
             }
 
             async handleAuthenticationCallback() {
-                if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+                // Solo procesar callback de Auth0 si no es un callback de LinkedIn
+                if (window.location.search.includes("code=") && window.location.search.includes("state=") && !window.location.search.includes("linkedin")) {
                     try {
                         await this.auth0.handleRedirectCallback();
                         window.history.replaceState({}, document.title, window.location.pathname);
                     } catch (error) {
-                        console.error("❌ Error en callback:", error);
+                        console.error("❌ Error en callback de Auth0:", error);
+                        // Si hay error de estado inválido, limpiar y continuar
+                        if (error.message.includes("Invalid state")) {
+                            window.history.replaceState({}, document.title, window.location.pathname);
+                        }
                     }
                 }
+                
+                // Procesar callback de LinkedIn si existe
+                if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+                    const state = new URLSearchParams(window.location.search).get('state');
+                    const savedState = localStorage.getItem('linkedin_state');
+                    
+                    if (state === savedState) {
+                        console.log("🔗 Procesando callback de LinkedIn...");
+                        await this.processLinkedInCallback();
+                    }
+                }
+            }
+
+            async processLinkedInCallback() {
+                try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const code = urlParams.get('code');
+                    const state = urlParams.get('state');
+                    
+                    console.log('🔗 Procesando autorización de LinkedIn...');
+                    console.log('📋 Código:', code);
+                    console.log('🔒 Estado:', state);
+
+                    // Intercambiar código por token de acceso
+                    const response = await fetch('/.netlify/functions/linkedin-api/auth', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            code: code,
+                            redirectUri: window.location.origin + '/admin/'
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            // Guardar el token de acceso
+                            localStorage.setItem('linkedin_token', data.accessToken);
+                            localStorage.setItem('linkedin_profile', JSON.stringify(data.profile));
+                            
+                            // Limpiar el estado y parámetros de URL
+                            localStorage.removeItem('linkedin_state');
+                            window.history.replaceState({}, document.title, window.location.pathname);
+                            
+                            // Actualizar el estado de LinkedIn en la UI
+                            await this.checkLinkedInStatus();
+                            
+                            console.log('✅ LinkedIn conectado exitosamente');
+                            console.log('👤 Perfil:', data.profile);
+                            
+                            // Mostrar mensaje de éxito
+                            this.showNotification('✅ LinkedIn conectado exitosamente', 'success');
+                        } else {
+                            console.error('❌ Error al obtener token:', data.message);
+                            this.showNotification('❌ Error al conectar LinkedIn: ' + data.message, 'error');
+                        }
+                    } else {
+                        const errorData = await response.json();
+                        console.error('❌ Error en servidor:', errorData);
+                        this.showNotification('❌ Error en el servidor: ' + (errorData.message || 'Error desconocido'), 'error');
+                    }
+
+                } catch (error) {
+                    console.error('❌ Error procesando autorización de LinkedIn:', error);
+                    this.showNotification('❌ Error de conexión: ' + error.message, 'error');
+                }
+            }
+
+            showNotification(message, type = 'info') {
+                // Crear notificación temporal
+                const notification = document.createElement('div');
+                notification.className = `notification notification-${type}`;
+                notification.textContent = message;
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 15px 20px;
+                    border-radius: 5px;
+                    color: white;
+                    font-weight: bold;
+                    z-index: 10000;
+                    animation: slideIn 0.3s ease-out;
+                `;
+                
+                if (type === 'success') {
+                    notification.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+                } else if (type === 'error') {
+                    notification.style.background = 'linear-gradient(135deg, #f44336, #d32f2f)';
+                } else {
+                    notification.style.background = 'linear-gradient(135deg, #2196F3, #1976D2)';
+                }
+                
+                document.body.appendChild(notification);
+                
+                // Remover después de 5 segundos
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease-in';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 5000);
             }
 
             async updateUI() {
@@ -954,12 +1114,27 @@
 
             async checkLinkedInStatus() {
                 const linkedinToken = localStorage.getItem('linkedin_token');
+                const linkedinProfile = localStorage.getItem('linkedin_profile');
                 const statusElement = document.getElementById('linkedin-status');
                 const statusText = document.getElementById('linkedin-status-text');
                 
                 if (linkedinToken) {
                     statusElement.className = 'linkedin-status linkedin-connected';
-                    statusText.textContent = 'Conectado';
+                    
+                    // Mostrar información del perfil si está disponible
+                    if (linkedinProfile) {
+                        try {
+                            const profile = JSON.parse(linkedinProfile);
+                            statusText.innerHTML = `
+                                <strong>Conectado</strong><br>
+                                <small>👤 ${profile.firstName || ''} ${profile.lastName || ''}</small>
+                            `;
+                        } catch (e) {
+                            statusText.textContent = 'Conectado';
+                        }
+                    } else {
+                        statusText.textContent = 'Conectado';
+                    }
                 } else {
                     statusElement.className = 'linkedin-status linkedin-disconnected';
                     statusText.textContent = 'Desconectado';
@@ -970,7 +1145,7 @@
                 console.log('🔗 Iniciando conexión con LinkedIn...');
                 
                 const clientId = '77w90bvizsj1y9';
-                const redirectUri = encodeURIComponent(window.location.origin + '/admin/');
+                const redirectUri = encodeURIComponent(window.location.origin + '/linkedin-callback.html');
                 const scope = encodeURIComponent('openid profile w_member_social email');
                 const state = Math.random().toString(36).substring(7);
                 

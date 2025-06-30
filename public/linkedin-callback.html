@@ -99,7 +99,13 @@
 
         // Función para ir al panel de administración
         function goToAdmin() {
-            window.location.href = '/admin/';
+            // Cerrar la ventana si está en popup
+            if (window.opener) {
+                window.opener.location.href = '/admin/';
+                window.close();
+            } else {
+                window.location.href = '/admin/';
+            }
         }
 
         // Procesar la autorización de LinkedIn
@@ -141,7 +147,7 @@
                     },
                     body: JSON.stringify({
                         code: code,
-                        redirectUri: window.location.origin + '/admin/'
+                        redirectUri: window.location.origin + '/linkedin-callback.html'
                     })
                 });
 
@@ -153,13 +159,18 @@
                         localStorage.setItem('linkedin_token', data.accessToken);
                         localStorage.setItem('linkedin_profile', JSON.stringify(data.profile));
                         
-                        showSuccess('Tu cuenta de LinkedIn ha sido conectada exitosamente. Ahora puedes publicar contenido automáticamente.');
+                        showSuccess('Tu cuenta de LinkedIn ha sido conectada exitosamente. Redirigiendo al panel...');
                         
                         // Limpiar el estado
                         localStorage.removeItem('linkedin_state');
                         
                         console.log('✅ LinkedIn conectado exitosamente');
                         console.log('👤 Perfil:', data.profile);
+                        
+                        // Redirigir automáticamente después de 2 segundos
+                        setTimeout(() => {
+                            goToAdmin();
+                        }, 2000);
                     } else {
                         showError('Error al obtener el token de acceso: ' + data.message);
                     }
