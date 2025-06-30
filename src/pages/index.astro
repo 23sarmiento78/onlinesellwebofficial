@@ -1,10 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-
-const latestArticles = (await getCollection('articles'))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -20,364 +15,85 @@ const latestArticles = (await getCollection('articles'))
   twitterImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
   twitterUrl="https://service.hgaruna.org/"
 >
-  <script type="application/ld+json">
-    {JSON.stringify(
-      {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "Organization",
-            "name": "hgaruna",
-            "alternateName": ["hgaruna Desarrollo Web Villa Carlos Paz", "Desarrollo Web Villa Carlos Paz", "Programador Web Villa Carlos Paz"],
-            "url": "https://service.hgaruna.org/",
-            "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
-            "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba. Creamos sitios web personalizados para negocios locales con las mejores tecnologías.",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Villa Carlos Paz",
-              "addressRegion": "Córdoba",
-              "addressCountry": "AR",
-              "postalCode": "5152"
-            },
-            "contactPoint": [
-              {
-                "@type": "ContactPoint",
-                "telephone": "+54-3541-237972",
-                "contactType": "Customer Service",
-                "email": "23sarmiento@gmail.com",
-                "availableLanguage": "Spanish"
-              },
-              {
-                "@type": "ContactPoint",
-                "telephone": "+54-3541-237972",
-                "contactType": "Sales",
-                "email": "23sarmiento@gmail.com",
-                "availableLanguage": "Spanish"
-              }
-            ],
-            "sameAs": [
-              "https://www.facebook.com/profile.php?id=61557007626922",
-              "https://www.instagram.com/onlinesellweb/"
-            ],
-            "areaServed": [
-              {"@type": "City", "name": "Villa Carlos Paz"},
-              {"@type": "City", "name": "Córdoba"},
-              {"@type": "City", "name": "Cosquín"},
-              {"@type": "City", "name": "La Falda"},
-              {"@type": "City", "name": "Villa General Belgrano"},
-              {"@type": "City", "name": "Alta Gracia"}
-            ],
-            "hasOfferCatalog": {
-              "@type": "OfferCatalog",
-              "name": "Servicios de Desarrollo Web Villa Carlos Paz",
-              "itemListElement": [
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Desarrollo Web Profesional", "description": "Sitios web personalizados para negocios en Villa Carlos Paz y Córdoba", "provider": {"@type": "Organization", "name": "hgaruna"}}},
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "E-commerce", "description": "Tiendas online para comercios de Villa Carlos Paz", "provider": {"@type": "Organization", "name": "hgaruna"}}},
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "SEO Local", "description": "Optimización para búsquedas locales en Villa Carlos Paz", "provider": {"@type": "Organization", "name": "hgaruna"}}},
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Diseño Web Responsivo", "description": "Sitios web que se adaptan a todos los dispositivos", "provider": {"@type": "Organization", "name": "hgaruna"}}},
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Marketing Digital", "description": "Estrategias de marketing digital para empresas locales", "provider": {"@type": "Organization", "name": "hgaruna"}}}
-              ]
-            }
-          },
-          {
-            "@type": "LocalBusiness",
-            "name": "hgaruna - Desarrollo Web Villa Carlos Paz",
-            "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
-            "url": "https://service.hgaruna.org/",
-            "telephone": "+54-3541-237972",
-            "email": "23sarmiento@gmail.com",
-            "address": {"@type": "PostalAddress", "addressLocality": "Villa Carlos Paz", "addressRegion": "Córdoba", "addressCountry": "AR"},
-            "geo": {"@type": "GeoCoordinates", "latitude": "-31.4201", "longitude": "-64.4998"},
-            "serviceArea": {"@type": "City", "name": "Villa Carlos Paz"},
-            "priceRange": "$$",
-            "openingHours": "Mo-Fr 09:00-18:00, Sa 10:00-14:00",
-            "currenciesAccepted": "ARS",
-            "paymentAccepted": "Cash, Credit Card, Bank Transfer",
-            "category": "Desarrollo de Software",
-            "keywords": "desarrollo web, diseño web, programador web, villa carlos paz, córdoba"
-          },
-          {
-            "@type": "WebSite",
-            "url": "https://service.hgaruna.org/",
-            "name": "hgaruna - Desarrollo Web Villa Carlos Paz",
-            "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": {"@type": "EntryPoint", "urlTemplate": "https://service.hgaruna.org/blog/?q={search_term_string}"},
-              "query-input": "required name=search_term_string"
-            }
-          },
-          {
-            "@type": "FAQPage",
-            "mainEntity": [
-              {"@type": "Question", "name": "¿Cuánto cuesta un sitio web en Villa Carlos Paz?", "acceptedAnswer": {"@type": "Answer", "text": "Los precios varían según las necesidades. Tenemos planes desde $150 hasta $500. Consulta gratuita disponible."}},
-              {"@type": "Question", "name": "¿Hacen SEO local para Villa Carlos Paz?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, especializamos en SEO local para que aparezcas en búsquedas de Villa Carlos Paz y alrededores."}},
-              {"@type": "Question", "name": "¿Cuánto tiempo toma desarrollar un sitio web?", "acceptedAnswer": {"@type": "Answer", "text": "Depende de la complejidad. Sitios básicos en 1-2 semanas, proyectos complejos en 3-4 semanas."}},
-              {"@type": "Question", "name": "¿Qué incluye el desarrollo web profesional?", "acceptedAnswer": {"@type": "Answer", "text": "Incluye diseño responsivo, optimización SEO, integración con redes sociales, panel de administración y capacitación."}},
-              {"@type": "Question", "name": "¿Trabajan con empresas de Villa Carlos Paz?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nos especializamos en negocios locales de Villa Carlos Paz y alrededores. Conocemos el mercado local."}}
-            ]
-          }
-        ]
+  <section class="feed-section">
+    <h2>Últimos Artículos</h2>
+    <div id="latest-articles" class="feed-list"></div>
+  </section>
+  <section class="feed-section">
+    <h2>Foro</h2>
+    <div id="latest-forum-posts" class="feed-list"></div>
+  </section>
+
+  <!-- Modal para mostrar artículo completo -->
+  <div id="article-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#fff; max-width:600px; width:90vw; margin:auto; border-radius:8px; padding:24px; position:relative; box-shadow:0 8px 32px rgba(0,0,0,0.2);">
+      <button class="modal-close" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+      <h2 class="modal-title" style="margin-top:0;"></h2>
+      <div class="modal-meta" style="color:#666; font-size:0.95em; margin-bottom:8px;">
+        <span class="modal-author"></span> | <span class="modal-date"></span>
+      </div>
+      <div class="modal-content" style="white-space:pre-line; margin-bottom:16px;"></div>
+    </div>
+  </div>
+  <!-- Fin modal artículo -->
+
+  <script>
+  async function loadFeed() {
+    // Artículos
+    try {
+      const res = await fetch('/.netlify/functions/get-articles');
+      const data = await res.json();
+      const articles = Array.isArray(data) ? data : (data.articles || data);
+      const latestArticles = articles.slice(0, 3);
+      const container = document.getElementById('latest-articles');
+      if (container) {
+        container.innerHTML = latestArticles.map((a, idx) => `
+          <div class=\"feed-card\" data-article-idx=\"${idx}\">
+            <div class=\"feed-card-title\">${a.title}</div>
+            <div class=\"feed-card-meta\">Por ${a.author} | ${a.createdAt ? new Date(a.createdAt).toLocaleString() : ''}</div>
+            <div class=\"feed-card-content\">${a.content?.slice(0, 120) || ''}${a.content && a.content.length > 120 ? '...' : ''}</div>
+          </div>
+        `).join('');
+        Array.from(container.querySelectorAll('.feed-card')).forEach((el, idx) => {
+          el.onclick = () => showFullArticle(articles[idx]);
+        });
       }
-    )}
+    } catch {}
+    // Foro
+    try {
+      const res = await fetch('/.netlify/functions/get-forum-posts');
+      const data = await res.json();
+      const posts = Array.isArray(data) ? data : (data.posts || data);
+      const latestPosts = posts.slice(0, 3);
+      const container = document.getElementById('latest-forum-posts');
+      if (container) {
+        container.innerHTML = latestPosts.map(p => `
+          <div class=\"feed-card\">
+            <div class=\"feed-card-title\">${p.title}</div>
+            <div class=\"feed-card-meta\">Por ${p.author} | ${p.createdAt ? new Date(p.createdAt).toLocaleString() : ''}</div>
+            <div class=\"feed-card-content\">${p.content?.slice(0, 120) || ''}${p.content && p.content.length > 120 ? '...' : ''}</div>
+          </div>
+        `).join('');
+      }
+    } catch {}
+  }
+  function showFullArticle(article) {
+    const modal = document.getElementById('article-modal');
+    if (!modal) return;
+    modal.querySelector('.modal-title').textContent = article.title;
+    modal.querySelector('.modal-author').textContent = article.author;
+    modal.querySelector('.modal-date').textContent = article.createdAt ? new Date(article.createdAt).toLocaleString() : '';
+    modal.querySelector('.modal-content').textContent = article.content;
+    modal.style.display = 'block';
+  }
+  window.addEventListener('DOMContentLoaded', () => {
+    loadFeed();
+    const modal = document.getElementById('article-modal');
+    if (modal) {
+      modal.querySelector('.modal-close').onclick = () => {
+        modal.style.display = 'none';
+      };
+    }
+  });
   </script>
-
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-background">
-      <img src="/logos-he-imagenes/fondo-hero.jpg" alt="Fondo hero desarrollo web villa carlos paz" style="width: 100%; height: 100%; object-fit: cover;">
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1 class="hero-title">Desarrollo Web Profesional en Villa Carlos Paz | Sitios Web que Venden</h1>
-      <p class="hero-subtitle">¿Tu competencia ya tiene sitio web y tú no? No te quedes atrás. Creamos sitios web profesionales que convierten visitantes en clientes. Precios accesibles para negocios locales de Villa Carlos Paz y Córdoba.</p>
-      <div class="hero-cta">
-        <a href="/planes/" class="cta-button primary">
-          <i class="fas fa-rocket"></i>
-          ¡Quiero mi Sitio Web YA!
-        </a>
-        <a href="https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz" class="cta-button secondary" target="_blank">
-          <i class="fab fa-whatsapp"></i>
-          Consulta Gratuita
-        </a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <span class="stat-number">20+</span>
-          <span class="stat-label">Sitios Web Creados</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">100%</span>
-          <span class="stat-label">Clientes Satisfechos</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">24h</span>
-          <span class="stat-label">Tiempo de Respuesta</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Servicios Section -->
-  <section id="servicios" class="servicios">
-    <div class="container">
-      <div class="blog-header">
-        <h2 class="blog-title-main">Desarrollo Web Villa Carlos Paz: ¿Por qué los Negocios Locales Eligen hgaruna?</h2>
-        <p class="blog-description">No somos solo programadores web, somos tu socio digital para hacer crecer tu negocio en Villa Carlos Paz y Córdoba</p>
-      </div>
-      <div class="servicios-grid">
-        <div class="servicio-card">
-          <img src="/logos-he-imagenes/programacion.jpeg" alt="Desarrollo Web Profesional Villa Carlos Paz">
-          <h3>Sitios Web que Venden</h3>
-          <p>No solo creamos sitios web bonitos, creamos sitios web que convierten visitantes en clientes. Diseño enfocado en resultados para negocios de Villa Carlos Paz.</p>
-          <div class="servicio-features">
-            <span><i class="fas fa-check"></i> Diseño Responsivo</span>
-            <span><i class="fas fa-check"></i> Optimizado para Móviles</span>
-            <span><i class="fas fa-check"></i> Velocidad de Carga</span>
-          </div>
-          <a href="/planes/" class="btn btn-primary">Desde $150</a>
-        </div>
-        <div class="servicio-card">
-          <img src="/logos-he-imagenes/programacion.jpeg" alt="E-commerce Villa Carlos Paz">
-          <h3>Vende Online 24/7</h3>
-          <p>Tu negocio nunca duerme. Con nuestras tiendas online, puedes vender tus productos o servicios las 24 horas del día en Villa Carlos Paz.</p>
-          <div class="servicio-features">
-            <span><i class="fas fa-check"></i> Pasarelas de Pago</span>
-            <span><i class="fas fa-check"></i> Gestión de Inventario</span>
-            <span><i class="fas fa-check"></i> Reportes de Ventas</span>
-          </div>
-          <a href="/planes/" class="btn btn-primary">Desde $300</a>
-        </div>
-        <div class="servicio-card">
-          <img src="/logos-he-imagenes/programacion.jpeg" alt="SEO Local Villa Carlos Paz">
-          <h3>Aparece Primero en Google</h3>
-          <p>Cuando alguien busque tu negocio en Villa Carlos Paz, queremos que aparezcas primero. SEO local especializado para empresas de la región.</p>
-          <div class="servicio-features">
-            <span><i class="fas fa-check"></i> Google My Business</span>
-            <span><i class="fas fa-check"></i> Reseñas Locales</span>
-            <span><i class="fas fa-check"></i> Palabras Clave Locales</span>
-          </div>
-          <a href="/planes/" class="btn btn-primary">Incluido en Planes</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Beneficios Section -->
-  <section class="beneficios">
-    <div class="container">
-      <div class="blog-header">
-        <h2 class="blog-title-main">¿Qué Pasa si NO Tienes un Sitio Web?</h2>
-        <p class="blog-description">Los números no mienten: los negocios con presencia web crecen más rápido</p>
-      </div>
-      <div class="beneficios-grid">
-        <div class="beneficio-card warning">
-          <i class="fas fa-exclamation-triangle beneficio-icon"></i>
-          <h3>Pierdes Clientes</h3>
-          <p>El 81% de las personas investigan online antes de comprar. Sin sitio web, no te encuentran.</p>
-        </div>
-        <div class="beneficio-card warning">
-          <i class="fas fa-chart-line-down beneficio-icon"></i>
-          <h3>Tu Competencia Te Gana</h3>
-          <p>Mientras tú no tienes sitio web, tu competencia ya está vendiendo online y captando clientes.</p>
-        </div>
-        <div class="beneficio-card warning">
-          <i class="fas fa-clock beneficio-icon"></i>
-          <h3>Horarios Limitados</h3>
-          <p>Tu negocio solo funciona cuando estás abierto. Un sitio web vende las 24 horas.</p>
-        </div>
-        <div class="beneficio-card success">
-          <i class="fas fa-rocket beneficio-icon"></i>
-          <h3>Con hgaruna: Crecimiento Garantizado</h3>
-          <p>Nuestros clientes ven un aumento del 200% en consultas en los primeros 3 meses.</p>
-        </div>
-        <div class="beneficio-card success">
-          <i class="fas fa-users beneficio-icon"></i>
-          <h3>Más Clientes Locales</h3>
-          <p>Los turistas y residentes te encuentran fácilmente cuando buscan en Google.</p>
-        </div>
-        <div class="beneficio-card success">
-          <i class="fas fa-dollar-sign beneficio-icon"></i>
-          <h3>ROI Inmediato</h3>
-          <p>Recuperas la inversión en el primer mes con los nuevos clientes que lleguen.</p>
-        </div>
-      </div>
-      <div class="cta-section">
-        <h3>¿Listo para Transformar tu Negocio?</h3>
-        <p>No esperes más. Cada día sin sitio web es un día perdiendo clientes.</p>
-        <div class="cta-buttons">
-          <a href="/planes/" class="cta-button primary large">
-            <i class="fas fa-rocket"></i>
-            ¡Quiero mi Sitio Web AHORA!
-          </a>
-          <a href="https://wa.me/+543541237972?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20servicios%20de%20desarrollo%20web" class="cta-button secondary large" target="_blank">
-            <i class="fab fa-whatsapp"></i>
-            Hablar con un Experto
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section class="contact-section">
-    <div class="container">
-      <div class="contact-header">
-        <h2 class="blog-title-main">¿Listo para Hacer Crecer tu Negocio?</h2>
-        <p class="blog-description">No dejes que tu competencia te gane. Contáctanos hoy mismo y comienza tu transformación digital.</p>
-      </div>
-      
-      <div class="contact-grid">
-        <!-- Información de Contacto -->
-        <div class="contact-info">
-          <h3>Hablemos de tu Proyecto</h3>
-          <p style="margin-bottom: 32px; color: var(--hgaruna-text-light);">Estamos aquí para ayudarte a hacer crecer tu negocio en Villa Carlos Paz. ¡La primera consulta es completamente gratuita!</p>
-          
-          <div class="info-items">
-            <div class="info-item">
-              <i class="fas fa-phone"></i>
-              <div class="info-content">
-                <h4>Llamada Directa</h4>
-                <p><a href="tel:+543541237972">+54 3541 237972</a></p>
-                <small>Lunes a Viernes 9:00 - 18:00</small>
-              </div>
-            </div>
-            <div class="info-item">
-              <i class="fab fa-whatsapp"></i>
-              <div class="info-content">
-                <h4>WhatsApp</h4>
-                <p><a href="https://wa.me/+543541237972" target="_blank">+54 3541 237972</a></p>
-                <small>Respuesta en menos de 1 hora</small>
-              </div>
-            </div>
-            <div class="info-item">
-              <i class="fas fa-envelope"></i>
-              <div class="info-content">
-                <h4>Email</h4>
-                <p><a href="mailto:23sarmiento@gmail.com">23sarmiento@gmail.com</a></p>
-                <small>Respuesta en 24 horas</small>
-              </div>
-            </div>
-            <div class="info-item">
-              <i class="fas fa-map-marker-alt"></i>
-              <div class="info-content">
-                <h4>Ubicación</h4>
-                <p>Villa Carlos Paz, Córdoba</p>
-                <small>Atendemos toda la región</small>
-              </div>
-            </div>
-          </div>
-          
-          <div class="contact-cta">
-            <h4>¿Prefieres WhatsApp?</h4>
-            <p>Es la forma más rápida de contactarnos</p>
-            <a href="https://wa.me/+543541237972?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20servicios%20de%20desarrollo%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz" class="cta-button primary" target="_blank">
-              <i class="fab fa-whatsapp"></i>
-              ¡Chatear Ahora!
-            </a>
-          </div>
-        </div>
-
-        <!-- Formulario de Contacto -->
-        <div class="contact-form-container">
-          <h3>Cuéntanos Sobre tu Proyecto</h3>
-          <p style="margin-bottom: 24px; color: var(--hgaruna-text-light);">Completa el formulario y te contactaremos en menos de 2 horas con una propuesta personalizada.</p>
-          
-          <form action="https://formspree.io/f/mkgoqyjo" method="POST" class="modern-form">
-            <div class="form-group-modern">
-              <label for="name">Nombre completo *</label>
-              <input type="text" id="name" name="name" required placeholder="Tu nombre completo">
-            </div>
-            <div class="form-group-modern">
-              <label for="email">Email *</label>
-              <input type="email" id="email" name="email" required placeholder="tu@email.com">
-            </div>
-            <div class="form-group-modern">
-              <label for="phone">Teléfono</label>
-              <input type="tel" id="phone" name="phone" placeholder="+54 9 3541 123456">
-            </div>
-            <div class="form-group-modern">
-              <label for="business">Nombre de tu negocio</label>
-              <input type="text" id="business" name="business" placeholder="Ej: Restaurante La Esquina">
-            </div>
-            <div class="form-group-modern">
-              <label for="service">¿Qué necesitas? *</label>
-              <select id="service" name="service" required>
-                <option value="">Selecciona lo que necesitas</option>
-                <option value="sitio-web">Sitio Web Profesional</option>
-                <option value="e-commerce">Tienda Online</option>
-                <option value="seo">SEO Local</option>
-                <option value="marketing">Marketing Digital</option>
-                <option value="rediseno">Rediseño de Sitio Web</option>
-                <option value="mantenimiento">Mantenimiento Web</option>
-                <option value="otro">Otro (especificar)</option>
-              </select>
-            </div>
-            <div class="form-group-modern">
-              <label for="budget">Presupuesto aproximado</label>
-              <select id="budget" name="budget">
-                <option value="">Selecciona tu presupuesto</option>
-                <option value="150-300">$150 - $300</option>
-                <option value="300-500">$300 - $500</option>
-                <option value="500-1000">$500 - $1000</option>
-                <option value="1000+">Más de $1000</option>
-                <option value="no-se">No sé, necesito asesoría</option>
-              </select>
-            </div>
-            <div class="form-group-modern">
-              <label for="message">Cuéntanos más sobre tu proyecto *</label>
-              <textarea id="message" name="message" required placeholder="Describe tu proyecto, objetivos, timeline, etc. Cuanto más detalles nos des, mejor podremos ayudarte." rows="4"></textarea>
-            </div>
-            <div class="form-submit">
-              <button type="submit" class="cta-button primary large">
-                <i class="fas fa-paper-plane"></i>
-                ¡Enviar Propuesta Gratuita!
-              </button>
-              <p class="form-note">* Recibirás una propuesta personalizada en menos de 2 horas</p>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
 </BaseLayout>
