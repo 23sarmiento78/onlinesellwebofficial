@@ -14,7 +14,7 @@ const apiResponse = document.getElementById('api-response');
 const AUTH0_DOMAIN = 'dev-b0qip4vee7sg3q7e.us.auth0.com';
 const AUTH0_CLIENT_ID = '3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab';
 const AUTH0_AUDIENCE = 'https://service.hgaruna.org/api';
-const AUTH0_REDIRECT_URI = window.location.origin + '/admin/';
+const AUTH0_REDIRECT_URI = 'https://service.hgaruna.org/admin/'; // Fijo y seguro
 
 async function configureAuth0() {
   auth0Client = await createAuth0Client({
@@ -126,6 +126,47 @@ if (forumForm) {
       forumResult.textContent = 'Error: ' + (data.error || 'No se pudo crear la publicación');
     }
   };
+}
+
+// --- Feed dinámico de artículos y posts del foro ---
+async function loadFeed() {
+  // Artículos
+  try {
+    const res = await fetch('/data/articles.json');
+    const data = await res.json();
+    const articles = Array.isArray(data) ? data : (data.articles || data);
+    const latestArticles = articles.slice(0, 3);
+    const container = document.getElementById('latest-articles');
+    if (container) {
+      container.innerHTML = latestArticles.map(a => `
+        <div class="feed-card">
+          <div class="feed-card-title">${a.title}</div>
+          <div class="feed-card-meta">Por ${a.author} | ${a.createdAt ? new Date(a.createdAt).toLocaleString() : ''}</div>
+          <div class="feed-card-content">${a.content?.slice(0, 120) || ''}${a.content && a.content.length > 120 ? '...' : ''}</div>
+        </div>
+      `).join('');
+    }
+  } catch {}
+  // Foro
+  try {
+    const res = await fetch('/data/forum-posts.json');
+    const data = await res.json();
+    const posts = Array.isArray(data) ? data : (data.posts || data);
+    const latestPosts = posts.slice(0, 3);
+    const container = document.getElementById('latest-forum-posts');
+    if (container) {
+      container.innerHTML = latestPosts.map(p => `
+        <div class="feed-card">
+          <div class="feed-card-title">${p.title}</div>
+          <div class="feed-card-meta">Por ${p.author} | ${p.createdAt ? new Date(p.createdAt).toLocaleString() : ''}</div>
+          <div class="feed-card-content">${p.content?.slice(0, 120) || ''}${p.content && p.content.length > 120 ? '...' : ''}</div>
+        </div>
+      `).join('');
+    }
+  } catch {}
+}
+if (document.getElementById('latest-articles') || document.getElementById('latest-forum-posts')) {
+  loadFeed();
 }
 
 handleAuth();
