@@ -1,54 +1,50 @@
-const fs = require('fs');
-const path = require('path');
+const { MongoClient } = require('mongodb');
 
-// Configuración segura
-const ARTICLES_PATH = path.join(__dirname, '../public/data/articles.json');
-const FORUM_PATH = path.join(__dirname, '../public/data/forum-posts.json');
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://atlas-sql-6860db038f846f4c166252b6-17xoqn.a.query.mongodb.net/sample_mflix?ssl=true&authSource=admin';
+const DB_NAME = 'sample_mflix'; // Cambia por el nombre de tu base si es diferente
+const ARTICLES_COLLECTION = 'articles';
+const FORUM_COLLECTION = 'forum_posts';
+
+let cachedClient = null;
+
+async function connectToDatabase() {
+  if (cachedClient) return cachedClient;
+  const client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+  await client.connect();
+  cachedClient = client;
+  return client;
+}
 
 exports.handler = async function(event, context) {
   if (event.httpMethod === 'POST') {
     const body = JSON.parse(event.body || '{}');
-    if (body.action === 'create-article' && body.article) {
-      try {
-        let articles = [];
-        if (fs.existsSync(ARTICLES_PATH)) {
-          articles = JSON.parse(fs.readFileSync(ARTICLES_PATH, 'utf8'));
-        }
+    try {
+      const client = await connectToDatabase();
+      const db = client.db(DB_NAME);
+      if (body.action === 'create-article' && body.article) {
         const newArticle = {
           ...body.article,
-          id: Date.now(),
           createdAt: new Date().toISOString()
         };
-        articles.unshift(newArticle);
-        fs.writeFileSync(ARTICLES_PATH, JSON.stringify(articles, null, 2));
+        await db.collection(ARTICLES_COLLECTION).insertOne(newArticle);
         return {
           statusCode: 200,
           body: JSON.stringify({ success: true, article: newArticle })
         };
-      } catch (e) {
-        return { statusCode: 500, body: JSON.stringify({ error: 'Error guardando el artículo' }) };
       }
-    }
-    if (body.action === 'create-forum-post' && body.post) {
-      try {
-        let posts = [];
-        if (fs.existsSync(FORUM_PATH)) {
-          posts = JSON.parse(fs.readFileSync(FORUM_PATH, 'utf8'));
-        }
+      if (body.action === 'create-forum-post' && body.post) {
         const newPost = {
           ...body.post,
-          id: Date.now(),
           createdAt: new Date().toISOString()
         };
-        posts.unshift(newPost);
-        fs.writeFileSync(FORUM_PATH, JSON.stringify(posts, null, 2));
+        await db.collection(FORUM_COLLECTION).insertOne(newPost);
         return {
           statusCode: 200,
           body: JSON.stringify({ success: true, post: newPost })
         };
-      } catch (e) {
-        return { statusCode: 500, body: JSON.stringify({ error: 'Error guardando la publicación del foro' }) };
       }
+    } catch (e) {
+      return { statusCode: 500, body: JSON.stringify({ error: 'Error guardando en la base de datos', details: e.message }) };
     }
   }
 
