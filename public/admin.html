@@ -437,8 +437,6 @@
             cacheLocation: "localstorage"
         };
 
-        let auth0Client = null;
-
         // Funciones de utilidad
         function showModal(modalId) {
             document.getElementById(modalId).style.display = 'block';
@@ -456,101 +454,10 @@
             document.getElementById(sectionId).classList.remove('hidden');
         }
 
-        // Funciones para cargar datos
-        async function loadStats() {
-            try {
-                const token = await auth0Client.getTokenSilently();
-                const response = await fetch('/.netlify/functions/admin-api/stats', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    const stats = await response.json();
-                    document.getElementById('total-articles').textContent = stats.articles || 0;
-                    document.getElementById('total-posts').textContent = stats.posts || 0;
-                    document.getElementById('total-views').textContent = stats.views || 0;
-                    document.getElementById('linkedin-posts').textContent = stats.linkedinPosts || 0;
-                }
-            } catch (error) {
-                console.error("Error cargando estadísticas:", error);
-            }
-        }
-
-        async function loadArticles() {
-            try {
-                const token = await auth0Client.getTokenSilently();
-                const response = await fetch('/.netlify/functions/admin-api/articles', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    const articlesList = document.getElementById('articles-list');
-                    
-                    if (data.articles && data.articles.length > 0) {
-                        const lastArticles = data.articles.slice(-3).reverse();
-                        articlesList.innerHTML = lastArticles.map(article => `
-                            <div class="content-item">
-                                <div>
-                                    <div class="content-title">${article.title}</div>
-                                    <div class="content-meta">Creado: ${new Date(article.createdAt).toLocaleDateString()}</div>
-                                </div>
-                            </div>
-                        `).join('');
-                    } else {
-                        articlesList.innerHTML = '<p>No hay artículos publicados.</p>';
-                    }
-                }
-            } catch (error) {
-                console.error("Error cargando artículos:", error);
-                document.getElementById('articles-list').innerHTML = '<p>Error al cargar artículos.</p>';
-            }
-        }
-
-        async function loadForumPosts() {
-            try {
-                const token = await auth0Client.getTokenSilently();
-                const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    const postsList = document.getElementById('forum-posts-list');
-                    
-                    if (data.posts && data.posts.length > 0) {
-                        const lastPosts = data.posts.slice(-5).reverse();
-                        postsList.innerHTML = lastPosts.map(post => `
-                            <div class="content-item">
-                                <div>
-                                    <div class="content-title">${post.title}</div>
-                                    <div class="content-meta">Categoría: ${post.category} | Creado: ${new Date(post.createdAt).toLocaleDateString()}</div>
-                                </div>
-                            </div>
-                        `).join('');
-                    } else {
-                        postsList.innerHTML = '<p>No hay publicaciones del foro.</p>';
-                    }
-                }
-            } catch (error) {
-                console.error("Error cargando publicaciones del foro:", error);
-                document.getElementById('forum-posts-list').innerHTML = '<p>Error al cargar publicaciones.</p>';
-            }
-        }
-
         // Funciones para crear contenido
         async function createArticle(articleData) {
             try {
-                const token = await auth0Client.getTokenSilently();
+                const token = await window.adminApp.auth0.getTokenSilently();
                 const response = await fetch('/.netlify/functions/admin-api/articles', {
                     method: 'POST',
                     headers: {
@@ -563,8 +470,8 @@
                 if (response.ok) {
                     alert('Artículo creado exitosamente');
                     closeModal('article-modal');
-                    loadArticles();
-                    loadStats();
+                    window.adminApp.loadArticles();
+                    window.adminApp.loadStats();
                 } else {
                     alert('Error al crear el artículo');
                 }
@@ -576,7 +483,7 @@
 
         async function createForumPost(postData) {
             try {
-                const token = await auth0Client.getTokenSilently();
+                const token = await window.adminApp.auth0.getTokenSilently();
                 const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
                     method: 'POST',
                     headers: {
@@ -589,8 +496,8 @@
                 if (response.ok) {
                     alert('Publicación del foro creada exitosamente');
                     closeModal('forum-modal');
-                    loadForumPosts();
-                    loadStats();
+                    window.adminApp.loadForumPosts();
+                    window.adminApp.loadStats();
                 } else {
                     alert('Error al crear la publicación');
                 }
@@ -768,7 +675,93 @@
             }
 
             async loadStats() {
-                await loadStats();
+                try {
+                    const token = await this.auth0.getTokenSilently();
+                    const response = await fetch('/.netlify/functions/admin-api/stats', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const stats = await response.json();
+                        document.getElementById('total-articles').textContent = stats.articles || 0;
+                        document.getElementById('total-posts').textContent = stats.posts || 0;
+                        document.getElementById('total-views').textContent = stats.views || 0;
+                        document.getElementById('linkedin-posts').textContent = stats.linkedinPosts || 0;
+                    }
+                } catch (error) {
+                    console.error("Error cargando estadísticas:", error);
+                }
+            }
+
+            async loadArticles() {
+                try {
+                    const token = await this.auth0.getTokenSilently();
+                    const response = await fetch('/.netlify/functions/admin-api/articles', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        const articlesList = document.getElementById('articles-list');
+                        
+                        if (data.articles && data.articles.length > 0) {
+                            const lastArticles = data.articles.slice(-3).reverse();
+                            articlesList.innerHTML = lastArticles.map(article => `
+                                <div class="content-item">
+                                    <div>
+                                        <div class="content-title">${article.title}</div>
+                                        <div class="content-meta">Creado: ${new Date(article.createdAt).toLocaleDateString()}</div>
+                                    </div>
+                                </div>
+                            `).join('');
+                        } else {
+                            articlesList.innerHTML = '<p>No hay artículos publicados.</p>';
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error cargando artículos:", error);
+                    document.getElementById('articles-list').innerHTML = '<p>Error al cargar artículos.</p>';
+                }
+            }
+
+            async loadForumPosts() {
+                try {
+                    const token = await this.auth0.getTokenSilently();
+                    const response = await fetch('/.netlify/functions/admin-api/forum-posts', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        const postsList = document.getElementById('forum-posts-list');
+                        
+                        if (data.posts && data.posts.length > 0) {
+                            const lastPosts = data.posts.slice(-5).reverse();
+                            postsList.innerHTML = lastPosts.map(post => `
+                                <div class="content-item">
+                                    <div>
+                                        <div class="content-title">${post.title}</div>
+                                        <div class="content-meta">Categoría: ${post.category} | Creado: ${new Date(post.createdAt).toLocaleDateString()}</div>
+                                    </div>
+                                </div>
+                            `).join('');
+                        } else {
+                            postsList.innerHTML = '<p>No hay publicaciones del foro.</p>';
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error cargando publicaciones del foro:", error);
+                    document.getElementById('forum-posts-list').innerHTML = '<p>Error al cargar publicaciones.</p>';
+                }
             }
 
             async checkLinkedInStatus() {
@@ -863,7 +856,7 @@
         // Inicializar cuando el DOM esté listo
         document.addEventListener('DOMContentLoaded', () => {
             console.log("📄 DOM cargado, iniciando AdminApp...");
-            new AdminApp();
+            window.adminApp = new AdminApp();
         });
     </script>
 </body>
