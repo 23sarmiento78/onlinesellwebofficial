@@ -69,10 +69,9 @@ async function getLinkedInAccessToken(code, redirectUri) {
 // Función para obtener información del perfil de LinkedIn
 async function getLinkedInProfile(accessToken) {
     try {
-        const response = await fetch('https://api.linkedin.com/v2/me', {
+        const response = await fetch('https://api.linkedin.com/v2/userinfo', {
             headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'X-Restli-Protocol-Version': '2.0.0'
+                'Authorization': `Bearer ${accessToken}`
             }
         });
 
