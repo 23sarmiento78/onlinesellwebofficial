@@ -9,12 +9,33 @@ const auth0Config = {
     cacheLocation: "localstorage"
 };
 
-// Inicializar Auth0
-let auth0 = null;
+// Variable global para el cliente Auth0
+let auth0Client = null;
 
+// Función para inicializar el cliente Auth0
 const configureClient = async () => {
-    auth0 = await auth0.createAuth0Client(auth0Config);
+    try {
+        // Verificar que auth0 esté disponible
+        if (typeof auth0 === 'undefined') {
+            console.error("Auth0 SDK no está cargado");
+            return null;
+        }
+        
+        auth0Client = await auth0.createAuth0Client(auth0Config);
+        console.log("Auth0 client initialized successfully");
+        return auth0Client;
+    } catch (error) {
+        console.error("Error initializing Auth0 client:", error);
+        return null;
+    }
 };
 
-// Configurar el cliente cuando se carga la página
-configureClient(); 
+// Función para obtener el cliente Auth0
+const getAuth0Client = () => {
+    return auth0Client;
+};
+
+// Inicializar el cliente cuando se carga la página
+document.addEventListener('DOMContentLoaded', () => {
+    configureClient();
+}); 

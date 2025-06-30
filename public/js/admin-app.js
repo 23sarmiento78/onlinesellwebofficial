@@ -7,11 +7,22 @@ class AdminApp {
 
     async init() {
         // Esperar a que Auth0 se configure
-        while (!auth0) {
+        let attempts = 0;
+        const maxAttempts = 50; // 5 segundos máximo
+        
+        while (!auth0Client && attempts < maxAttempts) {
             await new Promise(resolve => setTimeout(resolve, 100));
+            attempts++;
         }
         
-        this.auth0 = auth0;
+        if (!auth0Client) {
+            console.error("Auth0 client no se pudo inicializar después de 5 segundos");
+            return;
+        }
+        
+        this.auth0 = auth0Client;
+        console.log("AdminApp initialized with Auth0 client");
+        
         this.setupEventListeners();
         this.handleAuthenticationCallback();
         this.updateUI();
@@ -19,14 +30,20 @@ class AdminApp {
 
     setupEventListeners() {
         // Botón de login
-        document.getElementById('login-btn').addEventListener('click', () => {
-            this.login();
-        });
+        const loginBtn = document.getElementById('login-btn');
+        if (loginBtn) {
+            loginBtn.addEventListener('click', () => {
+                this.login();
+            });
+        }
 
         // Botón de logout
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            this.logout();
-        });
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                this.logout();
+            });
+        }
     }
 
     async handleAuthenticationCallback() {
@@ -43,25 +60,36 @@ class AdminApp {
     }
 
     async updateUI() {
-        const isAuthenticated = await this.auth0.isAuthenticated();
-        
-        if (isAuthenticated) {
-            // Usuario autenticado
-            this.showAuthenticatedUI();
-        } else {
-            // Usuario no autenticado
+        try {
+            const isAuthenticated = await this.auth0.isAuthenticated();
+            
+            if (isAuthenticated) {
+                // Usuario autenticado
+                this.showAuthenticatedUI();
+            } else {
+                // Usuario no autenticado
+                this.showLoginUI();
+            }
+        } catch (error) {
+            console.error("Error checking authentication:", error);
             this.showLoginUI();
         }
     }
 
     showAuthenticatedUI() {
         // Ocultar sección de login
-        document.getElementById('login-section').classList.add('hidden');
+        const loginSection = document.getElementById('login-section');
+        if (loginSection) loginSection.classList.add('hidden');
         
         // Mostrar controles de usuario y dashboard
-        document.getElementById('user-controls').classList.remove('hidden');
-        document.getElementById('user-info').classList.remove('hidden');
-        document.getElementById('dashboard').classList.remove('hidden');
+        const userControls = document.getElementById('user-controls');
+        if (userControls) userControls.classList.remove('hidden');
+        
+        const userInfo = document.getElementById('user-info');
+        if (userInfo) userInfo.classList.remove('hidden');
+        
+        const dashboard = document.getElementById('dashboard');
+        if (dashboard) dashboard.classList.remove('hidden');
         
         // Cargar información del usuario
         this.loadUserInfo();
@@ -69,19 +97,28 @@ class AdminApp {
 
     showLoginUI() {
         // Mostrar sección de login
-        document.getElementById('login-section').classList.remove('hidden');
+        const loginSection = document.getElementById('login-section');
+        if (loginSection) loginSection.classList.remove('hidden');
         
         // Ocultar controles de usuario y dashboard
-        document.getElementById('user-controls').classList.add('hidden');
-        document.getElementById('user-info').classList.add('hidden');
-        document.getElementById('dashboard').classList.add('hidden');
+        const userControls = document.getElementById('user-controls');
+        if (userControls) userControls.classList.add('hidden');
+        
+        const userInfo = document.getElementById('user-info');
+        if (userInfo) userInfo.classList.add('hidden');
+        
+        const dashboard = document.getElementById('dashboard');
+        if (dashboard) dashboard.classList.add('hidden');
     }
 
     async loadUserInfo() {
         try {
             const user = await this.auth0.getUser();
-            document.getElementById('user-name').textContent = user.name || user.nickname || 'Usuario';
-            document.getElementById('user-email').textContent = user.email || 'No disponible';
+            const userName = document.getElementById('user-name');
+            const userEmail = document.getElementById('user-email');
+            
+            if (userName) userName.textContent = user.name || user.nickname || 'Usuario';
+            if (userEmail) userEmail.textContent = user.email || 'No disponible';
         } catch (error) {
             console.error("Error al cargar información del usuario:", error);
         }
@@ -89,6 +126,10 @@ class AdminApp {
 
     async login() {
         try {
+            if (!this.auth0) {
+                console.error("Auth0 client not initialized");
+                return;
+            }
             await this.auth0.loginWithRedirect();
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
@@ -97,6 +138,10 @@ class AdminApp {
 
     async logout() {
         try {
+            if (!this.auth0) {
+                console.error("Auth0 client not initialized");
+                return;
+            }
             await this.auth0.logout({
                 logoutParams: {
                     returnTo: window.location.origin
@@ -110,6 +155,10 @@ class AdminApp {
     // Método para obtener el token de acceso
     async getAccessToken() {
         try {
+            if (!this.auth0) {
+                console.error("Auth0 client not initialized");
+                return null;
+            }
             return await this.auth0.getTokenSilently();
         } catch (error) {
             console.error("Error al obtener token:", error);
