@@ -26,17 +26,23 @@ class AdminApp {
         
         this.auth0 = auth0Client;
         console.log("AdminApp: Auth0 client asignado:", this.auth0);
+        console.log("AdminApp: Tipo de auth0:", typeof this.auth0);
+        console.log("AdminApp: Métodos disponibles:", Object.keys(this.auth0));
         
         // Verificar que el cliente tenga los métodos necesarios
         if (typeof this.auth0.isAuthenticated !== 'function') {
             console.error("AdminApp: isAuthenticated no es una función en el cliente Auth0");
-            this.showError("Error: Cliente Auth0 no válido");
+            console.error("AdminApp: Tipo de isAuthenticated:", typeof this.auth0.isAuthenticated);
+            console.error("AdminApp: Valor de isAuthenticated:", this.auth0.isAuthenticated);
+            this.showError("Error: Cliente Auth0 no válido - isAuthenticated no disponible");
             return;
         }
         
         if (typeof this.auth0.loginWithRedirect !== 'function') {
             console.error("AdminApp: loginWithRedirect no es una función en el cliente Auth0");
-            this.showError("Error: Cliente Auth0 no válido");
+            console.error("AdminApp: Tipo de loginWithRedirect:", typeof this.auth0.loginWithRedirect);
+            console.error("AdminApp: Valor de loginWithRedirect:", this.auth0.loginWithRedirect);
+            this.showError("Error: Cliente Auth0 no válido - loginWithRedirect no disponible");
             return;
         }
         
@@ -53,6 +59,7 @@ class AdminApp {
             loginSection.innerHTML = `
                 <h2>Error</h2>
                 <p style="color: red;">${message}</p>
+                <p style="font-size: 12px; color: #666;">Revisa la consola para más detalles</p>
                 <button onclick="location.reload()" class="btn">Recargar Página</button>
             `;
         }
@@ -107,6 +114,7 @@ class AdminApp {
         console.log("AdminApp: Actualizando UI...");
         
         try {
+            console.log("AdminApp: Llamando a isAuthenticated...");
             const isAuthenticated = await this.auth0.isAuthenticated();
             console.log("AdminApp: Estado de autenticación:", isAuthenticated);
             
@@ -119,6 +127,7 @@ class AdminApp {
             }
         } catch (error) {
             console.error("AdminApp: Error checking authentication:", error);
+            console.error("AdminApp: Stack trace:", error.stack);
             this.showLoginUI();
         }
     }
@@ -191,6 +200,7 @@ class AdminApp {
             await this.auth0.loginWithRedirect();
         } catch (error) {
             console.error("AdminApp: Error al iniciar sesión:", error);
+            console.error("AdminApp: Stack trace:", error.stack);
         }
     }
 

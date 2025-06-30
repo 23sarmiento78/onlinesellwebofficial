@@ -21,9 +21,27 @@ const configureClient = async () => {
             return null;
         }
         
+        console.log("Auth0 SDK disponible:", auth0);
+        console.log("Métodos disponibles en auth0:", Object.keys(auth0));
+        
+        // Verificar si createAuth0Client está disponible
+        if (typeof auth0.createAuth0Client !== 'function') {
+            console.error("createAuth0Client no está disponible en auth0");
+            console.log("auth0.createAuth0Client:", auth0.createAuth0Client);
+            return null;
+        }
+        
         console.log("Inicializando Auth0 client...");
+        console.log("Configuración:", auth0Config);
+        
         auth0Client = await auth0.createAuth0Client(auth0Config);
         console.log("Auth0 client initialized successfully:", auth0Client);
+        
+        // Verificar métodos del cliente
+        console.log("Métodos del cliente Auth0:", Object.keys(auth0Client));
+        console.log("isAuthenticated disponible:", typeof auth0Client.isAuthenticated);
+        console.log("loginWithRedirect disponible:", typeof auth0Client.loginWithRedirect);
+        
         return auth0Client;
     } catch (error) {
         console.error("Error initializing Auth0 client:", error);
