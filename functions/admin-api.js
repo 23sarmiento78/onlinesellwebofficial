@@ -54,8 +54,9 @@ exports.handler = async function(event, context) {
             ...body.article,
             createdAt: new Date().toISOString()
           };
+          console.log('[admin-api] Intentando insertar artículo...');
           await db.collection(ARTICLES_COLLECTION).insertOne(newArticle);
-          console.log('[admin-api] Artículo insertado:', newArticle);
+          console.log('[admin-api] Artículo insertado correctamente');
           return {
             statusCode: 200,
             body: JSON.stringify({ success: true, article: newArticle })
