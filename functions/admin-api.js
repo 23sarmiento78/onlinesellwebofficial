@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
 
-// Configuración: reemplaza por tu clave pública de Auth0 (JWK o PEM)
+// Configuración segura
 const AUTH0_PUBLIC_KEY = process.env.AUTH0_PUBLIC_KEY || 'TU_CLAVE_PUBLICA';
 const ARTICLES_PATH = path.join(__dirname, '../public/data/articles.json');
 const FORUM_PATH = path.join(__dirname, '../public/data/forum-posts.json');
@@ -14,7 +14,6 @@ exports.handler = async function(event, context) {
     return { statusCode: 401, body: 'No token provided' };
   }
   try {
-    // Verifica el JWT (ajusta según tu método preferido)
     jwt.verify(token, AUTH0_PUBLIC_KEY, { algorithms: ['RS256'] });
   } catch (err) {
     return { statusCode: 403, body: 'Token inválido' };
@@ -56,27 +55,6 @@ exports.handler = async function(event, context) {
         };
         posts.unshift(newPost);
         fs.writeFileSync(FORUM_PATH, JSON.stringify(posts, null, 2));
-        // --- Automatización LinkedIn ---
-        // Llama a la función de publicación en LinkedIn (requiere accessToken válido)
-        // Aquí se asume que tienes un accessToken de LinkedIn guardado en variable de entorno o archivo seguro
-        const LINKEDIN_ACCESS_TOKEN = process.env.LINKEDIN_ACCESS_TOKEN;
-        if (LINKEDIN_ACCESS_TOKEN) {
-          try {
-            const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-            await fetch('https://service.hgaruna.org/.netlify/functions/linkedin-api/post', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                content: `${newPost.title}\n\n${newPost.content}`,
-                accessToken: LINKEDIN_ACCESS_TOKEN
-              })
-            });
-          } catch (err) {
-            // No detiene la publicación del foro si LinkedIn falla
-            console.error('Error publicando en LinkedIn:', err);
-          }
-        }
-        // --- Fin automatización LinkedIn ---
         return {
           statusCode: 200,
           body: JSON.stringify({ success: true, post: newPost })
@@ -87,7 +65,7 @@ exports.handler = async function(event, context) {
     }
   }
 
-  // Ejemplo de respuesta protegida
+  // Respuesta protegida por defecto
   return {
     statusCode: 200,
     body: JSON.stringify({
