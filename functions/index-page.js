@@ -6,7 +6,7 @@ const axios = require('axios');
 const INDEXNOW_API_ENDPOINT = "https://api.indexnow.org/IndexNow";
 
 // Conexión a MongoDB (gratis con MongoDB Atlas)
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://atlas-sql-6860db038f846f4c166252b6-17xoqn.a.query.mongodb.net/hgaruna?ssl=true&authSource=admin';
+const MONGODB_URI = process.env.MONGODB_URI;
 const DB_NAME = 'hgaruna';
 
 let cachedDb = null;
@@ -622,4 +622,4 @@ async function handleLinkedIn(db, method, action, id, body, headers) {
     headers,
     body: JSON.stringify({ error: 'Invalid LinkedIn request' })
   };
-} 
+}

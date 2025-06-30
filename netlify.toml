@@ -60,21 +60,6 @@
   status = 200
 
 [[redirects]]
-  from = "/.netlify/functions/admin-api/*"
-  to = "/.netlify/functions/admin-api"
-  status = 200
-
-[[redirects]]
-  from = "/.netlify/functions/auth0-callback"
-  to = "/.netlify/functions/auth0-callback"
-  status = 200
-
-[[redirects]]
-  from = "/.netlify/functions/linkedin-api/*"
-  to = "/.netlify/functions/linkedin-api"
-  status = 200
-
-[[redirects]]
   from = "/blog/:slug"
   to = "/foro/articulos/:slug"
   status = 301

@@ -10,7 +10,7 @@ function echoEnv() {
   }
 }
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://atlas-sql-6860db038f846f4c166252b6-17xoqn.a.query.mongodb.net/sample_mflix?ssl=true&authSource=admin';
+const MONGODB_URI = process.env.MONGODB_URI;
 const DB_NAME = 'sample_mflix'; // Cambia por el nombre de tu base si es diferente
 const ARTICLES_COLLECTION = 'articles';
 const FORUM_COLLECTION = 'forum_posts';

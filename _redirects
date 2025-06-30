@@ -1,14 +1,14 @@
 # Redirigir HTTP a HTTPS
 http://service.hgaruna.org/* https://service.hgaruna.org/:splat 301!
 
-# Redirigir la página de inicio
-/ /index.html 200
-
-# Redirigir rutas específicas
+# Rutas a archivos y páginas reales
+/robots.txt /robots.txt 200
+/sitemap.xml /sitemap.xml 200
+/admin/* /admin.html 200
 /legal /legal.html 200
 /planes /planes.html 200
 /mi-experiencia /mi-experiencia.html 200
 /contacto /contacto.html 200
 
-# Redirigir todas las demás rutas a la página de inicio (para aplicaciones SPA)
+# Redirigir todas las demás rutas a la página de inicio (SPA)
 /* /index.html 200
