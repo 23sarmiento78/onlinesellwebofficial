@@ -7,7 +7,16 @@
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-  <div id="admin-app" class="admin-layout">
+  <div id="login-section" class="centered">
+    <form id="local-login-form" class="login-form">
+      <h2>Iniciar sesión</h2>
+      <label>Email:<br><input type="email" id="login-email" required></label><br>
+      <label>Contraseña:<br><input type="password" id="login-password" required></label><br>
+      <button type="submit" class="btn-filled">Entrar</button>
+      <div id="login-error" class="error-message"></div>
+    </form>
+  </div>
+  <div id="admin-app" class="admin-layout" style="display:none">
     <aside class="sidebar">
       <div class="sidebar-header">
         <img src="/logos-he-imagenes/logo-sell.png" alt="Logo" class="sidebar-logo">
@@ -66,23 +75,6 @@
       </div>
     </aside>
   </div>
-  <div id="login-section">
-    <button id="login-btn" class="btn-filled">Iniciar sesión</button>
-  </div>
-  <div class="hidden" id="gated-content">
-    <p>
-      Estás viendo este contenido porque estás <strong>logueado</strong>.
-    </p>
-    <label>
-      Access token:
-      <pre id="ipt-access-token"></pre>
-    </label>
-    <label>
-      User profile:
-      <pre id="ipt-user-profile"></pre>
-    </label>
-  </div>
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
   <script src="/js/admin-app-new.js"></script>
 </body>
 </html>

@@ -1,97 +1,61 @@
 // admin-app-new.js
-// Nuevo sistema admin compatible con Astro y Auth0
+// Sistema admin con login local simple
 
-// --- NUEVA LÓGICA ADMIN ---
-let auth0Client;
-const loginBtn = document.getElementById('login-btn');
-const logoutBtn = document.getElementById('logout-btn');
 const dashboard = document.getElementById('admin-app');
 const loginSection = document.getElementById('login-section');
+const loginForm = document.getElementById('local-login-form');
+const loginError = document.getElementById('login-error');
+const logoutBtn = document.getElementById('logout-btn');
 const userEmail = document.getElementById('user-email');
 
-// Cargar configuración desde auth_config.json
-async function fetchAuthConfig() {
-  const res = await fetch('/auth_config.json');
-  return await res.json();
+const ADMIN_EMAIL = '23sarmiento@gmail.com';
+const ADMIN_PASS = 'adminmaria123';
+
+function showDashboard(email) {
+  loginSection.style.display = 'none';
+  dashboard.style.display = 'flex';
+  userEmail.textContent = email;
 }
 
-
-// Feedback visual si falla la carga de configuración o Auth0
-async function configureAuth0() {
-  let config;
-  try {
-    config = await fetchAuthConfig();
-  } catch (e) {
-    alert('Error cargando la configuración de Auth0. Verifica el archivo auth_config.json.');
-    throw e;
-  }
-  try {
-    auth0Client = await createAuth0Client({
-      domain: config.domain,
-      client_id: config.clientId,
-      audience: config.audience,
-      redirect_uri: 'https://service.hgaruna.org/admin/',
-      scope: 'openid profile email'
-    });
-  } catch (e) {
-    alert('Error inicializando Auth0. Revisa los parámetros de configuración.');
-    throw e;
-  }
+function hideDashboard() {
+  loginSection.style.display = 'flex';
+  dashboard.style.display = 'none';
+  userEmail.textContent = '';
 }
 
-async function handleAuth() {
-  await configureAuth0();
-  if (window.location.search.includes('code=')) {
-    await auth0Client.handleRedirectCallback();
-    window.history.replaceState({}, document.title, '/admin/');
-  }
-  const isAuthenticated = await auth0Client.isAuthenticated();
-  if (isAuthenticated) {
-    loginSection.style.display = 'none';
-    dashboard.style.display = 'flex';
-    const user = await auth0Client.getUser();
-    userEmail.textContent = user.email;
-    loadFeed();
-  } else {
-    loginSection.style.display = 'flex';
-    dashboard.style.display = 'none';
-  }
-}
-
-// --- Gated content para mostrar token y perfil ---
-function updateUI() {
-  auth0Client.isAuthenticated().then(isAuthenticated => {
-    const gated = document.getElementById('gated-content');
-    if (!gated) return;
-    if (isAuthenticated) {
-      gated.classList.remove('hidden');
-      auth0Client.getTokenSilently().then(token => {
-        document.getElementById('ipt-access-token').textContent = token;
-      });
-      auth0Client.getUser().then(profile => {
-        document.getElementById('ipt-user-profile').textContent = JSON.stringify(profile, null, 2);
-      });
+if (loginForm) {
+  loginForm.onsubmit = function(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value.trim();
+    const pass = document.getElementById('login-password').value;
+    if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+      showDashboard(email);
+      loginError.textContent = '';
+      localStorage.setItem('admin_logged', '1');
+      localStorage.setItem('admin_email', email);
     } else {
-      gated.classList.add('hidden');
+      loginError.textContent = 'Usuario o contraseña incorrectos';
     }
-  });
+  };
 }
 
-window.onload = async () => {
-  await configureAuth0();
-  updateUI();
-  const isAuthenticated = await auth0Client.isAuthenticated();
-  if (isAuthenticated) return;
-  const query = window.location.search;
-  if (query.includes('code=') && query.includes('state=')) {
-    await auth0Client.handleRedirectCallback();
-    updateUI();
-    window.history.replaceState({}, document.title, '/admin/');
-  }
-};
+if (logoutBtn) {
+  logoutBtn.onclick = function() {
+    hideDashboard();
+    localStorage.removeItem('admin_logged');
+    localStorage.removeItem('admin_email');
+  };
+}
 
-if (loginBtn) loginBtn.onclick = async () => { await auth0Client.loginWithRedirect({ authorizationParams: { redirect_uri: 'https://service.hgaruna.org/admin/' } }); };
-if (logoutBtn) logoutBtn.onclick = async () => { auth0Client.logout({ logoutParams: { returnTo: 'https://service.hgaruna.org/admin/' } }); };
+// Mantener sesión si ya está logueado
+window.onload = function() {
+  if (localStorage.getItem('admin_logged') === '1') {
+    showDashboard(localStorage.getItem('admin_email'));
+  } else {
+    hideDashboard();
+  }
+  loadFeed();
+};
 
 // Feed dinámico de artículos y posts del foro
 async function loadFeed() {
@@ -140,7 +104,6 @@ function showResult(element, message, success = true) {
 
 async function submitArticleForm(articleForm, articleResult) {
   articleResult.textContent = 'Publicando...';
-  const token = await auth0Client.getTokenSilently();
   const body = {
     title: document.getElementById('article-title').value,
     content: document.getElementById('article-content').value,
@@ -152,8 +115,7 @@ async function submitArticleForm(articleForm, articleResult) {
   const res = await fetch('/.netlify/functions/admin-api', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({ action: 'create-article', article: body })
   });
@@ -169,7 +131,6 @@ async function submitArticleForm(articleForm, articleResult) {
 
 async function submitForumForm(forumForm, forumResult) {
   forumResult.textContent = 'Publicando...';
-  const token = await auth0Client.getTokenSilently();
   const body = {
     title: document.getElementById('forum-title').value,
     content: document.getElementById('forum-content').value,
@@ -179,8 +140,7 @@ async function submitForumForm(forumForm, forumResult) {
   const res = await fetch('/.netlify/functions/admin-api', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({ action: 'create-forum-post', post: body })
   });
@@ -194,6 +154,11 @@ async function submitForumForm(forumForm, forumResult) {
   }
 }
 
+const articleForm = document.getElementById('article-form');
+const articleResult = document.getElementById('article-result');
+const forumForm = document.getElementById('forum-form');
+const forumResult = document.getElementById('forum-result');
+
 if (articleForm) {
   articleForm.onsubmit = async (e) => {
     e.preventDefault();
@@ -206,5 +171,3 @@ if (forumForm) {
     submitForumForm(forumForm, forumResult);
   };
 }
-
-handleAuth();
