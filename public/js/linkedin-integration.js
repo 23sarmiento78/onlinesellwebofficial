@@ -89,7 +89,7 @@ class LinkedInIntegration {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ code, redirect_uri: this.redirectUri })
+        body: JSON.stringify({ code, redirectUri: this.redirectUri })
       });
 
       if (!response.ok) {
