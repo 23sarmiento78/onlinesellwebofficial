@@ -149,6 +149,33 @@ async function submitForumForm(forumForm, forumResult) {
     showResult(forumResult, 'Publicación creada correctamente.');
     forumForm.reset();
     loadFeed();
+    // --- Publicar automáticamente en LinkedIn si hay token ---
+    const linkedinToken = localStorage.getItem('linkedin_token');
+    if (linkedinToken) {
+      forumResult.textContent = 'Publicando en LinkedIn...';
+      // Construir contenido para LinkedIn
+      let linkedinContent = `${body.title}\n\n${body.content}`;
+      if (body.tags) {
+        const hashtags = body.tags.split(',').map(t => t.trim()).filter(Boolean).map(t => `#${t.replace(/\s+/g, '')}`).join(' ');
+        if (hashtags) linkedinContent += `\n\n${hashtags}`;
+      }
+      try {
+        const linkedinRes = await fetch('/.netlify/functions/linkedin-api/post', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: linkedinContent, accessToken: linkedinToken })
+        });
+        const linkedinData = await linkedinRes.json();
+        if (linkedinRes.ok && linkedinData.success) {
+          showResult(forumResult, '¡Publicación creada y compartida en LinkedIn!');
+        } else {
+          showResult(forumResult, 'Publicada en foro, pero error en LinkedIn: ' + (linkedinData.message || 'Error desconocido'), false);
+        }
+      } catch (err) {
+        showResult(forumResult, 'Publicada en foro, pero error al conectar con LinkedIn.', false);
+      }
+    }
+    // --- Fin LinkedIn ---
   } else {
     showResult(forumResult, 'Error: ' + (data.error || 'No se pudo crear la publicación'), false);
   }
