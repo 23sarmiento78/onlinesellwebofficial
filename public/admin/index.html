@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Administración</title>
+  <title>Panel Social Admin</title>
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
 <body>
   <div id="login-section" class="centered">
@@ -17,16 +18,18 @@
     </form>
   </div>
   <div id="admin-app" class="admin-layout" style="display:none">
-    <aside class="sidebar">
+    <aside class="sidebar social-sidebar">
       <div class="sidebar-header">
         <img src="/logos-he-imagenes/logo-sell.png" alt="Logo" class="sidebar-logo">
         <h2>Admin</h2>
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="#" class="active">Inicio</a></li>
-          <li><a href="#article-form">Nuevo Artículo</a></li>
-          <li><a href="#forum-form">Nuevo Post Foro</a></li>
+          <li><a href="#" class="active"><i class="fa-solid fa-house"></i> Inicio</a></li>
+          <li><a href="#article-form"><i class="fa-solid fa-pen"></i> Nuevo Artículo</a></li>
+          <li><a href="#forum-form"><i class="fa-solid fa-comments"></i> Nuevo Post Foro</a></li>
+          <li><a href="#"><i class="fa-solid fa-user-group"></i> Comunidad</a></li>
+          <li><a href="#"><i class="fa-solid fa-bell"></i> Notificaciones</a></li>
         </ul>
       </nav>
       <div class="sidebar-user">
@@ -34,13 +37,13 @@
         <button id="logout-btn" class="btn-filled">Cerrar sesión</button>
       </div>
     </aside>
-    <main class="main-feed">
+    <main class="main-feed social-feed">
       <section class="feed-section">
-        <h2>Últimos Artículos</h2>
+        <h2>Feed de Artículos</h2>
         <div id="latest-articles" class="feed-list"></div>
       </section>
       <section class="feed-section">
-        <h2>Últimos Posts del Foro</h2>
+        <h2>Feed del Foro</h2>
         <div id="latest-forum-posts" class="feed-list"></div>
       </section>
       <section class="form-section">
@@ -68,10 +71,22 @@
         <div id="forum-result"></div>
       </section>
     </main>
-    <aside class="metrics-panel">
-      <h2>Métricas</h2>
+    <aside class="metrics-panel social-widgets">
+      <h2>Panel Social</h2>
+      <div class="widget-box">
+        <button class="btn-filled" disabled><i class="fa-brands fa-linkedin"></i> Conectar LinkedIn</button>
+      </div>
+      <div class="widget-box">
+        <button class="btn-outline" disabled><i class="fa-solid fa-user-plus"></i> Invitar usuario</button>
+      </div>
+      <div class="widget-box">
+        <button class="btn-outline" disabled><i class="fa-solid fa-chart-line"></i> Ver estadísticas</button>
+      </div>
+      <div class="widget-box">
+        <button class="btn-outline" disabled><i class="fa-solid fa-gear"></i> Configuración</button>
+      </div>
       <div id="metrics-content">
-        <p>Próximamente: integración con Analytics.</p>
+        <p>Próximamente: integración con Analytics y más widgets sociales.</p>
       </div>
     </aside>
   </div>
