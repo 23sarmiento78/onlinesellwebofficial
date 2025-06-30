@@ -967,17 +967,33 @@
             }
 
             async connectLinkedIn() {
+                console.log('🔗 Iniciando conexión con LinkedIn...');
+                
                 const clientId = '77w90bvizsj1y9';
                 const redirectUri = encodeURIComponent(window.location.origin + '/admin/');
                 const scope = encodeURIComponent('openid profile w_member_social email');
                 const state = Math.random().toString(36).substring(7);
+                
+                console.log('📋 Configuración LinkedIn:');
+                console.log('- Client ID:', clientId);
+                console.log('- Redirect URI:', redirectUri);
+                console.log('- Scope:', scope);
+                console.log('- State:', state);
                 
                 localStorage.setItem('linkedin_state', state);
                 
                 const authUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
                 
                 console.log('🔗 Redirigiendo a LinkedIn:', authUrl);
-                window.location.href = authUrl;
+                
+                // Abrir en nueva ventana para mejor experiencia
+                const linkedinWindow = window.open(authUrl, 'linkedin-auth', 'width=600,height=700');
+                
+                // Verificar si la ventana se abrió correctamente
+                if (!linkedinWindow) {
+                    console.log('⚠️ Ventana bloqueada, redirigiendo en la misma ventana');
+                    window.location.href = authUrl;
+                }
             }
 
             async createLinkedInPost() {
