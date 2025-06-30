@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración</title>
+    <title>Panel de Administración - v2.0</title>
     <!-- SDK de Auth0 -->
     <script src="https://unpkg.com/@auth0/auth0-spa-js@2.2.0/dist/auth0-spa-js.production.js"></script>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <style>
         * {
             margin: 0;
@@ -406,12 +409,30 @@
     </div>
 
     <script>
+        // Limpiar cache y forzar recarga
+        if (performance.navigation.type === 1) {
+            // Si es una recarga, limpiar cache
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    for (let name of names) {
+                        caches.delete(name);
+                    }
+                });
+            }
+        }
+        
+        // Forzar recarga si hay parámetros de cache
+        if (window.location.search.includes('cache')) {
+            window.location.href = window.location.pathname;
+        }
+    </script>
+    <script>
         // Configuración de Auth0
         const auth0Config = {
             domain: "dev-b0qip4vee7sg3q7e.us.auth0.com",
             clientId: "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab",
             authorizationParams: {
-                redirect_uri: window.location.origin + "/admin/"
+                redirect_uri: "https://service.hgaruna.org/admin/"
             },
             cacheLocation: "localstorage"
         };
