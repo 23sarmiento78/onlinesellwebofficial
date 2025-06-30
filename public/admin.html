@@ -6,29 +6,114 @@
   <title>Panel Social Admin</title>
   <link rel="stylesheet" href="/css/styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <style>
+    body {
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .admin-bg-blur {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0;
+      background: url('/logos-he-imagenes/programacion.jpeg') center center/cover no-repeat;
+      filter: blur(16px) brightness(0.7);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    .centered {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .login-form {
+      background: rgba(255,255,255,0.95);
+      border-radius: 18px;
+      box-shadow: 0 8px 40px rgba(37,99,235,0.10);
+      padding: 40px 32px 32px 32px;
+      max-width: 350px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      position: relative;
+    }
+    .login-logo {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      background: #fff;
+      padding: 8px;
+    }
+    .login-form h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+    .login-form label {
+      width: 100%;
+      font-weight: 500;
+      color: #475569;
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+    .login-form input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1.5px solid #e2e8f0;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      background: #f8fafc;
+      transition: border 0.2s;
+    }
+    .login-form input:focus {
+      border: 1.5px solid #2563eb;
+      outline: none;
+      background: #fff;
+    }
+    .btn-filled {
+      width: 100%;
+      margin-top: 8px;
+    }
+    .error-message {
+      color: #e11d48;
+      font-size: 0.95rem;
+      min-height: 20px;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .login-form { padding: 24px 8px; }
+      .login-logo { width: 80px; height: 80px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="login-bg-blur"></div>
-  <div id="login-section" class="centered login-modern">
-    <form id="local-login-form" class="login-form-modern">
-      <img src="/logos-he-imagenes/logo-sell.png" alt="Logo" class="login-logo" />
+  <div class="admin-bg-blur"></div>
+  <div id="login-section" class="centered">
+    <form id="local-login-form" class="login-form">
+      <img src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo" class="login-logo" />
       <h2>Iniciar sesión</h2>
-      <div class="form-group-modern">
-        <label for="login-email">Email</label>
-        <input type="email" id="login-email" required autocomplete="username" />
-      </div>
-      <div class="form-group-modern">
-        <label for="login-password">Contraseña</label>
-        <input type="password" id="login-password" required autocomplete="current-password" />
-      </div>
-      <button type="submit" class="btn-filled btn-login">Entrar</button>
+      <label>Email:<br><input type="email" id="login-email" required></label>
+      <label>Contraseña:<br><input type="password" id="login-password" required></label>
+      <button type="submit" class="btn-filled">Entrar</button>
       <div id="login-error" class="error-message"></div>
     </form>
   </div>
   <div id="admin-app" class="admin-layout" style="display:none">
     <aside class="sidebar social-sidebar">
       <div class="sidebar-header">
-        <img src="/logos-he-imagenes/logo-sell.png" alt="Logo" class="sidebar-logo">
+        <img src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo" class="sidebar-logo" style="height:48px;object-fit:contain;" />
         <h2>Admin</h2>
       </div>
       <nav class="sidebar-nav">
