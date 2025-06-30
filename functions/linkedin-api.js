@@ -53,7 +53,9 @@ async function getLinkedInAccessToken(code, redirectUri) {
         });
 
         if (!response.ok) {
-            throw new Error(`Error obteniendo token: ${response.status}`);
+            const errorText = await response.text();
+            console.error('LinkedIn token endpoint error:', errorText);
+            throw new Error(`Error obteniendo token: ${response.status} - ${errorText}`);
         }
 
         const data = await response.json();
