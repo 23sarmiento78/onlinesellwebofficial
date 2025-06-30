@@ -22,7 +22,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "postbuild": "node ./scripts/submit-sitemap.js",
+    "postbuild": "node ./scripts/copy-admin.js && node ./scripts/submit-sitemap.js",
     "preview": "astro preview",
     "migrate": "node ./scripts/migrate-articles.js"
   },
