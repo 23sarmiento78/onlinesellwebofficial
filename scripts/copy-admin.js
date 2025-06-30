@@ -51,7 +51,8 @@ function copyDirectory(source, destination) {
 // Archivos y directorios a copiar
 const filesToCopy = [
     { source: 'public/admin.html', destination: 'dist/admin.html' },
-    { source: 'public/linkedin-callback.html', destination: 'dist/linkedin-callback.html' }
+    { source: 'public/linkedin-callback.html', destination: 'dist/linkedin-callback.html' },
+    { source: 'public/auth0-test.html', destination: 'dist/auth0-test.html' }
 ];
 
 const directoriesToCopy = [

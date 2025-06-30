@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Auth0 - Diagnóstico Error 400</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-danger {
+            background: #dc3545;
+        }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .config-display {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Prueba de Diagnóstico Auth0 - Error 400</h1>
+        <p>Esta página te ayudará a diagnosticar el problema del error 400 en Auth0.</p>
+
+        <div class="test-section">
+            <h2>📋 Configuración Actual</h2>
+            <div class="config-display" id="config-display">
+                Cargando configuración...
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🧪 Pruebas Disponibles</h2>
+            <button class="btn btn-success" onclick="runBasicTest()">Prueba Básica</button>
+            <button class="btn btn-warning" onclick="runEndpointTest()">Prueba Endpoints</button>
+            <button class="btn btn-danger" onclick="runAuthTest()">Prueba Autorización</button>
+            <button class="btn" onclick="clearLog()">Limpiar Log</button>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 Estado de la Prueba</h2>
+            <div id="status-display">
+                <div class="status warning">Esperando ejecutar pruebas...</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📝 Log de Pruebas</h2>
+            <div class="log" id="test-log">
+                Inicia una prueba para ver los resultados...
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔗 Acciones Rápidas</h2>
+            <button class="btn btn-success" onclick="openAuth0Dashboard()">Abrir Auth0 Dashboard</button>
+            <button class="btn btn-warning" onclick="openAdminPage()">Abrir Admin Page</button>
+            <button class="btn" onclick="copyConfig()">Copiar Configuración</button>
+        </div>
+    </div>
+
+    <!-- SDK de Auth0 -->
+    <script src="https://unpkg.com/@auth0/auth0-spa-js@2.2.0/dist/auth0-spa-js.production.js"></script>
+    <script src="js/auth0-test.js"></script>
+
+    <script>
+        // Configuración de Auth0
+        const auth0Config = {
+            domain: "dev-b0qip4vee7sg3q7e.us.auth0.com",
+            clientId: "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab",
+            redirectUri: "https://service.hgaruna.org/admin/",
+            audience: "https://service.hgaruna.org/api"
+        };
+
+        // Variables globales
+        let testResults = [];
+        let currentStatus = 'waiting';
+
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', function() {
+            displayConfig();
+            log('🚀 Página de prueba cargada');
+            log('📋 Configuración detectada:');
+            log(JSON.stringify(auth0Config, null, 2));
+        });
+
+        function displayConfig() {
+            const configDisplay = document.getElementById('config-display');
+            configDisplay.innerHTML = `
+Domain: ${auth0Config.domain}
+Client ID: ${auth0Config.clientId}
+Redirect URI: ${auth0Config.redirectUri}
+Audience: ${auth0Config.audience}
+            `;
+        }
+
+        function log(message) {
+            const logElement = document.getElementById('test-log');
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.textContent += `[${timestamp}] ${message}\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+            console.log(message);
+        }
+
+        function updateStatus(message, type = 'info') {
+            const statusDisplay = document.getElementById('status-display');
+            statusDisplay.innerHTML = `<div class="status ${type}">${message}</div>`;
+            currentStatus = type;
+        }
+
+        function clearLog() {
+            document.getElementById('test-log').textContent = '';
+            log('🧹 Log limpiado');
+        }
+
+        async function runBasicTest() {
+            log('🧪 Iniciando prueba básica...');
+            updateStatus('Ejecutando prueba básica...', 'warning');
+            
+            try {
+                await window.testAuth0Config();
+                updateStatus('Prueba básica completada', 'success');
+                log('✅ Prueba básica completada');
+            } catch (error) {
+                updateStatus('Error en prueba básica: ' + error.message, 'error');
+                log('❌ Error en prueba básica: ' + error.message);
+            }
+        }
+
+        async function runEndpointTest() {
+            log('🌐 Iniciando prueba de endpoints...');
+            updateStatus('Verificando endpoints de Auth0...', 'warning');
+            
+            try {
+                const tester = new Auth0Tester();
+                await tester.testAuth0Endpoints();
+                updateStatus('Prueba de endpoints completada', 'success');
+                log('✅ Prueba de endpoints completada');
+            } catch (error) {
+                updateStatus('Error en prueba de endpoints: ' + error.message, 'error');
+                log('❌ Error en prueba de endpoints: ' + error.message);
+            }
+        }
+
+        async function runAuthTest() {
+            log('🔐 Iniciando prueba de autorización...');
+            updateStatus('Probando autorización de Auth0...', 'warning');
+            
+            try {
+                await window.testAuth0Manual();
+                updateStatus('Prueba de autorización completada', 'success');
+                log('✅ Prueba de autorización completada');
+            } catch (error) {
+                updateStatus('Error en prueba de autorización: ' + error.message, 'error');
+                log('❌ Error en prueba de autorización: ' + error.message);
+            }
+        }
+
+        function openAuth0Dashboard() {
+            window.open('https://manage.auth0.com/dashboard/us/dev-b0qip4vee7sg3q7e/applications', '_blank');
+            log('🔗 Abriendo Auth0 Dashboard...');
+        }
+
+        function openAdminPage() {
+            window.open('https://service.hgaruna.org/admin/', '_blank');
+            log('🔗 Abriendo página de administración...');
+        }
+
+        function copyConfig() {
+            const configText = JSON.stringify(auth0Config, null, 2);
+            navigator.clipboard.writeText(configText).then(() => {
+                log('📋 Configuración copiada al portapapeles');
+                updateStatus('Configuración copiada al portapapeles', 'success');
+            }).catch(err => {
+                log('❌ Error copiando configuración: ' + err.message);
+            });
+        }
+
+        // Interceptar console.log para mostrar en la página
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            log(args.join(' '));
+        };
+
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            log('❌ ' + args.join(' '));
+        };
+
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            log('⚠️ ' + args.join(' '));
+        };
+    </script>
+</body>
+</html> 
