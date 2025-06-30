@@ -1,0 +1,44 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/articles"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Layout", name: "layout", widget: "hidden", default: "ArticleLayout.astro"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Image", name: "image", widget: "image", required: false}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "pages"
+    label: "Pages"
+    folder: "src/pages"
+    create: true
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "config"
+    label: "Site Configuration"
+    files:
+      - file: "src/content/config.ts"
+        label: "Site Config"
+        name: "config"
+        fields:
+          - {label: "Site Title", name: "title", widget: "string"}
+          - {label: "Site Description", name: "description", widget: "text"}
+          - {label: "Author", name: "author", widget: "string"}
+          - {label: "Email", name: "email", widget: "string"} 

@@ -21,8 +21,9 @@ const configureClient = async () => {
             return null;
         }
         
+        console.log("Inicializando Auth0 client...");
         auth0Client = await auth0.createAuth0Client(auth0Config);
-        console.log("Auth0 client initialized successfully");
+        console.log("Auth0 client initialized successfully:", auth0Client);
         return auth0Client;
     } catch (error) {
         console.error("Error initializing Auth0 client:", error);
@@ -35,7 +36,5 @@ const getAuth0Client = () => {
     return auth0Client;
 };
 
-// Inicializar el cliente cuando se carga la página
-document.addEventListener('DOMContentLoaded', () => {
-    configureClient();
-}); 
+// Inicializar el cliente inmediatamente
+configureClient(); 
