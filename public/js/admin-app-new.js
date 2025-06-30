@@ -20,7 +20,8 @@ async function configureAuth0() {
     domain: AUTH0_DOMAIN,
     client_id: AUTH0_CLIENT_ID,
     audience: AUTH0_AUDIENCE,
-    redirect_uri: AUTH0_REDIRECT_URI
+    redirect_uri: AUTH0_REDIRECT_URI,
+    scope: 'openid profile email'
   });
 }
 
