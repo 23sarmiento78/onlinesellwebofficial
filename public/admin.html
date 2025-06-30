@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración - v3.0 (Nuevo Diseño)</title>
-    <!-- SDK de Auth0 -->
-    <script src="https://unpkg.com/@auth0/auth0-spa-js@2.2.0/dist/auth0-spa-js.production.js"></script>
-    <!-- Script de diagnóstico de Auth0 -->
-    <script src="js/auth0-debug.js"></script>
-    <!-- Script de prueba específico para error 400 -->
-    <script src="js/auth0-test.js"></script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -640,17 +634,6 @@
         }
     </script>
     <script>
-        // Configuración de Auth0
-        const auth0Config = {
-            domain: "dev-b0qip4vee7sg3q7e.us.auth0.com",
-            clientId: "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab",
-            authorizationParams: {
-                redirect_uri: "https://service.hgaruna.org/admin/",
-                audience: "https://service.hgaruna.org/api"
-            },
-            cacheLocation: "localstorage"
-        };
-
         // Funciones de utilidad
         function showModal(modalId) {
             document.getElementById(modalId).style.display = 'block';
@@ -1255,4 +1238,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
