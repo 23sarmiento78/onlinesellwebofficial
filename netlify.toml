@@ -179,7 +179,7 @@
   AUTH0_CLIENT_SECRET = "W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS"
   AUTH0_AUDIENCE = "https://service.hgaruna.org/api"
   JWT_SECRET = "hgaruna-jwt-secret-key-2025"
-  LINKEDIN_CLIENT_ID = "77w90bvizsj1y9"
+  LINKEDIN_CLIENT_ID = "77d1u4hecolzrd"
   LINKEDIN_CLIENT_SECRET = "WPL_AP1.aca8d5j54e9SZ5p5.W0ifCg=="
   SITE_URL = "https://service.hgaruna.org"
 
@@ -189,6 +189,6 @@
   AUTH0_CLIENT_SECRET = "W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS"
   AUTH0_AUDIENCE = "https://service.hgaruna.org/api"
   JWT_SECRET = "hgaruna-jwt-secret-key-2025"
-  LINKEDIN_CLIENT_ID = "77w90bvizsj1y9"
+  LINKEDIN_CLIENT_ID = "77d1u4hecolzrd"
   LINKEDIN_CLIENT_SECRET = "WPL_AP1.aca8d5j54e9SZ5p5.W0ifCg=="
   SITE_URL = "https://service.hgaruna.org"
