@@ -153,12 +153,20 @@ async function submitForumForm(forumForm, forumResult) {
     const linkedinToken = localStorage.getItem('linkedin_token');
     if (linkedinToken) {
       forumResult.textContent = 'Publicando en LinkedIn...';
-      // Construir contenido para LinkedIn
-      let linkedinContent = `${body.title}\n\n${body.content}`;
+      // Construir contenido para LinkedIn: título, resumen, hashtags y llamado a la acción
+      let linkedinContent = `${body.title}\n\n`;
+      // Resumen: primeros 200 caracteres del contenido
+      if (body.content) {
+        const resumen = body.content.length > 200 ? body.content.substring(0, 197) + '...' : body.content;
+        linkedinContent += resumen + '\n\n';
+      }
+      // Hashtags
       if (body.tags) {
         const hashtags = body.tags.split(',').map(t => t.trim()).filter(Boolean).map(t => `#${t.replace(/\s+/g, '')}`).join(' ');
-        if (hashtags) linkedinContent += `\n\n${hashtags}`;
+        if (hashtags) linkedinContent += hashtags + '\n\n';
       }
+      // Llamado a la acción
+      linkedinContent += `Visita nuestro foro y participa: ${window.location.origin}/foro/`;
       try {
         const linkedinRes = await fetch('/.netlify/functions/linkedin-api/post', {
           method: 'POST',

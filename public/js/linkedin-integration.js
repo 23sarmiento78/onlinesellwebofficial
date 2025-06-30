@@ -3,7 +3,7 @@ class LinkedInIntegration {
   constructor() {
     this.config = window.LINKEDIN_CONFIG || {};
     this.clientId = this.config.CLIENT_ID || 'YOUR_LINKEDIN_CLIENT_ID';
-    this.redirectUri = this.config.REDIRECT_URI || window.location.origin + '/admin/';
+    this.redirectUri = this.config.REDIRECT_URI || 'https://service.hgaruna.org/linkedin-callback.html';
     this.scope = this.config.SCOPE || 'w_member_social';
     this.apiVersion = this.config.API_VERSION || 'v2';
     this.accessToken = localStorage.getItem('linkedin_access_token');
