@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  <h1>Panel de Administración - Artículos</h1>
+  <div id="admin-articles">
+    <ul id="article-list"></ul>
+  </div>
+
+  <div id="modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+    <div style="background:#fff; padding:2rem; border-radius:8px; max-width:600px; width:90%;">
+      <h2>JSON del artículo</h2>
+      <pre id="json-script" style="max-height:300px; overflow:auto;"></pre>
+      <button id="copy-btn">Copiar al portapapeles</button>
+      <button id="close-btn">Cerrar</button>
+    </div>
+  </div>
+
+  <script type="module">
+    async function fetchArticles() {
+      const res = await fetch('/.netlify/functions/index-page/articles/list');
+      const data = await res.json();
+      return data;
+    }
+
+    function showModal(article) {
+      document.getElementById('json-script').textContent = JSON.stringify(article, null, 2);
+      document.getElementById('modal').style.display = 'flex';
+      window.currentArticle = article;
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    document.getElementById('close-btn').onclick = closeModal;
+    document.getElementById('copy-btn').onclick = function() {
+      if (window.currentArticle) {
+        navigator.clipboard.writeText(JSON.stringify(window.currentArticle, null, 2));
+      }
+    };
+
+    fetchArticles().then(articles => {
+      const list = document.getElementById('article-list');
+      list.innerHTML = '';
+      articles.forEach(article => {
+        const li = document.createElement('li');
+        li.style.display = 'flex';
+        li.style.justifyContent = 'space-between';
+        li.style.alignItems = 'center';
+        li.style.padding = '0.5rem 0';
+        li.style.borderBottom = '1px solid #eee';
+        li.innerHTML = `<span>${article.title}</span> <button>Traer script</button>`;
+        li.querySelector('button').onclick = () => showModal(article);
+        list.appendChild(li);
+      });
+    });
+  </script>
+</BaseLayout>
