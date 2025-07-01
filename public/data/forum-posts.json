@@ -1,3 +1,49 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "_id": "post_1703123456789_example1",
+      "author": "hgaruna",
+      "avatar": "/logos-he-imagenes/logo3.png",
+      "title": "Bienvenidos al Foro de Desarrollo Web",
+      "content": "¡Hola a todos! Bienvenidos al foro de la comunidad de desarrollo web en Villa Carlos Paz. Aquí podremos compartir experiencias, proyectos, preguntas y consejos sobre desarrollo web, SEO, marketing digital y tecnología en general.\n\nEste es un espacio para conectar con otros profesionales del sector y aprender juntos. ¡No duden en participar!",
+      "category": "General",
+      "tags": ["bienvenida", "comunidad", "desarrollo web"],
+      "createdAt": "2024-01-22T10:30:00.000Z",
+      "timestamp": "2024-01-22T10:30:00.000Z",
+      "likes": 5,
+      "comments": 2,
+      "shares": 1,
+      "likedBy": ["usuario1", "usuario2"]
+    },
+    {
+      "_id": "post_1703123456790_example2",
+      "author": "Desarrollador Local",
+      "avatar": "/logos-he-imagenes/logo3.png",
+      "title": "Experiencias con React en proyectos locales",
+      "content": "Hace poco terminé un proyecto para una empresa local usando React y la verdad que fue una experiencia muy positiva. La curva de aprendizaje inicial fue un poco empinada, pero una vez que le agarras la mano, es muy potente.\n\n¿Alguien más ha trabajado con React en proyectos de la zona? ¿Qué experiencias han tenido?",
+      "category": "Desarrollo Web",
+      "tags": ["react", "javascript", "proyectos locales"],
+      "createdAt": "2024-01-22T09:15:00.000Z",
+      "timestamp": "2024-01-22T09:15:00.000Z",
+      "likes": 3,
+      "comments": 1,
+      "shares": 0,
+      "likedBy": ["usuario3"]
+    },
+    {
+      "_id": "post_1703123456791_example3",
+      "author": "SEO Expert",
+      "avatar": "/logos-he-imagenes/logo3.png",
+      "title": "Consejos de SEO para sitios web locales",
+      "content": "Para los que están trabajando con clientes locales, aquí van algunos consejos de SEO que he aplicado con buenos resultados:\n\n1. Optimizar para búsquedas locales con Google My Business\n2. Incluir palabras clave específicas de la zona\n3. Crear contenido relevante para la comunidad local\n4. Obtener enlaces de directorios locales\n\n¿Qué estrategias han funcionado mejor para ustedes?",
+      "category": "SEO",
+      "tags": ["seo", "local", "google my business", "palabras clave"],
+      "createdAt": "2024-01-22T08:45:00.000Z",
+      "timestamp": "2024-01-22T08:45:00.000Z",
+      "likes": 7,
+      "comments": 3,
+      "shares": 2,
+      "likedBy": ["usuario1", "usuario4", "usuario5"]
+    }
+  ]
 }

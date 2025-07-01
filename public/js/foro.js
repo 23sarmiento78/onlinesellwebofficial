@@ -42,27 +42,72 @@ class ForoManager {
   // Cargar publicaciones desde MongoDB (Netlify Function)
   async loadForumPosts() {
     try {
+      console.log('[ForoManager] Cargando posts del foro...');
       const res = await fetch('/.netlify/functions/get-forum-posts');
+      
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      
       const data = await res.json();
-      const posts = Array.isArray(data) ? data : (data.posts || data);
+      console.log('[ForoManager] Respuesta de la API:', data);
+      
+      let posts = [];
+      if (Array.isArray(data)) {
+        posts = data;
+      } else if (data.posts && Array.isArray(data.posts)) {
+        posts = data.posts;
+      } else if (data.error) {
+        console.error('[ForoManager] Error en la API:', data.error);
+        posts = [];
+      } else {
+        console.warn('[ForoManager] Formato de datos inesperado:', data);
+        posts = [];
+      }
+      
+      console.log(`[ForoManager] ${posts.length} posts cargados`);
       this.renderForumPosts(posts);
     } catch (e) {
-      console.error('Error cargando posts del foro:', e);
+      console.error('[ForoManager] Error cargando posts del foro:', e);
+      // Mostrar mensaje de error al usuario
+      this.showNotification('Error cargando las publicaciones. Intenta recargar la página.', 'error');
     }
   }
 
   // Renderizar publicaciones en el foro
   renderForumPosts(posts) {
+    console.log('[ForoManager] Renderizando posts:', posts);
+    
     const container = document.querySelector('.main-content');
-    if (!container) return;
+    if (!container) {
+      console.error('[ForoManager] No se encontró el contenedor .main-content');
+      return;
+    }
+    
+    // Limpiar contenedor
     container.innerHTML = '';
+    
+    if (!Array.isArray(posts) || posts.length === 0) {
+      container.innerHTML = `
+        <div class="no-posts" style="text-align: center; padding: 40px; color: #64748b;">
+          <h3>No hay publicaciones aún</h3>
+          <p>¡Sé el primero en compartir algo con la comunidad!</p>
+        </div>
+      `;
+      return;
+    }
+    
     // Usar el mismo estilo de post que el feed (post-card)
-    posts.forEach(post => {
+    posts.forEach((post, index) => {
+      console.log(`[ForoManager] Procesando post ${index}:`, post);
+      
       // Normalizar datos mínimos para compatibilidad
       if (!post.likedBy) post.likedBy = [];
       if (!post.comments) post.comments = 0;
       if (!post.likes) post.likes = 0;
       if (!post.shares) post.shares = 0;
+      
+      // Normalizar autor
       if (!post.author || typeof post.author === 'string') {
         post.author = {
           name: post.author || 'Anónimo',
@@ -70,11 +115,15 @@ class ForoManager {
           verified: false
         };
       }
+      
       // Si no hay id, usar _id o timestamp
       if (!post.id) post.id = post._id || post.timestamp || Math.random().toString(36).substr(2,9);
+      
       const postElement = this.createPostElement(post);
       container.appendChild(postElement);
     });
+    
+    console.log(`[ForoManager] ${posts.length} posts renderizados exitosamente`);
   }
 
   // Guardar publicaciones en localStorage
