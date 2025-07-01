@@ -22,8 +22,8 @@ const { Content } = await article.render();
   title={article.data.title}
   description={article.data.description}
   image={article.data.image}
-  ogUrl={canonicalUrl}
-  twitterUrl={canonicalUrl}
+  ogUrl={article.data.ogUrl || ''}
+  twitterUrl={article.data.twitterUrl || ''}
 >
   <section class="article-section">
     <div class="container article-content">
