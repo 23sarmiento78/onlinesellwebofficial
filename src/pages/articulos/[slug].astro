@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const entry = await getEntryBySlug('articles', slug);
 if (!entry) throw new Error('Artículo no encontrado');
-
-<ArticleLayout title={entry.data.title} description={entry.data.description} image={entry.data.image}>
+---
+<ArticleLayout title=entry.data.title description=entry.data.description image=entry.data.image>
   <entry.render />
 </ArticleLayout>
