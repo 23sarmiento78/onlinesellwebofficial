@@ -8,12 +8,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     <ul id="article-list"></ul>
   </div>
 
-  <div id="modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
-    <div style="background:#fff; padding:2rem; border-radius:8px; max-width:600px; width:90%;">
+  <div id="modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; z-index:9999;">
+    <div style="background:#fff; padding:2rem; border-radius:8px; max-width:700px; width:95vw; max-height:90vh; overflow-y:auto; display:flex; flex-direction:column;">
       <h2>JSON del artículo</h2>
-      <pre id="json-script" style="max-height:300px; overflow:auto;"></pre>
-      <button id="copy-btn">Copiar al portapapeles</button>
-      <button id="close-btn">Cerrar</button>
+      <pre id="json-script" style="flex:1 1 auto; min-height:200px; max-height:60vh; overflow:auto; background:#f8fafc; border-radius:6px; padding:1rem; margin-bottom:1rem;"></pre>
+      <div style="display:flex; gap:1rem; justify-content:flex-end;">
+        <button id="copy-btn">Copiar al portapapeles</button>
+        <button id="close-btn">Cerrar</button>
+      </div>
     </div>
   </div>
 
