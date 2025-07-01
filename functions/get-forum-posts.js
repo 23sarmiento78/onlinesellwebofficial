@@ -18,14 +18,19 @@ exports.handler = async function(event, context) {
   try {
     const client = await connectToDatabase();
     const db = client.db(DB_NAME);
-    // Filtrar solo los posts de hoy
+    // Filtrar solo los posts de hoy por 'createdAt' o 'timestamp'
     const start = new Date();
     start.setHours(0,0,0,0);
     const end = new Date();
     end.setHours(23,59,59,999);
     const posts = await db.collection(FORUM_COLLECTION)
-      .find({ createdAt: { $gte: start, $lte: end } })
-      .sort({ createdAt: -1 })
+      .find({
+        $or: [
+          { createdAt: { $gte: start, $lte: end } },
+          { timestamp: { $gte: start.toISOString(), $lte: end.toISOString() } }
+        ]
+      })
+      .sort({ createdAt: -1, timestamp: -1 })
       .toArray();
     return {
       statusCode: 200,
