@@ -58,31 +58,6 @@ exports.handler = async function(event, context) {
           await db.collection(ARTICLES_COLLECTION).insertOne(newArticle);
           console.log('[admin-api] Artículo insertado correctamente');
 
-          // Crear archivo Markdown para Astro
-          try {
-            const { exec } = require('child_process');
-            // Prepara el JSON para pasarlo como argumento seguro
-            const safeJson = JSON.stringify({
-              title: newArticle.title,
-              description: newArticle.description || '',
-              date: newArticle.date || newArticle.createdAt,
-              image: newArticle.image || '',
-              category: newArticle.category || '',
-              author: newArticle.author || '',
-              tags: newArticle.tags || [],
-              content: newArticle.content || ''
-            }).replace(/'/g, "\\'");
-            exec(`node ./scripts/create-astro-article-md.js '${safeJson}'`, (err, stdout, stderr) => {
-              if (err) {
-                console.error('[admin-api] Error creando archivo Astro:', stderr);
-              } else {
-                console.log('[admin-api] Archivo Astro creado:', stdout);
-              }
-            });
-          } catch (err) {
-            console.error('[admin-api] Error al intentar crear archivo Astro:', err.message);
-          }
-
           // Eliminado: Crear post resumido en el foro
           const resumen = newArticle.content.length > 200 ? newArticle.content.substring(0, 197) + '...' : newArticle.content;
           const forumPost = {
