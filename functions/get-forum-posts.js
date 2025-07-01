@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 
 const MONGODB_URI = process.env.MONGODB_URI;
-const DB_NAME = 'sample_mflix';
+const DB_NAME = 'hgaruna'; // Cambiado a la base correcta
 const FORUM_COLLECTION = 'forum_posts';
 
 let cachedClient = null;
@@ -18,19 +18,10 @@ exports.handler = async function(event, context) {
   try {
     const client = await connectToDatabase();
     const db = client.db(DB_NAME);
-    // Filtrar solo los posts de hoy por 'createdAt' o 'timestamp'
-    const start = new Date();
-    start.setHours(0,0,0,0);
-    const end = new Date();
-    end.setHours(23,59,59,999);
+    // Traer todos los posts, ordenados por timestamp descendente
     const posts = await db.collection(FORUM_COLLECTION)
-      .find({
-        $or: [
-          { createdAt: { $gte: start, $lte: end } },
-          { timestamp: { $gte: start.toISOString(), $lte: end.toISOString() } }
-        ]
-      })
-      .sort({ createdAt: -1, timestamp: -1 })
+      .find({})
+      .sort({ timestamp: -1 })
       .toArray();
     return {
       statusCode: 200,

@@ -55,20 +55,26 @@ class ForoManager {
   renderForumPosts(posts) {
     const container = document.querySelector('.main-content');
     if (!container) return;
-    container.innerHTML = posts.map(post => `
-      <div class="foro-post">
-        <div class="foro-post-header">
-          <img src="${post.avatar || '/logos-he-imagenes/logo3.png'}" class="foro-post-avatar" alt="avatar" />
-          <div>
-            <strong>${post.author || 'Anónimo'}</strong>
-            <span class="foro-post-date">${post.createdAt ? new Date(post.createdAt).toLocaleString() : ''}</span>
-          </div>
-        </div>
-        <div class="foro-post-content">${post.content}</div>
-        ${post.image ? `<img src="${post.image}" class="foro-post-image" alt="imagen post" />` : ''}
-        <div class="foro-post-tags">${post.tags ? post.tags : ''}</div>
-      </div>
-    `).join('');
+    container.innerHTML = '';
+    // Usar el mismo estilo de post que el feed (post-card)
+    posts.forEach(post => {
+      // Normalizar datos mínimos para compatibilidad
+      if (!post.likedBy) post.likedBy = [];
+      if (!post.comments) post.comments = 0;
+      if (!post.likes) post.likes = 0;
+      if (!post.shares) post.shares = 0;
+      if (!post.author || typeof post.author === 'string') {
+        post.author = {
+          name: post.author || 'Anónimo',
+          avatar: post.avatar || '/logos-he-imagenes/logo3.png',
+          verified: false
+        };
+      }
+      // Si no hay id, usar _id o timestamp
+      if (!post.id) post.id = post._id || post.timestamp || Math.random().toString(36).substr(2,9);
+      const postElement = this.createPostElement(post);
+      container.appendChild(postElement);
+    });
   }
 
   // Guardar publicaciones en localStorage
@@ -430,10 +436,12 @@ class ForoManager {
 
     const modal = document.createElement('div');
     modal.className = 'comment-modal';
-    
+    // Usar el mismo card visual del foro para el post
+    const postCard = this.createPostElement(post);
+    postCard.style.marginBottom = '18px';
+    postCard.style.boxShadow = '0 2px 12px rgba(37,99,235,0.10)';
     // Obtener comentarios existentes
-    const comments = this.comments[postId] || [];
-    
+    const comments = this.comments[post.id] || [];
     modal.innerHTML = `
       <div class="comment-modal-content">
         <div class="comment-modal-header">
@@ -442,28 +450,28 @@ class ForoManager {
             <i class="material-icons">close</i>
           </button>
         </div>
-        
         <div class="comment-modal-body">
+          <div class="post-modal-preview"></div>
           <div class="comments-list">
             ${comments.length > 0 ? comments.map(comment => this.createCommentElement(comment)).join('') : 
               '<div class="no-comments">Sé el primero en comentar</div>'}
           </div>
-          
           <div class="comment-input-section">
             <div class="comment-input-wrapper">
               <img src="${this.currentUser.avatar}" alt="${this.currentUser.name}" class="comment-user-avatar" />
               <textarea class="comment-input" placeholder="Escribe tu comentario..." rows="2"></textarea>
             </div>
-            <button class="comment-submit-btn" data-post-id="${postId}">
+            <button class="comment-submit-btn" data-post-id="${post.id}">
               <i class="material-icons">send</i>
             </button>
           </div>
         </div>
       </div>
     `;
-
     document.body.appendChild(modal);
-    
+    // Insertar el post card arriba del modal
+    modal.querySelector('.post-modal-preview').appendChild(postCard);
+
     // Mostrar modal con animación
     setTimeout(() => modal.classList.add('show'), 10);
 
