@@ -28,6 +28,15 @@ collections:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Contenido", name: "body", widget: "markdown" }
 
+  - name: "funciones"
+    label: "Funciones/Integraciones"
+    folder: "functions"
+    create: true
+    slug: "{{slug}}"
+    extension: "js"
+    fields:
+      - { label: "Código JS", name: "body", widget: "code", default_language: "javascript" }
+
   - name: "admin"
     label: "Panel de Administración"
     files:
