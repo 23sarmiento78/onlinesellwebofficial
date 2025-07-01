@@ -1,19 +1,18 @@
 ---
-import { Markdown } from 'astro/components';
+import { getEntryBySlug } from 'astro:content';
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
+
 export async function getStaticPaths() {
-  const modules = await Astro.glob('./src/content/articulos/*.md');
+  // Ajusta el nombre de la colección si es necesario
+  const modules = await Astro.glob('../../content/articulos/*.md');
   return modules.map((mod) => ({ params: { slug: mod.file.split('/').pop().replace('.md', '') } }));
 }
 
 const { slug } = Astro.params;
-const modules = await Astro.glob('./src/content/articulos/*.md');
-const file = modules.find((mod) => mod.file.includes(`${slug}.md`));
-const frontmatter = file?.frontmatter || {};
-const content = file ? await file.rawContent() : '';
----
+const entry = await getEntryBySlug('articles', slug);
+if (!entry) throw new Error('Artículo no encontrado');
 
-<ArticleLayout title={frontmatter.title} description={frontmatter.description} image={frontmatter.image}>
-  <Markdown content={content} />
+<ArticleLayout title={entry.data.title} description={entry.data.description} image={entry.data.image}>
+  <entry.render />
 </ArticleLayout>
