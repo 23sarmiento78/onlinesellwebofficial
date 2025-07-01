@@ -125,7 +125,7 @@ async function handleArticles(db, method, action, id, body, headers) {
         return {
           statusCode: 200,
           headers,
-          body: JSON.stringify(articles)
+          body: JSON.stringify({ articles })
         };
       } else if (id) {
         const article = await collection.findOne({ _id: id });
