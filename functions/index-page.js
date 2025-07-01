@@ -178,6 +178,12 @@ async function handleArticles(db, method, action, id, body, headers) {
       break;
   }
 
+  return {
+    statusCode: 400,
+    headers,
+    body: JSON.stringify({ error: 'Invalid articles request' })
+  };
+}
 
 // Eliminado: función handleForumPosts y toda la lógica de forum_posts
 
