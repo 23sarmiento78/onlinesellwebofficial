@@ -64,5 +64,6 @@ collections:
     create: true
     slug: "{{slug}}"
     extension: "js"
+    format: "frontmatter"
     fields:
       - { label: "Código JS", name: "body", widget: "code", default_language: "javascript" }
