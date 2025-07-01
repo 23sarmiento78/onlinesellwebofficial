@@ -66,4 +66,5 @@ collections:
     extension: "js"
     format: "frontmatter"
     fields:
+      - { label: "Título", name: "title", widget: "string" }
       - { label: "Código JS", name: "body", widget: "code", default_language: "javascript" }
