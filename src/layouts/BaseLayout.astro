@@ -177,19 +177,20 @@ const {
     <!-- Header con estilos OTIF -->
     <header class="main-header">
       <nav class="navbar">
-        <div class="container">
-          <a class="navbar-brand" href="/">
+        <div class="container nav-flex">
+          <!-- Logo alineado a la izquierda -->
+          <a class="navbar-brand nav-logo-left" href="/">
             <img id="nav-logo" src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo de hgaruna" />
             <span>hgaruna</span>
           </a>
 
-          <!-- Botón de menú móvil -->
+          <!-- Botón de menú móvil (mantener para responsive) -->
           <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <!-- Menú principal -->
-          <div class="navbar-collapse">
+          <!-- Menú y acciones alineados a la derecha -->
+          <div class="navbar-collapse nav-right-group">
             <ul class="main-nav">
               <li>
                 <a href="/" class="nav-link">
@@ -204,33 +205,27 @@ const {
                 </a>
               </li>
               <li>
-                <a href="/foro/" class="nav-link">
-                  <i class="fas fa-comments"></i>
-                  <span>Foro</span>
-                </a>
-              </li>
-              <li>
                 <a href="/legal/" class="nav-link">
                   <i class="fas fa-shield-alt"></i>
                   <span>Legal</span>
                 </a>
               </li>
+              <li>
+                <a href="/foro/" class="nav-link">
+                  <i class="fas fa-comments"></i>
+                  <span>Foro</span>
+                </a>
+              </li>
             </ul>
-            
-            <!-- Botones de acción -->
             <div class="nav-actions">
               <a href="https://wa.link/6t7cxa" class="nav-btn primary" target="_blank">
                 <i class="fab fa-whatsapp"></i>
                 <span>Cotizar Ahora</span>
               </a>
-              
-              <!-- Botón de Admin (solo visible si está autenticado) -->
               <a href="/admin/" id="admin-button" class="nav-btn admin" style="display: none;">
                 <i class="fas fa-cog"></i>
                 <span>Admin</span>
               </a>
-              
-              <!-- Botón de Login/Logout -->
               <a href="#" id="login-button" class="nav-btn secondary">
                 <i class="fas fa-user"></i>
                 <span>Iniciar Sesión</span>
@@ -270,7 +265,7 @@ const {
             <ul>
               <li><a href="/">Inicio</a></li>
               <li><a href="/planes/">Planes</a></li>
-              <li><a href="/foro/">Foro</a></li>
+              
               <li><a href="/legal/">Legal</a></li>
               <li><a href="/politicas-privacidad/">Políticas de Privacidad</a></li>
               <li><a href="https://wa.link/6t7cxa">Contacto</a></li>

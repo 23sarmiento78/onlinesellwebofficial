@@ -37,7 +37,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://service.hgaruna.org/foro/</loc>
+    <!-- Eliminado: foro -->
     <lastmod>2025-01-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

@@ -15,7 +15,7 @@ export const prerender = true;
 const { article } = Astro.props;
 const { Content } = await article.render();
 
-const canonicalUrl = new URL(`/foro/articulos/${article.slug}/`, Astro.site).href;
+// Eliminado: referencia a foro
 ---
 
 <ArticleLayout

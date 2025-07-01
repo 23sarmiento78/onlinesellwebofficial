@@ -86,8 +86,7 @@ exports.handler = async (event, context) => {
       case 'articles':
         return await handleArticles(db, httpMethod, action, id, body, headers);
       
-      case 'forum-posts':
-        return await handleForumPosts(db, httpMethod, action, id, body, headers);
+      // Eliminado: funcionalidad de forum-posts
       
       case 'stats':
         return await handleStats(db, headers);
@@ -179,98 +178,18 @@ async function handleArticles(db, method, action, id, body, headers) {
       break;
   }
 
-  return {
-    statusCode: 400,
-    headers,
-    body: JSON.stringify({ error: 'Invalid request' })
-  };
-}
 
-async function handleForumPosts(db, method, action, id, body, headers) {
-  const collection = db.collection('forum_posts');
-
-  switch (method) {
-    case 'GET':
-      if (action === 'list') {
-        const posts = await collection.find({}).sort({ timestamp: -1 }).toArray();
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(posts)
-        };
-      } else if (id) {
-        const post = await collection.findOne({ _id: id });
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(post)
-        };
-      }
-      break;
-
-    case 'POST':
-      if (action === 'create') {
-        const postData = JSON.parse(body);
-        postData._id = `post_${Date.now()}`;
-        postData.timestamp = new Date().toISOString();
-        postData.likes = 0;
-        postData.comments = [];
-        
-        await collection.insertOne(postData);
-        
-        return {
-          statusCode: 201,
-          headers,
-          body: JSON.stringify({ success: true, post: postData })
-        };
-      }
-      break;
-
-    case 'PUT':
-      if (id) {
-        const updateData = JSON.parse(body);
-        await collection.updateOne({ _id: id }, { $set: updateData });
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({ success: true })
-        };
-      }
-      break;
-
-    case 'DELETE':
-      if (id) {
-        await collection.deleteOne({ _id: id });
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({ success: true })
-        };
-      }
-      break;
-  }
-
-  return {
-    statusCode: 400,
-    headers,
-    body: JSON.stringify({ error: 'Invalid request' })
-  };
-}
+// Eliminado: función handleForumPosts y toda la lógica de forum_posts
 
 async function handleStats(db, headers) {
+
   const articlesCollection = db.collection('articles');
-  const forumCollection = db.collection('forum_posts');
-
-  const [articlesCount, forumPostsCount] = await Promise.all([
-    articlesCollection.countDocuments(),
-    forumCollection.countDocuments()
-  ]);
-
+  const articlesCount = await articlesCollection.countDocuments();
   const stats = {
     articles: articlesCount,
-    forumPosts: forumPostsCount,
+    forumPosts: 0,
     comments: 0, // TODO: Implement comments counting
-    views: (articlesCount * 150) + (forumPostsCount * 75) // Simulated
+    views: (articlesCount * 150) // Simulated
   };
 
   return {
@@ -622,4 +541,4 @@ async function handleLinkedIn(db, method, action, id, body, headers) {
     headers,
     body: JSON.stringify({ error: 'Invalid LinkedIn request' })
   };
-}
+// ...existing code...

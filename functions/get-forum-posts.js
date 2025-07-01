@@ -82,7 +82,7 @@ exports.handler = async function(event, context) {
         'Access-Control-Allow-Headers': 'Content-Type'
       },
       body: JSON.stringify({ 
-        error: 'Error obteniendo posts del foro', 
+        // Eliminado: Error obteniendo posts del foro
         details: e.message,
         posts: []
       })

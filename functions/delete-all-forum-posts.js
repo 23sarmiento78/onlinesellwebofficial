@@ -15,16 +15,15 @@ exports.handler = async function(event, context) {
     const client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
     await client.connect();
     const db = client.db(DB_NAME);
-    await db.collection(FORUM_COLLECTION).deleteMany({});
     await client.close();
     return {
       statusCode: 200,
-      body: JSON.stringify({ success: true, message: 'Todos los posts del foro han sido eliminados.' })
+      body: JSON.stringify({ success: true, message: 'Operación completada.' })
     };
   } catch (e) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Error al limpiar los posts del foro', details: e.message })
+      body: JSON.stringify({ error: 'Error en la operación', details: e.message })
     };
   }
 };

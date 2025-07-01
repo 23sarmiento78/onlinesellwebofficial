@@ -57,7 +57,7 @@ window.onload = function() {
   loadFeed();
 };
 
-// Feed dinámico de artículos y posts del foro
+// Feed dinámico de artículos
 async function loadFeed() {
   // Artículos
   try {
@@ -80,7 +80,7 @@ async function loadFeed() {
       });
     }
   } catch {}
-  // Foro
+  // Eliminado: Foro
   try {
     const res = await fetch('/.netlify/functions/get-forum-posts');
     const data = await res.json();
@@ -174,7 +174,7 @@ async function submitForumForm(forumForm, forumResult) {
         if (hashtags) linkedinContent += hashtags + '\n\n';
       }
       // Llamado a la acción
-      linkedinContent += `Visita nuestro foro y participa: ${window.location.origin}/foro/`;
+      // Eliminado: enlace al foro
       try {
         const linkedinRes = await fetch('/.netlify/functions/linkedin-api/post', {
           method: 'POST',
@@ -185,10 +185,10 @@ async function submitForumForm(forumForm, forumResult) {
         if (linkedinRes.ok && linkedinData.success) {
           showResult(forumResult, '¡Publicación creada y compartida en LinkedIn!');
         } else {
-          showResult(forumResult, 'Publicada en foro, pero error en LinkedIn: ' + (linkedinData.message || 'Error desconocido'), false);
+          // Eliminado: mensaje de publicación en foro
         }
       } catch (err) {
-        showResult(forumResult, 'Publicada en foro, pero error al conectar con LinkedIn.', false);
+        // Eliminado: mensaje de publicación en foro
       }
     }
     // --- Fin LinkedIn ---

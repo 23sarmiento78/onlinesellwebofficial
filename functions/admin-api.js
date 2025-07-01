@@ -58,7 +58,7 @@ exports.handler = async function(event, context) {
           await db.collection(ARTICLES_COLLECTION).insertOne(newArticle);
           console.log('[admin-api] Artículo insertado correctamente');
 
-          // Crear post resumido en el foro
+          // Eliminado: Crear post resumido en el foro
           const resumen = newArticle.content.length > 200 ? newArticle.content.substring(0, 197) + '...' : newArticle.content;
           const forumPost = {
             title: newArticle.title,
@@ -69,7 +69,7 @@ exports.handler = async function(event, context) {
             articleId: newArticle._id || null // para referencia cruzada
           };
           await db.collection(FORUM_COLLECTION).insertOne(forumPost);
-          console.log('[admin-api] Post de foro creado automáticamente');
+          // Eliminado: console.log('[admin-api] Post de foro creado automáticamente');
 
           // Automatizar publicación en LinkedIn (solo si hay token en el body)
           if (body.linkedinToken) {

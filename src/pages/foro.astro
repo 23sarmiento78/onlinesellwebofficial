@@ -2,99 +2,79 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout
-  title="Foro hgaruna - Comunidad de Desarrollo Web en Villa Carlos Paz"
-  description="Únete a nuestra comunidad de desarrollo web en Villa Carlos Paz. Comparte experiencias, aprende sobre nuevas tecnologías y conecta con otros profesionales del sector."
-  keywords="foro desarrollo web villa carlos paz, comunidad programadores córdoba, networking tecnología, desarrollo web argentina"
->
-  <div class="foro-container">
-    <!-- Header del Foro -->
-    <div class="foro-header">
-      <h1>Foro de la Comunidad</h1>
-      <p>Comparte experiencias, aprende sobre nuevas tecnologías y conecta con otros profesionales del desarrollo web en Villa Carlos Paz</p>
-    </div>
 
-    <!-- Controles del Foro -->
-    <div class="foro-controls">
-      <div class="foro-filters">
-        <button class="filter-btn active" data-category="all">Todos</button>
-        <button class="filter-btn" data-category="Desarrollo Web">Desarrollo Web</button>
-        <button class="filter-btn" data-category="SEO">SEO</button>
-        <button class="filter-btn" data-category="Marketing Digital">Marketing Digital</button>
-        <button class="filter-btn" data-category="Tecnología">Tecnología</button>
-        <button class="filter-btn" data-category="Proyectos">Proyectos</button>
-        <button class="filter-btn" data-category="Consejos">Consejos</button>
-      </div>
-      
-      <div class="foro-search">
-        <i class="material-icons">search</i>
-        <input type="text" placeholder="Buscar en el foro..." />
-      </div>
-    </div>
-
-    <!-- Crear Publicación -->
-    <div class="create-post">
-      <div class="create-post-header">
-        <img src="/logos-he-imagenes/logo3.png" alt="hgaruna" class="create-post-avatar" />
-        <div>
-          <strong>hgaruna</strong>
-          <div style="font-size: 0.875rem; color: #64748b;">¿Qué quieres compartir?</div>
-        </div>
-      </div>
-      
-      <textarea 
-        class="create-post-input" 
-        placeholder="Comparte tus experiencias, proyectos, preguntas o consejos con la comunidad..."
-        id="newPostContent"
-      ></textarea>
-      
-      <div class="create-post-actions">
-        <div class="create-post-options">
-          <button class="option-btn">
-            <i class="material-icons">image</i>
-            Imagen
-          </button>
-          <button class="option-btn">
-            <i class="material-icons">link</i>
-            Enlace
-          </button>
-          <select class="post-category" style="padding: 8px 12px; border: 2px solid #e2e8f0; border-radius: 8px; background: white; color: #475569;">
-            <option value="General">General</option>
-            <option value="Desarrollo Web">Desarrollo Web</option>
-            <option value="SEO">SEO</option>
-            <option value="Marketing Digital">Marketing Digital</option>
-            <option value="Tecnología">Tecnología</option>
-            <option value="Proyectos">Proyectos</option>
-            <option value="Consejos">Consejos</option>
-          </select>
-        </div>
-        
-        <button class="post-btn" id="publishButton" disabled>
-          <i class="material-icons">send</i>
-          Publicar
-        </button>
-      </div>
-    </div>
-
-    <!-- Contenido Principal -->
-    <div class="main-content">
-      <!-- Las publicaciones se cargarán dinámicamente aquí -->
+<BaseLayout title="Comunidad y Noticias" description="Feed de artículos, novedades y comunidad de hgaruna. Descubre y comenta las últimas publicaciones." keywords="comunidad, noticias, artículos, novedades, hgaruna, desarrollo web">
+  <div class="foro-feed-container">
+    <h1 class="foro-feed-title">Comunidad y Noticias</h1>
+    <div id="feed-list" class="feed-list">
+      <!-- Aquí se cargarán los artículos dinámicamente -->
     </div>
   </div>
 
-  <script src="/js/foro.js" is:inline></script>
-  
+  <div id="modal-articulo" class="modal-articulo" style="display:none;">
+    <div class="modal-content">
+      <button id="close-modal" class="close-modal">&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
   <script>
-    // Script para habilitar/deshabilitar el botón de publicar
-    document.addEventListener('DOMContentLoaded', () => {
-      const postInput = document.getElementById('newPostContent');
-      const publishButton = document.getElementById('publishButton');
-      
-      if (postInput && publishButton) {
-        postInput.addEventListener('input', () => {
-          publishButton.disabled = !postInput.value.trim();
-        });
+    async function fetchFeed() {
+      const res = await fetch('/.netlify/functions/get-articles');
+      const articles = await res.json();
+      const feed = document.getElementById('feed-list');
+      if (!Array.isArray(articles) || articles.length === 0) {
+        feed.innerHTML = '<p>No hay publicaciones aún.</p>';
+        return;
       }
-    });
+      feed.innerHTML = articles.map(article => `
+        <div class="feed-card">
+          <h2 class="feed-title">${article.title}</h2>
+          <div class="feed-meta">${article.author || 'hgaruna'} &bull; ${new Date(article.date || article.createdAt).toLocaleDateString()}</div>
+          <p class="feed-summary">${article.summary || (article.content ? article.content.substring(0, 180) + '...' : '')}</p>
+          <button class="leer-mas-btn" data-id="${article._id}">Leer más</button>
+        </div>
+      `).join('');
+      document.querySelectorAll('.leer-mas-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const id = btn.getAttribute('data-id');
+          const art = articles.find(a => a._id === id);
+          if (art) showModal(art);
+        });
+      });
+    }
+    function showModal(article) {
+      const modal = document.getElementById('modal-articulo');
+      const body = document.getElementById('modal-body');
+      body.innerHTML = `
+        <h2>${article.title}</h2>
+        <div class="feed-meta">${article.author || 'hgaruna'} &bull; ${new Date(article.date || article.createdAt).toLocaleDateString()}</div>
+        <div class="feed-content" style="max-height:60vh;overflow-y:auto;">${article.content || article.summary}</div>
+      `;
+      modal.style.display = 'flex';
+      document.getElementById('close-modal').onclick = () => { modal.style.display = 'none'; };
+      modal.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+    }
+    document.addEventListener('DOMContentLoaded', fetchFeed);
   </script>
-</BaseLayout> 
+  <style>
+    .foro-feed-container { max-width: 700px; margin: 0 auto; padding: 2rem 1rem; }
+    .foro-feed-title { text-align: center; margin-bottom: 2rem; }
+    .feed-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .feed-card { background: var(--color-bg, #fff); border-radius: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 1.5rem; position: relative; }
+    .feed-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .feed-meta { color: #64748b; font-size: 0.95rem; margin-bottom: 0.7rem; }
+    .feed-summary { color: #334155; font-size: 1.05rem; margin-bottom: 1rem; }
+    .leer-mas-btn { background: #2563eb; color: #fff; border: none; border-radius: 0.5rem; padding: 0.5rem 1.2rem; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+    .leer-mas-btn:hover { background: #1e40af; }
+    .modal-articulo { position: fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center; z-index:9999; }
+    .modal-content { background:#fff; border-radius:1rem; max-width:600px; width:90vw; max-height:90vh; padding:2rem 1.5rem 1.5rem 1.5rem; overflow-y:auto; position:relative; }
+    .close-modal { position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:2rem; color:#64748b; cursor:pointer; }
+    .close-modal:hover { color:#e11d48; }
+    @media (max-width:600px) { .modal-content { padding:1rem; } }
+    body.dark-theme .feed-card, body.dark-theme .modal-content { background: #1e293b; color: #f1f5f9; }
+    body.dark-theme .feed-summary { color: #cbd5e1; }
+  </style>
+</BaseLayout>
+  </script>
+</BaseLayout>

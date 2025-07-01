@@ -120,7 +120,7 @@
         <ul>
           <li><a href="#" class="active"><i class="fa-solid fa-house"></i> Inicio</a></li>
           <li><a href="#article-form"><i class="fa-solid fa-pen"></i> Nuevo Artículo</a></li>
-          <li><a href="#forum-form"><i class="fa-solid fa-comments"></i> Nuevo Post Foro</a></li>
+          <!-- Eliminado: Nuevo Post Foro -->
           <li><a href="#"><i class="fa-solid fa-user-group"></i> Comunidad</a></li>
           <li><a href="#"><i class="fa-solid fa-bell"></i> Notificaciones</a></li>
         </ul>
@@ -134,10 +134,67 @@
       <section class="feed-section">
         <h2>Feed de Artículos</h2>
         <div id="latest-articles" class="feed-list"></div>
-      </section>
-      <section class="feed-section">
-        <h2>Feed del Foro</h2>
-        <div id="latest-forum-posts" class="feed-list"></div>
+        <div id="modal-articulo" class="modal-articulo" style="display:none;">
+          <div class="modal-content">
+            <button id="close-modal" class="close-modal">&times;</button>
+            <div id="modal-body"></div>
+          </div>
+        </div>
+        <script>
+          async function fetchFeed() {
+            const res = await fetch('/.netlify/functions/get-articles');
+            const articles = await res.json();
+            const feed = document.getElementById('latest-articles');
+            if (!Array.isArray(articles) || articles.length === 0) {
+              feed.innerHTML = '<p>No hay publicaciones aún.</p>';
+              return;
+            }
+            feed.innerHTML = articles.map(article => `
+              <div class="feed-card">
+                <h2 class="feed-title">${article.title}</h2>
+                <div class="feed-meta">${article.author || 'hgaruna'} &bull; ${new Date(article.date || article.createdAt).toLocaleDateString()}</div>
+                <p class="feed-summary">${article.summary || (article.content ? article.content.substring(0, 180) + '...' : '')}</p>
+                <button class="leer-mas-btn" data-id="${article._id}">Leer más</button>
+              </div>
+            `).join('');
+            document.querySelectorAll('.leer-mas-btn').forEach(btn => {
+              btn.addEventListener('click', e => {
+                const id = btn.getAttribute('data-id');
+                const art = articles.find(a => a._id === id);
+                if (art) showModal(art);
+              });
+            });
+          }
+          function showModal(article) {
+            const modal = document.getElementById('modal-articulo');
+            const body = document.getElementById('modal-body');
+            body.innerHTML = `
+              <h2>${article.title}</h2>
+              <div class="feed-meta">${article.author || 'hgaruna'} &bull; ${new Date(article.date || article.createdAt).toLocaleDateString()}</div>
+              <div class="feed-content" style="max-height:60vh;overflow-y:auto;">${article.content || article.summary}</div>
+            `;
+            modal.style.display = 'flex';
+            document.getElementById('close-modal').onclick = () => { modal.style.display = 'none'; };
+            modal.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+          }
+          document.addEventListener('DOMContentLoaded', fetchFeed);
+        </script>
+        <style>
+          .feed-list { display: flex; flex-direction: column; gap: 1.5rem; }
+          .feed-card { background: var(--color-bg, #fff); border-radius: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 1.5rem; position: relative; }
+          .feed-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
+          .feed-meta { color: #64748b; font-size: 0.95rem; margin-bottom: 0.7rem; }
+          .feed-summary { color: #334155; font-size: 1.05rem; margin-bottom: 1rem; }
+          .leer-mas-btn { background: #2563eb; color: #fff; border: none; border-radius: 0.5rem; padding: 0.5rem 1.2rem; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+          .leer-mas-btn:hover { background: #1e40af; }
+          .modal-articulo { position: fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center; z-index:9999; }
+          .modal-content { background:#fff; border-radius:1rem; max-width:600px; width:90vw; max-height:90vh; padding:2rem 1.5rem 1.5rem 1.5rem; overflow-y:auto; position:relative; }
+          .close-modal { position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:2rem; color:#64748b; cursor:pointer; }
+          .close-modal:hover { color:#e11d48; }
+          @media (max-width:600px) { .modal-content { padding:1rem; } }
+          body.dark-theme .feed-card, body.dark-theme .modal-content { background: #1e293b; color: #f1f5f9; }
+          body.dark-theme .feed-summary { color: #cbd5e1; }
+        </style>
       </section>
       <section class="form-section">
         <h3>Crear Artículo</h3>
@@ -153,13 +210,13 @@
         <div id="article-result"></div>
       </section>
       <section class="form-section">
-        <h3>Crear Publicación en el Foro</h3>
+        <!-- Eliminado: Crear Publicación en el Foro -->
         <form id="forum-form">
           <label>Título:<br><input type="text" id="forum-title" required></label><br>
           <label>Contenido:<br><textarea id="forum-content" required></textarea></label><br>
           <label>Autor:<br><input type="text" id="forum-author" required></label><br>
           <label>Etiquetas (separadas por coma):<br><input type="text" id="forum-tags"></label><br>
-          <button type="submit" class="btn-filled">Publicar en el foro</button>
+          <!-- Eliminado: Botón Publicar en el foro -->
         </form>
         <div id="forum-result"></div>
       </section>

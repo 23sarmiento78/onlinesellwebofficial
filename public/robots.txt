@@ -13,7 +13,7 @@ Allow: /diseño-web-villa-carlos-paz/
 Allow: /marketing-digital-villa-carlos-paz/
 Allow: /planes/
 Allow: /blog/
-Allow: /foro/
+## Eliminado: Allow /foro/
 
 # Disallow admin and private areas
 Disallow: /admin/
