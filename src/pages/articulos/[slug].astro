@@ -1,0 +1,24 @@
+---
+import fs from 'fs';
+import path from 'path';
+import { Markdown } from 'astro/components';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const articlesDir = path.resolve(Astro.root, 'src/content/articulos');
+  const files = fs.readdirSync(articlesDir).filter(f => f.endsWith('.md'));
+  return files.map(file => ({ params: { slug: file.replace(/\.md$/, '') } }));
+}
+
+const { slug } = Astro.params;
+const articlePath = path.resolve(Astro.root, 'src/content/articulos', `${slug}.md`);
+const fileContent = fs.readFileSync(articlePath, 'utf-8');
+const { frontmatter, content } = await Astro.glob('src/content/articulos/*.md').then(files => {
+  const file = files.find(f => f.file.includes(`${slug}.md`));
+  return file ? { frontmatter: file.frontmatter, content: file.rawContent() } : { frontmatter: {}, content: '' };
+});
+---
+
+<ArticleLayout title={frontmatter.title} description={frontmatter.description} image={frontmatter.image}>
+  <Markdown content={content} />
+</ArticleLayout>

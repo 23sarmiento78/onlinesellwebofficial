@@ -28,18 +28,7 @@ collections:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Contenido", name: "body", widget: "markdown" }
 
-  - name: "admin"
-    label: "Panel de Administración"
-    files:
-      - label: "Configuración del Panel"
-        name: "config"
-        file: "src/content/admin/config.md"
-        fields:
-          - { label: "Título del Panel", name: "panel_title", widget: "string" }
-          - { label: "Descripción", name: "panel_description", widget: "text" }
-          - { label: "Texto de bienvenida", name: "welcome_text", widget: "markdown" }
-          - { label: "Imagen de fondo", name: "background_image", widget: "image", required: false }
-          - { label: "Enlaces rápidos", name: "quick_links", widget: "list", required: false }
+  # Colección de admin eliminada
 
   - name: "global"
     label: "Contenido Global"

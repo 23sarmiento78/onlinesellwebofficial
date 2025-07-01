@@ -4,7 +4,7 @@ http://service.hgaruna.org/* https://service.hgaruna.org/:splat 301!
 # Rutas a archivos y páginas reales
 /robots.txt /robots.txt 200
 /sitemap.xml /sitemap.xml 200
-/admin/* /admin.html 200
+## Eliminada ruta de admin local
 /legal /legal.html 200
 /planes /planes.html 200
 /mi-experiencia /mi-experiencia.html 200

@@ -222,14 +222,8 @@ const {
                 <i class="fab fa-whatsapp"></i>
                 <span>Cotizar Ahora</span>
               </a>
-              <a href="/admin/" id="admin-button" class="nav-btn admin" style="display: none;">
-                <i class="fas fa-cog"></i>
-                <span>Admin</span>
-              </a>
-              <a href="#" id="login-button" class="nav-btn secondary">
-                <i class="fas fa-user"></i>
-                <span>Iniciar Sesión</span>
-              </a>
+              <!-- Botón de admin eliminado -->
+              <!-- Botón de login eliminado -->
             </div>
           </div>
         </div>
@@ -389,95 +383,7 @@ const {
         });
       });
 
-      // Script para manejar el login/logout y admin
-      document.addEventListener('DOMContentLoaded', () => {
-        const loginButton = document.getElementById('login-button');
-        const adminButton = document.getElementById('admin-button');
-
-        // Función para verificar si el usuario está logueado usando el nuevo sistema
-        function checkIfUserIsLoggedIn() {
-          const authUser = localStorage.getItem('auth0_user');
-          const authToken = localStorage.getItem('auth0_token');
-          return authUser && authToken;
-        }
-
-        function getUserProfileName() {
-          try {
-            const authUser = localStorage.getItem('auth0_user');
-            if (authUser) {
-              const user = JSON.parse(authUser);
-              return user.name || user.email.split('@')[0];
-            }
-          } catch (error) {
-            console.error('Error al obtener nombre de usuario:', error);
-          }
-          return 'Usuario';
-        }
-
-        function updateAuthButtons() {
-          if (checkIfUserIsLoggedIn()) {
-            // Usuario autenticado
-            loginButton.innerHTML = `
-              <i class="fas fa-user"></i>
-              <span>${getUserProfileName()}</span>
-            `;
-            loginButton.href = '#';
-            loginButton.onclick = handleLogout;
-            
-            // Mostrar botón de admin
-            if (adminButton) {
-              adminButton.style.display = 'inline-flex';
-            }
-          } else {
-            // Usuario no autenticado
-            loginButton.innerHTML = `
-              <i class="fas fa-user"></i>
-              <span>Iniciar Sesión</span>
-            `;
-            loginButton.href = '#';
-            loginButton.onclick = handleLogin;
-            
-            // Ocultar botón de admin
-            if (adminButton) {
-              adminButton.style.display = 'none';
-            }
-          }
-        }
-
-        function handleLogin(e) {
-          e.preventDefault();
-          // Usar el nuevo sistema de Auth0
-          if (window.auth0Auth) {
-            window.auth0Auth.login();
-          } else {
-            // Fallback si el sistema no está cargado
-            window.location.href = '/admin/';
-          }
-        }
-
-        function handleLogout(e) {
-          e.preventDefault();
-          // Usar el nuevo sistema de Auth0
-          if (window.auth0Auth) {
-            window.auth0Auth.logout();
-          } else {
-            // Fallback si el sistema no está cargado
-            localStorage.removeItem('auth0_user');
-            localStorage.removeItem('auth0_token');
-            updateAuthButtons();
-          }
-        }
-
-        // Actualizar botones al cargar la página
-        updateAuthButtons();
-        
-        // Escuchar cambios en localStorage para actualizar en tiempo real
-        window.addEventListener('storage', (e) => {
-          if (e.key === 'auth0_user' || e.key === 'auth0_token') {
-            updateAuthButtons();
-          }
-        });
-      });
+      // Sistema de login y admin eliminado
     </script>
     <script>
       // Script para manejar el cambio de estilo del navbar al hacer scroll

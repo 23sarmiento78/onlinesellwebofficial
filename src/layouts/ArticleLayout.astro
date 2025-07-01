@@ -45,12 +45,31 @@ const finalTwitterImage = seo_metadata?.twitterImage || image;
   twitterImage={finalTwitterImage}
   twitterUrl={twitterUrl}
 >
-  <main class="article-main">
+  <main class="article-main container" style="max-width: 800px; margin: 0 auto; padding: 2rem 0;">
     {image && (
-      <div class="article-image-container">
-        <img src={image} alt={title} class="article-image" loading="lazy" />
+      <div class="article-image-container" style="text-align:center; margin-bottom:2rem;">
+        <img src={image} alt={title} class="article-image" style="max-width:100%; border-radius:1rem; box-shadow:0 2px 16px rgba(0,0,0,0.08);" loading="lazy" />
       </div>
     )}
-    <slot />
+    <h1 class="article-title" style="font-size:2.5rem; font-weight:700; margin-bottom:0.5rem; color:var(--primary-color, #222);">{finalMetaTitle}</h1>
+    <div class="article-meta" style="color:#888; font-size:1rem; margin-bottom:1.5rem;">
+      {Astro.props.date && <span><i class="far fa-calendar-alt"></i> {Astro.props.date}</span>}
+      {Astro.props.author && <span style="margin-left:1.5rem;"><i class="fas fa-user"></i> {Astro.props.author}</span>}
+      {Astro.props.tags && Astro.props.tags.length > 0 && (
+        <span style="margin-left:1.5rem;"><i class="fas fa-tags"></i> {Astro.props.tags.join(', ')}</span>
+      )}
+    </div>
+    <div class="article-content markdown-body" style="line-height:1.7; font-size:1.15rem; color:#222;">
+      <slot />
+    </div>
+    <hr style="margin:2.5rem 0; border:0; border-top:1px solid #eee;" />
+    <div class="article-footer" style="text-align:center; color:#888; font-size:0.95rem;">
+      <p>¿Te gustó este artículo? ¡Compártelo!</p>
+      <div class="social-share">
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=${Astro.url}`} target="_blank" rel="noopener" aria-label="Compartir en Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href={`https://twitter.com/intent/tweet?url=${Astro.url}&text=${finalMetaTitle}`} target="_blank" rel="noopener" aria-label="Compartir en Twitter"><i class="fab fa-twitter"></i></a>
+        <a href={`https://wa.me/?text=${finalMetaTitle} ${Astro.url}`} target="_blank" rel="noopener" aria-label="Compartir en WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
   </main>
-</BaseLayout> 
+</BaseLayout>
