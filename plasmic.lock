@@ -36,13 +36,13 @@
       "fileLocks": [
         {
           "assetId": "ohDidvG9XsCeFumugENU3J",
-          "type": "projectCss",
-          "checksum": "ba2a60a163fca4f4d510275088a2be53"
+          "checksum": "f9cc098ce5640eefe7d9edb8470a210c",
+          "type": "globalContexts"
         },
         {
           "assetId": "ohDidvG9XsCeFumugENU3J",
-          "checksum": "f9cc098ce5640eefe7d9edb8470a210c",
-          "type": "globalContexts"
+          "type": "projectCss",
+          "checksum": "ba2a60a163fca4f4d510275088a2be53"
         }
       ],
       "codegenVersion": "0.0.1"
