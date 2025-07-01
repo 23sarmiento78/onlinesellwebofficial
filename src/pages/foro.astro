@@ -21,7 +21,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <script>
     async function fetchFeed() {
       const res = await fetch('/.netlify/functions/index-page/articles/list');
-      const articles = await res.json();
+      const data = await res.json();
+      const articles = Array.isArray(data) ? data : (data.articles || []);
       const feed = document.getElementById('feed-list');
       if (!Array.isArray(articles) || articles.length === 0) {
         feed.innerHTML = '<p>No hay publicaciones aún.</p>';
@@ -60,7 +61,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <style>
     .foro-feed-container { max-width: 700px; margin: 0 auto; padding: 2rem 1rem; }
     .foro-feed-title { text-align: center; margin-bottom: 2rem; }
-    .feed-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-height: 70vh;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
     .feed-card { background: var(--color-bg, #fff); border-radius: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 1.5rem; position: relative; }
     .feed-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
     .feed-meta { color: #64748b; font-size: 0.95rem; margin-bottom: 0.7rem; }

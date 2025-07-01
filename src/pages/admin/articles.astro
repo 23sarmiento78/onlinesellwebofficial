@@ -25,9 +25,23 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     }
 
     function showModal(article) {
-      document.getElementById('json-script').textContent = JSON.stringify(article, null, 2);
+      // Estructura exacta requerida para el script
+      const jsonForScript = {
+        "title": article.title || '',
+        "description": article.description || '',
+        "date": article.date || '',
+        "image": article.image || '',
+        "category": article.category || '',
+        "author": article.author || '',
+        "tags": Array.isArray(article.tags) ? article.tags : [],
+        "content": article.content || ''
+      };
+      const jsonString = JSON.stringify(jsonForScript, null, 2);
+      // Comando listo para copiar/pegar en terminal
+      const shellCommand = `node scripts/create-astro-article-md.js '${jsonString.replace(/'/g, "'\''")}'`;
+      document.getElementById('json-script').textContent = jsonString + '\n\n---\n\n' + shellCommand;
       document.getElementById('modal').style.display = 'flex';
-      window.currentArticle = article;
+      window.currentArticle = jsonForScript;
     }
 
     function closeModal() {
@@ -41,7 +55,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       }
     };
 
-    fetchArticles().then(articles => {
+    fetchArticles().then(data => {
+      const articles = data.articles || data;
       const list = document.getElementById('article-list');
       list.innerHTML = '';
       articles.forEach(article => {
@@ -51,8 +66,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         li.style.alignItems = 'center';
         li.style.padding = '0.5rem 0';
         li.style.borderBottom = '1px solid #eee';
-        li.innerHTML = `<span>${article.title}</span> <button>Traer script</button>`;
-        li.querySelector('button').onclick = () => showModal(article);
+        // Solo mostrar los campos requeridos en el JSON para el script
+        const minimalArticle = {
+          title: article.title,
+          description: article.description,
+          date: article.date,
+          image: article.image,
+          category: article.category,
+          author: article.author,
+          tags: article.tags,
+          content: article.content
+        };
+        li.innerHTML = `<span>${article.title}</span> <button>Ver JSON</button>`;
+        li.querySelector('button').onclick = () => showModal(minimalArticle);
         list.appendChild(li);
       });
     });
