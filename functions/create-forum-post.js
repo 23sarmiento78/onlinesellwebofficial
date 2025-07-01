@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 
 const MONGODB_URI = process.env.MONGODB_URI;
-const DB_NAME = 'sample_mflix';
+const DB_NAME = 'hgaruna'; // Usar la base correcta
 const FORUM_COLLECTION = 'forum_posts';
 
 let cachedClient = null;
