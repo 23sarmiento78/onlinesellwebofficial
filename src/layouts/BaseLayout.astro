@@ -1,4 +1,6 @@
 ---
+import { PageLayout } from '../components/plasmic/app_starter/PageLayout.jsx';
+
 interface Props {
   title: string;
   description: string;
@@ -230,9 +232,9 @@ const {
       </nav>
     </header>
 
-    <main id="main-content" role="main" style="margin-top: 50px;">
+    <PageLayout>
       <slot />
-    </main>
+    </PageLayout>
 
     <!-- Footer estilo Nolvus -->
     <footer class="site-footer">
