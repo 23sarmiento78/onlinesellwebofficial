@@ -12,6 +12,7 @@ import Foro from './pages/Foro';
 import DesarrolloWebVillaCarlosPaz from './pages/DesarrolloWebVillaCarlosPaz';
 import DisenoWebVillaCarlosPaz from './pages/DisenoWebVillaCarlosPaz';
 import MarketingDigitalVillaCarlosPaz from './pages/MarketingDigitalVillaCarlosPaz';
+import Articulo from './pages/articulos/[slug]';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/desarrollo-web-villa-carlos-paz" element={<DesarrolloWebVillaCarlosPaz />} />
           <Route path="/diseño-web-villa-carlos-paz" element={<DisenoWebVillaCarlosPaz />} />
           <Route path="/marketing-digital-villa-carlos-paz" element={<MarketingDigitalVillaCarlosPaz />} />
+          <Route path="/articulos/:slug" element={<Articulo />} />
         </Routes>
       </div>
     </Router>

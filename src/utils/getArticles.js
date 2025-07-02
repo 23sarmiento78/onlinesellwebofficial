@@ -1,24 +1,49 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+// Utilidad para obtener artículos desde múltiples fuentes
+// 1. Archivos Markdown locales (desarrollo)
+// 2. API del CMS (producción)
 
-export default async function getArticles() {
-  const articlesDir = path.resolve(process.cwd(), 'src/content/articulos');
-  if (!fs.existsSync(articlesDir)) return [];
-  const files = fs.readdirSync(articlesDir).filter(f => f.endsWith('.md'));
-  return files.map(file => {
-    const filePath = path.join(articlesDir, file);
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    const { data, content } = matter(raw);
-    const summary = data.summary || content.split('\n')[0].slice(0, 200) + '...';
-    return {
-      slug: file.replace(/\.md$/, ''),
-      title: data.title || 'Sin título',
-      date: data.date || '',
-      author: data.author || '',
-      tags: data.tags || [],
-      image: data.image || '',
-      summary,
-    };
-  });
-};
+export async function getArticles() {
+  try {
+    // En desarrollo, usar archivos Markdown locales
+    if (process.env.NODE_ENV === 'development') {
+      return await getLocalArticles();
+    }
+    
+    // En producción, intentar obtener del CMS
+    return await getCMSArticles();
+  } catch (error) {
+    console.error('Error obteniendo artículos:', error);
+    return [];
+  }
+}
+
+async function getLocalArticles() {
+  // Por ahora, retornamos un array vacío
+  // En el futuro, puedes implementar la lectura de archivos Markdown
+  return [];
+}
+
+async function getCMSArticles() {
+  try {
+    // Obtener artículos desde tu API del CMS
+    const response = await fetch('/api/articles');
+    if (!response.ok) {
+      throw new Error('Error al obtener artículos del CMS');
+    }
+    const data = await response.json();
+    return data.articles || [];
+  } catch (error) {
+    console.error('Error obteniendo artículos del CMS:', error);
+    return [];
+  }
+}
+
+export async function getArticleBySlug(slug) {
+  const articles = await getArticles();
+  return articles.find(article => article.slug === slug);
+}
+
+export async function getArticlesByCategory(category) {
+  const articles = await getArticles();
+  return articles.filter(article => article.category === category);
+}
