@@ -1,8 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-const matter = require('gray-matter');
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
-module.exports = function getArticles() {
+export default async function getArticles() {
   const articlesDir = path.resolve(process.cwd(), 'src/content/articulos');
   if (!fs.existsSync(articlesDir)) return [];
   const files = fs.readdirSync(articlesDir).filter(f => f.endsWith('.md'));

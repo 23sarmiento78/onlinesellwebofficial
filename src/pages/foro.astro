@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import getArticles from '../utils/getArticles.js';
+export const articles = await getArticles();
 ---
 
 

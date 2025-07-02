@@ -4,8 +4,9 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^6.0.0",
-    "@ant-design/pro-components": "^2.8.9",
+    "@ant-design/pro-components": "^2.6.4",
     "@astrojs/netlify": "^6.4.0",
+    "@astrojs/react": "^4.3.0",
     "@astrojs/sitemap": "^3.4.1",
     "@auth0/auth0-spa-js": "^2.2.0",
     "@plasmicapp/react-web": "^0.2.393",
