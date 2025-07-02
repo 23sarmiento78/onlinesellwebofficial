@@ -23,31 +23,13 @@
 [functions.auth0-callback]
   included_files = ["public/data/**"]
 
+# Redirects para React Router (SPA)
 [[redirects]]
-  from = "/"
+  from = "/*"
   to = "/index.html"
   status = 200
 
-[[redirects]]
-  from = "/legal"
-  to = "/legal/"
-  status = 200
-
-[[redirects]]
-  from = "/planes"
-  to = "/planes/"
-  status = 200
-
-[[redirects]]
-  from = "/mi-experiencia"
-  to = "/mi-experiencia/"
-  status = 200
-
-[[redirects]]
-  from = "/contacto"
-  to = "/contacto.html"
-  status = 200
-
+# Redirects específicos para archivos estáticos
 [[redirects]]
   from = "/robots.txt"
   to = "/robots.txt"
@@ -55,27 +37,36 @@
   force = true
 
 [[redirects]]
-  from = "/admin/*"
-  to = "/admin.html"
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
   status = 200
+  force = true
 
-[[redirects]]
-  from = "/blog/:slug"
-  to = "/foro/articulos/:slug"
-  status = 301
-
-[[redirects]]
-  from = "/blog/:slug/"
-  to = "/foro/articulos/:slug"
-  status = 301
+# Headers de seguridad y caché
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/admin.html"
+  for = "/asset-manifest.json"
   [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+    Cache-Control = "public, max-age=0"
+
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=0"
+
+[[headers]]
+  for = "/favicon.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/logo*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
 
 [[headers]]
   for = "/js/*"
@@ -92,69 +83,23 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000"
 
+# Headers de seguridad para toda la aplicación
 [[headers]]
-  for = "/*.html"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/"
+  for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
+# Headers específicos para admin
 [[headers]]
-  for = "/blog/*"
+  for = "/admin/*"
   [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/foro/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/planes/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/mi-experiencia/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/contacto/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/legal/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/politicas-privacidad/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[plugins]]
   package = "@netlify/plugin-sitemap"
