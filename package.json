@@ -5,15 +5,8 @@
   "dependencies": {
     "@ant-design/icons": "^6.0.0",
     "@ant-design/pro-components": "^2.6.4",
-    "@astrojs/netlify": "^6.4.0",
-    "@astrojs/react": "^4.3.0",
-    "@astrojs/sitemap": "^3.4.1",
     "@auth0/auth0-spa-js": "^2.2.0",
-    "@plasmicapp/react-web": "^0.2.393",
-    "@plasmicpkgs/antd5": "^0.0.295",
-    "@plasmicpkgs/plasmic-basic-components": "^0.0.249",
-    "@plasmicpkgs/plasmic-rich-components": "^1.0.218",
-    "astro": "^5.10.1",
+    "@builder.io/sdk": "^6.1.1",
     "auth0-spa-js": "^1.6.5",
     "bootstrap": "^5.3.3",
     "globby": "^14.1.0",
@@ -24,21 +17,20 @@
     "jwks-rsa": "^3.2.0",
     "mongodb": "^5.7.0",
     "netlify-cms": "^2.10.84",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.6.3",
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "postbuild": "node ./scripts/copy-admin.js && node ./scripts/submit-sitemap.js",
-    "preview": "astro preview",
-    "migrate": "node ./scripts/migrate-articles.js"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "@netlify/plugin-sitemap": "^0.8.1",
     "axios": "^1.6.5",
-    "netlify-plugin-formspree": "^1.0.1",
+    "netlify-plugin-formspree": "^0.0.3",
     "xml2js": "^0.6.2"
   },
   "browserslist": {
@@ -62,9 +54,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/23sarmiento78/onlinesellwebofficial/issues"
   },
-  "homepage": "https://github.com/23sarmiento78/onlinesellwebofficial#readme"
+  "homepage": "."
 }

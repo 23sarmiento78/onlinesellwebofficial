@@ -1,6 +1,6 @@
 [build]
   command = "npm run build"
-  publish = "dist"
+  publish = "build"
   functions = "functions"
 
 [build.environment]
@@ -160,7 +160,7 @@
   package = "@netlify/plugin-sitemap"
 
   [plugins.inputs]
-  buildDir = "dist"
+  buildDir = "build"
   changeFreq = "daily"
   priority = 0.5
   baseUrl = "https://service.hgaruna.org"
