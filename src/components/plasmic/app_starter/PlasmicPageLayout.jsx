@@ -16,10 +16,7 @@ import {
   renderPlasmicSlot,
   useCurrentUser
 } from "@plasmicapp/react-web";
-import {
-  DataCtxReader as DataCtxReader__,
-  useDataEnv
-} from "@plasmicapp/react-web/lib/host";
+import * as Plasmic_host from "@plasmicapp/react-web/lib/host";
 import { RichLayout } from "@plasmicpkgs/plasmic-rich-components/skinny/rich-layout";
 import { LoadingBoundary } from "@plasmicpkgs/plasmic-basic-components";
 import "@plasmicapp/react-web/lib/plasmic.css";
@@ -29,6 +26,8 @@ import projectcss from "./plasmic.module.css"; // plasmic-import: itEW3TMfVm3rf4
 import sty from "./PlasmicPageLayout.module.css"; // plasmic-import: 2JsT7BgVWPVG/css
 import IconIcon from "./icons/PlasmicIcon__Icon"; // plasmic-import: _vXhoRz0wUyQ/icon
 import Icon2Icon from "./icons/PlasmicIcon__Icon2"; // plasmic-import: zor9L85JMEi7/icon
+
+const { DataCtxReader } = Plasmic_host;
 
 createPlasmicElementProxy;
 
@@ -97,7 +96,7 @@ function PlasmicPageLayout__RenderFunc(props) {
         data-plasmic-name={"loadingBoundary"}
         data-plasmic-override={overrides.loadingBoundary}
         loadingState={
-          <DataCtxReader__>
+          <DataCtxReader>
             {$ctx => (
               <div className={classNames(projectcss.all, sty.freeBox__fHmSl)}>
                 <IconIcon
@@ -106,10 +105,10 @@ function PlasmicPageLayout__RenderFunc(props) {
                 />
               </div>
             )}
-          </DataCtxReader__>
+          </DataCtxReader>
         }
       >
-        <DataCtxReader__>
+        <DataCtxReader>
           {$ctx => (
             <div className={classNames(projectcss.all, sty.freeBox__knBrk)}>
               {renderPlasmicSlot({
@@ -145,7 +144,7 @@ function PlasmicPageLayout__RenderFunc(props) {
               })}
             </div>
           )}
-        </DataCtxReader__>
+        </DataCtxReader>
       </LoadingBoundary>
     </RichLayout>
   );

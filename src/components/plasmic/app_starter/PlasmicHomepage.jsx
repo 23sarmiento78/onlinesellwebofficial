@@ -16,10 +16,7 @@ import {
   deriveRenderOpts,
   useCurrentUser
 } from "@plasmicapp/react-web";
-import {
-  DataCtxReader as DataCtxReader__,
-  useDataEnv
-} from "@plasmicapp/react-web/lib/host";
+import * as Plasmic_host from "@plasmicapp/react-web/lib/host";
 import * as plasmicAuth from "@plasmicapp/react-web/lib/auth";
 import { usePlasmicDataSourceContext } from "@plasmicapp/data-sources-context";
 import PageLayout from "../../PageLayout"; // plasmic-import: 2JsT7BgVWPVG/component
@@ -28,6 +25,8 @@ import plasmic_antd_5_hostless_css from "../antd_5_hostless/plasmic.module.css";
 import plasmic_plasmic_rich_components_css from "../plasmic_rich_components/plasmic.module.css"; // plasmic-import: jkU633o1Cz7HrJdwdxhVHk/projectcss
 import projectcss from "./plasmic.module.css"; // plasmic-import: itEW3TMfVm3rf4KPtJBbHb/projectcss
 import sty from "./PlasmicHomepage.module.css"; // plasmic-import: gLW07mLq65g3/css
+
+const { DataCtxReader } = Plasmic_host;
 
 createPlasmicElementProxy;
 
@@ -81,7 +80,7 @@ function PlasmicHomepage__RenderFunc(props) {
             data-plasmic-override={overrides.pageLayout}
             className={classNames("__wab_instance", sty.pageLayout)}
           >
-            <DataCtxReader__>
+            <DataCtxReader>
               {$ctx => (
                 <section
                   data-plasmic-name={"section"}
@@ -115,7 +114,7 @@ function PlasmicHomepage__RenderFunc(props) {
                   </div>
                 </section>
               )}
-            </DataCtxReader__>
+            </DataCtxReader>
           </PageLayout>
         </div>
       </div>
