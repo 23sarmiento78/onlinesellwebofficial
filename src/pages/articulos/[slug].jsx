@@ -124,8 +124,7 @@ export default function Articulo() {
         </header>
 
         <div className="article-content">
-          {/* Aquí iría el contenido del artículo */}
-          <div dangerouslySetInnerHTML={{ __html: article.content }} />
+          <MarkdownRenderer content={article.content} />
         </div>
 
         {article.tags && article.tags.length > 0 && (
