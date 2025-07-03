@@ -2,9 +2,17 @@
 // 1. Archivos Markdown locales (desarrollo)
 // 2. API del CMS (producción)
 
+import { processMarkdownFromServer } from "./markdownProcessor";
+
 export async function getArticles() {
   try {
-    // En desarrollo, usar archivos Markdown locales
+    // Intentar obtener artículos desde archivos markdown primero
+    const markdownArticles = await processMarkdownFromServer();
+    if (markdownArticles.length > 0) {
+      return markdownArticles;
+    }
+
+    // Si no hay archivos markdown, usar función local/CMS
     if (process.env.NODE_ENV === "development") {
       return await getLocalArticles();
     }
@@ -13,7 +21,7 @@ export async function getArticles() {
     return await getCMSArticles();
   } catch (error) {
     console.error("Error obteniendo artículos:", error);
-    return [];
+    return await getLocalArticles(); // Fallback a artículos hardcodeados
   }
 }
 
