@@ -16,6 +16,38 @@
     <!-- Include the script that builds the page and powers Netlify CMS -->
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 
+    <!-- Configuración personalizada del CMS -->
+    <script>
+      // Configurar el CMS con branding personalizado
+      CMS.init({
+        config: {
+          backend: {
+            name: "git-gateway",
+            branch: "main",
+          },
+          load_config_file: true,
+          display_url: "https://service.hgaruna.org",
+          logo_url: "/logos-he-imagenes/logo3.png",
+          site_url: "https://service.hgaruna.org",
+        },
+      });
+
+      // Personalización adicional cuando el CMS esté listo
+      CMS.registerEventListener({
+        name: "preinit",
+        handler: () => {
+          // Agregar meta tag para el tema
+          const meta = document.createElement("meta");
+          meta.name = "theme-color";
+          meta.content = "rgb(37, 99, 235)";
+          document.head.appendChild(meta);
+
+          // Personalizar el título de la página
+          document.title = "hgaruna CMS - Admin Panel";
+        },
+      });
+    </script>
+
     <!-- Netlify Identity initialization -->
     <script>
       if (window.netlifyIdentity) {
