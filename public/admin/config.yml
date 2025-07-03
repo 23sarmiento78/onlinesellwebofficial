@@ -7,6 +7,12 @@ backend:
 site_url: https://service.hgaruna.org
 display_url: https://service.hgaruna.org
 
+# Configuración de autenticación externa
+auth:
+  providers:
+    - google
+    - github
+
 # Personalización del CMS
 logo_url: /logos-he-imagenes/logo3.png
 
