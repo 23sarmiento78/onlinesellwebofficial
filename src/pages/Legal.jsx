@@ -1,6 +1,7 @@
-import React from 'react';
-import BaseLayout from '../layouts/BaseLayout';
-import Hero from '../components/Hero';
+import React from "react";
+import BaseLayout from "../layouts/BaseLayout";
+import Hero from "../components/Hero";
+import "./Legal.css";
 
 export default function Legal() {
   return (
@@ -20,23 +21,23 @@ export default function Legal() {
         backgroundImage="/logos-he-imagenes/fondo-hero.jpg"
         ctas={[
           {
-            href: '/planes/',
-            className: 'cta-button primary',
-            icon: 'fas fa-rocket',
-            text: '¡Quiero mi Sitio Web YA!'
+            href: "/planes/",
+            className: "cta-button primary",
+            icon: "fas fa-rocket",
+            text: "¡Quiero mi Sitio Web YA!",
           },
           {
-            href: 'https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz',
-            className: 'cta-button secondary',
-            icon: 'fab fa-whatsapp',
-            text: 'Consulta Gratuita',
-            target: '_blank'
-          }
+            href: "https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz",
+            className: "cta-button secondary",
+            icon: "fab fa-whatsapp",
+            text: "Consulta Gratuita",
+            target: "_blank",
+          },
         ]}
         stats={[
-          { number: '20+', label: 'Sitios Web Creados' },
-          { number: '100%', label: 'Clientes Satisfechos' },
-          { number: '24h', label: 'Tiempo de Respuesta' }
+          { number: "20+", label: "Sitios Web Creados" },
+          { number: "100%", label: "Clientes Satisfechos" },
+          { number: "24h", label: "Tiempo de Respuesta" },
         ]}
       />
 
@@ -51,4 +52,4 @@ export default function Legal() {
       </section>
     </BaseLayout>
   );
-} 
+}
