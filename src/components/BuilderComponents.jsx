@@ -1,6 +1,6 @@
 import React from 'react';
-import { Builder } from '@builder.io/sdk';
-import { registerComponent } from '../utils/builder';
+import { Builder, builder } from '@builder.io/sdk';
+import { BuilderComponent } from '@builder.io/react';
 
 // Componente Hero personalizado
 function HeroComponent(props) {
@@ -247,7 +247,7 @@ function LinkedInComponent(props) {
 // Registrar componentes en Builder.io
 export function registerBuilderComponents() {
   // Hero Component
-  registerComponent(HeroComponent, {
+  Builder.registerComponent(HeroComponent, {
     name: 'Hero',
     inputs: [
       { name: 'title', type: 'string', defaultValue: 'Título del Hero' },
@@ -259,7 +259,7 @@ export function registerBuilderComponents() {
   });
 
   // Text Content Component
-  registerComponent(TextContentComponent, {
+  Builder.registerComponent(TextContentComponent, {
     name: 'Text Content',
     inputs: [
       { name: 'title', type: 'string', defaultValue: 'Título de la sección' },
@@ -268,7 +268,7 @@ export function registerBuilderComponents() {
   });
 
   // Services Component
-  registerComponent(ServicesComponent, {
+  Builder.registerComponent(ServicesComponent, {
     name: 'Services',
     inputs: [
       {
@@ -284,7 +284,7 @@ export function registerBuilderComponents() {
   });
 
   // Contact Component
-  registerComponent(ContactComponent, {
+  Builder.registerComponent(ContactComponent, {
     name: 'Contact',
     inputs: [
       { name: 'title', type: 'string', defaultValue: 'Contáctanos' },
@@ -296,7 +296,7 @@ export function registerBuilderComponents() {
   });
 
   // LinkedIn Component
-  registerComponent(LinkedInComponent, {
+  Builder.registerComponent(LinkedInComponent, {
     name: 'LinkedIn Integration',
     inputs: [
       { name: 'title', type: 'string', defaultValue: 'Integración con LinkedIn' },

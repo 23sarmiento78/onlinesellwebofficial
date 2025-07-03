@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import './App.css';
 
 // Importar páginas
@@ -17,24 +18,26 @@ import Articulos from './pages/Articulos';
 import BuilderExample from './pages/BuilderExample';
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/contacto" element={<Contacto />} />
-          <Route path="/planes" element={<Planes />} />
-          <Route path="/legal" element={<Legal />} />
-          <Route path="/politicas-privacidad" element={<PoliticasPrivacidad />} />
-          <Route path="/foro" element={<Foro />} />
-          <Route path="/desarrollo-web-villa-carlos-paz" element={<DesarrolloWebVillaCarlosPaz />} />
-          <Route path="/diseño-web-villa-carlos-paz" element={<DisenoWebVillaCarlosPaz />} />
-          <Route path="/marketing-digital-villa-carlos-paz" element={<MarketingDigitalVillaCarlosPaz />} />
-          <Route path="/articulos" element={<Articulos />} />
-          <Route path="/articulos/:slug" element={<Articulo />} />
-          <Route path="/builder-example" element={<BuilderExample />} />
-        </Routes>
-      </div>
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/contacto" element={<Contacto />} />
+            <Route path="/planes" element={<Planes />} />
+            <Route path="/legal" element={<Legal />} />
+            <Route path="/politicas-privacidad" element={<PoliticasPrivacidad />} />
+            <Route path="/foro" element={<Foro />} />
+            <Route path="/desarrollo-web-villa-carlos-paz" element={<DesarrolloWebVillaCarlosPaz />} />
+            <Route path="/diseño-web-villa-carlos-paz" element={<DisenoWebVillaCarlosPaz />} />
+            <Route path="/marketing-digital-villa-carlos-paz" element={<MarketingDigitalVillaCarlosPaz />} />
+            <Route path="/articulos" element={<Articulos />} />
+            <Route path="/articulos/:slug" element={<Articulo />} />
+            <Route path="/builder-example" element={<BuilderExample />} />
+          </Routes>
+        </div>
+      </Router>
+    </HelmetProvider>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Builder, BuilderComponent } from '@builder.io/sdk';
+import { builder, BuilderComponent } from '@builder.io/sdk';
 import { getBuilderContent, isEditing } from '../utils/builder';
 
 export default function BuilderPage({ model = 'page', fallback = null }) {
