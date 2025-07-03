@@ -15,7 +15,6 @@ import MarketingDigitalVillaCarlosPaz from './pages/MarketingDigitalVillaCarlosP
 import Articulo from './pages/articulos/[slug]';
 import Articulos from './pages/Articulos';
 import BuilderExample from './pages/BuilderExample';
-
 function App() {
   return (
     <Router>
