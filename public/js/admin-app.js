@@ -1,1 +1,0 @@
-// Archivo eliminado. El sistema admin ahora usa admin-app-new.js
