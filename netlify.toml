@@ -6,6 +6,13 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Configuración de Netlify Identity
+[services.git-gateway]
+  enabled = true
+
+[services.identity]
+  enabled = true
+
 [functions]
   directory = "functions"
   # Variables específicas para funciones (más limitadas)

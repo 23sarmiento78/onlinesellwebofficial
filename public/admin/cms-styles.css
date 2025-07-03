@@ -1,0 +1,332 @@
+/* Estilos personalizados para Netlify CMS - hgaruna */
+
+/* Variables CSS que coinciden con el sitio */
+:root {
+  --primary-color: rgb(37, 99, 235);
+  --primary-gradient: linear-gradient(
+    135deg,
+    rgb(37, 99, 235),
+    rgb(59, 130, 246)
+  );
+  --secondary-color: rgb(71, 85, 105);
+  --background-color: rgb(248, 250, 252);
+  --white: rgb(255, 255, 255);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow: rgba(0, 0, 0, 0.1) 0px 8px 32px 0px;
+  --border-radius: 12px;
+}
+
+/* Header personalizado */
+[data-slate-editor] {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
+}
+
+/* Sidebar principal */
+.css-1xe1wlr-App-App {
+  background: var(--background-color) !important;
+}
+
+/* Header del CMS */
+.css-1ggurdh-AppHeaderContent {
+  background: var(--primary-gradient) !important;
+  box-shadow: var(--shadow) !important;
+  border: none !important;
+}
+
+/* Logo y título */
+.css-1ggurdh-AppHeaderContent h1 {
+  color: var(--white) !important;
+  font-weight: 800 !important;
+  font-size: 20px !important;
+}
+
+/* Botones principales */
+.css-v7duua-Button-ButtonDefault,
+.css-1px0x5k-Button-ButtonDefault {
+  background: var(--primary-gradient) !important;
+  border: none !important;
+  border-radius: var(--border-radius) !important;
+  color: var(--white) !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: rgba(37, 99, 235, 0.3) 0px 4px 15px 0px !important;
+}
+
+.css-v7duua-Button-ButtonDefault:hover,
+.css-1px0x5k-Button-ButtonDefault:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: rgba(37, 99, 235, 0.4) 0px 8px 20px 0px !important;
+}
+
+/* Botones secundarios */
+.css-1d9k1ip-Button-ButtonDefault {
+  background: var(--secondary-color) !important;
+  border-radius: var(--border-radius) !important;
+  color: var(--white) !important;
+  border: none !important;
+}
+
+/* Sidebar de navegación */
+.css-uuemhq-SidebarContainer {
+  background: var(--white) !important;
+  border-right: 1px solid rgba(226, 232, 240, 0.5) !important;
+  box-shadow: rgba(0, 0, 0, 0.05) 2px 0px 10px 0px !important;
+}
+
+/* Items de navegación */
+.css-1mn7jjn-NavLink,
+.css-1dxhhp8-NavLink {
+  border-radius: var(--border-radius) !important;
+  margin: 4px 8px !important;
+  transition: all 0.3s ease !important;
+  color: var(--secondary-color) !important;
+  font-weight: 500 !important;
+}
+
+.css-1mn7jjn-NavLink:hover,
+.css-1dxhhp8-NavLink:hover {
+  background: var(--primary-gradient) !important;
+  color: var(--white) !important;
+  transform: translateX(4px) !important;
+}
+
+/* Item activo en navegación */
+.css-1mn7jjn-NavLink[aria-current="page"],
+.css-1dxhhp8-NavLink[aria-current="page"] {
+  background: var(--primary-gradient) !important;
+  color: var(--white) !important;
+  font-weight: 600 !important;
+}
+
+/* Área principal de contenido */
+.css-1n71fbl-Main {
+  background: var(--background-color) !important;
+}
+
+/* Cards de colecciones */
+.css-1xxjzm-CollectionCard {
+  background: var(--white) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 12px 0px !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+  overflow: hidden !important;
+}
+
+.css-1xxjzm-CollectionCard:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 25px 0px !important;
+}
+
+/* Headers de cards */
+.css-6prlng-CollectionTopCardLink {
+  background: var(--primary-gradient) !important;
+  color: var(--white) !important;
+  padding: 20px !important;
+  font-weight: 700 !important;
+}
+
+/* Inputs y forms */
+.css-yk16xz-ControlContainer input,
+.css-yk16xz-ControlContainer textarea,
+.css-yk16xz-ControlContainer select {
+  border-radius: var(--border-radius) !important;
+  border: 2px solid rgba(226, 232, 240, 0.8) !important;
+  transition: all 0.3s ease !important;
+  font-family: inherit !important;
+}
+
+.css-yk16xz-ControlContainer input:focus,
+.css-yk16xz-ControlContainer textarea:focus,
+.css-yk16xz-ControlContainer select:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+  outline: none !important;
+}
+
+/* Labels */
+.css-15jd6cs-FieldLabel {
+  color: var(--secondary-color) !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+}
+
+/* Lista de entradas */
+.css-1y2krdy-EntriesCollection {
+  background: var(--white) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 12px 0px !important;
+  margin: 20px !important;
+}
+
+/* Items de lista */
+.css-1l7hklf-EntryCard {
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5) !important;
+  transition: all 0.3s ease !important;
+}
+
+.css-1l7hklf-EntryCard:hover {
+  background: rgba(37, 99, 235, 0.02) !important;
+  transform: translateX(4px) !important;
+}
+
+/* Editor de contenido */
+.css-1r1y1zy-EditorContainer {
+  background: var(--white) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 12px 0px !important;
+  margin: 20px !important;
+}
+
+/* Toolbar del editor */
+.css-1j83wuy-ToolbarContainer {
+  background: var(--background-color) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5) !important;
+  border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+}
+
+/* Botones del toolbar */
+.css-tnr3mq-ToolbarButton {
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  margin: 2px !important;
+}
+
+.css-tnr3mq-ToolbarButton:hover {
+  background: var(--primary-color) !important;
+  color: var(--white) !important;
+}
+
+/* Preview */
+.css-1j29mdu-PreviewPane {
+  background: var(--white) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 12px 0px !important;
+}
+
+/* Modal overlay */
+.css-bn9cgh-Modal {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* Modal content */
+.css-1m4vl6q-ModalCard {
+  background: var(--white) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 40px 0px !important;
+  border: none !important;
+}
+
+/* Status badges */
+.css-1aor6uz-StatusButton {
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  padding: 4px 12px !important;
+}
+
+/* Tabs */
+.css-1qb9j2y-Tab {
+  border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+  transition: all 0.3s ease !important;
+}
+
+.css-1qb9j2y-Tab[aria-selected="true"] {
+  background: var(--primary-gradient) !important;
+  color: var(--white) !important;
+}
+
+/* Mensajes de error */
+.css-2unbn-ErrorMessage {
+  background: rgba(248, 113, 113, 0.1) !important;
+  border: 1px solid rgba(248, 113, 113, 0.3) !important;
+  border-radius: var(--border-radius) !important;
+  color: rgb(185, 28, 28) !important;
+}
+
+/* Mensajes de éxito */
+.css-1j1d26e-Toast {
+  background: var(--primary-gradient) !important;
+  border-radius: var(--border-radius) !important;
+  color: var(--white) !important;
+  box-shadow: rgba(37, 99, 235, 0.3) 0px 8px 25px 0px !important;
+}
+
+/* Loading spinner */
+.css-1o4z4y5-Loader {
+  border-color: var(--primary-color) rgba(37, 99, 235, 0.2)
+    rgba(37, 99, 235, 0.2) rgba(37, 99, 235, 0.2) !important;
+}
+
+/* Scrollbars personalizados */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(226, 232, 240, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .css-1xxjzm-CollectionCard {
+    margin: 10px !important;
+  }
+
+  .css-1y2krdy-EntriesCollection {
+    margin: 10px !important;
+  }
+
+  .css-1r1y1zy-EditorContainer {
+    margin: 10px !important;
+  }
+}
+
+/* Animaciones personalizadas */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.css-1xxjzm-CollectionCard,
+.css-1y2krdy-EntriesCollection,
+.css-1r1y1zy-EditorContainer {
+  animation: slideInUp 0.5s ease-out !important;
+}
+
+/* Brand customization */
+.css-1ggurdh-AppHeaderContent::before {
+  content: "hgaruna CMS" !important;
+  position: absolute !important;
+  left: 20px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  font-weight: 800 !important;
+  font-size: 18px !important;
+  color: var(--white) !important;
+}
+
+/* Hide default title to show custom one */
+.css-1ggurdh-AppHeaderContent h1 {
+  opacity: 0 !important;
+}

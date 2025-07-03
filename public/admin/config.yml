@@ -1,23 +1,56 @@
 backend:
   name: git-gateway
   branch: main
+  repo: 23sarmiento78/onlinesellwebofficial
+
+# Configuración correcta para Netlify Identity
+site_url: https://service.hgaruna.org
+display_url: https://service.hgaruna.org
+
+# Configuración de autenticación externa
+auth:
+  providers:
+    - google
+    - github
+
+# Personalización del CMS
+logo_url: /logos-he-imagenes/logo3.png
+
+# Configuración del editor
+editor:
+  preview: true
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
+# Configuración de autenticación
+publish_mode: editorial_workflow
+
 collections:
-  - name: "articulos"
+  - name: "articles"
     label: "Artículos"
-    folder: "src/content/articulos"
+    folder: "src/content/articles"
     create: true
-    slug: "{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Título", name: "title", widget: "string" }
-      - { label: "Fecha", name: "date", widget: "datetime" }
-      - { label: "Autor", name: "author", widget: "string" }
-      - { label: "Contenido", name: "body", widget: "markdown" }
+      - { label: "Descripción", name: "description", widget: "text" }
+      - {
+          label: "Fecha",
+          name: "date",
+          widget: "datetime",
+          format: "YYYY-MM-DD",
+        }
       - { label: "Imagen", name: "image", widget: "image", required: false }
+      - {
+          label: "Categoría",
+          name: "category",
+          widget: "string",
+          default: "Desarrollo Web",
+        }
+      - { label: "Autor", name: "author", widget: "string", default: "hgaruna" }
       - { label: "Etiquetas", name: "tags", widget: "list", required: false }
+      - { label: "Contenido", name: "body", widget: "markdown" }
 
   - name: "paginas"
     label: "Páginas"
@@ -35,7 +68,12 @@ collections:
     slug: "{{slug}}"
     extension: "js"
     fields:
-      - { label: "Código JS", name: "body", widget: "code", default_language: "javascript" }
+      - {
+          label: "Código JS",
+          name: "body",
+          widget: "code",
+          default_language: "javascript",
+        }
 
   - name: "admin"
     label: "Panel de Administración"
@@ -46,9 +84,23 @@ collections:
         fields:
           - { label: "Título del Panel", name: "panel_title", widget: "string" }
           - { label: "Descripción", name: "panel_description", widget: "text" }
-          - { label: "Texto de bienvenida", name: "welcome_text", widget: "markdown" }
-          - { label: "Imagen de fondo", name: "background_image", widget: "image", required: false }
-          - { label: "Enlaces rápidos", name: "quick_links", widget: "list", required: false }
+          - {
+              label: "Texto de bienvenida",
+              name: "welcome_text",
+              widget: "markdown",
+            }
+          - {
+              label: "Imagen de fondo",
+              name: "background_image",
+              widget: "image",
+              required: false,
+            }
+          - {
+              label: "Enlaces rápidos",
+              name: "quick_links",
+              widget: "list",
+              required: false,
+            }
 
   - name: "global"
     label: "Contenido Global"
@@ -59,7 +111,12 @@ collections:
         fields:
           - { label: "Título principal", name: "hero_title", widget: "string" }
           - { label: "Subtítulo", name: "hero_subtitle", widget: "string" }
-          - { label: "Imagen de fondo", name: "hero_image", widget: "image", required: false }
+          - {
+              label: "Imagen de fondo",
+              name: "hero_image",
+              widget: "image",
+              required: false,
+            }
       - label: "Footer"
         name: "footer"
         file: "src/content/global/footer.md"
