@@ -2,15 +2,22 @@ backend:
   name: git-gateway
   branch: main
 
+# Configuración correcta para Netlify Identity
+site_url: https://service.hgaruna.org
+display_url: https://service.hgaruna.org
+
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
+# Configuración de autenticación
+publish_mode: editorial_workflow
+
 collections:
-  - name: "articulos"
+  - name: "articles"
     label: "Artículos"
-    folder: "src/content/articulos"
+    folder: "src/content/articles"
     create: true
-    slug: "{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Fecha", name: "date", widget: "datetime" }
@@ -35,7 +42,12 @@ collections:
     slug: "{{slug}}"
     extension: "js"
     fields:
-      - { label: "Código JS", name: "body", widget: "code", default_language: "javascript" }
+      - {
+          label: "Código JS",
+          name: "body",
+          widget: "code",
+          default_language: "javascript",
+        }
 
   - name: "admin"
     label: "Panel de Administración"
@@ -46,9 +58,23 @@ collections:
         fields:
           - { label: "Título del Panel", name: "panel_title", widget: "string" }
           - { label: "Descripción", name: "panel_description", widget: "text" }
-          - { label: "Texto de bienvenida", name: "welcome_text", widget: "markdown" }
-          - { label: "Imagen de fondo", name: "background_image", widget: "image", required: false }
-          - { label: "Enlaces rápidos", name: "quick_links", widget: "list", required: false }
+          - {
+              label: "Texto de bienvenida",
+              name: "welcome_text",
+              widget: "markdown",
+            }
+          - {
+              label: "Imagen de fondo",
+              name: "background_image",
+              widget: "image",
+              required: false,
+            }
+          - {
+              label: "Enlaces rápidos",
+              name: "quick_links",
+              widget: "list",
+              required: false,
+            }
 
   - name: "global"
     label: "Contenido Global"
@@ -59,7 +85,12 @@ collections:
         fields:
           - { label: "Título principal", name: "hero_title", widget: "string" }
           - { label: "Subtítulo", name: "hero_subtitle", widget: "string" }
-          - { label: "Imagen de fondo", name: "hero_image", widget: "image", required: false }
+          - {
+              label: "Imagen de fondo",
+              name: "hero_image",
+              widget: "image",
+              required: false,
+            }
       - label: "Footer"
         name: "footer"
         file: "src/content/global/footer.md"
