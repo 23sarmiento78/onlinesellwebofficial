@@ -25,7 +25,10 @@ export default function Articulo() {
 
   if (loading) {
     return (
-      <BaseLayout>
+      <BaseLayout
+        title="Cargando Artículo | Desarrollo Web Villa Carlos Paz | hgaruna"
+        description="Cargando artículo sobre desarrollo web, diseño web y marketing digital en Villa Carlos Paz, Córdoba."
+      >
         <div className="container mt-5">
           <div className="text-center">
             <div className="spinner-border" role="status">
@@ -39,32 +42,50 @@ export default function Articulo() {
 
   if (!article) {
     return (
-      <BaseLayout>
+      <BaseLayout
+        title="Artículo no Encontrado | Desarrollo Web Villa Carlos Paz | hgaruna"
+        description="El artículo que buscas no existe. Explora otros artículos sobre desarrollo web, diseño web y marketing digital en Villa Carlos Paz, Córdoba."
+      >
         <div className="container mt-5">
           <div className="alert alert-warning">
             <h4>Artículo no encontrado</h4>
             <p>El artículo que buscas no existe o ha sido eliminado.</p>
+            <a href="/articulos/" className="btn btn-primary">Ver todos los artículos</a>
           </div>
         </div>
       </BaseLayout>
     );
   }
 
+  // Generar keywords específicos para el artículo
+  const articleKeywords = [
+    ...(article.tags || []),
+    'desarrollo web villa carlos paz',
+    'programador web villa carlos paz',
+    'diseño web córdoba',
+    'marketing digital villa carlos paz',
+    'seo local villa carlos paz',
+    'hgaruna'
+  ].join(', ');
+
   return (
     <BaseLayout
-      title={article.title}
-      description={article.description}
-      keywords={article.tags?.join(', ')}
-      ogTitle={article.title}
-      ogDescription={article.description}
-      ogImage={article.image}
+      title={`${article.title} | Desarrollo Web Villa Carlos Paz | hgaruna`}
+      description={article.description || `Artículo sobre ${article.title} - Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten.`}
+      keywords={articleKeywords}
+      ogTitle={`${article.title} | Desarrollo Web Villa Carlos Paz | hgaruna`}
+      ogDescription={article.description || `Artículo sobre ${article.title} - Desarrollo web profesional en Villa Carlos Paz, Córdoba.`}
+      ogImage={article.image || "https://service.hgaruna.org/logos-he-imagenes/logo3.png"}
       ogUrl={`https://service.hgaruna.org/articulos/${slug}`}
+      twitterTitle={`${article.title} | Desarrollo Web Villa Carlos Paz | hgaruna`}
+      twitterDescription={article.description || `Artículo sobre ${article.title} - Desarrollo web profesional en Villa Carlos Paz, Córdoba.`}
+      twitterImage={article.image || "https://service.hgaruna.org/logos-he-imagenes/logo3.png"}
     >
       <article className="container mt-5">
         <header className="article-header mb-4">
           <h1 className="display-4">{article.title}</h1>
           <div className="article-meta text-muted">
-            <span>Por {article.author}</span>
+            <span>Por {article.author || 'hgaruna'}</span>
             <span className="mx-2">•</span>
             <span>{new Date(article.date).toLocaleDateString('es-ES')}</span>
             {article.category && (
@@ -101,6 +122,35 @@ export default function Articulo() {
             </div>
           </footer>
         )}
+
+        {/* Schema.org para artículos */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": article.title,
+          "description": article.description,
+          "image": article.image || "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+          "author": {
+            "@type": "Organization",
+            "name": "hgaruna",
+            "url": "https://service.hgaruna.org/"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "hgaruna",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
+            }
+          },
+          "datePublished": article.date,
+          "dateModified": article.date,
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://service.hgaruna.org/articulos/${slug}`
+          },
+          "keywords": articleKeywords
+        }) }} />
       </article>
     </BaseLayout>
   );

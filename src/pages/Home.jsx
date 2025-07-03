@@ -6,15 +6,15 @@ import Card from '../components/Card';
 export default function Home() {
   return (
     <BaseLayout
-      title="Desarrollo Web Villa Carlos Paz | Diseño Web Profesional | hgaruna"
-      description="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Creamos sitios web personalizados, e-commerce y marketing digital para negocios locales. Precios accesibles desde $150. ¡Consulta gratuita!"
-      keywords="desarrollo web villa carlos paz, diseño web carlos paz, marketing digital córdoba, sitios web profesionales, seo local, e-commerce villa carlos paz, programador web villa carlos paz, diseñador web córdoba, crear sitio web villa carlos paz, agencia digital villa carlos paz, web developer villa carlos paz, tienda online villa carlos paz, google my business villa carlos paz, posicionamiento web córdoba, desarrollo de software villa carlos paz"
-      ogTitle="Desarrollo Web Villa Carlos Paz | Sitios Web Profesionales | hgaruna"
-      ogDescription="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Sitios web personalizados para negocios locales con las mejores tecnologías. Precios desde $150. ¡Consulta gratuita!"
+      title="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | Sitios Web que Venden | hgaruna"
+      description="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten visitantes en clientes. E-commerce, SEO local y marketing digital. Precios desde $150."
+      keywords="desarrollo web villa carlos paz, programador web villa carlos paz, diseñador web villa carlos paz, crear sitio web villa carlos paz, desarrollo de software villa carlos paz, web developer villa carlos paz, programación web córdoba, e-commerce villa carlos paz, seo local villa carlos paz, marketing digital villa carlos paz, sitios web profesionales villa carlos paz, tienda online villa carlos paz, google my business villa carlos paz, posicionamiento web córdoba"
+      ogTitle="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | Sitios Web que Venden | hgaruna"
+      ogDescription="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten visitantes en clientes. E-commerce y SEO local incluido."
       ogImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
       ogUrl="https://service.hgaruna.org/"
-      twitterTitle="Desarrollo Web Villa Carlos Paz | Sitios Web Profesionales | hgaruna"
-      twitterDescription="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Sitios web personalizados para negocios locales con las mejores tecnologías. Precios desde $150."
+      twitterTitle="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | Sitios Web que Venden | hgaruna"
+      twitterDescription="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten visitantes en clientes."
       twitterImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
       twitterUrl="https://service.hgaruna.org/"
     >

@@ -33,9 +33,9 @@ export default function Hero({
         {stats.length > 0 && (
           <div className="hero-stats">
             {stats.map((stat, i) => (
-              <div className="stat-item" key={i}>
-                <span className="stat-number">{stat.number}</span>
-                <span className="stat-label">{stat.label}</span>
+              <div className="hero-stat-item" key={i}>
+                <span className="hero-stat-number">{stat.number}</span>
+                <span className="hero-stat-label">{stat.label}</span>
               </div>
             ))}
           </div>

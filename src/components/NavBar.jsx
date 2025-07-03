@@ -14,77 +14,86 @@ export default function NavBar() {
 
   const handleToggle = () => {
     setMenuOpen(!menuOpen);
-    document.body.classList.toggle('menu-open', !menuOpen);
   };
 
   const handleClose = () => {
     setMenuOpen(false);
-    document.body.classList.remove('menu-open');
   };
 
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape' && menuOpen) handleClose();
-    };
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [menuOpen]);
+  const handleLinkClick = () => {
+    setMenuOpen(false);
+  };
 
   return (
-    <header className={`main-header${scrolled ? ' scrolled' : ''}`}>
+    <>
       <nav className="navbar">
         <div className="container nav-flex">
-          {/* Logo alineado a la izquierda */}
-          <a className="navbar-brand nav-logo-left" href="/">
-            <img id="nav-logo" src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo de hgaruna" />
+          {/* Logo */}
+          <a className="navbar-brand" href="/">
+            <img src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo de hgaruna" />
             <span>hgaruna</span>
           </a>
 
-          {/* Botón de menú móvil */}
-          <button className={`navbar-toggler${menuOpen ? ' active' : ''}`} type="button" aria-label="Toggle navigation" onClick={handleToggle}>
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          {/* Overlay para cerrar menú móvil */}
-          <div className={`overlay${menuOpen ? ' active' : ''}`} onClick={handleClose}></div>
-
-          {/* Menú y acciones alineados a la derecha */}
-          <div className={`navbar-collapse nav-right-group${menuOpen ? ' show' : ''}`}>
+          {/* Menú Desktop */}
+          <div className="navbar-menu desktop-menu">
             <ul className="main-nav">
-              <li>
-                <a href="/" className="nav-link" onClick={handleClose}>
-                  <i className="fas fa-home"></i>
-                  <span>Inicio</span>
-                </a>
-              </li>
-              <li>
-                <a href="/planes/" className="nav-link" onClick={handleClose}>
-                  <i className="fas fa-tags"></i>
-                  <span>Planes</span>
-                </a>
-              </li>
-              <li>
-                <a href="/legal/" className="nav-link" onClick={handleClose}>
-                  <i className="fas fa-shield-alt"></i>
-                  <span>Legal</span>
-                </a>
-              </li>
-              <li>
-                <a href="/foro/" className="nav-link" onClick={handleClose}>
-                  <i className="fas fa-comments"></i>
-                  <span>Foro</span>
-                </a>
-              </li>
+              <li><a href="/" className="nav-link">Inicio</a></li>
+              <li><a href="/planes/" className="nav-link">Planes</a></li>
+              <li><a href="/legal/" className="nav-link">Legal</a></li>
+              <li><a href="/foro/" className="nav-link">Foro</a></li>
             </ul>
             <div className="nav-actions">
-              <a href="https://wa.link/6t7cxa" className="nav-btn primary" target="_blank" rel="noopener">
+              <a href="https://wa.link/6t7cxa" className="btn-filled" target="_blank" rel="noopener">
                 <i className="fab fa-whatsapp"></i>
-                <span>Cotizar Ahora</span>
+                Cotizar Ahora
               </a>
             </div>
           </div>
+
+          {/* Botón móvil */}
+          <button 
+            className={`navbar-toggler${menuOpen ? ' active' : ''}`} 
+            onClick={handleToggle}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </nav>
-    </header>
+
+      {/* Sidebar móvil */}
+      <div className={`mobile-sidebar${menuOpen ? ' open' : ''}`}>
+        <div className="sidebar-header">
+          <div className="sidebar-logo">
+            <img src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo" />
+            <span>hgaruna</span>
+          </div>
+          <button className="sidebar-close" onClick={handleClose}>
+            <i className="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div className="sidebar-content">
+          <ul className="sidebar-menu">
+            <li><a href="/" onClick={handleLinkClick}>Inicio</a></li>
+            <li><a href="/planes/" onClick={handleLinkClick}>Planes</a></li>
+            <li><a href="/legal/" onClick={handleLinkClick}>Legal</a></li>
+            <li><a href="/foro/" onClick={handleLinkClick}>Foro</a></li>
+          </ul>
+          
+          <div className="sidebar-cta">
+            <a href="https://wa.link/6t7cxa" onClick={handleLinkClick} target="_blank" rel="noopener">
+              <i className="fab fa-whatsapp"></i>
+              Cotizar Ahora
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Overlay */}
+      {menuOpen && <div className="sidebar-overlay" onClick={handleClose}></div>}
+    </>
   );
 } 

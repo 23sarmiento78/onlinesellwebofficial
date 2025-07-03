@@ -2,45 +2,77 @@ import React from 'react';
 import BaseLayout from '../layouts/BaseLayout';
 import FAQAccordion from '../components/FAQAccordion';
 import Timeline from '../components/Timeline';
+import Hero from '../components/Hero';
 
 export default function DesarrolloWebVillaCarlosPaz() {
   return (
     <BaseLayout
-      title="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | hgaruna"
-      description="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web para negocios locales. Precios accesibles desde $150. ¡Consulta gratuita!"
-      keywords="desarrollo web villa carlos paz, programador web villa carlos paz, diseñador web villa carlos paz, crear sitio web villa carlos paz, desarrollo de software villa carlos paz, web developer villa carlos paz, programación web córdoba, desarrollo web profesional villa carlos paz"
-      ogTitle="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | hgaruna"
-      ogDescription="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web para negocios locales. Precios desde $150."
+      title="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | Sitios Web que Venden | hgaruna"
+      description="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web para negocios locales. E-commerce, SEO local y marketing digital. Precios desde $150."
+      keywords="desarrollo web villa carlos paz, programador web villa carlos paz, diseñador web villa carlos paz, crear sitio web villa carlos paz, desarrollo de software villa carlos paz, web developer villa carlos paz, programación web córdoba, e-commerce villa carlos paz"
+      ogTitle="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | Sitios Web que Venden | hgaruna"
+      ogDescription="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web para negocios locales. E-commerce y SEO local incluido."
       ogImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
       ogUrl="https://service.hgaruna.org/desarrollo-web-villa-carlos-paz/"
-      twitterTitle="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | hgaruna"
-      twitterDescription="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web para negocios locales."
-      twitterImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-      twitterUrl="https://service.hgaruna.org/desarrollo-web-villa-carlos-paz/"
     >
+      {/* Hero Section */}
+      <Hero
+        title="Desarrollo Web Profesional Villa Carlos Paz | Sitios Web que Venden"
+        subtitle="¿Tu competencia ya tiene sitio web y tú no? Creamos sitios web profesionales que convierten visitantes en clientes. E-commerce, SEO local y marketing digital incluido. Precios accesibles para negocios locales."
+        backgroundImage="/logos-he-imagenes/fondo-hero.jpg"
+        ctas={[
+          {
+            href: '/planes/',
+            className: 'cta-button primary',
+            icon: 'fas fa-rocket',
+            text: '¡Quiero mi Sitio Web YA!'
+          },
+          {
+            href: 'https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz',
+            className: 'cta-button secondary',
+            icon: 'fab fa-whatsapp',
+            text: 'Consulta Gratuita',
+            target: '_blank'
+          }
+        ]}
+        stats={[
+          { number: '20+', label: 'Sitios Web Creados' },
+          { number: '100%', label: 'Clientes Satisfechos' },
+          { number: '24h', label: 'Tiempo de Respuesta' }
+        ]}
+      />
+
+      {/* Contenido de Builder.io irá aquí */}
+      <section className="desarrollo-content">
+        <div className="container">
+          <div className="text-center">
+            <h2>Desarrollo Web Villa Carlos Paz</h2>
+            <p>Contenido personalizado con Builder.io</p>
+          </div>
+        </div>
+      </section>
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Service",
         "name": "Desarrollo Web Villa Carlos Paz",
-        "description": "Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web para negocios locales.",
+        "description": "Desarrollo web profesional en Villa Carlos Paz, Córdoba. Sitios web que convierten visitantes en clientes.",
         "provider": {
-          "@type": "LocalBusiness",
+          "@type": "Organization",
           "name": "hgaruna",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Villa Carlos Paz",
             "addressRegion": "Córdoba",
             "addressCountry": "AR"
-          },
-          "telephone": "+54-3541-237972",
-          "email": "23sarmiento@gmail.com"
+          }
         },
         "areaServed": {
           "@type": "City",
           "name": "Villa Carlos Paz"
         },
         "serviceType": "Desarrollo Web",
-        "category": "Desarrollo de Software"
+        "priceRange": "$$"
       }) }} />
       <div className="container mt-5">
         <div className="row">
