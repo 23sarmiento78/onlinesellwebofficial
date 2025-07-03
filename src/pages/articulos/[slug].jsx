@@ -1,7 +1,8 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { getArticleBySlug } from '../../utils/getArticles';
-import BaseLayout from '../../layouts/BaseLayout';
+import React from "react";
+import { useParams } from "react-router-dom";
+import { getArticleBySlug } from "../../utils/getArticles";
+import BaseLayout from "../../layouts/BaseLayout";
+import MarkdownRenderer from "../../components/MarkdownRenderer";
 
 export default function Articulo() {
   const { slug } = useParams();
@@ -14,7 +15,7 @@ export default function Articulo() {
         const articleData = await getArticleBySlug(slug);
         setArticle(articleData);
       } catch (error) {
-        console.error('Error cargando artículo:', error);
+        console.error("Error cargando artículo:", error);
       } finally {
         setLoading(false);
       }
@@ -50,7 +51,9 @@ export default function Articulo() {
           <div className="alert alert-warning">
             <h4>Artículo no encontrado</h4>
             <p>El artículo que buscas no existe o ha sido eliminado.</p>
-            <a href="/articulos/" className="btn btn-primary">Ver todos los artículos</a>
+            <a href="/articulos/" className="btn btn-primary">
+              Ver todos los artículos
+            </a>
           </div>
         </div>
       </BaseLayout>
@@ -60,34 +63,49 @@ export default function Articulo() {
   // Generar keywords específicos para el artículo
   const articleKeywords = [
     ...(article.tags || []),
-    'desarrollo web villa carlos paz',
-    'programador web villa carlos paz',
-    'diseño web córdoba',
-    'marketing digital villa carlos paz',
-    'seo local villa carlos paz',
-    'hgaruna'
-  ].join(', ');
+    "desarrollo web villa carlos paz",
+    "programador web villa carlos paz",
+    "diseño web córdoba",
+    "marketing digital villa carlos paz",
+    "seo local villa carlos paz",
+    "hgaruna",
+  ].join(", ");
 
   return (
     <BaseLayout
       title={`${article.title} | Desarrollo Web Villa Carlos Paz | hgaruna`}
-      description={article.description || `Artículo sobre ${article.title} - Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten.`}
+      description={
+        article.description ||
+        `Artículo sobre ${article.title} - Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten.`
+      }
       keywords={articleKeywords}
       ogTitle={`${article.title} | Desarrollo Web Villa Carlos Paz | hgaruna`}
-      ogDescription={article.description || `Artículo sobre ${article.title} - Desarrollo web profesional en Villa Carlos Paz, Córdoba.`}
-      ogImage={article.image || "https://service.hgaruna.org/logos-he-imagenes/logo3.png"}
+      ogDescription={
+        article.description ||
+        `Artículo sobre ${article.title} - Desarrollo web profesional en Villa Carlos Paz, Córdoba.`
+      }
+      ogImage={
+        article.image ||
+        "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
+      }
       ogUrl={`https://service.hgaruna.org/articulos/${slug}`}
       twitterTitle={`${article.title} | Desarrollo Web Villa Carlos Paz | hgaruna`}
-      twitterDescription={article.description || `Artículo sobre ${article.title} - Desarrollo web profesional en Villa Carlos Paz, Córdoba.`}
-      twitterImage={article.image || "https://service.hgaruna.org/logos-he-imagenes/logo3.png"}
+      twitterDescription={
+        article.description ||
+        `Artículo sobre ${article.title} - Desarrollo web profesional en Villa Carlos Paz, Córdoba.`
+      }
+      twitterImage={
+        article.image ||
+        "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
+      }
     >
       <article className="container mt-5">
         <header className="article-header mb-4">
           <h1 className="display-4">{article.title}</h1>
           <div className="article-meta text-muted">
-            <span>Por {article.author || 'hgaruna'}</span>
+            <span>Por {article.author || "hgaruna"}</span>
             <span className="mx-2">•</span>
-            <span>{new Date(article.date).toLocaleDateString('es-ES')}</span>
+            <span>{new Date(article.date).toLocaleDateString("es-ES")}</span>
             {article.category && (
               <>
                 <span className="mx-2">•</span>
@@ -96,11 +114,11 @@ export default function Articulo() {
             )}
           </div>
           {article.image && (
-            <img 
-              src={article.image} 
+            <img
+              src={article.image}
               alt={article.title}
               className="img-fluid rounded mt-3"
-              style={{ maxHeight: '400px', objectFit: 'cover' }}
+              style={{ maxHeight: "400px", objectFit: "cover" }}
             />
           )}
         </header>
@@ -114,7 +132,7 @@ export default function Articulo() {
           <footer className="article-footer mt-5">
             <h5>Etiquetas:</h5>
             <div className="tags">
-              {article.tags.map(tag => (
+              {article.tags.map((tag) => (
                 <span key={tag} className="badge bg-secondary me-2">
                   {tag}
                 </span>
@@ -124,34 +142,41 @@ export default function Articulo() {
         )}
 
         {/* Schema.org para artículos */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Article",
-          "headline": article.title,
-          "description": article.description,
-          "image": article.image || "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
-          "author": {
-            "@type": "Organization",
-            "name": "hgaruna",
-            "url": "https://service.hgaruna.org/"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "hgaruna",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-            }
-          },
-          "datePublished": article.date,
-          "dateModified": article.date,
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": `https://service.hgaruna.org/articulos/${slug}`
-          },
-          "keywords": articleKeywords
-        }) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: article.title,
+              description: article.description,
+              image:
+                article.image ||
+                "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+              author: {
+                "@type": "Organization",
+                name: "hgaruna",
+                url: "https://service.hgaruna.org/",
+              },
+              publisher: {
+                "@type": "Organization",
+                name: "hgaruna",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+                },
+              },
+              datePublished: article.date,
+              dateModified: article.date,
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": `https://service.hgaruna.org/articulos/${slug}`,
+              },
+              keywords: articleKeywords,
+            }),
+          }}
+        />
       </article>
     </BaseLayout>
   );
-} 
+}
