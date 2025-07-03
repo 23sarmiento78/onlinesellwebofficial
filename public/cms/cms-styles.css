@@ -1,13 +1,14 @@
 body {
-  background: #111 !important;
-  color: #f1f5f9 !important;
+  background: #f8fafc !important;
+  color: #1e293b !important;
   font-family: 'Segoe UI', Arial, sans-serif !important;
 }
 
 /* Headers */
 body h1, body h2, body h3, body h4, body h5, body h6 {
-  color: #fff !important;
+  color: #2563eb !important;
   font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
 }
 
 /* Botones */
@@ -17,56 +18,56 @@ body button, body .nc-generic-button {
   border-radius: 8px !important;
   font-weight: 600 !important;
   border: none !important;
-  box-shadow: 0 4px 15px rgba(37,99,235,0.3) !important;
+  box-shadow: 0 4px 15px rgba(37,99,235,0.08) !important;
   transition: all 0.3s ease !important;
 }
 body button:hover, body .nc-generic-button:hover {
   background: linear-gradient(135deg, #1d4ed8, #2563eb) !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 20px rgba(37,99,235,0.4) !important;
+  box-shadow: 0 8px 20px rgba(37,99,235,0.15) !important;
 }
 
 /* Inputs y selects */
 body input, body textarea, body select {
   border-radius: 8px !important;
   border: 2px solid #3b82f6 !important;
-  background: #222 !important;
-  color: #fff !important;
+  background: #fff !important;
+  color: #1e293b !important;
   font-size: 1rem !important;
   padding: 0.5rem 1rem !important;
 }
 body input:focus, body textarea:focus, body select:focus {
   border-color: #2563eb !important;
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.2) !important;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12) !important;
   outline: none !important;
 }
 
 /* Labels */
 body label, body .nc-field-label {
-  color: #60a5fa !important;
+  color: #2563eb !important;
   font-weight: 600 !important;
 }
 
 /* Cards y paneles */
 body .nc-collectionCard, body .nc-entryCard, body .nc-editor, body .nc-mainContent, body .nc-root, body .nc-collectionPage-root {
-  background: #181e29 !important;
+  background: #fff !important;
   border-radius: 12px !important;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15) !important;
-  border: none !important;
+  box-shadow: 0 2px 12px rgba(37,99,235,0.08) !important;
+  border: 1px solid #e5e7eb !important;
 }
 
 /* Sidebar y navegación */
 body .nc-sidebar, body .nc-sidebarContainer {
-  background: #1e293b !important;
+  background: #2563eb !important;
   color: #fff !important;
-  border-right: 1px solid #334155 !important;
+  border-right: 1px solid #3b82f6 !important;
 }
 body .nc-sidebar a, body .nc-sidebarContainer a {
-  color: #60a5fa !important;
+  color: #fff !important;
   font-weight: 500 !important;
 }
 body .nc-sidebar a:hover, body .nc-sidebarContainer a:hover {
-  background: #2563eb !important;
+  background: #3b82f6 !important;
   color: #fff !important;
 }
 
@@ -88,7 +89,7 @@ body .nc-alert-success {
 /* Scrollbar */
 body ::-webkit-scrollbar {
   width: 10px;
-  background: #222;
+  background: #e5e7eb;
 }
 body ::-webkit-scrollbar-thumb {
   background: #3b82f6;
@@ -97,11 +98,11 @@ body ::-webkit-scrollbar-thumb {
 
 /* Ajustes generales */
 body a {
-  color: #60a5fa !important;
+  color: #2563eb !important;
 }
 body a:hover {
   color: #fff !important;
-  background: #2563eb !important;
+  background: #3b82f6 !important;
 }
 
 /* Estilos personalizados para Netlify CMS - hgaruna */
@@ -435,4 +436,91 @@ body a:hover {
 /* Hide default title to show custom one */
 .css-1ggurdh-AppHeaderContent h1 {
   opacity: 0 !important;
+}
+
+/* === ESTILOS ADAPTADOS AL CMS SEGÚN CLASES REALES === */
+
+/* Header */
+.css-12b66la-AppHeaderContent {
+  background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 12px rgba(37,99,235,0.12) !important;
+  border-radius: 0 0 12px 12px !important;
+}
+
+/* Sidebar */
+.css-1gj57a0-SidebarContainer-card {
+  background: #2563eb !important;
+  color: #fff !important;
+  border-right: 1px solid #3b82f6 !important;
+}
+.css-1gj57a0-SidebarContainer-card a {
+  color: #fff !important;
+  font-weight: 500 !important;
+}
+.css-1gj57a0-SidebarContainer-card a:hover,
+.css-1gj57a0-SidebarContainer-card .sidebar-active {
+  background: #3b82f6 !important;
+  color: #fff !important;
+}
+
+/* Cards de colecciones */
+.css-5wgw3f-ListCard-card {
+  background: #fff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 12px rgba(37,99,235,0.08) !important;
+  border: 1px solid #e5e7eb !important;
+  margin-bottom: 1rem !important;
+  transition: box-shadow 0.2s;
+}
+.css-5wgw3f-ListCard-card:hover {
+  box-shadow: 0 8px 24px rgba(37,99,235,0.15) !important;
+}
+
+/* Botones */
+button, .css-bn4qgs-CollectionTopNewButton-button-default-gray {
+  background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(37,99,235,0.08) !important;
+  transition: all 0.3s ease !important;
+}
+button:hover, .css-bn4qgs-CollectionTopNewButton-button-default-gray:hover {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(37,99,235,0.15) !important;
+}
+
+/* Inputs y selects */
+input, textarea, select {
+  border-radius: 8px !important;
+  border: 2px solid #3b82f6 !important;
+  background: #fff !important;
+  color: #1e293b !important;
+  font-size: 1rem !important;
+  padding: 0.5rem 1rem !important;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12) !important;
+  outline: none !important;
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+  color: #2563eb !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  background: #e5e7eb;
+}
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 8px;
 }
