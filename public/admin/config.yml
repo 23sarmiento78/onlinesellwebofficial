@@ -9,13 +9,9 @@ display_url: https://service.hgaruna.org
 # Personalización del CMS
 logo_url: /logos-he-imagenes/logo3.png
 
-# Estilos CSS personalizados
+# Configuración del editor
 editor:
   preview: true
-
-# Archivos CSS personalizados
-css: |
-  @import url('/admin/cms-styles.css');
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
