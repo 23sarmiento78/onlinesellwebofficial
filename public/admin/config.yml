@@ -1,6 +1,7 @@
 backend:
   name: git-gateway
   branch: main
+  repo: 23sarmiento78/onlinesellwebofficial
 
 # Configuración correcta para Netlify Identity
 site_url: https://service.hgaruna.org
