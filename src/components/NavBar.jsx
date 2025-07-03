@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './NavBar.css';
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,7 +27,7 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="navbar">
+      <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
         <div className="container nav-flex">
           {/* Logo */}
           <a className="navbar-brand" href="/">
@@ -93,7 +94,7 @@ export default function NavBar() {
       </div>
 
       {/* Overlay */}
-      {menuOpen && <div className="sidebar-overlay" onClick={handleClose}></div>}
+      <div className={`sidebar-overlay${menuOpen ? ' active' : ''}`} onClick={handleClose}></div>
     </>
   );
 } 
