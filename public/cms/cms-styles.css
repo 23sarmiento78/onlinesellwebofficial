@@ -1,5 +1,107 @@
 body {
   background: #111 !important;
+  color: #f1f5f9 !important;
+  font-family: 'Segoe UI', Arial, sans-serif !important;
+}
+
+/* Headers */
+body h1, body h2, body h3, body h4, body h5, body h6 {
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+
+/* Botones */
+body button, body .nc-generic-button {
+  background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(37,99,235,0.3) !important;
+  transition: all 0.3s ease !important;
+}
+body button:hover, body .nc-generic-button:hover {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(37,99,235,0.4) !important;
+}
+
+/* Inputs y selects */
+body input, body textarea, body select {
+  border-radius: 8px !important;
+  border: 2px solid #3b82f6 !important;
+  background: #222 !important;
+  color: #fff !important;
+  font-size: 1rem !important;
+  padding: 0.5rem 1rem !important;
+}
+body input:focus, body textarea:focus, body select:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.2) !important;
+  outline: none !important;
+}
+
+/* Labels */
+body label, body .nc-field-label {
+  color: #60a5fa !important;
+  font-weight: 600 !important;
+}
+
+/* Cards y paneles */
+body .nc-collectionCard, body .nc-entryCard, body .nc-editor, body .nc-mainContent, body .nc-root, body .nc-collectionPage-root {
+  background: #181e29 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15) !important;
+  border: none !important;
+}
+
+/* Sidebar y navegación */
+body .nc-sidebar, body .nc-sidebarContainer {
+  background: #1e293b !important;
+  color: #fff !important;
+  border-right: 1px solid #334155 !important;
+}
+body .nc-sidebar a, body .nc-sidebarContainer a {
+  color: #60a5fa !important;
+  font-weight: 500 !important;
+}
+body .nc-sidebar a:hover, body .nc-sidebarContainer a:hover {
+  background: #2563eb !important;
+  color: #fff !important;
+}
+
+/* Mensajes de error y éxito */
+body .nc-alert-error, body .nc-alert-success {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  padding: 1rem !important;
+}
+body .nc-alert-error {
+  background: rgba(248, 113, 113, 0.1) !important;
+  color: #ef4444 !important;
+}
+body .nc-alert-success {
+  background: rgba(34,197,94,0.1) !important;
+  color: #22c55e !important;
+}
+
+/* Scrollbar */
+body ::-webkit-scrollbar {
+  width: 10px;
+  background: #222;
+}
+body ::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 8px;
+}
+
+/* Ajustes generales */
+body a {
+  color: #60a5fa !important;
+}
+body a:hover {
+  color: #fff !important;
+  background: #2563eb !important;
 }
 
 /* Estilos personalizados para Netlify CMS - hgaruna */
