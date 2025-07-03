@@ -26,6 +26,12 @@
             });
           }
         });
+
+        // Configurar proveedores externos
+        window.netlifyIdentity.init({
+          providers: ["google", "github"],
+          container: "#netlify-modal",
+        });
       }
     </script>
   </body>
