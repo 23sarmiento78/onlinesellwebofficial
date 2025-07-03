@@ -198,6 +198,14 @@ async function getCMSArticles() {
 
 export async function getArticleBySlug(slug) {
   try {
+    // Primero intentar con markdownProcessor
+    const { getMarkdownArticleBySlug } = await import("./markdownProcessor");
+    const markdownArticle = await getMarkdownArticleBySlug(slug);
+    if (markdownArticle) {
+      return markdownArticle;
+    }
+
+    // Fallback a la búsqueda general
     const articles = await getArticles();
     return articles.find(
       (article) =>
