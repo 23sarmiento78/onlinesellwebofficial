@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hgaruna Admin Panel - Dashboard</title>
+    <link rel="icon" href="/logos-he-imagenes/logo3.png" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/admin-local/admin-styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GA_MEASUREMENT_ID");
+    </script>
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+      <div class="loading-content">
+        <img
+          src="/logos-he-imagenes/logo3.png"
+          alt="hgaruna"
+          class="loading-logo"
+        />
+        <div class="loading-spinner"></div>
+        <p>Iniciando panel de administración...</p>
+      </div>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen" style="display: none">
+      <div class="login-container">
+        <div class="login-card">
+          <div class="login-header">
+            <img
+              src="/logos-he-imagenes/logo3.png"
+              alt="hgaruna"
+              class="login-logo"
+            />
+            <h1>hgaruna Admin</h1>
+            <p>Panel de Administración</p>
+          </div>
+
+          <div class="login-content">
+            <button id="netlify-login-btn" class="login-btn primary">
+              <i class="fas fa-sign-in-alt"></i>
+              Iniciar Sesión con Netlify Identity
+            </button>
+
+            <div class="login-divider">
+              <span>o continúa con</span>
+            </div>
+
+            <div class="social-login">
+              <button id="google-login-btn" class="login-btn google">
+                <i class="fab fa-google"></i>
+                Google
+              </button>
+              <button id="github-login-btn" class="login-btn github">
+                <i class="fab fa-github"></i>
+                GitHub
+              </button>
+            </div>
+          </div>
+
+          <div class="login-footer">
+            <p>Acceso restringido solo para administradores</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="dashboard" style="display: none">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <img
+            src="/logos-he-imagenes/logo3.png"
+            alt="hgaruna"
+            class="sidebar-logo"
+          />
+          <div class="sidebar-brand">
+            <h2>hgaruna</h2>
+            <span>Admin Panel</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <ul>
+            <li>
+              <a
+                href="#dashboard"
+                class="nav-item active"
+                data-section="dashboard"
+              >
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="#articles" class="nav-item" data-section="articles">
+                <i class="fas fa-newspaper"></i>
+                <span>Artículos</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#new-article"
+                class="nav-item"
+                data-section="new-article"
+              >
+                <i class="fas fa-plus"></i>
+                <span>Nuevo Artículo</span>
+              </a>
+            </li>
+            <li>
+              <a href="#analytics" class="nav-item" data-section="analytics">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+              </a>
+            </li>
+            <li>
+              <a href="#settings" class="nav-item" data-section="settings">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="user-info">
+            <div class="user-avatar">
+              <img id="user-avatar" src="" alt="Usuario" />
+            </div>
+            <div class="user-details">
+              <span id="user-name"></span>
+              <small id="user-email"></small>
+            </div>
+          </div>
+          <button id="logout-btn" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="content-header">
+          <div class="header-left">
+            <button class="sidebar-toggle">
+              <i class="fas fa-bars"></i>
+            </button>
+            <h1 id="page-title">Dashboard</h1>
+          </div>
+          <div class="header-right">
+            <div class="stats-summary">
+              <div class="stat-item">
+                <span class="stat-value" id="total-articles">0</span>
+                <span class="stat-label">Artículos</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value" id="total-views">0</span>
+                <span class="stat-label">Vistas</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="content-section active">
+          <div class="dashboard-grid">
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3>Artículos Recientes</h3>
+                <button class="card-action" data-section="articles">
+                  Ver todos
+                </button>
+              </div>
+              <div class="card-content">
+                <div id="recent-articles" class="articles-feed">
+                  <!-- Los artículos se cargarán aquí -->
+                </div>
+              </div>
+            </div>
+
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3>Estadísticas Rápidas</h3>
+              </div>
+              <div class="card-content">
+                <div class="quick-stats">
+                  <div class="quick-stat">
+                    <i class="fas fa-eye"></i>
+                    <div>
+                      <span class="stat-number" id="today-views">0</span>
+                      <span class="stat-text">Vistas Hoy</span>
+                    </div>
+                  </div>
+                  <div class="quick-stat">
+                    <i class="fas fa-users"></i>
+                    <div>
+                      <span class="stat-number" id="total-users">0</span>
+                      <span class="stat-text">Usuarios</span>
+                    </div>
+                  </div>
+                  <div class="quick-stat">
+                    <i class="fas fa-globe"></i>
+                    <div>
+                      <span class="stat-number" id="page-views">0</span>
+                      <span class="stat-text">Páginas Vistas</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Articles Section -->
+        <section id="articles-section" class="content-section">
+          <div class="section-header">
+            <h2>Gestión de Artículos</h2>
+            <button class="btn primary" data-section="new-article">
+              <i class="fas fa-plus"></i>
+              Nuevo Artículo
+            </button>
+          </div>
+
+          <div class="articles-grid" id="articles-grid">
+            <!-- Los artículos se cargarán aquí -->
+          </div>
+        </section>
+
+        <!-- New Article Section -->
+        <section id="new-article-section" class="content-section">
+          <div class="section-header">
+            <h2>Crear Nuevo Artículo</h2>
+          </div>
+
+          <form id="article-form" class="article-form">
+            <div class="form-group">
+              <label for="article-title">Título</label>
+              <input type="text" id="article-title" required />
+            </div>
+
+            <div class="form-group">
+              <label for="article-description">Descripción</label>
+              <textarea id="article-description" rows="3" required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="article-category">Categoría</label>
+                <select id="article-category">
+                  <option value="Desarrollo Web">Desarrollo Web</option>
+                  <option value="Diseño Web">Diseño Web</option>
+                  <option value="Marketing Digital">Marketing Digital</option>
+                  <option value="Tecnología">Tecnología</option>
+                  <option value="SEO">SEO</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="article-author">Autor</label>
+                <input type="text" id="article-author" value="hgaruna" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="article-tags">Etiquetas (separadas por coma)</label>
+              <input
+                type="text"
+                id="article-tags"
+                placeholder="React, JavaScript, Web Development"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="article-image">Imagen (URL)</label>
+              <input
+                type="url"
+                id="article-image"
+                placeholder="https://ejemplo.com/imagen.jpg"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="article-content">Contenido (Markdown)</label>
+              <textarea
+                id="article-content"
+                rows="15"
+                required
+                placeholder="# Título del artículo&#10;&#10;Contenido en markdown..."
+              ></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn secondary" id="preview-btn">
+                <i class="fas fa-eye"></i>
+                Vista Previa
+              </button>
+              <button type="submit" class="btn primary">
+                <i class="fas fa-save"></i>
+                Guardar Artículo
+              </button>
+            </div>
+          </form>
+
+          <div id="article-result" class="result-message"></div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics-section" class="content-section">
+          <div class="section-header">
+            <h2>Google Analytics</h2>
+          </div>
+
+          <div class="analytics-container">
+            <div class="analytics-embed">
+              <iframe
+                id="analytics-iframe"
+                src=""
+                width="100%"
+                height="600"
+              ></iframe>
+            </div>
+
+            <div class="analytics-widgets">
+              <div class="widget">
+                <h3>Páginas Más Visitadas</h3>
+                <div id="top-pages"></div>
+              </div>
+
+              <div class="widget">
+                <h3>Fuentes de Tráfico</h3>
+                <div id="traffic-sources"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings-section" class="content-section">
+          <div class="section-header">
+            <h2>Configuración</h2>
+          </div>
+
+          <div class="settings-grid">
+            <div class="settings-card">
+              <h3>Configuración del Sitio</h3>
+              <div class="setting-item">
+                <label>URL del Sitio</label>
+                <input
+                  type="url"
+                  value="https://service.hgaruna.org"
+                  readonly
+                />
+              </div>
+              <div class="setting-item">
+                <label>Google Analytics ID</label>
+                <input
+                  type="text"
+                  id="analytics-id"
+                  placeholder="GA_MEASUREMENT_ID"
+                />
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <h3>Generación de Páginas</h3>
+              <button id="generate-static-btn" class="btn primary full-width">
+                <i class="fas fa-cog"></i>
+                Generar Páginas Estáticas
+              </button>
+              <p class="setting-description">
+                Genera páginas HTML estáticas de todos los artículos
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/admin-local/admin-script.js"></script>
+  </body>
+</html>
