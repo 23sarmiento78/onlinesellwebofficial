@@ -24,21 +24,54 @@ class AdminPanel {
 
   // Netlify Identity Integration
   initializeNetlifyIdentity() {
+    console.log('🔍 Inicializando Netlify Identity...');
+    console.log('window.netlifyIdentity disponible:', !!window.netlifyIdentity);
+    
     if (window.netlifyIdentity) {
+      console.log('✅ Netlify Identity encontrado, configurando listeners...');
+      
       window.netlifyIdentity.on("init", (user) => {
+        console.log('🎯 Evento init disparado:', user);
         if (user) {
           this.handleLogin(user);
         }
       });
 
       window.netlifyIdentity.on("login", (user) => {
+        console.log('🎯 Evento login disparado:', user);
         this.handleLogin(user);
       });
 
       window.netlifyIdentity.on("logout", () => {
+        console.log('🎯 Evento logout disparado');
         this.handleLogout();
       });
+
+      window.netlifyIdentity.on("error", (error) => {
+        console.error('❌ Error de Netlify Identity:', error);
+      });
+    } else {
+      console.error('❌ Netlify Identity no está disponible');
+      // Intentar cargar el script manualmente si no está disponible
+      this.loadNetlifyIdentityScript();
     }
+  }
+
+  loadNetlifyIdentityScript() {
+    console.log('🔄 Intentando cargar script de Netlify Identity manualmente...');
+    
+    const script = document.createElement('script');
+    script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+    script.onload = () => {
+      console.log('✅ Script cargado manualmente');
+      setTimeout(() => {
+        this.initializeNetlifyIdentity();
+      }, 100);
+    };
+    script.onerror = () => {
+      console.error('❌ Error al cargar script manualmente');
+    };
+    document.head.appendChild(script);
   }
 
   handleLogin(user) {
@@ -57,10 +90,22 @@ class AdminPanel {
   }
 
   checkAuthState() {
-    const user = window.netlifyIdentity?.currentUser();
-    if (user) {
-      this.handleLogin(user);
+    console.log('🔍 Verificando estado de autenticación...');
+    console.log('window.netlifyIdentity disponible:', !!window.netlifyIdentity);
+    
+    if (window.netlifyIdentity && typeof window.netlifyIdentity.currentUser === 'function') {
+      const user = window.netlifyIdentity.currentUser();
+      console.log('Usuario actual:', user);
+      
+      if (user) {
+        console.log('✅ Usuario autenticado encontrado');
+        this.handleLogin(user);
+      } else {
+        console.log('ℹ️ No hay usuario autenticado');
+        this.showLogin();
+      }
     } else {
+      console.error('❌ Netlify Identity no está disponible para verificar estado');
       this.showLogin();
     }
   }
@@ -106,19 +151,38 @@ class AdminPanel {
     document
       .getElementById("netlify-login-btn")
       ?.addEventListener("click", () => {
-        window.netlifyIdentity?.open();
+        console.log('🖱️ Botón de login clickeado');
+        if (window.netlifyIdentity && typeof window.netlifyIdentity.open === 'function') {
+          console.log('✅ Abriendo widget de login...');
+          window.netlifyIdentity.open();
+        } else {
+          console.error('❌ No se puede abrir widget: netlifyIdentity.open no disponible');
+          alert('Error: No se puede abrir el widget de login. Por favor, recarga la página.');
+        }
       });
 
     document
       .getElementById("google-login-btn")
       ?.addEventListener("click", () => {
-        window.netlifyIdentity?.open("signup");
+        console.log('🖱️ Botón de Google clickeado');
+        if (window.netlifyIdentity && typeof window.netlifyIdentity.open === 'function') {
+          window.netlifyIdentity.open("signup");
+        } else {
+          console.error('❌ No se puede abrir widget: netlifyIdentity.open no disponible');
+          alert('Error: No se puede abrir el widget de login. Por favor, recarga la página.');
+        }
       });
 
     document
       .getElementById("github-login-btn")
       ?.addEventListener("click", () => {
-        window.netlifyIdentity?.open("signup");
+        console.log('🖱️ Botón de GitHub clickeado');
+        if (window.netlifyIdentity && typeof window.netlifyIdentity.open === 'function') {
+          window.netlifyIdentity.open("signup");
+        } else {
+          console.error('❌ No se puede abrir widget: netlifyIdentity.open no disponible');
+          alert('Error: No se puede abrir el widget de login. Por favor, recarga la página.');
+        }
       });
 
     // Logout button
