@@ -594,6 +594,11 @@ ${articleData.content}`;
       if (response.ok) {
         this.showResult("Páginas estáticas generadas exitosamente", "success");
         this.trackEvent("static_pages_generated");
+
+        // Regenerar sitemap automáticamente después de generar páginas
+        setTimeout(() => {
+          this.generateSitemap(false); // false = no mostrar mensaje separado
+        }, 1000);
       } else {
         throw new Error("Error en la generación");
       }
@@ -602,6 +607,71 @@ ${articleData.content}`;
         "Error al generar páginas estáticas: " + error.message,
         "error",
       );
+    }
+  }
+
+  // SEO Functions
+  async generateSitemap(showMessage = true) {
+    try {
+      const response = await fetch("/.netlify/functions/generate-sitemap", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.currentUser?.token?.access_token}`,
+        },
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        if (showMessage) {
+          this.showResult("Sitemap generado exitosamente", "success");
+        }
+        this.trackEvent("sitemap_generated");
+
+        // Actualizar enlaces en la interfaz
+        this.updateSEOLinks();
+      } else {
+        throw new Error("Error en la generación del sitemap");
+      }
+    } catch (error) {
+      this.showResult("Error al generar sitemap: " + error.message, "error");
+    }
+  }
+
+  async generateRobotsTxt() {
+    try {
+      const response = await fetch(
+        "/.netlify/functions/generate-sitemap?action=robots",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${this.currentUser?.token?.access_token}`,
+          },
+        },
+      );
+
+      if (response.ok) {
+        this.showResult("Robots.txt generado exitosamente", "success");
+        this.trackEvent("robots_generated");
+        this.updateSEOLinks();
+      } else {
+        throw new Error("Error en la generación de robots.txt");
+      }
+    } catch (error) {
+      this.showResult("Error al generar robots.txt: " + error.message, "error");
+    }
+  }
+
+  updateSEOLinks() {
+    // Actualizar timestamp en los enlaces para evitar cache
+    const timestamp = Date.now();
+    const sitemapLink = document.querySelector('a[href="/sitemap.xml"]');
+    const robotsLink = document.querySelector('a[href="/robots.txt"]');
+
+    if (sitemapLink) {
+      sitemapLink.href = `/sitemap.xml?t=${timestamp}`;
+    }
+    if (robotsLink) {
+      robotsLink.href = `/robots.txt?t=${timestamp}`;
     }
   }
 
