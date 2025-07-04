@@ -318,6 +318,7 @@ function generateStaticArticles() {
 
   console.log(`📄 Procesando ${files.length} artículo(s)...`);
 
+  const articles = [];
   files.forEach((file) => {
     const filePath = path.join(articlesDir, file);
     const article = processArticle(filePath);
@@ -328,11 +329,170 @@ function generateStaticArticles() {
 
       fs.writeFileSync(outputPath, html);
       console.log(`✅ Generado: ${article.slug}.html`);
+      articles.push(article);
     }
   });
 
+  // Generar sitemap automáticamente
+  generateSitemap(articles);
+
+  // Generar robots.txt
+  generateRobotsTxt();
+
   console.log("🎉 ¡Páginas estáticas generadas exitosamente!");
   console.log(`📂 Artículos disponibles en: ${ARTICLES_OUTPUT}/`);
+}
+
+// Función para generar sitemap
+function generateSitemap(articles) {
+  console.log("🗺️ Generando sitemap automático...");
+
+  const siteUrl = "https://service.hgaruna.org";
+  const now = new Date().toISOString();
+
+  // URLs estáticas
+  const staticPages = [
+    { url: "/", priority: 1.0, changefreq: "weekly" },
+    { url: "/planes/", priority: 0.9, changefreq: "monthly" },
+    { url: "/foro/", priority: 0.8, changefreq: "daily" },
+    { url: "/contacto/", priority: 0.7, changefreq: "monthly" },
+    { url: "/legal/", priority: 0.3, changefreq: "yearly" },
+    {
+      url: "/desarrollo-web-villa-carlos-paz/",
+      priority: 0.8,
+      changefreq: "monthly",
+    },
+    {
+      url: "/diseño-web-villa-carlos-paz/",
+      priority: 0.8,
+      changefreq: "monthly",
+    },
+    {
+      url: "/marketing-digital-villa-carlos-paz/",
+      priority: 0.8,
+      changefreq: "monthly",
+    },
+    { url: "/articulos/", priority: 0.7, changefreq: "daily" },
+  ];
+
+  let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+`;
+
+  // Agregar páginas estáticas
+  staticPages.forEach((page) => {
+    sitemap += `  <url>
+    <loc>${siteUrl}${page.url}</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>
+`;
+  });
+
+  // Agregar artículos
+  articles.forEach((article) => {
+    const articleDate = new Date(article.date || now);
+    const isRecent =
+      Date.now() - articleDate.getTime() < 7 * 24 * 60 * 60 * 1000;
+
+    sitemap += `  <url>
+    <loc>${siteUrl}/articulos/${article.slug}</loc>
+    <lastmod>${articleDate.toISOString()}</lastmod>
+    <changefreq>${isRecent ? "daily" : "weekly"}</changefreq>
+    <priority>${isRecent ? "0.8" : "0.6"}</priority>`;
+
+    // Agregar imagen si existe
+    if (article.image) {
+      sitemap += `
+    <image:image>
+      <image:loc>${siteUrl}${article.image}</image:loc>
+      <image:title>${escapeXML(article.title)}</image:title>
+      <image:caption>${escapeXML(article.description || "")}</image:caption>
+    </image:image>`;
+    }
+
+    // Agregar noticias para artículos recientes
+    if (isRecent) {
+      sitemap += `
+    <news:news>
+      <news:publication>
+        <news:name>hgaruna</news:name>
+        <news:language>es</news:language>
+      </news:publication>
+      <news:publication_date>${articleDate.toISOString()}</news:publication_date>
+      <news:title>${escapeXML(article.title)}</news:title>
+      <news:keywords>${article.tags ? article.tags.join(", ") : "desarrollo web, villa carlos paz"}</news:keywords>
+    </news:news>`;
+    }
+
+    sitemap += `
+  </url>
+`;
+  });
+
+  sitemap += "</urlset>";
+
+  // Escribir sitemap
+  const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
+  fs.writeFileSync(sitemapPath, sitemap);
+  console.log("✅ Sitemap generado: public/sitemap.xml");
+}
+
+// Función para generar robots.txt
+function generateRobotsTxt() {
+  console.log("🤖 Generando robots.txt...");
+
+  const robotsContent = `User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://service.hgaruna.org/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /admin-local/
+Disallow: /.netlify/
+
+# Allow important pages
+Allow: /articulos/
+Allow: /foro/
+Allow: /planes/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Specific rules for different bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block AI training bots
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+`;
+
+  const robotsPath = path.join(process.cwd(), "public", "robots.txt");
+  fs.writeFileSync(robotsPath, robotsContent);
+  console.log("✅ Robots.txt generado: public/robots.txt");
+}
+
+// Función para escapar XML
+function escapeXML(text) {
+  if (!text) return "";
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 }
 
 // Ejecutar si se llama directamente
