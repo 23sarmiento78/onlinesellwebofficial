@@ -116,9 +116,8 @@ class AdminPanel {
     const name = document.getElementById("user-name");
     const email = document.getElementById("user-email");
 
-    avatar.src =
-      user.user_metadata?.avatar_url || "/logos-he-imagenes/logo3.png";
-    name.textContent = user.user_metadata?.full_name || "Admin";
+    avatar.src = user.picture || "/logos-he-imagenes/logo3.png";
+    name.textContent = user.name || user.nickname || "Admin";
     email.textContent = user.email;
   }
 
