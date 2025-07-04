@@ -334,6 +334,145 @@
           <div id="article-result" class="result-message"></div>
         </section>
 
+        <!-- LinkedIn Section -->
+        <section id="linkedin-section" class="content-section">
+          <div class="section-header">
+            <h2>Publicaciones en LinkedIn</h2>
+            <div class="linkedin-status" id="linkedin-status">
+              <span class="status-indicator disconnected"></span>
+              <span id="connection-status">Desconectado</span>
+            </div>
+          </div>
+
+          <div class="linkedin-container">
+            <!-- LinkedIn Connection -->
+            <div class="linkedin-card">
+              <div class="card-header">
+                <h3><i class="fab fa-linkedin"></i> Conexión con LinkedIn</h3>
+              </div>
+              <div class="card-content">
+                <div id="linkedin-auth" class="linkedin-auth">
+                  <button id="connect-linkedin-btn" class="btn primary">
+                    <i class="fab fa-linkedin"></i>
+                    Conectar con LinkedIn
+                  </button>
+                  <p class="auth-description">
+                    Conecta tu cuenta de LinkedIn para publicar artículos
+                    automáticamente
+                  </p>
+                </div>
+
+                <div
+                  id="linkedin-connected"
+                  class="linkedin-connected"
+                  style="display: none"
+                >
+                  <div class="profile-info">
+                    <img
+                      id="linkedin-avatar"
+                      src=""
+                      alt="Profile"
+                      class="profile-avatar"
+                    />
+                    <div class="profile-details">
+                      <h4 id="linkedin-name"></h4>
+                      <p id="linkedin-headline"></p>
+                    </div>
+                  </div>
+                  <button id="disconnect-linkedin-btn" class="btn secondary">
+                    <i class="fas fa-unlink"></i>
+                    Desconectar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Publish to LinkedIn -->
+            <div class="linkedin-card">
+              <div class="card-header">
+                <h3><i class="fas fa-share"></i> Publicar en LinkedIn</h3>
+              </div>
+              <div class="card-content">
+                <form id="linkedin-post-form" class="linkedin-form">
+                  <div class="form-group">
+                    <label for="linkedin-article-select"
+                      >Seleccionar Artículo</label
+                    >
+                    <select id="linkedin-article-select" required>
+                      <option value="">Selecciona un artículo...</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="linkedin-post-text"
+                      >Texto de la Publicación</label
+                    >
+                    <textarea
+                      id="linkedin-post-text"
+                      rows="5"
+                      placeholder="Escribe el texto que acompañará al artículo en LinkedIn..."
+                      required
+                    ></textarea>
+                    <small class="char-count">0/3000 caracteres</small>
+                  </div>
+
+                  <div class="form-group">
+                    <label>
+                      <input
+                        type="checkbox"
+                        id="linkedin-auto-hashtags"
+                        checked
+                      />
+                      Agregar hashtags automáticamente basados en tags del
+                      artículo
+                    </label>
+                  </div>
+
+                  <div class="form-actions">
+                    <button
+                      type="button"
+                      id="preview-linkedin-btn"
+                      class="btn secondary"
+                    >
+                      <i class="fas fa-eye"></i>
+                      Vista Previa
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn primary"
+                      disabled
+                      id="publish-linkedin-btn"
+                    >
+                      <i class="fab fa-linkedin"></i>
+                      Publicar en LinkedIn
+                    </button>
+                  </div>
+                </form>
+
+                <div id="linkedin-result" class="result-message"></div>
+              </div>
+            </div>
+
+            <!-- Recent LinkedIn Posts -->
+            <div class="linkedin-card">
+              <div class="card-header">
+                <h3><i class="fas fa-history"></i> Publicaciones Recientes</h3>
+                <button
+                  class="card-action"
+                  onclick="adminPanel.refreshLinkedInPosts()"
+                >
+                  Actualizar
+                </button>
+              </div>
+              <div class="card-content">
+                <div id="recent-linkedin-posts" class="linkedin-posts">
+                  <!-- Los posts se cargarán aquí -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- Analytics Section -->
         <section id="analytics-section" class="content-section">
           <div class="section-header">
