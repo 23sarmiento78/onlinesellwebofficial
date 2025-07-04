@@ -137,7 +137,11 @@ class Auth0Manager {
 
   isAuthorizedUser(user) {
     // Define authorized emails or user IDs
-    const authorizedEmails = ["23sarmiento@gmail.com", "admin@hgaruna.org"];
+    const authorizedEmails = [
+      "23sarmiento@gmail.com",
+      "admin@hgaruna.org",
+      "lksarmiento67@gmail.com",
+    ];
 
     // Check if user email is in the authorized list
     return authorizedEmails.includes(user.email);
