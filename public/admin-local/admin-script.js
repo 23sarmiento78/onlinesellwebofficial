@@ -184,6 +184,7 @@ class AdminPanel {
       dashboard: "Dashboard",
       articles: "Gestión de Artículos",
       "new-article": "Nuevo Artículo",
+      linkedin: "Publicaciones LinkedIn",
       analytics: "Analytics",
       settings: "Configuración",
     };
