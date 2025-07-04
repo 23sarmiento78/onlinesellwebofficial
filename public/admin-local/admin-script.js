@@ -168,6 +168,19 @@ class AdminPanel {
         this.generateStaticPages();
       });
 
+    // SEO functions
+    document
+      .getElementById("generate-sitemap-btn")
+      ?.addEventListener("click", () => {
+        this.generateSitemap();
+      });
+
+    document
+      .getElementById("generate-robots-btn")
+      ?.addEventListener("click", () => {
+        this.generateRobotsTxt();
+      });
+
     // LinkedIn events
     document
       .getElementById("connect-linkedin-btn")
