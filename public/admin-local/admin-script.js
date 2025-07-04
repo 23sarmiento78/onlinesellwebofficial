@@ -167,6 +167,44 @@ class AdminPanel {
       ?.addEventListener("click", () => {
         this.generateStaticPages();
       });
+
+    // LinkedIn events
+    document
+      .getElementById("connect-linkedin-btn")
+      ?.addEventListener("click", () => {
+        this.connectLinkedIn();
+      });
+
+    document
+      .getElementById("disconnect-linkedin-btn")
+      ?.addEventListener("click", () => {
+        this.disconnectLinkedIn();
+      });
+
+    document
+      .getElementById("linkedin-post-form")
+      ?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        this.publishToLinkedIn();
+      });
+
+    document
+      .getElementById("preview-linkedin-btn")
+      ?.addEventListener("click", () => {
+        this.previewLinkedInPost();
+      });
+
+    document
+      .getElementById("linkedin-post-text")
+      ?.addEventListener("input", (e) => {
+        this.updateCharCount(e.target);
+      });
+
+    document
+      .getElementById("linkedin-article-select")
+      ?.addEventListener("change", (e) => {
+        this.populateLinkedInPost(e.target.value);
+      });
   }
 
   // Navigation
