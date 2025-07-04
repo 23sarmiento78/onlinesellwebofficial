@@ -161,7 +161,7 @@ class AdminPanel {
         } catch (error) {
           console.error("❌ Error durante login con GitHub:", error);
           alert(
-            "Error: No se puede abrir el widget de login. Por favor, recarga la página.",
+            "Error: No se pudo iniciar sesión con GitHub. Por favor, intenta de nuevo.",
           );
         }
       });
