@@ -168,9 +168,17 @@ class AdminPanel {
       });
 
     // Logout button
-    document.getElementById("logout-btn")?.addEventListener("click", () => {
-      window.netlifyIdentity?.logout();
-    });
+    document
+      .getElementById("logout-btn")
+      ?.addEventListener("click", async () => {
+        try {
+          await window.auth0Manager.logout();
+        } catch (error) {
+          console.error("❌ Error durante logout:", error);
+          // Force logout on client side even if server logout fails
+          this.handleLogout();
+        }
+      });
 
     // Navigation
     document.querySelectorAll(".nav-item").forEach((item) => {
