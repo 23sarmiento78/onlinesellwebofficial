@@ -851,6 +851,39 @@ body {
   line-height: 1.5;
 }
 
+.seo-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.seo-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--gray-200);
+}
+
+.seo-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.seo-link:hover {
+  background: var(--gray-50);
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .dashboard-grid {
