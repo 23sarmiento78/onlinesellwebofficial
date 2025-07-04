@@ -3,36 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CMS Admin - hgaruna</title>
+    <title>Redirección - Panel Admin hgaruna</title>
     <link rel="icon" href="/logos-he-imagenes/logo3.png" />
-
-    <!-- Estilos personalizados para el CMS -->
-    <link rel="stylesheet" href="/admin/cms-styles.css" />
-
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
-    <!-- Include the script that builds the page and powers Netlify CMS -->
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-
-    <!-- Netlify Identity initialization -->
     <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-
-        // Configurar proveedores externos
-        window.netlifyIdentity.init({
-          providers: ["google", "github"],
-          container: "#netlify-modal",
-        });
-      }
+      // Redirigir al nuevo panel de administración
+      window.location.href = "/admin-local/";
     </script>
+    <div
+      style="text-align: center; padding: 50px; font-family: Arial, sans-serif"
+    >
+      <h2>Redirigiendo al Panel de Administración...</h2>
+      <p>
+        Si no eres redirigido automáticamente,
+        <a href="/admin-local/">haz clic aquí</a>
+      </p>
+    </div>
   </body>
 </html>
