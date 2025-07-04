@@ -649,6 +649,326 @@ ${articleData.content}`;
       .join("");
   }
 
+  // LinkedIn Integration
+  loadLinkedInSection() {
+    this.populateArticleSelect();
+    this.checkLinkedInConnection();
+    this.loadRecentLinkedInPosts();
+  }
+
+  populateArticleSelect() {
+    const select = document.getElementById("linkedin-article-select");
+    if (!select) return;
+
+    select.innerHTML = '<option value="">Selecciona un artículo...</option>';
+
+    this.articles.forEach((article) => {
+      const option = document.createElement("option");
+      option.value = article._id;
+      option.textContent = article.title;
+      select.appendChild(option);
+    });
+  }
+
+  async connectLinkedIn() {
+    try {
+      const authUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=77d1u4hecolzrd&redirect_uri=${encodeURIComponent(window.location.origin + "/admin-local/")}&scope=profile%20w_member_social`;
+
+      const popup = window.open(
+        authUrl,
+        "linkedin-auth",
+        "width=600,height=600",
+      );
+
+      // Escuchar el callback
+      const checkClosed = setInterval(() => {
+        if (popup.closed) {
+          clearInterval(checkClosed);
+          this.checkLinkedInConnection();
+        }
+      }, 1000);
+
+      this.trackEvent("linkedin_auth_started");
+    } catch (error) {
+      console.error("Error connecting to LinkedIn:", error);
+      this.showLinkedInResult(
+        "Error al conectar con LinkedIn: " + error.message,
+        "error",
+      );
+    }
+  }
+
+  async disconnectLinkedIn() {
+    try {
+      localStorage.removeItem("linkedin_token");
+      localStorage.removeItem("linkedin_profile");
+      this.updateLinkedInUI(false);
+      this.showLinkedInResult(
+        "Desconectado de LinkedIn exitosamente",
+        "success",
+      );
+      this.trackEvent("linkedin_disconnected");
+    } catch (error) {
+      console.error("Error disconnecting LinkedIn:", error);
+    }
+  }
+
+  checkLinkedInConnection() {
+    const token = localStorage.getItem("linkedin_token");
+    const profile = localStorage.getItem("linkedin_profile");
+
+    if (token && profile) {
+      const profileData = JSON.parse(profile);
+      this.updateLinkedInUI(true, profileData);
+    } else {
+      this.updateLinkedInUI(false);
+    }
+  }
+
+  updateLinkedInUI(connected, profile = null) {
+    const statusIndicator = document.querySelector(".status-indicator");
+    const connectionStatus = document.getElementById("connection-status");
+    const authDiv = document.getElementById("linkedin-auth");
+    const connectedDiv = document.getElementById("linkedin-connected");
+    const publishBtn = document.getElementById("publish-linkedin-btn");
+
+    if (connected && profile) {
+      statusIndicator.classList.add("connected");
+      connectionStatus.textContent = "Conectado";
+      authDiv.style.display = "none";
+      connectedDiv.style.display = "flex";
+      publishBtn.disabled = false;
+
+      document.getElementById("linkedin-avatar").src =
+        profile.pictureUrl || "/logos-he-imagenes/logo3.png";
+      document.getElementById("linkedin-name").textContent =
+        profile.localizedFirstName + " " + profile.localizedLastName;
+      document.getElementById("linkedin-headline").textContent =
+        profile.headline || "Profesional en LinkedIn";
+    } else {
+      statusIndicator.classList.remove("connected");
+      connectionStatus.textContent = "Desconectado";
+      authDiv.style.display = "block";
+      connectedDiv.style.display = "none";
+      publishBtn.disabled = true;
+    }
+  }
+
+  populateLinkedInPost(articleId) {
+    if (!articleId) return;
+
+    const article = this.articles.find((a) => a._id === articleId);
+    if (!article) return;
+
+    const postText = `🚀 Nuevo artículo publicado: "${article.title}"
+
+${article.description}
+
+Lee el artículo completo en: ${window.location.origin}/articulos/${article._id}
+
+#DesarrolloWeb #VillaCarlosPaz #Tecnología`;
+
+    document.getElementById("linkedin-post-text").value = postText;
+    this.updateCharCount(document.getElementById("linkedin-post-text"));
+  }
+
+  updateCharCount(textarea) {
+    const charCount = document.querySelector(".char-count");
+    const count = textarea.value.length;
+    const maxChars = 3000;
+
+    charCount.textContent = `${count}/${maxChars} caracteres`;
+    charCount.className = "char-count";
+
+    if (count > maxChars * 0.9) {
+      charCount.classList.add("warning");
+    }
+    if (count > maxChars) {
+      charCount.classList.add("danger");
+    }
+  }
+
+  previewLinkedInPost() {
+    const postText = document.getElementById("linkedin-post-text").value;
+    const autoHashtags = document.getElementById(
+      "linkedin-auto-hashtags",
+    ).checked;
+    const articleId = document.getElementById("linkedin-article-select").value;
+
+    if (!postText) {
+      alert("Escribe el texto de la publicación para ver la vista previa");
+      return;
+    }
+
+    let finalText = postText;
+
+    if (autoHashtags && articleId) {
+      const article = this.articles.find((a) => a._id === articleId);
+      if (article && article.tags) {
+        const hashtags = article.tags
+          .map((tag) => `#${tag.replace(/\s+/g, "")}`)
+          .join(" ");
+        finalText += "\n\n" + hashtags;
+      }
+    }
+
+    // Crear modal de vista previa
+    const modal = document.createElement("div");
+    modal.className = "linkedin-preview-modal";
+    modal.style.cssText = `
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.8); display: flex; align-items: center;
+      justify-content: center; z-index: 9999;
+    `;
+
+    const content = document.createElement("div");
+    content.style.cssText = `
+      background: white; max-width: 500px; width: 90%;
+      border-radius: 12px; padding: 20px; position: relative;
+    `;
+
+    content.innerHTML = `
+      <button onclick="this.closest('.linkedin-preview-modal').remove()"
+              style="position: absolute; top: 10px; right: 15px; border: none;
+                     background: none; font-size: 20px; cursor: pointer;">&times;</button>
+      <div class="linkedin-preview">
+        <div class="preview-header">
+          <div class="preview-avatar"></div>
+          <div class="preview-author">Tu Nombre (Vista Previa)</div>
+        </div>
+        <div class="preview-content">${finalText.replace(/\n/g, "<br>")}</div>
+      </div>
+    `;
+
+    modal.appendChild(content);
+    document.body.appendChild(modal);
+  }
+
+  async publishToLinkedIn() {
+    const postText = document.getElementById("linkedin-post-text").value;
+    const autoHashtags = document.getElementById(
+      "linkedin-auto-hashtags",
+    ).checked;
+    const articleId = document.getElementById("linkedin-article-select").value;
+
+    if (!postText || !articleId) {
+      this.showLinkedInResult("Por favor completa todos los campos", "error");
+      return;
+    }
+
+    try {
+      const article = this.articles.find((a) => a._id === articleId);
+      let finalText = postText;
+
+      if (autoHashtags && article.tags) {
+        const hashtags = article.tags
+          .map((tag) => `#${tag.replace(/\s+/g, "")}`)
+          .join(" ");
+        finalText += "\n\n" + hashtags;
+      }
+
+      const response = await fetch("/.netlify/functions/linkedin-api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.currentUser?.token?.access_token}`,
+        },
+        body: JSON.stringify({
+          action: "publish",
+          text: finalText,
+          articleUrl: `${window.location.origin}/articulos/${article._id}`,
+          articleTitle: article.title,
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        this.showLinkedInResult(
+          "Publicación creada exitosamente en LinkedIn!",
+          "success",
+        );
+        document.getElementById("linkedin-post-form").reset();
+        this.loadRecentLinkedInPosts();
+        this.trackEvent("linkedin_post_published", { article_id: articleId });
+      } else {
+        throw new Error("Error en la respuesta del servidor");
+      }
+    } catch (error) {
+      console.error("Error publishing to LinkedIn:", error);
+      this.showLinkedInResult(
+        "Error al publicar en LinkedIn: " + error.message,
+        "error",
+      );
+    }
+  }
+
+  async loadRecentLinkedInPosts() {
+    try {
+      const response = await fetch(
+        "/.netlify/functions/linkedin-api?action=posts",
+      );
+      if (response.ok) {
+        const posts = await response.json();
+        this.renderLinkedInPosts(posts);
+      }
+    } catch (error) {
+      console.error("Error loading LinkedIn posts:", error);
+    }
+  }
+
+  renderLinkedInPosts(posts) {
+    const container = document.getElementById("recent-linkedin-posts");
+
+    if (!posts || posts.length === 0) {
+      container.innerHTML =
+        '<p style="text-align: center; color: #6b7280; padding: 20px;">No hay publicaciones recientes</p>';
+      return;
+    }
+
+    container.innerHTML = posts
+      .slice(0, 5)
+      .map(
+        (post) => `
+      <div class="linkedin-post-item">
+        <div class="post-header">
+          <div class="post-date">${new Date(post.created).toLocaleDateString("es-ES")}</div>
+        </div>
+        <div class="post-content">${post.text.substring(0, 150)}${post.text.length > 150 ? "..." : ""}</div>
+        <div class="post-stats">
+          <div class="post-stat">
+            <i class="fas fa-thumbs-up"></i>
+            <span>${post.likes || 0}</span>
+          </div>
+          <div class="post-stat">
+            <i class="fas fa-comment"></i>
+            <span>${post.comments || 0}</span>
+          </div>
+          <div class="post-stat">
+            <i class="fas fa-share"></i>
+            <span>${post.shares || 0}</span>
+          </div>
+        </div>
+      </div>
+    `,
+      )
+      .join("");
+  }
+
+  refreshLinkedInPosts() {
+    this.loadRecentLinkedInPosts();
+  }
+
+  showLinkedInResult(message, type) {
+    const resultDiv = document.getElementById("linkedin-result");
+    resultDiv.textContent = message;
+    resultDiv.className = `result-message ${type}`;
+    resultDiv.style.display = "block";
+
+    setTimeout(() => {
+      resultDiv.style.display = "none";
+    }, 5000);
+  }
+
   // Analytics Tracking
   trackEvent(eventName, parameters = {}) {
     if (typeof gtag !== "undefined") {
