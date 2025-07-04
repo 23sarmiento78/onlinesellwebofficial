@@ -126,57 +126,41 @@ class AdminPanel {
   bindEvents() {
     // Login buttons
     document
-      .getElementById("netlify-login-btn")
-      ?.addEventListener("click", () => {
+      .getElementById("auth0-login-btn")
+      ?.addEventListener("click", async () => {
         console.log("🖱️ Botón de login clickeado");
-        if (
-          window.netlifyIdentity &&
-          typeof window.netlifyIdentity.open === "function"
-        ) {
-          console.log("✅ Abriendo widget de login...");
-          window.netlifyIdentity.open();
-        } else {
-          console.error(
-            "❌ No se puede abrir widget: netlifyIdentity.open no disponible",
-          );
+        try {
+          await window.auth0Manager.login();
+        } catch (error) {
+          console.error("❌ Error durante login:", error);
           alert(
-            "Error: No se puede abrir el widget de login. Por favor, recarga la página.",
+            "Error: No se pudo iniciar sesión. Por favor, intenta de nuevo.",
           );
         }
       });
 
     document
       .getElementById("google-login-btn")
-      ?.addEventListener("click", () => {
+      ?.addEventListener("click", async () => {
         console.log("🖱️ Botón de Google clickeado");
-        if (
-          window.netlifyIdentity &&
-          typeof window.netlifyIdentity.open === "function"
-        ) {
-          window.netlifyIdentity.open("signup");
-        } else {
-          console.error(
-            "❌ No se puede abrir widget: netlifyIdentity.open no disponible",
-          );
+        try {
+          await window.auth0Manager.loginWithGoogle();
+        } catch (error) {
+          console.error("❌ Error durante login con Google:", error);
           alert(
-            "Error: No se puede abrir el widget de login. Por favor, recarga la página.",
+            "Error: No se pudo iniciar sesión con Google. Por favor, intenta de nuevo.",
           );
         }
       });
 
     document
       .getElementById("github-login-btn")
-      ?.addEventListener("click", () => {
+      ?.addEventListener("click", async () => {
         console.log("🖱️ Botón de GitHub clickeado");
-        if (
-          window.netlifyIdentity &&
-          typeof window.netlifyIdentity.open === "function"
-        ) {
-          window.netlifyIdentity.open("signup");
-        } else {
-          console.error(
-            "❌ No se puede abrir widget: netlifyIdentity.open no disponible",
-          );
+        try {
+          await window.auth0Manager.loginWithGithub();
+        } catch (error) {
+          console.error("❌ Error durante login con GitHub:", error);
           alert(
             "Error: No se puede abrir el widget de login. Por favor, recarga la página.",
           );
