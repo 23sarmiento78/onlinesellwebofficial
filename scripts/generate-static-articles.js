@@ -33,6 +33,12 @@ function getArticleTemplate() {
     <title>{{title}} | Desarrollo Web Villa Carlos Paz | hgaruna</title>
     <meta name="description" content="{{description}}">
     <meta name="keywords" content="{{keywords}}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="language" content="es">
+    <meta name="geo.region" content="AR-X">
+    <meta name="geo.placename" content="Villa Carlos Paz">
+    <meta name="geo.position" content="-31.4165;-64.4961">
+    <link rel="canonical" href="https://service.hgaruna.org/articulos/{{slug}}/">
 
     <!-- Open Graph -->
     <meta property="og:title" content="{{title}} | Desarrollo Web Villa Carlos Paz | hgaruna">
@@ -40,12 +46,27 @@ function getArticleTemplate() {
     <meta property="og:image" content="{{image}}">
     <meta property="og:url" content="https://service.hgaruna.org/articulos/{{slug}}/">
     <meta property="og:type" content="article">
+    <meta property="og:site_name" content="hgaruna">
+    <meta property="og:locale" content="es_ES">
+    <meta property="article:author" content="{{author}}">
+    <meta property="article:published_time" content="{{date}}">
+    <meta property="article:modified_time" content="{{date}}">
+    <meta property="article:section" content="{{category}}">
+    <meta property="article:tag" content="{{tags}}">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{title}} | Desarrollo Web Villa Carlos Paz | hgaruna">
     <meta name="twitter:description" content="{{description}}">
     <meta name="twitter:image" content="{{image}}">
+    <meta name="twitter:site" content="@hgaruna">
+    <meta name="twitter:creator" content="@hgaruna">
+
+    <!-- Adicionales para SEO -->
+    <meta name="author" content="{{author}}">
+    <meta name="publisher" content="hgaruna">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-TileColor" content="#2563eb">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -54,25 +75,34 @@ function getArticleTemplate() {
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/styles.css">
 
-    <!-- Schema.org -->
+    <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": "{{title}}",
       "description": "{{description}}",
-      "image": "{{image}}",
+      "image": {
+        "@type": "ImageObject",
+        "url": "{{image}}",
+        "width": 1200,
+        "height": 630
+      },
       "author": {
         "@type": "Organization",
-        "name": "{{author}}"
+        "name": "{{author}}",
+        "url": "https://service.hgaruna.org"
       },
       "publisher": {
         "@type": "Organization",
         "name": "hgaruna",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-        }
+          "url": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+          "width": 200,
+          "height": 200
+        },
+        "url": "https://service.hgaruna.org"
       },
       "datePublished": "{{date}}",
       "dateModified": "{{date}}",
@@ -80,7 +110,76 @@ function getArticleTemplate() {
         "@type": "WebPage",
         "@id": "https://service.hgaruna.org/articulos/{{slug}}/"
       },
-      "keywords": "{{keywords}}"
+      "keywords": "{{keywords}}",
+      "articleSection": "{{category}}",
+      "inLanguage": "es-ES",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "hgaruna",
+        "url": "https://service.hgaruna.org"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Desarrollo Web Villa Carlos Paz"
+      },
+      "mentions": [
+        {
+          "@type": "Place",
+          "name": "Villa Carlos Paz",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -31.4165,
+            "longitude": -64.4961
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Website Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "hgaruna",
+      "url": "https://service.hgaruna.org",
+      "description": "Desarrollo web profesional en Villa Carlos Paz, Córdoba",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://service.hgaruna.org/foro/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "hgaruna",
+        "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
+      }
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "hgaruna",
+      "url": "https://service.hgaruna.org",
+      "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+      "description": "Desarrollo web profesional y soluciones digitales en Villa Carlos Paz",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Villa Carlos Paz",
+        "addressRegion": "Córdoba",
+        "addressCountry": "AR"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+54-3541-237972",
+        "contactType": "customer service"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/hgaruna"
+      ]
     }
     </script>
 </head>
@@ -318,6 +417,7 @@ function generateStaticArticles() {
 
   console.log(`📄 Procesando ${files.length} artículo(s)...`);
 
+  const articles = [];
   files.forEach((file) => {
     const filePath = path.join(articlesDir, file);
     const article = processArticle(filePath);
@@ -328,11 +428,170 @@ function generateStaticArticles() {
 
       fs.writeFileSync(outputPath, html);
       console.log(`✅ Generado: ${article.slug}.html`);
+      articles.push(article);
     }
   });
 
+  // Generar sitemap automáticamente
+  generateSitemap(articles);
+
+  // Generar robots.txt
+  generateRobotsTxt();
+
   console.log("🎉 ¡Páginas estáticas generadas exitosamente!");
   console.log(`📂 Artículos disponibles en: ${ARTICLES_OUTPUT}/`);
+}
+
+// Función para generar sitemap
+function generateSitemap(articles) {
+  console.log("🗺️ Generando sitemap automático...");
+
+  const siteUrl = "https://service.hgaruna.org";
+  const now = new Date().toISOString();
+
+  // URLs estáticas
+  const staticPages = [
+    { url: "/", priority: 1.0, changefreq: "weekly" },
+    { url: "/planes/", priority: 0.9, changefreq: "monthly" },
+    { url: "/foro/", priority: 0.8, changefreq: "daily" },
+    { url: "/contacto/", priority: 0.7, changefreq: "monthly" },
+    { url: "/legal/", priority: 0.3, changefreq: "yearly" },
+    {
+      url: "/desarrollo-web-villa-carlos-paz/",
+      priority: 0.8,
+      changefreq: "monthly",
+    },
+    {
+      url: "/diseño-web-villa-carlos-paz/",
+      priority: 0.8,
+      changefreq: "monthly",
+    },
+    {
+      url: "/marketing-digital-villa-carlos-paz/",
+      priority: 0.8,
+      changefreq: "monthly",
+    },
+    { url: "/articulos/", priority: 0.7, changefreq: "daily" },
+  ];
+
+  let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+`;
+
+  // Agregar páginas estáticas
+  staticPages.forEach((page) => {
+    sitemap += `  <url>
+    <loc>${siteUrl}${page.url}</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>
+`;
+  });
+
+  // Agregar artículos
+  articles.forEach((article) => {
+    const articleDate = new Date(article.date || now);
+    const isRecent =
+      Date.now() - articleDate.getTime() < 7 * 24 * 60 * 60 * 1000;
+
+    sitemap += `  <url>
+    <loc>${siteUrl}/articulos/${article.slug}</loc>
+    <lastmod>${articleDate.toISOString()}</lastmod>
+    <changefreq>${isRecent ? "daily" : "weekly"}</changefreq>
+    <priority>${isRecent ? "0.8" : "0.6"}</priority>`;
+
+    // Agregar imagen si existe
+    if (article.image) {
+      sitemap += `
+    <image:image>
+      <image:loc>${siteUrl}${article.image}</image:loc>
+      <image:title>${escapeXML(article.title)}</image:title>
+      <image:caption>${escapeXML(article.description || "")}</image:caption>
+    </image:image>`;
+    }
+
+    // Agregar noticias para artículos recientes
+    if (isRecent) {
+      sitemap += `
+    <news:news>
+      <news:publication>
+        <news:name>hgaruna</news:name>
+        <news:language>es</news:language>
+      </news:publication>
+      <news:publication_date>${articleDate.toISOString()}</news:publication_date>
+      <news:title>${escapeXML(article.title)}</news:title>
+      <news:keywords>${article.tags ? article.tags.join(", ") : "desarrollo web, villa carlos paz"}</news:keywords>
+    </news:news>`;
+    }
+
+    sitemap += `
+  </url>
+`;
+  });
+
+  sitemap += "</urlset>";
+
+  // Escribir sitemap
+  const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
+  fs.writeFileSync(sitemapPath, sitemap);
+  console.log("✅ Sitemap generado: public/sitemap.xml");
+}
+
+// Función para generar robots.txt
+function generateRobotsTxt() {
+  console.log("🤖 Generando robots.txt...");
+
+  const robotsContent = `User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://service.hgaruna.org/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /admin-local/
+Disallow: /.netlify/
+
+# Allow important pages
+Allow: /articulos/
+Allow: /foro/
+Allow: /planes/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Specific rules for different bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block AI training bots
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+`;
+
+  const robotsPath = path.join(process.cwd(), "public", "robots.txt");
+  fs.writeFileSync(robotsPath, robotsContent);
+  console.log("✅ Robots.txt generado: public/robots.txt");
+}
+
+// Función para escapar XML
+function escapeXML(text) {
+  if (!text) return "";
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 }
 
 // Ejecutar si se llama directamente
