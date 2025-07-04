@@ -207,6 +207,9 @@ class AdminPanel {
       case "articles":
         this.renderArticlesGrid();
         break;
+      case "linkedin":
+        this.loadLinkedInSection();
+        break;
       case "analytics":
         this.loadAnalytics();
         break;
