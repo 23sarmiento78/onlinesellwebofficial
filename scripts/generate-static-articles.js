@@ -75,25 +75,34 @@ function getArticleTemplate() {
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/styles.css">
 
-    <!-- Schema.org -->
+    <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": "{{title}}",
       "description": "{{description}}",
-      "image": "{{image}}",
+      "image": {
+        "@type": "ImageObject",
+        "url": "{{image}}",
+        "width": 1200,
+        "height": 630
+      },
       "author": {
         "@type": "Organization",
-        "name": "{{author}}"
+        "name": "{{author}}",
+        "url": "https://service.hgaruna.org"
       },
       "publisher": {
         "@type": "Organization",
         "name": "hgaruna",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-        }
+          "url": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+          "width": 200,
+          "height": 200
+        },
+        "url": "https://service.hgaruna.org"
       },
       "datePublished": "{{date}}",
       "dateModified": "{{date}}",
@@ -101,7 +110,76 @@ function getArticleTemplate() {
         "@type": "WebPage",
         "@id": "https://service.hgaruna.org/articulos/{{slug}}/"
       },
-      "keywords": "{{keywords}}"
+      "keywords": "{{keywords}}",
+      "articleSection": "{{category}}",
+      "inLanguage": "es-ES",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "hgaruna",
+        "url": "https://service.hgaruna.org"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Desarrollo Web Villa Carlos Paz"
+      },
+      "mentions": [
+        {
+          "@type": "Place",
+          "name": "Villa Carlos Paz",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -31.4165,
+            "longitude": -64.4961
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Website Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "hgaruna",
+      "url": "https://service.hgaruna.org",
+      "description": "Desarrollo web profesional en Villa Carlos Paz, Córdoba",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://service.hgaruna.org/foro/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "hgaruna",
+        "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
+      }
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "hgaruna",
+      "url": "https://service.hgaruna.org",
+      "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+      "description": "Desarrollo web profesional y soluciones digitales en Villa Carlos Paz",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Villa Carlos Paz",
+        "addressRegion": "Córdoba",
+        "addressCountry": "AR"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+54-3541-237972",
+        "contactType": "customer service"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/hgaruna"
+      ]
     }
     </script>
 </head>
