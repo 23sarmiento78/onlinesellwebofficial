@@ -11,7 +11,7 @@ class AdminPanel {
 
   init() {
     this.showLoading();
-    this.initializeNetlifyIdentity();
+    this.initializeAuth0();
     this.bindEvents();
     this.loadArticles();
 
@@ -22,64 +22,31 @@ class AdminPanel {
     }, 2000);
   }
 
-  // Netlify Identity Integration
-  initializeNetlifyIdentity() {
-    console.log('🔍 Inicializando Netlify Identity...');
-    console.log('window.netlifyIdentity disponible:', !!window.netlifyIdentity);
-    
-    if (window.netlifyIdentity) {
-      console.log('✅ Netlify Identity encontrado, configurando listeners...');
-      
-      window.netlifyIdentity.on("init", (user) => {
-        console.log('🎯 Evento init disparado:', user);
-        if (user) {
-          this.handleLogin(user);
-        }
-      });
+  // Auth0 Integration
+  initializeAuth0() {
+    console.log("🔍 Inicializando Auth0...");
 
-      window.netlifyIdentity.on("login", (user) => {
-        console.log('🎯 Evento login disparado:', user);
-        this.handleLogin(user);
-      });
+    // Listen for Auth0 login success event
+    window.addEventListener("auth0LoginSuccess", (event) => {
+      const { user, token } = event.detail;
+      this.handleLogin(user, token);
+    });
 
-      window.netlifyIdentity.on("logout", () => {
-        console.log('🎯 Evento logout disparado');
-        this.handleLogout();
-      });
-
-      window.netlifyIdentity.on("error", (error) => {
-        console.error('❌ Error de Netlify Identity:', error);
-      });
+    // Check if Auth0 manager is available
+    if (window.auth0Manager) {
+      console.log("✅ Auth0 Manager encontrado");
     } else {
-      console.error('❌ Netlify Identity no está disponible');
-      // Intentar cargar el script manualmente si no está disponible
-      this.loadNetlifyIdentityScript();
+      console.error("❌ Auth0 Manager no está disponible");
     }
   }
 
-  loadNetlifyIdentityScript() {
-    console.log('🔄 Intentando cargar script de Netlify Identity manualmente...');
-    
-    const script = document.createElement('script');
-    script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
-    script.onload = () => {
-      console.log('✅ Script cargado manualmente');
-      setTimeout(() => {
-        this.initializeNetlifyIdentity();
-      }, 100);
-    };
-    script.onerror = () => {
-      console.error('❌ Error al cargar script manualmente');
-    };
-    document.head.appendChild(script);
-  }
-
-  handleLogin(user) {
+  handleLogin(user, token = null) {
     this.currentUser = user;
+    this.accessToken = token;
     this.isLoggedIn = true;
     this.showDashboard();
     this.updateUserInfo(user);
-    this.trackEvent("admin_login", { user_id: user.id });
+    this.trackEvent("admin_login", { user_id: user.sub });
   }
 
   handleLogout() {
@@ -89,23 +56,33 @@ class AdminPanel {
     this.trackEvent("admin_logout");
   }
 
-  checkAuthState() {
-    console.log('🔍 Verificando estado de autenticación...');
-    console.log('window.netlifyIdentity disponible:', !!window.netlifyIdentity);
-    
-    if (window.netlifyIdentity && typeof window.netlifyIdentity.currentUser === 'function') {
-      const user = window.netlifyIdentity.currentUser();
-      console.log('Usuario actual:', user);
-      
-      if (user) {
-        console.log('✅ Usuario autenticado encontrado');
-        this.handleLogin(user);
+  async checkAuthState() {
+    console.log("🔍 Verificando estado de autenticación...");
+
+    if (window.auth0Manager) {
+      const isAuthenticated = await window.auth0Manager.isAuthenticated();
+      console.log("Usuario autenticado:", isAuthenticated);
+
+      if (isAuthenticated) {
+        const user = await window.auth0Manager.getUser();
+        const token = await window.auth0Manager.getToken();
+        console.log("Usuario actual:", user);
+
+        if (user) {
+          console.log("✅ Usuario autenticado encontrado");
+          this.handleLogin(user, token);
+        } else {
+          console.log("ℹ️ No hay usuario autenticado");
+          this.showLogin();
+        }
       } else {
-        console.log('ℹ️ No hay usuario autenticado');
+        console.log("ℹ️ Usuario no autenticado");
         this.showLogin();
       }
     } else {
-      console.error('❌ Netlify Identity no está disponible para verificar estado');
+      console.error(
+        "❌ Auth0 Manager no está disponible para verificar estado",
+      );
       this.showLogin();
     }
   }
@@ -139,9 +116,8 @@ class AdminPanel {
     const name = document.getElementById("user-name");
     const email = document.getElementById("user-email");
 
-    avatar.src =
-      user.user_metadata?.avatar_url || "/logos-he-imagenes/logo3.png";
-    name.textContent = user.user_metadata?.full_name || "Admin";
+    avatar.src = user.picture || "/logos-he-imagenes/logo3.png";
+    name.textContent = user.name || user.nickname || "Admin";
     email.textContent = user.email;
   }
 
@@ -149,46 +125,59 @@ class AdminPanel {
   bindEvents() {
     // Login buttons
     document
-      .getElementById("netlify-login-btn")
-      ?.addEventListener("click", () => {
-        console.log('🖱️ Botón de login clickeado');
-        if (window.netlifyIdentity && typeof window.netlifyIdentity.open === 'function') {
-          console.log('✅ Abriendo widget de login...');
-          window.netlifyIdentity.open();
-        } else {
-          console.error('❌ No se puede abrir widget: netlifyIdentity.open no disponible');
-          alert('Error: No se puede abrir el widget de login. Por favor, recarga la página.');
+      .getElementById("auth0-login-btn")
+      ?.addEventListener("click", async () => {
+        console.log("🖱️ Botón de login clickeado");
+        try {
+          await window.auth0Manager.login();
+        } catch (error) {
+          console.error("❌ Error durante login:", error);
+          alert(
+            "Error: No se pudo iniciar sesión. Por favor, intenta de nuevo.",
+          );
         }
       });
 
     document
       .getElementById("google-login-btn")
-      ?.addEventListener("click", () => {
-        console.log('🖱️ Botón de Google clickeado');
-        if (window.netlifyIdentity && typeof window.netlifyIdentity.open === 'function') {
-          window.netlifyIdentity.open("signup");
-        } else {
-          console.error('❌ No se puede abrir widget: netlifyIdentity.open no disponible');
-          alert('Error: No se puede abrir el widget de login. Por favor, recarga la página.');
+      ?.addEventListener("click", async () => {
+        console.log("🖱️ Botón de Google clickeado");
+        try {
+          await window.auth0Manager.loginWithGoogle();
+        } catch (error) {
+          console.error("❌ Error durante login con Google:", error);
+          alert(
+            "Error: No se pudo iniciar sesión con Google. Por favor, intenta de nuevo.",
+          );
         }
       });
 
     document
       .getElementById("github-login-btn")
-      ?.addEventListener("click", () => {
-        console.log('🖱️ Botón de GitHub clickeado');
-        if (window.netlifyIdentity && typeof window.netlifyIdentity.open === 'function') {
-          window.netlifyIdentity.open("signup");
-        } else {
-          console.error('❌ No se puede abrir widget: netlifyIdentity.open no disponible');
-          alert('Error: No se puede abrir el widget de login. Por favor, recarga la página.');
+      ?.addEventListener("click", async () => {
+        console.log("🖱️ Botón de GitHub clickeado");
+        try {
+          await window.auth0Manager.loginWithGithub();
+        } catch (error) {
+          console.error("❌ Error durante login con GitHub:", error);
+          alert(
+            "Error: No se pudo iniciar sesión con GitHub. Por favor, intenta de nuevo.",
+          );
         }
       });
 
     // Logout button
-    document.getElementById("logout-btn")?.addEventListener("click", () => {
-      window.netlifyIdentity?.logout();
-    });
+    document
+      .getElementById("logout-btn")
+      ?.addEventListener("click", async () => {
+        try {
+          await window.auth0Manager.logout();
+        } catch (error) {
+          console.error("❌ Error durante logout:", error);
+          // Force logout on client side even if server logout fails
+          this.handleLogout();
+        }
+      });
 
     // Navigation
     document.querySelectorAll(".nav-item").forEach((item) => {

@@ -6,12 +6,7 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Configuración de Netlify Identity
-[services.git-gateway]
-  enabled = true
-
-[services.identity]
-  enabled = true
+# Auth0 integration for admin panel
 
 [functions]
   directory = "functions"

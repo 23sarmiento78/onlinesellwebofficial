@@ -13,8 +13,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
 
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Auth0 SDK -->
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
 
     <!-- Google Analytics -->
     <script
@@ -59,9 +59,9 @@
           </div>
 
           <div class="login-content">
-            <button id="netlify-login-btn" class="login-btn primary">
+            <button id="auth0-login-btn" class="login-btn primary">
               <i class="fas fa-sign-in-alt"></i>
-              Iniciar Sesión con Netlify Identity
+              Iniciar Sesión
             </button>
 
             <div class="login-divider">
@@ -580,6 +580,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="/admin-local/auth0-config.js"></script>
     <script src="/admin-local/admin-script.js"></script>
   </body>
 </html>
