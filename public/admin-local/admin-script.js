@@ -11,7 +11,7 @@ class AdminPanel {
 
   init() {
     this.showLoading();
-    this.initializeNetlifyIdentity();
+    this.initializeAuth0();
     this.bindEvents();
     this.loadArticles();
 
@@ -22,64 +22,31 @@ class AdminPanel {
     }, 2000);
   }
 
-  // Netlify Identity Integration
-  initializeNetlifyIdentity() {
-    console.log('🔍 Inicializando Netlify Identity...');
-    console.log('window.netlifyIdentity disponible:', !!window.netlifyIdentity);
-    
-    if (window.netlifyIdentity) {
-      console.log('✅ Netlify Identity encontrado, configurando listeners...');
-      
-      window.netlifyIdentity.on("init", (user) => {
-        console.log('🎯 Evento init disparado:', user);
-        if (user) {
-          this.handleLogin(user);
-        }
-      });
+  // Auth0 Integration
+  initializeAuth0() {
+    console.log('🔍 Inicializando Auth0...');
 
-      window.netlifyIdentity.on("login", (user) => {
-        console.log('🎯 Evento login disparado:', user);
-        this.handleLogin(user);
-      });
+    // Listen for Auth0 login success event
+    window.addEventListener('auth0LoginSuccess', (event) => {
+      const { user, token } = event.detail;
+      this.handleLogin(user, token);
+    });
 
-      window.netlifyIdentity.on("logout", () => {
-        console.log('🎯 Evento logout disparado');
-        this.handleLogout();
-      });
-
-      window.netlifyIdentity.on("error", (error) => {
-        console.error('❌ Error de Netlify Identity:', error);
-      });
+    // Check if Auth0 manager is available
+    if (window.auth0Manager) {
+      console.log('✅ Auth0 Manager encontrado');
     } else {
-      console.error('❌ Netlify Identity no está disponible');
-      // Intentar cargar el script manualmente si no está disponible
-      this.loadNetlifyIdentityScript();
+      console.error('❌ Auth0 Manager no está disponible');
     }
   }
 
-  loadNetlifyIdentityScript() {
-    console.log('🔄 Intentando cargar script de Netlify Identity manualmente...');
-    
-    const script = document.createElement('script');
-    script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
-    script.onload = () => {
-      console.log('✅ Script cargado manualmente');
-      setTimeout(() => {
-        this.initializeNetlifyIdentity();
-      }, 100);
-    };
-    script.onerror = () => {
-      console.error('❌ Error al cargar script manualmente');
-    };
-    document.head.appendChild(script);
-  }
-
-  handleLogin(user) {
+  handleLogin(user, token = null) {
     this.currentUser = user;
+    this.accessToken = token;
     this.isLoggedIn = true;
     this.showDashboard();
     this.updateUserInfo(user);
-    this.trackEvent("admin_login", { user_id: user.id });
+    this.trackEvent("admin_login", { user_id: user.sub });
   }
 
   handleLogout() {
@@ -89,14 +56,18 @@ class AdminPanel {
     this.trackEvent("admin_logout");
   }
 
-  checkAuthState() {
+  async checkAuthState() {
     console.log('🔍 Verificando estado de autenticación...');
-    console.log('window.netlifyIdentity disponible:', !!window.netlifyIdentity);
-    
-    if (window.netlifyIdentity && typeof window.netlifyIdentity.currentUser === 'function') {
-      const user = window.netlifyIdentity.currentUser();
-      console.log('Usuario actual:', user);
-      
+
+    if (window.auth0Manager) {
+      const isAuthenticated = await window.auth0Manager.isAuthenticated();
+      console.log('Usuario autenticado:', isAuthenticated);
+
+      if (isAuthenticated) {
+        const user = await window.auth0Manager.getUser();
+        const token = await window.auth0Manager.getToken();
+        console.log('Usuario actual:', user);
+
       if (user) {
         console.log('✅ Usuario autenticado encontrado');
         this.handleLogin(user);
