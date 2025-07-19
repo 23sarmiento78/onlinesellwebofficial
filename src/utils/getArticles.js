@@ -32,61 +32,9 @@ export async function getAllArticles() {
 
 async function getLocalArticles() {
   try {
-    // Importar archivos de ambas carpetas: articles y articulos
-    const articlesDirs = [
-      { dir: "../content/articles", url: "/content/articles/" },
-      { dir: "../content/articulos", url: "/content/articulos/" },
-    ];
-    let articles = [];
-
-    for (const { dir, url } of articlesDirs) {
-      let context;
-      try {
-        context = require.context(dir, false, /\.md$/);
-      } catch (e) {
-        continue; // Si la carpeta no existe, saltar
-      }
-      for (const key of context.keys()) {
-        try {
-          const articlePath = key.replace("./", "");
-          const response = await fetch(`${url}${articlePath}`);
-          if (!response.ok) continue;
-
-          const content = await response.text();
-          const matter = await import("gray-matter");
-          const { data, content: markdownContent } = matter.default(content);
-
-          // Generar slug desde el nombre del archivo o título
-          const slug =
-            articlePath.replace(".md", "").replace(/^\d{4}-\d{2}-\d{2}-/, "") ||
-            data.title
-              ?.toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/^-|-$/g, "");
-
-          const article = {
-            _id: slug,
-            slug,
-            title: data.title,
-            description:
-              data.description || markdownContent.substring(0, 200) + "...",
-            content: markdownContent,
-            author: data.author || "hgaruna",
-            date: data.date || new Date().toISOString(),
-            createdAt: data.date || new Date().toISOString(),
-            category: data.category || "Desarrollo Web",
-            tags: data.tags || [],
-            image: data.image || "/logos-he-imagenes/logo3.png",
-          };
-
-          articles.push(article);
-        } catch (error) {
-          console.error(`Error procesando artículo ${key}:`, error);
-        }
-      }
-    }
-
-    return articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // En lugar de usar require.context, usar la función local que ya creamos
+    const { getArticlesLocal } = await import("./getArticlesLocal");
+    return await getArticlesLocal();
   } catch (error) {
     console.error("Error cargando artículos locales:", error);
 
@@ -205,21 +153,9 @@ async function getCMSArticles() {
 
 export async function getArticleBySlug(slug) {
   try {
-    // Primero intentar con markdownProcessor
-    const { getMarkdownArticleBySlug } = await import("./markdownProcessor");
-    const markdownArticle = await getMarkdownArticleBySlug(slug);
-    if (markdownArticle) {
-      return markdownArticle;
-    }
-
-    // Fallback a la búsqueda general
-    const articles = await getArticles();
-    return articles.find(
-      (article) =>
-        article.slug === slug ||
-        article._id === slug ||
-        article.title?.toLowerCase().replace(/[^a-z0-9]+/g, "-") === slug,
-    );
+    // Usar la función local que ya creamos
+    const { getArticleLocal } = await import("./getArticlesLocal");
+    return await getArticleLocal(slug);
   } catch (error) {
     console.error("Error obteniendo artículo por slug:", error);
     return null;
