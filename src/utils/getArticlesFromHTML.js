@@ -4,30 +4,42 @@
 // Función para cargar artículos HTML estáticos
 export async function getArticlesFromHTML() {
   try {
-    console.log('Cargando artículos HTML estáticos...');
+    console.log('🔄 Cargando artículos HTML estáticos...');
     
     // En desarrollo, leer archivos HTML directamente
     if (process.env.NODE_ENV === 'development') {
+      console.log('🔧 Modo desarrollo: cargando archivos locales...');
       return await loadArticlesFromFiles();
     }
     
     // En producción, intentar cargar desde la API de Netlify Functions
+    console.log('🚀 Modo producción: intentando cargar desde API...');
     try {
       const response = await fetch('/.netlify/functions/get-html-articles');
+      console.log('📡 Respuesta de API:', response.status, response.statusText);
+      
       if (response.ok) {
         const data = await response.json();
-        console.log('Artículos cargados desde API:', data.articles?.length || 0);
-        return data.articles || [];
+        console.log('✅ Artículos cargados desde API:', data.articles?.length || 0);
+        console.log('📊 Datos de respuesta:', data);
+        
+        if (data.articles && data.articles.length > 0) {
+          return data.articles;
+        } else {
+          console.log('⚠️ API devolvió array vacío, usando fallback...');
+          return await loadArticlesFromFiles();
+        }
+      } else {
+        console.log('❌ API no respondió correctamente, usando fallback...');
+        return await loadArticlesFromFiles();
       }
     } catch (error) {
-      console.log('API no disponible, cargando archivos locales...');
+      console.log('❌ Error con API, cargando archivos locales...', error);
       return await loadArticlesFromFiles();
     }
     
-    return [];
-    
   } catch (error) {
-    console.log('Error cargando artículos HTML:', error);
+    console.log('❌ Error cargando artículos HTML:', error);
     return [];
   }
 }
@@ -35,7 +47,7 @@ export async function getArticlesFromHTML() {
 // Función para cargar artículos desde archivos HTML en desarrollo
 async function loadArticlesFromFiles() {
   try {
-    const articles = [];
+    console.log('📁 Cargando artículos desde archivos locales...');
     
     // Intentar obtener la lista dinámica de archivos HTML
     let htmlFiles = [];
@@ -46,14 +58,15 @@ async function loadArticlesFromFiles() {
       if (listResponse.ok) {
         const listData = await listResponse.json();
         htmlFiles = listData.files || [];
-        console.log('Archivos HTML detectados dinámicamente:', htmlFiles.length);
+        console.log('📄 Archivos HTML detectados dinámicamente:', htmlFiles.length);
       }
     } catch (error) {
-      console.log('No se pudo obtener lista dinámica, usando fallback...');
+      console.log('⚠️ No se pudo obtener lista dinámica, usando fallback...');
     }
     
     // Si no se pudo obtener la lista dinámica, usar fallback
     if (htmlFiles.length === 0) {
+      console.log('📋 Usando lista hardcodeada de archivos...');
       htmlFiles = [
         '2025-07-19-static-analysis-eslint-y-sonarqube.html',
         '2025-07-19-web-performance-core-web-vitals.html',
@@ -63,33 +76,44 @@ async function loadArticlesFromFiles() {
         '2025-07-19-aws-lambda-computacin-sin-servidores.html',
         '2025-07-19-machine-learning-para-web-gua-definitiva.html',
         '2025-07-19-ansible-automatizacin-de-configuracin.html',
-        '2025-07-18-react-19-nuevas-caracteristicas-y-mejoras.html'
+        '2025-07-18-react-19-nuevas-caracteristicas-y-mejoras.html',
+        '2025-07-19-microfrontends-arquitectura-escalable.html',
+        '2025-07-19-quantum-computing-el-futuro-de-la-computacin.html',
+        '2025-07-19-websockets-vs-serversent-events-choosing-the-right.html'
       ];
     }
+
+    const articles = [];
 
     // Cargar cada archivo HTML
     for (const filename of htmlFiles) {
       try {
+        console.log(`📖 Intentando cargar: /blog/${filename}`);
         const response = await fetch(`/blog/${filename}`);
+        
         if (response.ok) {
           const htmlContent = await response.text();
           const metadata = extractMetadataFromHTML(htmlContent, filename);
+          
           if (metadata) {
             articles.push(metadata);
+            console.log(`✅ Artículo cargado: ${metadata.title}`);
           }
+        } else {
+          console.log(`⚠️ No se pudo cargar ${filename}: ${response.status}`);
         }
       } catch (error) {
-        console.log(`Error cargando ${filename}:`, error);
+        console.log(`❌ Error cargando ${filename}:`, error);
         // Continuar con el siguiente archivo
       }
     }
 
-    console.log('Artículos HTML cargados desde archivos:', articles.length);
+    console.log(`🎉 Artículos HTML cargados desde archivos: ${articles.length}`);
     // Ordenar por fecha (más reciente primero)
     return articles.sort((a, b) => new Date(b.date) - new Date(a.date));
     
   } catch (error) {
-    console.log('Error cargando archivos HTML:', error);
+    console.log('❌ Error cargando archivos HTML:', error);
     return [];
   }
 }
@@ -151,7 +175,7 @@ function extractMetadataFromHTML(htmlContent, filename) {
     };
     
   } catch (error) {
-    console.error('Error extrayendo metadatos de HTML:', error);
+    console.error('❌ Error extrayendo metadatos de HTML:', error);
     return null;
   }
 }
@@ -196,7 +220,7 @@ Este artículo proporciona información valiosa sobre ${article.tags.join(', ')}
     
     return null;
   } catch (error) {
-    console.log('Error cargando artículo HTML:', error);
+    console.log('❌ Error cargando artículo HTML:', error);
     return null;
   }
 } 

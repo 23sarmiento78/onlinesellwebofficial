@@ -3,11 +3,28 @@ const path = require('path');
 
 exports.handler = async function(event, context) {
   try {
-    const blogDir = path.join(__dirname, '../public/blog');
-    const articles = [];
-
-    // Verificar si el directorio existe
-    if (!fs.existsSync(blogDir)) {
+    console.log('🔍 Función get-html-articles ejecutándose...');
+    
+    // En Netlify, el directorio puede estar en diferentes ubicaciones
+    const possiblePaths = [
+      path.join(__dirname, '../public/blog'),
+      path.join(__dirname, '../../public/blog'),
+      path.join(process.cwd(), 'public/blog'),
+      './public/blog'
+    ];
+    
+    let blogDir = null;
+    for (const testPath of possiblePaths) {
+      console.log(`🔍 Probando ruta: ${testPath}`);
+      if (fs.existsSync(testPath)) {
+        blogDir = testPath;
+        console.log(`✅ Directorio encontrado en: ${blogDir}`);
+        break;
+      }
+    }
+    
+    if (!blogDir) {
+      console.log('❌ No se encontró el directorio blog en ninguna ubicación');
       return {
         statusCode: 200,
         headers: {
@@ -15,16 +32,26 @@ exports.handler = async function(event, context) {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Content-Type'
         },
-        body: JSON.stringify({ articles: [] })
+        body: JSON.stringify({ 
+          articles: [],
+          error: 'Directorio blog no encontrado',
+          searchedPaths: possiblePaths
+        })
       };
     }
 
     // Leer todos los archivos .html del directorio
     const files = fs.readdirSync(blogDir).filter(file => file.endsWith('.html'));
+    console.log(`📁 Archivos HTML encontrados: ${files.length}`);
+    console.log('📄 Archivos:', files);
+
+    const articles = [];
 
     for (const file of files) {
       try {
         const filePath = path.join(blogDir, file);
+        console.log(`📖 Leyendo archivo: ${filePath}`);
+        
         const fileContent = fs.readFileSync(filePath, 'utf8');
         
         // Extraer metadatos del HTML
@@ -32,15 +59,18 @@ exports.handler = async function(event, context) {
         
         if (metadata) {
           articles.push(metadata);
+          console.log(`✅ Artículo procesado: ${metadata.title}`);
         }
       } catch (error) {
-        console.error(`Error procesando archivo ${file}:`, error);
+        console.error(`❌ Error procesando archivo ${file}:`, error);
         // Continuar con el siguiente archivo
       }
     }
 
     // Ordenar por fecha (más reciente primero)
     articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    console.log(`🎉 Total de artículos procesados: ${articles.length}`);
 
     return {
       statusCode: 200,
@@ -52,12 +82,14 @@ exports.handler = async function(event, context) {
       body: JSON.stringify({ 
         articles,
         total: articles.length,
-        source: 'html-files'
+        source: 'html-files',
+        directory: blogDir,
+        files: files
       })
     };
 
   } catch (error) {
-    console.error('Error en get-html-articles:', error);
+    console.error('❌ Error en get-html-articles:', error);
     return {
       statusCode: 500,
       headers: {
