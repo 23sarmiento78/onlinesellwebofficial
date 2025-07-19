@@ -2,11 +2,8 @@ name: Generar artículos HTML y crear sitemap
 
 on:
   schedule:
-    # 13:00, 15:00, 17:00, 19:00 hora Argentina (UTC-3)
-    - cron: '0 16 * * *' # 13:00 ART
-    - cron: '0 18 * * *' # 15:00 ART
-    - cron: '0 20 * * *' # 17:00 ART
-    - cron: '0 22 * * *' # 19:00 ART
+    # 16:00 (4:00 PM) hora Argentina (UTC-3) = 19:00 UTC
+    - cron: '0 19 * * *' # 16:00 ART (4:00 PM)
   workflow_dispatch:
 
 jobs:
@@ -42,5 +39,5 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add public/blog public/optimized-sitemap.xml
-          git commit -m "[bot] Artículos HTML y sitemap actualizados" || echo "Nada para commitear"
+          git commit -m "[bot] Artículos HTML y sitemap actualizados - $(date '+%Y-%m-%d %H:%M:%S') ART" || echo "Nada para commitear"
           git push || echo "Nada para pushear"

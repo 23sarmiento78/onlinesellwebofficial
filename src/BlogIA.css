@@ -1,44 +1,39 @@
-/* Estilos específicos para el Blog IA */
+/* BlogIA.css - Estilos para el blog con diseño de cartas */
 
-/* Hover effects para las cards */
-.hover-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+/* Estilos generales del blog */
+.blog-container {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
 }
 
-.hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+/* Header del blog */
+.blog-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 3rem 0;
+  margin-bottom: 2rem;
 }
 
-/* Estilos para el buscador */
-.search-container {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-bottom: 1px solid #dee2e6;
-  padding: 2rem 0;
-}
-
-.search-container .input-group {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border-radius: 25px;
-  overflow: hidden;
-}
-
-/* Estilos para las cards de artículos */
+/* Cartas de artículos */
 .article-card {
-  border: none;
-  border-radius: 12px;
-  overflow: hidden;
   transition: all 0.3s ease;
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  background: white;
 }
 
 .article-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.article-card .card-img-top-container {
+  position: relative;
+  overflow: hidden;
 }
 
 .article-card .card-img-top {
-  height: 200px;
-  object-fit: cover;
   transition: transform 0.3s ease;
 }
 
@@ -46,79 +41,315 @@
   transform: scale(1.05);
 }
 
-/* Estilos para los badges de categoría */
-.category-badge {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
+.article-card .card-img-overlay {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 50%);
 }
 
-/* Estilos para los tags */
-.tag-badge {
-  background-color: #f8f9fa;
-  color: #495057;
-  border: 1px solid #dee2e6;
-  font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  margin-right: 0.25rem;
-  margin-bottom: 0.25rem;
-  border-radius: 12px;
+.article-card .card-body {
+  padding: 1.5rem;
 }
 
-/* Estilos para el estado de carga */
-.loading-container {
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.article-card .card-title {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
 }
 
-/* Estilos para el estado vacío */
-.empty-state {
-  text-align: center;
-  padding: 4rem 0;
+.article-card .card-title a {
+  color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.empty-state i {
-  font-size: 4rem;
-  color: #dee2e6;
-  margin-bottom: 1rem;
+.article-card .card-title a:hover {
+  color: #667eea;
 }
 
-/* Estilos para el contador de artículos */
-.articles-counter {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 25px;
-  font-weight: 600;
+.article-card .card-text {
   font-size: 0.9rem;
+  line-height: 1.5;
+  color: #6c757d;
 }
 
-/* Estilos para el footer informativo */
-.info-footer {
-  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
-  border-radius: 12px;
-  padding: 2rem;
-  margin-top: 3rem;
+.article-card .card-footer {
+  padding: 1rem 1.5rem;
+  background: transparent;
 }
 
-/* Estilos responsivos */
-@media (max-width: 768px) {
-  .search-container {
-    padding: 1rem 0;
+/* Badges y tags */
+.badge {
+  font-size: 0.75rem;
+  padding: 0.35em 0.65em;
+  border-radius: 10px;
+}
+
+.badge.bg-light {
+  background-color: #f8f9fa !important;
+  color: #495057 !important;
+  border: 1px solid #dee2e6;
+}
+
+/* Layout principal */
+.blog-main-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.blog-feed {
+  flex: 1;
+  min-width: 0; /* Importante para evitar overflow */
+}
+
+.blog-sidebar {
+  flex-shrink: 0;
+  width: 350px; /* Ancho fijo para el sidebar */
+}
+
+/* Responsive para el layout */
+@media (max-width: 1199px) {
+  .blog-sidebar {
+    width: 320px;
+  }
+}
+
+@media (max-width: 991px) {
+  .blog-main-container {
+    flex-direction: column;
   }
   
-  .article-card .card-img-top {
-    height: 150px;
+  .blog-sidebar {
+    width: 100%;
+    margin-top: 2rem;
+  }
+}
+
+/* Sidebar */
+.sidebar-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+  position: sticky;
+  top: 20px;
+}
+
+@media (max-width: 991px) {
+  .sidebar-card {
+    position: static;
+    top: auto;
+  }
+}
+
+.sidebar-card .card-header {
+  border-radius: 15px 15px 0 0 !important;
+  border: none;
+  padding: 1rem 1.25rem;
+}
+
+.sidebar-card .card-body {
+  padding: 1.25rem;
+}
+
+/* Botones de categorías */
+.category-btn {
+  border-radius: 10px;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  text-align: left;
+  position: relative;
+}
+
+.category-btn:hover {
+  transform: translateX(5px);
+}
+
+.category-btn .badge {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Lista de temas de tendencia */
+.trending-list .list-group-item {
+  padding: 0.75rem 0;
+  border: none;
+  background: transparent;
+}
+
+.trending-list .list-group-item:hover {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.trending-list .badge {
+  font-size: 0.7rem;
+}
+
+/* Estadísticas */
+.stats-card .card-body {
+  padding: 1.5rem;
+}
+
+.stats-card h4 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.stats-card small {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Barra de búsqueda */
+.search-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.search-card .input-group {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.search-card .input-group-text {
+  background: #667eea;
+  border: none;
+  color: white;
+}
+
+.search-card .form-control {
+  border: none;
+  padding: 0.75rem 1rem;
+}
+
+.search-card .form-control:focus {
+  box-shadow: none;
+  border-color: #667eea;
+}
+
+.search-card .form-select {
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+}
+
+/* Paginación */
+.pagination .page-link {
+  border: none;
+  color: #667eea;
+  padding: 0.5rem 0.75rem;
+  margin: 0 0.25rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+  background-color: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #667eea;
+  border-color: #667eea;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #6c757d;
+  background-color: transparent;
+}
+
+/* Responsive */
+@media (max-width: 1199px) {
+  /* En pantallas medianas, ajustar el layout */
+  .article-card .card-title {
+    font-size: 1rem;
   }
   
-  .articles-counter {
+  .article-card .card-body {
+    padding: 1rem;
+  }
+  
+  .sidebar-card {
+    margin-bottom: 1rem;
+  }
+  
+  .category-btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .stats-card h4 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 991px) {
+  /* En pantallas pequeñas, el sidebar se mueve abajo pero mantenemos el layout */
+  .sidebar-card {
+    margin-bottom: 1rem;
+  }
+  
+  .category-btn {
     font-size: 0.8rem;
-    padding: 0.4rem 1rem;
+    padding: 0.35rem 0.7rem;
+  }
+  
+  .stats-card h4 {
+    font-size: 1.25rem;
+  }
+  
+  .trending-list .list-group-item {
+    padding: 0.5rem 0;
+  }
+}
+
+@media (max-width: 767px) {
+  /* En móviles, ajustar el layout */
+  .article-card .card-title {
+    font-size: 0.95rem;
+  }
+  
+  .article-card .card-body {
+    padding: 0.75rem;
+  }
+  
+  .article-card .card-footer {
+    padding: 0.75rem;
+  }
+  
+  .sidebar-card {
+    margin-bottom: 0.75rem;
+  }
+  
+  .category-btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .stats-card h4 {
+    font-size: 1.1rem;
+  }
+  
+  .stats-card .card-body {
+    padding: 1rem;
+  }
+  
+  .search-card .input-group {
+    flex-direction: column;
+  }
+  
+  .search-card .input-group > * {
+    margin-bottom: 0.5rem;
+  }
+  
+  .search-card .input-group > *:last-child {
+    margin-bottom: 0;
   }
 }
 
@@ -135,7 +366,7 @@
 }
 
 .article-card {
-  animation: fadeInUp 0.6s ease forwards;
+  animation: fadeInUp 0.6s ease-out;
 }
 
 .article-card:nth-child(1) { animation-delay: 0.1s; }
@@ -145,67 +376,44 @@
 .article-card:nth-child(5) { animation-delay: 0.5s; }
 .article-card:nth-child(6) { animation-delay: 0.6s; }
 
-/* Estilos para el botón de volver al blog */
-.back-to-blog-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
+/* Estados de carga */
+.loading-spinner {
+  color: #667eea;
+}
+
+/* Estados de error */
+.error-container {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
   color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  border-radius: 15px;
+  padding: 2rem;
 }
 
-.back-to-blog-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-  color: white;
+/* Hover effects mejorados */
+.article-card:hover .card-img-overlay {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 50%);
 }
 
-/* Estilos para el breadcrumb */
-.breadcrumb-custom {
-  background: transparent;
-  padding: 0;
+.category-btn:hover .badge {
+  background-color: white !important;
+  color: #667eea !important;
 }
 
-.breadcrumb-custom .breadcrumb-item + .breadcrumb-item::before {
-  content: "›";
-  color: #6c757d;
-  font-weight: bold;
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* Estilos para los botones de compartir */
-.share-btn {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.5rem;
-  transition: all 0.3s ease;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
 }
 
-.share-btn:hover {
-  transform: scale(1.1);
+::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 10px;
 }
 
-.share-btn.twitter {
-  background-color: #1da1f2;
-  color: white;
-}
-
-.share-btn.linkedin {
-  background-color: #0077b5;
-  color: white;
-}
-
-.share-btn.facebook {
-  background-color: #4267b2;
-  color: white;
-}
-
-.share-btn.whatsapp {
-  background-color: #25d366;
-  color: white;
+::-webkit-scrollbar-thumb:hover {
+  background: #5a6fd8;
 } 

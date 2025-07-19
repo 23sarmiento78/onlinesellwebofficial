@@ -72,10 +72,7 @@ async function loadArticlesFromFiles() {
         '2025-07-19-web-performance-core-web-vitals.html',
         '2025-07-19-low-codeno-code-plataformas-de-desarrollo.html',
         '2025-07-19-angular-18-nuevas-funcionalidades.html',
-        '2025-07-19-monorepo-vs-polyrepo-estrategias.html',
         '2025-07-19-aws-lambda-computacin-sin-servidores.html',
-        '2025-07-19-machine-learning-para-web-gua-definitiva.html',
-        '2025-07-19-ansible-automatizacin-de-configuracin.html',
         '2025-07-18-react-19-nuevas-caracteristicas-y-mejoras.html',
         '2025-07-19-microfrontends-arquitectura-escalable.html',
         '2025-07-19-quantum-computing-el-futuro-de-la-computacin.html',
@@ -121,9 +118,35 @@ async function loadArticlesFromFiles() {
 // Función para extraer metadatos de HTML
 function extractMetadataFromHTML(htmlContent, filename) {
   try {
-    // Extraer título del contenido HTML
-    const titleMatch = htmlContent.match(/<h1[^>]*>([^<]+)<\/h1>/i);
-    const title = titleMatch ? titleMatch[1] : filename.replace('.html', '');
+    // Extraer título del contenido HTML - buscar en múltiples lugares
+    let title = '';
+    
+    // 1. Buscar en <title>
+    const titleTagMatch = htmlContent.match(/<title[^>]*>([^<]+)<\/title>/i);
+    if (titleTagMatch) {
+      title = titleTagMatch[1];
+    }
+    
+    // 2. Si no hay title tag, buscar en h1
+    if (!title) {
+      const h1Match = htmlContent.match(/<h1[^>]*>([^<]+)<\/h1>/i);
+      if (h1Match) {
+        title = h1Match[1];
+      }
+    }
+    
+    // 3. Si no hay h1, buscar en h2
+    if (!title) {
+      const h2Match = htmlContent.match(/<h2[^>]*>([^<]+)<\/h2>/i);
+      if (h2Match) {
+        title = h2Match[1];
+      }
+    }
+    
+    // 4. Si no hay nada, usar el nombre del archivo
+    if (!title) {
+      title = filename.replace('.html', '').replace(/-/g, ' ');
+    }
     
     // Extraer fecha del nombre del archivo
     const dateMatch = filename.match(/^(\d{4}-\d{2}-\d{2})/);
@@ -132,9 +155,27 @@ function extractMetadataFromHTML(htmlContent, filename) {
     // Extraer slug del nombre del archivo
     const slug = filename.replace('.html', '');
     
-    // Extraer resumen del primer párrafo
-    const summaryMatch = htmlContent.match(/<p[^>]*>([^<]+)<\/p>/i);
-    const summary = summaryMatch ? summaryMatch[1].substring(0, 150) + '...' : 'Artículo sobre desarrollo web y programación.';
+    // Extraer resumen del primer párrafo - buscar en múltiples lugares
+    let summary = '';
+    
+    // 1. Buscar en meta description
+    const metaDescMatch = htmlContent.match(/<meta[^>]*name="description"[^>]*content="([^"]+)"/i);
+    if (metaDescMatch) {
+      summary = metaDescMatch[1];
+    }
+    
+    // 2. Si no hay meta description, buscar en párrafos
+    if (!summary) {
+      const pMatch = htmlContent.match(/<p[^>]*>([^<]+)<\/p>/i);
+      if (pMatch) {
+        summary = pMatch[1].substring(0, 150) + '...';
+      }
+    }
+    
+    // 3. Si no hay nada, usar descripción por defecto
+    if (!summary) {
+      summary = 'Artículo sobre desarrollo web y programación.';
+    }
     
     // Calcular tiempo de lectura (aproximado)
     const wordCount = htmlContent.split(/\s+/).length;
@@ -159,6 +200,10 @@ function extractMetadataFromHTML(htmlContent, filename) {
     if (htmlContent.toLowerCase().includes('performance')) tags.push('Performance');
     if (htmlContent.toLowerCase().includes('eslint')) tags.push('ESLint');
     if (htmlContent.toLowerCase().includes('sonarqube')) tags.push('SonarQube');
+    if (htmlContent.toLowerCase().includes('quantum')) tags.push('Quantum Computing');
+    if (htmlContent.toLowerCase().includes('websocket')) tags.push('WebSockets');
+    if (htmlContent.toLowerCase().includes('microfrontend')) tags.push('Micro-frontends');
+    if (htmlContent.toLowerCase().includes('low-code')) tags.push('Low-Code');
     
     return {
       title,
