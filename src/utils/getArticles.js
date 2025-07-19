@@ -153,10 +153,9 @@ async function getCMSArticles() {
 
 export async function getArticleBySlug(slug) {
   try {
-    // Usar la nueva función para artículos HTML
+    // Usar la función para obtener un solo artículo por slug
     const { getArticleFromHTML } = await import("./getArticlesFromHTML");
-    const articles = await getArticleFromHTML();
-    return articles.find(article => article.slug === slug) || null;
+    return await getArticleFromHTML(slug);
   } catch (error) {
     console.error("Error obteniendo artículo por slug:", error);
     return null;

@@ -232,37 +232,67 @@ export async function getArticleFromHTML(slug) {
     const article = articles.find(a => a.slug === slug);
     
     if (article) {
-      // En desarrollo, devolver información básica del artículo
-      // En producción, esto cargaría el contenido HTML completo
-      return {
-        ...article,
-        content: `# ${article.title}
-
-${article.summary}
-
-## Introducción
-
-Este es un artículo generado por inteligencia artificial sobre ${article.category.toLowerCase()}.
-
-## Contenido Principal
-
-El contenido completo del artículo estaría aquí, incluyendo:
-
-- Puntos importantes
-- Ejemplos prácticos
-- Mejores prácticas
-- Conclusiones
-
-## Conclusión
-
-Este artículo proporciona información valiosa sobre ${article.tags.join(', ')}.
-
----
-
-*Generado por inteligencia artificial - hgaruna*`
-      };
+      // Leer el archivo HTML real
+      try {
+        const response = await fetch(`/blog/${article.htmlFile}`);
+        if (response.ok) {
+          const htmlContent = await response.text();
+          // Extraer el contenido dentro de <main> si existe, si no, usar el body
+          let mainMatch = htmlContent.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
+          let content = mainMatch ? mainMatch[1] : null;
+          if (!content) {
+            // Si no hay <main>, extraer el body
+            let bodyMatch = htmlContent.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+            content = bodyMatch ? bodyMatch[1] : htmlContent;
+          }
+          // Eliminar la imagen de portada duplicada
+          if (article.image) {
+            // Usar DOMParser si está disponible (navegador)
+            try {
+              const parser = new window.DOMParser();
+              const doc = parser.parseFromString(`<div>${content}</div>`, 'text/html');
+              const imgs = doc.querySelectorAll('img');
+              let removed = false;
+              imgs.forEach(img => {
+                if (!removed && img.src && img.src.includes(article.image)) {
+                  img.parentNode.removeChild(img);
+                  removed = true;
+                }
+              });
+              // Si no encontró por src, eliminar el primer <img>
+              if (!removed && imgs.length > 0) {
+                imgs[0].parentNode.removeChild(imgs[0]);
+              }
+              content = doc.body.innerHTML;
+            } catch (e) {
+              // Fallback: eliminar por regex (menos seguro)
+              content = content.replace(new RegExp(`<img[^>]*src=["']${article.image}["'][^>]*>`, 'i'), '');
+              // Si no encontró, eliminar el primer <img>
+              content = content.replace(/<img[^>]*>/i, '');
+            }
+          }
+          // Extraer estilos y links del <head>
+          let headMatch = htmlContent.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
+          let styles = [];
+          let links = [];
+          if (headMatch) {
+            // Extraer <style>
+            styles = [...headMatch[1].matchAll(/<style[^>]*>[\s\S]*?<\/style>/gi)].map(m => m[0]);
+            // Extraer <link rel="stylesheet">
+            links = [...headMatch[1].matchAll(/<link[^>]*rel=["']stylesheet["'][^>]*>/gi)].map(m => m[0]);
+          }
+          return {
+            ...article,
+            content,
+            styles,
+            links,
+            htmlRaw: htmlContent
+          };
+        }
+      } catch (error) {
+        console.error('❌ Error leyendo el archivo HTML:', error);
+      }
     }
-    
     return null;
   } catch (error) {
     console.log('❌ Error cargando artículo HTML:', error);
