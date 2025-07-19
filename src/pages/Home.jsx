@@ -120,6 +120,52 @@ export default function Home() {
           }
         ]
       }) }} />
+      {/* Article Structured Data para SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Desarrollo Web Villa Carlos Paz | Programador Web Profesional | hgaruna",
+        "description": "Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten visitantes en clientes. E-commerce, SEO local y marketing digital.",
+        "image": ["https://service.hgaruna.org/logos-he-imagenes/logo3.png"],
+        "author": {
+          "@type": "Person",
+          "name": "Hernán Sarmiento",
+          "url": "https://service.hgaruna.org/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "hgaruna",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
+          }
+        },
+        "datePublished": "2023-01-01",
+        "dateModified": "2025-07-18",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://service.hgaruna.org/"
+        }
+      }) }} />
+      {/* BreadcrumbList Structured Data para SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Inicio",
+            "item": "https://service.hgaruna.org/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Planes",
+            "item": "https://service.hgaruna.org/planes/"
+          }
+        ]
+      }) }} />
 
       {/* Hero Section */}
       <Hero

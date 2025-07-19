@@ -1,0 +1,46 @@
+name: Generar artículos IA y actualizar sitemap
+
+on:
+  schedule:
+    # 13:00, 15:00, 17:00, 19:00 hora Argentina (UTC-3)
+    - cron: '0 16 * * *' # 13:00 ART
+    - cron: '0 18 * * *' # 15:00 ART
+    - cron: '0 20 * * *' # 17:00 ART
+    - cron: '0 22 * * *' # 19:00 ART
+  workflow_dispatch:
+
+jobs:
+  generar-articulos-y-sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Generar artículos IA
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/generate_articles_gemini.js
+
+      - name: Actualizar sitemap
+        run: node scripts/update_sitemap.js
+
+      - name: Asegurar carpeta de artículos para Netlify
+        run: |
+          mkdir -p src/content/articulos
+          touch src/content/articulos/.keep
+
+      - name: Commit y push de artículos y sitemap
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add src/content/articulos public/optimized-sitemap.xml
+          git commit -m "[bot] Artículos IA y sitemap actualizados" || echo "Nada para commitear"
+          git push || echo "Nada para pushear"
