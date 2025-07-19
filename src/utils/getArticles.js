@@ -32,9 +32,9 @@ export async function getAllArticles() {
 
 async function getLocalArticles() {
   try {
-    // En lugar de usar require.context, usar la función local que ya creamos
-    const { getArticlesLocal } = await import("./getArticlesLocal");
-    return await getArticlesLocal();
+    // Usar la nueva función para artículos HTML
+    const { getArticlesFromHTML } = await import("./getArticlesFromHTML");
+    return await getArticlesFromHTML();
   } catch (error) {
     console.error("Error cargando artículos locales:", error);
 
@@ -153,9 +153,10 @@ async function getCMSArticles() {
 
 export async function getArticleBySlug(slug) {
   try {
-    // Usar la función local que ya creamos
-    const { getArticleLocal } = await import("./getArticlesLocal");
-    return await getArticleLocal(slug);
+    // Usar la nueva función para artículos HTML
+    const { getArticleFromHTML } = await import("./getArticlesFromHTML");
+    const articles = await getArticleFromHTML();
+    return articles.find(article => article.slug === slug) || null;
   } catch (error) {
     console.error("Error obteniendo artículo por slug:", error);
     return null;

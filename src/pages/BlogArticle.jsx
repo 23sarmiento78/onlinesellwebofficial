@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import BaseLayout from "../layouts/BaseLayout";
 import ReactMarkdown from "react-markdown";
 import "../BlogIA.css";
-import { getArticleLocal } from "../utils/getArticlesLocal";
+import { getArticleFromHTML } from "../utils/getArticlesFromHTML";
 
 export default function BlogArticle() {
   const { slug } = useParams();
@@ -18,7 +18,7 @@ export default function BlogArticle() {
   const fetchArticle = async () => {
     try {
       setLoading(true);
-      const article = await getArticleLocal(slug);
+      const article = await getArticleFromHTML(slug);
       if (article) {
         setArticle(article);
       } else {
@@ -249,9 +249,6 @@ export default function BlogArticle() {
                       a: ({node, ...props}) => (
                         <a className="text-primary" target="_blank" rel="noopener noreferrer" {...props} />
                       ),
-                      img: ({node, ...props}) => (
-                        <img className="img-fluid rounded my-3" {...props} />
-                      ),
                     }}
                   >
                     {article.content}
@@ -260,28 +257,6 @@ export default function BlogArticle() {
               </div>
             </div>
           </div>
-
-          {/* Article Footer */}
-          <footer className="article-footer mt-5 pt-4 border-top">
-            <div className="row">
-              <div className="col-lg-8 mx-auto">
-                <div className="d-flex justify-content-between align-items-center">
-                  <div>
-                    <small className="text-muted">
-                      <i className="fas fa-calendar-alt me-1"></i>
-                      Publicado el {formatDate(article.date)}
-                    </small>
-                  </div>
-                  <div>
-                    <Link to="/blog" className="btn btn-outline-primary btn-sm">
-                      <i className="fas fa-arrow-left me-1"></i>
-                      Volver al blog
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </footer>
         </article>
       </div>
     </BaseLayout>

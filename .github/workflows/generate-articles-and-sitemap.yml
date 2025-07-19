@@ -1,4 +1,4 @@
-name: Generar artículos IA y crear HTML + sitemap
+name: Generar artículos HTML y crear sitemap
 
 on:
   schedule:
@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  generar-articulos-y-html:
+  generar-articulos-html-y-sitemap:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -24,28 +24,23 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Generar artículos IA (Markdown)
+      - name: Generar artículos HTML con Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: node scripts/generate_articles_gemini.js
-
-      - name: Generar archivos HTML
-        run: node scripts/generate-html-articles.js
+        run: node scripts/generate-html-articles-gemini.js
 
       - name: Actualizar sitemap
         run: node scripts/update_sitemap.js
 
       - name: Asegurar carpetas para Netlify
         run: |
-          mkdir -p src/content/articulos
           mkdir -p public/blog
-          touch src/content/articulos/.keep
           touch public/blog/.keep
 
-      - name: Commit y push de artículos, HTML y sitemap
+      - name: Commit y push de artículos HTML y sitemap
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add src/content/articulos public/blog public/optimized-sitemap.xml
-          git commit -m "[bot] Artículos IA, HTML y sitemap actualizados" || echo "Nada para commitear"
+          git add public/blog public/optimized-sitemap.xml
+          git commit -m "[bot] Artículos HTML y sitemap actualizados" || echo "Nada para commitear"
           git push || echo "Nada para pushear"

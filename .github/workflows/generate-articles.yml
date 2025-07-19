@@ -23,7 +23,7 @@ jobs:
       - name: Generar artículos con Gemini 2.5 Flash
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: node scripts/generate_articles_gemini.js
+        run: node scripts/generate-html-articles-gemini.js
 
       - name: Commit y push de nuevos artículos
         run: |

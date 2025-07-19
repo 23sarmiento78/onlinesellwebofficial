@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Performance: Core Web Vitals</title>
+    <meta name="description" content="En el mundo digital actual, la velocidad de carga de una página web es crucial para el éxito.  Los usuarios esperan experiencias rápidas e intuitivas,...">
+    <meta name="keywords" content="JavaScript, Performance">
+    <meta name="author" content="hgaruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hgaruna.com/blog/web-performance-core-web-vitals">
+    <meta property="og:title" content="Web Performance: Core Web Vitals">
+    <meta property="og:description" content="En el mundo digital actual, la velocidad de carga de una página web es crucial para el éxito.  Los usuarios esperan experiencias rápidas e intuitivas,...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hgaruna.com/blog/web-performance-core-web-vitals">
+    <meta property="twitter:title" content="Web Performance: Core Web Vitals">
+    <meta property="twitter:description" content="En el mundo digital actual, la velocidad de carga de una página web es crucial para el éxito.  Los usuarios esperan experiencias rápidas e intuitivas,...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hgaruna.com/blog/web-performance-core-web-vitals">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .article-meta {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .article-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .tags-container {
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
+        @media (max-width: 768px) {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
+            .article-header {
+                padding: 2rem 0;
+            }
+            
+            .article-content h1 {
+                font-size: 2rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
+    </div>
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark fs-6">Inteligencia Artificial</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">Web Performance: Core Web Vitals</h1>
+                    <p class="lead mb-4">En el mundo digital actual, la velocidad de carga de una página web es crucial para el éxito.  Los usuarios esperan experiencias rápidas e intuitivas,...</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por hgaruna
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            19 de julio de 2025
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Web Performance: Core Web Vitals" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Meta información -->
+                <div class="article-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Categoría:</strong> Inteligencia Artificial<br>
+                            <strong>Autor:</strong> hgaruna<br>
+                            <strong>Fecha:</strong> 19 de julio de 2025
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de lectura:</strong> 5 min<br>
+                            <strong>Palabras:</strong> 806
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    <span class="tag">JavaScript</span><span class="tag">Performance</span>
+                </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    
+  <h1>Web Performance: Core Web Vitals</h1>
+  <p>En el mundo digital actual, la velocidad de carga de una página web es crucial para el éxito.  Los usuarios esperan experiencias rápidas e intuitivas, y una carga lenta puede resultar en altas tasas de rebote y pérdida de conversiones.  Para abordar este problema, Google introdujo los Core Web Vitals (CWV), un conjunto de métricas que miden la experiencia del usuario (UX) en relación con el rendimiento web.  Estos vitales se centran en aspectos clave de la interacción del usuario, proporcionando una evaluación objetiva y accionable de la velocidad y calidad percibida de una página web.</p>
+
+  <h2>¿Qué son los Core Web Vitals?</h2>
+  <p>Los Core Web Vitals son un conjunto de tres métricas clave que Google utiliza para evaluar la experiencia del usuario en un sitio web.  Estas métricas se centran en aspectos específicos de la experiencia de carga y la interactividad:</p>
+  <ul>
+    <li><strong>Largest Contentful Paint (LCP):</strong> Mide la velocidad de carga del contenido principal de la página.  Un LCP rápido indica que los usuarios ven contenido importante rápidamente.</li>
+    <li><strong>Cumulative Layout Shift (CLS):</strong> Mide la estabilidad visual de la página. Un CLS bajo indica que la página es estable y que los elementos no se mueven inesperadamente mientras se carga.</li>
+    <li><strong>First Input Delay (FID):</strong> Mide la capacidad de respuesta de la página a las interacciones del usuario. Un FID bajo indica que la página responde rápidamente a las acciones del usuario.</li>
+  </ul>
+  <p>Google utiliza estas tres métricas para proporcionar una puntuación general de rendimiento web, que se puede utilizar para identificar áreas de mejora.</p>
+
+  <h2>Cómo medir los Core Web Vitals</h2>
+  <p>Existen varias herramientas para medir los Core Web Vitals de tu sitio web.  Algunas de las más populares incluyen:</p>
+  <ul>
+    <li><strong>PageSpeed Insights:</strong> Una herramienta gratuita de Google que proporciona una puntuación general de rendimiento y sugerencias de mejora.</li>
+    <li><strong>Chrome User Experience Report (CrUX):</strong> Una base de datos pública de datos de rendimiento web recopilados a partir de la experiencia de los usuarios reales.</li>
+    <li><strong>Lighthouse:</strong> Una herramienta de auditoría de código abierto que forma parte de Chrome DevTools, que analiza varios aspectos del rendimiento web, incluyendo los Core Web Vitals.</li>
+    <li><strong>Search Console:</strong>  Proporciona datos sobre el rendimiento de tu sitio en los resultados de búsqueda de Google, incluyendo información sobre los Core Web Vitals.</li>
+  </ul>
+  <p>Estas herramientas ofrecen información valiosa para identificar las áreas que requieren optimización.</p>
+
+
+  <h2>Mejorando el Largest Contentful Paint (LCP)</h2>
+  <p>Un LCP lento indica que el contenido principal de la página tarda en cargarse. Para mejorarlo, considera las siguientes estrategias:</p>
+  <ul>
+    <li><strong>Optimizar imágenes:</strong> Utiliza imágenes con formato WebP, comprime las imágenes y utiliza tamaños adecuados.</li>
+    <li><strong>Optimizar el código CSS y JavaScript:</strong> Minimiza y combina archivos CSS y JavaScript para reducir el tiempo de carga.</li>
+    <li><strong>Utilizar una CDN:</strong> Una Content Delivery Network (CDN) puede ayudar a entregar el contenido más rápidamente a los usuarios en diferentes ubicaciones geográficas.</li>
+    <li><strong>Precargar recursos críticos:</strong> Utiliza la etiqueta <code><link rel="preload"></code> para precargar recursos importantes, como imágenes y fuentes.</li>
+  </ul>
+  <pre><code>
+&lt;link rel="preload" href="imagen.jpg" as="image"&gt;
+  </code></pre>
+
+  <h2>Reduciendo el Cumulative Layout Shift (CLS)</h2>
+  <p>Un CLS alto indica que la página es inestable y que los elementos se mueven inesperadamente mientras se carga.  Para reducirlo, considera:</p>
+  <ul>
+    <li><strong>Reservar espacio para contenido que se cargará posteriormente:</strong>  Utiliza placeholders o espacios reservados para elementos que se cargarán de forma asíncrona.</li>
+    <li><strong>Evitar el tamaño de los elementos que cambian después de que se haya cargado la página:</strong> Asegúrate de que las imágenes y otros elementos tengan un tamaño definido antes de que se muestren.</li>
+    <li><strong>Cargar videos y anuncios con dimensiones especificadas:</strong> Esto evita cambios imprevistos en el diseño.</li>
+    <li><strong>Utilizar `width` y `height` para imágenes y videos:</strong> Especificar las dimensiones evita que el contenido cambie de tamaño después de la carga.</li>
+  </ul>
+
+
+  <h2>Mejorando el First Input Delay (FID)</h2>
+  <p>Un FID alto indica que la página es lenta en responder a las interacciones del usuario. Para mejorarlo:</p>
+  <ul>
+    <li><strong>Minimizar el trabajo de JavaScript en el hilo principal:</strong>  Utiliza técnicas de renderizado eficiente, como el uso de Web Workers para tareas intensivas en procesamiento.</li>
+    <li><strong>Reducir el uso de JavaScript:</strong> Eliminar scripts innecesarios o optimizar su rendimiento.</li>
+    <li><strong>Priorizar la carga de scripts críticos:</strong> Asegúrate de que los scripts que afectan a la interactividad de la página se carguen lo antes posible.</li>
+    <li><strong>Utilizar un framework de JavaScript eficiente:</strong> Elige frameworks que estén optimizados para el rendimiento.</li>
+  </ul>
+  <p>Recuerda que la optimización del FID a menudo se relaciona con la optimización del LCP y CLS.</p>
+
+
+  <h2>Conclusión</h2>
+  <p>Optimizar los Core Web Vitals es fundamental para ofrecer una excelente experiencia de usuario y mejorar el posicionamiento en los motores de búsqueda.  Implementando las estrategias descritas anteriormente, puedes mejorar significativamente el rendimiento de tu sitio web y proporcionar a tus usuarios una experiencia más rápida y eficiente.  Recuerda que el monitoreo continuo y la adaptación a las nuevas herramientas y técnicas son clave para mantener un rendimiento óptimo.</p>
+
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Funciones de compartir
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Web Performance: Core Web Vitals');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('Web Performance: Core Web Vitals');
+            const summary = encodeURIComponent('En el mundo digital actual, la velocidad de carga de una página web es crucial para el éxito.  Los usuarios esperan experiencias rápidas e intuitivas,...');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Web Performance: Core Web Vitals - En el mundo digital actual, la velocidad de carga de una página web es crucial para el éxito.  Los usuarios esperan experiencias rápidas e intuitivas,...');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                link.href = '#';
+            });
+        });
+    </script>
+</body>
+</html> 

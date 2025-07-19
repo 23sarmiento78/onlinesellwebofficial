@@ -1,3 +1,69 @@
 {
-  "articles": []
+  "articles": [
+    {
+      "slug": "2025-07-19-graphql-vs-rest-la-batalla-de-las-apis",
+      "content": "```yaml\r\ntitle: \"GraphQL vs REST: La Batalla de las APIs\"\r\nsummary: \"Descubre las diferencias clave entre GraphQL y REST, sus ventajas y desventajas, y cuándo usar cada uno.  Esta guía completa te ayudará a elegir la arquitectura de API ideal para tu próximo proyecto.\"\r\ndate: 2024-10-27\r\ntags: [\"GraphQL\", \"REST\", \"APIs\", \"Backend\", \"Frontend\", \"Desarrollo Web\", \"Arquitectura de Software\", \"Programación\", \"Comparativa\", \"Tecnologías Web\", \"Desarrollo de APIs\", \"RESTful APIs\", \"DevOps\", \"Microserv...",
+      "filename": "2025-07-19-graphql-vs-rest-la-batalla-de-las-apis.md",
+      "tags": [],
+      "date": "2025-07-19T02:33:17.356Z",
+      "author": "hgaruna",
+      "image": "/logos-he-imagenes/programacion.jpeg",
+      "category": "General"
+    },
+    {
+      "slug": "2025-07-19-freelance-vs-empresa-qu-camino-elegir-",
+      "content": "```yaml\r\ntitle: \"Freelance vs Empresa: ¿Qué camino elegir?\"\r\nsummary: \"Descubre las ventajas y desventajas de trabajar como freelance o en una empresa para programadores.  Analiza cuál opción se adapta mejor a tu perfil, objetivos y estilo de vida.\"\r\ndate: 2024-10-27\r\ntags: [\"Freelance\", \"Trabajo en Empresa\", \"Programador\", \"Carreras\", \"Desarrollo Web\", \"Frontend\", \"Backend\", \"Fullstack\", \"Mobile\", \"DevOps\", \"IA\", \"Consejos\", \"Errores Comunes\", \"Independiente\", \"Empleo\"]\r\nauthor: \"IA Generativa\"...",
+      "filename": "2025-07-19-freelance-vs-empresa-qu-camino-elegir-.md",
+      "tags": [],
+      "date": "2025-07-19T02:33:17.353Z",
+      "author": "hgaruna",
+      "image": "/logos-he-imagenes/programacion.jpeg",
+      "category": "General"
+    },
+    {
+      "slug": "2025-07-19-automatizaci-n-con-scripts-aumenta-tu-productividad",
+      "content": "```yaml\r\ntitle: \"Automatización con Scripts: Aumenta tu Productividad\"\r\nsummary: \"Descubre cómo la automatización de tareas con scripts puede revolucionar tu flujo de trabajo como programador, independientemente de tu especialidad. Aprende técnicas, ejemplos y evita errores comunes.\"\r\ndate: 2023-10-27\r\ntags: [\"Automatización\", \"Scripts\", \"Productividad\", \"Programación\", \"Python\", \"Bash\", \"PowerShell\", \"JavaScript\", \"DevOps\", \"Desarrollo Web\", \"Backend\", \"Frontend\", \"Fullstack\", \"Mobile\", \"IA\", \"...",
+      "filename": "2025-07-19-automatizaci-n-con-scripts-aumenta-tu-productividad.md",
+      "tags": [],
+      "date": "2025-07-19T02:33:17.337Z",
+      "author": "hgaruna",
+      "image": "/logos-he-imagenes/programacion.jpeg",
+      "category": "General"
+    },
+    {
+      "title": "Nuevos Frameworks JavaScript: Una Guía Completa",
+      "summary": "Explora los frameworks JavaScript más recientes y sus aplicaciones.  Descubre sus ventajas, inconvenientes y casos de uso para diferentes especialidades de desarrollo.",
+      "date": "2023-10-27T00:00:00.000Z",
+      "tags": [
+        "JavaScript",
+        "Frameworks",
+        "Frontend",
+        "Backend",
+        "Fullstack",
+        "Desarrollo Web",
+        "Programación",
+        "Tendencias",
+        "Tecnologías",
+        "Desarrollo de Software",
+        "Comparativa",
+        "Vue.js",
+        "Svelte",
+        "SolidJS",
+        "Qwik",
+        "Astro"
+      ],
+      "author": "IA Generativa",
+      "image": "/logos-he-imagenes/programacion.jpeg",
+      "slug": "nuevos-frameworks-javascript",
+      "seo_title": "Mejores Frameworks JavaScript 2024: Guía Completa para Desar",
+      "seo_description": "Descubre los frameworks JavaScript más innovadores del 2024.  Comparativa, ejemplos y consejos para elegir el mejor para tu proyecto.",
+      "seo_keywords": "JavaScript, Frameworks, Frontend, Backend, Fullstack, Vue.js, Svelte, SolidJS, Qwik, Astro, Desarrollo Web, Programación, Tutoriales, Comparativa",
+      "content": "\r\n# Nuevos Frameworks JavaScript: Una Guía Completa\r\n\r\nEl panorama de los frameworks JavaScript está en constante evolución.  Mientras veteranos como React, Angular y Vue.js siguen siendo dominantes, una nueva generación de frameworks está emergiendo, ofreciendo enfoques innovadores y mejoras en rendimiento,  simplicidad y desarrollo.  Este artículo explorará algunos de los frameworks JavaScript más prometedores, analizando sus características, ventajas, desventajas y casos de uso ideales.\r\n\r\n##...",
+      "filename": "2025-07-19-nuevos-frameworks-javascript-una-gu-a-completa.md",
+      "category": "General"
+    }
+  ],
+  "total": 4,
+  "generated": "2025-07-19T02:33:17.404Z",
+  "source": "markdown-files"
 }
