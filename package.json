@@ -16,10 +16,12 @@
     "gray-matter": "^4.0.3",
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.2.0",
+    "marked": "^9.1.6",
     "mongodb": "^5.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
+    "react-markdown": "^9.1.0",
     "react-router-dom": "^7.6.3",
     "react-scripts": "^5.0.1"
   },
@@ -29,7 +31,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "generate-articles": "node scripts/generate-static-articles.js",
-    "build-with-articles": "npm run generate-articles && npm run build"
+    "generate-html-articles": "node scripts/generate-html-articles.js",
+    "build-with-articles": "npm run generate-articles && npm run generate-html-articles && npm run build"
   },
   "devDependencies": {
     "axios": "^1.6.5",

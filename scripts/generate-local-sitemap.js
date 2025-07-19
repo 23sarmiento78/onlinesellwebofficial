@@ -7,8 +7,8 @@ const localConfig = {
   pages: [
     '/',
     '/planes/',
-    '/foro/',
-    '/foro/articulos/',
+    '/blog/',
+'/blog/articulos/',
     '/legal/'
   ]
 };

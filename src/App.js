@@ -9,7 +9,8 @@ import Contacto from "./pages/Contacto";
 import Planes from "./pages/Planes";
 import Legal from "./pages/Legal";
 import PoliticasPrivacidad from "./pages/PoliticasPrivacidad";
-import Foro from "./pages/Foro";
+import BlogIA from "./pages/BlogIA";
+import BlogArticle from "./pages/BlogArticle";
 import DesarrolloWebVillaCarlosPaz from "./pages/DesarrolloWebVillaCarlosPaz";
 import DisenoWebVillaCarlosPaz from "./pages/DisenoWebVillaCarlosPaz";
 import MarketingDigitalVillaCarlosPaz from "./pages/MarketingDigitalVillaCarlosPaz";
@@ -31,7 +32,8 @@ function App() {
               path="/politicas-privacidad"
               element={<PoliticasPrivacidad />}
             />
-            <Route path="/foro" element={<Foro />} />
+            <Route path="/blog" element={<BlogIA />} />
+            <Route path="/blog/:slug" element={<BlogArticle />} />
             <Route
               path="/desarrollo-web-villa-carlos-paz"
               element={<DesarrolloWebVillaCarlosPaz />}

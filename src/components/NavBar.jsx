@@ -41,7 +41,7 @@ export default function NavBar() {
               <li><a href="/" className="nav-link">Inicio</a></li>
               <li><a href="/planes/" className="nav-link">Planes</a></li>
               <li><a href="/legal/" className="nav-link">Legal</a></li>
-              <li><a href="/foro/" className="nav-link">Foro</a></li>
+              <li><a href="/blog" className="nav-link">Blog IA</a></li>
             </ul>
             <div className="nav-actions">
               <a href="https://wa.link/6t7cxa" className="btn-filled" target="_blank" rel="noopener">
@@ -81,7 +81,7 @@ export default function NavBar() {
             <li><a href="/" onClick={handleLinkClick}>Inicio</a></li>
             <li><a href="/planes/" onClick={handleLinkClick}>Planes</a></li>
             <li><a href="/legal/" onClick={handleLinkClick}>Legal</a></li>
-            <li><a href="/foro/" onClick={handleLinkClick}>Foro</a></li>
+            <li><a href="/blog" onClick={handleLinkClick}>Blog IA</a></li>
           </ul>
           
           <div className="sidebar-cta">

@@ -7,7 +7,7 @@ export class SitemapGenerator {
     this.staticPages = [
       { url: "/", priority: 1.0, changefreq: "weekly" },
       { url: "/planes/", priority: 0.9, changefreq: "monthly" },
-      { url: "/foro/", priority: 0.8, changefreq: "daily" },
+      { url: "/blog/", priority: 0.8, changefreq: "daily" },
       { url: "/contacto/", priority: 0.7, changefreq: "monthly" },
       { url: "/legal/", priority: 0.3, changefreq: "yearly" },
       {
@@ -100,7 +100,7 @@ Disallow: /.netlify/
 
 # Allow important pages
 Allow: /articulos/
-Allow: /foro/
+Allow: /blog/
 Allow: /planes/
 
 # Crawl-delay for respectful crawling

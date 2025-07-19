@@ -32,50 +32,57 @@ export async function getAllArticles() {
 
 async function getLocalArticles() {
   try {
-    // Importar dinámicamente los archivos markdown
-    const articlesContext = require.context(
-      "../content/articles",
-      false,
-      /\.md$/,
-    );
-    const articles = [];
+    // Importar archivos de ambas carpetas: articles y articulos
+    const articlesDirs = [
+      { dir: "../content/articles", url: "/content/articles/" },
+      { dir: "../content/articulos", url: "/content/articulos/" },
+    ];
+    let articles = [];
 
-    for (const key of articlesContext.keys()) {
+    for (const { dir, url } of articlesDirs) {
+      let context;
       try {
-        const articlePath = key.replace("./", "");
-        const response = await fetch(`/content/articles/${articlePath}`);
-        if (!response.ok) continue;
+        context = require.context(dir, false, /\.md$/);
+      } catch (e) {
+        continue; // Si la carpeta no existe, saltar
+      }
+      for (const key of context.keys()) {
+        try {
+          const articlePath = key.replace("./", "");
+          const response = await fetch(`${url}${articlePath}`);
+          if (!response.ok) continue;
 
-        const content = await response.text();
-        const matter = await import("gray-matter");
-        const { data, content: markdownContent } = matter.default(content);
+          const content = await response.text();
+          const matter = await import("gray-matter");
+          const { data, content: markdownContent } = matter.default(content);
 
-        // Generar slug desde el nombre del archivo o título
-        const slug =
-          articlePath.replace(".md", "").replace(/^\d{4}-\d{2}-\d{2}-/, "") ||
-          data.title
-            ?.toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-|-$/g, "");
+          // Generar slug desde el nombre del archivo o título
+          const slug =
+            articlePath.replace(".md", "").replace(/^\d{4}-\d{2}-\d{2}-/, "") ||
+            data.title
+              ?.toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-|-$/g, "");
 
-        const article = {
-          _id: slug,
-          slug,
-          title: data.title,
-          description:
-            data.description || markdownContent.substring(0, 200) + "...",
-          content: markdownContent,
-          author: data.author || "hgaruna",
-          date: data.date || new Date().toISOString(),
-          createdAt: data.date || new Date().toISOString(),
-          category: data.category || "Desarrollo Web",
-          tags: data.tags || [],
-          image: data.image || "/logos-he-imagenes/logo3.png",
-        };
+          const article = {
+            _id: slug,
+            slug,
+            title: data.title,
+            description:
+              data.description || markdownContent.substring(0, 200) + "...",
+            content: markdownContent,
+            author: data.author || "hgaruna",
+            date: data.date || new Date().toISOString(),
+            createdAt: data.date || new Date().toISOString(),
+            category: data.category || "Desarrollo Web",
+            tags: data.tags || [],
+            image: data.image || "/logos-he-imagenes/logo3.png",
+          };
 
-        articles.push(article);
-      } catch (error) {
-        console.error(`Error procesando artículo ${key}:`, error);
+          articles.push(article);
+        } catch (error) {
+          console.error(`Error procesando artículo ${key}:`, error);
+        }
       }
     }
 

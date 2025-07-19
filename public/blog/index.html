@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog IA - Artículos Generados por Inteligencia Artificial | hgaruna</title>
+    <meta name="description" content="Descubre los últimos artículos sobre programación y desarrollo web generados por inteligencia artificial">
+    <meta name="keywords" content="blog, IA, programación, desarrollo web, inteligencia artificial">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/logos-he-imagenes/logo3.png" alt="hgaruna" height="30">
+                hgaruna
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/blog">Blog IA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="bg-primary text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-3">🤖 Blog IA</h1>
+                    <p class="lead">Artículos sobre programación y desarrollo web generados por inteligencia artificial</p>
+                    <div class="badge bg-light text-dark fs-6">
+                        Artículos generados automáticamente
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container py-5">
+        <div class="text-center">
+            <h2>Artículos Disponibles</h2>
+            <p class="text-muted mb-5">Haz clic en cualquier artículo para leerlo completo</p>
+        </div>
+        
+        <div class="row g-4" id="articles-container">
+            <!-- Los artículos se cargarán dinámicamente -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>hgaruna</h5>
+                    <p class="mb-0">Desarrollo web profesional en Villa Carlos Paz</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        <a href="https://wa.me/543541237972" class="text-white me-3">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                        <a href="mailto:23sarmiento@gmail.com" class="text-white">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Cargar lista de artículos
+        fetch('/.netlify/functions/get-ia-articles')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('articles-container');
+                if (data.articles && data.articles.length > 0) {
+                    data.articles.forEach(article => {
+                        const card = createArticleCard(article);
+                        container.appendChild(card);
+                    });
+                } else {
+                    container.innerHTML = '<div class="col-12 text-center"><p>No hay artículos disponibles</p></div>';
+                }
+            })
+            .catch(error => {
+                console.error('Error cargando artículos:', error);
+                document.getElementById('articles-container').innerHTML = 
+                    '<div class="col-12 text-center"><p>Error cargando artículos</p></div>';
+            });
+
+        function createArticleCard(article) {
+            const col = document.createElement('div');
+            col.className = 'col-lg-4 col-md-6';
+            
+            const formatDate = (dateString) => {
+                return new Date(dateString).toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            };
+            
+            col.innerHTML = `
+                <div class="card h-100 shadow-sm hover-lift">
+                    ${article.image ? `
+                    <img src="${article.image}" class="card-img-top" alt="${article.title}" style="height: 200px; object-fit: cover;">
+                    ` : ''}
+                    <div class="card-body d-flex flex-column">
+                        <div class="mb-2">
+                            ${article.category ? `<span class="badge bg-secondary me-2">${article.category}</span>` : ''}
+                            <small class="text-muted">
+                                <i class="fas fa-calendar-alt me-1"></i>
+                                ${formatDate(article.date)}
+                            </small>
+                        </div>
+                        <h5 class="card-title fw-bold">${article.title}</h5>
+                        <p class="card-text text-muted flex-grow-1">
+                            ${article.summary || article.description || (article.content ? article.content.substring(0, 150) + '...' : '')}
+                        </p>
+                        <div class="mt-auto">
+                            <a href="${article.slug}.html" class="btn btn-primary w-100">
+                                <i class="fas fa-arrow-right me-2"></i>
+                                Leer artículo completo
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="fas fa-user me-1"></i>
+                                ${article.author || 'hgaruna'}
+                            </small>
+                            <small class="text-muted">
+                                <i class="fas fa-robot me-1"></i>
+                                Generado por IA
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return col;
+        }
+    </script>
+</body>
+</html>
