@@ -1,53 +1,5 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import BaseLayout from '../../layouts/BaseLayout';
-import { getArticleBySlug } from '../../utils/getArticles';
 
-export default function Articulo() {
-  const { slug } = useParams();
-  const [article, setArticle] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    async function load() {
-      const data = await getArticleBySlug(slug);
-      setArticle(data);
-      setLoading(false);
-    }
-    load();
-  }, [slug]);
-
-  if (loading) return <div className="container py-5 text-center">Cargando artículo...</div>;
-  if (!article) return <div className="container py-5 text-center">Artículo no encontrado</div>;
-
-  return (
-    <BaseLayout
-      title={article.seo_title || article.title}
-      description={article.seo_description || article.summary}
-      keywords={article.seo_keywords ? article.seo_keywords.join(', ') : (article.tags || []).join(', ')}
-      ogTitle={article.seo_title || article.title}
-      ogDescription={article.seo_description || article.summary}
-      ogImage={article.image}
-      ogUrl={`https://service.hgaruna.org/articulos/${slug}`}
-    >
-      <article className="articulo-container container py-5">
-        <h1 className="articulo-title">{article.title}</h1>
-        <div className="articulo-meta mb-3">
-          <span className="me-3"><i className="fas fa-user"></i> {article.author || 'hgaruna'}</span>
-          <span className="me-3"><i className="fas fa-calendar"></i> {new Date(article.date).toLocaleDateString('es-ES')}</span>
-          {article.tags && article.tags.length > 0 && (
-            <span><i className="fas fa-tags"></i> {article.tags.join(', ')}</span>
-          )}
-        </div>
-        {article.image && (
-          <img src={article.image} alt={article.title} className="img-fluid rounded mb-4" style={{maxHeight: 350}} />
-        )}
-        <div className="articulo-summary lead mb-4">{article.summary}</div>
-        <div className="articulo-content" dangerouslySetInnerHTML={{ __html: article.html }} />
-      </article>
-    </BaseLayout>
-  );
-}import React from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { getArticleBySlug } from "../../utils/getArticles";
 import BaseLayout from "../../layouts/BaseLayout";
