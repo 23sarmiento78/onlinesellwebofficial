@@ -26,23 +26,33 @@ export async function getArticlesFromHTML() {
 
 async function getHTMLFilesList() {
   try {
-    // Intentar usar la función de Netlify (funciona en producción y desarrollo local)
+    // Intentar usar la función de Netlify como fuente principal
+    console.log('🔍 Obteniendo archivos desde Netlify function...');
     const response = await fetch('/.netlify/functions/list-html-files');
+    
     if (response.ok) {
-      const files = await response.json();
-      console.log(`✅ Archivos obtenidos desde Netlify function: ${files.length}`);
-      return files;
+      const netlifyFiles = await response.json();
+      console.log(`✅ Netlify encontró: ${netlifyFiles.length} archivos`);
+      console.log('📄 Archivos de Netlify:', netlifyFiles);
+      
+      // Si Netlify encuentra archivos, usarlos
+      if (netlifyFiles.length > 0) {
+        return netlifyFiles;
+      }
+    } else {
+      console.log(`⚠️ Error en Netlify: ${response.status} ${response.statusText}`);
     }
   } catch (error) {
-    console.log('⚠️ Error con función Netlify, usando detección automática');
+    console.log('⚠️ Error con función Netlify:', error.message);
   }
   
-  // Fallback: usar detección automática con archivos conocidos
+  // Solo usar fallback si Netlify no funciona
+  console.log('🔄 Netlify no disponible, usando fallback...');
   return getKnownHTMLFiles();
 }
 
 function getKnownHTMLFiles() {
-  // Lista de archivos HTML conocidos en public/blog
+  // Lista completa de archivos HTML en public/blog (todos los 12 que existen)
   const knownFiles = [
     '2025-07-18-react-19-nuevas-caracteristicas-y-mejoras.html',
     '2025-07-19-angular-18-nuevas-funcionalidades.html',
@@ -58,12 +68,16 @@ function getKnownHTMLFiles() {
     '2025-07-19-websockets-vs-serversent-events-choosing-the-right.html'
   ];
   
-  console.log(`📄 Usando lista de archivos conocidos: ${knownFiles.length}`);
+  console.log(`📄 Usando lista completa de archivos conocidos: ${knownFiles.length}`);
+  console.log('📄 Archivos incluidos:', knownFiles);
   return knownFiles;
 }
 
 async function loadArticlesFromFiles(files) {
   const articles = [];
+  const failedFiles = [];
+  
+  console.log(`🔄 Procesando ${files.length} archivos...`);
   
   for (const filename of files) {
     try {
@@ -72,6 +86,7 @@ async function loadArticlesFromFiles(files) {
       
       if (response.ok) {
         const htmlContent = await response.text();
+        console.log(`📄 Contenido obtenido para ${filename}: ${htmlContent.length} caracteres`);
         
         // Validar que el contenido sea un artículo real
         if (isValidArticleContent(htmlContent)) {
@@ -80,15 +95,29 @@ async function loadArticlesFromFiles(files) {
           if (metadata && metadata.title && metadata.title.length > 5) {
             articles.push(metadata);
             console.log(`✅ Artículo cargado: ${metadata.title}`);
+          } else {
+            console.log(`⚠️ Metadatos inválidos para ${filename}:`, metadata);
+            failedFiles.push({ filename, reason: 'metadatos inválidos' });
           }
+        } else {
+          console.log(`⚠️ Contenido inválido para ${filename}`);
+          failedFiles.push({ filename, reason: 'contenido inválido' });
         }
+      } else {
+        console.log(`❌ Error HTTP ${response.status} para ${filename}`);
+        failedFiles.push({ filename, reason: `HTTP ${response.status}` });
       }
     } catch (error) {
       console.log(`❌ Error cargando ${filename}:`, error.message);
+      failedFiles.push({ filename, reason: error.message });
     }
   }
   
-  console.log(`🎉 Artículos cargados: ${articles.length}`);
+  console.log(`🎉 Artículos cargados exitosamente: ${articles.length}`);
+  if (failedFiles.length > 0) {
+    console.log(`❌ Archivos que fallaron:`, failedFiles);
+  }
+  
   return articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
@@ -96,10 +125,16 @@ async function loadArticlesFromFiles(files) {
 
 function isValidArticleContent(htmlContent) {
   // Verificar que sea contenido de artículo real, no página de error
-  if (!htmlContent || htmlContent.length < 100) return false;
+  if (!htmlContent || htmlContent.length < 100) {
+    console.log('⚠️ Contenido muy corto o vacío');
+    return false;
+  }
   
-  // Verificar que tenga estructura HTML de artículo
-  if (!htmlContent.includes('<html')) return false;
+  // Verificar que tenga estructura HTML básica
+  if (!htmlContent.includes('<html')) {
+    console.log('⚠️ No es un archivo HTML válido');
+    return false;
+  }
   
   // Verificar que NO sea una página de error o página principal
   const errorIndicators = [
@@ -116,16 +151,26 @@ function isValidArticleContent(htmlContent) {
     }
   }
   
-  // Verificar que tenga contenido de artículo real
+  // Verificar que tenga contenido de artículo real (más flexible)
   const articleIndicators = [
     '<article',
     '<div class="article"',
     '<div class="content"',
     '<main',
-    '<section'
+    '<section',
+    '<h1',
+    '<h2',
+    '<p>',
+    '<body'
   ];
   
-  return articleIndicators.some(indicator => htmlContent.includes(indicator));
+  const hasValidContent = articleIndicators.some(indicator => htmlContent.includes(indicator));
+  
+  if (!hasValidContent) {
+    console.log('⚠️ No se encontraron indicadores de contenido de artículo');
+  }
+  
+  return hasValidContent;
 }
 
 // Función para extraer metadatos de HTML
@@ -311,4 +356,4 @@ export async function getArticleFromHTML(slug) {
     console.log('❌ Error cargando artículo HTML:', error);
     return null;
   }
-} 
+}

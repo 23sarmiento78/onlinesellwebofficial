@@ -33,6 +33,7 @@
     "eject": "react-scripts eject",
     "generate-articles": "node scripts/generate-static-articles.js",
     "generate-html-articles": "node scripts/generate-html-articles.js",
+    "update-articles": "node scripts/update-article-list.js",
     "build-with-articles": "npm run generate-articles && npm run generate-html-articles && npm run build"
   },
   "devDependencies": {
