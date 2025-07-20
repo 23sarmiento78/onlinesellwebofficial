@@ -140,7 +140,7 @@ function isValidArticleContent(htmlContent) {
   const errorIndicators = [
     'Desarrollo Web Villa Carlos Paz',
     'Programador Web Profesional',
-    'hgaruna',
+    //'hgaruna', // Quitado para permitir artículos válidos
     'Artículo sobre desarrollo web y programación'
   ];
   
