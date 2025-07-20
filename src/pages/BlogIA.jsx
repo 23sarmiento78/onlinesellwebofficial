@@ -127,13 +127,13 @@ export default function BlogIA() {
         <div className="row mb-5">
           <div className="col-12">
             <div className="text-center">
-              <h1 className="display-4 fw-bold mb-3">
+            <h1 className="display-4 fw-bold mb-3">
                 <i className="fas fa-robot text-primary me-3"></i>
                 Blog IA
-              </h1>
+            </h1>
               <p className="lead text-muted mb-4">
                 Artículos generados por inteligencia artificial sobre desarrollo web, programación y tecnología
-              </p>
+            </p>
             </div>
           </div>
         </div>
@@ -170,10 +170,10 @@ export default function BlogIA() {
                         <option key={category} value={category}>{category}</option>
                       ))}
                     </select>
-                  </div>
-                </div>
               </div>
             </div>
+          </div>
+        </div>
 
             {/* Feed de artículos en cartas */}
             <div className="row">
@@ -196,9 +196,9 @@ export default function BlogIA() {
                           <i className="fas fa-clock me-1"></i>
                           {article.readingTime} min
                         </span>
-                      </div>
                     </div>
-
+                    </div>
+                    
                     <div className="card-body d-flex flex-column">
                       {/* Título */}
                       <h5 className="card-title fw-bold mb-2">
@@ -208,10 +208,10 @@ export default function BlogIA() {
                       </h5>
 
                       {/* Resumen */}
-                      <p className="card-text text-muted flex-grow-1">
+                    <p className="card-text text-muted flex-grow-1">
                         {article.summary}
-                      </p>
-
+                    </p>
+                    
                       {/* Tags */}
                       <div className="mb-3">
                         {article.tags && article.tags.slice(0, 3).map((tag, index) => (
@@ -233,7 +233,7 @@ export default function BlogIA() {
                         </small>
                       </div>
                     </div>
-
+                    
                     <div className="card-footer bg-transparent border-top-0">
                       <Link 
                         to={`/articulos/${article.slug}`} 

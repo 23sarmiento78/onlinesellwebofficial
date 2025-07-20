@@ -4,115 +4,128 @@
 // Función para cargar artículos HTML estáticos
 export async function getArticlesFromHTML() {
   try {
-    console.log('🔄 Cargando artículos HTML estáticos...');
+    console.log('📖 Cargando artículos HTML dinámicamente...');
     
-    // En desarrollo, leer archivos HTML directamente
-    if (process.env.NODE_ENV === 'development') {
-      console.log('🔧 Modo desarrollo: cargando archivos locales...');
-      return await loadArticlesFromFiles();
+    // Obtener lista de archivos HTML
+    const files = await getHTMLFilesList();
+    console.log(`📄 Archivos HTML encontrados: ${files.length}`);
+    
+    if (files.length === 0) {
+      console.log('⚠️ No se encontraron archivos HTML');
+      return [];
     }
     
-    // En producción, intentar cargar desde la API de Netlify Functions
-    console.log('🚀 Modo producción: intentando cargar desde API...');
-    try {
-      const response = await fetch('/.netlify/functions/get-html-articles');
-      console.log('📡 Respuesta de API:', response.status, response.statusText);
-      
-      if (response.ok) {
-        const data = await response.json();
-        console.log('✅ Artículos cargados desde API:', data.articles?.length || 0);
-        console.log('📊 Datos de respuesta:', data);
-        
-        if (data.articles && data.articles.length > 0) {
-          return data.articles;
-        } else {
-          console.log('⚠️ API devolvió array vacío, usando fallback...');
-          return await loadArticlesFromFiles();
-        }
-      } else {
-        console.log('❌ API no respondió correctamente, usando fallback...');
-        return await loadArticlesFromFiles();
-      }
-    } catch (error) {
-      console.log('❌ Error con API, cargando archivos locales...', error);
-      return await loadArticlesFromFiles();
-    }
-    
-  } catch (error) {
-    console.log('❌ Error cargando artículos HTML:', error);
-    return [];
-  }
-}
-
-// Función para cargar artículos desde archivos HTML en desarrollo
-async function loadArticlesFromFiles() {
-  try {
-    console.log('📁 Cargando artículos desde archivos locales...');
-    
-    // Intentar obtener la lista dinámica de archivos HTML
-    let htmlFiles = [];
-    
-    try {
-      // Intentar obtener la lista desde la función de Netlify
-      const listResponse = await fetch('/.netlify/functions/list-html-files');
-      if (listResponse.ok) {
-        const listData = await listResponse.json();
-        htmlFiles = listData.files || [];
-        console.log('📄 Archivos HTML detectados dinámicamente:', htmlFiles.length);
-      }
-    } catch (error) {
-      console.log('⚠️ No se pudo obtener lista dinámica, usando fallback...');
-    }
-    
-    // Si no se pudo obtener la lista dinámica, usar fallback
-    if (htmlFiles.length === 0) {
-      console.log('📋 Usando lista hardcodeada de archivos...');
-      htmlFiles = [
-        '2025-07-19-static-analysis-eslint-y-sonarqube.html',
-        '2025-07-19-web-performance-core-web-vitals.html',
-        '2025-07-19-low-codeno-code-plataformas-de-desarrollo.html',
-        '2025-07-19-angular-18-nuevas-funcionalidades.html',
-        '2025-07-19-aws-lambda-computacin-sin-servidores.html',
-        '2025-07-18-react-19-nuevas-caracteristicas-y-mejoras.html',
-        '2025-07-19-microfrontends-arquitectura-escalable.html',
-        '2025-07-19-quantum-computing-el-futuro-de-la-computacin.html',
-        '2025-07-19-websockets-vs-serversent-events-choosing-the-right.html'
-      ];
-    }
-
-    const articles = [];
-
-    // Cargar cada archivo HTML
-    for (const filename of htmlFiles) {
-      try {
-        console.log(`📖 Intentando cargar: /blog/${filename}`);
-        const response = await fetch(`/blog/${filename}`);
-        
-        if (response.ok) {
-          const htmlContent = await response.text();
-          const metadata = extractMetadataFromHTML(htmlContent, filename);
-          
-          if (metadata) {
-            articles.push(metadata);
-            console.log(`✅ Artículo cargado: ${metadata.title}`);
-          }
-        } else {
-          console.log(`⚠️ No se pudo cargar ${filename}: ${response.status}`);
-        }
-      } catch (error) {
-        console.log(`❌ Error cargando ${filename}:`, error);
-        // Continuar con el siguiente archivo
-      }
-    }
-
-    console.log(`🎉 Artículos HTML cargados desde archivos: ${articles.length}`);
-    // Ordenar por fecha (más reciente primero)
-    return articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Cargar artículos desde los archivos
+    return await loadArticlesFromFiles(files);
     
   } catch (error) {
     console.log('❌ Error cargando archivos HTML:', error);
     return [];
   }
+}
+
+async function getHTMLFilesList() {
+  try {
+    // Intentar usar la función de Netlify (funciona en producción y desarrollo local)
+    const response = await fetch('/.netlify/functions/list-html-files');
+    if (response.ok) {
+      const files = await response.json();
+      console.log(`✅ Archivos obtenidos desde Netlify function: ${files.length}`);
+      return files;
+    }
+  } catch (error) {
+    console.log('⚠️ Error con función Netlify, usando detección automática');
+  }
+  
+  // Fallback: usar detección automática con archivos conocidos
+  return getKnownHTMLFiles();
+}
+
+function getKnownHTMLFiles() {
+  // Lista de archivos HTML conocidos en public/blog
+  const knownFiles = [
+    '2025-07-18-react-19-nuevas-caracteristicas-y-mejoras.html',
+    '2025-07-19-angular-18-nuevas-funcionalidades.html',
+    '2025-07-19-aws-lambda-computacin-sin-servidores.html',
+    '2025-07-19-deno-vs-nodejs-cul-elegir.html',
+    '2025-07-19-low-codeno-code-plataformas-de-desarrollo.html',
+    '2025-07-19-machine-learning-para-desarrolladores-web.html',
+    '2025-07-19-microfrontends-arquitectura-escalable.html',
+    '2025-07-19-quantum-computing-el-futuro-de-la-computacin.html',
+    '2025-07-19-rate-limiting-proteccin-de-apis.html',
+    '2025-07-19-static-analysis-eslint-y-sonarqube.html',
+    '2025-07-19-web-performance-core-web-vitals.html',
+    '2025-07-19-websockets-vs-serversent-events-choosing-the-right.html'
+  ];
+  
+  console.log(`📄 Usando lista de archivos conocidos: ${knownFiles.length}`);
+  return knownFiles;
+}
+
+async function loadArticlesFromFiles(files) {
+  const articles = [];
+  
+  for (const filename of files) {
+    try {
+      console.log(`📖 Cargando: /blog/${filename}`);
+      const response = await fetch(`/blog/${filename}`);
+      
+      if (response.ok) {
+        const htmlContent = await response.text();
+        
+        // Validar que el contenido sea un artículo real
+        if (isValidArticleContent(htmlContent)) {
+          const metadata = extractMetadataFromHTML(htmlContent, filename);
+          
+          if (metadata && metadata.title && metadata.title.length > 5) {
+            articles.push(metadata);
+            console.log(`✅ Artículo cargado: ${metadata.title}`);
+          }
+        }
+      }
+    } catch (error) {
+      console.log(`❌ Error cargando ${filename}:`, error.message);
+    }
+  }
+  
+  console.log(`🎉 Artículos cargados: ${articles.length}`);
+  return articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+
+
+function isValidArticleContent(htmlContent) {
+  // Verificar que sea contenido de artículo real, no página de error
+  if (!htmlContent || htmlContent.length < 100) return false;
+  
+  // Verificar que tenga estructura HTML de artículo
+  if (!htmlContent.includes('<html')) return false;
+  
+  // Verificar que NO sea una página de error o página principal
+  const errorIndicators = [
+    'Desarrollo Web Villa Carlos Paz',
+    'Programador Web Profesional',
+    'hgaruna',
+    'Artículo sobre desarrollo web y programación'
+  ];
+  
+  for (const indicator of errorIndicators) {
+    if (htmlContent.includes(indicator)) {
+      console.log(`⚠️ Contenido detectado como página de error: ${indicator}`);
+      return false;
+    }
+  }
+  
+  // Verificar que tenga contenido de artículo real
+  const articleIndicators = [
+    '<article',
+    '<div class="article"',
+    '<div class="content"',
+    '<main',
+    '<section'
+  ];
+  
+  return articleIndicators.some(indicator => htmlContent.includes(indicator));
 }
 
 // Función para extraer metadatos de HTML
