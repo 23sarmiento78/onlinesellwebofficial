@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Security Policy (CSP): Una Guía Completa</title>
+    <meta name="description" content="Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede ca...">
+    <meta name="keywords" content="">
+    <meta name="author" content="hgaruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hgaruna.com/blog/content-security-policy-csp-una-gua-completa">
+    <meta property="og:title" content="Content Security Policy (CSP): Una Guía Completa">
+    <meta property="og:description" content="Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede ca...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hgaruna.com/blog/content-security-policy-csp-una-gua-completa">
+    <meta property="twitter:title" content="Content Security Policy (CSP): Una Guía Completa">
+    <meta property="twitter:description" content="Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede ca...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hgaruna.com/blog/content-security-policy-csp-una-gua-completa">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .article-meta {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .article-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .tags-container {
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
+        @media (max-width: 768px) {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
+            .article-header {
+                padding: 2rem 0;
+            }
+            
+            .article-content h1 {
+                font-size: 2rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
+    </div>
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark fs-6">Inteligencia Artificial</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">Content Security Policy (CSP): Una Guía Completa</h1>
+                    <p class="lead mb-4">Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede ca...</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por hgaruna
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            20 de julio de 2025
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Content Security Policy (CSP): Una Guía Completa" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Meta información -->
+                <div class="article-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Categoría:</strong> Inteligencia Artificial<br>
+                            <strong>Autor:</strong> hgaruna<br>
+                            <strong>Fecha:</strong> 20 de julio de 2025
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de lectura:</strong> 4 min<br>
+                            <strong>Palabras:</strong> 731
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    
+                </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <main>
+  <h1>Content Security Policy (CSP): Una Guía Completa</h1>
+  <p>Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede cargar para una página web dada.  Esto ayuda a mitigar los riesgos de ataques de cross-site scripting (XSS) y otros ataques de inyección, proporcionando una capa adicional de defensa contra vulnerabilidades comunes.  En esencia, CSP define una lista blanca de fuentes permitidas, bloqueando cualquier recurso que no se encuentre en esa lista.</p>
+
+  <h2>¿Cómo Funciona CSP?</h2>
+  <p>CSP funciona mediante la adición de un encabezado HTTP, <code>Content-Security-Policy</code>, a la respuesta del servidor. Este encabezado contiene una directiva que especifica qué recursos se permiten cargar. El navegador luego utiliza esta directiva para verificar cada recurso antes de cargarlo. Si un recurso no coincide con la directiva CSP, el navegador bloqueará ese recurso.</p>
+  <p>Por ejemplo, una directiva simple podría ser: <code>Content-Security-Policy: default-src 'self'</code>. Esto indica que solo se permiten recursos del mismo origen (mismo protocolo, dominio y puerto).</p>
+
+  <h2>Directivas CSP Comunes</h2>
+  <p>Existen varias directivas CSP que permiten un control granular sobre los recursos cargados. Algunas de las más comunes son:</p>
+  <ul>
+    <li><code>default-src</code>:  Define la política por defecto para todos los tipos de recursos si no se especifica otra directiva.</li>
+    <li><code>script-src</code>: Especifica las fuentes permitidas para scripts.</li>
+    <li><code>style-src</code>: Especifica las fuentes permitidas para hojas de estilo.</li>
+    <li><code>img-src</code>: Especifica las fuentes permitidas para imágenes.</li>
+    <li><code>font-src</code>: Especifica las fuentes permitidas para fuentes.</li>
+    <li><code>object-src</code>: Especifica las fuentes permitidas para plugins (como Flash).</li>
+    <li><code>media-src</code>: Especifica las fuentes permitidas para audio y video.</li>
+    <li><code>frame-src</code>: Especifica las fuentes permitidas para iframes.</li>
+    <li><code>connect-src</code>: Especifica las fuentes permitidas para solicitudes de red (fetch, XMLHttpRequest, WebSockets).</li>
+    <li><code>base-uri</code>: Especifica las fuentes permitidas para la etiqueta &lt;base&gt;.</li>
+    <li><code>form-action</code>: Especifica las fuentes permitidas para la acción de formularios.</li>
+  </ul>
+
+
+  <h2>Implementando CSP</h2>
+  <p>Implementar CSP es relativamente sencillo.  Se puede hacer a través de un encabezado HTTP o mediante una metaetiqueta HTML.  Sin embargo, se recomienda usar el encabezado HTTP para mayor seguridad y confiabilidad.</p>
+  <h3>Usando el encabezado HTTP</h3>
+  <pre><code>Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' data:;</code></pre>
+  <p>Este ejemplo permite recursos del mismo origen, scripts del mismo origen y scripts inline (<code>'unsafe-inline'</code> - se debe evitar si es posible), e imágenes del mismo origen y datos en línea (<code>data:</code>).</p>
+  <h3>Usando la metaetiqueta HTML</h3>
+  <p>Aunque menos recomendado, se puede usar una metaetiqueta HTML como alternativa, aunque esto solo funciona para navegadores que soportan esta etiqueta:</p>
+  <pre><code>&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' data:;"&gt;</code></pre>
+  <p><strong>Nota:</strong>  El uso de <code>'unsafe-inline'</code> y <code>'unsafe-eval'</code> debe evitarse siempre que sea posible, ya que debilitan significativamente la seguridad proporcionada por CSP.</p>
+
+  <h2>Ventajas y Desventajas de CSP</h2>
+  <h3>Ventajas</h3>
+  <ul>
+    <li><strong>Protección contra XSS:</strong> CSP es una defensa efectiva contra ataques XSS, previniendo la ejecución de scripts maliciosos.</li>
+    <li><strong>Mayor seguridad:</strong> Añade una capa adicional de seguridad a tu aplicación web, reduciendo la superficie de ataque.</li>
+    <li><strong>Prevención de clickjacking:</strong>  Con una configuración adecuada, CSP puede ayudar a prevenir ataques de clickjacking.</li>
+    <li><strong>Mejor postura de seguridad:</strong>  CSP refuerza la seguridad general de tu aplicación web.</li>
+  </ul>
+  <h3>Desventajas</h3>
+  <ul>
+    <li><strong>Complejidad de configuración:</strong>  Configurar CSP correctamente puede ser complejo, requiriendo un profundo conocimiento de las directivas y sus implicaciones.</li>
+    <li><strong>Posible ruptura de funcionalidad:</strong>  Una configuración incorrecta de CSP puede causar que partes de tu sitio web dejen de funcionar correctamente.</li>
+    <li><strong>Depuración compleja:</strong>  Diagnosticar problemas causados por una configuración incorrecta de CSP puede ser difícil.</li>
+  </ul>
+
+  <h2>Consejos para Implementar CSP</h2>
+  <ol>
+    <li><strong>Comienza con una política restrictiva:</strong>  Empieza con una política que bloquee la mayoría de los recursos y luego relaja gradualmente las restricciones según sea necesario.</li>
+    <li><strong>Prueba exhaustivamente:</strong>  Prueba tu política CSP minuciosamente para asegurarte de que no rompa la funcionalidad de tu sitio web.</li>
+    <li><strong>Utiliza herramientas de auditoría:</strong>  Existen herramientas que pueden ayudarte a auditar tu sitio web y detectar posibles problemas de configuración de CSP.</li>
+    <li><strong>Monitoriza los informes de violaciones:</strong>  Configura los informes de violaciones para que te notifiquen cuando se produzcan intentos de cargar recursos bloqueados.</li>
+    <li><strong>Documenta tu política:</strong>  Mantén una documentación clara de tu política CSP para facilitar el mantenimiento y la depuración.</li>
+  </ol>
+
+  <h2>Conclusión</h2>
+  <p>Content Security Policy es una herramienta poderosa para mejorar la seguridad de tu aplicación web. Aunque requiere una configuración cuidadosa y pruebas exhaustivas, los beneficios en términos de protección contra ataques XSS y otras vulnerabilidades justifican el esfuerzo.  Recuerda comenzar con una política restrictiva, probarla rigurosamente y monitorizar los informes de violaciones para mantener la seguridad de tu sitio web.</p>
+</main>
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Funciones de compartir
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Content Security Policy (CSP): Una Guía Completa');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('Content Security Policy (CSP): Una Guía Completa');
+            const summary = encodeURIComponent('Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede ca...');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Content Security Policy (CSP): Una Guía Completa - Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede ca...');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                link.href = '#';
+            });
+        });
+    </script>
+</body>
+</html> 
