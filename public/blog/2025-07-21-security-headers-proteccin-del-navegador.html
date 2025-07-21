@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Headers: Protección del Navegador</title>
+    <meta name="description" content="Los encabezados de seguridad HTTP son un conjunto de respuestas del servidor que mejoran la seguridad de una aplicación web al configurar el navegador...">
+    <meta name="keywords" content="">
+    <meta name="author" content="hgaruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hgaruna.com/blog/security-headers-proteccin-del-navegador">
+    <meta property="og:title" content="Security Headers: Protección del Navegador">
+    <meta property="og:description" content="Los encabezados de seguridad HTTP son un conjunto de respuestas del servidor que mejoran la seguridad de una aplicación web al configurar el navegador...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hgaruna.com/blog/security-headers-proteccin-del-navegador">
+    <meta property="twitter:title" content="Security Headers: Protección del Navegador">
+    <meta property="twitter:description" content="Los encabezados de seguridad HTTP son un conjunto de respuestas del servidor que mejoran la seguridad de una aplicación web al configurar el navegador...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hgaruna.com/blog/security-headers-proteccin-del-navegador">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .article-meta {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .article-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .tags-container {
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
+        @media (max-width: 768px) {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
+            .article-header {
+                padding: 2rem 0;
+            }
+            
+            .article-content h1 {
+                font-size: 2rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
+    </div>
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark fs-6">Inteligencia Artificial</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">Security Headers: Protección del Navegador</h1>
+                    <p class="lead mb-4">Los encabezados de seguridad HTTP son un conjunto de respuestas del servidor que mejoran la seguridad de una aplicación web al configurar el navegador...</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por hgaruna
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            21 de julio de 2025
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Security Headers: Protección del Navegador" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Meta información -->
+                <div class="article-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Categoría:</strong> Inteligencia Artificial<br>
+                            <strong>Autor:</strong> hgaruna<br>
+                            <strong>Fecha:</strong> 21 de julio de 2025
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de lectura:</strong> 4 min<br>
+                            <strong>Palabras:</strong> 722
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    
+                </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <main>
+  <h1>Security Headers: Protección del Navegador</h1>
+  <p>Los encabezados de seguridad HTTP son un conjunto de respuestas del servidor que mejoran la seguridad de una aplicación web al configurar el navegador del cliente para que implemente medidas de seguridad adicionales.  Estos encabezados son cruciales para proteger contra una variedad de vulnerabilidades comunes, como el Cross-Site Scripting (XSS), el Cross-Site Request Forgery (CSRF), el clickjacking y el sniffing de contenido.  Configurar correctamente estos encabezados es una práctica fundamental de seguridad para cualquier sitio web, independientemente de su tamaño o complejidad.</p>
+
+  <h2>¿Qué son los Encabezados de Seguridad?</h2>
+  <p>Los encabezados de seguridad son metadatos que el servidor web envía al navegador como parte de la respuesta HTTP.  Estos encabezados instruyen al navegador para que implemente ciertas políticas de seguridad, mejorando la protección contra ataques.  A diferencia de otros aspectos de la seguridad web, como la autenticación o la autorización, los encabezados de seguridad operan en un nivel más bajo, afectando directamente la forma en que el navegador interactúa con la página web.</p>
+
+  <h2>Encabezados de Seguridad Clave</h2>
+  <ul>
+    <li><h3><code>Content-Security-Policy (CSP)</code>:</h3>  Este encabezado define una política de seguridad de contenido que permite al servidor especificar las fuentes desde las que el navegador puede cargar recursos, como scripts, imágenes y estilos.  Ayuda a prevenir ataques XSS al restringir la ejecución de scripts no autorizados.
+      <pre><code>Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' data:;</code></pre>
+      <p>En este ejemplo,  <code>default-src 'self'</code> permite cargar recursos solo desde el mismo origen, mientras que  <code>script-src 'self' 'unsafe-inline'</code> permite scripts del mismo origen y scripts incrustados (<code>'unsafe-inline'</code> debe usarse con precaución y solo cuando sea absolutamente necesario).</p>
+    </li>
+    <li><h3><code>X-Frame-Options</code>:</h3> Este encabezado ayuda a prevenir el clickjacking, un ataque donde un sitio web malicioso incrusta el sitio web de la víctima en un iframe para engañar a los usuarios.
+      <ul>
+        <li><code>X-Frame-Options: DENY</code>: Prohíbe completamente que el sitio web se muestre en un iframe.</li>
+        <li><code>X-Frame-Options: SAMEORIGIN</code>: Permite que el sitio web se muestre en un iframe solo si el iframe proviene del mismo origen.</li>
+        <li><code>X-Frame-Options: ALLOW-FROM uri</code>: Permite que el sitio web se muestre en un iframe solo si el iframe proviene de la URI especificada.</li>
+      </ul>
+    </li>
+    <li><h3><code>Strict-Transport-Security (HSTS)</code>:</h3> Este encabezado fuerza al navegador a comunicarse con el sitio web solo a través de HTTPS.  Ayuda a prevenir ataques de intermediario (man-in-the-middle).
+      <pre><code>Strict-Transport-Security: max-age=31536000; includeSubDomains; preload</code></pre>
+      <p><code>max-age=31536000</code> especifica que el navegador debe recordar la política durante un año.  <code>includeSubDomains</code> aplica la política a todos los subdominios.  <code>preload</code> solicita que el navegador incluya el sitio web en la lista de precarga HSTS.</p>
+    </li>
+    <li><h3><code>X-Content-Type-Options</code>:</h3> Este encabezado previene que el servidor envíe un tipo de contenido incorrecto, lo que podría ser explotado para ataques de MIME-sniffing.
+      <pre><code>X-Content-Type-Options: nosniff</code></pre>
+    </li>
+    <li><h3><code>Referrer-Policy</code>:</h3> Este encabezado controla la información de referencia que el navegador envía en las solicitudes HTTP.  Ayuda a proteger la privacidad del usuario y a prevenir ataques de rastreo.  Existen varias opciones, incluyendo <code>no-referrer</code>, <code>origin</code>, <code>same-origin</code>, etc.  La elección depende de las necesidades específicas de la aplicación.</li>
+  </ul>
+
+  <h2>Ventajas de Implementar Encabezados de Seguridad</h2>
+  <ul>
+    <li>Protección contra XSS, CSRF, clickjacking y otras vulnerabilidades comunes.</li>
+    <li>Mayor privacidad para los usuarios.</li>
+    <li>Mayor confianza de los usuarios en el sitio web.</li>
+    <li>Mejor posicionamiento en los motores de búsqueda (algunos motores de búsqueda favorecen sitios web con buena seguridad).</li>
+  </ul>
+
+  <h2>Desventajas de Implementar Encabezados de Seguridad</h2>
+  <ul>
+    <li>Requiere un conocimiento técnico para configurarlo correctamente.</li>
+    <li>Una configuración incorrecta puede romper la funcionalidad del sitio web.</li>
+    <li>Puede requerir ajustes adicionales en la aplicación para ser totalmente efectivo.</li>
+  </ul>
+
+  <h2>Pasos para Implementar Encabezados de Seguridad</h2>
+  <ol>
+    <li>Identificar los encabezados de seguridad necesarios para la aplicación.</li>
+    <li>Configurar los encabezados en el servidor web (Apache, Nginx, etc.).</li>
+    <li>Probar la configuración para asegurar que no se rompa la funcionalidad del sitio web.</li>
+    <li>Monitorear regularmente la configuración para asegurar que se mantiene actualizada y efectiva.</li>
+  </ol>
+
+  <h2>Conclusión</h2>
+  <p>Implementar encabezados de seguridad es una parte esencial de la protección de cualquier aplicación web.  Si bien requiere un conocimiento técnico y una configuración cuidadosa, los beneficios en términos de seguridad y confianza del usuario superan ampliamente los inconvenientes.  Es crucial comprender la función de cada encabezado y configurarlo correctamente para maximizar la protección contra las amenazas modernas.  Recuerda que la seguridad es un proceso continuo, por lo que la monitorización y actualización regular de la configuración de los encabezados de seguridad son cruciales para mantener la protección de tu sitio web.</p>
+</main>
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Funciones de compartir
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Security Headers: Protección del Navegador');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('Security Headers: Protección del Navegador');
+            const summary = encodeURIComponent('Los encabezados de seguridad HTTP son un conjunto de respuestas del servidor que mejoran la seguridad de una aplicación web al configurar el navegador...');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Security Headers: Protección del Navegador - Los encabezados de seguridad HTTP son un conjunto de respuestas del servidor que mejoran la seguridad de una aplicación web al configurar el navegador...');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                link.href = '#';
+            });
+        });
+    </script>
+</body>
+</html> 

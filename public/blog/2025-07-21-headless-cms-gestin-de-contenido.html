@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headless CMS: Gestión de Contenido</title>
+    <meta name="description" content="Un Headless CMS (Sistema de Gestión de Contenidos sin cabeza) es una plataforma de gestión de contenido que separa la capa de presentación (frontend) ...">
+    <meta name="keywords" content="JavaScript, React, Angular">
+    <meta name="author" content="hgaruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hgaruna.com/blog/headless-cms-gestin-de-contenido">
+    <meta property="og:title" content="Headless CMS: Gestión de Contenido">
+    <meta property="og:description" content="Un Headless CMS (Sistema de Gestión de Contenidos sin cabeza) es una plataforma de gestión de contenido que separa la capa de presentación (frontend) ...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hgaruna.com/blog/headless-cms-gestin-de-contenido">
+    <meta property="twitter:title" content="Headless CMS: Gestión de Contenido">
+    <meta property="twitter:description" content="Un Headless CMS (Sistema de Gestión de Contenidos sin cabeza) es una plataforma de gestión de contenido que separa la capa de presentación (frontend) ...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hgaruna.com/blog/headless-cms-gestin-de-contenido">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .article-meta {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .article-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .tags-container {
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
+        @media (max-width: 768px) {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
+            .article-header {
+                padding: 2rem 0;
+            }
+            
+            .article-content h1 {
+                font-size: 2rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
+    </div>
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark fs-6">Frontend</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">Headless CMS: Gestión de Contenido</h1>
+                    <p class="lead mb-4">Un Headless CMS (Sistema de Gestión de Contenidos sin cabeza) es una plataforma de gestión de contenido que separa la capa de presentación (frontend) ...</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por hgaruna
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            21 de julio de 2025
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Headless CMS: Gestión de Contenido" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Meta información -->
+                <div class="article-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Categoría:</strong> Frontend<br>
+                            <strong>Autor:</strong> hgaruna<br>
+                            <strong>Fecha:</strong> 21 de julio de 2025
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de lectura:</strong> 4 min<br>
+                            <strong>Palabras:</strong> 641
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    <span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">Angular</span>
+                </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <main>
+  <h1>Headless CMS: Gestión de Contenido</h1>
+  <p>Un Headless CMS (Sistema de Gestión de Contenidos sin cabeza) es una plataforma de gestión de contenido que separa la capa de presentación (frontend) de la capa de contenido (backend).  A diferencia de los CMS tradicionales, como WordPress, que integran ambas capas, un Headless CMS proporciona una API (Application Programming Interface) que permite acceder y gestionar el contenido desde cualquier plataforma, dispositivo o aplicación. Esto ofrece una gran flexibilidad y escalabilidad para proyectos web modernos.</p>
+
+  <h2>Arquitectura Headless</h2>
+  <p>La arquitectura headless se centra en la independencia del contenido.  El contenido se almacena y gestiona en el backend del CMS, mientras que el frontend se construye por separado utilizando diferentes tecnologías, como React, Angular, Vue.js o incluso aplicaciones móviles nativas. La comunicación entre el frontend y el backend se realiza a través de la API, típicamente REST o GraphQL.</p>
+  <p>Esta separación permite una mayor agilidad en el desarrollo y la actualización tanto del frontend como del backend, sin afectar al otro.  Por ejemplo, puedes cambiar el diseño de tu sitio web sin modificar la base de datos de contenido, y viceversa.</p>
+
+  <h2>Ventajas de Usar un Headless CMS</h2>
+  <ul>
+    <li><strong>Mayor Flexibilidad:</strong> Puedes utilizar cualquier tecnología de frontend que desees, adaptándote a las necesidades específicas de tu proyecto.</li>
+    <li><strong>Escalabilidad:</strong>  Es más fácil escalar el sistema para gestionar grandes volúmenes de contenido y tráfico.</li>
+    <li><strong>Reutilización de Contenido:</strong> El mismo contenido puede ser utilizado en múltiples plataformas y dispositivos (web, móvil, IoT).</li>
+    <li><strong>Mayor Velocidad:</strong>  Al separar el frontend del backend, se puede optimizar el rendimiento del sitio web.</li>
+    <li><strong>Facilidad de Mantenimiento:</strong> Actualizar el CMS o el frontend se vuelve más sencillo y menos propenso a errores.</li>
+  </ul>
+
+  <h2>Desventajas de Usar un Headless CMS</h2>
+  <ul>
+    <li><strong>Mayor Complejidad:</strong> Requiere un conocimiento más profundo de desarrollo y APIs.</li>
+    <li><strong>Costo:</strong>  Puede ser más costoso que usar un CMS tradicional, especialmente en proyectos pequeños.</li>
+    <li><strong>Curva de Aprendizaje:</strong>  Se necesita tiempo para aprender a utilizar las APIs y las herramientas específicas del Headless CMS.</li>
+    <li><strong>Dependencia de la API:</strong> Si la API del CMS falla, el frontend deja de funcionar.</li>
+  </ul>
+
+  <h2>Ejemplos de Implementación</h2>
+  <h3>Ejemplo con REST API</h3>
+  <p>Supongamos que tenemos un Headless CMS que expone una API REST para obtener artículos de blog.  Para obtener un artículo con el ID 1, podríamos hacer una petición GET a la siguiente URL:</p>
+  <pre><code>https://api.example.com/articles/1</code></pre>
+  <p>La respuesta sería un JSON con los datos del artículo.  En el frontend, usando JavaScript, podríamos procesar esta respuesta y mostrar el contenido en la página.</p>
+  <pre><code class="language-javascript">
+fetch('https://api.example.com/articles/1')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('article-title').textContent = data.title;
+    document.getElementById('article-body').innerHTML = data.body;
+  });
+  </code></pre>
+
+  <h3>Ejemplo con GraphQL</h3>
+  <p>GraphQL ofrece una forma más eficiente de obtener datos.  En lugar de realizar múltiples peticiones a la API, podemos solicitar solo los datos necesarios en una sola consulta.</p>
+  <pre><code class="language-graphql">
+query getArticle($id: ID!) {
+  article(id: $id) {
+    title
+    body
+    author {
+      name
+    }
+  }
+}
+</code></pre>
+  <p>Esta consulta devuelve solo el título, el cuerpo y el nombre del autor del artículo, optimizando la cantidad de datos transferidos.</p>
+
+
+  <h2>Casos de Uso</h2>
+  <ul>
+    <li><strong>Aplicaciones Móviles:</strong>  Un Headless CMS es ideal para alimentar aplicaciones móviles con contenido dinámico.</li>
+    <li><strong>Sitios Web Multiplataforma:</strong>  Permite la creación de sitios web que se adaptan a diferentes dispositivos y navegadores.</li>
+    <li><strong>Experiencias de Usuario Personalizadas:</strong>  Facilita la creación de experiencias personalizadas basadas en el comportamiento del usuario.</li>
+    <li><strong>Integraciones con Sistemas Externos:</strong>  Se puede integrar fácilmente con otros sistemas, como CRM o ERP.</li>
+  </ul>
+
+  <h2>Conclusión</h2>
+  <p>Los Headless CMS ofrecen una gran flexibilidad y escalabilidad para la gestión de contenido en proyectos modernos. Aunque presentan una mayor complejidad inicial, las ventajas a largo plazo, como la agilidad en el desarrollo y la reutilización del contenido, los convierten en una opción atractiva para proyectos que requieren una arquitectura robusta y adaptable.  La elección entre un CMS tradicional y un Headless CMS depende de las necesidades y requisitos específicos del proyecto.</p>
+</main>
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Funciones de compartir
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Headless CMS: Gestión de Contenido');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('Headless CMS: Gestión de Contenido');
+            const summary = encodeURIComponent('Un Headless CMS (Sistema de Gestión de Contenidos sin cabeza) es una plataforma de gestión de contenido que separa la capa de presentación (frontend) ...');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Headless CMS: Gestión de Contenido - Un Headless CMS (Sistema de Gestión de Contenidos sin cabeza) es una plataforma de gestión de contenido que separa la capa de presentación (frontend) ...');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                link.href = '#';
+            });
+        });
+    </script>
+</body>
+</html> 
