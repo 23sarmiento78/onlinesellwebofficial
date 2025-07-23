@@ -3,152 +3,176 @@
   <!-- Páginas principales -->
   <url>
     <loc>https://service.hgaruna.org/</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/contacto</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/planes</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Artículos del blog -->
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-18-react-19-nuevas-caracteristicas-y-mejoras</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-19-angular-18-nuevas-funcionalidades</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-19-aws-lambda-computacin-sin-servidores</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-19-deno-vs-nodejs-cul-elegir</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-19-low-codeno-code-plataformas-de-desarrollo</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-19-machine-learning-para-desarrolladores-web</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-19-microfrontends-arquitectura-escalable</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-19-quantum-computing-el-futuro-de-la-computacin</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-19-rate-limiting-proteccin-de-apis</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-19-static-analysis-eslint-y-sonarqube</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-19-web-performance-core-web-vitals</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-19-websockets-vs-serversent-events-choosing-the-right</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-20-content-security-policy-csp-una-gua-completa</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-20-kubernetes-orquestacin-de-contenedores</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-20-lowcodenocode-plataformas-de-desarrollo</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-20-web-performance-core-web-vitals</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-21-code-review-procesos-efectivos</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-21-headless-cms-gestin-de-contenido</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-21-orm-vs-query-builder-ventajas-y-desventajas</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-21-security-headers-proteccin-del-navegador</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.hgaruna.org/blog/2025-07-21-xss-prevention-crosssite-scripting</loc>
-    <lastmod>2025-07-21T19:05:33.619Z</lastmod>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://service.hgaruna.org/blog/2025-07-23-angular-18-nuevas-funcionalidades</loc>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://service.hgaruna.org/blog/2025-07-23-event-sourcing-trazabilidad-de-eventos</loc>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://service.hgaruna.org/blog/2025-07-23-github-actions-workflows-avanzados</loc>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://service.hgaruna.org/blog/2025-07-23-microservicios-arquitectura-distribuida</loc>
+    <lastmod>2025-07-23T19:05:52.622Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
