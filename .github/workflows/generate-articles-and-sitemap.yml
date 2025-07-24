@@ -33,6 +33,9 @@ jobs:
           mkdir -p public/blog
           cp -u scripts/generated-html/*.html public/blog/ 2>/dev/null || echo "No hay archivos nuevos para copiar"
 
+      - name: Generar índice de artículos (index.json)
+        run: node scripts/generate-blog-index.js
+
       - name: Actualizar sitemap
         run: node scripts/update_sitemap.js
 
