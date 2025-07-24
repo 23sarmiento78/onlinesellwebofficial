@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BaseLayout from "../layouts/BaseLayout";
 import { getArticlesFromHTML } from "../utils/getArticlesFromHTML";
-import "../BlogIA.css";
+// Intenta usar la versión pública de BlogIA.css para evitar errores de MIME en producción
+import "../../public/BlogIA.css";
+// Si desarrollas localmente y no existe en public, usa la línea siguiente:
+// import "../BlogIA.css";
 
 export default function BlogIA() {
   const [articles, setArticles] = useState([]);

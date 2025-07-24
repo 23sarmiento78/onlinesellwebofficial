@@ -26,6 +26,11 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/generate-html-articles-gemini.js
 
+      - name: Copiar artículos HTML generados a public/blog
+        run: |
+          mkdir -p public/blog
+          cp -u scripts/generated-html/*.html public/blog/ 2>/dev/null || echo "No hay archivos nuevos para copiar"
+
       - name: Actualizar sitemap
         run: node scripts/update_sitemap.js
 
