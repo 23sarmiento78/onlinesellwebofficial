@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { getAllArticles } = require("../src/utils/getArticles");
+
 
 class ServerSitemapGenerator {
   constructor(siteUrl = "https://service.hgaruna.org") {
@@ -60,72 +60,16 @@ class ServerSitemapGenerator {
 
   async getArticlesFromFiles() {
     try {
-      const articlesDir = path.join(
-        process.cwd(),
-        "src",
-        "content",
-        "articles",
-      );
-      const files = fs
-        .readdirSync(articlesDir)
-        .filter((file) => file.endsWith(".md"));
-
-      const articles = [];
-
-      for (const file of files) {
-        try {
-          const filePath = path.join(articlesDir, file);
-          const content = fs.readFileSync(filePath, "utf8");
-
-          // Procesar frontmatter básico
-          const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
-          const match = content.match(frontmatterRegex);
-
-          if (match) {
-            const frontmatter = match[1];
-            const data = {};
-
-            frontmatter.split("\n").forEach((line) => {
-              const colonIndex = line.indexOf(":");
-              if (colonIndex > 0) {
-                const key = line.substring(0, colonIndex).trim();
-                let value = line.substring(colonIndex + 1).trim();
-
-                // Remover comillas
-                if (value.startsWith('"') && value.endsWith('"')) {
-                  value = value.slice(1, -1);
-                }
-
-                data[key] = value;
-              }
-            });
-
-            const slug = file
-              .replace(".md", "")
-              .replace(/^\d{4}-\d{2}-\d{2}-/, "");
-
-            articles.push({
-              _id: slug,
-              slug,
-              title: data.title,
-              description: data.description,
-              date: data.date,
-              createdAt: data.date,
-              category: data.category,
-              tags: data.tags
-                ? data.tags.split(",").map((tag) => tag.trim())
-                : [],
-              image: data.image,
-            });
-          }
-        } catch (fileError) {
-          console.error(`Error processing file ${file}:`, fileError);
-        }
+      const indexPath = path.join(process.cwd(), "public", "blog", "index.json");
+      if (!fs.existsSync(indexPath)) {
+        console.error("No se encontró public/blog/index.json");
+        return [];
       }
-
+      const data = fs.readFileSync(indexPath, "utf8");
+      const articles = JSON.parse(data);
       return articles;
     } catch (error) {
-      console.error("Error reading articles:", error);
+      console.error("Error leyendo index.json:", error);
       return [];
     }
   }
