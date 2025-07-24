@@ -37,7 +37,7 @@ class ServerSitemapGenerator {
       // Agregar páginas de artículos
       articles.forEach((article) => {
         allUrls.push({
-          url: `/articulos/${article.slug || article._id}`,
+          url: `/blog/${article.slug || article._id}.html`,
           priority: 0.6,
           changefreq: "weekly",
           lastmod: new Date(article.date || article.createdAt).toISOString(),
@@ -46,7 +46,7 @@ class ServerSitemapGenerator {
 
       // Agregar página de listado de artículos
       allUrls.push({
-        url: "/articulos/",
+        url: "/blog/",
         priority: 0.7,
         changefreq: "daily",
       });
@@ -116,7 +116,6 @@ Disallow: /admin-local/
 Disallow: /.netlify/
 
 # Allow important pages
-Allow: /articulos/
 Allow: /blog/
 Allow: /planes/
 

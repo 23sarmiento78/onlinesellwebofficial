@@ -218,9 +218,9 @@ export default function BlogIA() {
                   </div>
                   <div className="blogia-card-content">
                     <h2 className="blogia-card-title">
-                      <Link to={`/articulos/${article.slug}`} className="blogia-card-link">
+                      <a href={`/blog/${article.slug}.html`} className="blogia-card-link">
                         {article.title}
-                      </Link>
+                      </a>
                     </h2>
                     <p className="blogia-card-summary">{article.summary}</p>
                     <div className="blogia-card-tags">
@@ -232,9 +232,9 @@ export default function BlogIA() {
                       <span className="blogia-card-date"><i className="fas fa-calendar-alt"></i> {formatDate(article.date)}</span>
                       <span className="blogia-card-author"><i className="fas fa-user"></i> {article.author}</span>
                     </div>
-                    <Link to={`/articulos/${article.slug}`} className="blogia-btn blogia-btn-primary blogia-card-btn">
+                    <a href={`/blog/${article.slug}.html`} className="blogia-btn blogia-btn-primary blogia-card-btn">
                       Leer más
-                    </Link>
+                    </a>
                   </div>
                 </div>
               ))}
