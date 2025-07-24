@@ -168,7 +168,7 @@ const articleTemplate = (article) => `<!DOCTYPE html>
                         <a class="nav-link" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/public/blog">Blog IA</a>
+                        <a class="nav-link" href="/blog">Blog IA</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contacto">Contacto</a>
@@ -187,7 +187,7 @@ const articleTemplate = (article) => `<!DOCTYPE html>
                     <nav aria-label="breadcrumb" class="mb-4">
                         <ol class="breadcrumb justify-content-center">
                             <li class="breadcrumb-item"><a href="/" class="text-white">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="/public/blog" class="text-white">Blog IA</a></li>
+                            <li class="breadcrumb-item"><a href="/blog" class="text-white">Blog IA</a></li>
                             <li class="breadcrumb-item active text-white" aria-current="page">${article.title}</li>
                         </ol>
                     </nav>
@@ -273,9 +273,9 @@ const articleTemplate = (article) => `<!DOCTYPE html>
 
                 <!-- Back to Blog -->
                 <div class="text-center mt-5">
-                    <a href="/public/blog" class="btn btn-primary">
+                    <a href="/blog" class="btn btn-primary">
                         <i class="fas fa-arrow-left me-2"></i>
-                        Volver al public/blog
+                        Volver al Blog
                     </a>
                 </div>
             </div>
@@ -462,7 +462,7 @@ function createBlogIndex(outputDir) {
                         <a class="nav-link" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/public/blog">Blog IA</a>
+                        <a class="nav-link active" href="/blog">Blog IA</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contacto">Contacto</a>
