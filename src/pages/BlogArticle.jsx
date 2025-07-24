@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import BaseLayout from "../layouts/BaseLayout";
 import ReactMarkdown from "react-markdown";
-import "../BlogIA.css";
-import { getArticleFromHTML } from "../utils/getArticlesFromHTML";
+import { getArticleFromHTML } from "../utils/getArticlesFromHTML.js";
+// import "../BlogIA.css"; // Removed to avoid module not found error
 
 export default function BlogArticle() {
   const { slug } = useParams();
@@ -68,7 +68,7 @@ export default function BlogArticle() {
 
   if (loading) {
     return (
-      <BaseLayout title="Cargando artículo..." description="Cargando artículo del blog IA">
+      <BaseLayout title="Cargando artículo..." description="Cargando artículo del public/blog IA">
         <div className="container py-5">
           <div className="text-center">
             <div className="spinner-border text-primary" role="status">
@@ -93,7 +93,7 @@ export default function BlogArticle() {
             </p>
             <Link to="/blog" className="btn btn-primary">
               <i className="fas fa-arrow-left me-2"></i>
-              Volver al blog
+              Volver al public/blog
             </Link>
           </div>
         </div>
@@ -107,154 +107,118 @@ export default function BlogArticle() {
       description={article.seo_description || article.summary}
       keywords={article.seo_keywords?.join(', ') || article.tags?.join(', ')}
     >
-      <div className="container py-5">
+      <div className="public/blog-article-container">
         {/* Breadcrumb */}
-        <nav aria-label="breadcrumb" className="mb-4">
-          <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-              <Link to="/">Inicio</Link>
-            </li>
-            <li className="breadcrumb-item">
-              <Link to="/blog">Blog IA</Link>
-            </li>
-            <li className="breadcrumb-item active" aria-current="page">
-              {article.title}
-            </li>
-          </ol>
+        <nav className="custom-breadcrumb">
+          <ul>
+            <li><Link to="/">Inicio</Link></li>
+            <li><Link to="/blog">Blog IA</Link></li>
+            <li className="active">{article.title}</li>
+          </ul>
         </nav>
 
         {/* Article Header */}
-        <article className="blog-article">
-          <header className="article-header mb-5">
-            <div className="row">
-              <div className="col-lg-8 mx-auto">
-                {/* Category and Date */}
-                <div className="mb-3">
-                  {article.category && (
-                    <span className="badge bg-primary me-2">{article.category}</span>
-                  )}
-                  <small className="text-muted">
-                    <i className="fas fa-calendar-alt me-1"></i>
-                    {formatDate(article.date)}
-                  </small>
-                </div>
-
-                {/* Title */}
-                <h1 className="display-4 fw-bold mb-3">{article.title}</h1>
-
-                {/* Summary */}
-                {article.summary && (
-                  <p className="lead text-muted mb-4">{article.summary}</p>
+        <article className="public/blog-article-custom">
+          <header className="article-header-custom">
+            <div className="article-header-inner">
+              {/* Category and Date */}
+              <div className="meta-row">
+                {article.category && (
+                  <span className="custom-badge custom-badge-primary">{article.category}</span>
                 )}
-
-                {/* Featured Image */}
-                {article.image && (
-                  <div className="article-image mb-4">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      className="img-fluid rounded shadow"
-                      style={{ maxHeight: '400px', width: '100%', objectFit: 'cover' }}
-                    />
-                  </div>
-                )}
-
-                {/* Meta Information */}
-                <div className="article-meta d-flex justify-content-between align-items-center mb-4">
-                  <div className="author-info">
-                    <small className="text-muted">
-                      <i className="fas fa-user me-1"></i>
-                      Por {article.author || 'hgaruna'}
-                    </small>
-                    <br />
-                    <small className="text-muted">
-                      <i className="fas fa-robot me-1"></i>
-                      Generado por inteligencia artificial
-                    </small>
-                  </div>
-
-                  {/* Share Buttons */}
-                  <div className="share-buttons">
-                    <small className="text-muted me-2">Compartir:</small>
-                    <button
-                      onClick={() => shareArticle('twitter')}
-                      className="btn btn-sm btn-outline-primary me-1"
-                      title="Compartir en Twitter"
-                    >
-                      <i className="fab fa-twitter"></i>
-                    </button>
-                    <button
-                      onClick={() => shareArticle('linkedin')}
-                      className="btn btn-sm btn-outline-primary me-1"
-                      title="Compartir en LinkedIn"
-                    >
-                      <i className="fab fa-linkedin"></i>
-                    </button>
-                    <button
-                      onClick={() => shareArticle('facebook')}
-                      className="btn btn-sm btn-outline-primary me-1"
-                      title="Compartir en Facebook"
-                    >
-                      <i className="fab fa-facebook"></i>
-                    </button>
-                    <button
-                      onClick={() => shareArticle('whatsapp')}
-                      className="btn btn-sm btn-outline-success"
-                      title="Compartir en WhatsApp"
-                    >
-                      <i className="fab fa-whatsapp"></i>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Tags */}
-                {article.tags && article.tags.length > 0 && (
-                  <div className="article-tags mb-4">
-                    {article.tags.map((tag, index) => (
-                      <span key={index} className="badge bg-light text-dark me-2">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                <span className="custom-date">
+                  <i className="fas fa-calendar-alt"></i> {formatDate(article.date)}
+                </span>
               </div>
+
+              {/* Title */}
+              <h1 className="article-title-custom">{article.title}</h1>
+
+              {/* Summary */}
+              {article.summary && (
+                <p className="article-summary-custom">{article.summary}</p>
+              )}
+
+              {/* Featured Image */}
+              {article.image && (
+                <div className="article-image-custom">
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className="img-article-custom"
+                    style={{ maxHeight: '400px', width: '100%', objectFit: 'cover', borderRadius: '16px', boxShadow: '0 2px 16px #0002' }}
+                  />
+                </div>
+              )}
+
+              {/* Meta Information */}
+              <div className="article-meta-custom">
+                <div className="author-info-custom">
+                  <span className="custom-author">
+                    <i className="fas fa-user"></i> Por {article.author || 'hgaruna'}
+                  </span>
+                  <span className="custom-ai">
+                    <i className="fas fa-robot"></i> Generado por IA
+                  </span>
+                </div>
+                <div className="share-buttons-custom">
+                  <span className="custom-share-label">Compartir:</span>
+                  <button onClick={() => shareArticle('twitter')} className="custom-share-btn twitter" title="Compartir en Twitter">
+                    <i className="fab fa-twitter"></i>
+                  </button>
+                  <button onClick={() => shareArticle('linkedin')} className="custom-share-btn linkedin" title="Compartir en LinkedIn">
+                    <i className="fab fa-linkedin"></i>
+                  </button>
+                  <button onClick={() => shareArticle('facebook')} className="custom-share-btn facebook" title="Compartir en Facebook">
+                    <i className="fab fa-facebook"></i>
+                  </button>
+                  <button onClick={() => shareArticle('whatsapp')} className="custom-share-btn whatsapp" title="Compartir en WhatsApp">
+                    <i className="fab fa-whatsapp"></i>
+                  </button>
+                </div>
+              </div>
+
+              {/* Tags */}
+              {article.tags && article.tags.length > 0 && (
+                <div className="article-tags-custom">
+                  {article.tags.map((tag, index) => (
+                    <span key={index} className="custom-badge custom-badge-tag">#{tag}</span>
+                  ))}
+                </div>
+              )}
             </div>
           </header>
 
           {/* Article Content */}
-          <div className="article-content">
-            <div className="row">
-              <div className="col-lg-8 mx-auto">
-                <div className="content-wrapper">
-                  <ReactMarkdown 
-                    className="markdown-content"
-                    components={{
-                      h1: ({node, ...props}) => <h1 className="h2 mb-4" {...props} />,
-                      h2: ({node, ...props}) => <h2 className="h3 mb-3 mt-5" {...props} />,
-                      h3: ({node, ...props}) => <h3 className="h4 mb-3 mt-4" {...props} />,
-                      h4: ({node, ...props}) => <h4 className="h5 mb-2 mt-3" {...props} />,
-                      p: ({node, ...props}) => <p className="mb-3" {...props} />,
-                      ul: ({node, ...props}) => <ul className="mb-3" {...props} />,
-                      ol: ({node, ...props}) => <ol className="mb-3" {...props} />,
-                      li: ({node, ...props}) => <li className="mb-1" {...props} />,
-                      blockquote: ({node, ...props}) => (
-                        <blockquote className="blockquote border-start border-primary ps-3 my-4" {...props} />
-                      ),
-                      code: ({node, ...props}) => (
-                        <code className="bg-light px-2 py-1 rounded" {...props} />
-                      ),
-                      pre: ({node, ...props}) => (
-                        <pre className="bg-dark text-light p-3 rounded mb-3" {...props} />
-                      ),
-                      a: ({node, ...props}) => (
-                        <a className="text-primary" target="_blank" rel="noopener noreferrer" {...props} />
-                      ),
-                    }}
-                  >
-                    {article.content}
-                  </ReactMarkdown>
-                </div>
-              </div>
+          <div className="article-content-custom">
+            <div className="content-wrapper-custom">
+              <ReactMarkdown 
+                className="markdown-content-custom"
+                components={{
+                  h1: ({node, ...props}) => <h1 className="custom-h1" {...props} />,
+                  h2: ({node, ...props}) => <h2 className="custom-h2" {...props} />,
+                  h3: ({node, ...props}) => <h3 className="custom-h3" {...props} />,
+                  h4: ({node, ...props}) => <h4 className="custom-h4" {...props} />,
+                  p: ({node, ...props}) => <p className="custom-p" {...props} />,
+                  ul: ({node, ...props}) => <ul className="custom-ul" {...props} />,
+                  ol: ({node, ...props}) => <ol className="custom-ol" {...props} />,
+                  li: ({node, ...props}) => <li className="custom-li" {...props} />,
+                  blockquote: ({node, ...props}) => (
+                    <blockquote className="custom-blockquote" {...props} />
+                  ),
+                  code: ({node, ...props}) => (
+                    <code className="custom-code" {...props} />
+                  ),
+                  pre: ({node, ...props}) => (
+                    <pre className="custom-pre" {...props} />
+                  ),
+                  a: ({node, ...props}) => (
+                    <a className="custom-link" target="_blank" rel="noopener noreferrer" {...props} />
+                  ),
+                }}
+              >
+                {article.content}
+              </ReactMarkdown>
             </div>
           </div>
         </article>

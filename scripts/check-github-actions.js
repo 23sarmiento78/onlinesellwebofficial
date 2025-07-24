@@ -86,7 +86,7 @@ async function checkGitHubActions() {
     }
 
     // Verificar archivos HTML generados
-    const htmlDir = path.join(__dirname, '../public/blog');
+    const htmlDir = path.join(__dirname, '../public/public/blog');
     if (fs.existsSync(htmlDir)) {
       const htmlFiles = fs.readdirSync(htmlDir).filter(file => file.endsWith('.html'));
       console.log('🌐 Archivos HTML generados:');

@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BLOG_DIR = path.resolve(__dirname, '../public/blog');
+const BLOG_DIR = path.resolve(__dirname, '../public/public/blog');
 
 // Lista de archivos que deberían existir (basada en la lista hardcodeada)
 const expectedFiles = [
@@ -24,7 +24,7 @@ function checkArticles() {
   console.log(`📁 Directorio: ${BLOG_DIR}`);
   
   if (!fs.existsSync(BLOG_DIR)) {
-    console.log('❌ El directorio blog no existe');
+    console.log('❌ El directorio public/blog no existe');
     return;
   }
   

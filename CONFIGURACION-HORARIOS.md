@@ -34,7 +34,7 @@ on:
 1. **Genera 4 artículos nuevos** usando Google Gemini API
 2. **Actualiza el sitemap** automáticamente
 3. **Hace commit y push** de los cambios
-4. **Mantiene el blog actualizado** diariamente
+4. **Mantiene el public/blog actualizado** diariamente
 
 ### Ejecución Manual
 El workflow también se puede ejecutar manualmente desde:

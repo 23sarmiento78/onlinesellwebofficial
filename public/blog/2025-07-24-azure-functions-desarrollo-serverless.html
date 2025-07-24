@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="category" content="UX/UI">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Functions: Desarrollo Serverless</title>
+    <meta name="description" content="Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...">
+    <meta name="keywords" content="JavaScript">
+    <meta name="author" content="hgaruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hgaruna.com/public/blog/azure-functions-desarrollo-serverless">
+    <meta property="og:title" content="Azure Functions: Desarrollo Serverless">
+    <meta property="og:description" content="Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hgaruna.com/public/blog/azure-functions-desarrollo-serverless">
+    <meta property="twitter:title" content="Azure Functions: Desarrollo Serverless">
+    <meta property="twitter:description" content="Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hgaruna.com/public/blog/azure-functions-desarrollo-serverless">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .article-meta {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .article-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .tags-container {
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
+        @media (max-width: 768px) {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
+            .article-header {
+                padding: 2rem 0;
+            }
+            
+            .article-content h1 {
+                font-size: 2rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/public/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
+    </div>
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark fs-6">DevOps y Cloud</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">Azure Functions: Desarrollo Serverless</h1>
+                    <p class="lead mb-4">Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por hgaruna
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            24 de julio de 2025
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Azure Functions: Desarrollo Serverless" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Meta información -->
+                <div class="article-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Categoría:</strong> DevOps y Cloud<br>
+                            <strong>Autor:</strong> hgaruna<br>
+                            <strong>Fecha:</strong> 24 de julio de 2025
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de lectura:</strong> 4 min<br>
+                            <strong>Palabras:</strong> 631
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    <span class="tag">JavaScript</span>
+                </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <main>
+  <h1>Azure Functions: Desarrollo Serverless</h1>
+
+  <p>Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin necesidad de administrar servidores.  Esto simplifica el desarrollo, la implementación y el mantenimiento de aplicaciones, reduciendo significativamente la complejidad y los costos asociados con la infraestructura.  Este artículo explora las características clave de Azure Functions y cómo aprovecharlas para el desarrollo de aplicaciones modernas y escalables.</p>
+
+  <h2>¿Qué son las Azure Functions?</h2>
+  <p>Las Azure Functions son pequeñas unidades de código ejecutable que se desencadenan en respuesta a diversos eventos, como cambios en almacenamiento, mensajes en colas, solicitudes HTTP, temporizadores, etc.  No necesitas preocuparte por la infraestructura subyacente; Azure se encarga de escalar automáticamente los recursos según la demanda, garantizando la disponibilidad y el rendimiento de tu aplicación.  Puedes escribir funciones en varios lenguajes, incluyendo C#, Java, JavaScript, Python y PowerShell, ofreciendo flexibilidad para elegir la tecnología más adecuada a tu proyecto.</p>
+
+  <h2>Ventajas de usar Azure Functions</h2>
+  <ul>
+    <li><strong>Escalabilidad automática:</strong> Azure se encarga de escalar tu aplicación automáticamente según la demanda, sin necesidad de configuración manual.</li>
+    <li><strong>Pago por uso:</strong> Solo pagas por los recursos consumidos, lo que reduce significativamente los costos en comparación con las soluciones tradicionales.</li>
+    <li><strong>Desarrollo ágil:</strong>  El enfoque en funciones individuales facilita el desarrollo, la prueba y la implementación de código de forma rápida e iterativa.</li>
+    <li><strong>Integración con otros servicios de Azure:</strong> Se integra fácilmente con otros servicios de Azure como Azure Storage, Azure Cosmos DB, Azure Event Hubs, etc.</li>
+    <li><strong>Alta disponibilidad:</strong> Azure garantiza la alta disponibilidad de tus funciones, minimizando el tiempo de inactividad.</li>
+  </ul>
+
+  <h2>Desventajas de usar Azure Functions</h2>
+  <ul>
+    <li><strong>Cold starts:</strong> El primer inicio de una función puede ser ligeramente más lento que en un entorno siempre activo.</li>
+    <li><strong>Limitaciones de tiempo de ejecución:</strong> Las funciones tienen un límite de tiempo de ejecución, por lo que las tareas que requieren mucho tiempo deben dividirse en tareas más pequeñas.</li>
+    <li><strong>Dependencias:</strong> Gestionar las dependencias de tus funciones puede requerir una configuración adicional.</li>
+    <li><strong>Debugging:</strong> Depurar funciones puede ser más complejo que en entornos tradicionales.</li>
+  </ul>
+
+
+  <h2>Desarrollo de una Azure Function (Ejemplo en C#):</h2>
+  <p>A continuación, se muestra un ejemplo sencillo de una Azure Function en C# que responde a una solicitud HTTP:</p>
+  <pre><code>
+using System.Net;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Logging;
+
+public static class HttpFunction
+{
+    [Function("HttpFunction")]
+    public static HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req,
+        FunctionContext executionContext)
+    {
+        var logger = executionContext.GetLogger("HttpFunction");
+        logger.LogInformation("C# HTTP trigger function processed a request.");
+
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        response.WriteString("Hello from Azure Functions!");
+
+        return response;
+    }
+}
+  </code></pre>
+  <p>Este código define una función que responde a solicitudes GET y POST.  Cuando se realiza una solicitud, la función devuelve un mensaje "Hello from Azure Functions!".</p>
+
+  <h2>Implementación y Monitoreo</h2>
+  <h3>Implementación</h3>
+  <ol>
+    <li>Crear una función en Azure Portal.</li>
+    <li>Seleccionar el lenguaje de programación.</li>
+    <li>Escribir el código de la función.</li>
+    <li>Implementar la función en Azure.</li>
+  </ol>
+  <h3>Monitoreo</h3>
+  <p>Azure proporciona herramientas de monitoreo para rastrear el rendimiento y la salud de tus funciones. Puedes ver métricas como el tiempo de ejecución, el consumo de recursos y los logs.</p>
+
+  <h2>Casos de Uso</h2>
+  <ul>
+    <li><strong>Procesamiento de imágenes:</strong>  Recibir imágenes, procesarlas y guardarlas en almacenamiento.</li>
+    <li><strong>Integraciones con APIs externas:</strong>  Consumir APIs de terceros y procesar la información recibida.</li>
+    <li><strong>Procesamiento de datos en tiempo real:</strong>  Procesar datos de flujos de datos en tiempo real, como datos de sensores.</li>
+    <li><strong>Automatización de tareas:</strong>  Automatizar tareas repetitivas como la creación de informes o la limpieza de datos.</li>
+  </ul>
+
+  <h2>Conclusión</h2>
+  <p>Azure Functions ofrece una solución robusta y escalable para el desarrollo de aplicaciones serverless.  Su facilidad de uso, integración con otros servicios de Azure y modelo de pago por uso lo convierten en una opción atractiva para una variedad de casos de uso.  Aunque existen algunas limitaciones, las ventajas superan ampliamente las desventajas, especialmente para aplicaciones que requieren escalabilidad y flexibilidad.</p>
+
+</main>
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Funciones de compartir
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Azure Functions: Desarrollo Serverless');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('Azure Functions: Desarrollo Serverless');
+            const summary = encodeURIComponent('Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Azure Functions: Desarrollo Serverless - Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                link.href = '#';
+            });
+        });
+    </script>
+</body>
+</html> 

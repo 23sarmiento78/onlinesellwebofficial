@@ -14,141 +14,146 @@ if (!GEMINI_API_KEY) {
   process.exit(1);
 }
 
-const topics = [
-  // Desarrollo Web y Frontend
-  'React 19: Nuevas características y mejoras',
-  'Vue.js 4: El futuro del framework progresivo',
-  'Svelte vs React: Comparativa completa',
-  'Angular 18: Nuevas funcionalidades',
-  'TypeScript avanzado: Patrones y mejores prácticas',
-  'CSS Grid y Flexbox: Layouts modernos',
-  'Web Components: El futuro del desarrollo web',
-  'Progressive Web Apps (PWA) en 2025',
-  'WebAssembly: Rendimiento nativo en el navegador',
-  'Micro-frontends: Arquitectura escalable',
-  
-  // Backend y APIs
-  'Node.js 22: Nuevas características',
-  'Deno vs Node.js: ¿Cuál elegir?',
-  'Bun: El runtime JavaScript más rápido',
-  'GraphQL vs REST: Cuándo usar cada uno',
-  'APIs RESTful: Diseño y mejores prácticas',
-  'Autenticación JWT: Implementación segura',
-  'OAuth 2.0 y OpenID Connect',
-  'Rate limiting: Protección de APIs',
-  'API versioning: Estrategias efectivas',
-  'WebSockets vs Server-Sent Events',
-  
-  // Bases de Datos
-  'PostgreSQL 16: Nuevas funcionalidades',
-  'MongoDB 8: Mejoras y optimizaciones',
-  'Redis: Caché y almacenamiento en memoria',
-  'SQL vs NoSQL: Decisiones de arquitectura',
-  'ORM vs Query Builder: Ventajas y desventajas',
-  'Migrations: Gestión de esquemas de BD',
-  'Índices de base de datos: Optimización',
-  'Transacciones distribuidas',
-  'Backup y recuperación de datos',
-  'Sharding y particionamiento',
-  
-  // DevOps y Cloud
-  'Docker: Contenedores para desarrolladores',
-  'Kubernetes: Orquestación de contenedores',
-  'CI/CD: Automatización de despliegues',
-  'GitHub Actions: Workflows avanzados',
-  'AWS Lambda: Serverless computing',
-  'Azure Functions: Desarrollo serverless',
-  'Google Cloud Functions: Plataforma serverless',
-  'Terraform: Infrastructure as Code',
-  'Ansible: Automatización de configuración',
-  'Monitoring y observabilidad',
-  
-  // Testing y Calidad
-  'Testing unitario: Jest y Vitest',
-  'Testing de integración: Estrategias',
-  'Testing E2E: Cypress y Playwright',
-  'Testing de APIs: Postman y Newman',
-  'Code coverage: Métricas de calidad',
-  'Static analysis: ESLint y SonarQube',
-  'Performance testing: Lighthouse y WebPageTest',
-  'Security testing: OWASP y herramientas',
-  'Accessibility testing: WCAG guidelines',
-  'Testing de accesibilidad automatizado',
-  
-  // Inteligencia Artificial y ML
-  'Machine Learning para desarrolladores web',
-  'APIs de IA: OpenAI, Claude, Gemini',
-  'Chatbots: Implementación práctica',
-  'Computer Vision en aplicaciones web',
-  'NLP: Procesamiento de lenguaje natural',
-  'Recomendation systems: Algoritmos',
-  'AI-powered testing: Automatización inteligente',
-  'Ethical AI: Principios y prácticas',
-  'AI explainability: Transparencia en ML',
-  'Edge AI: IA en dispositivos móviles',
-  
-  // Seguridad
-  'OWASP Top 10: Vulnerabilidades web',
-  'XSS Prevention: Cross-site scripting',
-  'CSRF Protection: Cross-site request forgery',
-  'SQL Injection: Prevención y detección',
-  'Authentication: Múltiples factores',
-  'Authorization: Control de acceso',
-  'Encryption: Cifrado de datos sensibles',
-  'HTTPS: Certificados SSL/TLS',
-  'Content Security Policy (CSP)',
-  'Security headers: Protección del navegador',
-  
-  // Performance y Optimización
-  'Web Performance: Core Web Vitals',
-  'Lazy loading: Carga diferida de recursos',
-  'Code splitting: División de bundles',
-  'Tree shaking: Eliminación de código muerto',
-  'Image optimization: Formatos modernos',
-  'CDN: Content Delivery Networks',
-  'Caching strategies: Estrategias de caché',
-  'Database optimization: Consultas eficientes',
-  'Memory leaks: Detección y prevención',
-  'Bundle analysis: Análisis de bundles',
-  
-  // Arquitectura y Patrones
-  'Clean Architecture: Principios SOLID',
-  'Design Patterns: Patrones de diseño',
-  'Microservices: Arquitectura distribuida',
-  'Event-driven architecture',
-  'CQRS: Command Query Responsibility Segregation',
-  'Event sourcing: Trazabilidad de eventos',
-  'Domain-driven design (DDD)',
-  'Hexagonal architecture: Ports and adapters',
-  'Layered architecture: Separación de responsabilidades',
-  'Monorepo vs Polyrepo: Estrategias',
-  
-  // Herramientas y Productividad
-  'VS Code: Extensiones esenciales',
-  'Git: Flujos de trabajo avanzados',
-  'Terminal: Productividad en línea de comandos',
-  'Package managers: npm, yarn, pnpm',
-  'Build tools: Vite, Webpack, Rollup',
-  'Linters y formatters: ESLint, Prettier',
-  'Debugging: Herramientas y técnicas',
-  'Profiling: Análisis de rendimiento',
-  'Documentation: Herramientas y mejores prácticas',
-  'Code review: Procesos efectivos',
-  
-  // Tendencias y Futuro
-  'Web3: Blockchain y aplicaciones descentralizadas',
-  'Metaverse: Desarrollo para realidad virtual',
-  'IoT: Internet de las cosas',
-  'Edge computing: Computación en el borde',
-  'Quantum computing: Futuro de la computación',
-  'Green computing: Desarrollo sostenible',
-  'Low-code/No-code: Plataformas de desarrollo',
-  'JAMstack: JavaScript, APIs, Markup',
-  'Headless CMS: Gestión de contenido',
-  'Composable architecture: Arquitectura modular'
-];
 
-function getRandomTopics(n) {
+// Definir categorías y temas asociados
+const categoriesToTopics = {
+  'Frontend': [
+    'React 19: Nuevas características y mejoras',
+    'Vue.js 4: El futuro del framework progresivo',
+    'Svelte vs React: Comparativa completa',
+    'Angular 18: Nuevas funcionalidades',
+    'TypeScript avanzado: Patrones y mejores prácticas',
+    'CSS Grid y Flexbox: Layouts modernos',
+    'Web Components: El futuro del desarrollo web',
+    'Progressive Web Apps (PWA) en 2025',
+    'WebAssembly: Rendimiento nativo en el navegador',
+    'Micro-frontends: Arquitectura escalable'
+  ],
+  'Backend': [
+    'Node.js 22: Nuevas características',
+    'Deno vs Node.js: ¿Cuál elegir?',
+    'Bun: El runtime JavaScript más rápido',
+    'GraphQL vs REST: Cuándo usar cada uno',
+    'APIs RESTful: Diseño y mejores prácticas',
+    'Autenticación JWT: Implementación segura',
+    'OAuth 2.0 y OpenID Connect',
+    'Rate limiting: Protección de APIs',
+    'API versioning: Estrategias efectivas',
+    'WebSockets vs Server-Sent Events'
+  ],
+  'Bases de Datos': [
+    'PostgreSQL 16: Nuevas funcionalidades',
+    'MongoDB 8: Mejoras y optimizaciones',
+    'Redis: Caché y almacenamiento en memoria',
+    'SQL vs NoSQL: Decisiones de arquitectura',
+    'ORM vs Query Builder: Ventajas y desventajas',
+    'Migrations: Gestión de esquemas de BD',
+    'Índices de base de datos: Optimización',
+    'Transacciones distribuidas',
+    'Backup y recuperación de datos',
+    'Sharding y particionamiento'
+  ],
+  'DevOps y Cloud': [
+    'Docker: Contenedores para desarrolladores',
+    'Kubernetes: Orquestación de contenedores',
+    'CI/CD: Automatización de despliegues',
+    'GitHub Actions: Workflows avanzados',
+    'AWS Lambda: Serverless computing',
+    'Azure Functions: Desarrollo serverless',
+    'Google Cloud Functions: Plataforma serverless',
+    'Terraform: Infrastructure as Code',
+    'Ansible: Automatización de configuración',
+    'Monitoring y observabilidad'
+  ],
+  'Testing y Calidad': [
+    'Testing unitario: Jest y Vitest',
+    'Testing de integración: Estrategias',
+    'Testing E2E: Cypress y Playwright',
+    'Testing de APIs: Postman y Newman',
+    'Code coverage: Métricas de calidad',
+    'Static analysis: ESLint y SonarQube',
+    'Performance testing: Lighthouse y WebPageTest',
+    'Security testing: OWASP y herramientas',
+    'Accessibility testing: WCAG guidelines',
+    'Testing de accesibilidad automatizado'
+  ],
+  'Inteligencia Artificial': [
+    'Machine Learning para desarrolladores web',
+    'APIs de IA: OpenAI, Claude, Gemini',
+    'Chatbots: Implementación práctica',
+    'Computer Vision en aplicaciones web',
+    'NLP: Procesamiento de lenguaje natural',
+    'Recomendation systems: Algoritmos',
+    'AI-powered testing: Automatización inteligente',
+    'Ethical AI: Principios y prácticas',
+    'AI explainability: Transparencia en ML',
+    'Edge AI: IA en dispositivos móviles'
+  ],
+  'Seguridad': [
+    'OWASP Top 10: Vulnerabilidades web',
+    'XSS Prevention: Cross-site scripting',
+    'CSRF Protection: Cross-site request forgery',
+    'SQL Injection: Prevención y detección',
+    'Authentication: Múltiples factores',
+    'Authorization: Control de acceso',
+    'Encryption: Cifrado de datos sensibles',
+    'HTTPS: Certificados SSL/TLS',
+    'Content Security Policy (CSP)',
+    'Security headers: Protección del navegador'
+  ],
+  'Performance y Optimización': [
+    'Web Performance: Core Web Vitals',
+    'Lazy loading: Carga diferida de recursos',
+    'Code splitting: División de bundles',
+    'Tree shaking: Eliminación de código muerto',
+    'Image optimization: Formatos modernos',
+    'CDN: Content Delivery Networks',
+    'Caching strategies: Estrategias de caché',
+    'Database optimization: Consultas eficientes',
+    'Memory leaks: Detección y prevención',
+    'Bundle analysis: Análisis de bundles'
+  ],
+  'Arquitectura y Patrones': [
+    'Clean Architecture: Principios SOLID',
+    'Design Patterns: Patrones de diseño',
+    'Microservices: Arquitectura distribuida',
+    'Event-driven architecture',
+    'CQRS: Command Query Responsibility Segregation',
+    'Event sourcing: Trazabilidad de eventos',
+    'Domain-driven design (DDD)',
+    'Hexagonal architecture: Ports and adapters',
+    'Layered architecture: Separación de responsabilidades',
+    'Monorepo vs Polyrepo: Estrategias'
+  ],
+  'Herramientas y Productividad': [
+    'VS Code: Extensiones esenciales',
+    'Git: Flujos de trabajo avanzados',
+    'Terminal: Productividad en línea de comandos',
+    'Package managers: npm, yarn, pnpm',
+    'Build tools: Vite, Webpack, Rollup',
+    'Linters y formatters: ESLint, Prettier',
+    'Debugging: Herramientas y técnicas',
+    'Profiling: Análisis de rendimiento',
+    'Documentation: Herramientas y mejores prácticas',
+    'Code review: Procesos efectivos'
+  ],
+  'Tendencias y Futuro': [
+    'Web3: Blockchain y aplicaciones descentralizadas',
+    'Metaverse: Desarrollo para realidad virtual',
+    'IoT: Internet de las cosas',
+    'Edge computing: Computación en el borde',
+    'Quantum computing: Futuro de la computación',
+    'Green computing: Desarrollo sostenible',
+    'Low-code/No-code: Plataformas de desarrollo',
+    'JAMstack: JavaScript, APIs, Markup',
+    'Headless CMS: Gestión de contenido',
+    'Composable architecture: Arquitectura modular'
+  ]
+};
+
+
+function getRandomTopicsFromCategory(category, n) {
+  const topics = categoriesToTopics[category] || [];
   const shuffled = topics.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, n);
 }
@@ -175,9 +180,10 @@ function generateTagsHTML(tags) {
   return tags.map(tag => `<span class="tag">#${tag}</span>`).join('');
 }
 
-async function generateArticleHTML(topic) {
+
+async function generateArticleHTML(topic, category) {
   const prompt = `
-Eres un experto desarrollador web y escritor técnico. Tu tarea es crear un artículo HTML completo sobre "${topic}".
+Eres un experto desarrollador web y escritor técnico. Tu tarea es crear un artículo HTML completo sobre "${topic}" para la categoría "${category}".
 
 IMPORTANTE: 
 - Genera SOLO el contenido HTML que va dentro del <main> del template
@@ -204,7 +210,7 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
 `;
 
   try {
-    console.log(`🔄 Generando artículo HTML sobre: ${topic}`);
+    console.log(`🔄 Generando artículo HTML sobre: ${topic} [${category}]`);
     
     const res = await axios.post(
       'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
@@ -242,16 +248,6 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
       .replace(/\s+/g, '-')
       .substring(0, 50);
     
-    // Determinar categoría basada en el contenido
-    let category = 'Desarrollo Web';
-    if (content.toLowerCase().includes('react') || content.toLowerCase().includes('angular')) {
-      category = 'Frontend';
-    } else if (content.toLowerCase().includes('aws') || content.toLowerCase().includes('lambda')) {
-      category = 'Cloud Computing';
-    } else if (content.toLowerCase().includes('machine learning') || content.toLowerCase().includes('ai')) {
-      category = 'Inteligencia Artificial';
-    }
-    
     // Generar tags basados en el contenido
     const tags = [];
     if (content.toLowerCase().includes('javascript')) tags.push('JavaScript');
@@ -269,6 +265,13 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
     // Leer el template HTML
     const templatePath = path.join(__dirname, '../templates/article-template.html');
     let template = fs.readFileSync(templatePath, 'utf8');
+    
+    // Insertar meta category si no existe
+    if (!template.includes('<meta name="category"')) {
+      template = template.replace(/<head>/i, `<head>\n    <meta name="category" content="${category}">`);
+    } else {
+      template = template.replace(/<meta name="category"[^>]*>/i, `<meta name="category" content="${category}">`);
+    }
     
     // Reemplazar variables en el template
     const replacements = {
@@ -306,77 +309,75 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
     };
     
   } catch (error) {
-    console.error(`❌ Error generando artículo HTML sobre ${topic}:`, error);
+    console.error(`❌ Error generando artículo HTML sobre ${topic} [${category}]:`, error);
     throw error;
   }
 }
 
+
 async function main() {
   try {
-    console.log('🚀 Iniciando generación de artículos HTML...');
-    
+    console.log('🚀 Iniciando generación de artículos HTML multi-categoría...');
+
     // Crear directorio si no existe
     if (!fs.existsSync(OUTPUT_DIR)) {
       fs.mkdirSync(OUTPUT_DIR, { recursive: true });
       console.log('📁 Directorio de artículos HTML creado');
     }
-    
+
     const today = new Date().toISOString().slice(0, 10);
-    const topicsToday = getRandomTopics(4);
-    
-    console.log(`📅 Generando 4 artículos HTML para ${today}:`);
-    topicsToday.forEach((topic, index) => {
-      console.log(`  ${index + 1}. ${topic}`);
-    });
-    
+    const articlesPerCategory = 2; // Puedes ajustar cuántos por categoría
     const generatedArticles = [];
-    
-    for (let i = 0; i < topicsToday.length; i++) {
-      const topic = topicsToday[i];
-      
-      try {
-        const { content, filename, title, slug } = await generateArticleHTML(topic);
-        const filepath = path.join(OUTPUT_DIR, filename);
-        
-        // Verificar si el archivo ya existe
-        if (fs.existsSync(filepath)) {
-          console.log(`⚠️  Archivo ${filename} ya existe, saltando...`);
-          continue;
+
+    for (const [category, topics] of Object.entries(categoriesToTopics)) {
+      const selectedTopics = getRandomTopicsFromCategory(category, articlesPerCategory);
+      console.log(`\n📅 Generando ${selectedTopics.length} artículos para la categoría: ${category}`);
+      for (let i = 0; i < selectedTopics.length; i++) {
+        const topic = selectedTopics[i];
+        try {
+          const { content, filename, title, slug } = await generateArticleHTML(topic, category);
+          const filepath = path.join(OUTPUT_DIR, filename);
+
+          // Verificar si el archivo ya existe
+          if (fs.existsSync(filepath)) {
+            console.log(`⚠️  Archivo ${filename} ya existe, saltando...`);
+            continue;
+          }
+
+          fs.writeFileSync(filepath, content);
+          generatedArticles.push({ filename, title, slug, category });
+          console.log(`✅ ${filename} guardado`);
+
+          // Pausa entre artículos para evitar rate limiting
+          if (i < selectedTopics.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, 3000));
+          }
+
+        } catch (error) {
+          console.error(`❌ Error con artículo [${category}] ${i + 1}:`, error.message);
+          // Continuar con el siguiente artículo
         }
-        
-        fs.writeFileSync(filepath, content);
-        generatedArticles.push({ filename, title, slug });
-        console.log(`✅ ${filename} guardado`);
-        
-        // Pausa entre artículos para evitar rate limiting
-        if (i < topicsToday.length - 1) {
-          await new Promise(resolve => setTimeout(resolve, 3000));
-        }
-        
-      } catch (error) {
-        console.error(`❌ Error con artículo ${i + 1}:`, error.message);
-        // Continuar con el siguiente artículo
       }
     }
-    
+
     console.log('\n📊 Resumen de generación HTML:');
-    console.log(`✅ Artículos HTML generados: ${generatedArticles.length}/4`);
+    console.log(`✅ Artículos HTML generados: ${generatedArticles.length}`);
     console.log(`📁 Directorio: ${OUTPUT_DIR}`);
-    
+
     if (generatedArticles.length > 0) {
       console.log('\n📝 Artículos HTML creados:');
       generatedArticles.forEach(article => {
-        console.log(`  - ${article.filename} (${article.title})`);
+        console.log(`  - ${article.filename} (${article.title}) [${article.category}]`);
       });
     }
-    
+
     if (generatedArticles.length === 0) {
       console.log('⚠️  No se generaron nuevos artículos HTML');
       process.exit(1);
     }
-    
-    console.log('\n🎉 Generación HTML completada exitosamente!');
-    
+
+    console.log('\n🎉 Generación HTML multi-categoría completada exitosamente!');
+
   } catch (error) {
     console.error('❌ Error en la generación HTML:', error.message);
   }

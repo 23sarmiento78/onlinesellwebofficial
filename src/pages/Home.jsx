@@ -104,7 +104,7 @@ export default function Home() {
             "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
             "potentialAction": {
               "@type": "SearchAction",
-              "target": {"@type": "EntryPoint", "urlTemplate": "https://service.hgaruna.org/blog/?q={search_term_string}"},
+              "target": {"@type": "EntryPoint", "urlTemplate": "https://service.hgaruna.org/public/blog/?q={search_term_string}"},
               "query-input": "required name=search_term_string"
             }
           },
@@ -197,9 +197,9 @@ export default function Home() {
       {/* Servicios Section */}
       <section id="servicios" className="servicios">
         <div className="container">
-          <div className="blog-header">
-            <h2 className="blog-title-main">Desarrollo Web Villa Carlos Paz: ¿Por qué los Negocios Locales Eligen hgaruna?</h2>
-            <p className="blog-description">No somos solo programadores web, somos tu socio digital para hacer crecer tu negocio en Villa Carlos Paz y Córdoba</p>
+          <div className="public/blog-header">
+            <h2 className="public/blog-title-main">Desarrollo Web Villa Carlos Paz: ¿Por qué los Negocios Locales Eligen hgaruna?</h2>
+            <p className="public/blog-description">No somos solo programadores web, somos tu socio digital para hacer crecer tu negocio en Villa Carlos Paz y Córdoba</p>
           </div>
           <div className="servicios-grid">
             <Card
@@ -242,9 +242,9 @@ export default function Home() {
       {/* Beneficios Section */}
       <section className="beneficios">
         <div className="container">
-          <div className="blog-header">
-            <h2 className="blog-title-main">¿Qué Pasa si NO Tienes un Sitio Web?</h2>
-            <p className="blog-description">Los números no mienten: los negocios con presencia web crecen más rápido</p>
+          <div className="public/blog-header">
+            <h2 className="public/blog-title-main">¿Qué Pasa si NO Tienes un Sitio Web?</h2>
+            <p className="public/blog-description">Los números no mienten: los negocios con presencia web crecen más rápido</p>
           </div>
           <div className="beneficios-grid">
             <div className="beneficio-card warning">
@@ -299,8 +299,8 @@ export default function Home() {
       <section className="contact-section">
         <div className="container">
           <div className="contact-header">
-            <h2 className="blog-title-main">¿Listo para Hacer Crecer tu Negocio?</h2>
-            <p className="blog-description">No dejes que tu competencia te gane. Contáctanos hoy mismo y comienza tu transformación digital.</p>
+            <h2 className="public/blog-title-main">¿Listo para Hacer Crecer tu Negocio?</h2>
+            <p className="public/blog-description">No dejes que tu competencia te gane. Contáctanos hoy mismo y comienza tu transformación digital.</p>
           </div>
           <div className="contact-grid">
             {/* Información de Contacto */}

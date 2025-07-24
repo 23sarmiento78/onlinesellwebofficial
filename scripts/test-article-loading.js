@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BLOG_DIR = path.resolve(__dirname, '../public/blog');
+const BLOG_DIR = path.resolve(__dirname, '../public/public/blog');
 
 // Función simplificada para extraer metadatos (copiada de getArticlesFromHTML.js)
 function extractMetadataFromHTML(htmlContent, filename) {
@@ -92,7 +92,7 @@ function testArticleLoading() {
   console.log('🧪 Probando carga de artículos...');
   
   if (!fs.existsSync(BLOG_DIR)) {
-    console.log('❌ El directorio blog no existe');
+    console.log('❌ El directorio public/blog no existe');
     return;
   }
   

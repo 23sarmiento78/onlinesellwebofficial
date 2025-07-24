@@ -1,10 +1,13 @@
 
 name: Generar artículos HTML y crear sitemap
 
+
 on:
   schedule:
-    # 16:00 (4:00 PM) hora Argentina (UTC-3) = 19:00 UTC
-    - cron: '0 19 * * *' # 16:00 ART (4:00 PM)
+    # 9:00, 13:00 y 19:00 UTC (6:00, 10:00 y 16:00 ART)
+    - cron: '0 9 * * *'   # 6:00 ART
+    - cron: '0 13 * * *'  # 10:00 ART
+    - cron: '0 19 * * *'  # 16:00 ART
   workflow_dispatch:
 
 jobs:
@@ -22,21 +25,32 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Generar artículos HTML con Gemini
+
+      - name: Generar 3 artículos HTML con Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: node scripts/generate-html-articles-gemini.js
+        run: node scripts/generate-html-articles-gemini.js --count=3
+
 
       - name: Copiar artículos HTML generados a public/blog
         run: |
           mkdir -p public/blog
           cp -u scripts/generated-html/*.html public/blog/ 2>/dev/null || echo "No hay archivos nuevos para copiar"
 
+      - name: Agregar meta categoría a los HTML
+        run: node scripts/add-category-meta.js
+
       - name: Generar índice de artículos (index.json)
         run: node scripts/generate-blog-index.js
 
+
       - name: Actualizar sitemap
         run: node scripts/update_sitemap.js
+
+      - name: Copiar optimized-sitemap.xml a build/
+        run: |
+          mkdir -p build
+          cp public/optimized-sitemap.xml build/optimized-sitemap.xml
 
       - name: Asegurar carpetas para Netlify
         run: |

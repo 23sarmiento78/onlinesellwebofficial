@@ -209,7 +209,7 @@ function generateAdvancedSchema() {
           "@type": "SearchAction",
           "target": {
             "@type": "EntryPoint",
-            "urlTemplate": "https://service.hgaruna.org/blog/?q={search_term_string}"
+            "urlTemplate": "https://service.hgaruna.org/public/blog/?q={search_term_string}"
           },
           "query-input": "required name=search_term_string"
         }
@@ -255,9 +255,9 @@ function generateOptimizedSitemap() {
     { url: '/', priority: '1.0', changefreq: 'weekly' },
     { url: '/planes/', priority: '0.9', changefreq: 'weekly' },
     { url: '/mi-experiencia/', priority: '0.8', changefreq: 'monthly' },
-    { url: '/blog/', priority: '0.8', changefreq: 'weekly' },
+    { url: '/public/blog/', priority: '0.8', changefreq: 'weekly' },
     { url: '/legal/', priority: '0.5', changefreq: 'monthly' },
-    { url: '/blog/desarrollo-web-profesional-en-villa-carlos-paz-potenciando-negocios-locales/', priority: '0.9', changefreq: 'monthly' }
+    { url: '/public/blog/desarrollo-web-profesional-en-villa-carlos-paz-potenciando-negocios-locales/', priority: '0.9', changefreq: 'monthly' }
   ];
 
   // Agregar páginas de palabras clave

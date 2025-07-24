@@ -14,8 +14,7 @@ import BlogArticle from "./pages/BlogArticle";
 import DesarrolloWebVillaCarlosPaz from "./pages/DesarrolloWebVillaCarlosPaz";
 import DisenoWebVillaCarlosPaz from "./pages/DisenoWebVillaCarlosPaz";
 import MarketingDigitalVillaCarlosPaz from "./pages/MarketingDigitalVillaCarlosPaz";
-import Articulo from "./pages/articulos/[slug]";
-import Articulos from "./pages/Articulos";
+// import Articulo from "./pages/articulos/[slug]"; // Eliminado porque el archivo ya no existe
 import BuilderExample from "./pages/BuilderExample";
 
 function App() {
@@ -46,8 +45,7 @@ function App() {
               path="/marketing-digital-villa-carlos-paz"
               element={<MarketingDigitalVillaCarlosPaz />}
             />
-            <Route path="/articulos" element={<Articulos />} />
-            <Route path="/articulos/:slug" element={<Articulo />} />
+            {/* <Route path="/articulos/:slug" element={<Articulo />} /> */}
             <Route path="/builder-example" element={<BuilderExample />} />
           </Routes>
         </div>

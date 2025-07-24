@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="category" content="UX/UI">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Unitario: Jest y Vitest</title>
+    <meta name="description" content="El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...">
+    <meta name="keywords" content="JavaScript, React">
+    <meta name="author" content="hgaruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hgaruna.com/public/blog/testing-unitario-jest-y-vitest">
+    <meta property="og:title" content="Testing Unitario: Jest y Vitest">
+    <meta property="og:description" content="El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hgaruna.com/public/blog/testing-unitario-jest-y-vitest">
+    <meta property="twitter:title" content="Testing Unitario: Jest y Vitest">
+    <meta property="twitter:description" content="El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hgaruna.com/public/blog/testing-unitario-jest-y-vitest">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .article-meta {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .article-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .tags-container {
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
+        @media (max-width: 768px) {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
+            .article-header {
+                padding: 2rem 0;
+            }
+            
+            .article-content h1 {
+                font-size: 2rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/public/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
+    </div>
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark fs-6">Testing y Calidad</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">Testing Unitario: Jest y Vitest</h1>
+                    <p class="lead mb-4">El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por hgaruna
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            24 de julio de 2025
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Testing Unitario: Jest y Vitest" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Meta información -->
+                <div class="article-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Categoría:</strong> Testing y Calidad<br>
+                            <strong>Autor:</strong> hgaruna<br>
+                            <strong>Fecha:</strong> 24 de julio de 2025
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de lectura:</strong> 3 min<br>
+                            <strong>Palabras:</strong> 570
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    <span class="tag">JavaScript</span><span class="tag">React</span>
+                </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <main>
+  <h1>Testing Unitario: Jest y Vitest</h1>
+
+  <p>El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales de código, usualmente funciones o métodos.  Esto asegura la calidad, facilita la depuración y permite realizar cambios con mayor confianza.  En este artículo, compararemos dos frameworks de testing unitario populares en JavaScript: Jest y Vitest, analizando sus fortalezas y debilidades para ayudarte a elegir la mejor opción para tu proyecto.</p>
+
+  <h2>¿Qué es Jest?</h2>
+  <p>Jest es un framework de testing unitario creado por Facebook (Meta). Se caracteriza por su facilidad de uso, configuración sencilla y amplia gama de funcionalidades integradas.  No requiere mucha configuración adicional y se integra bien con proyectos React.</p>
+  <ul>
+    <li><strong>Ventajas:</strong></li>
+    <ul>
+      <li>Configuración sencilla y rápida.</li>
+      <li>Mocking integrado y potente.</li>
+      <li>Buena documentación y gran comunidad.</li>
+      <li>Integración nativa con React.</li>
+    </ul>
+    <li><strong>Desventajas:</strong></li>
+    <ul>
+      <li>Puede ser lento para grandes proyectos.</li>
+      <li>El consumo de memoria puede ser elevado.</li>
+    </ul>
+  </ul>
+
+  <h2>¿Qué es Vitest?</h2>
+  <p>Vitest es un framework de testing unitario relativamente nuevo, inspirado en Vite y Jest.  Aprovecha las ventajas de Vite, un build tool extremadamente rápido, para ofrecer una experiencia de testing mucho más veloz, especialmente en proyectos grandes y complejos.  Se enfoca en la velocidad y la compatibilidad con los ecosistemas de Vue y Vite.</p>
+  <ul>
+    <li><strong>Ventajas:</strong></li>
+    <ul>
+      <li>Velocidad excepcional, especialmente en proyectos grandes.</li>
+      <li>Bajo consumo de memoria.</li>
+      <li>Buena compatibilidad con Vite y Vue.</li>
+      <li>API similar a Jest, facilitando la transición.</li>
+    </ul>
+    <li><strong>Desventajas:</strong></li>
+    <ul>
+      <li>Comunidad más pequeña que Jest.</li>
+      <li>Menos plugins disponibles comparado con Jest.</li>
+    </ul>
+  </ul>
+
+
+  <h2>Comparativa: Jest vs. Vitest</h2>
+  <table>
+    <tr>
+      <th>Característica</th>
+      <th>Jest</th>
+      <th>Vitest</th>
+    </tr>
+    <tr>
+      <td>Velocidad</td>
+      <td>Moderada a lenta (dependiendo del tamaño del proyecto)</td>
+      <td>Muy rápida</td>
+    </tr>
+    <tr>
+      <td>Consumo de memoria</td>
+      <td>Alto</td>
+      <td>Bajo</td>
+    </tr>
+    <tr>
+      <td>Configuración</td>
+      <td>Sencilla</td>
+      <td>Sencilla</td>
+    </tr>
+    <tr>
+      <td>Documentación</td>
+      <td>Excelente</td>
+      <td>Buena y en constante mejora</td>
+    </tr>
+    <tr>
+      <td>Tamaño de la comunidad</td>
+      <td>Grande y activa</td>
+      <td>Creciente</td>
+    </tr>
+  </table>
+
+  <h2>Ejemplo de Test con Jest</h2>
+  <p>Aquí hay un ejemplo simple de una función y su test unitario usando Jest:</p>
+  <pre>
+<code>
+// suma.js
+function suma(a, b) {
+  return a + b;
+}
+module.exports = suma;
+
+// suma.test.js
+const suma = require('./suma');
+
+test('suma de dos números', () => {
+  expect(suma(2, 3)).toBe(5);
+});
+</code>
+  </pre>
+
+  <h2>Ejemplo de Test con Vitest</h2>
+  <p>El mismo ejemplo, pero usando Vitest:</p>
+  <pre>
+<code>
+// suma.js
+function suma(a, b) {
+  return a + b;
+}
+export default suma;
+
+// suma.test.ts
+import { describe, expect, it } from 'vitest';
+import suma from './suma';
+
+describe('suma', () => {
+  it('suma de dos números', () => {
+    expect(suma(2, 3)).toBe(5);
+  });
+});
+</code>
+  </pre>
+
+
+  <h2>Consejos para escribir buenos tests unitarios</h2>
+  <ul>
+    <li>Escribir tests claros y concisos.</li>
+    <li>Usar nombres descriptivos para los tests.</li>
+    <li>Cubrir diferentes casos de uso, incluyendo casos límite y excepciones.</li>
+    <li>Mantener los tests independientes entre sí.</li>
+    <li>Utilizar mocking para aislar las unidades de código que se están probando.</li>
+  </ul>
+
+  <h2>Conclusión</h2>
+  <p>Tanto Jest como Vitest son excelentes frameworks de testing unitario para JavaScript.  Jest ofrece una gran madurez, una comunidad robusta y una amplia gama de funcionalidades.  Vitest, por su parte, destaca por su velocidad y bajo consumo de recursos, siendo una excelente opción para proyectos grandes y complejos. La elección entre uno u otro dependerá de las necesidades específicas de tu proyecto y tus preferencias personales. Si la velocidad es crucial y trabajas con Vite o Vue, Vitest es una opción muy atractiva. Si necesitas una solución estable y con una comunidad enorme, Jest sigue siendo una gran elección.</p>
+</main>
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Funciones de compartir
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Testing Unitario: Jest y Vitest');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('Testing Unitario: Jest y Vitest');
+            const summary = encodeURIComponent('El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Testing Unitario: Jest y Vitest - El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                link.href = '#';
+            });
+        });
+    </script>
+</body>
+</html> 

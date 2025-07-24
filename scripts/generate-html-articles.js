@@ -23,7 +23,7 @@ const articleTemplate = (article) => `<!DOCTYPE html>
     <meta property="og:title" content="${article.seo_title || article.title}">
     <meta property="og:description" content="${article.seo_description || article.summary}">
     <meta property="og:image" content="${article.image}">
-    <meta property="og:url" content="https://service.hgaruna.org/blog/${article.slug}">
+    <meta property="og:url" content="https://service.hgaruna.org/public/blog/${article.slug}">
     <meta property="og:type" content="article">
     
     <!-- Twitter Card -->
@@ -56,7 +56,7 @@ const articleTemplate = (article) => `<!DOCTYPE html>
       "dateModified": "${article.date}",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://service.hgaruna.org/blog/${article.slug}"
+        "@id": "https://service.hgaruna.org/public/blog/${article.slug}"
       }
     }
     </script>
@@ -168,7 +168,7 @@ const articleTemplate = (article) => `<!DOCTYPE html>
                         <a class="nav-link" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog">Blog IA</a>
+                        <a class="nav-link" href="/public/blog">Blog IA</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contacto">Contacto</a>
@@ -187,7 +187,7 @@ const articleTemplate = (article) => `<!DOCTYPE html>
                     <nav aria-label="breadcrumb" class="mb-4">
                         <ol class="breadcrumb justify-content-center">
                             <li class="breadcrumb-item"><a href="/" class="text-white">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="/blog" class="text-white">Blog IA</a></li>
+                            <li class="breadcrumb-item"><a href="/public/blog" class="text-white">Blog IA</a></li>
                             <li class="breadcrumb-item active text-white" aria-current="page">${article.title}</li>
                         </ol>
                     </nav>
@@ -273,9 +273,9 @@ const articleTemplate = (article) => `<!DOCTYPE html>
 
                 <!-- Back to Blog -->
                 <div class="text-center mt-5">
-                    <a href="/blog" class="btn btn-primary">
+                    <a href="/public/blog" class="btn btn-primary">
                         <i class="fas fa-arrow-left me-2"></i>
-                        Volver al blog
+                        Volver al public/blog
                     </a>
                 </div>
             </div>
@@ -344,7 +344,7 @@ async function generateHTMLArticles() {
     console.log('🚀 Iniciando generación de artículos HTML...\n');
     
     const articlesDir = path.join(__dirname, '../src/content/articulos');
-    const outputDir = path.join(__dirname, '../public/blog');
+    const outputDir = path.join(__dirname, '../public/public/blog');
     
     // Crear directorio de salida si no existe
     if (!fs.existsSync(outputDir)) {
@@ -415,7 +415,7 @@ async function generateHTMLArticles() {
     console.log(`   ❌ Errores: ${errorCount}`);
     console.log(`   📁 Ubicación: ${outputDir}`);
     
-    // Crear archivo index.html para el blog
+    // Crear archivo index.html para el public/blog
     createBlogIndex(outputDir);
     
   } catch (error) {
@@ -423,7 +423,7 @@ async function generateHTMLArticles() {
   }
 }
 
-// Función para crear index del blog
+// Función para crear index del public/blog
 function createBlogIndex(outputDir) {
   try {
     const indexTemplate = `<!DOCTYPE html>
@@ -433,7 +433,7 @@ function createBlogIndex(outputDir) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog IA - Artículos Generados por Inteligencia Artificial | hgaruna</title>
     <meta name="description" content="Descubre los últimos artículos sobre programación y desarrollo web generados por inteligencia artificial">
-    <meta name="keywords" content="blog, IA, programación, desarrollo web, inteligencia artificial">
+    <meta name="keywords" content="public/blog, IA, programación, desarrollo web, inteligencia artificial">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -462,7 +462,7 @@ function createBlogIndex(outputDir) {
                         <a class="nav-link" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/blog">Blog IA</a>
+                        <a class="nav-link active" href="/public/blog">Blog IA</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contacto">Contacto</a>
@@ -604,10 +604,10 @@ function createBlogIndex(outputDir) {
     
     const indexPath = path.join(outputDir, 'index.html');
     fs.writeFileSync(indexPath, indexTemplate, 'utf8');
-    console.log('✅ Index del blog creado:', indexPath);
+    console.log('✅ Index del public/blog creado:', indexPath);
     
   } catch (error) {
-    console.error('❌ Error creando index del blog:', error.message);
+    console.error('❌ Error creando index del public/blog:', error.message);
   }
 }
 

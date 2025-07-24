@@ -7,7 +7,7 @@ const axios = require('axios');
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const TEMPLATE_PATH = path.resolve(__dirname, '../templates/article-template.html');
-const OUTPUT_DIR = path.resolve(__dirname, '../public/blog');
+const OUTPUT_DIR = path.resolve(__dirname, '../public/public/blog');
 
 if (!GEMINI_API_KEY) {
   console.error('❌ Falta la variable de entorno GEMINI_API_KEY');
@@ -104,7 +104,7 @@ async function regenerateArticle(filename) {
       '{{SEO_TITLE}}': title,
       '{{SEO_DESCRIPTION}}': summary.substring(0, 160),
       '{{SEO_KEYWORDS}}': tags.join(', '),
-      '{{CANONICAL_URL}}': `https://hgaruna.com/blog/${slug}`,
+      '{{CANONICAL_URL}}': `https://hgaruna.com/public/blog/${slug}`,
       '{{TAGS_HTML}}': tags.map(tag => `<span class="tag">${tag}</span>`).join(''),
       '{{READING_TIME}}': readingTime.toString(),
       '{{WORD_COUNT}}': wordCount.toString()

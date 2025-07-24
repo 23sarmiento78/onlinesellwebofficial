@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const ARTICLES_DIR = path.resolve(__dirname, '../public/blog');
+const ARTICLES_DIR = path.resolve(__dirname, '../public/public/blog');
 const SITEMAP_PATH = path.resolve(__dirname, '../public/optimized-sitemap.xml');
 const SITE_URL = 'https://service.hgaruna.org';
 
@@ -31,7 +31,7 @@ function generateSitemap(urls) {
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>${SITE_URL}/blog</loc>
+    <loc>${SITE_URL}/public/blog</loc>
     <lastmod>${now}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -48,7 +48,7 @@ function generateSitemap(urls) {
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- Artículos del blog -->
+  <!-- Artículos del public/blog -->
 ${urls
     .map(
       url => `  <url>
@@ -65,7 +65,7 @@ ${urls
 function main() {
   try {
     const slugs = getArticleSlugs();
-    const urls = slugs.map(slug => `${SITE_URL}/blog/${slug}`);
+    const urls = slugs.map(slug => `${SITE_URL}/public/blog/${slug}`);
     
     console.log(`📝 Encontrados ${slugs.length} artículos HTML`);
     console.log('📄 URLs de artículos:');

@@ -108,7 +108,7 @@ LINKEDIN_CLIENT_SECRET = "tu-linkedin-client-secret"
 
 ### Almacenamiento de Datos
 Los datos se almacenan en archivos JSON en `public/data/`:
-- `articles.json` - Artículos del blog
+- `articles.json` - Artículos del public/blog
 - `forum-posts.json` - Publicaciones del foro
 - `linkedin-posts.json` - Registro de publicaciones en LinkedIn
 

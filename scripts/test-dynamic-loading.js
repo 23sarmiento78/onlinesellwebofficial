@@ -4,14 +4,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const BLOG_DIR = path.resolve(__dirname, '../public/blog');
+const BLOG_DIR = path.resolve(__dirname, '../public/public/blog');
 
 function testDynamicLoading() {
   console.log('🧪 Probando carga dinámica de artículos...');
   console.log(`📁 Directorio: ${BLOG_DIR}`);
   
   if (!fs.existsSync(BLOG_DIR)) {
-    console.log('❌ El directorio blog no existe');
+    console.log('❌ El directorio public/blog no existe');
     return;
   }
   

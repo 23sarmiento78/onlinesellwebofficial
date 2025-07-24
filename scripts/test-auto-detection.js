@@ -4,14 +4,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const BLOG_DIR = path.resolve(__dirname, '../public/blog');
+const BLOG_DIR = path.resolve(__dirname, '../public/public/blog');
 
 function testAutoDetection() {
   console.log('🧪 Probando detección automática de artículos...');
   console.log(`📁 Directorio: ${BLOG_DIR}`);
   
   if (!fs.existsSync(BLOG_DIR)) {
-    console.log('❌ El directorio blog no existe');
+    console.log('❌ El directorio public/blog no existe');
     return;
   }
   
@@ -128,7 +128,7 @@ function testAutoDetection() {
   
   console.log(`\n🚀 Conclusión:`);
   console.log(`  La función ahora es completamente automática.`);
-  console.log(`  Cuando se genere un nuevo artículo, aparecerá automáticamente en el blog.`);
+  console.log(`  Cuando se genere un nuevo artículo, aparecerá automáticamente en el public/blog.`);
   console.log(`  No necesitas editar nada manualmente.`);
 }
 

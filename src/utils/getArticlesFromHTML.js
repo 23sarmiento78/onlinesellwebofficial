@@ -106,6 +106,11 @@ function extractArticleMetadata(html, filename) {
   }
   if (!summary) summary = 'Artículo sobre desarrollo web y programación.';
 
+  // Categoría dinámica desde meta tag si existe
+  let category = 'Desarrollo Web';
+  const metaCat = html.match(/<meta[^>]*name=["']category["'][^>]*content=["']([^"']+)["']/i);
+  if (metaCat) category = metaCat[1];
+
   // Autor y otros campos fijos
   return {
     title,
@@ -115,7 +120,7 @@ function extractArticleMetadata(html, filename) {
     author: 'hgaruna',
     image: '/logos-he-imagenes/programacion.jpeg',
     tags: ['Desarrollo Web', 'Programación'],
-    category: 'Desarrollo Web',
+    category,
     htmlFile: filename
   };
 }

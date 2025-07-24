@@ -15,7 +15,7 @@ const SITE_URL = 'https://service.hgaruna.org/';
 const SUBMISSION_URLS = {
   google: `https://www.google.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`,
   bing: `https://www.bing.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`,
-  yandex: `https://blogs.yandex.com/pings/?status=success&url=${encodeURIComponent(SITEMAP_URL)}`,
+  yandex: `https://public/blogs.yandex.com/pings/?status=success&url=${encodeURIComponent(SITEMAP_URL)}`,
   duckduckgo: `https://duckduckgo.com/?q=site:${encodeURIComponent(SITE_URL)}`
 };
 

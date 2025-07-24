@@ -14,7 +14,7 @@ Más allá de las palabras clave, entender la intención detrás de la búsqueda
 Google ha enfatizado la importancia de la experiencia de página. Asegúrate de que tu sitio tenga un buen rendimiento en los Core Web Vitals (Largest Contentful Paint, First Input Delay, Cumulative Layout Shift). Optimiza la velocidad de carga, la interactividad y la estabilidad visual para ofrecer una experiencia de usuario superior.
 
 ## 3. Contenido de Larga Forma y Profundidad
-Los algoritmos de búsqueda favorecen el contenido exhaustivo y de alta calidad. Desarrolla artículos de blog, guías y recursos que cubran un tema en profundidad, abordando todas las facetas posibles. Esto no solo mejora tu SEO, sino que también establece tu autoridad en el nicho.
+Los algoritmos de búsqueda favorecen el contenido exhaustivo y de alta calidad. Desarrolla artículos de public/blog, guías y recursos que cubran un tema en profundidad, abordando todas las facetas posibles. Esto no solo mejora tu SEO, sino que también establece tu autoridad en el nicho.
 
 ## 4. SEO Semántico y Entidades
 El SEO ya no se trata solo de palabras clave individuales, sino de la comprensión de la relación entre conceptos (entidades). Utiliza el SEO semántico para contextualizar tu contenido, lo que permite a los motores de búsqueda entender mejor el significado y la relevancia de tu página.

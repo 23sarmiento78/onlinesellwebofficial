@@ -39,8 +39,6 @@ export default function NavBar() {
           <div className="navbar-menu desktop-menu">
             <ul className="main-nav">
               <li><a href="/" className="nav-link">Inicio</a></li>
-              <li><a href="/planes/" className="nav-link">Planes</a></li>
-              <li><a href="/legal/" className="nav-link">Legal</a></li>
               <li><a href="/blog" className="nav-link">Blog IA</a></li>
             </ul>
             <div className="nav-actions">
@@ -79,8 +77,6 @@ export default function NavBar() {
         <div className="sidebar-content">
           <ul className="sidebar-menu">
             <li><a href="/" onClick={handleLinkClick}>Inicio</a></li>
-            <li><a href="/planes/" onClick={handleLinkClick}>Planes</a></li>
-            <li><a href="/legal/" onClick={handleLinkClick}>Legal</a></li>
             <li><a href="/blog" onClick={handleLinkClick}>Blog IA</a></li>
           </ul>
           

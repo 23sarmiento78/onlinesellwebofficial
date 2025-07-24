@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="category" content="Seguridad">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharding y Particionamiento de Bases de Datos</title>
+    <meta name="description" content="En el mundo del desarrollo de software, a medida que las bases de datos crecen exponencialmente, la gestión eficiente de los datos se convierte en un ...">
+    <meta name="keywords" content="">
+    <meta name="author" content="hgaruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hgaruna.com/public/blog/sharding-y-particionamiento-de-bases-de-datos">
+    <meta property="og:title" content="Sharding y Particionamiento de Bases de Datos">
+    <meta property="og:description" content="En el mundo del desarrollo de software, a medida que las bases de datos crecen exponencialmente, la gestión eficiente de los datos se convierte en un ...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hgaruna.com/public/blog/sharding-y-particionamiento-de-bases-de-datos">
+    <meta property="twitter:title" content="Sharding y Particionamiento de Bases de Datos">
+    <meta property="twitter:description" content="En el mundo del desarrollo de software, a medida que las bases de datos crecen exponencialmente, la gestión eficiente de los datos se convierte en un ...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hgaruna.com/public/blog/sharding-y-particionamiento-de-bases-de-datos">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .article-meta {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .article-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .tags-container {
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
+        @media (max-width: 768px) {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
+            .article-header {
+                padding: 2rem 0;
+            }
+            
+            .article-content h1 {
+                font-size: 2rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/public/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
+    </div>
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark fs-6">Bases de Datos</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">Sharding y Particionamiento de Bases de Datos</h1>
+                    <p class="lead mb-4">En el mundo del desarrollo de software, a medida que las bases de datos crecen exponencialmente, la gestión eficiente de los datos se convierte en un ...</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por hgaruna
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            24 de julio de 2025
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Sharding y Particionamiento de Bases de Datos" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Meta información -->
+                <div class="article-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Categoría:</strong> Bases de Datos<br>
+                            <strong>Autor:</strong> hgaruna<br>
+                            <strong>Fecha:</strong> 24 de julio de 2025
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de lectura:</strong> 4 min<br>
+                            <strong>Palabras:</strong> 708
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    
+                </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <main>
+  <h1>Sharding y Particionamiento de Bases de Datos</h1>
+  <p>En el mundo del desarrollo de software, a medida que las bases de datos crecen exponencialmente, la gestión eficiente de los datos se convierte en un desafío crucial.  Sharding y particionamiento son dos estrategias esenciales para escalar bases de datos y mejorar el rendimiento. Aunque a menudo se utilizan indistintamente, presentan diferencias significativas en su implementación y objetivos. Este artículo explorará en detalle ambos conceptos, destacando sus ventajas, desventajas y casos de uso.</p>
+
+  <h2>¿Qué es el Sharding?</h2>
+  <p>El sharding, o fragmentación horizontal, implica dividir una base de datos en múltiples bases de datos más pequeñas, llamadas shards. Cada shard contiene una parte del conjunto de datos completo.  Las consultas se dirigen a los shards relevantes, distribuyendo la carga y mejorando la escalabilidad horizontal.  A diferencia del particionamiento, el sharding implica la distribución física de los datos a través de múltiples servidores.</p>
+  <ul>
+    <li><strong>Ventajas:</strong> Escalabilidad horizontal significativamente mejorada, alta disponibilidad, reducción de la latencia para consultas.</li>
+    <li><strong>Desventajas:</strong> Complejidad en la gestión de la distribución de datos, implementación más compleja que el particionamiento,  requiere un esquema de enrutamiento para dirigir consultas al shard correcto.</li>
+  </ul>
+  <h3>Ejemplo de Implementación de Sharding</h3>
+  <p>Imagine una aplicación de redes sociales con millones de usuarios.  Podríamos shard la base de datos por ubicación geográfica.  Los usuarios de Norteamérica podrían residir en un shard, los de Europa en otro, y así sucesivamente.  Las consultas relacionadas con un usuario específico se dirigirían al shard correspondiente.</p>
+
+
+  <h2>¿Qué es el Particionamiento?</h2>
+  <p>El particionamiento, o fragmentación vertical, implica dividir una única base de datos en particiones lógicas o físicas basadas en criterios específicos, como rangos de fechas, valores de atributos o hashing.  A diferencia del sharding, todas las particiones residen en el mismo servidor.</p>
+  <ul>
+    <li><strong>Ventajas:</strong> Mejora el rendimiento de las consultas, facilita la gestión de datos históricos, simplifica las copias de seguridad y restauraciones.</li>
+    <li><strong>Desventajas:</strong> Escalabilidad limitada,  puede requerir optimización de consultas para aprovechar las particiones.</li>
+  </ul>
+  <h3>Tipos de Particionamiento</h3>
+  <ul>
+    <li><strong>Particionamiento por rango:</strong>  Las particiones se definen por un rango de valores de una columna específica (ej: fechas).</li>
+    <li><strong>Particionamiento por lista:</strong> Las particiones se definen por una lista de valores de una columna específica (ej: IDs de clientes).</li>
+    <li><strong>Particionamiento por hash:</strong> Las particiones se definen mediante una función hash aplicada a una columna específica, distribuyendo los datos de manera más uniforme.</li>
+  </ul>
+
+
+  <h2>Sharding vs. Particionamiento: Comparación</h2>
+  <p>La principal diferencia radica en la escala. El sharding se enfoca en la escalabilidad horizontal, distribuyendo la carga a través de múltiples servidores. El particionamiento se enfoca en mejorar el rendimiento dentro de un solo servidor.  El sharding es más complejo de implementar y gestionar, mientras que el particionamiento es más sencillo, pero con menos capacidad de escalabilidad.</p>
+  <table border="1">
+    <tr>
+      <th>Característica</th>
+      <th>Sharding</th>
+      <th>Particionamiento</th>
+    </tr>
+    <tr>
+      <td>Escalabilidad</td>
+      <td>Horizontal</td>
+      <td>Vertical (limitada)</td>
+    </tr>
+    <tr>
+      <td>Complejidad</td>
+      <td>Alta</td>
+      <td>Baja</td>
+    </tr>
+    <tr>
+      <td>Ubicación de datos</td>
+      <td>Múltiples servidores</td>
+      <td>Un solo servidor</td>
+    </tr>
+  </table>
+
+
+  <h2>Consideraciones para la Implementación</h2>
+  <p>Antes de implementar sharding o particionamiento, es crucial considerar:</p>
+  <ul>
+    <li>El tamaño actual y proyectado de la base de datos.</li>
+    <li>El patrón de acceso a los datos.</li>
+    <li>Los requisitos de rendimiento.</li>
+    <li>La complejidad de la implementación y mantenimiento.</li>
+  </ul>
+  <p>Un análisis cuidadoso de estos factores ayudará a determinar la estrategia más adecuada para su aplicación específica.</p>
+
+
+  <h2>Ejemplo de Particionamiento con MySQL</h2>
+  <p>Aquí hay un ejemplo simple de cómo crear una partición por rango en MySQL:</p>
+  <pre>
+    <code>
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    order_date DATE,
+    amount DECIMAL(10, 2)
+)
+PARTITION BY RANGE (YEAR(order_date)) (
+    PARTITION p0 VALUES LESS THAN (2022),
+    PARTITION p1 VALUES LESS THAN (2023),
+    PARTITION p2 VALUES LESS THAN (2024),
+    PARTITION p3 VALUES LESS THAN MAXVALUE
+);
+    </code>
+  </pre>
+  <p>Este código crea una tabla `orders` particionada por año.  Cada partición contendrá los datos de un año específico.</p>
+
+
+  <h2>Conclusión</h2>
+  <p>Tanto el sharding como el particionamiento son técnicas valiosas para gestionar bases de datos de gran tamaño. La elección entre ellos depende de los requisitos específicos de la aplicación.  Mientras el sharding ofrece una escalabilidad horizontal superior, el particionamiento proporciona una solución más sencilla para mejorar el rendimiento dentro de un único servidor.  Una comprensión profunda de las ventajas y desventajas de cada técnica es crucial para tomar decisiones informadas y optimizar el rendimiento de la base de datos.</p>
+</main>
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Funciones de compartir
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Sharding y Particionamiento de Bases de Datos');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('Sharding y Particionamiento de Bases de Datos');
+            const summary = encodeURIComponent('En el mundo del desarrollo de software, a medida que las bases de datos crecen exponencialmente, la gestión eficiente de los datos se convierte en un ...');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Sharding y Particionamiento de Bases de Datos - En el mundo del desarrollo de software, a medida que las bases de datos crecen exponencialmente, la gestión eficiente de los datos se convierte en un ...');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                link.href = '#';
+            });
+        });
+    </script>
+</body>
+</html> 

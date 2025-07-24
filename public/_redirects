@@ -1,5 +1,5 @@
-# Permitir acceso directo al índice de artículos del blog
-/blog/index.json /blog/index.json 200
+# Permitir acceso directo al índice de artículos del public/blog
+/public/blog/index.json /public/blog/index.json 200
 # Archivos estáticos importantes para SEO
 /robots.txt /robots.txt 200
 /sitemap.xml /sitemap.xml 200
