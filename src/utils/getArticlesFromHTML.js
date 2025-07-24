@@ -47,30 +47,8 @@ async function getHTMLFilesList() {
   }
   
   // Solo usar fallback si Netlify no funciona
-  console.log('🔄 Netlify no disponible, usando fallback...');
-  return getKnownHTMLFiles();
-}
-
-function getKnownHTMLFiles() {
-  // Lista completa de archivos HTML en public/blog (todos los 12 que existen)
-  const knownFiles = [
-    '2025-07-18-react-19-nuevas-caracteristicas-y-mejoras.html',
-    '2025-07-19-angular-18-nuevas-funcionalidades.html',
-    '2025-07-19-aws-lambda-computacin-sin-servidores.html',
-    '2025-07-19-deno-vs-nodejs-cul-elegir.html',
-    '2025-07-19-low-codeno-code-plataformas-de-desarrollo.html',
-    '2025-07-19-machine-learning-para-desarrolladores-web.html',
-    '2025-07-19-microfrontends-arquitectura-escalable.html',
-    '2025-07-19-quantum-computing-el-futuro-de-la-computacin.html',
-    '2025-07-19-rate-limiting-proteccin-de-apis.html',
-    '2025-07-19-static-analysis-eslint-y-sonarqube.html',
-    '2025-07-19-web-performance-core-web-vitals.html',
-    '2025-07-19-websockets-vs-serversent-events-choosing-the-right.html'
-  ];
-  
-  console.log(`📄 Usando lista completa de archivos conocidos: ${knownFiles.length}`);
-  console.log('📄 Archivos incluidos:', knownFiles);
-  return knownFiles;
+  console.log('🔄 Netlify no disponible, no se pueden obtener archivos HTML dinámicamente.');
+  return [];
 }
 
 async function loadArticlesFromFiles(files) {
