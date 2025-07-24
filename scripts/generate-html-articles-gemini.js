@@ -243,10 +243,15 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
     const summary = summaryMatch ? summaryMatch[1].substring(0, 150) + '...' : `Artículo sobre ${topic}`;
     
     // Generar slug del título
-    const slug = title.toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '')
+    // Slug corto y SEO, sin fecha
+    // Slug muy corto para el nombre del archivo
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
       .replace(/\s+/g, '-')
-      .substring(0, 50);
+      .replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .substring(0, 20);
     
     // Generar tags basados en el contenido
     const tags = [];
@@ -305,7 +310,7 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
       content: template,
       title,
       slug,
-      filename: `${today}-${slug}.html`
+      filename: `${slug}.html`
     };
     
   } catch (error) {
@@ -325,38 +330,38 @@ async function main() {
       console.log('📁 Directorio de artículos HTML creado');
     }
 
-    const today = new Date().toISOString().slice(0, 10);
-    const articlesPerCategory = 2; // Puedes ajustar cuántos por categoría
     const generatedArticles = [];
+    // Seleccionar 2 categorías aleatorias
+    const allCategories = Object.keys(categoriesToTopics);
+    const shuffledCategories = allCategories.sort(() => 0.5 - Math.random());
+    const selectedCategories = shuffledCategories.slice(0, 2);
 
-    for (const [category, topics] of Object.entries(categoriesToTopics)) {
-      const selectedTopics = getRandomTopicsFromCategory(category, articlesPerCategory);
-      console.log(`\n📅 Generando ${selectedTopics.length} artículos para la categoría: ${category}`);
-      for (let i = 0; i < selectedTopics.length; i++) {
-        const topic = selectedTopics[i];
-        try {
-          const { content, filename, title, slug } = await generateArticleHTML(topic, category);
-          const filepath = path.join(OUTPUT_DIR, filename);
+    for (const category of selectedCategories) {
+      const topics = categoriesToTopics[category];
+      // Seleccionar 1 tema aleatorio por categoría
+      const shuffledTopics = topics.sort(() => 0.5 - Math.random());
+      const topic = shuffledTopics[0];
+      console.log(`\n📅 Generando artículo para la categoría: ${category}`);
+      try {
+        const { content, filename, title, slug } = await generateArticleHTML(topic, category);
+        const filepath = path.join(OUTPUT_DIR, filename);
 
-          // Verificar si el archivo ya existe
-          if (fs.existsSync(filepath)) {
-            console.log(`⚠️  Archivo ${filename} ya existe, saltando...`);
-            continue;
-          }
-
-          fs.writeFileSync(filepath, content);
-          generatedArticles.push({ filename, title, slug, category });
-          console.log(`✅ ${filename} guardado`);
-
-          // Pausa entre artículos para evitar rate limiting
-          if (i < selectedTopics.length - 1) {
-            await new Promise(resolve => setTimeout(resolve, 3000));
-          }
-
-        } catch (error) {
-          console.error(`❌ Error con artículo [${category}] ${i + 1}:`, error.message);
-          // Continuar con el siguiente artículo
+        // Verificar si el archivo ya existe
+        if (fs.existsSync(filepath)) {
+          console.log(`⚠️  Archivo ${filename} ya existe, saltando...`);
+          continue;
         }
+
+        fs.writeFileSync(filepath, content);
+        generatedArticles.push({ filename, title, slug, category });
+        console.log(`✅ ${filename} guardado`);
+
+        // Pausa entre artículos para evitar rate limiting
+        await new Promise(resolve => setTimeout(resolve, 3000));
+
+      } catch (error) {
+        console.error(`❌ Error con artículo [${category}]:`, error.message);
+        // Continuar con el siguiente artículo
       }
     }
 

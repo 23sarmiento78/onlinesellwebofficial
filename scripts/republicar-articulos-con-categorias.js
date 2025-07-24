@@ -47,11 +47,33 @@ function republicar() {
     // Asignar categoría cíclicamente
     const category = CATEGORIES[i % CATEGORIES.length];
     const updated = updateCategoryMeta(html, category);
-    fs.writeFileSync(filePath, updated, 'utf-8');
+
+    // Extraer título del artículo
+    let titleMatch = updated.match(/<h1[^>]*>([^<]+)<\/h1>/i) || updated.match(/<h2[^>]*>([^<]+)<\/h2>/i);
+    let title = titleMatch ? titleMatch[1] : file.replace(/\.html$/, '');
+    // Generar slug corto
+    let slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .substring(0, 20);
+    let newFileName = slug + '.html';
+    let newFilePath = path.join(BLOG_DIR, newFileName);
+
+    // Renombrar archivo si el nombre cambia
+    if (newFileName !== file) {
+      fs.writeFileSync(newFilePath, updated, 'utf-8');
+      fs.unlinkSync(filePath);
+      console.log(`✅ ${file} → ${newFileName} | categoría: ${category}`);
+    } else {
+      fs.writeFileSync(filePath, updated, 'utf-8');
+      console.log(`✅ ${file} (sin cambio de nombre) | categoría: ${category}`);
+    }
     count++;
-    console.log(`✅ ${file} → categoría: ${category}`);
   });
-  console.log(`\nListo. ${count} artículos actualizados con nuevas categorías.`);
+  console.log(`\nListo. ${count} artículos renombrados y actualizados con nuevas categorías.`);
 }
 
 republicar();

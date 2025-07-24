@@ -5,28 +5,28 @@
     <meta name="category" content="Backend">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XSS Prevention: Cross-site scripting</title>
-    <meta name="description" content="Cross-site scripting (XSS) es una vulnerabilidad de seguridad web que permite a los atacantes inyectar código cliente malicioso (generalmente JavaScri...">
-    <meta name="keywords" content="JavaScript, React, Angular">
+    <title>Testing Unitario: Jest y Vitest</title>
+    <meta name="description" content="El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...">
+    <meta name="keywords" content="JavaScript, React">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://hgaruna.com/public/blog/xss-prevention-crosssite-scripting">
-    <meta property="og:title" content="XSS Prevention: Cross-site scripting">
-    <meta property="og:description" content="Cross-site scripting (XSS) es una vulnerabilidad de seguridad web que permite a los atacantes inyectar código cliente malicioso (generalmente JavaScri...">
+    <meta property="og:url" content="https://hgaruna.com/public/blog/testing-unitario-jest-y-vitest">
+    <meta property="og:title" content="Testing Unitario: Jest y Vitest">
+    <meta property="og:description" content="El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...">
     <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://hgaruna.com/public/blog/xss-prevention-crosssite-scripting">
-    <meta property="twitter:title" content="XSS Prevention: Cross-site scripting">
-    <meta property="twitter:description" content="Cross-site scripting (XSS) es una vulnerabilidad de seguridad web que permite a los atacantes inyectar código cliente malicioso (generalmente JavaScri...">
+    <meta property="twitter:url" content="https://hgaruna.com/public/blog/testing-unitario-jest-y-vitest">
+    <meta property="twitter:title" content="Testing Unitario: Jest y Vitest">
+    <meta property="twitter:description" content="El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...">
     <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://hgaruna.com/public/blog/xss-prevention-crosssite-scripting">
+    <link rel="canonical" href="https://hgaruna.com/public/blog/testing-unitario-jest-y-vitest">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -228,10 +228,10 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto text-center">
                     <div class="mb-3">
-                        <span class="badge bg-light text-dark fs-6">Seguridad</span>
+                        <span class="badge bg-light text-dark fs-6">Testing y Calidad</span>
                     </div>
-                    <h1 class="display-4 fw-bold mb-3">XSS Prevention: Cross-site scripting</h1>
-                    <p class="lead mb-4">Cross-site scripting (XSS) es una vulnerabilidad de seguridad web que permite a los atacantes inyectar código cliente malicioso (generalmente JavaScri...</p>
+                    <h1 class="display-4 fw-bold mb-3">Testing Unitario: Jest y Vitest</h1>
+                    <p class="lead mb-4">El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...</p>
                     <div class="d-flex justify-content-center align-items-center">
                         <small class="me-4">
                             <i class="fas fa-user me-1"></i>
@@ -257,95 +257,158 @@
             <div class="col-lg-8 mx-auto">
                 <!-- Imagen destacada -->
                 <div class="text-center mb-4">
-                    <img src="/logos-he-imagenes/programacion.jpeg" alt="XSS Prevention: Cross-site scripting" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Testing Unitario: Jest y Vitest" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
                 </div>
                 
                 <!-- Meta información -->
                 <div class="article-meta">
                     <div class="row">
                         <div class="col-md-6">
-                            <strong>Categoría:</strong> Seguridad<br>
+                            <strong>Categoría:</strong> Testing y Calidad<br>
                             <strong>Autor:</strong> hgaruna<br>
                             <strong>Fecha:</strong> 24 de julio de 2025
                         </div>
                         <div class="col-md-6">
-                            <strong>Tiempo de lectura:</strong> 4 min<br>
-                            <strong>Palabras:</strong> 765
+                            <strong>Tiempo de lectura:</strong> 3 min<br>
+                            <strong>Palabras:</strong> 570
                         </div>
                     </div>
                 </div>
                 
                 <!-- Tags -->
                 <div class="tags-container">
-                    <span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">Angular</span>
+                    <span class="tag">JavaScript</span><span class="tag">React</span>
                 </div>
                 
                 <!-- Contenido del artículo -->
                 <article class="article-content">
                     <main>
-  <h1>XSS Prevention: Cross-site scripting</h1>
-  <p>Cross-site scripting (XSS) es una vulnerabilidad de seguridad web que permite a los atacantes inyectar código cliente malicioso (generalmente JavaScript) en páginas web que son vistas por otros usuarios.  Este código puede robar información sensible como cookies, credenciales de inicio de sesión, datos de formularios, o incluso redirigir al usuario a sitios maliciosos.  La prevención de XSS es crucial para proteger a los usuarios y mantener la integridad de una aplicación web.</p>
+  <h1>Testing Unitario: Jest y Vitest</h1>
 
-  <h2>Tipos de XSS</h2>
-  <p>Existen tres tipos principales de XSS:</p>
+  <p>El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales de código, usualmente funciones o métodos.  Esto asegura la calidad, facilita la depuración y permite realizar cambios con mayor confianza.  En este artículo, compararemos dos frameworks de testing unitario populares en JavaScript: Jest y Vitest, analizando sus fortalezas y debilidades para ayudarte a elegir la mejor opción para tu proyecto.</p>
+
+  <h2>¿Qué es Jest?</h2>
+  <p>Jest es un framework de testing unitario creado por Facebook (Meta). Se caracteriza por su facilidad de uso, configuración sencilla y amplia gama de funcionalidades integradas.  No requiere mucha configuración adicional y se integra bien con proyectos React.</p>
   <ul>
-    <li><strong>XSS Reflejado (Reflected):</strong> El código malicioso se refleja directamente desde la solicitud del usuario.  Por ejemplo, si un sitio web muestra los datos de entrada del usuario sin sanearlos adecuadamente, un atacante podría inyectar un script en un enlace o en un formulario y engañar a un usuario para que haga clic en él o lo envíe.</li>
-    <li><strong>XSS Almacenado (Stored):</strong> El código malicioso se almacena en el servidor, por ejemplo, en una base de datos.  Cuando un usuario accede al contenido que contiene el script malicioso, se ejecuta en su navegador.  Esto es común en foros, sistemas de comentarios o cualquier lugar donde los usuarios puedan publicar contenido.</li>
-    <li><strong>XSS Basado en DOM (DOM-based):</strong> El código malicioso se ejecuta manipulando el Document Object Model (DOM) del navegador del cliente, sin necesidad de que el servidor almacene el código.  Esto se puede lograr a través de JavaScript manipulando eventos o modificando los valores de los atributos.</li>
+    <li><strong>Ventajas:</strong></li>
+    <ul>
+      <li>Configuración sencilla y rápida.</li>
+      <li>Mocking integrado y potente.</li>
+      <li>Buena documentación y gran comunidad.</li>
+      <li>Integración nativa con React.</li>
+    </ul>
+    <li><strong>Desventajas:</strong></li>
+    <ul>
+      <li>Puede ser lento para grandes proyectos.</li>
+      <li>El consumo de memoria puede ser elevado.</li>
+    </ul>
   </ul>
 
-  <h2>Métodos de Prevención</h2>
-  <p>La prevención de XSS requiere un enfoque multicapa.  No hay una única solución mágica, sino una combinación de técnicas que deben implementarse.</p>
-  <h3>Sanitización de Entrada</h3>
-  <p>Es fundamental sanear toda la entrada del usuario antes de que se muestre en la página web.  Esto implica eliminar o codificar caracteres especiales que podrían ser interpretados como código HTML o JavaScript.  Diferentes lenguajes y frameworks ofrecen funciones para realizar esta sanitización.</p>
-  <p>Ejemplo de sanitización en PHP:</p>
-  <pre><code class="language-php">
-&lt;?php
-$input = htmlspecialchars($_GET['input'], ENT_QUOTES, 'UTF-8');
-echo "&lt;p&gt;Entrada sanitizada: " . $input . "&lt;/p&gt;";
-?&gt;
-  </code></pre>
-  <p>Este ejemplo utiliza <code>htmlspecialchars()</code> para convertir caracteres especiales en sus entidades HTML correspondientes, previniendo la ejecución de scripts.</p>
-
-  <h3>Salida Codificada</h3>
-  <p>Similar a la sanitización de entrada, la codificación de salida asegura que los datos se muestran correctamente sin que se ejecuten como código.  La codificación depende del contexto donde se muestra la salida.  Por ejemplo, para atributos HTML se debe usar codificación de atributos, mientras que para el contenido del cuerpo, se debe usar codificación de texto.</p>
-
-  <h3>Uso de Frameworks y Librerías</h3>
-  <p>Muchos frameworks modernos y librerías ofrecen mecanismos de protección contra XSS incorporados.  Utilizarlos correctamente puede simplificar significativamente el proceso de prevención.</p>
+  <h2>¿Qué es Vitest?</h2>
+  <p>Vitest es un framework de testing unitario relativamente nuevo, inspirado en Vite y Jest.  Aprovecha las ventajas de Vite, un build tool extremadamente rápido, para ofrecer una experiencia de testing mucho más veloz, especialmente en proyectos grandes y complejos.  Se enfoca en la velocidad y la compatibilidad con los ecosistemas de Vue y Vite.</p>
   <ul>
-    <li><strong>React:</strong> Usa el método <code>dangerouslySetInnerHTML</code> solo cuando sea absolutamente necesario y con extrema precaución.</li>
-    <li><strong>Angular:</strong> Utiliza la interpolación de datos de forma segura y evita la inyección directa de HTML.</li>
-    <li><strong>ASP.NET:</strong> Usa los métodos de codificación de salida proporcionados por el framework.</li>
-  </ul>
-
-
-  <h2>Configuración del Servidor</h2>
-  <p>Configurar correctamente el servidor web también es esencial para la prevención de XSS.  Esto incluye:</p>
-  <ul>
-    <li><strong>Configurar correctamente los encabezados HTTP:</strong> Usar el encabezado <code>Content-Security-Policy (CSP)</code> para controlar las fuentes de recursos que se pueden cargar en la página web.</li>
-    <li><strong>Activar el encabezado <code>X-XSS-Protection</code>:</strong>  Este encabezado indica al navegador que active su protección integrada contra XSS.</li>
-    <li><strong>Activar el encabezado <code>X-Frame-Options</code>:</strong>  Esto ayuda a prevenir ataques de clickjacking.</li>
+    <li><strong>Ventajas:</strong></li>
+    <ul>
+      <li>Velocidad excepcional, especialmente en proyectos grandes.</li>
+      <li>Bajo consumo de memoria.</li>
+      <li>Buena compatibilidad con Vite y Vue.</li>
+      <li>API similar a Jest, facilitando la transición.</li>
+    </ul>
+    <li><strong>Desventajas:</strong></li>
+    <ul>
+      <li>Comunidad más pequeña que Jest.</li>
+      <li>Menos plugins disponibles comparado con Jest.</li>
+    </ul>
   </ul>
 
 
-  <h2>Pruebas de Seguridad</h2>
-  <p>Las pruebas de seguridad regulares son cruciales para identificar vulnerabilidades XSS.  Estas pruebas pueden incluir:</p>
-  <ul>
-    <li><strong>Pruebas de penetración manuales:</strong>  Un evaluador de seguridad intenta explotar las vulnerabilidades manualmente.</li>
-    <li><strong>Análisis estático de código:</strong>  Herramientas automáticas analizan el código fuente para identificar posibles vulnerabilidades.</li>
-    <li><strong>Análisis dinámico de aplicaciones web (DAST):</strong>  Herramientas que simulan ataques para detectar vulnerabilidades en tiempo de ejecución.</li>
-  </ul>
+  <h2>Comparativa: Jest vs. Vitest</h2>
+  <table>
+    <tr>
+      <th>Característica</th>
+      <th>Jest</th>
+      <th>Vitest</th>
+    </tr>
+    <tr>
+      <td>Velocidad</td>
+      <td>Moderada a lenta (dependiendo del tamaño del proyecto)</td>
+      <td>Muy rápida</td>
+    </tr>
+    <tr>
+      <td>Consumo de memoria</td>
+      <td>Alto</td>
+      <td>Bajo</td>
+    </tr>
+    <tr>
+      <td>Configuración</td>
+      <td>Sencilla</td>
+      <td>Sencilla</td>
+    </tr>
+    <tr>
+      <td>Documentación</td>
+      <td>Excelente</td>
+      <td>Buena y en constante mejora</td>
+    </tr>
+    <tr>
+      <td>Tamaño de la comunidad</td>
+      <td>Grande y activa</td>
+      <td>Creciente</td>
+    </tr>
+  </table>
 
-  <h2>Consejos Adicionales</h2>
+  <h2>Ejemplo de Test con Jest</h2>
+  <p>Aquí hay un ejemplo simple de una función y su test unitario usando Jest:</p>
+  <pre>
+<code>
+// suma.js
+function suma(a, b) {
+  return a + b;
+}
+module.exports = suma;
+
+// suma.test.js
+const suma = require('./suma');
+
+test('suma de dos números', () => {
+  expect(suma(2, 3)).toBe(5);
+});
+</code>
+  </pre>
+
+  <h2>Ejemplo de Test con Vitest</h2>
+  <p>El mismo ejemplo, pero usando Vitest:</p>
+  <pre>
+<code>
+// suma.js
+function suma(a, b) {
+  return a + b;
+}
+export default suma;
+
+// suma.test.ts
+import { describe, expect, it } from 'vitest';
+import suma from './suma';
+
+describe('suma', () => {
+  it('suma de dos números', () => {
+    expect(suma(2, 3)).toBe(5);
+  });
+});
+</code>
+  </pre>
+
+
+  <h2>Consejos para escribir buenos tests unitarios</h2>
   <ul>
-    <li><strong>Validar la entrada del usuario:</strong> No confíes solo en la sanitización.  Valida que los datos sean del tipo y formato esperado.</li>
-    <li><strong>Minimizar el uso de <code>eval()</code> y <code>setTimeout()</code> con cadenas de entrada del usuario:</strong>  Estas funciones pueden ser fácilmente explotadas para ejecutar código malicioso.</li>
-    <li><strong>Mantén tu software actualizado:</strong>  Las actualizaciones de software a menudo incluyen parches de seguridad que corrigen vulnerabilidades XSS.</li>
-    <li><strong>Utiliza un WAF (Web Application Firewall):</strong> Un WAF puede ayudar a bloquear ataques XSS antes de que lleguen al servidor.</li>
+    <li>Escribir tests claros y concisos.</li>
+    <li>Usar nombres descriptivos para los tests.</li>
+    <li>Cubrir diferentes casos de uso, incluyendo casos límite y excepciones.</li>
+    <li>Mantener los tests independientes entre sí.</li>
+    <li>Utilizar mocking para aislar las unidades de código que se están probando.</li>
   </ul>
 
   <h2>Conclusión</h2>
-  <p>La prevención de XSS requiere un enfoque proactivo y multifacético.  Combinando la sanitización de entrada, la codificación de salida, la configuración adecuada del servidor, las pruebas de seguridad regulares y las mejores prácticas de desarrollo, puedes proteger eficazmente tu aplicación web contra este tipo de ataques.  Recuerda que la seguridad es un proceso continuo y requiere atención constante.</p>
+  <p>Tanto Jest como Vitest son excelentes frameworks de testing unitario para JavaScript.  Jest ofrece una gran madurez, una comunidad robusta y una amplia gama de funcionalidades.  Vitest, por su parte, destaca por su velocidad y bajo consumo de recursos, siendo una excelente opción para proyectos grandes y complejos. La elección entre uno u otro dependerá de las necesidades específicas de tu proyecto y tus preferencias personales. Si la velocidad es crucial y trabajas con Vite o Vue, Vitest es una opción muy atractiva. Si necesitas una solución estable y con una comunidad enorme, Jest sigue siendo una gran elección.</p>
 </main>
 
                 </article>
@@ -391,7 +454,7 @@ echo "&lt;p&gt;Entrada sanitizada: " . $input . "&lt;/p&gt;";
         // Funciones de compartir
         function shareOnTwitter() {
             const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('XSS Prevention: Cross-site scripting');
+            const text = encodeURIComponent('Testing Unitario: Jest y Vitest');
             window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
         }
         
@@ -402,14 +465,14 @@ echo "&lt;p&gt;Entrada sanitizada: " . $input . "&lt;/p&gt;";
         
         function shareOnLinkedIn() {
             const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent('XSS Prevention: Cross-site scripting');
-            const summary = encodeURIComponent('Cross-site scripting (XSS) es una vulnerabilidad de seguridad web que permite a los atacantes inyectar código cliente malicioso (generalmente JavaScri...');
+            const title = encodeURIComponent('Testing Unitario: Jest y Vitest');
+            const summary = encodeURIComponent('El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...');
             window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
         }
         
         function shareOnWhatsApp() {
             const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('XSS Prevention: Cross-site scripting - Cross-site scripting (XSS) es una vulnerabilidad de seguridad web que permite a los atacantes inyectar código cliente malicioso (generalmente JavaScri...');
+            const text = encodeURIComponent('Testing Unitario: Jest y Vitest - El testing unitario es una práctica fundamental en el desarrollo de software que permite verificar la correcta funcionalidad de unidades individuales ...');
             window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
         }
         
