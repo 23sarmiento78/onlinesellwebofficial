@@ -1,5 +1,4 @@
-      - name: Generar índice de artículos (index.json)
-        run: node scripts/generate-blog-index.js
+
 name: Generar artículos HTML y crear sitemap
 
 on:
