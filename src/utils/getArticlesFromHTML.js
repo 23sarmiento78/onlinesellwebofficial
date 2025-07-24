@@ -26,28 +26,20 @@ export async function getArticlesFromHTML() {
 
 async function getHTMLFilesList() {
   try {
-    // Intentar usar la función de Netlify como fuente principal
-    console.log('🔍 Obteniendo archivos desde Netlify function...');
-    const response = await fetch('/.netlify/functions/list-html-files');
-    
+    // Leer el índice generado en el build
+    console.log('🔍 Obteniendo archivos desde /blog/index.json...');
+    const response = await fetch('/blog/index.json');
     if (response.ok) {
-      const netlifyFiles = await response.json();
-      console.log(`✅ Netlify encontró: ${netlifyFiles.length} archivos`);
-      console.log('📄 Archivos de Netlify:', netlifyFiles);
-      
-      // Si Netlify encuentra archivos, usarlos
-      if (netlifyFiles.length > 0) {
-        return netlifyFiles;
-      }
+      const files = await response.json();
+      console.log(`✅ index.json contiene: ${files.length} archivos`);
+      return files;
     } else {
-      console.log(`⚠️ Error en Netlify: ${response.status} ${response.statusText}`);
+      console.log(`⚠️ Error al leer /blog/index.json: ${response.status} ${response.statusText}`);
     }
   } catch (error) {
-    console.log('⚠️ Error con función Netlify:', error.message);
+    console.log('⚠️ Error leyendo /blog/index.json:', error.message);
   }
-  
-  // Solo usar fallback si Netlify no funciona
-  console.log('🔄 Netlify no disponible, no se pueden obtener archivos HTML dinámicamente.');
+  console.log('🔄 No se pudo obtener la lista de archivos HTML.');
   return [];
 }
 
