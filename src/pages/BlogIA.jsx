@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import BaseLayout from "../layouts/BaseLayout";
 import { getArticlesFromHTML } from "../utils/getArticlesFromHTML.js";
 // El CSS de BlogIA se debe enlazar en public/index.html con:
