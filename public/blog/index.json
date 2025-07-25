@@ -1,6 +1,12 @@
 [
+  "cicd-automatizacin-d.html",
+  "code-splitting-divis.html",
   "cqrs-command-query-r.html",
   "docker-contenedores-.html",
   "migrations-gestin-de.html",
-  "profiling-anlisis-de.html"
+  "nlp-procesamiento-de.html",
+  "package-managers-npm.html",
+  "profiling-anlisis-de.html",
+  "react-19-nuevas-cara.html",
+  "security-testing-owa.html"
 ]
