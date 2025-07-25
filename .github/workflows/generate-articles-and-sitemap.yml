@@ -43,6 +43,18 @@ jobs:
       - name: Generar índice de artículos (index.json)
         run: node scripts/generate-blog-index.js
 
+      - name: Publicar en Redes Sociales
+        env:
+          # Configura estos secretos en tu repositorio de GitHub
+          # -> Settings > Secrets and variables > Actions
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
+          REDDIT_SUBREDDIT: 'tu_subreddit' # <-- Cambia esto por tu subreddit
+        run: node scripts/publish-to-socials.js
+
 
       - name: Actualizar sitemap
         run: node scripts/update_sitemap.js
@@ -61,6 +73,6 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add public/blog public/sitemap.xml
+          git add public/blog public/sitemap.xml scripts/posted_articles.json
           git commit -m "[bot] Artículos HTML y sitemap actualizados - $(date '+%Y-%m-%d %H:%M:%S') ART" || echo "Nada para commitear"
           git push || echo "Nada para pushear"
