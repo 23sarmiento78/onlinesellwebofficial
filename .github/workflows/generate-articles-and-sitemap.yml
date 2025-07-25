@@ -54,6 +54,12 @@ jobs:
           REDDIT_SUBREDDIT: 'u_Israelsarmiento5' # <-- Cambia esto por tu subreddit
         run: node scripts/publish-to-socials.js
 
+      - name: Subir imágenes para redes sociales como Artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: social-media-images
+          path: public/social-images/
+
 
       - name: Actualizar sitemap
         run: node scripts/update_sitemap.js

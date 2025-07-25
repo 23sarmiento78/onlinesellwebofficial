@@ -2,12 +2,12 @@ const fs = require('fs').promises;
 const path = require('path');
 const snoowrap = require('snoowrap');
 const sharp = require('sharp');
-const matter = require('gray-matter'); // <-- Añadir esta línea
 
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+const BLOG_DIR = path.join(PUBLIC_DIR, 'blog'); // Directorio para leer los HTML
 const BLOG_INDEX_PATH = path.join(PUBLIC_DIR, 'blog', 'index.json');
 const POSTED_ARTICLES_LOG = path.join(__dirname, 'posted_articles.json');
-const IMAGES_OUTPUT_DIR = path.join(__dirname, 'generated-social-images');
+const IMAGES_OUTPUT_DIR = path.join(__dirname, '..', 'public', 'social-images'); // Guardar imágenes en una carpeta pública
 
 const SITE_URL = 'https://hgaruna.org'; // <-- IMPORTANTE: Cambia esto a tu dominio final
 
@@ -39,13 +39,17 @@ async function postToReddit(redditClient, article, subreddit) {
   console.log(`Intentando publicar en Reddit: "${article.title}" en r/${subreddit}`);
 
   try {
-    await redditClient.getSubreddit(subreddit).submitLink({
+    const submission = await redditClient.getSubreddit(subreddit).submitLink({
       title: article.title,
       url: articleUrl,
     });
     console.log(`✅ Publicado en Reddit exitosamente: ${article.title}`);
+    console.log(`   URL del post: https://www.reddit.com${submission.permalink}`);
   } catch (error) {
     console.error(`❌ Error al publicar en Reddit: ${error.message}`);
+    if (error.response && error.response.body) {
+      console.error('   Respuesta de la API de Reddit:', JSON.stringify(error.response.body, null, 2));
+    }
   }
 }
 
@@ -165,27 +169,29 @@ async function main() {
 
   console.log(`Se encontraron ${newArticleSlugs.length} artículos nuevos para publicar.`);
 
-  // Para obtener el título, necesitamos leer la información del artículo.
-  // Asumimos que tienes un JSON con todos los datos de los artículos.
-  // Usaremos `public/data/articles.json` que parece tener esta info.
-  const articlesData = await readJsonFile(path.join(PUBLIC_DIR, 'data', 'articles.json'));
-  const newArticles = articlesData.articles.filter(article => newArticleSlugs.includes(article.slug));
+  // --- CAMBIO CLAVE: Leer el título directamente del HTML ---
+  const newArticles = [];
+  for (const slug of newArticleSlugs) {
+    try {
+      const htmlPath = path.join(BLOG_DIR, `${slug}.html`);
+      const htmlContent = await fs.readFile(htmlPath, 'utf8');
+
+      // Extraer el título de la etiqueta <title> del HTML
+      const titleMatch = htmlContent.match(/<title[^>]*>([^<]+)<\/title>/i);
+      const title = titleMatch ? titleMatch[1].trim() : 'Nuevo Artículo'; // Título de respaldo
+
+      if (!titleMatch) {
+        console.warn(`   ⚠️ No se encontró la etiqueta <title> en ${slug}.html. Usando título genérico.`);
+      }
+
+      newArticles.push({ slug, title });
+      console.log(`-> Procesando artículo: "${title}" (slug: ${slug})`);
+    } catch (error) {
+      console.error(`❌ Error al leer o procesar el artículo ${slug}.html: ${error.message}`);
+    }
+  }
 
   for (const article of newArticles) {
-    // Asegurar que el artículo tenga un título, parseando el frontmatter si es necesario.
-    if (!article.title && article.content) {
-      try {
-        // Limpiamos el bloque de código para que matter pueda leer el YAML
-        const cleanContent = article.content.replace(/```yaml\r?\n/g, '').replace(/```/g, '');
-        const { data: frontmatter } = matter(cleanContent);
-        article.title = frontmatter.title;
-        console.log(`Título extraído del frontmatter para ${article.slug}: "${article.title}"`);
-      } catch (e) {
-        console.error(`No se pudo parsear el frontmatter para el slug: ${article.slug}`);
-        continue; // Saltar este artículo si no podemos obtener el título
-      }
-    }
-
     if (redditEnabled) {
       await postToReddit(redditClient, article, REDDIT_SUBREDDIT);
     }
