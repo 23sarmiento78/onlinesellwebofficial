@@ -3,7 +3,7 @@ const path = require('path');
 
 // Configuración específica para Villa Carlos Paz
 const localConfig = {
-  baseUrl: 'https://service.hgaruna.org',
+  baseUrl: 'https://hgaruna.org',
   pages: [
     '/',
     '/planes/',

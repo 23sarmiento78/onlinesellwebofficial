@@ -107,7 +107,7 @@ Este es el contenido de mi artículo en **Markdown**.
 - Punto 2
 - Punto 3
 
-[Enlace a mi sitio](https://service.hgaruna.org)
+[Enlace a mi sitio](https://hgaruna.org)
 ```
 
 ## 🔧 Generación de Páginas Estáticas
@@ -235,7 +235,7 @@ npm run build-with-articles
 Para dudas o problemas:
 - **WhatsApp**: +54 3541 237972
 - **Email**: 23sarmiento@gmail.com
-- **Sitio**: https://service.hgaruna.org
+- **Sitio**: https://hgaruna.org
 
 ---
 

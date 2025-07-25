@@ -38,13 +38,13 @@ function getArticleTemplate() {
     <meta name="geo.region" content="AR-X">
     <meta name="geo.placename" content="Villa Carlos Paz">
     <meta name="geo.position" content="-31.4165;-64.4961">
-    <link rel="canonical" href="https://service.hgaruna.org/articulos/{{slug}}/">
+    <link rel="canonical" href="https://hgaruna.org/articulos/{{slug}}/">
 
     <!-- Open Graph -->
     <meta property="og:title" content="{{title}} | Desarrollo Web Villa Carlos Paz | hgaruna">
     <meta property="og:description" content="{{description}}">
     <meta property="og:image" content="{{image}}">
-    <meta property="og:url" content="https://service.hgaruna.org/articulos/{{slug}}/">
+    <meta property="og:url" content="https://hgaruna.org/articulos/{{slug}}/">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="hgaruna">
     <meta property="og:locale" content="es_ES">
@@ -91,24 +91,24 @@ function getArticleTemplate() {
       "author": {
         "@type": "Organization",
         "name": "{{author}}",
-        "url": "https://service.hgaruna.org"
+        "url": "https://hgaruna.org"
       },
       "publisher": {
         "@type": "Organization",
         "name": "hgaruna",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+          "url": "https://hgaruna.org/logos-he-imagenes/logo3.png",
           "width": 200,
           "height": 200
         },
-        "url": "https://service.hgaruna.org"
+        "url": "https://hgaruna.org"
       },
       "datePublished": "{{date}}",
       "dateModified": "{{date}}",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://service.hgaruna.org/articulos/{{slug}}/"
+        "@id": "https://hgaruna.org/articulos/{{slug}}/"
       },
       "keywords": "{{keywords}}",
       "articleSection": "{{category}}",
@@ -116,7 +116,7 @@ function getArticleTemplate() {
       "isPartOf": {
         "@type": "WebSite",
         "name": "hgaruna",
-        "url": "https://service.hgaruna.org"
+        "url": "https://hgaruna.org"
       },
       "about": {
         "@type": "Thing",
@@ -142,17 +142,17 @@ function getArticleTemplate() {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "hgaruna",
-      "url": "https://service.hgaruna.org",
+      "url": "https://hgaruna.org",
       "description": "Desarrollo web profesional en Villa Carlos Paz, Córdoba",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://service.hgaruna.org/foro/?search={search_term_string}",
+        "target": "https://hgaruna.org/foro/?search={search_term_string}",
         "query-input": "required name=search_term_string"
       },
       "publisher": {
         "@type": "Organization",
         "name": "hgaruna",
-        "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
+        "logo": "https://hgaruna.org/logos-he-imagenes/logo3.png"
       }
     }
     </script>
@@ -163,8 +163,8 @@ function getArticleTemplate() {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "hgaruna",
-      "url": "https://service.hgaruna.org",
-      "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+      "url": "https://hgaruna.org",
+      "logo": "https://hgaruna.org/logos-he-imagenes/logo3.png",
       "description": "Desarrollo web profesional y soluciones digitales en Villa Carlos Paz",
       "address": {
         "@type": "PostalAddress",
@@ -259,15 +259,15 @@ function getArticleTemplate() {
                     <div class="col-md-6">
                         <h5>Compartir artículo:</h5>
                         <div class="social-share">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://service.hgaruna.org/articulos/{{slug}}/"
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://hgaruna.org/articulos/{{slug}}/"
                                target="_blank" class="btn btn-outline-primary me-2">
                                 <i class="fab fa-facebook"></i> Facebook
                             </a>
-                            <a href="https://twitter.com/intent/tweet?text={{title}}&url=https://service.hgaruna.org/articulos/{{slug}}/"
+                            <a href="https://twitter.com/intent/tweet?text={{title}}&url=https://hgaruna.org/articulos/{{slug}}/"
                                target="_blank" class="btn btn-outline-info me-2">
                                 <i class="fab fa-twitter"></i> Twitter
                             </a>
-                            <a href="https://wa.me/?text={{title}}%20https://service.hgaruna.org/articulos/{{slug}}/"
+                            <a href="https://wa.me/?text={{title}}%20https://hgaruna.org/articulos/{{slug}}/"
                                target="_blank" class="btn btn-outline-success">
                                 <i class="fab fa-whatsapp"></i> WhatsApp
                             </a>
@@ -318,7 +318,7 @@ function processArticle(filePath) {
         ", desarrollo web villa carlos paz, programador web villa carlos paz"
       : "desarrollo web villa carlos paz, programador web villa carlos paz";
     const image =
-      data.image || "https://service.hgaruna.org/logos-he-imagenes/logo3.png";
+      data.image || "https://hgaruna.org/logos-he-imagenes/logo3.png";
     const author = data.author || "hgaruna";
     const date = data.date || new Date().toISOString();
     const formattedDate = new Date(date).toLocaleDateString("es-ES", {
@@ -446,7 +446,7 @@ function generateStaticArticles() {
 function generateSitemap(articles) {
   console.log("🗺️ Generando sitemap automático...");
 
-  const siteUrl = "https://service.hgaruna.org";
+  const siteUrl = "https://hgaruna.org";
   const now = new Date().toISOString();
 
   // URLs estáticas
@@ -548,7 +548,7 @@ function generateRobotsTxt() {
 Allow: /
 
 # Sitemap location
-Sitemap: https://service.hgaruna.org/sitemap.xml
+Sitemap: https://hgaruna.org/sitemap.xml
 
 # Disallow admin areas
 Disallow: /admin/

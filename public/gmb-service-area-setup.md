@@ -73,7 +73,7 @@ Domingo: Cerrado
 ### Datos a Incluir:
 - **Teléfono:** +54-3541-237972
 - **Email:** 23sarmiento@gmail.com
-- **Website:** https://service.hgaruna.org
+- **Website:** https://hgaruna.org
 - **WhatsApp:** https://wa.link/6t7cxa
 
 ### Horarios de Atención:

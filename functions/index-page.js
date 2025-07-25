@@ -13,7 +13,7 @@ let cachedDb = null;
 
 // Configuración optimizada - solo variables necesarias
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY;
-const INDEXNOW_HOST = process.env.INDEXNOW_HOST || 'service.hgaruna.org';
+const INDEXNOW_HOST = process.env.INDEXNOW_HOST || 'hgaruna.org';
 
 async function connectToDatabase() {
   if (cachedDb) {

@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://service.hgaruna.org/sitemap.xml
+Sitemap: https://hgaruna.org/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1

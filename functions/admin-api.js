@@ -75,7 +75,7 @@ exports.handler = async function(event, context) {
           if (body.linkedinToken) {
             const linkedinContent = `${forumPost.title}\n\n${resumen}\n\n${forumPost.tags ? forumPost.tags.split(',').map(t => '#' + t.trim().replace(/\s+/g, '')).join(' ') : ''}\n\nLee el artículo completo en: ${body.articleUrl || ''}`;
             try {
-              const linkedinRes = await fetch('https://service.hgaruna.org/.netlify/functions/linkedin-api/post', {
+              const linkedinRes = await fetch('https://hgaruna.org/.netlify/functions/linkedin-api/post', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ content: linkedinContent, accessToken: body.linkedinToken })

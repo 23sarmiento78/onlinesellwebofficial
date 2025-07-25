@@ -3,7 +3,7 @@ const path = require('path');
 
 // Configuración SEO avanzada para Villa Carlos Paz
 const seoConfig = {
-  siteUrl: 'https://service.hgaruna.org',
+  siteUrl: 'https://hgaruna.org',
   targetLocation: 'Villa Carlos Paz, Córdoba, Argentina',
   primaryKeywords: [
     'desarrollo web villa carlos paz',
@@ -46,8 +46,8 @@ function generateOptimizedMetaTags() {
       keywords: "desarrollo web villa carlos paz, diseño web carlos paz, marketing digital córdoba, sitios web profesionales, seo local, e-commerce villa carlos paz",
       ogTitle: "hgaruna: Desarrollo Web y Marketing Digital en Villa Carlos Paz",
       ogDescription: "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba. Sitios web personalizados para negocios locales con las mejores tecnologías.",
-      ogImage: "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
-      ogUrl: "https://service.hgaruna.org/"
+      ogImage: "https://hgaruna.org/logos-he-imagenes/logo3.png",
+      ogUrl: "https://hgaruna.org/"
     },
     services: {
       title: "Servicios de Desarrollo Web en Villa Carlos Paz - hgaruna",
@@ -55,8 +55,8 @@ function generateOptimizedMetaTags() {
       keywords: "servicios desarrollo web villa carlos paz, diseño sitios web carlos paz, marketing digital córdoba, seo local villa carlos paz",
       ogTitle: "Servicios de Desarrollo Web Villa Carlos Paz - hgaruna",
       ogDescription: "Servicios profesionales de desarrollo web en Villa Carlos Paz. Sitios web, e-commerce, SEO y marketing digital para tu negocio local.",
-      ogImage: "https://service.hgaruna.org/logos-he-imagenes/programacion.jpeg",
-      ogUrl: "https://service.hgaruna.org/planes/"
+      ogImage: "https://hgaruna.org/logos-he-imagenes/programacion.jpeg",
+      ogUrl: "https://hgaruna.org/planes/"
     },
     contact: {
       title: "Contacto Desarrollo Web Villa Carlos Paz - hgaruna",
@@ -64,8 +64,8 @@ function generateOptimizedMetaTags() {
       keywords: "contacto desarrollo web villa carlos paz, presupuesto sitio web carlos paz, consulta desarrollo web córdoba",
       ogTitle: "Contacto Desarrollo Web Villa Carlos Paz - hgaruna",
       ogDescription: "Contacta con expertos en desarrollo web en Villa Carlos Paz. Consultas gratuitas y presupuestos personalizados para tu proyecto digital.",
-      ogImage: "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
-      ogUrl: "https://service.hgaruna.org/"
+      ogImage: "https://hgaruna.org/logos-he-imagenes/logo3.png",
+      ogUrl: "https://hgaruna.org/"
     }
   };
 
@@ -81,8 +81,8 @@ function generateAdvancedSchema() {
         "@type": "Organization",
         "name": "hgaruna",
         "alternateName": "hgaruna Desarrollo Web Villa Carlos Paz",
-        "url": "https://service.hgaruna.org/",
-        "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+        "url": "https://hgaruna.org/",
+        "logo": "https://hgaruna.org/logos-he-imagenes/logo3.png",
         "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba. Creamos sitios web personalizados para negocios locales.",
         "address": {
           "@type": "PostalAddress",
@@ -176,7 +176,7 @@ function generateAdvancedSchema() {
         "@type": "LocalBusiness",
         "name": "hgaruna - Desarrollo Web Villa Carlos Paz",
         "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
-        "url": "https://service.hgaruna.org/",
+        "url": "https://hgaruna.org/",
         "telephone": "+54-3541-237972",
         "email": "23sarmiento@gmail.com",
         "address": {
@@ -202,14 +202,14 @@ function generateAdvancedSchema() {
       },
       {
         "@type": "WebSite",
-        "url": "https://service.hgaruna.org/",
+        "url": "https://hgaruna.org/",
         "name": "hgaruna - Desarrollo Web Villa Carlos Paz",
         "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
         "potentialAction": {
           "@type": "SearchAction",
           "target": {
             "@type": "EntryPoint",
-            "urlTemplate": "https://service.hgaruna.org/public/blog/?q={search_term_string}"
+            "urlTemplate": "https://hgaruna.org/public/blog/?q={search_term_string}"
           },
           "query-input": "required name=search_term_string"
         }

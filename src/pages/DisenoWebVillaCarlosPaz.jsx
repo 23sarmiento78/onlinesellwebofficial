@@ -10,8 +10,8 @@ export default function DisenoWebVillaCarlosPaz() {
       keywords="diseño web villa carlos paz, diseñador web villa carlos paz, diseño web córdoba, ux ui villa carlos paz, diseño gráfico villa carlos paz, sitios web modernos córdoba, branding villa carlos paz"
       ogTitle="Diseño Web Villa Carlos Paz | Diseñador Web Profesional | Sitios Web Modernos | hgaruna"
       ogDescription="Diseño web profesional en Villa Carlos Paz, Córdoba. Diseñador web especializado en sitios web modernos y responsivos. UX/UI y branding incluido."
-      ogImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://service.hgaruna.org/diseño-web-villa-carlos-paz/"
+      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
+      ogUrl="https://hgaruna.org/diseño-web-villa-carlos-paz/"
     >
       {/* Hero Section */}
       <Hero

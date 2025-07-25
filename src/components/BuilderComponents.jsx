@@ -107,7 +107,7 @@ function LinkedInComponent(props) {
   const handleConnectLinkedIn = () => {
     // Redirigir a autenticación de LinkedIn
     const clientId = '77d1u4hecolzrd';
-    const redirectUri = encodeURIComponent('https://service.hgaruna.org/linkedin-callback.html');
+    const redirectUri = encodeURIComponent('https://hgaruna.org/linkedin-callback.html');
     const scope = encodeURIComponent('r_liteprofile r_emailaddress w_member_social');
     const state = Math.random().toString(36).substring(7);
     

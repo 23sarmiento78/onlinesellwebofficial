@@ -23,7 +23,7 @@ const articleTemplate = (article) => `<!DOCTYPE html>
     <meta property="og:title" content="${article.seo_title || article.title}">
     <meta property="og:description" content="${article.seo_description || article.summary}">
     <meta property="og:image" content="${article.image}">
-    <meta property="og:url" content="https://service.hgaruna.org/blog/${article.slug}">
+    <meta property="og:url" content="https://hgaruna.org/blog/${article.slug}">
     <meta property="og:type" content="article">
     
     <!-- Twitter Card -->
@@ -49,14 +49,14 @@ const articleTemplate = (article) => `<!DOCTYPE html>
         "name": "hgaruna",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
+          "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
         }
       },
       "datePublished": "${article.date}",
       "dateModified": "${article.date}",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://service.hgaruna.org/blog/${article.slug}"
+        "@id": "https://hgaruna.org/blog/${article.slug}"
       }
     }
     </script>

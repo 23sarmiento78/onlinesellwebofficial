@@ -8,8 +8,8 @@
 const https = require('https');
 const http = require('http');
 
-const SITEMAP_URL = 'https://service.hgaruna.org/sitemap.xml';
-const SITE_URL = 'https://service.hgaruna.org/';
+const SITEMAP_URL = 'https://hgaruna.org/sitemap.xml';
+const SITE_URL = 'https://hgaruna.org/';
 
 // URLs de envío de sitemap
 const SUBMISSION_URLS = {

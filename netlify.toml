@@ -14,7 +14,7 @@
   [functions.environment]
     NETLIFY_DATABASE_URL = ""
     INDEXNOW_KEY = ""
-    INDEXNOW_HOST = "service.hgaruna.org"
+    INDEXNOW_HOST = "hgaruna.org"
 
 [functions.admin-api]
   included_files = ["public/data/**"]
@@ -110,7 +110,7 @@
   buildDir = "build"
   changeFreq = "daily"
   priority = 0.5
-  baseUrl = "https://service.hgaruna.org"
+  baseUrl = "https://hgaruna.org"
 
 [[plugins]]
   package = "netlify-plugin-formspree"
@@ -119,20 +119,20 @@
   AUTH0_DOMAIN = "dev-b0qip4vee7sg3q7e.us.auth0.com"
   AUTH0_CLIENT_ID = "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab"
   AUTH0_CLIENT_SECRET = "W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS"
-  AUTH0_AUDIENCE = "https://service.hgaruna.org/api"
+  AUTH0_AUDIENCE = "https://hgaruna.org/api"
   JWT_SECRET = "hgaruna-jwt-secret-key-2025"
   LINKEDIN_CLIENT_ID = "77d1u4hecolzrd"
   LINKEDIN_CLIENT_SECRET = "WPL_AP1.aca8d5j54e9SZ5p5.W0ifCg=="
-  SITE_URL = "https://service.hgaruna.org"
+  SITE_URL = "https://hgaruna.org"
   MONGODB_URI = ""
 
 [context.deploy-preview.environment]
   AUTH0_DOMAIN = "dev-b0qip4vee7sg3q7e.us.auth0.com"
   AUTH0_CLIENT_ID = "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab"
   AUTH0_CLIENT_SECRET = "W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS"
-  AUTH0_AUDIENCE = "https://service.hgaruna.org/api"
+  AUTH0_AUDIENCE = "https://hgaruna.org/api"
   JWT_SECRET = "hgaruna-jwt-secret-key-2025"
   LINKEDIN_CLIENT_ID = "77d1u4hecolzrd"
   LINKEDIN_CLIENT_SECRET = "WPL_AP1.aca8d5j54e9SZ5p5.W0ifCg=="
-  SITE_URL = "https://service.hgaruna.org"
+  SITE_URL = "https://hgaruna.org"
   MONGODB_URI = ""

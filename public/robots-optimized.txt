@@ -2,9 +2,9 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://service.hgaruna.org/sitemap-index.xml
-Sitemap: https://service.hgaruna.org/local-sitemap.xml
-Sitemap: https://service.hgaruna.org/sitemap.xml
+Sitemap: https://hgaruna.org/sitemap-index.xml
+Sitemap: https://hgaruna.org/local-sitemap.xml
+Sitemap: https://hgaruna.org/sitemap.xml
 
 # Crawl-delay para ser amigable con los servidores
 Crawl-delay: 1

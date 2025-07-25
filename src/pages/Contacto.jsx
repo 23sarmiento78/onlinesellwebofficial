@@ -10,8 +10,8 @@ export default function Contacto() {
       keywords="contacto desarrollo web villa carlos paz, whatsapp desarrollo web carlos paz, programador web villa carlos paz, consulta web córdoba, desarrollo web profesional villa carlos paz"
       ogTitle="Contacto Desarrollo Web Villa Carlos Paz | WhatsApp +54 3541 237972 | hgaruna"
       ogDescription="Contacta con hgaruna para desarrollo web profesional en Villa Carlos Paz, Córdoba. WhatsApp: +54 3541 237972. Consulta gratuita."
-      ogImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://service.hgaruna.org/contacto/"
+      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
+      ogUrl="https://hgaruna.org/contacto/"
     >
       {/* Hero Section */}
       <Hero

@@ -133,8 +133,8 @@ export default function Planes() {
       keywords="planes desarrollo web villa carlos paz, precios sitios web carlos paz, desarrollo web córdoba, e-commerce villa carlos paz, apps móviles villa carlos paz"
       ogTitle="Planes Desarrollo Web Villa Carlos Paz | Desde $200"
       ogDescription="Planes de desarrollo web profesionales en Villa Carlos Paz. Desde landing pages hasta e-commerce y apps móviles. Soporte incluido."
-      ogImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://service.hgaruna.org/planes/"
+      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
+      ogUrl="https://hgaruna.org/planes/"
     >
       <Hero
         title="Planes de Desarrollo Web Villa Carlos Paz"

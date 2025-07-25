@@ -137,8 +137,8 @@
         const auth0Config = {
             domain: "dev-b0qip4vee7sg3q7e.us.auth0.com",
             clientId: "3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab",
-            redirectUri: "https://service.hgaruna.org/admin/",
-            audience: "https://service.hgaruna.org/api"
+            redirectUri: "https://hgaruna.org/admin/",
+            audience: "https://hgaruna.org/api"
         };
 
         // Variables globales
@@ -231,7 +231,7 @@ Audience: ${auth0Config.audience}
         }
 
         function openAdminPage() {
-            window.open('https://service.hgaruna.org/admin/', '_blank');
+            window.open('https://hgaruna.org/admin/', '_blank');
             log('🔗 Abriendo página de administración...');
         }
 

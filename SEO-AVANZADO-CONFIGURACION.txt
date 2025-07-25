@@ -170,7 +170,7 @@ Botones SEO disponibles:
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "hgaruna",
-  "url": "https://service.hgaruna.org",
+  "url": "https://hgaruna.org",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Villa Carlos Paz",
@@ -190,10 +190,10 @@ Botones SEO disponibles:
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "hgaruna",
-  "url": "https://service.hgaruna.org",
+  "url": "https://hgaruna.org",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://service.hgaruna.org/foro/?search={search_term_string}"
+    "target": "https://hgaruna.org/foro/?search={search_term_string}"
   }
 }
 ```

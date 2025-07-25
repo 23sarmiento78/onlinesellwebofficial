@@ -23,7 +23,7 @@ Este problema ocurre cuando el flujo de OAuth de LinkedIn no se completa correct
 3. Ve a "Auth" → "OAuth 2.0 settings"
 4. Verifica que la **Redirect URL** sea exactamente:
    ```
-   https://service.hgaruna.org/linkedin-callback.html
+   https://hgaruna.org/linkedin-callback.html
    ```
 
 #### 2. Verificar Variables de Entorno
@@ -56,16 +56,16 @@ Este problema ocurre cuando el flujo de OAuth de LinkedIn no se completa correct
 ls functions/linkedin-token.js
 
 # Probar la función localmente
-curl -X POST https://service.hgaruna.org/.netlify/functions/linkedin-token \
+curl -X POST https://hgaruna.org/.netlify/functions/linkedin-token \
   -H "Content-Type: application/json" \
-  -d '{"code":"test","redirect_uri":"https://service.hgaruna.org/linkedin-callback.html"}'
+  -d '{"code":"test","redirect_uri":"https://hgaruna.org/linkedin-callback.html"}'
 ```
 
 #### 5. Verificar Página de Callback
 
 **Verificar que la página de callback funcione:**
 
-1. Ve a `https://service.hgaruna.org/linkedin-callback.html`
+1. Ve a `https://hgaruna.org/linkedin-callback.html`
 2. Debería mostrar una página con estilos
 3. Si muestra 404, el archivo no está desplegado
 

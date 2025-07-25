@@ -7,7 +7,7 @@ const matter = require('gray-matter');
 // Configura tus credenciales
 const LINKEDIN_ACCESS_TOKEN = 'TU_ACCESS_TOKEN'; // Reemplaza por tu token real
 const ORGANIZATION_ID = 'TU_ORG_ID'; // O tu URN personal: 'urn:li:person:xxxx'
-const SITE_URL = 'https://service.hgaruna.org/articulos/';
+const SITE_URL = 'https://hgaruna.org/articulos/';
 
 const articlesDir = path.resolve(__dirname, '../src/content/articulos');
 const files = fs.readdirSync(articlesDir).filter(f => f.endsWith('.md'));

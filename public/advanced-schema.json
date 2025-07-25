@@ -5,8 +5,8 @@
       "@type": "Organization",
       "name": "hgaruna",
       "alternateName": "hgaruna Desarrollo Web Villa Carlos Paz",
-      "url": "https://service.hgaruna.org/",
-      "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+      "url": "https://hgaruna.org/",
+      "logo": "https://hgaruna.org/logos-he-imagenes/logo3.png",
       "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba. Creamos sitios web personalizados para negocios locales.",
       "address": {
         "@type": "PostalAddress",
@@ -100,7 +100,7 @@
       "@type": "LocalBusiness",
       "name": "hgaruna - Desarrollo Web Villa Carlos Paz",
       "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
-      "url": "https://service.hgaruna.org/",
+      "url": "https://hgaruna.org/",
       "telephone": "+54-3541-237972",
       "email": "23sarmiento@gmail.com",
       "address": {
@@ -126,14 +126,14 @@
     },
     {
       "@type": "WebSite",
-      "url": "https://service.hgaruna.org/",
+      "url": "https://hgaruna.org/",
       "name": "hgaruna - Desarrollo Web Villa Carlos Paz",
       "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
       "potentialAction": {
         "@type": "SearchAction",
         "target": {
           "@type": "EntryPoint",
-          "urlTemplate": "https://service.hgaruna.org/blog/?q={search_term_string}"
+          "urlTemplate": "https://hgaruna.org/blog/?q={search_term_string}"
         },
         "query-input": "required name=search_term_string"
       }

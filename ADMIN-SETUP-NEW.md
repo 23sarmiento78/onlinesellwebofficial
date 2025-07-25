@@ -10,14 +10,14 @@ Tu nuevo sistema de administración está configurado con Auth0 usando las confi
 - **Client Secret**: `W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS`
 
 ### 🌐 URLs Configuradas
-- **Allowed Callback URLs**: `https://service.hgaruna.org/admin/`
-- **Allowed Logout URLs**: `https://service.hgaruna.org/`
-- **Allowed Web Origins**: `https://service.hgaruna.org`
+- **Allowed Callback URLs**: `https://hgaruna.org/admin/`
+- **Allowed Logout URLs**: `https://hgaruna.org/`
+- **Allowed Web Origins**: `https://hgaruna.org`
 
 ## 🚀 Cómo Usar el Sistema
 
 ### 1. Acceder al Panel de Administración
-Ve a: `https://service.hgaruna.org/admin/`
+Ve a: `https://hgaruna.org/admin/`
 
 ### 2. Iniciar Sesión
 - Haz clic en "Iniciar Sesión"
@@ -109,8 +109,8 @@ Ve a tu **Dashboard de Netlify** → **Site settings** → **Environment variabl
 AUTH0_DOMAIN=dev-b0qip4vee7sg3q7e.us.auth0.com
 AUTH0_CLIENT_ID=3X8sfPyJFDFhKetUdmn6gEs6tPH2lCab
 AUTH0_CLIENT_SECRET=W87b_wOoUYCuSV_kM4uoMT5sHouXgSe6jkSQGgGbqOk7YAEi1uEv9_sj37h3DtOS
-AUTH0_AUDIENCE=https://service.hgaruna.org/api
-SITE_URL=https://service.hgaruna.org
+AUTH0_AUDIENCE=https://hgaruna.org/api
+SITE_URL=https://hgaruna.org
 ```
 
 ### 3. Desplegar
@@ -122,10 +122,10 @@ npm run build
 
 Tu nuevo sistema de administración está completamente configurado y funcionando. Puedes acceder al panel de administración en:
 
-**https://service.hgaruna.org/admin/**
+**https://hgaruna.org/admin/**
 
 ### 🔗 Enlaces Útiles:
-- **Panel de Admin**: https://service.hgaruna.org/admin/
+- **Panel de Admin**: https://hgaruna.org/admin/
 - **Dashboard Auth0**: https://manage.auth0.com/dashboard/us/dev-b0qip4vee7sg3q7e
 - **Netlify Dashboard**: https://app.netlify.com/
 

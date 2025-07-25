@@ -10,8 +10,8 @@ export default function PoliticasPrivacidad() {
       keywords="políticas privacidad hgaruna, protección datos desarrollo web, privacidad villa carlos paz, gdpr desarrollo web córdoba, cookies hgaruna, datos personales"
       ogTitle="Políticas de Privacidad - Protección de Datos | Desarrollo Web Villa Carlos Paz | hgaruna"
       ogDescription="Políticas de privacidad de hgaruna. Desarrollo web profesional en Villa Carlos Paz, Córdoba. Protección de datos personales y cumplimiento GDPR."
-      ogImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://service.hgaruna.org/politicas-privacidad/"
+      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
+      ogUrl="https://hgaruna.org/politicas-privacidad/"
     >
       {/* Hero Section */}
       <Hero

@@ -11,8 +11,8 @@ export default function Legal() {
       keywords="aviso legal hgaruna, términos servicio desarrollo web, condiciones uso villa carlos paz, legal desarrollo web córdoba, políticas servicio hgaruna"
       ogTitle="Aviso Legal - Términos y Condiciones | Desarrollo Web Villa Carlos Paz | hgaruna"
       ogDescription="Aviso legal y términos de servicio de hgaruna. Desarrollo web profesional en Villa Carlos Paz, Córdoba. Información legal y condiciones de uso."
-      ogImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://service.hgaruna.org/legal/"
+      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
+      ogUrl="https://hgaruna.org/legal/"
     >
       {/* Hero Section */}
       <Hero
@@ -65,7 +65,7 @@ export default function Legal() {
                   <strong>Email:</strong> info@hgaruna.org
                 </p>
                 <p>
-                  <strong>Sitio Web:</strong> https://service.hgaruna.org
+                  <strong>Sitio Web:</strong> https://hgaruna.org
                 </p>
                 <p>
                   <strong>Fecha de última actualización:</strong> Enero 2025

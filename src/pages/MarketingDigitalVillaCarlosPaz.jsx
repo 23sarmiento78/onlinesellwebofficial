@@ -10,8 +10,8 @@ export default function MarketingDigitalVillaCarlosPaz() {
       keywords="marketing digital villa carlos paz, seo local villa carlos paz, google ads villa carlos paz, redes sociales villa carlos paz, publicidad online córdoba, posicionamiento web villa carlos paz, marketing digital córdoba"
       ogTitle="Marketing Digital Villa Carlos Paz | SEO Local | Google Ads | Redes Sociales | hgaruna"
       ogDescription="Marketing digital profesional en Villa Carlos Paz, Córdoba. SEO local, Google Ads, redes sociales y publicidad online. Aumenta las ventas de tu negocio local."
-      ogImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://service.hgaruna.org/marketing-digital-villa-carlos-paz/"
+      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
+      ogUrl="https://hgaruna.org/marketing-digital-villa-carlos-paz/"
     >
       {/* Hero Section */}
       <Hero

@@ -11,12 +11,12 @@ export default function Home() {
       keywords="desarrollo web villa carlos paz, programador web villa carlos paz, diseñador web villa carlos paz, crear sitio web villa carlos paz, desarrollo de software villa carlos paz, web developer villa carlos paz, programación web córdoba, e-commerce villa carlos paz, seo local villa carlos paz, marketing digital villa carlos paz, sitios web profesionales villa carlos paz, tienda online villa carlos paz, google my business villa carlos paz, posicionamiento web córdoba"
       ogTitle="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | Sitios Web que Venden | hgaruna"
       ogDescription="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten visitantes en clientes. E-commerce y SEO local incluido."
-      ogImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://service.hgaruna.org/"
+      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
+      ogUrl="https://hgaruna.org/"
       twitterTitle="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | Sitios Web que Venden | hgaruna"
       twitterDescription="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten visitantes en clientes."
-      twitterImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-      twitterUrl="https://service.hgaruna.org/"
+      twitterImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
+      twitterUrl="https://hgaruna.org/"
     >
       {/* JSON-LD SEO */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -30,8 +30,8 @@ export default function Home() {
               "Desarrollo Web Villa Carlos Paz",
               "Programador Web Villa Carlos Paz"
             ],
-            "url": "https://service.hgaruna.org/",
-            "logo": "https://service.hgaruna.org/logos-he-imagenes/logo3.png",
+            "url": "https://hgaruna.org/",
+            "logo": "https://hgaruna.org/logos-he-imagenes/logo3.png",
             "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba. Creamos sitios web personalizados para negocios locales con las mejores tecnologías.",
             "address": {
               "@type": "PostalAddress",
@@ -84,7 +84,7 @@ export default function Home() {
             "@type": "LocalBusiness",
             "name": "hgaruna - Desarrollo Web Villa Carlos Paz",
             "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
-            "url": "https://service.hgaruna.org/",
+            "url": "https://hgaruna.org/",
             "telephone": "+54-3541-237972",
             "email": "23sarmiento@gmail.com",
             "address": {"@type": "PostalAddress", "addressLocality": "Villa Carlos Paz", "addressRegion": "Córdoba", "addressCountry": "AR"},
@@ -99,12 +99,12 @@ export default function Home() {
           },
           {
             "@type": "WebSite",
-            "url": "https://service.hgaruna.org/",
+            "url": "https://hgaruna.org/",
             "name": "hgaruna - Desarrollo Web Villa Carlos Paz",
             "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
             "potentialAction": {
               "@type": "SearchAction",
-              "target": {"@type": "EntryPoint", "urlTemplate": "https://service.hgaruna.org/blog/?q={search_term_string}"},
+              "target": {"@type": "EntryPoint", "urlTemplate": "https://hgaruna.org/blog/?q={search_term_string}"},
               "query-input": "required name=search_term_string"
             }
           },
@@ -126,25 +126,25 @@ export default function Home() {
         "@type": "Article",
         "headline": "Desarrollo Web Villa Carlos Paz | Programador Web Profesional | hgaruna",
         "description": "Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten visitantes en clientes. E-commerce, SEO local y marketing digital.",
-        "image": ["https://service.hgaruna.org/logos-he-imagenes/logo3.png"],
+        "image": ["https://hgaruna.org/logos-he-imagenes/logo3.png"],
         "author": {
           "@type": "Person",
           "name": "Hernán Sarmiento",
-          "url": "https://service.hgaruna.org/"
+          "url": "https://hgaruna.org/"
         },
         "publisher": {
           "@type": "Organization",
           "name": "hgaruna",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://service.hgaruna.org/logos-he-imagenes/logo3.png"
+            "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
           }
         },
         "datePublished": "2023-01-01",
         "dateModified": "2025-07-18",
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://service.hgaruna.org/"
+          "@id": "https://hgaruna.org/"
         }
       }) }} />
       {/* BreadcrumbList Structured Data para SEO */}
@@ -156,13 +156,13 @@ export default function Home() {
             "@type": "ListItem",
             "position": 1,
             "name": "Inicio",
-            "item": "https://service.hgaruna.org/"
+            "item": "https://hgaruna.org/"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Planes",
-            "item": "https://service.hgaruna.org/planes/"
+            "item": "https://hgaruna.org/planes/"
           }
         ]
       }) }} />

@@ -12,8 +12,8 @@ export default function DesarrolloWebVillaCarlosPaz() {
       keywords="desarrollo web villa carlos paz, programador web villa carlos paz, diseñador web villa carlos paz, crear sitio web villa carlos paz, desarrollo de software villa carlos paz, web developer villa carlos paz, programación web córdoba, e-commerce villa carlos paz"
       ogTitle="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | Sitios Web que Venden | hgaruna"
       ogDescription="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web para negocios locales. E-commerce y SEO local incluido."
-      ogImage="https://service.hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://service.hgaruna.org/desarrollo-web-villa-carlos-paz/"
+      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
+      ogUrl="https://hgaruna.org/desarrollo-web-villa-carlos-paz/"
     >
       {/* Hero Section */}
       <Hero

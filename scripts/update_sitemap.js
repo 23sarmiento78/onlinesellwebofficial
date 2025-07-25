@@ -6,7 +6,7 @@ const path = require('path');
 
 const ARTICLES_DIR = path.resolve(__dirname, '../public/blog');
 const SITEMAP_PATH = path.resolve(__dirname, '../public/sitemap.xml');
-const SITE_URL = 'https://service.hgaruna.org';
+const SITE_URL = 'https://hgaruna.org';
 
 function getArticleSlugs() {
   try {

@@ -3,7 +3,7 @@ const path = require("path");
 
 
 class ServerSitemapGenerator {
-  constructor(siteUrl = "https://service.hgaruna.org") {
+  constructor(siteUrl = "https://hgaruna.org") {
     this.siteUrl = siteUrl;
     this.staticPages = [
       { url: "/", priority: 1.0, changefreq: "weekly" },
