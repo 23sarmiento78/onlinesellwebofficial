@@ -3,140 +3,152 @@
   <!-- Páginas principales -->
   <url>
     <loc>https://www.hgaruna.org/</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/public/blog</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/contacto</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/planes</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Artículos del public/blog -->
   <url>
     <loc>https://www.hgaruna.org/blog/angular-18-nuevas-fu.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/cicd-automatizacin-d.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/code-splitting-divis.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/cqrs-command-query-r.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/database-optimizatio.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/docker-contenedores-.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/edge-computing-compu.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/estrategias-de-cach-.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/jamstack-javascript-.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/lazy-loading-carga-d.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/migrations-gestin-de.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/nlp-procesamiento-de.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/package-managers-npm.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/profiling-anlisis-de.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hgaruna.org/blog/progressive-web-apps.html</loc>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/react-19-nuevas-cara.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/security-testing-owa.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/sql-injection-preven.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hgaruna.org/blog/testing-de-apis-post.html</loc>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/typescript-avanzado-.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hgaruna.org/blog/webassembly-rendimie.html</loc>
-    <lastmod>2025-07-25T20:44:28.419Z</lastmod>
+    <lastmod>2025-07-25T21:21:52.368Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
