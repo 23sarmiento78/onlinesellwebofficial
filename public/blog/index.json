@@ -4,6 +4,8 @@
   "cqrs-command-query-r.html",
   "docker-contenedores-.html",
   "migrations-gestin-de.html",
+  "nlp-procesamiento-de.html",
   "package-managers-npm.html",
-  "profiling-anlisis-de.html"
+  "profiling-anlisis-de.html",
+  "security-testing-owa.html"
 ]
