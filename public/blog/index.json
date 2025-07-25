@@ -3,7 +3,10 @@
   "cicd-automatizacin-d.html",
   "code-splitting-divis.html",
   "cqrs-command-query-r.html",
+  "database-optimizatio.html",
   "docker-contenedores-.html",
+  "edge-computing-compu.html",
+  "estrategias-de-cach-.html",
   "migrations-gestin-de.html",
   "nlp-procesamiento-de.html",
   "package-managers-npm.html",
@@ -11,5 +14,6 @@
   "react-19-nuevas-cara.html",
   "security-testing-owa.html",
   "sql-injection-preven.html",
+  "typescript-avanzado-.html",
   "webassembly-rendimie.html"
 ]
