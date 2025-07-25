@@ -1,4 +1,5 @@
 [
+  "angular-18-nuevas-fu.html",
   "cicd-automatizacin-d.html",
   "code-splitting-divis.html",
   "cqrs-command-query-r.html",
@@ -8,5 +9,7 @@
   "package-managers-npm.html",
   "profiling-anlisis-de.html",
   "react-19-nuevas-cara.html",
-  "security-testing-owa.html"
+  "security-testing-owa.html",
+  "sql-injection-preven.html",
+  "webassembly-rendimie.html"
 ]
