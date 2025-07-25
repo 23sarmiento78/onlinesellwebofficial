@@ -294,7 +294,7 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
       '{{SEO_TITLE}}': title,
       '{{SEO_DESCRIPTION}}': summary.substring(0, 160),
       '{{SEO_KEYWORDS}}': tags.join(', '),
-      '{{CANONICAL_URL}}': `https://hgaruna.com/blog/${slug}`,
+      '{{CANONICAL_URL}}': `https://www.hgaruna.org/blog/${slug}`, // <-- CORRECCIÓN: Dominio correcto
       '{{TAGS_HTML}}': tags.map(tag => `<span class="tag">${tag}</span>`).join(''),
       '{{READING_TIME}}': readingTime.toString(),
       '{{WORD_COUNT}}': wordCount.toString()

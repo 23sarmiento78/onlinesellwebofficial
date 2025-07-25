@@ -6,7 +6,7 @@ const path = require('path');
 
 const ARTICLES_DIR = path.resolve(__dirname, '../public/blog');
 const SITEMAP_PATH = path.resolve(__dirname, '../public/sitemap.xml');
-const SITE_URL = 'https://hgaruna.org';
+const SITE_URL = 'https://www.hgaruna.org'; // <-- CORRECCIÓN: Usar el dominio con 'www'
 
 function getArticleSlugs() {
   try {
@@ -50,7 +50,7 @@ function generateSitemap(urls) {
   </url>
   <!-- Artículos del public/blog -->
 ${urls
-    .map(
+    .map( // CORRECCIÓN: La URL pública no debe incluir '/public'
       url => `  <url>
     <loc>${url}</loc>
     <lastmod>${now}</lastmod>
@@ -65,7 +65,7 @@ ${urls
 function main() {
   try {
     const slugs = getArticleSlugs();
-    const urls = slugs.map(slug => `${SITE_URL}/public/blog/${slug}`);
+    const urls = slugs.map(slug => `${SITE_URL}/blog/${slug}.html`);
     
     console.log(`📝 Encontrados ${slugs.length} artículos HTML`);
     console.log('📄 URLs de artículos:');

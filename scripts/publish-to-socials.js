@@ -9,7 +9,7 @@ const BLOG_INDEX_PATH = path.join(PUBLIC_DIR, 'blog', 'index.json');
 const POSTED_ARTICLES_LOG = path.join(__dirname, 'posted_articles.json');
 const IMAGES_OUTPUT_DIR = path.join(__dirname, '..', 'public', 'social-images'); // Guardar imágenes en una carpeta pública
 
-const SITE_URL = 'https://hgaruna.org'; // <-- IMPORTANTE: Cambia esto a tu dominio final
+const SITE_URL = 'https://www.hgaruna.org'; // <-- CORRECCIÓN: Usar el dominio con 'www' para que coincida con el certificado SSL
 
 /**
  * Lee un archivo JSON de forma segura.
