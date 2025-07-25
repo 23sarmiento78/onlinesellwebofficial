@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="category" content="Tendencias y Futuro">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAMstack: JavaScript, APIs, Markup</title>
+    <meta name="description" content="El corazón de JAMstack reside en la separación de la lógica del servidor (backend) de la presentación del sitio web (frontend). El contenido estático ...">
+    <meta name="keywords" content="JavaScript, React, AWS">
+    <meta name="author" content="hgaruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.hgaruna.org/blog/jamstack-javascript-">
+    <meta property="og:title" content="JAMstack: JavaScript, APIs, Markup">
+    <meta property="og:description" content="El corazón de JAMstack reside en la separación de la lógica del servidor (backend) de la presentación del sitio web (frontend). El contenido estático ...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.hgaruna.org/blog/jamstack-javascript-">
+    <meta property="twitter:title" content="JAMstack: JavaScript, APIs, Markup">
+    <meta property="twitter:description" content="El corazón de JAMstack reside en la separación de la lógica del servidor (backend) de la presentación del sitio web (frontend). El contenido estático ...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.hgaruna.org/blog/jamstack-javascript-">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .article-meta {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .article-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .tags-container {
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
+        @media (max-width: 768px) {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
+            .article-header {
+                padding: 2rem 0;
+            }
+            
+            .article-content h1 {
+                font-size: 2rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
+    </div>
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark fs-6">Tendencias y Futuro</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">JAMstack: JavaScript, APIs, Markup</h1>
+                    <p class="lead mb-4">El corazón de JAMstack reside en la separación de la lógica del servidor (backend) de la presentación del sitio web (frontend). El contenido estático ...</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por hgaruna
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            25 de julio de 2025
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="JAMstack: JavaScript, APIs, Markup" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Meta información -->
+                <div class="article-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Categoría:</strong> Tendencias y Futuro<br>
+                            <strong>Autor:</strong> hgaruna<br>
+                            <strong>Fecha:</strong> 25 de julio de 2025
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de lectura:</strong> 4 min<br>
+                            <strong>Palabras:</strong> 679
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    <span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">AWS</span>
+                </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <main>
+  <h1>JAMstack: JavaScript, APIs, Markup</h1>
+  <p>JAMstack, una arquitectura de desarrollo web moderna, está revolucionando la forma en que construimos sitios web.  Este acrónimo representa <strong>JavaScript, APIs, y Markup</strong>, tres pilares fundamentales que permiten crear sitios web rápidos, escalables y seguros.  En lugar de depender de servidores tradicionales con bases de datos y lógica de servidor compleja, JAMstack utiliza APIs para obtener datos, JavaScript para la interactividad en el frontend, y Markup (HTML, CSS) para la estructura y el contenido estático.  Este enfoque ofrece una serie de ventajas significativas, que exploraremos en detalle a continuación.</p>
+
+  <h2>¿Qué es JAMstack? Una Explicación Detallada</h2>
+  <p>El corazón de JAMstack reside en la separación de la lógica del servidor (backend) de la presentación del sitio web (frontend). El contenido estático se genera previamente y se sirve directamente desde una CDN (Content Delivery Network), lo que resulta en una velocidad de carga excepcionalmente rápida.  Las interacciones dinámicas se gestionan a través de APIs, que se comunican con el backend para obtener datos actualizados.  JavaScript se encarga de manipular estos datos y actualizar la interfaz de usuario sin necesidad de recargar la página.</p>
+
+  <h2>Ventajas del Uso de JAMstack</h2>
+  <ul>
+    <li><strong>Rendimiento mejorado:</strong>  El contenido estático pre-renderizado se carga mucho más rápido que los sitios web tradicionales.</li>
+    <li><strong>Escalabilidad superior:</strong> Las CDNs distribuyen el tráfico en múltiples servidores, permitiendo manejar grandes cantidades de usuarios simultáneamente.</li>
+    <li><strong>Seguridad incrementada:</strong>  Al reducir la dependencia de servidores, se minimiza el riesgo de ataques y vulnerabilidades.</li>
+    <li><strong>Desarrollo más eficiente:</strong>  La separación de responsabilidades facilita el trabajo en equipo y acelera el proceso de desarrollo.</li>
+    <li><strong>Costos reducidos:</strong>  El uso de CDNs y la reducción de la infraestructura de servidor pueden resultar en un menor costo de alojamiento.</li>
+  </ul>
+
+  <h2>Desventajas del Uso de JAMstack</h2>
+  <ul>
+    <li><strong>Curva de aprendizaje:</strong>  Requiere familiaridad con APIs y frameworks de JavaScript.</li>
+    <li><strong>Complejidad en aplicaciones complejas:</strong>  Para aplicaciones muy complejas, la gestión de las APIs puede volverse desafiante.</li>
+    <li><strong>Dependencia de APIs externas:</strong>  La funcionalidad depende de la disponibilidad y el rendimiento de las APIs.</li>
+    <li><strong>SEO menos intuitivo (en algunos casos):</strong>  La pre-renderización puede requerir estrategias adicionales para asegurar un buen SEO.</li>
+  </ul>
+
+
+  <h2>Implementación Práctica de JAMstack</h2>
+  <h3>Paso 1: Selección de las herramientas</h3>
+  <p>Existen numerosas herramientas para construir sitios JAMstack.  Algunas opciones populares incluyen:</p>
+  <ul>
+    <li><strong>Frameworks de JavaScript:</strong> React, Vue.js, Gatsby, Next.js</li>
+    <li><strong>Cabezas estáticas:</strong> Eleventy, Hugo, Jekyll</li>
+    <li><strong>Plataformas de hosting:</strong> Netlify, Vercel, AWS Amplify</li>
+  </ul>
+
+  <h3>Paso 2: Diseño y desarrollo del Frontend</h3>
+  <p>En esta etapa, se diseña y desarrolla la interfaz de usuario utilizando HTML, CSS y JavaScript.  Se utiliza un framework de JavaScript para manejar la interactividad y la gestión de estado.  Se integran las APIs para obtener los datos necesarios.</p>
+
+  <h3>Paso 3: Implementación de las APIs</h3>
+  <p>Se crean o se integran las APIs que proporcionarán los datos al frontend.  Estas APIs pueden ser RESTful, GraphQL o cualquier otro tipo de API que se adapte a las necesidades del proyecto.</p>
+  <pre><code>
+// Ejemplo de una petición fetch a una API
+fetch('/api/data')
+  .then(response => response.json())
+  .then(data => {
+    // Procesar los datos recibidos
+    console.log(data);
+  });
+  </code></pre>
+
+
+  <h3>Paso 4:  Despliegue en una CDN</h3>
+  <p>Una vez que el sitio está listo, se despliega en una CDN para asegurar una entrega rápida y eficiente del contenido estático.</p>
+
+
+  <h2>Ejemplos de Casos de Uso de JAMstack</h2>
+  <ul>
+    <li><strong>Blogs y portafolios:</strong>  Ideales para sitios con contenido estático y actualizaciones ocasionales.</li>
+    <li><strong>Aplicaciones web simples:</strong>  Aplicaciones que no requieren una gran cantidad de interacción con la base de datos.</li>
+    <li><strong>Sitios de comercio electrónico (simples):</strong>  Para tiendas online con un catálogo de productos relativamente estático.</li>
+    <li><strong>Aplicaciones de una sola página (SPA):</strong>  Ofrecen una experiencia de usuario fluida y rápida.</li>
+  </ul>
+
+
+  <h2>Conclusión</h2>
+  <p>JAMstack representa una evolución significativa en el desarrollo web, ofreciendo una combinación inigualable de rendimiento, escalabilidad y seguridad.  Si bien requiere una curva de aprendizaje, las ventajas que proporciona lo convierten en una opción atractiva para una amplia gama de proyectos web.  La elección de las herramientas y la estrategia de implementación dependerán de las necesidades específicas de cada proyecto, pero la flexibilidad y la eficiencia de JAMstack lo posicionan como una tecnología clave para el futuro del desarrollo web.</p>
+</main>
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Funciones de compartir
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('JAMstack: JavaScript, APIs, Markup');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('JAMstack: JavaScript, APIs, Markup');
+            const summary = encodeURIComponent('El corazón de JAMstack reside en la separación de la lógica del servidor (backend) de la presentación del sitio web (frontend). El contenido estático ...');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('JAMstack: JavaScript, APIs, Markup - El corazón de JAMstack reside en la separación de la lógica del servidor (backend) de la presentación del sitio web (frontend). El contenido estático ...');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                link.href = '#';
+            });
+        });
+    </script>
+</body>
+</html> 
