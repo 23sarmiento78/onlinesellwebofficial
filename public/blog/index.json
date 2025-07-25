@@ -4,6 +4,7 @@
   "code-splitting-divis.html",
   "cqrs-command-query-r.html",
   "docker-contenedores-.html",
+  "estrategias-de-cach-.html",
   "migrations-gestin-de.html",
   "nlp-procesamiento-de.html",
   "package-managers-npm.html",
@@ -11,5 +12,6 @@
   "react-19-nuevas-cara.html",
   "security-testing-owa.html",
   "sql-injection-preven.html",
+  "typescript-avanzado-.html",
   "webassembly-rendimie.html"
 ]
