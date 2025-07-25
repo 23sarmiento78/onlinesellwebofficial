@@ -2,6 +2,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const snoowrap = require('snoowrap');
 const sharp = require('sharp');
+const matter = require('gray-matter'); // <-- Añadir esta línea
 
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
 const BLOG_INDEX_PATH = path.join(PUBLIC_DIR, 'blog', 'index.json');
@@ -128,13 +129,12 @@ async function main() {
   const {
     REDDIT_CLIENT_ID,
     REDDIT_CLIENT_SECRET,
-    REDDIT_USERNAME,
-    REDDIT_PASSWORD,
+    REDDIT_USERNAME, // Se usa para el userAgent
     REDDIT_REFRESH_TOKEN,
     REDDIT_SUBREDDIT,
   } = process.env;
 
-  const redditEnabled = REDDIT_CLIENT_ID && REDDIT_CLIENT_SECRET && REDDIT_USERNAME && REDDIT_PASSWORD && REDDIT_REFRESH_TOKEN && REDDIT_SUBREDDIT;
+  const redditEnabled = REDDIT_CLIENT_ID && REDDIT_CLIENT_SECRET && REDDIT_USERNAME && REDDIT_REFRESH_TOKEN && REDDIT_SUBREDDIT;
 
   let redditClient;
   if (redditEnabled) {
@@ -172,6 +172,20 @@ async function main() {
   const newArticles = articlesData.articles.filter(article => newArticleSlugs.includes(article.slug));
 
   for (const article of newArticles) {
+    // Asegurar que el artículo tenga un título, parseando el frontmatter si es necesario.
+    if (!article.title && article.content) {
+      try {
+        // Limpiamos el bloque de código para que matter pueda leer el YAML
+        const cleanContent = article.content.replace(/```yaml\r?\n/g, '').replace(/```/g, '');
+        const { data: frontmatter } = matter(cleanContent);
+        article.title = frontmatter.title;
+        console.log(`Título extraído del frontmatter para ${article.slug}: "${article.title}"`);
+      } catch (e) {
+        console.error(`No se pudo parsear el frontmatter para el slug: ${article.slug}`);
+        continue; // Saltar este artículo si no podemos obtener el título
+      }
+    }
+
     if (redditEnabled) {
       await postToReddit(redditClient, article, REDDIT_SUBREDDIT);
     }
