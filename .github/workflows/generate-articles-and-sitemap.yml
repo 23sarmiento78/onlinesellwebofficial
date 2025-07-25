@@ -51,7 +51,7 @@ jobs:
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
           REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
           REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
-          REDDIT_SUBREDDIT: 'r/programacion' # <-- Cambia esto por tu subreddit
+          REDDIT_SUBREDDIT: 'r/programming' # <-- Cambia esto por tu subreddit
         run: node scripts/publish-to-socials.js
 
       - name: Subir imágenes para redes sociales como Artefacto
