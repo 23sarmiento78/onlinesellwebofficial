@@ -1,63 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Páginas principales -->
   <url>
     <loc>https://service.hgaruna.org/</loc>
-    <lastmod>2025-01-29</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-07-25T00:02:02.726Z</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://service.hgaruna.org/desarrollo-web-villa-carlos-paz/</loc>
-    <lastmod>2025-01-29</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://service.hgaruna.org/public/blog</loc>
+    <lastmod>2025-07-25T00:02:02.726Z</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://service.hgaruna.org/diseño-web-villa-carlos-paz/</loc>
-    <lastmod>2025-01-29</lastmod>
+    <loc>https://service.hgaruna.org/contacto</loc>
+    <lastmod>2025-07-25T00:02:02.726Z</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://service.hgaruna.org/marketing-digital-villa-carlos-paz/</loc>
-    <lastmod>2025-01-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://service.hgaruna.org/planes/</loc>
-    <lastmod>2025-01-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://service.hgaruna.org/blog/</loc>
-    <lastmod>2025-01-29</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <!-- Eliminado: foro -->
-    <lastmod>2025-01-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://service.hgaruna.org/contacto/</loc>
-    <lastmod>2025-01-29</lastmod>
+    <loc>https://service.hgaruna.org/planes</loc>
+    <lastmod>2025-07-25T00:02:02.726Z</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.8</priority>
+  </url>
+  <!-- Artículos del public/blog -->
+  <url>
+    <loc>https://service.hgaruna.org/public/blog/cqrs-command-query-r</loc>
+    <lastmod>2025-07-25T00:02:02.726Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://service.hgaruna.org/politicas-privacidad/</loc>
-    <lastmod>2025-01-29</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://service.hgaruna.org/public/blog/docker-contenedores-</loc>
+    <lastmod>2025-07-25T00:02:02.726Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://service.hgaruna.org/legal/</loc>
-    <lastmod>2025-01-29</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://service.hgaruna.org/public/blog/migrations-gestin-de</loc>
+    <lastmod>2025-07-25T00:02:02.726Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://service.hgaruna.org/public/blog/profiling-anlisis-de</loc>
+    <lastmod>2025-07-25T00:02:02.726Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

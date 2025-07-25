@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BLOG_DIR = path.resolve(__dirname, '../public/public/blog');
+const BLOG_DIR = path.resolve(__dirname, '..//public/blog');
 
 function testDynamicLoading() {
   console.log('🧪 Probando carga dinámica de artículos...');

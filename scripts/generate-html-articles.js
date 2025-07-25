@@ -23,7 +23,7 @@ const articleTemplate = (article) => `<!DOCTYPE html>
     <meta property="og:title" content="${article.seo_title || article.title}">
     <meta property="og:description" content="${article.seo_description || article.summary}">
     <meta property="og:image" content="${article.image}">
-    <meta property="og:url" content="https://service.hgaruna.org/public/blog/${article.slug}">
+    <meta property="og:url" content="https://service.hgaruna.org/blog/${article.slug}">
     <meta property="og:type" content="article">
     
     <!-- Twitter Card -->
@@ -56,7 +56,7 @@ const articleTemplate = (article) => `<!DOCTYPE html>
       "dateModified": "${article.date}",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://service.hgaruna.org/public/blog/${article.slug}"
+        "@id": "https://service.hgaruna.org/blog/${article.slug}"
       }
     }
     </script>
@@ -344,7 +344,7 @@ async function generateHTMLArticles() {
     console.log('🚀 Iniciando generación de artículos HTML...\n');
     
     const articlesDir = path.join(__dirname, '../src/content/articulos');
-    const outputDir = path.join(__dirname, '../public/public/blog');
+    const outputDir = path.join(__dirname, '../blog');
     
     // Crear directorio de salida si no existe
     if (!fs.existsSync(outputDir)) {
@@ -432,8 +432,8 @@ function createBlogIndex(outputDir) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog IA - Artículos Generados por Inteligencia Artificial | hgaruna</title>
-    <meta name="description" content="Descubre los últimos artículos sobre programación y desarrollo web generados por inteligencia artificial">
-    <meta name="keywords" content="public/blog, IA, programación, desarrollo web, inteligencia artificial">
+    <meta name="description" content="Descubre los últimos artículos sobre programación, desarrollo web y tecnología, generados por inteligencia artificial.">
+    <meta name="keywords" content="blog, IA, programación, desarrollo web, inteligencia artificial, hgaruna, tutoriales">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">

@@ -104,7 +104,7 @@ export default function Home() {
             "description": "Desarrollo web profesional y marketing digital en Villa Carlos Paz, Córdoba",
             "potentialAction": {
               "@type": "SearchAction",
-              "target": {"@type": "EntryPoint", "urlTemplate": "https://service.hgaruna.org/public/blog/?q={search_term_string}"},
+              "target": {"@type": "EntryPoint", "urlTemplate": "https://service.hgaruna.org/blog/?q={search_term_string}"},
               "query-input": "required name=search_term_string"
             }
           },

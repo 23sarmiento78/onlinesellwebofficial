@@ -93,7 +93,7 @@ export default function BlogArticle() {
             </p>
             <Link to="/blog" className="btn btn-primary">
               <i className="fas fa-arrow-left me-2"></i>
-              Volver al public/blog
+              Volver al /blog
             </Link>
           </div>
         </div>

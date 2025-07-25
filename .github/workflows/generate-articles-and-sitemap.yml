@@ -47,10 +47,10 @@ jobs:
       - name: Actualizar sitemap
         run: node scripts/update_sitemap.js
 
-      - name: Copiar optimized-sitemap.xml a build/
+      - name: Copiar sitemap.xml.xml a build/
         run: |
           mkdir -p build
-          cp public/optimized-sitemap.xml build/optimized-sitemap.xml
+          cp public/sitemap.xml.xml build/sitemap.xml.xml
 
       - name: Asegurar carpetas para Netlify
         run: |
@@ -61,6 +61,6 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add public/blog public/optimized-sitemap.xml
+          git add public/blog public/sitemap.xml.xml
           git commit -m "[bot] Artículos HTML y sitemap actualizados - $(date '+%Y-%m-%d %H:%M:%S') ART" || echo "Nada para commitear"
           git push || echo "Nada para pushear"

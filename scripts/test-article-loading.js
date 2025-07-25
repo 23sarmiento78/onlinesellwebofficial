@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BLOG_DIR = path.resolve(__dirname, '../public/public/blog');
+const BLOG_DIR = path.resolve(__dirname, '..//public/blog');
 
 // Función simplificada para extraer metadatos (copiada de getArticlesFromHTML.js)
 function extractMetadataFromHTML(htmlContent, filename) {

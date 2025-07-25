@@ -86,7 +86,7 @@ async function checkGitHubActions() {
     }
 
     // Verificar archivos HTML generados
-    const htmlDir = path.join(__dirname, '../public/public/blog');
+    const htmlDir = path.join(__dirname, '..//public/blog');
     if (fs.existsSync(htmlDir)) {
       const htmlFiles = fs.readdirSync(htmlDir).filter(file => file.endsWith('.html'));
       console.log('🌐 Archivos HTML generados:');
@@ -95,11 +95,11 @@ async function checkGitHubActions() {
     }
 
     // Verificar sitemap
-    const sitemapPath = path.join(__dirname, '../public/optimized-sitemap.xml');
+    const sitemapPath = path.join(__dirname, '../public/sitemap.xml.xml');
     if (fs.existsSync(sitemapPath)) {
       const stats = fs.statSync(sitemapPath);
       console.log('🗺️  Sitemap:');
-      console.log(`  Archivo: optimized-sitemap.xml`);
+      console.log(`  Archivo: sitemap.xml.xml`);
       console.log(`  Tamaño: ${(stats.size / 1024).toFixed(2)} KB`);
       console.log(`  Última modificación: ${stats.mtime.toLocaleString()}`);
       console.log('');

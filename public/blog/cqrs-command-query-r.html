@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="stylesheet" href="/BlogIA.css">
-    <meta name="category" content="Cloud Native">
+    <meta name="category" content="Arquitectura y Patrones">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azure Functions: Desarrollo Serverless</title>
-    <meta name="description" content="Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...">
-    <meta name="keywords" content="JavaScript">
+    <title>CQRS: Command Query Responsibility Segregation</title>
+    <meta name="description" content="CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (consult...">
+    <meta name="keywords" content="">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://hgaruna.com/public/blog/azure-functions-desarrollo-serverless">
-    <meta property="og:title" content="Azure Functions: Desarrollo Serverless">
-    <meta property="og:description" content="Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...">
+    <meta property="og:url" content="https://hgaruna.com/blog/cqrs-command-query-r">
+    <meta property="og:title" content="CQRS: Command Query Responsibility Segregation">
+    <meta property="og:description" content="CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (consult...">
     <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://hgaruna.com/public/blog/azure-functions-desarrollo-serverless">
-    <meta property="twitter:title" content="Azure Functions: Desarrollo Serverless">
-    <meta property="twitter:description" content="Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...">
+    <meta property="twitter:url" content="https://hgaruna.com/blog/cqrs-command-query-r">
+    <meta property="twitter:title" content="CQRS: Command Query Responsibility Segregation">
+    <meta property="twitter:description" content="CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (consult...">
     <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://hgaruna.com/public/blog/azure-functions-desarrollo-serverless">
+    <link rel="canonical" href="https://hgaruna.com/blog/cqrs-command-query-r">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -228,10 +227,10 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto text-center">
                     <div class="mb-3">
-                        <span class="badge bg-light text-dark fs-6">DevOps y Cloud</span>
+                        <span class="badge bg-light text-dark fs-6">Arquitectura y Patrones</span>
                     </div>
-                    <h1 class="display-4 fw-bold mb-3">Azure Functions: Desarrollo Serverless</h1>
-                    <p class="lead mb-4">Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...</p>
+                    <h1 class="display-4 fw-bold mb-3">CQRS: Command Query Responsibility Segregation</h1>
+                    <p class="lead mb-4">CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (consult...</p>
                     <div class="d-flex justify-content-center align-items-center">
                         <small class="me-4">
                             <i class="fas fa-user me-1"></i>
@@ -257,104 +256,121 @@
             <div class="col-lg-8 mx-auto">
                 <!-- Imagen destacada -->
                 <div class="text-center mb-4">
-                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Azure Functions: Desarrollo Serverless" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="CQRS: Command Query Responsibility Segregation" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
                 </div>
                 
                 <!-- Meta información -->
                 <div class="article-meta">
                     <div class="row">
                         <div class="col-md-6">
-                            <strong>Categoría:</strong> DevOps y Cloud<br>
+                            <strong>Categoría:</strong> Arquitectura y Patrones<br>
                             <strong>Autor:</strong> hgaruna<br>
                             <strong>Fecha:</strong> 24 de julio de 2025
                         </div>
                         <div class="col-md-6">
                             <strong>Tiempo de lectura:</strong> 4 min<br>
-                            <strong>Palabras:</strong> 631
+                            <strong>Palabras:</strong> 771
                         </div>
                     </div>
                 </div>
                 
                 <!-- Tags -->
                 <div class="tags-container">
-                    <span class="tag">JavaScript</span>
+                    
                 </div>
                 
                 <!-- Contenido del artículo -->
                 <article class="article-content">
                     <main>
-  <h1>Azure Functions: Desarrollo Serverless</h1>
+  <h1>CQRS: Command Query Responsibility Segregation</h1>
+  <p>CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (consultas) de las operaciones de escritura (comandos).  En lugar de usar un único modelo para ambas acciones, CQRS utiliza dos modelos separados: uno para actualizar datos (el modelo de comando) y otro para consultar datos (el modelo de consulta). Esta separación permite optimizar cada modelo para su propósito específico, mejorando el rendimiento, la escalabilidad y la mantenibilidad de la aplicación.</p>
 
-  <p>Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin necesidad de administrar servidores.  Esto simplifica el desarrollo, la implementación y el mantenimiento de aplicaciones, reduciendo significativamente la complejidad y los costos asociados con la infraestructura.  Este artículo explora las características clave de Azure Functions y cómo aprovecharlas para el desarrollo de aplicaciones modernas y escalables.</p>
-
-  <h2>¿Qué son las Azure Functions?</h2>
-  <p>Las Azure Functions son pequeñas unidades de código ejecutable que se desencadenan en respuesta a diversos eventos, como cambios en almacenamiento, mensajes en colas, solicitudes HTTP, temporizadores, etc.  No necesitas preocuparte por la infraestructura subyacente; Azure se encarga de escalar automáticamente los recursos según la demanda, garantizando la disponibilidad y el rendimiento de tu aplicación.  Puedes escribir funciones en varios lenguajes, incluyendo C#, Java, JavaScript, Python y PowerShell, ofreciendo flexibilidad para elegir la tecnología más adecuada a tu proyecto.</p>
-
-  <h2>Ventajas de usar Azure Functions</h2>
+  <h2>¿Por qué usar CQRS?</h2>
+  <p>CQRS ofrece varias ventajas significativas sobre un enfoque monolítico tradicional.  La separación de comandos y consultas permite una mayor flexibilidad y eficiencia en el diseño y la implementación de la aplicación.</p>
   <ul>
-    <li><strong>Escalabilidad automática:</strong> Azure se encarga de escalar tu aplicación automáticamente según la demanda, sin necesidad de configuración manual.</li>
-    <li><strong>Pago por uso:</strong> Solo pagas por los recursos consumidos, lo que reduce significativamente los costos en comparación con las soluciones tradicionales.</li>
-    <li><strong>Desarrollo ágil:</strong>  El enfoque en funciones individuales facilita el desarrollo, la prueba y la implementación de código de forma rápida e iterativa.</li>
-    <li><strong>Integración con otros servicios de Azure:</strong> Se integra fácilmente con otros servicios de Azure como Azure Storage, Azure Cosmos DB, Azure Event Hubs, etc.</li>
-    <li><strong>Alta disponibilidad:</strong> Azure garantiza la alta disponibilidad de tus funciones, minimizando el tiempo de inactividad.</li>
+    <li><strong>Escalabilidad mejorada:</strong> Los modelos de comando y consulta se pueden escalar de forma independiente.  Se pueden agregar más recursos al modelo de consulta para manejar un mayor volumen de lecturas sin afectar el rendimiento del modelo de comando.</li>
+    <li><strong>Rendimiento optimizado:</strong>  Cada modelo se puede optimizar para su propósito específico. El modelo de consulta puede utilizar bases de datos y técnicas de optimización adecuadas para lecturas rápidas, mientras que el modelo de comando puede enfocarse en la consistencia y la integridad de los datos.</li>
+    <li><strong>Mayor mantenibilidad:</strong> La separación de responsabilidades simplifica el código y lo hace más fácil de entender, mantener y depurar. Los cambios en el modelo de comando no afectan al modelo de consulta y viceversa.</li>
+    <li><strong>Flexibilidad en la tecnología:</strong>  Permite usar diferentes tecnologías para cada modelo. Por ejemplo, se puede usar una base de datos relacional para el modelo de consulta y una base de datos NoSQL para el modelo de comando.</li>
   </ul>
 
-  <h2>Desventajas de usar Azure Functions</h2>
+  <h2>Componentes Clave de CQRS</h2>
+  <p>Un sistema CQRS típico incluye los siguientes componentes:</p>
   <ul>
-    <li><strong>Cold starts:</strong> El primer inicio de una función puede ser ligeramente más lento que en un entorno siempre activo.</li>
-    <li><strong>Limitaciones de tiempo de ejecución:</strong> Las funciones tienen un límite de tiempo de ejecución, por lo que las tareas que requieren mucho tiempo deben dividirse en tareas más pequeñas.</li>
-    <li><strong>Dependencias:</strong> Gestionar las dependencias de tus funciones puede requerir una configuración adicional.</li>
-    <li><strong>Debugging:</strong> Depurar funciones puede ser más complejo que en entornos tradicionales.</li>
+    <li><strong>Modelo de Comando:</strong> Responsable de la modificación de datos. Recibe comandos, valida la entrada y actualiza el estado del sistema.  Suele utilizar un enfoque transaccional para garantizar la consistencia de los datos.</li>
+    <li><strong>Modelo de Consulta:</strong> Responsable de recuperar datos.  Recibe consultas y devuelve los resultados.  Suele utilizar una base de datos optimizada para lecturas, como una base de datos NoSQL o una base de datos relacional con vistas materializadas.</li>
+    <li><strong>Bus de comandos:</strong> Un mecanismo para encolar y procesar comandos.  Puede ser una cola de mensajes, un bus de eventos o una simple interfaz de programación de aplicaciones (API).</li>
+    <li><strong>Bus de eventos (opcional):</strong>  Un mecanismo para publicar y suscribirse a eventos generados por el modelo de comando.  Permite la implementación de patrones de integración de eventos y la creación de sistemas más resilientes y escalables.</li>
   </ul>
 
-
-  <h2>Desarrollo de una Azure Function (Ejemplo en C#):</h2>
-  <p>A continuación, se muestra un ejemplo sencillo de una Azure Function en C# que responde a una solicitud HTTP:</p>
+  <h2>Ejemplo de Implementación (Simplificado)</h2>
+  <p>Imagine una aplicación de comercio electrónico.  El modelo de comando manejaría la creación de un nuevo pedido, la actualización del inventario, etc. El modelo de consulta se encargaría de mostrar la información del pedido, el historial de compras, etc.</p>
+  <h3>Modelo de Comando (Ejemplo Conceptual)</h3>
   <pre><code>
-using System.Net;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Extensions.Logging;
+  // Comando para crear un nuevo pedido
+  public class CreateOrderCommand
+  {
+      public int CustomerId { get; set; }
+      public List&lt;OrderItem&gt; Items { get; set; }
+  }
 
-public static class HttpFunction
-{
-    [Function("HttpFunction")]
-    public static HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req,
-        FunctionContext executionContext)
-    {
-        var logger = executionContext.GetLogger("HttpFunction");
-        logger.LogInformation("C# HTTP trigger function processed a request.");
-
-        var response = req.CreateResponse(HttpStatusCode.OK);
-        response.WriteString("Hello from Azure Functions!");
-
-        return response;
-    }
-}
+  // Manejador de comandos
+  public class OrderCommandHandler : ICommandHandler&lt;CreateOrderCommand&gt;
+  {
+      public void Handle(CreateOrderCommand command)
+      {
+          // Lógica para crear el pedido, actualizar el inventario, etc.
+      }
+  }
   </code></pre>
-  <p>Este código define una función que responde a solicitudes GET y POST.  Cuando se realiza una solicitud, la función devuelve un mensaje "Hello from Azure Functions!".</p>
+  <h3>Modelo de Consulta (Ejemplo Conceptual)</h3>
+  <pre><code>
+  // Consulta para obtener la información de un pedido
+  public class GetOrderQuery
+  {
+      public int OrderId { get; set; }
+  }
 
-  <h2>Implementación y Monitoreo</h2>
-  <h3>Implementación</h3>
-  <ol>
-    <li>Crear una función en Azure Portal.</li>
-    <li>Seleccionar el lenguaje de programación.</li>
-    <li>Escribir el código de la función.</li>
-    <li>Implementar la función en Azure.</li>
-  </ol>
-  <h3>Monitoreo</h3>
-  <p>Azure proporciona herramientas de monitoreo para rastrear el rendimiento y la salud de tus funciones. Puedes ver métricas como el tiempo de ejecución, el consumo de recursos y los logs.</p>
+  // Manejador de consultas
+  public class OrderQueryHandler : IQueryHandler&lt;GetOrderQuery, Order&gt;
+  {
+      public Order Handle(GetOrderQuery query)
+      {
+          // Lógica para obtener la información del pedido desde la base de datos de lectura
+          return order;
+      }
+  }
+  </code></pre>
 
-  <h2>Casos de Uso</h2>
+
+  <h2>Ventajas y Desventajas de CQRS</h2>
+  <h3>Ventajas</h3>
   <ul>
-    <li><strong>Procesamiento de imágenes:</strong>  Recibir imágenes, procesarlas y guardarlas en almacenamiento.</li>
-    <li><strong>Integraciones con APIs externas:</strong>  Consumir APIs de terceros y procesar la información recibida.</li>
-    <li><strong>Procesamiento de datos en tiempo real:</strong>  Procesar datos de flujos de datos en tiempo real, como datos de sensores.</li>
-    <li><strong>Automatización de tareas:</strong>  Automatizar tareas repetitivas como la creación de informes o la limpieza de datos.</li>
+    <li>Escalabilidad y rendimiento mejorados.</li>
+    <li>Mayor mantenibilidad y flexibilidad.</li>
+    <li>Posibilidad de usar diferentes tecnologías para cada modelo.</li>
+    <li>Mejor manejo de la concurrencia.</li>
+  </ul>
+  <h3>Desventajas</h3>
+  <ul>
+    <li>Mayor complejidad en el diseño e implementación.</li>
+    <li>Requiere una comprensión profunda de los patrones de diseño.</li>
+    <li>Puede ser más costoso en términos de desarrollo.</li>
+    <li>Puede ser difícil de implementar en sistemas heredados.</li>
+  </ul>
+
+  <h2>Casos de Uso de CQRS</h2>
+  <p>CQRS es particularmente adecuado para aplicaciones con un alto volumen de lecturas y un menor volumen de escrituras, como:</p>
+  <ul>
+    <li>Aplicaciones de comercio electrónico.</li>
+    <li>Sistemas de gestión de contenido (CMS).</li>
+    <li>Aplicaciones de banca en línea.</li>
+    <li>Plataformas de redes sociales.</li>
+    <li>Sistemas de gestión de inventario.</li>
   </ul>
 
   <h2>Conclusión</h2>
-  <p>Azure Functions ofrece una solución robusta y escalable para el desarrollo de aplicaciones serverless.  Su facilidad de uso, integración con otros servicios de Azure y modelo de pago por uso lo convierten en una opción atractiva para una variedad de casos de uso.  Aunque existen algunas limitaciones, las ventajas superan ampliamente las desventajas, especialmente para aplicaciones que requieren escalabilidad y flexibilidad.</p>
+  <p>CQRS es un patrón de arquitectura poderoso que puede mejorar significativamente el rendimiento, la escalabilidad y la mantenibilidad de las aplicaciones. Sin embargo, su implementación requiere una planificación cuidadosa y una comprensión profunda de sus ventajas y desventajas.  Es importante evaluar si CQRS es la solución adecuada para su proyecto en función de las necesidades específicas y la complejidad del sistema.</p>
 
 </main>
 
@@ -401,7 +417,7 @@ public static class HttpFunction
         // Funciones de compartir
         function shareOnTwitter() {
             const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('Azure Functions: Desarrollo Serverless');
+            const text = encodeURIComponent('CQRS: Command Query Responsibility Segregation');
             window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
         }
         
@@ -412,14 +428,14 @@ public static class HttpFunction
         
         function shareOnLinkedIn() {
             const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent('Azure Functions: Desarrollo Serverless');
-            const summary = encodeURIComponent('Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...');
+            const title = encodeURIComponent('CQRS: Command Query Responsibility Segregation');
+            const summary = encodeURIComponent('CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (consult...');
             window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
         }
         
         function shareOnWhatsApp() {
             const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('Azure Functions: Desarrollo Serverless - Azure Functions es un servicio de computación sin servidor (serverless) de Microsoft Azure que permite ejecutar código en respuesta a eventos sin nece...');
+            const text = encodeURIComponent('CQRS: Command Query Responsibility Segregation - CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (consult...');
             window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
         }
         

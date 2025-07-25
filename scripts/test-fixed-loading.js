@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BLOG_DIR = path.resolve(__dirname, '../public/public/blog');
+const BLOG_DIR = path.resolve(__dirname, '..//public/blog');
 
 function testFixedLoading() {
   console.log('🧪 Probando nueva función de carga de artículos...');

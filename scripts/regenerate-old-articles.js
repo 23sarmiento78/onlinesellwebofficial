@@ -7,7 +7,7 @@ const axios = require('axios');
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const TEMPLATE_PATH = path.resolve(__dirname, '../templates/article-template.html');
-const OUTPUT_DIR = path.resolve(__dirname, '../public/public/blog');
+const OUTPUT_DIR = path.resolve(__dirname, '..//public/blog');
 
 if (!GEMINI_API_KEY) {
   console.error('❌ Falta la variable de entorno GEMINI_API_KEY');

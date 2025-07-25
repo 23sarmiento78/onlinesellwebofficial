@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BLOG_DIR = path.resolve(__dirname, '../public/public/blog');
+const BLOG_DIR = path.resolve(__dirname, '..//public/blog');
 
 // Lista de archivos que deberían existir (basada en la lista hardcodeada)
 const expectedFiles = [

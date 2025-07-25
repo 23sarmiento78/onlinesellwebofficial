@@ -7,8 +7,8 @@ const path = require('path');
 function updateArticleList() {
   console.log('🔄 Actualizando lista de artículos...');
   
-  // Leer archivos de public/public/blog
-  const public/blogDir = path.join(__dirname, '../public/public/blog');
+  // Leer archivos de /public/blog
+  const public/blogDir = path.join(__dirname, '..//public/blog');
   const files = fs.readdirSync(public/blogDir);
   
   // Filtrar archivos HTML
