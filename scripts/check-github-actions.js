@@ -95,11 +95,11 @@ async function checkGitHubActions() {
     }
 
     // Verificar sitemap
-    const sitemapPath = path.join(__dirname, '../public/sitemap.xml.xml');
+    const sitemapPath = path.join(__dirname, '../public/sitemap.xml');
     if (fs.existsSync(sitemapPath)) {
       const stats = fs.statSync(sitemapPath);
       console.log('🗺️  Sitemap:');
-      console.log(`  Archivo: sitemap.xml.xml`);
+      console.log(`  Archivo: sitemap.xml`);
       console.log(`  Tamaño: ${(stats.size / 1024).toFixed(2)} KB`);
       console.log(`  Última modificación: ${stats.mtime.toLocaleString()}`);
       console.log('');

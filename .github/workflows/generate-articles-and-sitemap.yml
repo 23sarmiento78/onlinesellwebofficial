@@ -47,10 +47,10 @@ jobs:
       - name: Actualizar sitemap
         run: node scripts/update_sitemap.js
 
-      - name: Copiar sitemap.xml.xml a build/
+      - name: Copiar sitemap.xml a build/
         run: |
           mkdir -p build
-          cp public/sitemap.xml.xml build/sitemap.xml
+          cp public/sitemap.xml build/sitemap.xml
 
       - name: Asegurar carpetas para Netlify
         run: |

@@ -291,7 +291,7 @@ Allow: /
 # Sitemaps
 Sitemap: ${seoConfig.siteUrl}/sitemap-index.xml
 Sitemap: ${seoConfig.siteUrl}/local-sitemap.xml
-Sitemap: ${seoConfig.siteUrl}/sitemap.xml.xml
+Sitemap: ${seoConfig.siteUrl}/sitemap.xml
 
 # Crawl-delay para ser amigable con los servidores
 Crawl-delay: 1
@@ -380,7 +380,7 @@ function runSEOOptimization() {
   // Generar sitemap optimizado
   const sitemap = generateOptimizedSitemap();
   fs.writeFileSync(
-    path.join(__dirname, '../public/sitemap.xml.xml'),
+    path.join(__dirname, '../public/sitemap.xml'),
     sitemap
   );
   console.log('✅ Sitemap optimizado generado');
