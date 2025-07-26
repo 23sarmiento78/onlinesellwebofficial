@@ -61,20 +61,15 @@ jobs:
           path: public/social-images/
 
 
-      - name: Actualizar sitemap
-        run: node scripts/update_sitemap.js
-
-      - name: Copiar sitemap.xml a build/
-        run: |
-          mkdir -p build
-          cp public/sitemap.xml build/sitemap.xml
+      - name: Generar sitemap completo
+        run: node scripts/generate-sitemap.js # Este script ahora genera public/sitemap.xml
 
       - name: Asegurar carpetas para Netlify
         run: |
           mkdir -p public/blog
           touch public/blog/.keep
 
-      - name: Commit y push de artículos HTML y sitemap
+      - name: Commit y push de artículos y sitemap
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'

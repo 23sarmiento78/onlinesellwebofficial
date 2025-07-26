@@ -104,15 +104,6 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[plugins]]
-  package = "@netlify/plugin-sitemap"
-
-  [plugins.inputs]
-  buildDir = "build"
-  changeFreq = "daily"
-  priority = 0.5
-  baseUrl = "https://hgaruna.org"
-
-[[plugins]]
   package = "netlify-plugin-formspree"
 
 [context.production.environment]
