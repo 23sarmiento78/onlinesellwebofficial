@@ -8,6 +8,7 @@ const axios = require('axios');
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const TEMPLATE_PATH = path.resolve(__dirname, '../templates/article-template.html');
 const OUTPUT_DIR = path.resolve(__dirname, '../public/blog');
+const SITEMAP_PATH = path.resolve(__dirname, '../public/sitemap.xml');
 
 if (!GEMINI_API_KEY) {
   console.error('❌ Falta la variable de entorno GEMINI_API_KEY');
@@ -306,7 +307,7 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
       '{{SEO_TITLE}}': title,
       '{{SEO_DESCRIPTION}}': summary.substring(0, 160),
       '{{SEO_KEYWORDS}}': tags.join(', '),
-      '{{CANONICAL_URL}}': `https://www.hgaruna.org/blog/${slug}`, // <-- CORRECCIÓN: Dominio correcto
+      '{{CANONICAL_URL}}': `https://www.hgaruna.org/blog/${slug}.html`,
       '{{TAGS_HTML}}': tags.map(tag => `<span class="tag">${tag}</span>`).join(''),
       '{{READING_TIME}}': readingTime.toString(),
       '{{WORD_COUNT}}': wordCount.toString()
@@ -328,6 +329,37 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
   } catch (error) {
     console.error(`❌ Error generando artículo HTML sobre ${topic} [${category}]:`, error);
     throw error;
+  }
+}
+
+async function updateSitemap({ filename }) {
+  try {
+    console.log(`🔄 Actualizando sitemap.xml para ${filename}...`);
+    let sitemap = fs.readFileSync(SITEMAP_PATH, 'utf8');
+    const newUrl = `https://www.hgaruna.org/blog/${filename}`;
+
+    // Verificar si la URL ya existe
+    if (sitemap.includes(`<loc>${newUrl}</loc>`)) {
+      console.log(`⚠️  URL ${newUrl} ya existe en el sitemap, saltando.`);
+      return;
+    }
+
+    const newEntry = `
+  <url>
+    <loc>${newUrl}</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+
+    // Insertar la nueva entrada justo antes de la etiqueta de cierre </urlset>
+    sitemap = sitemap.replace('</urlset>', `${newEntry}\n</urlset>`);
+
+    fs.writeFileSync(SITEMAP_PATH, sitemap);
+    console.log('✅ sitemap.xml actualizado exitosamente.');
+
+  } catch (error) {
+    console.error('❌ Error actualizando sitemap.xml:', error);
   }
 }
 
@@ -367,6 +399,9 @@ async function main() {
         fs.writeFileSync(filepath, content);
         generatedArticles.push({ filename, title, slug, category });
         console.log(`✅ ${filename} guardado`);
+
+        // Actualizar el sitemap
+        await updateSitemap({ filename });
 
         // Pausa entre artículos para evitar rate limiting
         await new Promise(resolve => setTimeout(resolve, 3000));
