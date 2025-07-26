@@ -277,7 +277,19 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
     } else {
       template = template.replace(/<meta name="category"[^>]*>/i, `<meta name="category" content="${category}">`);
     }
-    
+    // Asegurar que la etiqueta de Google Site Verification esté presente y sea la correcta
+    const googleVerificationTag = '<meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />';
+    const googleVerificationRegex = /<meta\s+name="google-site-verification"[^>]*>/i;
+
+    if (googleVerificationRegex.test(template)) {
+      // Si ya existe una etiqueta de verificación, la reemplazamos para asegurar que es la correcta.
+      template = template.replace(googleVerificationRegex, googleVerificationTag);
+      console.log('🔄 Etiqueta de Google Site Verification actualizada.');
+    } else {
+      // Si no existe, la añadimos dentro del <head>.
+      template = template.replace(/<head>/i, `<head>\n    ${googleVerificationTag}`);
+      console.log('✨ Etiqueta de Google Site Verification añadida.');
+    }
     // Reemplazar variables en el template
     const replacements = {
       '{{ARTICLE_TITLE}}': title,
