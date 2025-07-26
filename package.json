@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "axios": "^1.6.5",
-    "netlify-plugin-formspree": "^0.0.3",
+    "netlify-plugin-formspree": "^1.0.1",
     "xml2js": "^0.6.2"
   },
   "browserslist": {
