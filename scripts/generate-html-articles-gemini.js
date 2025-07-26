@@ -291,6 +291,15 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
       template = template.replace(/<head>/i, `<head>\n    ${googleVerificationTag}`);
       console.log('✨ Etiqueta de Google Site Verification añadida.');
     }
+
+    // Asegurar que el script de AdSense esté presente en el <head>
+    const adsenseScript = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>';
+    if (!template.includes('adsbygoogle.js')) {
+      // Lo insertamos justo antes del cierre del </head> para asegurar que está dentro.
+      template = template.replace('</head>', `    ${adsenseScript}\n</head>`);
+      console.log('✨ Script de Google AdSense añadido al template.');
+    }
+
     // Reemplazar variables en el template
     const replacements = {
       '{{ARTICLE_TITLE}}': title,
