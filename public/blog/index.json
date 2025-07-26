@@ -1,5 +1,6 @@
 [
   "angular-18-nuevas-fu.html",
+  "ansible-automatizaci.html",
   "cicd-automatizacin-d.html",
   "code-splitting-divis.html",
   "cqrs-command-query-r.html",
@@ -7,9 +8,11 @@
   "docker-contenedores-.html",
   "edge-computing-compu.html",
   "estrategias-de-cach-.html",
+  "graphql-vs-rest-cund.html",
   "jamstack-javascript-.html",
   "lazy-loading-carga-d.html",
   "linters-y-formatters.html",
+  "machine-learning-par.html",
   "migrations-gestin-de.html",
   "nlp-procesamiento-de.html",
   "nodejs-22-nuevas-car.html",
@@ -19,6 +22,7 @@
   "react-19-nuevas-cara.html",
   "security-testing-owa.html",
   "sql-injection-preven.html",
+  "terraform-infrastruc.html",
   "testing-de-apis-post.html",
   "typescript-avanzado-.html",
   "webassembly-rendimie.html"
