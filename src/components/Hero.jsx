@@ -1,16 +1,43 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 export default function Hero({
   title,
   subtitle,
-  backgroundImage = '/logos-he-imagenes/fondo-hero.jpg',
   ctas = [],
   stats = []
 }) {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    // Asegurarse de que el video se reproduzca correctamente
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.log("Autoplay prevented:", error);
+      });
+    }
+  }, []);
+
   return (
     <section className="hero-section">
       <div className="hero-background">
-        <img src={backgroundImage} alt="Fondo hero" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <video 
+          ref={videoRef}
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            top: 0,
+            left: 0
+          }}
+        >
+          <source src="/5377684-uhd_3840_2160_25fps.mp4" type="video/mp4" />
+          Tu navegador no soporta el elemento de video.
+        </video>
       </div>
       <div className="hero-overlay"></div>
       <div className="hero-content">

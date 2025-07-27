@@ -26,43 +26,72 @@ jobs:
         run: npm install
 
 
-      - name: Generar 3 artículos HTML con Gemini
+      - name: Configurar entorno
+        env:
+          SITE_URL: https://hgaruna.org
+        run: |
+          echo "SITE_URL=$SITE_URL" >> $GITHUB_ENV
+
+      - name: Generar artículos HTML con Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: node scripts/generate-html-articles-gemini.js --count=3
-
-
-      - name: Copiar artículos HTML generados a public/blog
+          SITE_URL: ${{ env.SITE_URL }}
         run: |
+          # Crear directorio de artículos si no existe
           mkdir -p public/blog
-          cp -u scripts/generated-html/*.html public/blog/ 2>/dev/null || echo "No hay archivos nuevos para copiar"
+          
+          # Ejecutar generador de artículos
+          node scripts/generate-html-articles-gemini.js
 
-      - name: Agregar meta categoría a los HTML
-        run: node scripts/add-category-meta.js
-
-      - name: Generar índice de artículos (index.json)
-        run: node scripts/generate-blog-index.js
-
-      - name: Publicar en Redes Sociales
+      - name: Publicar en Reddit
+        if: success()
         env:
-          # Configura estos secretos en tu repositorio de GitHub
-          # -> Settings > Secrets and variables > Actions
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
           REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
           REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
-          REDDIT_SUBREDDIT: 'r/programming' # <-- Cambia esto por tu subreddit
-        run: node scripts/publish-to-socials.js
+          REDDIT_SUBREDDIT: 'r/programming'
+          SITE_URL: ${{ env.SITE_URL }}
+        run: |
+          # Verificar si el script de publicación existe
+          if [ -f "scripts/publish-to-reddit.js" ]; then
+            echo "📣 Publicando en Reddit..."
+            node scripts/publish-to-reddit.js
+          else
+            echo "⚠️  No se encontró el script de publicación en Reddit"
+          fi
 
-      - name: Subir imágenes para redes sociales como Artefacto
-        uses: actions/upload-artifact@v4
-        with:
-          name: social-media-images
-          path: public/social-images/
+      - name: Actualizar sitemap
+        env:
+          SITE_URL: ${{ env.SITE_URL }}
+        run: |
+          # Verificar si hay artículos generados
+          if [ -z "$(ls -A public/blog/*.html 2>/dev/null)" ]; then
+            echo "No se encontraron artículos para incluir en el sitemap"
+            exit 0
+          fi
+          
+          # Actualizar sitemap
+          node scripts/update_sitemap.js
+          
+          # Mostrar contenido del sitemap generado
+          echo "\n📄 Contenido del sitemap generado:"
+          cat public/sitemap.xml | head -n 20
+          echo "..."
 
-
-      - name: Generar sitemap completo
-        run: node scripts/generate-sitemap.js # Este script ahora genera public/sitemap.xml
+      - name: Verificar artículos generados
+        run: |
+          echo "📂 Contenido del directorio public/blog/:"
+          ls -la public/blog/
+          
+          # Mostrar información de los artículos generados
+          for file in public/blog/*.html; do
+            echo "\n📄 $file:"
+            echo "Tamaño: $(wc -c < "$file") bytes"
+            echo "Primeras líneas:"
+            head -n 10 "$file" | sed 's/^/  /'
+            echo "..."
+          done
 
       - name: Asegurar carpetas para Netlify
         run: |

@@ -4,17 +4,17 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+const matter = require('gray-matter');
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const TEMPLATE_PATH = path.resolve(__dirname, '../templates/article-template.html');
 const OUTPUT_DIR = path.resolve(__dirname, '../public/blog');
 const SITEMAP_PATH = path.resolve(__dirname, '../public/sitemap.xml');
+const SITE_URL = process.env.SITE_URL || 'https://hgaruna.org';
 
 if (!GEMINI_API_KEY) {
   console.error('❌ Falta la variable de entorno GEMINI_API_KEY');
   process.exit(1);
 }
-
 
 // Definir categorías y temas asociados
 const categoriesToTopics = {
@@ -152,7 +152,7 @@ const categoriesToTopics = {
   ]
 };
 
-
+// Función para obtener temas aleatorios de una categoría
 function getRandomTopicsFromCategory(category, n) {
   const topics = categoriesToTopics[category] || [];
   const shuffled = topics.sort(() => 0.5 - Math.random());
@@ -162,6 +162,7 @@ function getRandomTopicsFromCategory(category, n) {
 function generateSlug(title) {
   return title
     .toLowerCase()
+    .normalize('NFD')
     .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
@@ -181,24 +182,33 @@ function generateTagsHTML(tags) {
   return tags.map(tag => `<span class="tag">#${tag}</span>`).join('');
 }
 
-
+// Función para generar un artículo HTML
 async function generateArticleHTML(topic, category) {
-  const prompt = `
-Eres un experto desarrollador web y escritor técnico. Tu tarea es crear un artículo HTML completo sobre "${topic}" para la categoría "${category}".
+  const slug = generateSlug(topic);
+  const date = new Date().toISOString().split('T')[0];
+  const readingTime = Math.floor(Math.random() * 10) + 5; // 5-15 min
 
-IMPORTANTE: 
-- Genera SOLO el contenido HTML que va dentro del <main> del template
-- NO uses backticks de markdown (\`\`\`)
-- NO incluyas <!DOCTYPE html>, <html>, <head>, <body> ni ninguna etiqueta de estructura
-- Solo genera el contenido que va dentro del <main> del template
+  const prompt = `Eres un experto desarrollador web y escritor técnico. Tu tarea es crear un artículo HTML completo sobre "${topic}" para la categoría "${category}".
 
-El artículo debe incluir:
-1. Un párrafo introductorio con la descripción
-2. Al menos 4-5 secciones con títulos H2
-3. Subsecciones con H3 donde sea apropiado
-4. Listas con ventajas/desventajas, pasos, consejos, etc.
-5. Ejemplos de código cuando sea relevante
-6. Una conclusión
+IMPORTANTE:
+- Genera SOLO el contenido HTML que va dentro del <main>
+- Usa la siguiente estructura:
+  <h2>Introducción</h2>
+  <p>Breve introducción al tema...</p>
+  
+  <h2>Sección Principal</h2>
+  <p>Contenido detallado...</p>
+  
+  <h3>Subsección</h3>
+  <p>Más detalles...</p>
+  
+  <h2>Conclusión</h2>
+  <p>Resumen y cierre...</p>
+
+- Incluye ejemplos de código con <pre><code class="language-javascript">
+- Usa <ul> y <ol> para listas
+- Añade <strong> y <em> para énfasis
+- No incluyas estilos, solo estructura HTML semántica
 
 Formato requerido:
 - Usa solo etiquetas HTML: <h2>, <h3>, <p>, <ul>, <ol>, <li>, <blockquote>, <code>, <pre>
@@ -207,11 +217,10 @@ Formato requerido:
 - Escribe entre 800-1200 palabras
 - Incluye al menos 2 ejemplos de código si es relevante
 
-Genera SOLO el contenido HTML que va dentro del <main> del template, sin backticks ni estructura adicional.
-`;
+Genera SOLO el contenido HTML que va dentro del <main>, sin backticks ni estructura adicional.`;
 
   try {
-    console.log(`🔄 Generando artículo HTML sobre: ${topic} [${category}]`);
+    console.log(`🔄 Generando artículo HTML sobre: ${topic} (${category})`);
     
     const res = await axios.post(
       'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
@@ -246,13 +255,7 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
     // Generar slug del título
     // Slug corto y SEO, sin fecha
     // Slug muy corto para el nombre del archivo
-    const slug = title
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-+|-+$/g, '')
-      .substring(0, 20);
+    const filename = `${slug}.html`;
     
     // Generar tags basados en el contenido
     const tags = [];
@@ -307,16 +310,12 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
       '{{ARTICLE_CONTENT}}': content,
       '{{CATEGORY}}': category,
       '{{AUTHOR}}': 'hgaruna',
-      '{{PUBLISH_DATE}}': new Date().toLocaleDateString('es-ES', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      }),
+      '{{PUBLISH_DATE}}': date,
       '{{FEATURED_IMAGE}}': '/logos-he-imagenes/programacion.jpeg',
       '{{SEO_TITLE}}': title,
       '{{SEO_DESCRIPTION}}': summary.substring(0, 160),
       '{{SEO_KEYWORDS}}': tags.join(', '),
-      '{{CANONICAL_URL}}': `https://www.hgaruna.org/blog/${slug}.html`,
+      '{{CANONICAL_URL}}': `${SITE_URL}/blog/${filename}`,
       '{{TAGS_HTML}}': tags.map(tag => `<span class="tag">${tag}</span>`).join(''),
       '{{READING_TIME}}': readingTime.toString(),
       '{{WORD_COUNT}}': wordCount.toString()
@@ -327,25 +326,24 @@ Genera SOLO el contenido HTML que va dentro del <main> del template, sin backtic
       template = template.replace(new RegExp(key, 'g'), value);
     });
     
-    const today = new Date().toISOString().slice(0, 10);
-    return {
-      content: template,
-      title,
-      slug,
-      filename: `${slug}.html`
-    };
+    const filepath = path.join(OUTPUT_DIR, filename);
+    fs.writeFileSync(filepath, template);
+    console.log(`✅ ${filename} guardado`);
+    
+    return { filename, title, slug, category };
     
   } catch (error) {
-    console.error(`❌ Error generando artículo HTML sobre ${topic} [${category}]:`, error);
+    console.error(`❌ Error generando artículo HTML sobre ${topic} (${category}):`, error);
     throw error;
   }
 }
 
+// Función para actualizar el sitemap
 async function updateSitemap({ filename }) {
   try {
     console.log(`🔄 Actualizando sitemap.xml para ${filename}...`);
     let sitemap = fs.readFileSync(SITEMAP_PATH, 'utf8');
-    const newUrl = `https://www.hgaruna.org/blog/${filename}`;
+    const newUrl = `${SITE_URL}/blog/${filename}`;
 
     // Verificar si la URL ya existe
     if (sitemap.includes(`<loc>${newUrl}</loc>`)) {
@@ -372,51 +370,41 @@ async function updateSitemap({ filename }) {
   }
 }
 
-
+// Función principal
 async function main() {
   try {
-    console.log('🚀 Iniciando generación de artículos HTML multi-categoría...');
-
-    // Crear directorio si no existe
+    console.log('🚀 Iniciando generación de artículos con Gemini...');
+    
+    // Crear directorio de salida si no existe
     if (!fs.existsSync(OUTPUT_DIR)) {
       fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-      console.log('📁 Directorio de artículos HTML creado');
     }
-
+    
+    // Obtener categorías disponibles
+    const categories = Object.keys(categoriesToTopics);
     const generatedArticles = [];
-    // Seleccionar 2 categorías aleatorias
-    const allCategories = Object.keys(categoriesToTopics);
-    const shuffledCategories = allCategories.sort(() => 0.5 - Math.random());
-    const selectedCategories = shuffledCategories.slice(0, 2);
-
-    for (const category of selectedCategories) {
-      const topics = categoriesToTopics[category];
-      // Seleccionar 1 tema aleatorio por categoría
-      const shuffledTopics = topics.sort(() => 0.5 - Math.random());
-      const topic = shuffledTopics[0];
-      console.log(`\n📅 Generando artículo para la categoría: ${category}`);
+    
+    // Generar artículos
+    for (let i = 0; i < 3; i++) {
       try {
-        const { content, filename, title, slug } = await generateArticleHTML(topic, category);
-        const filepath = path.join(OUTPUT_DIR, filename);
-
-        // Verificar si el archivo ya existe
-        if (fs.existsSync(filepath)) {
-          console.log(`⚠️  Archivo ${filename} ya existe, saltando...`);
-          continue;
+        const category = categories[Math.floor(Math.random() * categories.length)];
+        const topics = getRandomTopicsFromCategory(category, 1);
+        const topic = topics[0];
+        
+        console.log(`\n📝 Generando artículo sobre: ${topic} (${category})`);
+        const article = await generateArticleHTML(topic, category);
+        
+        if (article) {
+          generatedArticles.push(article);
+          
+          // Actualizar el sitemap
+          await updateSitemap({ filename: article.filename });
+          
+          // Pausa entre artículos para evitar rate limiting
+          await new Promise(resolve => setTimeout(resolve, 3000));
         }
-
-        fs.writeFileSync(filepath, content);
-        generatedArticles.push({ filename, title, slug, category });
-        console.log(`✅ ${filename} guardado`);
-
-        // Actualizar el sitemap
-        await updateSitemap({ filename });
-
-        // Pausa entre artículos para evitar rate limiting
-        await new Promise(resolve => setTimeout(resolve, 3000));
-
       } catch (error) {
-        console.error(`❌ Error con artículo [${category}]:`, error.message);
+        console.error(`❌ Error con artículo:`, error.message);
         // Continuar con el siguiente artículo
       }
     }

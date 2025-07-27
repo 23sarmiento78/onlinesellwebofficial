@@ -31,8 +31,7 @@ export default function NavBar() {
         <div className="container nav-flex">
           {/* Logo */}
           <a className="navbar-brand" href="/">
-            <img src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo de hgaruna" />
-            <span>hgaruna</span>
+            <img src="/logos-he-imagenes/logo3.png" alt="hgaruna - Desarrollo Web Profesional" style={{height: '60px'}} />
           </a>
 
           {/* Menú Desktop */}
@@ -68,8 +67,7 @@ export default function NavBar() {
       <div className={`mobile-sidebar${menuOpen ? ' open' : ''}`}>
         <div className="sidebar-header">
           <div className="sidebar-logo">
-            <img src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo" />
-            <span>hgaruna</span>
+            <img src="/logos-he-imagenes/logo3.png" alt="hgaruna - Desarrollo Web Profesional" style={{height: '60px'}} />
           </div>
           <button className="sidebar-close" onClick={handleClose}>
             <i className="fas fa-times"></i>

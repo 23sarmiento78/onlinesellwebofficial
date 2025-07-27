@@ -2,6 +2,7 @@ import React from 'react';
 import BaseLayout from '../layouts/BaseLayout';
 import Hero from '../components/Hero';
 import Card from '../components/Card';
+import RecursosYTips from '../components/RecursosYTips';
 
 export default function Home() {
   return (
@@ -167,7 +168,6 @@ export default function Home() {
         ]
       }) }} />
 
-      {/* Hero Section */}
       <Hero
         title="Desarrollo Web Profesional en Villa Carlos Paz | Sitios Web que Venden"
         subtitle="¿Tu competencia ya tiene sitio web y tú no? No te quedes atrás. Creamos sitios web profesionales que convierten visitantes en clientes. Precios accesibles para negocios locales de Villa Carlos Paz y Córdoba."
@@ -194,108 +194,212 @@ export default function Home() {
         ]}
       />
 
-      {/* Servicios Section */}
-      <section id="servicios" className="servicios">
+      
+      <section className="success-case-section">
         <div className="container">
-          <div className="public/blog-header">
-            <h2 className="public/blog-title-main">Desarrollo Web Villa Carlos Paz: ¿Por qué los Negocios Locales Eligen hgaruna?</h2>
-            <p className="public/blog-description">No somos solo programadores web, somos tu socio digital para hacer crecer tu negocio en Villa Carlos Paz y Córdoba</p>
-          </div>
-          <div className="servicios-grid">
-            <Card
-              image="/logos-he-imagenes/programacion.jpeg"
-              title="Sitios Web que Venden"
-              description="No solo creamos sitios web bonitos, creamos sitios web que convierten visitantes en clientes. Diseño enfocado en resultados para negocios de Villa Carlos Paz."
-              cta={{ href: '/planes/', className: 'btn btn-primary', text: 'Desde $150' }}
-              children={<div className="servicio-features">
-                <span><i className="fas fa-check"></i> Diseño Responsivo</span>
-                <span><i className="fas fa-check"></i> Optimizado para Móviles</span>
-                <span><i className="fas fa-check"></i> Velocidad de Carga</span>
-              </div>}
-            />
-            <Card
-              image="/logos-he-imagenes/programacion.jpeg"
-              title="Vende Online 24/7"
-              description="Tu negocio nunca duerme. Con nuestras tiendas online, puedes vender tus productos o servicios las 24 horas del día en Villa Carlos Paz."
-              cta={{ href: '/planes/', className: 'btn btn-primary', text: 'Desde $300' }}
-              children={<div className="servicio-features">
-                <span><i className="fas fa-check"></i> Pasarelas de Pago</span>
-                <span><i className="fas fa-check"></i> Gestión de Inventario</span>
-                <span><i className="fas fa-check"></i> Reportes de Ventas</span>
-              </div>}
-            />
-            <Card
-              image="/logos-he-imagenes/programacion.jpeg"
-              title="Aparece Primero en Google"
-              description="Cuando alguien busque tu negocio en Villa Carlos Paz, queremos que aparezcas primero. SEO local especializado para empresas de la región."
-              cta={{ href: '/planes/', className: 'btn btn-primary', text: 'Incluido en Planes' }}
-              children={<div className="servicio-features">
-                <span><i className="fas fa-check"></i> Google My Business</span>
-                <span><i className="fas fa-check"></i> Reseñas Locales</span>
-                <span><i className="fas fa-check"></i> Palabras Clave Locales</span>
-              </div>}
+          <h2 className="section-title">Caso de Éxito</h2>
+          <p className="section-description">
+            Uno de nuestros proyectos destacados: Veterinaria en Carlos Paz. Sitio web profesional, rápido, optimizado para dispositivos móviles y SEO local.
+          </p>
+          <div className="live-site-preview">
+            <iframe
+              src="https://www.veterinariaencarlospaz.com/"
+              title="Veterinaria en Carlos Paz"
+              style={{
+                width: "100%",
+                minHeight: "600px",
+                border: "1px solid #eee",
+                borderRadius: "12px",
+                boxShadow: "0 2px 24px rgba(0,0,0,0.07)",
+              }}
+              loading="lazy"
             />
           </div>
         </div>
       </section>
 
-      {/* Beneficios Section */}
-      <section className="beneficios">
+      {/* Recursos y Tips Gratuitos */}
+      <RecursosYTips />
+
+      {/* ¿Por qué elegirnos? */}
+      <section className="why-choose-us-section">
         <div className="container">
-          <div className="public/blog-header">
-            <h2 className="public/blog-title-main">¿Qué Pasa si NO Tienes un Sitio Web?</h2>
-            <p className="public/blog-description">Los números no mienten: los negocios con presencia web crecen más rápido</p>
-          </div>
-          <div className="beneficios-grid">
-            <div className="beneficio-card warning">
-              <i className="fas fa-exclamation-triangle beneficio-icon"></i>
-              <h3>Pierdes Clientes</h3>
-              <p>El 81% de las personas investigan online antes de comprar. Sin sitio web, no te encuentran.</p>
+          <h2 className="section-title">¿Por qué elegirnos?</h2>
+          <div className="features-grid">
+            <div className="feature-card">
+              <i className="fas fa-bolt feature-icon"></i>
+              <h3>Rápida Entrega</h3>
+              <p>Tu web lista en tiempo récord, sin sacrificar calidad.</p>
             </div>
-            <div className="beneficio-card warning">
-              <i className="fas fa-chart-line-down beneficio-icon"></i>
-              <h3>Tu Competencia Te Gana</h3>
-              <p>Mientras tú no tienes sitio web, tu competencia ya está vendiendo online y captando clientes.</p>
+            <div className="feature-card">
+              <i className="fas fa-mobile-alt feature-icon"></i>
+              <h3>Diseño Responsive</h3>
+              <p>Perfecta en cualquier dispositivo y pantalla.</p>
             </div>
-            <div className="beneficio-card warning">
-              <i className="fas fa-clock beneficio-icon"></i>
-              <h3>Horarios Limitados</h3>
-              <p>Tu negocio solo funciona cuando estás abierto. Un sitio web vende las 24 horas.</p>
+            <div className="feature-card">
+              <i className="fas fa-search feature-icon"></i>
+              <h3>SEO Local</h3>
+              <p>Optimización para que te encuentren en tu ciudad.</p>
             </div>
-            <div className="beneficio-card success">
-              <i className="fas fa-rocket beneficio-icon"></i>
-              <h3>Con hgaruna: Crecimiento Garantizado</h3>
-              <p>Nuestros clientes ven un aumento del 200% en consultas en los primeros 3 meses.</p>
-            </div>
-            <div className="beneficio-card success">
-              <i className="fas fa-users beneficio-icon"></i>
-              <h3>Más Clientes Locales</h3>
-              <p>Los turistas y residentes te encuentran fácilmente cuando buscan en Google.</p>
-            </div>
-            <div className="beneficio-card success">
-              <i className="fas fa-dollar-sign beneficio-icon"></i>
-              <h3>ROI Inmediato</h3>
-              <p>Recuperas la inversión en el primer mes con los nuevos clientes que lleguen.</p>
-            </div>
-          </div>
-          <div className="cta-section">
-            <h3>¿Listo para Transformar tu Negocio?</h3>
-            <p>No esperes más. Cada día sin sitio web es un día perdiendo clientes.</p>
-            <div className="cta-buttons">
-              <a href="/planes/" className="cta-button primary large">
-                <i className="fas fa-rocket"></i>
-                ¡Quiero mi Sitio Web AHORA!
-              </a>
-              <a href="https://wa.me/+543541237972?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20servicios%20de%20desarrollo%20web" className="cta-button secondary large" target="_blank">
-                <i className="fab fa-whatsapp"></i>
-                Hablar con un Experto
-              </a>
+            <div className="feature-card">
+              <i className="fas fa-handshake feature-icon"></i>
+              <h3>Atención Personalizada</h3>
+              <p>Te acompañamos en cada paso del proceso.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Sección de Servicios */}
+      <section className="services">
+        <div className="container">
+          <div className="section-header">
+            <h2>Nuestros Servicios</h2>
+            <p>Soluciones digitales personalizadas para hacer crecer tu negocio en Villa Carlos Paz</p>
+          </div>
+          
+          <div className="services-grid">
+            <div className="service-card">
+              <div className="service-card-inner">
+                <div className="service-card-front">
+                  <div className="service-icon">
+                    <i className="fas fa-laptop-code"></i>
+                  </div>
+                  <h3>Sitios Web Profesionales</h3>
+                  <p>Diseño web personalizado que convierte visitantes en clientes.</p>
+                  <div className="price-tag">
+                    Desde $150
+                  </div>
+                </div>
+                <div className="service-card-back">
+                  <h3>Beneficios Clave</h3>
+                  <ul>
+                    <li><i className="fas fa-check"></i> Diseño 100% personalizado para tu marca</li>
+                    <li><i className="fas fa-check"></i> Optimizado para todos los dispositivos</li>
+                    <li><i className="fas fa-check"></i> Formulario de contacto integrado</li>
+                    <li><i className="fas fa-check"></i> SEO básico incluido</li>
+                    <li><i className="fas fa-check"></i> Dominio y hosting por 1 año</li>
+                    <li><i className="fas fa-check"></i> Certificado SSL gratuito</li>
+                  </ul>
+                  <a href="/contacto/" className="btn btn-outline">Solicitar Cotización</a>
+                </div>
+              </div>
+            </div>
+            
+            <div className="service-card featured">
+              <div className="service-card-inner">
+                <div className="service-card-front">
+                  <div className="service-icon">
+                    <i className="fas fa-shopping-cart"></i>
+                  </div>
+                  <h3>Tiendas Online</h3>
+                  <p>Vende tus productos las 24 horas del día, los 7 días de la semana.</p>
+                  <div className="price-tag">
+                    Desde $300
+                  </div>
+                </div>
+                <div className="service-card-back">
+                  <h3>Características Principales</h3>
+                  <ul>
+                    <li><i className="fas fa-check"></i> Hasta 50 productos incluidos</li>
+                    <li><i className="fas fa-check"></i> Pasarela de pagos integrada</li>
+                    <li><i className="fas fa-check"></i> Gestión de inventario</li>
+                    <li><i className="fas fa-check"></i> Carrito de compras seguro</li>
+                    <li><i className="fas fa-check"></i> Panel de administración fácil de usar</li>
+                    <li><i className="fas fa-check"></i> Integración con redes sociales</li>
+                  </ul>
+                  <a href="/contacto/" className="btn btn-primary">Empezar a Vender</a>
+                </div>
+              </div>
+            </div>
+            
+            <div className="service-card">
+              <div className="service-card-inner">
+                <div className="service-card-front">
+                  <div className="service-icon">
+                    <i className="fas fa-search-dollar"></i>
+                  </div>
+                  <h3>Marketing Digital</h3>
+                  <p>Estrategias efectivas para aumentar tu presencia en línea.</p>
+                  <div className="price-tag">
+                    Desde $200
+                  </div>
+                </div>
+                <div className="service-card-back">
+                  <h3>Nuestro Enfoque</h3>
+                  <ul>
+                    <li><i className="fas fa-check"></i> Estrategias personalizadas SEO</li>
+                    <li><i className="fas fa-check"></i> Campañas en Google Ads</li>
+                    <li><i className="fas fa-check"></i> Publicidad en Redes Sociales</li>
+                    <li><i className="fas fa-check"></i> Email Marketing</li>
+                    <li><i className="fas fa-check"></i> Análisis de competencia</li>
+                    <li><i className="fas fa-check"></i> Informes mensuales detallados</li>
+                  </ul>
+                  <a href="/contacto/" className="btn btn-outline">Potenciar mi Negocio</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="cta-box">
+            <div className="cta-content">
+              <h3>¿No encuentras lo que buscas?</h3>
+              <p>Tenemos soluciones personalizadas para cada necesidad.</p>
+            </div>
+            <a href="https://wa.me/+543541237972" className="btn btn-primary" target="_blank">
+              <i className="fab fa-whatsapp"></i> Consulta sin compromiso
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Sección de Proceso de Trabajo */}
+      <section className="work-process">
+        <div className="container">
+          <div className="section-header">
+            <h2>Nuestro Proceso de Trabajo</h2>
+            <p>Así es como transformamos tu idea en una solución digital exitosa</p>
+          </div>
+          
+          <div className="process-steps">
+            <div className="process-step">
+              <div className="step-number">1</div>
+              <h3>Consulta Inicial</h3>
+              <p>Analizamos tus necesidades y objetivos en una reunión sin costo.</p>
+            </div>
+            
+            <div className="process-step">
+              <div className="step-number">2</div>
+              <h3>Propuesta Personalizada</h3>
+              <p>Te presentamos un plan de trabajo detallado con presupuesto cerrado.</p>
+            </div>
+            
+            <div className="process-step">
+              <div className="step-number">3</div>
+              <h3>Diseño y Desarrollo</h3>
+              <p>Creamos tu sitio web con las últimas tecnologías y diseño adaptativo.</p>
+            </div>
+            
+            <div className="process-step">
+              <div className="step-number">4</div>
+              <h3>Lanzamiento</h3>
+              <p>Publicamos tu sitio y te capacitamos para que lo administres fácilmente.</p>
+            </div>
+          </div>
+          
+          <div className="cta-box secondary">
+            <div className="cta-content">
+              <h3>¿Listo para comenzar?</h3>
+              <p>Agenda una consulta gratuita y descubre cómo podemos ayudarte a crecer en línea.</p>
+            </div>
+            <a href="https://wa.me/+543541237972" className="btn btn-secondary" target="_blank">
+              <i className="fas fa-calendar-alt"></i> Agendar Consulta
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Sección de Contacto */}
       <section className="contact-section">
         <div className="container">
           <div className="contact-header">
@@ -417,4 +521,4 @@ export default function Home() {
       </section>
     </BaseLayout>
   );
-} 
+}

@@ -11,6 +11,7 @@
     "@grapesjs/studio-sdk": "^1.0.55",
     "auth0-spa-js": "^1.6.5",
     "bootstrap": "^5.3.3",
+    "cheerio": "^1.1.2",
     "cron-parser": "^5.3.0",
     "glob": "^11.0.3",
     "globby": "^14.1.0",
@@ -24,6 +25,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
+    "react-icons": "^5.5.0",
     "react-markdown": "^9.1.0",
     "react-router-dom": "^7.6.3",
     "react-scripts": "^5.0.1",
@@ -38,7 +40,8 @@
     "generate-articles": "node scripts/generate-static-articles.js",
     "generate-html-articles": "node scripts/generate-html-articles.js",
     "update-articles": "node scripts/update-article-list.js",
-    "build-with-articles": "npm run generate-articles && npm run generate-html-articles && npm run build"
+    "build-with-articles": "npm run generate-articles && npm run generate-html-articles && npm run build",
+    "update-blog": "node scripts/update-blog-articles.js"
   },
   "devDependencies": {
     "axios": "^1.6.5",

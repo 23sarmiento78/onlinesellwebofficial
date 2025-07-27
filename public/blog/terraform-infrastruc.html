@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
-    <meta name="category" content="DevOps y Cloud">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terraform: Infrastructure as Code</title>
+  <meta name="category" content="DevOps y Cloud">
     <meta name="description" content="Terraform es una herramienta de código abierto que permite gestionar y provisionar infraestructura de forma declarativa.  En lugar de configurar manua...">
     <meta name="keywords" content="AWS">
     <meta name="author" content="hgaruna">
@@ -13,134 +12,279 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.hgaruna.org/blog/terraform-infrastruc.html">
+    <meta property="og:url" content="https://tudominio.com/blog/terraform-infrastruc.html">
     <meta property="og:title" content="Terraform: Infrastructure as Code">
     <meta property="og:description" content="Terraform es una herramienta de código abierto que permite gestionar y provisionar infraestructura de forma declarativa.  En lugar de configurar manua...">
     <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.hgaruna.org/blog/terraform-infrastruc.html">
+    <meta property="twitter:url" content="https://tudominio.com/blog/terraform-infrastruc.html">
     <meta property="twitter:title" content="Terraform: Infrastructure as Code">
     <meta property="twitter:description" content="Terraform es una herramienta de código abierto que permite gestionar y provisionar infraestructura de forma declarativa.  En lugar de configurar manua...">
     <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.hgaruna.org/blog/terraform-infrastruc.html">
+    <link rel="canonical" href="https://tudominio.com/blog/terraform-infrastruc.html">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --dark-bg: #0f172a;
+            --darker-bg: #0a1122;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
         }
         
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--dark-bg);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1140px;
+        }
+        
+        /* Header */
         .article-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
             color: white;
-            padding: 4rem 0;
+            padding: 6rem 0 4rem;
             margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .article-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #ffffff, #a7f3d0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .article-meta {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
         }
         
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .article-meta i {
+            color: var(--primary);
+        }
+        
+        /* Content */
         .article-content {
             font-size: 1.1rem;
             line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
         }
         
-        .article-content h1, .article-content h2, .article-content h3 {
-            color: #2c3e50;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
+        .article-content h1, 
+        .article-content h2, 
+        .article-content h3, 
+        .article-content h4 {
+            color: var(--text-primary);
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
         }
         
         .article-content h1 {
             font-size: 2.5rem;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+            display: inline-block;
         }
         
         .article-content h2 {
             font-size: 2rem;
-            border-left: 4px solid #667eea;
-            padding-left: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .article-content h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            height: calc(100% - 1rem);
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
         }
         
         .article-content h3 {
             font-size: 1.5rem;
-            color: #667eea;
+            color: var(--primary);
         }
         
         .article-content p {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
         }
         
-        .article-content ul, .article-content ol {
-            margin-bottom: 1.5rem;
+        .article-content a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px dotted var(--primary);
+        }
+        
+        .article-content a:hover {
+            color: #a7f3d0;
+            border-bottom-color: #a7f3d0;
+        }
+        
+        .article-content ul, 
+        .article-content ol {
+            margin-bottom: 2rem;
             padding-left: 2rem;
         }
         
         .article-content li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        
+        .article-content ul li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .article-content ol {
+            counter-reset: item;
+        }
+        
+        .article-content ol li {
+            counter-increment: item;
+        }
+        
+        .article-content ol li::before {
+            content: counter(item) '.';
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.5rem;
         }
         
         .article-content blockquote {
-            border-left: 4px solid #667eea;
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            font-style: italic;
-            background: #f8f9fa;
-            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem 2rem;
+            margin: 2.5rem 0;
+            background: rgba(16, 185, 129, 0.05);
             border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--text-primary);
         }
         
-        .article-content code {
-            background: #f1f3f4;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
+        .article-content blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
         }
         
         .article-content pre {
-            background: #2c3e50;
-            color: #ecf0f1;
+            background: var(--darker-bg);
             padding: 1.5rem;
             border-radius: 8px;
             overflow-x: auto;
             margin: 2rem 0;
+            border: 1px solid var(--border-color);
+        }
+        
+        .article-content code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #a7f3d0;
         }
         
         .article-content pre code {
             background: none;
-            color: inherit;
             padding: 0;
+            border-radius: 0;
         }
         
-        .tags-container {
-            margin: 2rem 0;
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            gap: 0.5rem;
         }
         
-        .tag {
-            display: inline-block;
-            background: #667eea;
+        .btn-primary {
+            background: var(--primary);
             color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            margin: 0.2rem;
-            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
         }
         
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(16, 185, 129, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Back button */
         .back-button {
             position: fixed;
             top: 2rem;
@@ -148,141 +292,164 @@
             z-index: 1000;
         }
         
-        .share-buttons {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            z-index: 1000;
+        .back-button .btn {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
         }
         
-        .share-btn {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 40px;
-            margin: 0 0.2rem;
+        .back-button .btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        /* Share buttons */
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .share-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
             color: white;
             text-decoration: none;
-            transition: transform 0.3s ease;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
         
-        .share-btn:hover {
-            transform: scale(1.1);
+        .share-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .share-twitter { background: #1DA1F2; }
+        .share-facebook { background: #4267B2; }
+        .share-linkedin { background: #0077B5; }
+        .share-whatsapp { background: #25D366; }
+        
+        /* Tags */
+        .article-tags {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin: 2rem 0 3rem;
+        }
+        
+        .tag {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--primary);
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .tag:hover {
+            background: var(--primary);
             color: white;
         }
         
-        .share-twitter { background: #1da1f2; }
-        .share-facebook { background: #4267b2; }
-        .share-linkedin { background: #0077b5; }
-        .share-whatsapp { background: #25d366; }
+        /* Footer */
+        .article-footer {
+            margin-top: 4rem;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+        }
         
+        /* Responsive */
         @media (max-width: 768px) {
-            .back-button, .share-buttons {
-                position: static;
-                margin: 1rem 0;
+            .article-header {
+                padding: 5rem 0 3rem;
             }
             
-            .article-header {
-                padding: 2rem 0;
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+            }
+            
+            .back-button .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .share-buttons {
+                justify-content: center;
+            }
+            
+            .article-content {
+                font-size: 1rem;
             }
             
             .article-content h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .article-content h2 {
                 font-size: 1.5rem;
             }
+            
+            .article-content h3 {
+                font-size: 1.3rem;
+            }
         }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- Botón de regreso -->
     <div class="back-button">
-        <a href="/blog" class="btn btn-outline-primary">
+        <a href="/blog" class="btn">
             <i class="fas fa-arrow-left"></i> Volver al Blog
         </a>
     </div>
-    
-    <!-- Botones de compartir -->
-    <div class="share-buttons">
-        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
-            <i class="fab fa-twitter"></i>
-        </a>
-        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
-            <i class="fab fa-facebook"></i>
-        </a>
-        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
-            <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-    </div>
-    
+
     <!-- Header del artículo -->
     <header class="article-header">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <div class="mb-3">
-                        <span class="badge bg-light text-dark fs-6">DevOps y Cloud</span>
-                    </div>
-                    <h1 class="display-4 fw-bold mb-3">Terraform: Infrastructure as Code</h1>
-                    <p class="lead mb-4">Terraform es una herramienta de código abierto que permite gestionar y provisionar infraestructura de forma declarativa.  En lugar de configurar manua...</p>
-                    <div class="d-flex justify-content-center align-items-center">
-                        <small class="me-4">
-                            <i class="fas fa-user me-1"></i>
-                            Por hgaruna
-                        </small>
-                        <small class="me-4">
-                            <i class="fas fa-calendar me-1"></i>
-                            26 de julio de 2025
-                        </small>
-                        <small>
-                            <i class="fas fa-robot me-1"></i>
-                            Generado por IA
-                        </small>
+                <div class="col-lg-10 mx-auto text-center">
+                    <h1 class="article-title">Terraform: Infrastructure as Code</h1>
+                    <div class="article-meta justify-content-center">
+                        <span><i class="far fa-calendar-alt"></i> 26 de julio de 2025</span>
+                        <span><i class="far fa-clock"></i> 4 min de lectura</span>
+                        <span><i class="far fa-user"></i> Por hgaruna</span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-    
+
     <!-- Contenido principal -->
     <main class="container">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
+            <div class="col-lg-10 mx-auto">
                 <!-- Imagen destacada -->
-                <div class="text-center mb-4">
-                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Terraform: Infrastructure as Code" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
-                </div>
-                
-                <!-- Meta información -->
-                <div class="article-meta">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Categoría:</strong> DevOps y Cloud<br>
-                            <strong>Autor:</strong> hgaruna<br>
-                            <strong>Fecha:</strong> 26 de julio de 2025
-                        </div>
-                        <div class="col-md-6">
-                            <strong>Tiempo de lectura:</strong> 4 min<br>
-                            <strong>Palabras:</strong> 648
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Tags -->
-                <div class="tags-container">
-                    <span class="tag">AWS</span>
+                <div class="featured-image mb-5 text-center">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Terraform: Infrastructure as Code" class="img-fluid rounded-3">
                 </div>
                 
                 <!-- Contenido del artículo -->
                 <article class="article-content">
+                    
+                    
                     <main>
   <h1>Terraform: Infrastructure as Code</h1>
   <p>Terraform es una herramienta de código abierto que permite gestionar y provisionar infraestructura de forma declarativa.  En lugar de configurar manualmente servidores, redes y otros recursos en la nube o en entornos locales, Terraform utiliza archivos de configuración (escritos en el lenguaje de configuración HashiCorp Configuration Language - HCL) para definir la infraestructura deseada.  Esto facilita la automatización, la repetibilidad y la colaboración en la gestión de la infraestructura, convirtiéndolo en un pilar fundamental de las prácticas DevOps y la gestión de la nube.</p>
@@ -312,7 +479,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~&gt; 4.0"
     }
   }
 }
@@ -358,78 +525,118 @@ resource "aws_instance" "example" {
   <p>Terraform es una herramienta poderosa y versátil para la gestión de infraestructura como código.  Su enfoque declarativo, la compatibilidad con múltiples proveedores de nube y su gran comunidad lo convierten en una elección popular para equipos de DevOps y administradores de sistemas.  Si bien existe una curva de aprendizaje inicial, la inversión en el aprendizaje de Terraform se traduce en una mayor eficiencia, repetibilidad y confiabilidad en la gestión de la infraestructura.</p>
 </main>
 
+                
+                
                 </article>
                 
-                <!-- Footer del artículo -->
-                <footer class="mt-5 pt-4 border-top">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Compartir artículo</h5>
-                            <div class="mt-2">
-                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
-                                    <i class="fab fa-twitter"></i> Twitter
-                                </a>
-                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
-                                    <i class="fab fa-facebook"></i> Facebook
-                                </a>
-                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
-                                    <i class="fab fa-linkedin"></i> LinkedIn
-                                </a>
-                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
-                                    <i class="fab fa-whatsapp"></i> WhatsApp
-                                </a>
+                <!-- Etiquetas -->
+                <div class="article-tags">
+                    
+                </div>
+                
+                <!-- Botones para compartir -->
+                <div class="share-buttons">
+                    <a href="#" onclick="shareOnTwitter()" class="share-button share-twitter">
+                        <i class="fab fa-twitter"></i> Compartir en Twitter
+                    </a>
+                    <a href="#" onclick="shareOnFacebook()" class="share-button share-facebook">
+                        <i class="fab fa-facebook-f"></i> Compartir en Facebook
+                    </a>
+                    <a href="#" onclick="shareOnLinkedIn()" class="share-button share-linkedin">
+                        <i class="fab fa-linkedin-in"></i> Compartir en LinkedIn
+                    </a>
+                    <a href="#" onclick="shareOnWhatsApp()" class="share-button share-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Compartir por WhatsApp
+                    </a>
+                </div>
+                
+                <!-- Autor -->
+                <div class="author-card bg-dark p-4 rounded-3 mt-5">
+                    <div class="d-flex align-items-center">
+                        <img src="/ruta/a/la/imagen/del/autor.jpg" alt="hgaruna" class="rounded-circle me-3" width="80" height="80">
+                        <div>
+                            <h4 class="mb-1">hgaruna</h4>
+                            <p class="text-muted mb-2">Experto en desarrollo web y tecnología</p>
+                            <div class="social-links">
+                                {{#AUTHOR_SOCIAL}}
+                                <a href="{{url}}" class="text-primary me-2" target="_blank"><i class="fab fa-{{platform}}"></i></a>
+                                {{/AUTHOR_SOCIAL}}
                             </div>
                         </div>
-                        <div class="col-md-6 text-md-end">
-                            <p class="text-muted">
-                                <small>
-                                    <i class="fas fa-robot me-1"></i>
-                                    Artículo generado por inteligencia artificial
-                                </small>
-                            </p>
-                        </div>
                     </div>
-                </footer>
+                </div>
             </div>
         </div>
     </main>
     
+    <!-- Footer -->
+    <footer class="article-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h3 class="mb-4">¿Te gustó este artículo?</h3>
+                    <p class="lead mb-4">Suscríbete a nuestro boletín para recibir más contenido como este directamente en tu correo.</p>
+                    <form class="row g-3 justify-content-center">
+                        <div class="col-md-8">
+                            <input type="email" class="form-control form-control-lg" placeholder="Tu correo electrónico" required>
+                        </div>
+                        <div class="col-md-auto">
+                            <button type="submit" class="btn btn-primary btn-lg">Suscribirme</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Funciones de compartir
+        // Funciones para compartir
         function shareOnTwitter() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('Terraform: Infrastructure as Code');
+            const text = encodeURIComponent('Mira este artículo: Terraform: Infrastructure as Code');
+            const url = encodeURIComponent('https://tudominio.com/blog/terraform-infrastruc.html');
             window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
         }
         
         function shareOnFacebook() {
-            const url = encodeURIComponent(window.location.href);
+            const url = encodeURIComponent('https://tudominio.com/blog/terraform-infrastruc.html');
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
         }
         
         function shareOnLinkedIn() {
-            const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent('Terraform: Infrastructure as Code');
-            const summary = encodeURIComponent('Terraform es una herramienta de código abierto que permite gestionar y provisionar infraestructura de forma declarativa.  En lugar de configurar manua...');
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+            const url = encodeURIComponent('https://tudominio.com/blog/terraform-infrastruc.html');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
         }
         
         function shareOnWhatsApp() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('Terraform: Infrastructure as Code - Terraform es una herramienta de código abierto que permite gestionar y provisionar infraestructura de forma declarativa.  En lugar de configurar manua...');
-            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+            const text = encodeURIComponent('Mira este artículo: Terraform: Infrastructure as Code https://tudominio.com/blog/terraform-infrastruc.html');
+            window.open(`https://wa.me/?text=${text}`, '_blank');
         }
         
         // Actualizar URLs de compartir con la URL actual
         document.addEventListener('DOMContentLoaded', function() {
             const currentUrl = window.location.href;
             document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
-                link.href = '#';
+                const onclick = link.getAttribute('onclick');
+                link.setAttribute('onclick', onclick.replace(/https://tudominio.com/blog/terraform-infrastruc.html/g, currentUrl));
+            });
+        });
+        
+        // Efecto de scroll suave para los enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
     </script>
 </body>
-</html> 
+</html>

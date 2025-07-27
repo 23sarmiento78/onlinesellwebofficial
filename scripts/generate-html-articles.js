@@ -143,11 +143,11 @@ const articleTemplate = (article) => `<!DOCTYPE html>
             content: "›"; 
         }
         .hover-lift { 
-            transition: transform 0.2s ease, box-shadow 0.2s ease; 
+            transition: transform 0.2s ease,   //*box-shadow: none;*/ 0.2s ease; 
         }
         .hover-lift:hover { 
             transform: translateY(-5px); 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+              //*box-shadow: none;*/: 0 10px 25px rgba(0,0,0,0.1); 
         }
     </style>
 </head>
@@ -441,8 +441,8 @@ function createBlogIndex(outputDir) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <style>
-        .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .hover-lift { transition: transform 0.2s ease,   //*box-shadow: none;*/ 0.2s ease; }
+        .hover-lift:hover { transform: translateY(-5px);   //*box-shadow: none;*/: 0 10px 25px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
