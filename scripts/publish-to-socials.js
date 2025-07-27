@@ -1,76 +1,72 @@
 const fs = require('fs').promises;
 const path = require('path');
 const snoowrap = require('snoowrap');
-const sharp = require('sharp');
 
-// Configuración
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
 const BLOG_DIR = path.join(PUBLIC_DIR, 'blog');
-const BLOG_INDEX_PATH = path.join(PUBLIC_DIR, 'blog', 'index.json');
 const POSTED_ARTICLES_LOG = path.join(__dirname, 'posted_articles.json');
-const IMAGES_OUTPUT_DIR = path.join(PUBLIC_DIR, 'social-images');
 const SITE_URL = 'https://www.hgaruna.org';
 
-// Obtener la lista de subreddits de la variable de entorno
-const TARGET_SUBREDDITS = process.env.REDDIT_SUBREDDITS
-  ? process.env.REDDIT_SUBREDDITS
-      .split(',')
-      .map(s => s.trim())
-      .filter(Boolean)
-  : ['programming']; // Valor por defecto
+// Prefijo para el título
+const TITLE_PREFIX = process.env.REDDIT_PREFIX_TEXT || '💡 hgaruna tips y mini consejos de programación:';
 
-// Inicializar cliente de Reddit
+// Obtener la lista de subreddits
+const TARGET_SUBREDDITS = process.env.REDDIT_SUBREDDITS
+  ? process.env.REDDIT_SUBREDDITS.split(',').map(s => s.trim()).filter(Boolean)
+  : ['programming'];
+
 let redditClient;
 
-/**
- * Obtiene información del archivo (fecha de modificación)
- */
-async function getFileStats(filePath) {
+// Leer el archivo de artículos ya publicados
+async function loadPostedArticles() {
   try {
-    const stats = await fs.stat(filePath);
-    return stats;
-  } catch (error) {
-    console.error(`Error al obtener stats de ${filePath}:`, error);
-    return { mtime: new Date(0) }; // Fecha muy antigua si hay error
+    const data = await fs.readFile(POSTED_ARTICLES_LOG, 'utf8');
+    return JSON.parse(data);
+  } catch {
+    return []; // Si no existe o está vacío
   }
 }
 
-/**
- * Publica un artículo en un subreddit
- */
+// Guardar en el archivo de artículos publicados
+async function savePostedArticles(log) {
+  await fs.writeFile(POSTED_ARTICLES_LOG, JSON.stringify(log, null, 2));
+}
+
+// Verifica si un artículo ya fue publicado
+function wasAlreadyPosted(log, slug) {
+  return log.some(entry => entry.slug === slug);
+}
+
+// Publica un artículo
 async function postToReddit(article, subreddit) {
   const articleUrl = `${SITE_URL}/blog/${article.slug}.html`;
-  console.log(`Publicando en r/${subreddit}: "${article.title}"`);
+  const title = `${TITLE_PREFIX} ${article.title}`;
+
+  console.log(`📢 Publicando en r/${subreddit}:\n→ Título: "${title}"\n→ URL: ${articleUrl}`);
 
   try {
     const submission = await redditClient.getSubreddit(subreddit).submitLink({
-      title: article.title,
+      title,
       url: articleUrl,
       sendReplies: true
     });
-    console.log(`✅ Publicado exitosamente en r/${subreddit}`);
-    console.log(`   URL: https://www.reddit.com${submission.permalink}`);
+
+    console.log(`✅ Publicado en r/${subreddit}: https://www.reddit.com${submission.permalink}`);
     return true;
   } catch (error) {
-    console.error(`❌ Error al publicar en r/${subreddit}:`, error.message);
-    if (error.response?.body) {
-      console.error('Detalles del error:', JSON.stringify(error.response.body, null, 2));
-    }
+    console.error(`❌ Error en r/${subreddit}:`, error.message);
     return false;
   }
 }
 
-/**
- * Función principal
- */
+// Función principal
 async function main() {
   try {
-    // Verificar credenciales
+    // Validar credenciales
     if (!process.env.REDDIT_CLIENT_ID || !process.env.REDDIT_CLIENT_SECRET || !process.env.REDDIT_REFRESH_TOKEN) {
-      throw new Error('Faltan credenciales de Reddit. Verifica las variables de entorno.');
+      throw new Error('❌ Faltan credenciales de Reddit');
     }
 
-    // Inicializar cliente de Reddit
     redditClient = new snoowrap({
       userAgent: 'hgaruna-bot/1.0',
       clientId: process.env.REDDIT_CLIENT_ID,
@@ -78,67 +74,53 @@ async function main() {
       refreshToken: process.env.REDDIT_REFRESH_TOKEN
     });
 
-    console.log(`📰 Iniciando publicación en ${TARGET_SUBREDDITS.length} subreddits...`);
+    const files = (await fs.readdir(BLOG_DIR)).filter(f => f.endsWith('.html'));
+    if (files.length === 0) return console.log('📭 No se encontraron artículos HTML');
 
-    // Obtener lista de archivos HTML
-    const files = await fs.readdir(BLOG_DIR);
-    const htmlFiles = files.filter(file => file.endsWith('.html'));
-    
-    if (htmlFiles.length === 0) {
-      console.log('No se encontraron artículos para publicar');
-      return;
+    // Ordenar por fecha de modificación
+    const fileStats = await Promise.all(
+      files.map(async file => ({
+        name: file,
+        time: (await fs.stat(path.join(BLOG_DIR, file))).mtime.getTime()
+      }))
+    );
+    fileStats.sort((a, b) => b.time - a.time);
+    const latestFile = fileStats[0].name;
+
+    const htmlContent = await fs.readFile(path.join(BLOG_DIR, latestFile), 'utf8');
+    const titleMatch = htmlContent.match(/<title[^>]*>([^<]+)<\/title>/i);
+    const title = titleMatch ? titleMatch[1].trim() : 'Artículo sin título';
+    const slug = latestFile.replace('.html', '');
+
+    const postedLog = await loadPostedArticles();
+    if (wasAlreadyPosted(postedLog, slug)) {
+      return console.log(`⏭️ El artículo "${slug}" ya fue publicado anteriormente.`);
     }
 
-    // Obtener información de cada archivo de forma asíncrona
-    const filesWithStats = await Promise.all(
-      htmlFiles.map(async (file) => {
-        const stats = await getFileStats(path.join(BLOG_DIR, file));
-        return {
-          name: file,
-          time: stats.mtime.getTime()
-        };
-      })
-    );
+    const article = { title, slug };
 
-    // Ordenar por fecha de modificación (más reciente primero)
-    filesWithStats.sort((a, b) => b.time - a.time);
-    const latestArticle = filesWithStats[0].name;
-
-    // Leer el contenido del artículo
-    const htmlContent = await fs.readFile(path.join(BLOG_DIR, latestArticle), 'utf8');
-    const titleMatch = htmlContent.match(/<title[^>]*>([^<]+)<\/title>/i);
-    const title = titleMatch ? titleMatch[1].trim() : 'Nuevo Artículo';
-
-    const article = {
-      title,
-      slug: latestArticle.replace('.html', '')
-    };
-
-    console.log(`📝 Artículo a publicar: "${article.title}"`);
-
-    // Publicar en cada subreddit
     for (let i = 0; i < TARGET_SUBREDDITS.length; i++) {
       const subreddit = TARGET_SUBREDDITS[i];
-      await postToReddit(article, subreddit);
-      
-      // Esperar 1 minuto entre publicaciones (excepto después de la última)
+      const success = await postToReddit(article, subreddit);
+
+      if (!success) continue;
+
+      // Esperar 60 segundos si hay más subreddits
       if (i < TARGET_SUBREDDITS.length - 1) {
-        const waitTime = 60 * 1000; // 1 minuto
-        console.log(`⏳ Esperando ${waitTime/1000} segundos antes de la siguiente publicación...`);
-        await new Promise(resolve => setTimeout(resolve, waitTime));
+        console.log('⏳ Esperando 60 segundos antes del siguiente subreddit...');
+        await new Promise(r => setTimeout(r, 60000));
       }
     }
 
-    console.log('✅ Publicación completada en todos los subreddits');
+    // Guardar como publicado
+    postedLog.push({ slug, date: new Date().toISOString() });
+    await savePostedArticles(postedLog);
 
+    console.log('📝 Registro de artículos actualizado');
   } catch (error) {
-    console.error('❌ Error en la ejecución principal:', error.message);
-    if (error.response?.body) {
-      console.error('Detalles del error:', JSON.stringify(error.response.body, null, 2));
-    }
+    console.error('❌ Error general:', error.message);
     process.exit(1);
   }
 }
 
-// Ejecutar
 main();
