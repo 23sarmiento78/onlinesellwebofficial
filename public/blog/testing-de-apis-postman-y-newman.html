@@ -6,27 +6,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introducción</title>
-    <meta name="description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las ...">
-    <meta name="keywords" content="JavaScript, SonarQube">
+    <meta name="description" content="En el desarrollo de software moderno, las APIs (Application Programming Interfaces) son el corazón de la comunicación entre diferentes sistemas.  Gara...">
+    <meta name="keywords" content="JavaScript">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <meta property="og:url" content="https://www.hgaruna.org/blog/testing-de-apis-postman-y-newman.html">
     <meta property="og:title" content="Introducción">
-    <meta property="og:description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las ...">
+    <meta property="og:description" content="En el desarrollo de software moderno, las APIs (Application Programming Interfaces) son el corazón de la comunicación entre diferentes sistemas.  Gara...">
     <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <meta property="twitter:url" content="https://www.hgaruna.org/blog/testing-de-apis-postman-y-newman.html">
     <meta property="twitter:title" content="Introducción">
-    <meta property="twitter:description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las ...">
+    <meta property="twitter:description" content="En el desarrollo de software moderno, las APIs (Application Programming Interfaces) son el corazón de la comunicación entre diferentes sistemas.  Gara...">
     <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <link rel="canonical" href="https://www.hgaruna.org/blog/testing-de-apis-postman-y-newman.html">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -431,7 +431,7 @@
                     <h1 class="article-title">Introducción</h1>
                     <div class="article-meta justify-content-center">
                         <span><i class="far fa-calendar-alt"></i> {{PUBLICATION_DATE}}</span>
-                        <span><i class="far fa-clock"></i> 5 min de lectura</span>
+                        <span><i class="far fa-clock"></i> 4 min de lectura</span>
                         <span><i class="far fa-user"></i> Por hgaruna</span>
                     </div>
                 </div>
@@ -451,66 +451,63 @@
                 <!-- Contenido del artículo -->
                 <article class="article-content">
                     <h2>Introducción</h2>
-<p>La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  Es una medida indirecta de la calidad del software, ya que una alta cobertura de código sugiere, pero no garantiza, una mayor confiabilidad y menor cantidad de errores.  Este artículo explorará las diferentes métricas de cobertura de código, sus ventajas, desventajas y cómo interpretar sus resultados para mejorar la calidad del software.</p>
+<p>En el desarrollo de software moderno, las APIs (Application Programming Interfaces) son el corazón de la comunicación entre diferentes sistemas.  Garantizar la calidad y fiabilidad de estas APIs es crucial para el éxito de cualquier proyecto.  Este artículo explorará las herramientas Postman y Newman, dos potentes aliados para el testing exhaustivo de APIs, cubriendo desde la creación y ejecución de pruebas hasta la integración en pipelines de CI/CD.</p>
 
 <h2>Sección Principal</h2>
-<p>La cobertura de código se mide generalmente utilizando herramientas que instrumentan el código fuente, rastreando qué partes del código se ejecutan durante la ejecución de las pruebas.  Existen diferentes tipos de cobertura, cada una ofreciendo una perspectiva distinta sobre la exhaustividad de las pruebas:</p>
+<p>Postman es una herramienta popular y versátil para el desarrollo y testing de APIs.  Su interfaz gráfica intuitiva facilita la creación y ejecución de solicitudes HTTP, la inspección de respuestas, y la gestión de colecciones de pruebas.  Newman, por otro lado, es una herramienta de línea de comandos que permite automatizar la ejecución de las colecciones de Postman, ideal para integrarlo en procesos de integración continua.</p>
 
-<h3>Tipos de Cobertura de Código</h3>
-<ul>
-  <li><strong>Cobertura de Sentencias (Statement Coverage):</strong>  Mide el porcentaje de sentencias de código que se han ejecutado al menos una vez. Es la métrica de cobertura más básica y fácil de entender.</li>
-  <li><strong>Cobertura de Ramificaciones (Branch Coverage):</strong>  Mide el porcentaje de ramificaciones (condicionales, bucles) que se han probado en ambos sentidos (verdadero y falso). Ofrece una perspectiva más completa que la cobertura de sentencias, ya que detecta posibles errores en las condiciones lógicas.</li>
-  <li><strong>Cobertura de Condiciones (Condition Coverage):</strong> Va más allá de la cobertura de ramificaciones, analizando cada condición individual dentro de una expresión booleana.  Por ejemplo, en la condición <code>if (a > 5 && b < 10)</code>, se verifica si cada parte (<code>a > 5</code> y <code>b < 10</code>) se evalúa a verdadero y falso independientemente.</li>
-  <li><strong>Cobertura de Modificación/Paths (Modified Condition/Decision Coverage - MC/DC):</strong>  Es una métrica más rigurosa utilizada en contextos de seguridad y aviación. Requiere que cada condición en una decisión afecte independientemente el resultado de la decisión.  Se utiliza para demostrar que cada condición se ha probado de forma independiente y que su impacto en el resultado se ha verificado.</li>
-  <li><strong>Cobertura de Funciones (Function Coverage):</strong>  Mide el porcentaje de funciones o métodos que se han llamado durante la ejecución de las pruebas.  Es útil para identificar funciones que no están siendo probadas.</li>
-</ul>
+<h3>Creando Pruebas con Postman</h3>
+<p>Postman permite crear solicitudes HTTP de diferentes métodos (GET, POST, PUT, DELETE, etc.) especificando la URL, los headers, los parámetros de consulta y el cuerpo de la solicitud.  Una vez enviada la solicitud, Postman muestra la respuesta incluyendo el código de estado, los headers y el cuerpo.  La verdadera potencia de Postman radica en su capacidad para crear tests que validen la respuesta de la API.  Estos tests se escriben en JavaScript y se ejecutan después de cada solicitud.</p>
 
-<p>Es importante entender que una alta cobertura de código no garantiza la ausencia de errores. Es posible tener una alta cobertura de sentencias y aún así tener errores ocultos. Por ejemplo, se puede probar un bucle que itera 10 veces, pero un error podría ocurrir en la iteración 11.  La cobertura de código es una herramienta para guiar la creación de pruebas, no una garantía de calidad absoluta.</p>
-
-<h3>Herramientas de Cobertura de Código</h3>
-<p>Existen numerosas herramientas para medir la cobertura de código, tanto comerciales como de código abierto.  Algunas de las más populares incluyen:</p>
-<ul>
-  <li>Jest (JavaScript)</li>
-  <li>Istanbul (JavaScript)</li>
-  <li>JaCoCo (Java)</li>
-  <li>Coveralls (Integración continua)</li>
-  <li>SonarQube (Análisis de código estático y cobertura)</li>
-</ul>
-
-<h3>Ejemplo de Cobertura de Código con Jest (JavaScript)</h3>
-<p>Jest, un framework de testing popular en JavaScript, ofrece una integración sencilla para la medición de la cobertura de código.  Para habilitar la generación de informes de cobertura, se debe ejecutar el comando <code>jest --coverage</code>.  Esto generará un informe HTML que detalla la cobertura de cada archivo y función.</p>
+<p>Por ejemplo, para verificar que una API devuelve un código de estado 200 (OK), podemos usar el siguiente código en la sección "Tests" de una solicitud Postman:</p>
 
 <pre><code class="language-javascript">
-// suma.js
-function suma(a, b) {
-  return a + b;
-}
-
-module.exports = suma;
-
-// suma.test.js
-const suma = require('./suma');
-
-test('suma dos números', () => {
-  expect(suma(2, 3)).toBe(5);
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
 });
 </code></pre>
 
-<p>Ejecutando <code>jest --coverage</code>, obtendríamos un informe que mostraría la cobertura de <code>suma.js</code>.  Si se añade una prueba adicional, la cobertura aumentaría.</p>
+<p>Este simple test verifica que el código de estado de la respuesta sea 200.  Podemos agregar más tests para validar el contenido de la respuesta, por ejemplo, verificar si un campo específico existe y tiene el valor esperado:</p>
 
-<h3>Interpretación de los Resultados</h3>
-<p>La interpretación de los resultados de la cobertura de código requiere juicio y contexto.  Una cobertura del 100% no es siempre el objetivo, ni siempre es alcanzable.  Es más importante enfocarse en la cobertura de las partes críticas del código, especialmente aquellas con mayor probabilidad de contener errores.  Una baja cobertura en áreas cruciales es una señal de alerta que requiere atención inmediata.</p>
+<pre><code class="language-javascript">
+pm.test("Body matches string", function () {
+    pm.expect(pm.response.text()).to.include("texto esperado");
+});
+</code></pre>
 
-<p><em>Consideraciones adicionales:</em></p>
+<p>Postman permite organizar las solicitudes en colecciones, lo que facilita la gestión y ejecución de un conjunto de pruebas relacionadas.  Las colecciones pueden exportarse e importarse, facilitando la colaboración y el mantenimiento.</p>
+
+<h3>Automatizando Pruebas con Newman</h3>
+<p>Newman permite ejecutar las colecciones de Postman desde la línea de comandos, lo que facilita la automatización de las pruebas.  Para ejecutar una colección con Newman, primero debemos exportarla como un archivo JSON. Luego, podemos usar el siguiente comando:</p>
+
+<pre><code class="language-bash">
+newman run collection.json
+</code></pre>
+
+<p>Donde "collection.json" es el nombre del archivo exportado.  Newman proporciona opciones para configurar la ejecución, como la generación de informes, la especificación de variables de entorno y la integración con plataformas de CI/CD.</p>
+
+<p>Newman ofrece la posibilidad de integrar las pruebas con herramientas de reporting como Jenkins o CircleCI, permitiendo una integración continua.  Este proceso automatiza la ejecución de las pruebas cada vez que se realiza un cambio en el código, asegurando la calidad de la API en cada etapa del desarrollo.</p>
+
+<h3>Beneficios de usar Postman y Newman</h3>
 <ul>
-<li><strong>Contexto del Proyecto:</strong>  Los requerimientos de cobertura varían según el tipo de proyecto, la criticidad del software y los riesgos asociados.</li>
-<li><strong>Costo vs. Beneficio:</strong>  Alcanzar una cobertura muy alta puede ser costoso y poco práctico. Es importante encontrar un equilibrio entre la cobertura y el costo de las pruebas.</li>
-<li><strong>Cobertura vs. Calidad:</strong>  La cobertura es un indicador, pero no una garantía de calidad.  Las pruebas deben ser bien diseñadas y dirigidas a los escenarios más críticos, más allá de la simple cobertura de código.</li>
+  <li><strong>Interfaz intuitiva:</strong> Postman ofrece una interfaz gráfica sencilla e intuitiva para crear y ejecutar pruebas.</li>
+  <li><strong>Automatización:</strong> Newman permite automatizar la ejecución de las pruebas, integrando el proceso de testing en pipelines de CI/CD.</li>
+  <li><strong>Gestión de colecciones:</strong> Permite organizar las pruebas en colecciones, facilitando la gestión y el mantenimiento.</li>
+  <li><strong>Integración con otras herramientas:</strong> Se integra fácilmente con otras herramientas de desarrollo y testing.</li>
+  <li><strong>Soporte para diferentes protocolos:</strong> Soporta diferentes protocolos HTTP, incluyendo REST, GraphQL y SOAP.</li>
 </ul>
+
+<h3>Casos de Uso</h3>
+<ol>
+  <li><strong>Testing de APIs RESTful:</strong> Postman y Newman son ideales para probar APIs RESTful, validando la correcta funcionalidad de los endpoints.</li>
+  <li><strong>Testing de APIs GraphQL:</strong>  Se pueden utilizar para probar APIs GraphQL, verificando la correcta resolución de queries y mutations.</li>
+  <li><strong>Testing de APIs SOAP:</strong>  Aunque menos común, también se puede utilizar para probar APIs SOAP, aunque existen otras herramientas más especializadas.</li>
+  <li><strong>Integración Continua/Integración Continua y Entrega Continua (CI/CD):</strong>  Newman facilita la integración de las pruebas en pipelines de CI/CD, asegurando la calidad del código en cada etapa del desarrollo.</li>
+</ol>
 
 
 <h2>Conclusión</h2>
-<p>La cobertura de código es una herramienta valiosa para evaluar la calidad del software y guiar el proceso de testing.  Sin embargo, es importante entender sus limitaciones y utilizarla en conjunto con otras técnicas de aseguramiento de la calidad.  La elección del tipo de cobertura y la interpretación de los resultados deben estar alineados con las necesidades específicas del proyecto y los riesgos asociados.  Una estrategia de testing completa, que incluya diferentes tipos de pruebas y una cobertura de código estratégica, es fundamental para desarrollar software confiable y de alta calidad.</p>
+<p>Postman y Newman son herramientas esenciales para cualquier desarrollador que busque asegurar la calidad de sus APIs.  La combinación de la interfaz gráfica intuitiva de Postman para la creación de pruebas y la capacidad de automatización de Newman para la integración continua, ofrece un flujo de trabajo eficiente y robusto para el testing de APIs.  Dominar estas herramientas es fundamental para garantizar la fiabilidad y el rendimiento de las APIs en cualquier proyecto de desarrollo de software.</p>
 
                 </article>
                 
@@ -624,7 +621,7 @@ test('suma dos números', () => {
             const currentUrl = window.location.href;
             document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
                 const onclick = link.getAttribute('onclick');
-                link.setAttribute('onclick', onclick.replace(/https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html/g, currentUrl));
+                link.setAttribute('onclick', onclick.replace(/https://www.hgaruna.org/blog/testing-de-apis-postman-y-newman.html/g, currentUrl));
             });
         });
         

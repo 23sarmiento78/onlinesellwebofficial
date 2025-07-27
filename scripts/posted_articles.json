@@ -25,5 +25,9 @@
   "terraform-infrastruc",
   "ansible-automatizaci",
   "graphql-vs-rest-cund",
-  "machine-learning-par"
+  "machine-learning-par",
+  {
+    "slug": "code-coverage-metricas-de-calidad",
+    "date": "2025-07-27T17:54:48.153Z"
+  }
 ]

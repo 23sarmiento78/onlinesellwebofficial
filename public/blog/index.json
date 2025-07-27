@@ -20,6 +20,7 @@
   "migrations-gestin-de.html",
   "nlp-procesamiento-de.html",
   "nodejs-22-nuevas-car.html",
+  "nodejs-22-nuevas-caracteristicas.html",
   "owasp-top-10-vulnerabilidades-web.html",
   "package-managers-npm.html",
   "performance-testing-lighthouse-y-webpagetest.html",
@@ -35,6 +36,7 @@
   "terraform-infrastruc.html",
   "testing-de-accesibilidad-automatizado.html",
   "testing-de-apis-post.html",
+  "testing-de-apis-postman-y-newman.html",
   "typescript-avanzado-.html",
   "vs-code-extensiones-esenciales.html",
   "webassembly-rendimie.html"

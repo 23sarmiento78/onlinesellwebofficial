@@ -272,4 +272,25 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://www.hgaruna.org/blog/nodejs-22-nuevas-caracteristicas.html</loc>
+    <lastmod>2025-07-27T17:54:21.234Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.hgaruna.org/blog/testing-de-apis-postman-y-newman.html</loc>
+    <lastmod>2025-07-27T17:54:32.335Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html</loc>
+    <lastmod>2025-07-27T17:54:44.374Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
