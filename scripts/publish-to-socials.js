@@ -6,115 +6,45 @@ const sharp = require('sharp');
 // Configuración
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
 const BLOG_DIR = path.join(PUBLIC_DIR, 'blog');
+const BLOG_INDEX_PATH = path.join(PUBLIC_DIR, 'blog', 'index.json');
 const POSTED_ARTICLES_LOG = path.join(__dirname, 'posted_articles.json');
+const IMAGES_OUTPUT_DIR = path.join(PUBLIC_DIR, 'social-images');
 const SITE_URL = 'https://www.hgaruna.org';
 
-// Lista de subreddits con alto tráfico (más de 10M de miembros o populares)
-const TARGET_SUBREDDITS = [
-  'programming',        // 4.2M
-  'technology',         // 13.9M
-  'webdev',             // 1.1M
-  'coding',             // 1.7M
-  'learnprogramming',   // 4.1M
-  'javascript',         // 2.4M
-  'web_design',        // 1.3M
-  'webdevelopment',    // 1.1M
-  'frontend',          // 500K
-  'reactjs',           // 500K
-  'node',              // 400K
-  'web',               // 300K
-  'webdesign',         // 1.1M
-  'webdev',            // 1.1M
-  'codingbootcamp'     // 200K
-];
+// Obtener la lista de subreddits de la variable de entorno
+const TARGET_SUBREDDITS = process.env.REDDIT_SUBREDDITS
+  ? process.env.REDDIT_SUBREDDITS
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean)
+  : ['programming']; // Valor por defecto
 
 // Inicializar cliente de Reddit
-const redditClient = new snoowrap({
-  userAgent: 'hgaruna-bot/1.0',
-  clientId: process.env.REDDIT_CLIENT_ID,
-  clientSecret: process.env.REDDIT_CLIENT_SECRET,
-  refreshToken: process.env.REDDIT_REFRESH_TOKEN
-});
+let redditClient;
 
 /**
- * Obtiene el artículo más reciente del blog
+ * Publica un artículo en un subreddit
  */
-async function getLatestArticle() {
+async function postToReddit(article, subreddit) {
+  const articleUrl = `${SITE_URL}/blog/${article.slug}.html`;
+  console.log(`Publicando en r/${subreddit}: "${article.title}"`);
+
   try {
-    const files = await fs.readdir(BLOG_DIR);
-    const htmlFiles = files.filter(file => file.endsWith('.html'));
-    const stats = await Promise.all(
-      htmlFiles.map(file => fs.stat(path.join(BLOG_DIR, file)))
-    );
-    
-    const filesWithStats = htmlFiles.map((file, index) => ({
-      name: file,
-      mtime: stats[index].mtime
-    }));
-
-    filesWithStats.sort((a, b) => b.mtime - a.mtime);
-    
-    if (filesWithStats.length === 0) {
-      console.log('No se encontraron artículos en el blog');
-      return null;
-    }
-
-    const latestArticle = filesWithStats[0];
-    const articleUrl = `${SITE_URL}/blog/${latestArticle.name}`;
-    
-    // Extraer título del nombre del archivo
-    const title = latestArticle.name
-      .replace(/-/g, ' ')
-      .replace(/\.html$/, '')
-      .replace(/\b\w/g, l => l.toUpperCase());
-
-    return {
-      title: title,
+    const submission = await redditClient.getSubreddit(subreddit).submitLink({
+      title: article.title,
       url: articleUrl,
-      slug: latestArticle.name.replace('.html', '')
-    };
+      sendReplies: true
+    });
+    console.log(`✅ Publicado exitosamente en r/${subreddit}`);
+    console.log(`   URL: https://www.reddit.com${submission.permalink}`);
+    return true;
   } catch (error) {
-    console.error('Error al obtener el último artículo:', error);
-    return null;
-  }
-}
-
-/**
- * Publica en múltiples subreddits
- */
-async function postToMultipleSubreddits(article) {
-  const postedSubreddits = [];
-  
-  for (const subreddit of TARGET_SUBREDDITS) {
-    try {
-      console.log(`Publicando en r/${subreddit}: ${article.title}`);
-      
-      await redditClient.getSubreddit(subreddit).submitLink({
-        title: article.title,
-        url: article.url,
-        sendReplies: true
-      });
-      
-      console.log(`✅ Publicado exitosamente en r/${subreddit}`);
-      postedSubreddits.push(subreddit);
-      
-      // Esperar 5 minutos entre publicaciones para evitar límites de tasa
-      await new Promise(resolve => setTimeout(resolve, 5 * 60 * 1000));
-      
-    } catch (error) {
-      console.error(`❌ Error al publicar en r/${subreddit}:`, error.message);
-      
-      // Si el error es por límite de tasa, esperar y continuar
-      if (error.message.includes('RATELIMIT')) {
-        const waitTime = error.message.match(/(\d+)\s+minutes?/i);
-        const minutes = waitTime ? parseInt(waitTime[1]) + 1 : 5;
-        console.log(`⏳ Esperando ${minutes} minutos debido al límite de tasa...`);
-        await new Promise(resolve => setTimeout(resolve, minutes * 60 * 1000));
-      }
+    console.error(`❌ Error al publicar en r/${subreddit}:`, error.message);
+    if (error.response?.body) {
+      console.error('Detalles del error:', JSON.stringify(error.response.body, null, 2));
     }
+    return false;
   }
-  
-  return postedSubreddits;
 }
 
 /**
@@ -122,32 +52,63 @@ async function postToMultipleSubreddits(article) {
  */
 async function main() {
   try {
-    console.log('🚀 Iniciando publicación en Reddit...');
-    
+    // Inicializar cliente de Reddit
+    redditClient = new snoowrap({
+      userAgent: 'hgaruna-bot/1.0',
+      clientId: process.env.REDDIT_CLIENT_ID,
+      clientSecret: process.env.REDDIT_CLIENT_SECRET,
+      refreshToken: process.env.REDDIT_REFRESH_TOKEN
+    });
+
+    console.log(`📰 Iniciando publicación en ${TARGET_SUBREDDITS.length} subreddits...`);
+
     // Obtener el artículo más reciente
-    const article = await getLatestArticle();
-    if (!article) {
+    const files = await fs.readdir(BLOG_DIR);
+    const htmlFiles = files.filter(file => file.endsWith('.html'));
+    
+    if (htmlFiles.length === 0) {
       console.log('No se encontraron artículos para publicar');
       return;
     }
-    
-    console.log(`📰 Artículo a publicar: ${article.title}`);
-    console.log(`🔗 URL: ${article.url}`);
-    
-    // Publicar en múltiples subreddits
-    const postedSubreddits = await postToMultipleSubreddits(article);
-    
-    if (postedSubreddits.length > 0) {
-      console.log(`\n✅ Publicación completada en ${postedSubreddits.length} subreddits:`);
-      postedSubreddits.forEach(sub => console.log(`   - r/${sub}`));
-    } else {
-      console.log('❌ No se pudo publicar en ningún subreddit');
+
+    // Ordenar por fecha de modificación (más reciente primero)
+    const latestArticle = htmlFiles
+      .map(file => ({ 
+        name: file, 
+        time: fs.statSync(path.join(BLOG_DIR, file)).mtime.getTime() 
+      }))
+      .sort((a, b) => b.time - a.time)[0].name;
+
+    // Leer el contenido del artículo
+    const htmlContent = await fs.readFile(path.join(BLOG_DIR, latestArticle), 'utf8');
+    const titleMatch = htmlContent.match(/<title[^>]*>([^<]+)<\/title>/i);
+    const title = titleMatch ? titleMatch[1].trim() : 'Nuevo Artículo';
+
+    const article = {
+      title,
+      slug: latestArticle.replace('.html', '')
+    };
+
+    console.log(`📝 Artículo a publicar: "${article.title}"`);
+
+    // Publicar en cada subreddit
+    for (const subreddit of TARGET_SUBREDDITS) {
+      await postToReddit(article, subreddit);
+      
+      // Esperar 1 minuto entre publicaciones para evitar límites de tasa
+      if (TARGET_SUBREDDITS.indexOf(subreddit) < TARGET_SUBREDDITS.length - 1) {
+        const waitTime = 60 * 1000; // 1 minuto
+        console.log(`⏳ Esperando ${waitTime/1000} segundos...`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+      }
     }
-    
+
+    console.log('✅ Publicación completada en todos los subreddits');
+
   } catch (error) {
-    console.error('Error en la ejecución principal:', error);
+    console.error('❌ Error en la ejecución principal:', error);
+    process.exit(1);
   }
 }
 
-// Ejecutar
-main().catch(console.error);
+main();

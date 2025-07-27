@@ -43,14 +43,18 @@ jobs:
           # Ejecutar generador de artículos
           node scripts/generate-html-articles-gemini.js
 
-      - name: Publicar en redes sociales
+      - name: Publicar en Redes Sociales
         if: success()
         env:
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
           REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
           REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
-          REDDIT_SUBREDDIT: 'r/programming'
+          # Lista de subreddits como variable de entorno
+          REDDIT_SUBREDDITS: >
+            programming,technology,webdev,coding,learnprogramming,
+            javascript,web_design,webdevelopment,frontend,reactjs,
+            node,web,webdesign,codingbootcamp
           SITE_URL: ${{ env.SITE_URL }}
         run: |
           # Verificar si el script de publicación existe
