@@ -50,11 +50,8 @@ jobs:
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
           REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
           REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
-          # Lista de subreddits como variable de entorno
-          REDDIT_SUBREDDITS: >
-            programming,technology,webdev,coding,learnprogramming,
-            javascript,web_design,webdevelopment,frontend,reactjs,
-            node,web,webdesign,codingbootcamp
+          # Solo publicar en programming por ahora
+          REDDIT_SUBREDDITS: 'programming'
           SITE_URL: ${{ env.SITE_URL }}
         run: |
           # Verificar si el script de publicación existe
