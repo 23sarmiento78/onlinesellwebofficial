@@ -244,4 +244,18 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/owasp-top-10-vulnerabilidades-web.html</loc>
+    <lastmod>2025-07-27T09:07:17.266Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/microservices-arquitectura-distribuida.html</loc>
+    <lastmod>2025-07-27T09:07:41.033Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

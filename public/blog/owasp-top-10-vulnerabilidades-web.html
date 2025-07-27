@@ -2,31 +2,31 @@
 <html lang="es">
 <head>
     <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
-    <meta name="category" content="Testing y Calidad">
+    <meta name="category" content="Seguridad">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introducción</title>
-    <meta name="description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente probado por las pruebas unitaria...">
+    <meta name="description" content="La seguridad web es crucial en el mundo actual, donde la mayoría de las interacciones humanas y comerciales ocurren online.  Una de las herramientas m...">
     <meta name="keywords" content="JavaScript">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <meta property="og:url" content="https://hgaruna.org/blog/owasp-top-10-vulnerabilidades-web.html">
     <meta property="og:title" content="Introducción">
-    <meta property="og:description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente probado por las pruebas unitaria...">
+    <meta property="og:description" content="La seguridad web es crucial en el mundo actual, donde la mayoría de las interacciones humanas y comerciales ocurren online.  Una de las herramientas m...">
     <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <meta property="twitter:url" content="https://hgaruna.org/blog/owasp-top-10-vulnerabilidades-web.html">
     <meta property="twitter:title" content="Introducción">
-    <meta property="twitter:description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente probado por las pruebas unitaria...">
+    <meta property="twitter:description" content="La seguridad web es crucial en el mundo actual, donde la mayoría de las interacciones humanas y comerciales ocurren online.  Una de las herramientas m...">
     <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <link rel="canonical" href="https://hgaruna.org/blog/owasp-top-10-vulnerabilidades-web.html">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -451,68 +451,69 @@
                 <!-- Contenido del artículo -->
                 <article class="article-content">
                     <h2>Introducción</h2>
-<p>La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente probado por las pruebas unitarias o de integración.  Una alta cobertura de código no garantiza la ausencia total de errores, pero sí proporciona una fuerte indicación de la calidad y la robustez del software.  Este artículo explora la importancia de la cobertura de código como métrica de calidad, sus diferentes tipos, cómo interpretarla y las mejores prácticas para maximizarla.</p>
+<p>La seguridad web es crucial en el mundo actual, donde la mayoría de las interacciones humanas y comerciales ocurren online.  Una de las herramientas más importantes para comprender y mitigar los riesgos es el OWASP Top 10, una lista de las diez vulnerabilidades web más críticas identificadas por la Open Web Application Security Project (OWASP).  Este artículo proporciona una visión general de estas vulnerabilidades, ofreciendo ejemplos y explicaciones para desarrolladores y profesionales de seguridad.</p>
 
 <h2>Sección Principal</h2>
-<p>La cobertura de código se mide generalmente como un porcentaje.  Un 100% de cobertura significa que cada línea de código ha sido ejecutada al menos una vez durante la ejecución de las pruebas.  Sin embargo, alcanzar el 100% no siempre es el objetivo, ni es necesariamente un indicador de calidad perfecta.  Una alta cobertura sugiere una mayor confianza en la calidad del código, pero la calidad de las pruebas en sí misma es igualmente importante.  Una prueba que no detecta errores, incluso si cubre una gran parte del código, no aporta valor.</p>
+<p>El OWASP Top 10 se actualiza periódicamente para reflejar las nuevas amenazas y tendencias en la seguridad web.  Aunque la lista específica cambia con el tiempo, los principios subyacentes permanecen constantes: la necesidad de codificación segura y prácticas de desarrollo sólidas.  Analizaremos algunas de las vulnerabilidades más comunes:</p>
 
-<h3>Tipos de Cobertura de Código</h3>
-<p>Existen diferentes tipos de cobertura de código, cada uno enfocándose en diferentes aspectos de la ejecución del código:</p>
+<h3>Inyección (Injection)</h3>
+<p>La inyección es una de las vulnerabilidades más antiguas y persistentes.  Ocurre cuando un atacante introduce código malicioso en las entradas de una aplicación, como formularios o parámetros de URL.  Este código se ejecuta luego en el servidor, permitiendo al atacante acceder a datos sensibles, modificar la base de datos o incluso tomar el control del sistema.</p>
+<p><strong>Ejemplos:</strong> Inyección SQL, Inyección de comandos, Inyección XSS (Cross-Site Scripting).</p>
+<pre><code class="language-javascript">
+// Ejemplo vulnerable de inyección SQL (NO USAR EN PRODUCCIÓN)
+let query = "SELECT * FROM users WHERE username = '" + username + "'";
+</code></pre>
+<pre><code class="language-javascript">
+// Ejemplo seguro usando parámetros (PREFIERELO SIEMPRE)
+let query = "SELECT * FROM users WHERE username = $1";
+// ... con parámetros adecuadamente sanitizados ...
+</code></pre>
+<p><em>Para prevenir la inyección, se deben utilizar parámetros preparados o técnicas de escape de caracteres especiales, dependiendo del contexto.</em></p>
+
+<h3>Autenticación rota (Broken Authentication)</h3>
+<p>Una autenticación rota permite a los atacantes acceder a cuentas de usuario sin autorización. Esto puede ocurrir debido a contraseñas débiles, implementación inadecuada de mecanismos de autenticación multifactor o vulnerabilidades en la gestión de sesiones.</p>
 <ul>
-  <li><strong>Cobertura de líneas:</strong> Indica el porcentaje de líneas de código ejecutadas durante las pruebas. Es la métrica más común y fácil de entender.</li>
-  <li><strong>Cobertura de ramas:</strong> Mide el porcentaje de ramas (condicionales como <code>if</code>, <code>else</code>, <code>switch</code>) ejecutadas.  Una alta cobertura de ramas indica que se han probado diferentes caminos de ejecución del código.</li>
-  <li><strong>Cobertura de funciones/métodos:</strong>  Muestra el porcentaje de funciones o métodos que han sido llamados durante las pruebas.</li>
-  <li><strong>Cobertura de modificaciones:</strong> Se centra en las líneas de código modificadas recientemente. Es particularmente útil en desarrollo ágil para asegurar que los cambios introducen pocos errores.</li>
-  <li><strong>Cobertura de sentencias:</strong> Similar a la cobertura de líneas, pero considera cada sentencia individual, incluyendo sentencias compuestas.</li>
+  <li><strong>Contraseñas débiles:</strong>  Las contraseñas fáciles de adivinar son un vector de ataque común.</li>
+  <li><strong>Falta de autenticación multifactor:</strong>  Depender solo de una contraseña es insuficiente en muchos casos.</li>
+  <li><strong>Gestión de sesiones insegura:</strong>  Sesiones que no caducan o que no se gestionan correctamente pueden ser secuestradas.</li>
 </ul>
-<p>Es importante tener en cuenta que diferentes herramientas de cobertura de código pueden reportar métricas ligeramente diferentes, dependiendo de su implementación.</p>
 
-<h3>Interpretando la Cobertura de Código</h3>
-<p>Una alta cobertura de código (generalmente se considera aceptable un 80% o más, aunque esto depende del contexto y el riesgo) sugiere una mayor confianza en la calidad del software, pero no garantiza la ausencia de bugs.  Una baja cobertura indica áreas del código que no han sido probadas y, por lo tanto, son más propensas a contener errores.  Es crucial analizar los reportes de cobertura para identificar las partes del código con baja cobertura y priorizar la creación de pruebas para estas áreas.</p>
+<h3>Fallos de autorización (Sensitive Data Exposure)</h3>
+<p>Esta vulnerabilidad implica el acceso no autorizado a datos sensibles.  Puede ocurrir debido a la falta de control de acceso adecuado, almacenamiento inseguro de datos o la exposición accidental de información confidencial a través de la interfaz de usuario.</p>
+<p><em>Es crucial implementar controles de acceso basados en roles y cifrar datos sensibles tanto en reposo como en tránsito.</em></p>
 
-<h3>Mejores Prácticas para Mejorar la Cobertura de Código</h3>
+<h3>Uso de componentes con vulnerabilidades conocidas (Using Components with Known Vulnerabilities)</h3>
+<p>Utilizar bibliotecas, frameworks o componentes de software con vulnerabilidades conocidas es una práctica extremadamente peligrosa.  Los atacantes pueden explotar estas vulnerabilidades para comprometer la aplicación.</p>
+<p><em>Es fundamental mantener actualizados todos los componentes de software y utilizar herramientas de análisis de vulnerabilidades para detectar problemas potenciales.</em></p>
+
+<h3>Configuración de seguridad incorrecta (Security Misconfiguration)</h3>
+<p>Una configuración incorrecta del servidor web, la base de datos o la aplicación puede exponerla a ataques.  Esto incluye la falta de parches de seguridad, configuraciones predeterminadas no modificadas y la exposición innecesaria de información.</p>
 <ol>
-  <li><strong>Escribir pruebas unitarias de alta calidad:</strong>  Las pruebas deben ser concisas, fáciles de entender y cubrir diferentes casos de uso, incluyendo casos límite y excepciones.</li>
-  <li><strong>Priorizar la cobertura de código crítico:</strong> Concentrarse en las partes del código que son más complejas o que manejan datos sensibles.</li>
-  <li><strong>Utilizar herramientas de cobertura de código:</strong>  Herramientas como Jest, Mocha (JavaScript), pytest (Python), o cobertura.py (Python) proporcionan información detallada sobre la cobertura de código y ayudan a identificar las áreas que necesitan más pruebas.</li>
-  <li><strong>Revisar y refactorizar el código:</strong>  Un código limpio y bien estructurado es más fácil de probar y alcanzar una alta cobertura.</li>
-  <li><strong>Automatizar las pruebas:</strong> Integrar las pruebas en el proceso de integración continua para asegurar que la cobertura de código se mantenga alta a lo largo del tiempo.</li>
+  <li>Mantener actualizado el software.</li>
+  <li>Eliminar cuentas de usuario y servicios innecesarios.</li>
+  <li>Configurar correctamente los firewalls y otros mecanismos de seguridad.</li>
 </ol>
 
-<h3>Ejemplo de Cobertura de Código en JavaScript con Jest</h3>
-<p>Consideremos un simple ejemplo en JavaScript utilizando Jest:</p>
-<pre><code class="language-javascript">
-function sumar(a, b) {
-  return a + b;
-}
+<h3>Control de acceso deficiente (Insufficient Access Control)</h3>
+<p>Un control de acceso deficiente permite a los usuarios acceder a recursos o funcionalidades para las que no tienen autorización.  Esto puede permitir a los atacantes acceder a datos sensibles o realizar acciones no autorizadas.</p>
 
-// Prueba unitaria
-test('suma dos números', () => {
-  expect(sumar(2, 3)).toBe(5);
-});
 
-//Prueba con un caso límite
-test('suma con cero', () => {
-    expect(sumar(5,0)).toBe(5);
-});
+<h3>Manipulación de la interfaz de usuario (Cross-Site Scripting (XSS))</h3>
+<p>XSS permite a los atacantes inyectar código JavaScript malicioso en una página web.  Este código se ejecuta en el navegador del usuario, permitiendo al atacante robar cookies, redirigir al usuario a sitios maliciosos o realizar otras acciones maliciosas.</p>
+<p><em>Para prevenir XSS, se debe escapar adecuadamente cualquier dato que se muestre en la página web.</em></p>
 
-</code></pre>
-<p>Jest generará un reporte de cobertura que mostrará qué partes del código han sido ejecutadas por las pruebas.  Si añadimos más pruebas para cubrir diferentes escenarios, la cobertura de código aumentará.</p>
+<h3>Fallos de validación de entrada (Security Misconfiguration)</h3>
+<p>Falta de validación apropiada de los datos ingresados por el usuario.  Sin una validación robusta, los atacantes pueden inyectar datos maliciosos, causando diversos problemas de seguridad, desde la inyección de SQL hasta la manipulación de la interfaz de usuario.</p>
 
-<h3>Ejemplo de reporte de cobertura (Simulado)</h3>
-<p>Un reporte de cobertura podría mostrar algo como esto:</p>
-<pre>
-`sumar.js`
-Lineas: 100%
-Ramas: 100%
-Funciones: 100%
-</pre>
-<p>Este reporte indica que todas las líneas, ramas y funciones en el archivo `sumar.js` han sido cubiertas por las pruebas.</p>
+<h3>Redireccionamiento y reenvío inseguros (Insecure Deserialization)</h3>
+<p>Un redireccionamiento inseguro puede llevar a los usuarios a sitios maliciosos, mientras que un reenvío inseguro permite a los atacantes manipular el flujo de la aplicación.  Ambos deben ser manejados con cuidado para prevenir ataques de phishing y otras amenazas.</p>
+
+<h3>Seguimiento y registro inadecuados (Insufficient Logging & Monitoring)</h3>
+<p>La ausencia de un sistema de seguimiento y registro adecuado dificulta la detección y respuesta a incidentes de seguridad.  Un registro completo y detallado es esencial para identificar ataques y analizar su impacto.</p>
 
 
 <h2>Conclusión</h2>
-<p>La cobertura de código es una métrica importante para evaluar la calidad del software, pero no debe ser el único factor a considerar.  Una alta cobertura sugiere una mayor confianza en la calidad, pero la calidad de las pruebas mismas es crucial.  Al combinar una alta cobertura de código con un enfoque en la calidad de las pruebas y un proceso de desarrollo sólido, podemos mejorar significativamente la fiabilidad y la estabilidad del software.</p>
-<p>Es importante recordar que la cobertura de código es una herramienta, no una solución mágica.  El objetivo debe ser escribir pruebas robustas que detecten errores, y la cobertura de código es un indicador útil en ese proceso.</p>
+<p>El OWASP Top 10 proporciona una guía invaluable para desarrolladores y profesionales de seguridad.  Comprender estas vulnerabilidades y aplicar las mejores prácticas de seguridad es crucial para proteger las aplicaciones web de ataques.  La prevención es siempre mejor que la cura, y la adopción de una cultura de seguridad desde el inicio del desarrollo es fundamental para crear aplicaciones web robustas y seguras.</p>
 
                 </article>
                 
@@ -626,7 +627,7 @@ Funciones: 100%
             const currentUrl = window.location.href;
             document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
                 const onclick = link.getAttribute('onclick');
-                link.setAttribute('onclick', onclick.replace(/https://hgaruna.org/blog/code-coverage-metricas-de-calidad.html/g, currentUrl));
+                link.setAttribute('onclick', onclick.replace(/https://hgaruna.org/blog/owasp-top-10-vulnerabilidades-web.html/g, currentUrl));
             });
         });
         
