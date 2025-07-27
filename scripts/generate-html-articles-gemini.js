@@ -1,22 +1,24 @@
 // scripts/generate-html-articles-gemini.js
 // Genera artículos HTML estáticos usando Gemini y la plantilla
 
-const fs = require('fs');
+const fs = require('fs').promises; // Usar la versión de promesas de fs
 const path = require('path');
 const axios = require('axios');
-const matter = require('gray-matter');
 
+// --- Configuración Global ---
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const OUTPUT_DIR = path.resolve(__dirname, '../public/blog');
 const SITEMAP_PATH = path.resolve(__dirname, '../public/sitemap.xml');
+const POSTED_ARTICLES_PATH = path.resolve(__dirname, './posted_articles.json'); // Para llevar un registro de artículos ya publicados
 const SITE_URL = process.env.SITE_URL || 'https://hgaruna.org';
 
+// Verificar la clave API al inicio
 if (!GEMINI_API_KEY) {
-  console.error('❌ Falta la variable de entorno GEMINI_API_KEY');
+  console.error('❌ Error: La variable de entorno GEMINI_API_KEY no está definida.');
   process.exit(1);
 }
 
-// Definir categorías y temas asociados
+// --- Datos de Categorías y Temas ---
 const categoriesToTopics = {
   'Frontend': [
     'React 19: Nuevas características y mejoras',
@@ -152,46 +154,104 @@ const categoriesToTopics = {
   ]
 };
 
-// Función para obtener temas aleatorios de una categoría
-function getRandomTopicsFromCategory(category, n) {
-  const topics = categoriesToTopics[category] || [];
-  const shuffled = topics.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, n);
-}
+// --- Funciones de Utilidad ---
 
+/**
+ * Genera un slug a partir de un título.
+ * @param {string} title
+ * @returns {string}
+ */
 function generateSlug(title) {
   return title
     .toLowerCase()
-    .normalize('NFD')
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .trim();
+    .normalize('NFD') // Normaliza caracteres unicode (ej. ñ -> n)
+    .replace(/[\u0300-\u036f]/g, '') // Elimina diacríticos
+    .replace(/[^a-z0-9\s-]/g, '') // Elimina caracteres no alfanuméricos excepto espacios y guiones
+    .replace(/\s+/g, '-') // Reemplaza espacios por guiones
+    .replace(/-+/g, '-') // Consolida múltiples guiones
+    .trim(); // Elimina espacios al inicio/final
 }
 
+/**
+ * Calcula el tiempo de lectura estimado de un contenido.
+ * @param {string} content
+ * @returns {number} Tiempo de lectura en minutos.
+ */
 function calculateReadingTime(content) {
   const wordsPerMinute = 200;
-  const wordCount = content.split(/\s+/).length;
+  const wordCount = content.split(/\s+/).filter(word => word.length > 0).length;
   return Math.ceil(wordCount / wordsPerMinute);
 }
 
-function generateTagsHTML(tags) {
-  if (!Array.isArray(tags)) {
-    tags = tags.split(',').map(t => t.trim());
+/**
+ * Carga la lista de artículos ya publicados.
+ * @returns {Promise<Set<string>>} Un Set con los slugs de los artículos ya publicados.
+ */
+async function loadPostedArticles() {
+  try {
+    const data = await fs.readFile(POSTED_ARTICLES_PATH, 'utf8');
+    return new Set(JSON.parse(data));
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      console.log('📝 Archivo de artículos publicados no encontrado, creando uno nuevo.');
+      return new Set();
+    }
+    console.error('❌ Error al cargar artículos publicados:', error);
+    return new Set();
   }
-  return tags.map(tag => `<span class="tag">#${tag}</span>`).join('');
 }
 
-// Función para generar un artículo HTML
-async function generateArticleHTML(topic, category) {
-  const slug = generateSlug(topic);
-  const date = new Date().toISOString().split('T')[0];
-  const readingTime = Math.floor(Math.random() * 10) + 5; // 5-15 min
+/**
+ * Guarda la lista de artículos publicados.
+ * @param {Set<string>} postedArticles
+ * @returns {Promise<void>}
+ */
+async function savePostedArticles(postedArticles) {
+  try {
+    await fs.writeFile(POSTED_ARTICLES_PATH, JSON.stringify(Array.from(postedArticles), null, 2), 'utf8');
+    console.log('💾 Artículos publicados guardados.');
+  } catch (error) {
+    console.error('❌ Error al guardar artículos publicados:', error);
+  }
+}
 
+/**
+ * Obtiene un tema aleatorio de una categoría, asegurándose de que no se haya publicado recientemente.
+ * @param {Set<string>} postedArticlesSlugs
+ * @returns {Object|null} Objeto con { topic, category } o null si no hay temas disponibles.
+ */
+function getRandomUnpublishedTopic(postedArticlesSlugs) {
+  const categories = Object.keys(categoriesToTopics);
+  // Intenta encontrar un tema no publicado en un número limitado de intentos
+  for (let i = 0; i < 50; i++) { // Intentar 50 veces para evitar bucles infinitos en caso de pocos temas
+    const category = categories[Math.floor(Math.random() * categories.length)];
+    const topics = categoriesToTopics[category] || [];
+    if (topics.length === 0) continue;
+
+    const topic = topics[Math.floor(Math.random() * topics.length)];
+    const slug = generateSlug(topic);
+
+    if (!postedArticlesSlugs.has(slug)) {
+      return { topic, category, slug };
+    }
+  }
+  console.warn('⚠️ No se encontraron temas sin publicar después de varios intentos.');
+  return null;
+}
+
+// --- Generación de Contenido con Gemini ---
+
+/**
+ * Llama a la API de Gemini para generar contenido del artículo.
+ * @param {string} topic
+ * @param {string} category
+ * @returns {Promise<string>} Contenido HTML generado.
+ */
+async function callGeminiApi(topic, category) {
   const prompt = `Eres un experto desarrollador web y escritor técnico. Tu tarea es crear un artículo HTML completo sobre "${topic}" para la categoría "${category}".
 
 IMPORTANTE:
-- Genera SOLO el contenido HTML que va dentro del <main>
+- Genera SOLO el contenido HTML que va dentro del <main> (sin etiquetas <body>, <head>, etc.).
 - Usa la siguiente estructura:
   <h2>Introducción</h2>
   <p>Breve introducción al tema...</p>
@@ -205,23 +265,22 @@ IMPORTANTE:
   <h2>Conclusión</h2>
   <p>Resumen y cierre...</p>
 
-- Incluye ejemplos de código con <pre><code class="language-javascript">
-- Usa <ul> y <ol> para listas
-- Añade <strong> y <em> para énfasis
-- No incluyas estilos, solo estructura HTML semántica
+- Incluye ejemplos de código con <pre><code class="language-javascript"> o el lenguaje apropiado.
+- Usa <ul> y <ol> para listas.
+- Añade <strong> y <em> para énfasis.
+- No incluyas estilos CSS, solo estructura HTML semántica.
 
 Formato requerido:
-- Usa solo etiquetas HTML: <h2>, <h3>, <p>, <ul>, <ol>, <li>, <blockquote>, <code>, <pre>
-- Incluye ejemplos prácticos y casos de uso
-- Mantén un tono profesional pero accesible
-- Escribe entre 800-1200 palabras
-- Incluye al menos 2 ejemplos de código si es relevante
+- Usa solo etiquetas HTML: <h2>, <h3>, <p>, <ul>, <ol>, <li>, <blockquote>, <code>, <pre>.
+- Incluye ejemplos prácticos y casos de uso cuando sea relevante.
+- Mantén un tono profesional pero accesible.
+- Escribe entre 800-1200 palabras.
+- Incluye al menos 2 ejemplos de código si es relevante.
 
 Genera SOLO el contenido HTML que va dentro del <main>, sin backticks ni estructura adicional.`;
 
   try {
-    console.log(`🔄 Generando artículo HTML sobre: ${topic} (${category})`);
-    
+    console.log(`🔄 Solicitando contenido a Gemini para: ${topic} (${category})...`);
     const res = await axios.post(
       'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
       {
@@ -236,205 +295,288 @@ Genera SOLO el contenido HTML que va dentro del <main>, sin backticks ni estruct
       {
         params: { key: GEMINI_API_KEY },
         headers: { 'Content-Type': 'application/json' },
-        timeout: 60000 // 60 segundos timeout
+        timeout: 90000 // Aumentado a 90 segundos
       }
     );
 
-    let content = res.data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    const content = res.data?.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!content) {
-      throw new Error('No se pudo obtener el contenido HTML de Gemini');
+      throw new Error('No se pudo obtener el contenido HTML de Gemini. Respuesta vacía o inesperada.');
     }
-    
-    // Extraer metadatos del contenido generado
-    const titleMatch = content.match(/<h1[^>]*>([^<]+)<\/h1>/i) || content.match(/<h2[^>]*>([^<]+)<\/h2>/i);
-    const title = titleMatch ? titleMatch[1] : topic;
-    
-    const summaryMatch = content.match(/<p[^>]*>([^<]+)<\/p>/i);
-    const summary = summaryMatch ? summaryMatch[1].substring(0, 150) + '...' : `Artículo sobre ${topic}`;
-    
-    // Generar slug del título
-    // Slug corto y SEO, sin fecha
-    // Slug muy corto para el nombre del archivo
-    const filename = `${slug}.html`;
-    
-    // Generar tags basados en el contenido
-    const tags = [];
-    if (content.toLowerCase().includes('javascript')) tags.push('JavaScript');
-    if (content.toLowerCase().includes('react')) tags.push('React');
-    if (content.toLowerCase().includes('angular')) tags.push('Angular');
-    if (content.toLowerCase().includes('aws')) tags.push('AWS');
-    if (content.toLowerCase().includes('performance')) tags.push('Performance');
-    if (content.toLowerCase().includes('eslint')) tags.push('ESLint');
-    if (content.toLowerCase().includes('sonarqube')) tags.push('SonarQube');
-    
-    // Calcular tiempo de lectura
-    const wordCount = content.split(/\s+/).length;
-    const readingTime = Math.ceil(wordCount / 200);
-    
-    // Leer el template HTML
-    const templatePath = path.join(__dirname, '../templates/article-template.html');
-    let template = fs.readFileSync(templatePath, 'utf8');
-    
-    // Insertar meta category si no existe
-    if (!template.includes('<meta name="category"')) {
-      template = template.replace(/<head>/i, `<head>\n    <meta name="category" content="${category}">`);
-    } else {
-      template = template.replace(/<meta name="category"[^>]*>/i, `<meta name="category" content="${category}">`);
-    }
-    // Asegurar que la etiqueta de Google Site Verification esté presente y sea la correcta
-    const googleVerificationTag = '<meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />';
-    const googleVerificationRegex = /<meta\s+name="google-site-verification"[^>]*>/i;
-
-    if (googleVerificationRegex.test(template)) {
-      // Si ya existe una etiqueta de verificación, la reemplazamos para asegurar que es la correcta.
-      template = template.replace(googleVerificationRegex, googleVerificationTag);
-      console.log('🔄 Etiqueta de Google Site Verification actualizada.');
-    } else {
-      // Si no existe, la añadimos dentro del <head>.
-      template = template.replace(/<head>/i, `<head>\n    ${googleVerificationTag}`);
-      console.log('✨ Etiqueta de Google Site Verification añadida.');
-    }
-
-    // Asegurar que el script de AdSense esté presente en el <head>
-    const adsenseScript = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>';
-    if (!template.includes('adsbygoogle.js')) {
-      // Lo insertamos justo antes del cierre del </head> para asegurar que está dentro.
-      template = template.replace('</head>', `    ${adsenseScript}\n</head>`);
-      console.log('✨ Script de Google AdSense añadido al template.');
-    }
-
-    // Reemplazar variables en el template
-    const replacements = {
-      '{{ARTICLE_TITLE}}': title,
-      '{{ARTICLE_SUMMARY}}': summary,
-      '{{ARTICLE_CONTENT}}': content,
-      '{{CATEGORY}}': category,
-      '{{AUTHOR}}': 'hgaruna',
-      '{{PUBLISH_DATE}}': date,
-      '{{FEATURED_IMAGE}}': '/logos-he-imagenes/programacion.jpeg',
-      '{{SEO_TITLE}}': title,
-      '{{SEO_DESCRIPTION}}': summary.substring(0, 160),
-      '{{SEO_KEYWORDS}}': tags.join(', '),
-      '{{CANONICAL_URL}}': `${SITE_URL}/blog/${filename}`,
-      '{{TAGS_HTML}}': tags.map(tag => `<span class="tag">${tag}</span>`).join(''),
-      '{{READING_TIME}}': readingTime.toString(),
-      '{{WORD_COUNT}}': wordCount.toString()
-    };
-    
-    // Aplicar reemplazos
-    Object.entries(replacements).forEach(([key, value]) => {
-      template = template.replace(new RegExp(key, 'g'), value);
-    });
-    
-    const filepath = path.join(OUTPUT_DIR, filename);
-    fs.writeFileSync(filepath, template);
-    console.log(`✅ ${filename} guardado`);
-    
-    return { filename, title, slug, category };
-    
+    console.log(`✅ Contenido de Gemini recibido para: ${topic}.`);
+    return content;
   } catch (error) {
-    console.error(`❌ Error generando artículo HTML sobre ${topic} (${category}):`, error);
+    console.error(`❌ Error al llamar a la API de Gemini para "${topic}":`, error.message);
+    if (error.response) {
+      console.error('  Código de estado:', error.response.status);
+      console.error('  Datos de respuesta:', error.response.data);
+    } else if (error.request) {
+      console.error('  No se recibió respuesta de la red.');
+    }
+    throw new Error(`Fallo en la generación con Gemini para "${topic}".`);
+  }
+}
+
+// --- Procesamiento y Guardado de Artículo ---
+
+/**
+ * Extrae metadatos básicos del contenido HTML generado.
+ * @param {string} content
+ * @param {string} fallbackTitle
+ * @returns {{title: string, summary: string, tags: string[]}}
+ */
+function extractMetadata(content, fallbackTitle) {
+  const titleMatch = content.match(/<h1[^>]*>([^<]+)<\/h1>/i) || content.match(/<h2[^>]*>([^<]+)<\/h2>/i);
+  const title = titleMatch ? titleMatch[1].trim() : fallbackTitle;
+
+  // Extraer el primer párrafo como resumen
+  const summaryMatch = content.match(/<p[^>]*>([^<]+)<\/p>/i);
+  const summary = summaryMatch ? summaryMatch[1].trim().substring(0, 150) + '...' : `Artículo sobre ${fallbackTitle}.`;
+
+  // Generar tags basados en palabras clave comunes en el contenido
+  const textContent = content.toLowerCase();
+  const tags = new Set();
+  if (textContent.includes('javascript') || textContent.includes('js')) tags.add('JavaScript');
+  if (textContent.includes('react')) tags.add('React');
+  if (textContent.includes('angular')) tags.add('Angular');
+  if (textContent.includes('vue')) tags.add('Vue.js');
+  if (textContent.includes('node.js') || textContent.includes('nodejs')) tags.add('Node.js');
+  if (textContent.includes('python')) tags.add('Python');
+  if (textContent.includes('aws')) tags.add('AWS');
+  if (textContent.includes('docker')) tags.add('Docker');
+  if (textContent.includes('kubernetes')) tags.add('Kubernetes');
+  if (textContent.includes('api')) tags.add('API');
+  if (textContent.includes('seguridad')) tags.add('Seguridad');
+  if (textContent.includes('rendimiento') || textContent.includes('performance')) tags.add('Performance');
+  if (textContent.includes('inteligencia artificial') || textContent.includes('ia') || textContent.includes('ai')) tags.add('IA');
+  if (textContent.includes('bases de datos')) tags.add('Bases de Datos');
+  if (textContent.includes('testing')) tags.add('Testing');
+  if (textContent.includes('devops')) tags.add('DevOps');
+
+  return { title, summary, tags: Array.from(tags) };
+}
+
+/**
+ * Rellena la plantilla HTML con el contenido y metadatos del artículo.
+ * @param {Object} articleData
+ * @param {string} articleData.title
+ * @param {string} articleData.summary
+ * @param {string} articleData.content
+ * @param {string} articleData.category
+ * @param {string[]} articleData.tags
+ * @param {string} articleData.slug
+ * @returns {Promise<string>} HTML completo del artículo.
+ */
+async function fillTemplate(articleData) {
+  const { title, summary, content, category, tags, slug } = articleData;
+  const date = new Date().toISOString().split('T')[0];
+  const readingTime = calculateReadingTime(content);
+  const wordCount = content.split(/\s+/).filter(word => word.length > 0).length;
+
+  const templatePath = path.join(__dirname, '../templates/article-template.html');
+  let template = await fs.readFile(templatePath, 'utf8');
+
+  // Asegurar la meta etiqueta de categoría
+  const categoryMetaTag = `<meta name="category" content="${category}">`;
+  if (!template.includes('<meta name="category"')) {
+    template = template.replace(/<head>/i, `<head>\n    ${categoryMetaTag}`);
+  } else {
+    template = template.replace(/<meta name="category"[^>]*>/i, categoryMetaTag);
+  }
+
+  // Asegurar la etiqueta de Google Site Verification
+  const googleVerificationTag = '<meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />';
+  const googleVerificationRegex = /<meta\s+name="google-site-verification"[^>]*>/i;
+  if (googleVerificationRegex.test(template)) {
+    template = template.replace(googleVerificationRegex, googleVerificationTag);
+  } else {
+    template = template.replace(/<head>/i, `<head>\n    ${googleVerificationTag}`);
+  }
+
+  // Asegurar el script de AdSense
+  const adsenseScript = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>';
+  if (!template.includes('adsbygoogle.js')) {
+    template = template.replace('</head>', `    ${adsenseScript}\n</head>`);
+  }
+
+  // Reemplazar marcadores de posición en la plantilla
+  const replacements = {
+    '{{ARTICLE_TITLE}}': title,
+    '{{ARTICLE_SUMMARY}}': summary,
+    '{{ARTICLE_CONTENT}}': content,
+    '{{CATEGORY}}': category,
+    '{{AUTHOR}}': 'hgaruna',
+    '{{PUBLISH_DATE}}': date,
+    '{{FEATURED_IMAGE}}': '/logos-he-imagenes/programacion.jpeg', // Asegúrate de que esta ruta sea correcta y exista
+    '{{SEO_TITLE}}': title,
+    '{{SEO_DESCRIPTION}}': summary.substring(0, 160),
+    '{{SEO_KEYWORDS}}': tags.join(', '),
+    '{{CANONICAL_URL}}': `${SITE_URL}/blog/${slug}.html`,
+    '{{TAGS_HTML}}': tags.map(tag => `<span class="tag">#${tag}</span>`).join(''),
+    '{{READING_TIME}}': readingTime.toString(),
+    '{{WORD_COUNT}}': wordCount.toString()
+  };
+
+  Object.entries(replacements).forEach(([key, value]) => {
+    template = template.replace(new RegExp(key, 'g'), value);
+  });
+
+  return template;
+}
+
+/**
+ * Genera un artículo HTML completo, desde la llamada a Gemini hasta guardarlo en disco.
+ * @param {string} topic
+ * @param {string} category
+ * @param {string} slug
+ * @returns {Promise<{ filename: string, title: string, slug: string, category: string }>}
+ */
+async function generateArticleFile(topic, category, slug) {
+  const filename = `${slug}.html`;
+  const filepath = path.join(OUTPUT_DIR, filename);
+
+  try {
+    const geminiContent = await callGeminiApi(topic, category);
+    const { title, summary, tags } = extractMetadata(geminiContent, topic);
+
+    const articleHTML = await fillTemplate({
+      title,
+      summary,
+      content: geminiContent,
+      category,
+      tags,
+      slug
+    });
+
+    await fs.writeFile(filepath, articleHTML);
+    console.log(`✅ Artículo "${filename}" guardado exitosamente.`);
+    return { filename, title, slug, category };
+  } catch (error) {
+    console.error(`❌ Fallo al generar o guardar el artículo "${topic}":`, error.message);
     throw error;
   }
 }
 
-// Función para actualizar el sitemap
-async function updateSitemap({ filename }) {
-  try {
-    console.log(`🔄 Actualizando sitemap.xml para ${filename}...`);
-    let sitemap = fs.readFileSync(SITEMAP_PATH, 'utf8');
-    const newUrl = `${SITE_URL}/blog/${filename}`;
+// --- Gestión de Sitemap ---
 
-    // Verificar si la URL ya existe
-    if (sitemap.includes(`<loc>${newUrl}</loc>`)) {
-      console.log(`⚠️  URL ${newUrl} ya existe en el sitemap, saltando.`);
+/**
+ * Actualiza el sitemap.xml añadiendo la nueva URL del artículo.
+ * @param {{filename: string, slug: string}} articleInfo
+ * @returns {Promise<void>}
+ */
+async function updateSitemap({ filename, slug }) {
+  const articleUrl = `${SITE_URL}/blog/${filename}`;
+  try {
+    let sitemapContent;
+    try {
+      sitemapContent = await fs.readFile(SITEMAP_PATH, 'utf8');
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        console.warn('⚠️ sitemap.xml no encontrado. Creando uno nuevo.');
+        sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+</urlset>`;
+      } else {
+        throw error;
+      }
+    }
+
+    // Verificar si la URL ya existe en el sitemap
+    if (sitemapContent.includes(`<loc>${articleUrl}</loc>`)) {
+      console.log(`⚠️ URL ${articleUrl} ya existe en el sitemap. Saltando actualización.`);
       return;
     }
 
     const newEntry = `
   <url>
-    <loc>${newUrl}</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
+    <loc>${articleUrl}</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`;
 
-    // Insertar la nueva entrada justo antes de la etiqueta de cierre </urlset>
-    sitemap = sitemap.replace('</urlset>', `${newEntry}\n</urlset>`);
+    // Insertar antes de la etiqueta de cierre </urlset>
+    sitemapContent = sitemapContent.replace('</urlset>', `${newEntry}\n</urlset>`);
 
-    fs.writeFileSync(SITEMAP_PATH, sitemap);
-    console.log('✅ sitemap.xml actualizado exitosamente.');
-
+    await fs.writeFile(SITEMAP_PATH, sitemapContent);
+    console.log(`✅ sitemap.xml actualizado con ${filename}.`);
   } catch (error) {
-    console.error('❌ Error actualizando sitemap.xml:', error);
+    console.error(`❌ Error al actualizar sitemap.xml para ${filename}:`, error.message);
   }
 }
 
-// Función principal
+// --- Función Principal ---
+
 async function main() {
+  console.log('🚀 Iniciando generación de artículos HTML con Gemini...');
+
   try {
-    console.log('🚀 Iniciando generación de artículos con Gemini...');
-    
-    // Crear directorio de salida si no existe
-    if (!fs.existsSync(OUTPUT_DIR)) {
-      fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-    }
-    
-    // Obtener categorías disponibles
-    const categories = Object.keys(categoriesToTopics);
+    await fs.mkdir(OUTPUT_DIR, { recursive: true });
+    console.log(`📂 Directorio de salida verificado/creado: ${OUTPUT_DIR}`);
+
+    const postedArticlesSlugs = await loadPostedArticles();
     const generatedArticles = [];
-    
-    // Generar artículos
-    for (let i = 0; i < 3; i++) {
+
+    const numberOfArticlesToGenerate = 3; // Puedes hacer esto configurable si lo deseas
+
+    for (let i = 0; i < numberOfArticlesToGenerate; i++) {
+      console(`\n--- Intentando generar artículo ${i + 1} de ${numberOfArticlesToGenerate} ---`);
+      const topicInfo = getRandomUnpublishedTopic(postedArticlesSlugs);
+
+      if (!topicInfo) {
+        console.warn(`🛑 No hay temas únicos disponibles para generar más artículos.`);
+        break;
+      }
+
+      const { topic, category, slug } = topicInfo;
+
       try {
-        const category = categories[Math.floor(Math.random() * categories.length)];
-        const topics = getRandomTopicsFromCategory(category, 1);
-        const topic = topics[0];
-        
-        console.log(`\n📝 Generando artículo sobre: ${topic} (${category})`);
-        const article = await generateArticleHTML(topic, category);
-        
-        if (article) {
-          generatedArticles.push(article);
-          
-          // Actualizar el sitemap
-          await updateSitemap({ filename: article.filename });
-          
-          // Pausa entre artículos para evitar rate limiting
-          await new Promise(resolve => setTimeout(resolve, 3000));
-        }
+        const articleResult = await generateArticleFile(topic, category, slug);
+        generatedArticles.push(articleResult);
+        postedArticlesSlugs.add(slug); // Añadir el slug a la lista de publicados
+
+        await updateSitemap(articleResult);
+
+        // Pequeña pausa para evitar sobrecargar APIs o para visibilidad en logs
+        await new Promise(resolve => setTimeout(resolve, 5000));
       } catch (error) {
-        console.error(`❌ Error con artículo:`, error.message);
-        // Continuar con el siguiente artículo
+        console.error(`❌ Fallo crítico al generar artículo para "${topic}":`, error.message);
+        // Continuar con el siguiente intento si falla un artículo
       }
     }
 
-    console.log('\n📊 Resumen de generación HTML:');
-    console.log(`✅ Artículos HTML generados: ${generatedArticles.length}`);
-    console.log(`📁 Directorio: ${OUTPUT_DIR}`);
+    await savePostedArticles(postedArticlesSlugs);
 
+    console.log('\n--- Resumen de Generación ---');
     if (generatedArticles.length > 0) {
-      console.log('\n📝 Artículos HTML creados:');
+      console.log(`✅ Se generaron y guardaron ${generatedArticles.length} nuevos artículos.`);
       generatedArticles.forEach(article => {
-        console.log(`  - ${article.filename} (${article.title}) [${article.category}]`);
+        console.log(`  - "${article.title}" (${article.filename}) [Categoría: ${article.category}]`);
       });
+    } else {
+      console.log('ℹ️ No se generaron nuevos artículos en esta ejecución.');
     }
 
-    if (generatedArticles.length === 0) {
-      console.log('⚠️  No se generaron nuevos artículos HTML');
-      process.exit(1);
-    }
-
-    console.log('\n🎉 Generación HTML multi-categoría completada exitosamente!');
+    console.log('\n🎉 Proceso de generación HTML completado.');
 
   } catch (error) {
-    console.error('❌ Error en la generación HTML:', error.message);
+    console.error('Fatal error during HTML generation process:', error.message);
+    process.exit(1);
   }
 }
 
-// Ejecutar si es llamado directamente
+// Ejecutar main si el script es llamado directamente
 if (require.main === module) {
   main();
 }
 
-module.exports = { generateArticleHTML }; 
+// Exportar funciones si se necesita para testing u otros scripts
+module.exports = {
+  generateArticleFile,
+  updateSitemap,
+  main,
+  // Para testing:
+  generateSlug,
+  calculateReadingTime,
+  extractMetadata
+};
