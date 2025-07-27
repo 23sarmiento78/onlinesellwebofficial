@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
     <title>Introducción</title>
-    <meta name="description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  ">
-    <meta name="keywords" content="JavaScript, Python, IA, Testing">
+    <meta name="description" content="Las transacciones distribuidas son un componente crucial en el desarrollo de aplicaciones modernas que requieren acceso a datos distribuidos en múltiples bases ">
+    <meta name="keywords" content="JavaScript, Performance, IA, Bases de Datos">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <meta property="og:url" content="https://www.hgaruna.org/blog/transacciones-distribuidas.html">
     <meta property="og:title" content="Introducción">
-    <meta property="og:description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  ">
+    <meta property="og:description" content="Las transacciones distribuidas son un componente crucial en el desarrollo de aplicaciones modernas que requieren acceso a datos distribuidos en múltiples bases ">
     <meta property="og:image" content="{{SITE_URL}}/logos-he-imagenes/programacion.jpeg"> <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <meta property="twitter:url" content="https://www.hgaruna.org/blog/transacciones-distribuidas.html">
     <meta property="twitter:title" content="Introducción">
-    <meta property="twitter:description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  ">
-    <meta property="twitter:image" content="{{SITE_URL}}/logos-he-imagenes/programacion.jpeg"> <link rel="canonical" href="https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <meta property="twitter:description" content="Las transacciones distribuidas son un componente crucial en el desarrollo de aplicaciones modernas que requieren acceso a datos distribuidos en múltiples bases ">
+    <meta property="twitter:image" content="{{SITE_URL}}/logos-he-imagenes/programacion.jpeg"> <link rel="canonical" href="https://www.hgaruna.org/blog/transacciones-distribuidas.html">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -120,69 +120,80 @@
         
         /* IMPORTANT: Remove h1 styling from content if you only use h1 in header */
         /* If Gemini generates h1 in content, this might be okay, but typically you have one h1 per page */
-        .article-content h1 { /* This styling applies to any h1 generated in <h2>Introducción</h2>
-<p>La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  Una alta cobertura de código no garantiza la ausencia de errores, pero sí proporciona una fuerte indicación de la exhaustividad de las pruebas y la calidad general del software.  Este artículo profundiza en la importancia de la cobertura de código como métrica de calidad, explorando sus diferentes tipos, herramientas de medición y las mejores prácticas para su interpretación y mejora.</p>
+        .article-content h1 { /* This styling applies to any h1 generated in <main>
+  <h2>Introducción</h2>
+  <p>Las transacciones distribuidas son un componente crucial en el desarrollo de aplicaciones modernas que requieren acceso a datos distribuidos en múltiples bases de datos o sistemas.  Garantizan la consistencia y la fiabilidad de las operaciones que afectan a varios recursos, incluso en presencia de fallos.  A diferencia de las transacciones locales, que operan dentro de una sola base de datos, las transacciones distribuidas coordinan la ejecución de múltiples transacciones locales para asegurar la atomicidad, la consistencia, el aislamiento y la durabilidad (ACID) en un entorno distribuido.  Este artículo explorará los conceptos clave, los desafíos y las soluciones comunes en el ámbito de las transacciones distribuidas.</p>
 
-<h2>Sección Principal</h2>
-<p>La cobertura de código se mide generalmente como un porcentaje.  Un 100% de cobertura significa que cada línea de código se ha ejecutado al menos una vez durante las pruebas.  Sin embargo, alcanzar el 100% no siempre es el objetivo, ni siquiera deseable.  La calidad de las pruebas es más importante que el porcentaje de cobertura.  Es posible tener una alta cobertura con pruebas de baja calidad que no detecten errores importantes.  Por lo tanto, la cobertura de código debe considerarse una métrica complementaria, no la única métrica para evaluar la calidad del software.</p>
+  <h2>Sección Principal</h2>
+  <p>El desafío principal en las transacciones distribuidas radica en la necesidad de coordinar la ejecución de múltiples transacciones locales de forma que se mantengan las propiedades ACID.  Si una sola transacción local falla, toda la transacción distribuida debe abortar, evitando así la inconsistencia de los datos en los diferentes sistemas.  Esto requiere mecanismos sofisticados para la gestión de concurrencia, la detección de fallos y la recuperación.</p>
 
-<h3>Tipos de Cobertura de Código</h3>
-<p>Existen varios tipos de cobertura de código, cada uno ofreciendo una perspectiva diferente sobre la exhaustividad de las pruebas:</p>
-<ul>
-  <li><strong>Cobertura de líneas (Line Coverage):</strong> Indica el porcentaje de líneas de código que se han ejecutado. Es la métrica más común y fácil de entender.</li>
-  <li><strong>Cobertura de ramas (Branch Coverage):</strong> Mide el porcentaje de ramas de ejecución (como las condiciones <code>if</code>, <code>else</code>, <code>switch</code>) que se han probado. Es más exhaustiva que la cobertura de líneas, ya que identifica posibles caminos de ejecución no probados.</li>
-  <li><strong>Cobertura de condiciones (Condition Coverage):</strong>  Va un paso más allá de la cobertura de ramas, analizando cada condición individual dentro de una rama.  Por ejemplo, en una condición <code>if (a > 5 && b < 10)</code>, la cobertura de condiciones verifica que se hayan probado los casos donde <code>a > 5</code> es verdadero y falso, y lo mismo para <code>b < 10</code>, independientemente de la combinación.</li>
-  <li><strong>Cobertura de caminos (Path Coverage):</strong> Es el tipo de cobertura más exhaustivo, pero también el más difícil de lograr.  Se centra en probar cada posible camino de ejecución a través del código.  Para programas complejos, el número de caminos puede ser exponencial, haciendo que la cobertura de caminos sea prácticamente inalcanzable.</li>
-  <li><strong>Cobertura de funciones/métodos (Function/Method Coverage):</strong> Indica el porcentaje de funciones o métodos que se han llamado durante las pruebas.</li>
-</ul>
+  <h3>El Problema de la Consistencia de Datos</h3>
+  <p>Imagina un escenario de comercio electrónico donde un usuario compra un producto.  Esta transacción implica actualizar varias bases de datos: la base de datos de inventario para reducir la cantidad del producto, la base de datos de pedidos para registrar el nuevo pedido y la base de datos de pagos para procesar el pago.  Si una de estas actualizaciones falla (por ejemplo, la base de datos de pagos se cae), la transacción debe ser abortada para prevenir una inconsistencia: el inventario se reduce, pero el pedido no se registra, o viceversa.  Este es un ejemplo clásico donde las transacciones distribuidas son esenciales.</p>
 
-<h3>Herramientas para medir la cobertura de código</h3>
-<p>Existen numerosas herramientas para medir la cobertura de código, tanto de código abierto como comerciales.  La elección de la herramienta dependerá del lenguaje de programación y del entorno de desarrollo. Algunos ejemplos incluyen:</p>
-<ul>
-  <li><strong>Jest (JavaScript):</strong> Una herramienta de testing popular para JavaScript que proporciona métricas de cobertura de código de forma integrada.</li>
-  <li><strong>pytest-cov (Python):</strong> Una extensión para pytest que permite medir la cobertura de código en Python.</li>
-  <li><strong>JaCoCo (Java):</strong> Una herramienta de cobertura de código para Java muy utilizada.</li>
-  <li><strong>SonarQube:</strong> Una plataforma de análisis de código que incluye la medición de la cobertura de código entre otras muchas métricas.</li>
-</ul>
+  <h3>Enfoques para la Gestión de Transacciones Distribuidas</h3>
+  <p>Existen varios enfoques para gestionar las transacciones distribuidas, cada uno con sus propias ventajas y desventajas:</p>
+  <ul>
+    <li><strong>Protocolo de dos fases (Two-Phase Commit - 2PC):</strong> Este es un protocolo clásico que coordina el commit o el rollback de las transacciones locales.  Tiene dos fases: la fase de preparación, donde el coordinador pregunta a cada participante si está listo para cometer la transacción, y la fase de commit, donde el coordinador decide si se comete o se aborta la transacción en base a las respuestas de los participantes.</li>
+    <li><strong>Protocolo de tres fases (Three-Phase Commit - 3PC):</strong> Una mejora sobre 2PC que intenta reducir el tiempo de bloqueo al agregar una fase intermedia para reducir la posibilidad de bloqueo. Sin embargo, sigue siendo susceptible a bloqueos en escenarios de fallas.</li>
+    <li><strong>Gestores de transacciones distribuidas (Distributed Transaction Managers - DTM):</strong>  Software que abstrae la complejidad de la gestión de transacciones distribuidas, proporcionando una interfaz simplificada para las aplicaciones.  Ejemplos incluyen XA y soluciones de middleware empresarial.</li>
+    <li><strong>Patrones de compensación (Compensation Patterns):</strong> En lugar de intentar asegurar la atomicidad a través de un protocolo de commit de dos fases, este enfoque se centra en la reversión de los efectos de las operaciones individuales en caso de fallo.  Se utilizan acciones de compensación para revertir los cambios realizados por cada transacción local.</li>
+    <li><strong>Bases de datos distribuidas con soporte nativo para transacciones distribuidas:</strong> Algunas bases de datos distribuidas (como Spanner de Google) ofrecen soporte nativo para transacciones distribuidas, simplificando significativamente el proceso.</li>
+  </ul>
 
-<h3>Ejemplo de Cobertura de Código con Jest (JavaScript)</h3>
-<p>Supongamos que tenemos la siguiente función en JavaScript:</p>
-<pre><code class="language-javascript">
-function suma(a, b) {
-  if (a > 0 && b > 0) {
-    return a + b;
+  <h3>Ejemplo de Código (2PC simplificado)</h3>
+  <p>El siguiente ejemplo ilustra un escenario simplificado de 2PC usando pseudo-código.  En un sistema real, se utilizarían protocolos y bibliotecas específicos para la comunicación y la gestión de transacciones.</p>
+  <pre><code class="language-javascript">
+// Coordinador
+function twoPhaseCommit(participants) {
+  // Fase de Preparación
+  let ready = true;
+  for (let participant of participants) {
+    if (!participant.prepare()) {
+      ready = false;
+      break;
+    }
+  }
+
+  // Fase de Commit
+  if (ready) {
+    for (let participant of participants) {
+      participant.commit();
+    }
   } else {
-    return 0;
+    for (let participant of participants) {
+      participant.rollback();
+    }
   }
 }
-</code></pre>
-<p>Un test con Jest que busca una alta cobertura podría ser:</p>
-<pre><code class="language-javascript">
-test('Suma dos números positivos', () => {
-  expect(suma(5, 3)).toBe(8);
-});
 
-test('Suma con un número negativo', () => {
-  expect(suma(-5, 3)).toBe(0);
-});
+// Participante
+class Participant {
+  prepare() {
+    // ... lógica de preparación ...
+    return true; // o false si hay un error
+  }
+  commit() {
+    // ... lógica de commit ...
+  }
+  rollback() {
+    // ... lógica de rollback ...
+  }
+}
+  </code></pre>
 
-test('Suma con dos números negativos', () => {
-  expect(suma(-5, -3)).toBe(0);
-});
-
-test('Suma con cero', () => {
-  expect(suma(0, 3)).toBe(0);
-});
-</code></pre>
-<p>Ejecutar este test con Jest generará un reporte de cobertura, mostrando el porcentaje de líneas, ramas y condiciones cubiertas.  Este ejemplo demuestra la importancia de las pruebas para alcanzar una alta cobertura y la necesidad de pruebas que cubran diferentes escenarios.</p>
-
-
-<h3>Interpretando la Cobertura de Código</h3>
-<p>Un alto porcentaje de cobertura no garantiza un software sin errores, pero una baja cobertura sugiere la posibilidad de errores ocultos.  La interpretación de la cobertura de código debe ser contextualizada.  Se debe prestar atención a las áreas con baja cobertura, investigando la razón de esta baja cobertura.  ¿Son partes del código complejas que requieren más pruebas? ¿Son partes del código que rara vez se utilizan y por lo tanto tienen menor riesgo?  Una baja cobertura en áreas críticas del software es mucho más preocupante que una baja cobertura en áreas menos importantes.</p>
+  <h3>Desafíos y Consideraciones</h3>
+  <p>Las transacciones distribuidas presentan varios desafíos:</p>
+  <ol>
+    <li><strong>Rendimiento:</strong> Los protocolos como 2PC pueden ser lentos debido a la coordinación y el bloqueo requerido.</li>
+    <li><strong>Disponibilidad:</strong> La dependencia de múltiples sistemas puede afectar la disponibilidad general.</li>
+    <li><strong>Complejidad:</strong> Implementar y depurar transacciones distribuidas es complejo.</li>
+    <li><strong>Escalabilidad:</strong>  La escalabilidad puede ser un desafío, especialmente con protocolos como 2PC.</li>
+  </ol>
 
 
-<h2>Conclusión</h2>
-<p>La cobertura de código es una métrica valiosa para evaluar la calidad del software, pero debe utilizarse con prudencia.  No es una medida definitiva de la calidad, sino una herramienta que ayuda a identificar áreas que necesitan más atención en las pruebas.  Combinar la cobertura de código con otras métricas de calidad, como la revisión de código y las pruebas manuales, proporciona una visión más completa de la calidad del software.  El objetivo no debe ser alcanzar un porcentaje arbitrario de cobertura, sino asegurar que las partes críticas del software estén adecuadamente probadas y que se minimice el riesgo de errores.</p>
+  <h2>Conclusión</h2>
+  <p>Las transacciones distribuidas son esenciales para construir aplicaciones robustas y fiables que acceden a datos distribuidos.  Aunque presentan desafíos de rendimiento y complejidad, la necesidad de mantener la consistencia de los datos en entornos distribuidos hace que sean una parte indispensable del desarrollo de software moderno.  La elección del enfoque adecuado depende de las necesidades específicas de la aplicación, considerando factores como el rendimiento, la disponibilidad y la complejidad.  La comprensión de los diferentes enfoques y sus limitaciones es crucial para el diseño e implementación exitosos de sistemas distribuidos.</p>
+</main>
  */
             font-size: 2.5rem;
             border-bottom: 2px solid var(--primary);
@@ -593,77 +604,88 @@ test('Suma con cero', () => {
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <div class="featured-image mb-5 text-center">
-                    <img src="/logos-he-imagenes/programacion.jpeg" alt="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  " class="img-fluid rounded-3"> </div>
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Las transacciones distribuidas son un componente crucial en el desarrollo de aplicaciones modernas que requieren acceso a datos distribuidos en múltiples bases " class="img-fluid rounded-3"> </div>
                 
                 <article class="article-content">
-                    <h2>Introducción</h2>
-<p>La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  Una alta cobertura de código no garantiza la ausencia de errores, pero sí proporciona una fuerte indicación de la exhaustividad de las pruebas y la calidad general del software.  Este artículo profundiza en la importancia de la cobertura de código como métrica de calidad, explorando sus diferentes tipos, herramientas de medición y las mejores prácticas para su interpretación y mejora.</p>
+                    <main>
+  <h2>Introducción</h2>
+  <p>Las transacciones distribuidas son un componente crucial en el desarrollo de aplicaciones modernas que requieren acceso a datos distribuidos en múltiples bases de datos o sistemas.  Garantizan la consistencia y la fiabilidad de las operaciones que afectan a varios recursos, incluso en presencia de fallos.  A diferencia de las transacciones locales, que operan dentro de una sola base de datos, las transacciones distribuidas coordinan la ejecución de múltiples transacciones locales para asegurar la atomicidad, la consistencia, el aislamiento y la durabilidad (ACID) en un entorno distribuido.  Este artículo explorará los conceptos clave, los desafíos y las soluciones comunes en el ámbito de las transacciones distribuidas.</p>
 
-<h2>Sección Principal</h2>
-<p>La cobertura de código se mide generalmente como un porcentaje.  Un 100% de cobertura significa que cada línea de código se ha ejecutado al menos una vez durante las pruebas.  Sin embargo, alcanzar el 100% no siempre es el objetivo, ni siquiera deseable.  La calidad de las pruebas es más importante que el porcentaje de cobertura.  Es posible tener una alta cobertura con pruebas de baja calidad que no detecten errores importantes.  Por lo tanto, la cobertura de código debe considerarse una métrica complementaria, no la única métrica para evaluar la calidad del software.</p>
+  <h2>Sección Principal</h2>
+  <p>El desafío principal en las transacciones distribuidas radica en la necesidad de coordinar la ejecución de múltiples transacciones locales de forma que se mantengan las propiedades ACID.  Si una sola transacción local falla, toda la transacción distribuida debe abortar, evitando así la inconsistencia de los datos en los diferentes sistemas.  Esto requiere mecanismos sofisticados para la gestión de concurrencia, la detección de fallos y la recuperación.</p>
 
-<h3>Tipos de Cobertura de Código</h3>
-<p>Existen varios tipos de cobertura de código, cada uno ofreciendo una perspectiva diferente sobre la exhaustividad de las pruebas:</p>
-<ul>
-  <li><strong>Cobertura de líneas (Line Coverage):</strong> Indica el porcentaje de líneas de código que se han ejecutado. Es la métrica más común y fácil de entender.</li>
-  <li><strong>Cobertura de ramas (Branch Coverage):</strong> Mide el porcentaje de ramas de ejecución (como las condiciones <code>if</code>, <code>else</code>, <code>switch</code>) que se han probado. Es más exhaustiva que la cobertura de líneas, ya que identifica posibles caminos de ejecución no probados.</li>
-  <li><strong>Cobertura de condiciones (Condition Coverage):</strong>  Va un paso más allá de la cobertura de ramas, analizando cada condición individual dentro de una rama.  Por ejemplo, en una condición <code>if (a > 5 && b < 10)</code>, la cobertura de condiciones verifica que se hayan probado los casos donde <code>a > 5</code> es verdadero y falso, y lo mismo para <code>b < 10</code>, independientemente de la combinación.</li>
-  <li><strong>Cobertura de caminos (Path Coverage):</strong> Es el tipo de cobertura más exhaustivo, pero también el más difícil de lograr.  Se centra en probar cada posible camino de ejecución a través del código.  Para programas complejos, el número de caminos puede ser exponencial, haciendo que la cobertura de caminos sea prácticamente inalcanzable.</li>
-  <li><strong>Cobertura de funciones/métodos (Function/Method Coverage):</strong> Indica el porcentaje de funciones o métodos que se han llamado durante las pruebas.</li>
-</ul>
+  <h3>El Problema de la Consistencia de Datos</h3>
+  <p>Imagina un escenario de comercio electrónico donde un usuario compra un producto.  Esta transacción implica actualizar varias bases de datos: la base de datos de inventario para reducir la cantidad del producto, la base de datos de pedidos para registrar el nuevo pedido y la base de datos de pagos para procesar el pago.  Si una de estas actualizaciones falla (por ejemplo, la base de datos de pagos se cae), la transacción debe ser abortada para prevenir una inconsistencia: el inventario se reduce, pero el pedido no se registra, o viceversa.  Este es un ejemplo clásico donde las transacciones distribuidas son esenciales.</p>
 
-<h3>Herramientas para medir la cobertura de código</h3>
-<p>Existen numerosas herramientas para medir la cobertura de código, tanto de código abierto como comerciales.  La elección de la herramienta dependerá del lenguaje de programación y del entorno de desarrollo. Algunos ejemplos incluyen:</p>
-<ul>
-  <li><strong>Jest (JavaScript):</strong> Una herramienta de testing popular para JavaScript que proporciona métricas de cobertura de código de forma integrada.</li>
-  <li><strong>pytest-cov (Python):</strong> Una extensión para pytest que permite medir la cobertura de código en Python.</li>
-  <li><strong>JaCoCo (Java):</strong> Una herramienta de cobertura de código para Java muy utilizada.</li>
-  <li><strong>SonarQube:</strong> Una plataforma de análisis de código que incluye la medición de la cobertura de código entre otras muchas métricas.</li>
-</ul>
+  <h3>Enfoques para la Gestión de Transacciones Distribuidas</h3>
+  <p>Existen varios enfoques para gestionar las transacciones distribuidas, cada uno con sus propias ventajas y desventajas:</p>
+  <ul>
+    <li><strong>Protocolo de dos fases (Two-Phase Commit - 2PC):</strong> Este es un protocolo clásico que coordina el commit o el rollback de las transacciones locales.  Tiene dos fases: la fase de preparación, donde el coordinador pregunta a cada participante si está listo para cometer la transacción, y la fase de commit, donde el coordinador decide si se comete o se aborta la transacción en base a las respuestas de los participantes.</li>
+    <li><strong>Protocolo de tres fases (Three-Phase Commit - 3PC):</strong> Una mejora sobre 2PC que intenta reducir el tiempo de bloqueo al agregar una fase intermedia para reducir la posibilidad de bloqueo. Sin embargo, sigue siendo susceptible a bloqueos en escenarios de fallas.</li>
+    <li><strong>Gestores de transacciones distribuidas (Distributed Transaction Managers - DTM):</strong>  Software que abstrae la complejidad de la gestión de transacciones distribuidas, proporcionando una interfaz simplificada para las aplicaciones.  Ejemplos incluyen XA y soluciones de middleware empresarial.</li>
+    <li><strong>Patrones de compensación (Compensation Patterns):</strong> En lugar de intentar asegurar la atomicidad a través de un protocolo de commit de dos fases, este enfoque se centra en la reversión de los efectos de las operaciones individuales en caso de fallo.  Se utilizan acciones de compensación para revertir los cambios realizados por cada transacción local.</li>
+    <li><strong>Bases de datos distribuidas con soporte nativo para transacciones distribuidas:</strong> Algunas bases de datos distribuidas (como Spanner de Google) ofrecen soporte nativo para transacciones distribuidas, simplificando significativamente el proceso.</li>
+  </ul>
 
-<h3>Ejemplo de Cobertura de Código con Jest (JavaScript)</h3>
-<p>Supongamos que tenemos la siguiente función en JavaScript:</p>
-<pre><code class="language-javascript">
-function suma(a, b) {
-  if (a > 0 && b > 0) {
-    return a + b;
+  <h3>Ejemplo de Código (2PC simplificado)</h3>
+  <p>El siguiente ejemplo ilustra un escenario simplificado de 2PC usando pseudo-código.  En un sistema real, se utilizarían protocolos y bibliotecas específicos para la comunicación y la gestión de transacciones.</p>
+  <pre><code class="language-javascript">
+// Coordinador
+function twoPhaseCommit(participants) {
+  // Fase de Preparación
+  let ready = true;
+  for (let participant of participants) {
+    if (!participant.prepare()) {
+      ready = false;
+      break;
+    }
+  }
+
+  // Fase de Commit
+  if (ready) {
+    for (let participant of participants) {
+      participant.commit();
+    }
   } else {
-    return 0;
+    for (let participant of participants) {
+      participant.rollback();
+    }
   }
 }
-</code></pre>
-<p>Un test con Jest que busca una alta cobertura podría ser:</p>
-<pre><code class="language-javascript">
-test('Suma dos números positivos', () => {
-  expect(suma(5, 3)).toBe(8);
-});
 
-test('Suma con un número negativo', () => {
-  expect(suma(-5, 3)).toBe(0);
-});
+// Participante
+class Participant {
+  prepare() {
+    // ... lógica de preparación ...
+    return true; // o false si hay un error
+  }
+  commit() {
+    // ... lógica de commit ...
+  }
+  rollback() {
+    // ... lógica de rollback ...
+  }
+}
+  </code></pre>
 
-test('Suma con dos números negativos', () => {
-  expect(suma(-5, -3)).toBe(0);
-});
-
-test('Suma con cero', () => {
-  expect(suma(0, 3)).toBe(0);
-});
-</code></pre>
-<p>Ejecutar este test con Jest generará un reporte de cobertura, mostrando el porcentaje de líneas, ramas y condiciones cubiertas.  Este ejemplo demuestra la importancia de las pruebas para alcanzar una alta cobertura y la necesidad de pruebas que cubran diferentes escenarios.</p>
-
-
-<h3>Interpretando la Cobertura de Código</h3>
-<p>Un alto porcentaje de cobertura no garantiza un software sin errores, pero una baja cobertura sugiere la posibilidad de errores ocultos.  La interpretación de la cobertura de código debe ser contextualizada.  Se debe prestar atención a las áreas con baja cobertura, investigando la razón de esta baja cobertura.  ¿Son partes del código complejas que requieren más pruebas? ¿Son partes del código que rara vez se utilizan y por lo tanto tienen menor riesgo?  Una baja cobertura en áreas críticas del software es mucho más preocupante que una baja cobertura en áreas menos importantes.</p>
+  <h3>Desafíos y Consideraciones</h3>
+  <p>Las transacciones distribuidas presentan varios desafíos:</p>
+  <ol>
+    <li><strong>Rendimiento:</strong> Los protocolos como 2PC pueden ser lentos debido a la coordinación y el bloqueo requerido.</li>
+    <li><strong>Disponibilidad:</strong> La dependencia de múltiples sistemas puede afectar la disponibilidad general.</li>
+    <li><strong>Complejidad:</strong> Implementar y depurar transacciones distribuidas es complejo.</li>
+    <li><strong>Escalabilidad:</strong>  La escalabilidad puede ser un desafío, especialmente con protocolos como 2PC.</li>
+  </ol>
 
 
-<h2>Conclusión</h2>
-<p>La cobertura de código es una métrica valiosa para evaluar la calidad del software, pero debe utilizarse con prudencia.  No es una medida definitiva de la calidad, sino una herramienta que ayuda a identificar áreas que necesitan más atención en las pruebas.  Combinar la cobertura de código con otras métricas de calidad, como la revisión de código y las pruebas manuales, proporciona una visión más completa de la calidad del software.  El objetivo no debe ser alcanzar un porcentaje arbitrario de cobertura, sino asegurar que las partes críticas del software estén adecuadamente probadas y que se minimice el riesgo de errores.</p>
+  <h2>Conclusión</h2>
+  <p>Las transacciones distribuidas son esenciales para construir aplicaciones robustas y fiables que acceden a datos distribuidos.  Aunque presentan desafíos de rendimiento y complejidad, la necesidad de mantener la consistencia de los datos en entornos distribuidos hace que sean una parte indispensable del desarrollo de software moderno.  La elección del enfoque adecuado depende de las necesidades específicas de la aplicación, considerando factores como el rendimiento, la disponibilidad y la complejidad.  La comprensión de los diferentes enfoques y sus limitaciones es crucial para el diseño e implementación exitosos de sistemas distribuidos.</p>
+</main>
 
                 </article>
                 
                 <div class="article-tags">
-                    <a href="/blog/tag/javascript" class="tag">#JavaScript</a><a href="/blog/tag/python" class="tag">#Python</a><a href="/blog/tag/ia" class="tag">#IA</a><a href="/blog/tag/testing" class="tag">#Testing</a> 
+                    <a href="/blog/tag/javascript" class="tag">#JavaScript</a><a href="/blog/tag/performance" class="tag">#Performance</a><a href="/blog/tag/ia" class="tag">#IA</a><a href="/blog/tag/bases-de-datos" class="tag">#Bases de Datos</a> 
                 </div>
                 
                 <div class="share-buttons mb-5">
@@ -767,7 +789,7 @@ test('Suma con cero', () => {
             /*
             document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
                 const onclick = link.getAttribute('onclick');
-                link.setAttribute('onclick', onclick.replace(/https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html/g, window.location.href));
+                link.setAttribute('onclick', onclick.replace(/https://www.hgaruna.org/blog/transacciones-distribuidas.html/g, window.location.href));
             });
             */
 

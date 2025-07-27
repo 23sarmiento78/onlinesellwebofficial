@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
     <title>Introducción</title>
-    <meta name="description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  ">
-    <meta name="keywords" content="JavaScript, Python, IA, Testing">
+    <meta name="description" content="La Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede cargar pa">
+    <meta name="keywords" content="JavaScript, Seguridad, IA">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <meta property="og:url" content="https://www.hgaruna.org/blog/content-security-policy-csp.html">
     <meta property="og:title" content="Introducción">
-    <meta property="og:description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  ">
+    <meta property="og:description" content="La Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede cargar pa">
     <meta property="og:image" content="{{SITE_URL}}/logos-he-imagenes/programacion.jpeg"> <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <meta property="twitter:url" content="https://www.hgaruna.org/blog/content-security-policy-csp.html">
     <meta property="twitter:title" content="Introducción">
-    <meta property="twitter:description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  ">
-    <meta property="twitter:image" content="{{SITE_URL}}/logos-he-imagenes/programacion.jpeg"> <link rel="canonical" href="https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
+    <meta property="twitter:description" content="La Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede cargar pa">
+    <meta property="twitter:image" content="{{SITE_URL}}/logos-he-imagenes/programacion.jpeg"> <link rel="canonical" href="https://www.hgaruna.org/blog/content-security-policy-csp.html">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -120,69 +120,63 @@
         
         /* IMPORTANT: Remove h1 styling from content if you only use h1 in header */
         /* If Gemini generates h1 in content, this might be okay, but typically you have one h1 per page */
-        .article-content h1 { /* This styling applies to any h1 generated in <h2>Introducción</h2>
-<p>La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  Una alta cobertura de código no garantiza la ausencia de errores, pero sí proporciona una fuerte indicación de la exhaustividad de las pruebas y la calidad general del software.  Este artículo profundiza en la importancia de la cobertura de código como métrica de calidad, explorando sus diferentes tipos, herramientas de medición y las mejores prácticas para su interpretación y mejora.</p>
+        .article-content h1 { /* This styling applies to any h1 generated in <main>
+  <h2>Introducción</h2>
+  <p>La Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede cargar para una página web dada.  Esto ayuda a mitigar los riesgos de ataques como el Cross-Site Scripting (XSS) y otros tipos de inyección de código malicioso. En esencia, CSP define una política de seguridad que el navegador debe aplicar rigurosamente, bloqueando cualquier recurso que no cumpla con las directivas especificadas.  Implementar una CSP eficaz es una parte crucial de una estrategia de seguridad web robusta.</p>
 
-<h2>Sección Principal</h2>
-<p>La cobertura de código se mide generalmente como un porcentaje.  Un 100% de cobertura significa que cada línea de código se ha ejecutado al menos una vez durante las pruebas.  Sin embargo, alcanzar el 100% no siempre es el objetivo, ni siquiera deseable.  La calidad de las pruebas es más importante que el porcentaje de cobertura.  Es posible tener una alta cobertura con pruebas de baja calidad que no detecten errores importantes.  Por lo tanto, la cobertura de código debe considerarse una métrica complementaria, no la única métrica para evaluar la calidad del software.</p>
+  <h2>Sección Principal</h2>
+  <p>Una CSP se define mediante un encabezado HTTP, <code>Content-Security-Policy</code>, o a través de una etiqueta <code>meta</code>.  Este encabezado o etiqueta contiene una lista de directivas, cada una especificando qué tipos de recursos se permiten cargar y de dónde.  Si un recurso intenta cargarse y no cumple con la política definida, el navegador lo bloqueará, previniendo potenciales ataques.  El uso de CSP es altamente recomendado para cualquier sitio web que maneje datos sensibles o información de usuario.</p>
 
-<h3>Tipos de Cobertura de Código</h3>
-<p>Existen varios tipos de cobertura de código, cada uno ofreciendo una perspectiva diferente sobre la exhaustividad de las pruebas:</p>
-<ul>
-  <li><strong>Cobertura de líneas (Line Coverage):</strong> Indica el porcentaje de líneas de código que se han ejecutado. Es la métrica más común y fácil de entender.</li>
-  <li><strong>Cobertura de ramas (Branch Coverage):</strong> Mide el porcentaje de ramas de ejecución (como las condiciones <code>if</code>, <code>else</code>, <code>switch</code>) que se han probado. Es más exhaustiva que la cobertura de líneas, ya que identifica posibles caminos de ejecución no probados.</li>
-  <li><strong>Cobertura de condiciones (Condition Coverage):</strong>  Va un paso más allá de la cobertura de ramas, analizando cada condición individual dentro de una rama.  Por ejemplo, en una condición <code>if (a > 5 && b < 10)</code>, la cobertura de condiciones verifica que se hayan probado los casos donde <code>a > 5</code> es verdadero y falso, y lo mismo para <code>b < 10</code>, independientemente de la combinación.</li>
-  <li><strong>Cobertura de caminos (Path Coverage):</strong> Es el tipo de cobertura más exhaustivo, pero también el más difícil de lograr.  Se centra en probar cada posible camino de ejecución a través del código.  Para programas complejos, el número de caminos puede ser exponencial, haciendo que la cobertura de caminos sea prácticamente inalcanzable.</li>
-  <li><strong>Cobertura de funciones/métodos (Function/Method Coverage):</strong> Indica el porcentaje de funciones o métodos que se han llamado durante las pruebas.</li>
-</ul>
-
-<h3>Herramientas para medir la cobertura de código</h3>
-<p>Existen numerosas herramientas para medir la cobertura de código, tanto de código abierto como comerciales.  La elección de la herramienta dependerá del lenguaje de programación y del entorno de desarrollo. Algunos ejemplos incluyen:</p>
-<ul>
-  <li><strong>Jest (JavaScript):</strong> Una herramienta de testing popular para JavaScript que proporciona métricas de cobertura de código de forma integrada.</li>
-  <li><strong>pytest-cov (Python):</strong> Una extensión para pytest que permite medir la cobertura de código en Python.</li>
-  <li><strong>JaCoCo (Java):</strong> Una herramienta de cobertura de código para Java muy utilizada.</li>
-  <li><strong>SonarQube:</strong> Una plataforma de análisis de código que incluye la medición de la cobertura de código entre otras muchas métricas.</li>
-</ul>
-
-<h3>Ejemplo de Cobertura de Código con Jest (JavaScript)</h3>
-<p>Supongamos que tenemos la siguiente función en JavaScript:</p>
-<pre><code class="language-javascript">
-function suma(a, b) {
-  if (a > 0 && b > 0) {
-    return a + b;
-  } else {
-    return 0;
-  }
-}
-</code></pre>
-<p>Un test con Jest que busca una alta cobertura podría ser:</p>
-<pre><code class="language-javascript">
-test('Suma dos números positivos', () => {
-  expect(suma(5, 3)).toBe(8);
-});
-
-test('Suma con un número negativo', () => {
-  expect(suma(-5, 3)).toBe(0);
-});
-
-test('Suma con dos números negativos', () => {
-  expect(suma(-5, -3)).toBe(0);
-});
-
-test('Suma con cero', () => {
-  expect(suma(0, 3)).toBe(0);
-});
-</code></pre>
-<p>Ejecutar este test con Jest generará un reporte de cobertura, mostrando el porcentaje de líneas, ramas y condiciones cubiertas.  Este ejemplo demuestra la importancia de las pruebas para alcanzar una alta cobertura y la necesidad de pruebas que cubran diferentes escenarios.</p>
+  <h3>Directivas CSP comunes</h3>
+  <p>Existen varias directivas CSP, cada una con su propio propósito. Algunas de las más comunes incluyen:</p>
+  <ul>
+    <li><code>default-src</code>:  Define una política por defecto para todos los tipos de recursos si no se especifica otra directiva.  Es una buena práctica siempre definir esta directiva.</li>
+    <li><code>script-src</code>: Especifica las fuentes permitidas para scripts.  Esto es crucial para prevenir ataques XSS.</li>
+    <li><code>style-src</code>: Especifica las fuentes permitidas para hojas de estilo.</li>
+    <li><code>img-src</code>: Especifica las fuentes permitidas para imágenes.</li>
+    <li><code>font-src</code>: Especifica las fuentes permitidas para fuentes.</li>
+    <li><code>object-src</code>: Especifica las fuentes permitidas para objetos como <object>, <embed> y <applet>.</li>
+    <li><code>media-src</code>: Especifica las fuentes permitidas para archivos de audio y video.</li>
+    <li><code>frame-src</code>: Especifica las fuentes permitidas para iframes.</li>
+    <li><code>connect-src</code>: Especifica las fuentes permitidas para conexiones de red, incluyendo solicitudes Fetch y XMLHttpRequest.</li>
+    <li><code>base-uri</code>: Especifica las fuentes permitidas para la etiqueta <code><base></code>.</li>
+    <li><code>form-action</code>: Especifica las URLs permitidas para las acciones de los formularios.</li>
+    <li><code>frame-ancestors</code>: Especifica las fuentes permitidas que pueden incrustar la página actual en un iframe.</li>
+    <li><code>child-src</code>: (Obsoleta, reemplazada por <code>frame-src</code> y <code>worker-src</code>) Especifica las fuentes permitidas para frames, workers y otros contextos de navegación de la página.</li>
+    <li><code>worker-src</code>: Especifica las fuentes permitidas para los Web Workers.</li>
+    <li><code>manifest-src</code>: Especifica las fuentes permitidas para archivos de manifest.</li>
+    <li><code>report-uri</code>: Especifica una URL donde se enviarán los informes de violaciones de la CSP.</li>
+    <li><code>report-to</code>: Especifica un grupo de reporting para informes de violaciones de la CSP (más avanzado que `report-uri`).</li>
+    <li><code>sandbox</code>: Aplica una serie de restricciones de seguridad a la página.</li>
+    <li><code>upgrade-insecure-requests</code>: Reemplaza las solicitudes HTTP con HTTPS.</li>
+  </ul>
 
 
-<h3>Interpretando la Cobertura de Código</h3>
-<p>Un alto porcentaje de cobertura no garantiza un software sin errores, pero una baja cobertura sugiere la posibilidad de errores ocultos.  La interpretación de la cobertura de código debe ser contextualizada.  Se debe prestar atención a las áreas con baja cobertura, investigando la razón de esta baja cobertura.  ¿Son partes del código complejas que requieren más pruebas? ¿Son partes del código que rara vez se utilizan y por lo tanto tienen menor riesgo?  Una baja cobertura en áreas críticas del software es mucho más preocupante que una baja cobertura en áreas menos importantes.</p>
+  <h3>Ejemplo de implementación</h3>
+  <p>Un ejemplo simple de una CSP que permite scripts solo desde el mismo origen y las imágenes desde un CDN específico:</p>
+  <pre><code class="language-javascript">Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self' https://cdn.example.com;</code></pre>
+
+  <p>Este ejemplo utiliza la directiva <code>'self'</code>, que se refiere al mismo origen de la página.  Es importante destacar que  <code>'self'</code>  incluye el protocolo, el nombre de dominio y el puerto.  Si la página se carga con HTTPS, solo se permitirán recursos con HTTPS.  Si se carga con HTTP, solo se permitirán recursos con HTTP.</p>
+
+  <h3>Ejemplo con Report-URI</h3>
+  <p>Para monitorear las violaciones de la CSP, es útil especificar una <code>report-uri</code>.  Esto enviará informes a la URL especificada cada vez que se produzca una violación.  Esto permite identificar y solucionar posibles problemas de configuración.</p>
+  <pre><code class="language-javascript">Content-Security-Policy: default-src 'self'; script-src 'self'; report-uri /csp-reports;</code></pre>
+  <p>En este ejemplo, los informes se enviarán a la URL <code>/csp-reports</code> en el mismo servidor.  Recuerda que necesitas implementar un endpoint para manejar estos informes.</p>
 
 
-<h2>Conclusión</h2>
-<p>La cobertura de código es una métrica valiosa para evaluar la calidad del software, pero debe utilizarse con prudencia.  No es una medida definitiva de la calidad, sino una herramienta que ayuda a identificar áreas que necesitan más atención en las pruebas.  Combinar la cobertura de código con otras métricas de calidad, como la revisión de código y las pruebas manuales, proporciona una visión más completa de la calidad del software.  El objetivo no debe ser alcanzar un porcentaje arbitrario de cobertura, sino asegurar que las partes críticas del software estén adecuadamente probadas y que se minimice el riesgo de errores.</p>
+  <h3>Consideraciones importantes</h3>
+  <ol>
+    <li><strong>Comenzar con una política restrictiva y relajarla gradualmente:</strong> Es mejor comenzar con una política muy restrictiva y luego ir relajando las directivas según sea necesario, monitoreando las violaciones a través de la <code>report-uri</code>.</li>
+    <li><strong>Pruebas exhaustivas:</strong>  Antes de implementar una CSP en producción, es crucial realizar pruebas exhaustivas para asegurar que todas las funcionalidades del sitio web funcionen correctamente.</li>
+    <li><strong>Monitoreo continuo:</strong>  Después de implementar la CSP, es importante monitorear los informes de violaciones para identificar y solucionar cualquier problema.</li>
+    <li><strong>Compatibilidad del navegador:</strong> Asegúrate de que tu CSP sea compatible con los navegadores que deseas admitir.  La compatibilidad ha mejorado significativamente, pero siempre es prudente verificar la documentación.</li>
+    <li><strong>Nonce y Hash:</strong> Para permitir scripts generados dinámicamente de forma segura, considera el uso de <code>nonce</code> o <code>hash</code> en la directiva <code>script-src</code>.</li>
+  </ol>
+
+  <h2>Conclusión</h2>
+  <p>Implementar una Content Security Policy es una práctica de seguridad esencial para cualquier sitio web.  Aunque puede requerir un esfuerzo inicial de configuración y pruebas, los beneficios en términos de seguridad superan ampliamente los costos.  Al comprender las directivas CSP y seguir las mejores prácticas, puedes proteger significativamente tu sitio web contra una variedad de ataques comunes, mejorando la seguridad y la confianza de tus usuarios.</p>
+  <p>Recuerda que una CSP bien configurada es una capa de defensa crucial, pero no la única.  Es importante combinarla con otras medidas de seguridad, como el uso de HTTPS, la validación de entradas y la gestión segura de contraseñas, para lograr una protección completa.</p>
+</main>
  */
             font-size: 2.5rem;
             border-bottom: 2px solid var(--primary);
@@ -593,77 +587,71 @@ test('Suma con cero', () => {
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <div class="featured-image mb-5 text-center">
-                    <img src="/logos-he-imagenes/programacion.jpeg" alt="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  " class="img-fluid rounded-3"> </div>
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="La Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede cargar pa" class="img-fluid rounded-3"> </div>
                 
                 <article class="article-content">
-                    <h2>Introducción</h2>
-<p>La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  Una alta cobertura de código no garantiza la ausencia de errores, pero sí proporciona una fuerte indicación de la exhaustividad de las pruebas y la calidad general del software.  Este artículo profundiza en la importancia de la cobertura de código como métrica de calidad, explorando sus diferentes tipos, herramientas de medición y las mejores prácticas para su interpretación y mejora.</p>
+                    <main>
+  <h2>Introducción</h2>
+  <p>La Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede cargar para una página web dada.  Esto ayuda a mitigar los riesgos de ataques como el Cross-Site Scripting (XSS) y otros tipos de inyección de código malicioso. En esencia, CSP define una política de seguridad que el navegador debe aplicar rigurosamente, bloqueando cualquier recurso que no cumpla con las directivas especificadas.  Implementar una CSP eficaz es una parte crucial de una estrategia de seguridad web robusta.</p>
 
-<h2>Sección Principal</h2>
-<p>La cobertura de código se mide generalmente como un porcentaje.  Un 100% de cobertura significa que cada línea de código se ha ejecutado al menos una vez durante las pruebas.  Sin embargo, alcanzar el 100% no siempre es el objetivo, ni siquiera deseable.  La calidad de las pruebas es más importante que el porcentaje de cobertura.  Es posible tener una alta cobertura con pruebas de baja calidad que no detecten errores importantes.  Por lo tanto, la cobertura de código debe considerarse una métrica complementaria, no la única métrica para evaluar la calidad del software.</p>
+  <h2>Sección Principal</h2>
+  <p>Una CSP se define mediante un encabezado HTTP, <code>Content-Security-Policy</code>, o a través de una etiqueta <code>meta</code>.  Este encabezado o etiqueta contiene una lista de directivas, cada una especificando qué tipos de recursos se permiten cargar y de dónde.  Si un recurso intenta cargarse y no cumple con la política definida, el navegador lo bloqueará, previniendo potenciales ataques.  El uso de CSP es altamente recomendado para cualquier sitio web que maneje datos sensibles o información de usuario.</p>
 
-<h3>Tipos de Cobertura de Código</h3>
-<p>Existen varios tipos de cobertura de código, cada uno ofreciendo una perspectiva diferente sobre la exhaustividad de las pruebas:</p>
-<ul>
-  <li><strong>Cobertura de líneas (Line Coverage):</strong> Indica el porcentaje de líneas de código que se han ejecutado. Es la métrica más común y fácil de entender.</li>
-  <li><strong>Cobertura de ramas (Branch Coverage):</strong> Mide el porcentaje de ramas de ejecución (como las condiciones <code>if</code>, <code>else</code>, <code>switch</code>) que se han probado. Es más exhaustiva que la cobertura de líneas, ya que identifica posibles caminos de ejecución no probados.</li>
-  <li><strong>Cobertura de condiciones (Condition Coverage):</strong>  Va un paso más allá de la cobertura de ramas, analizando cada condición individual dentro de una rama.  Por ejemplo, en una condición <code>if (a > 5 && b < 10)</code>, la cobertura de condiciones verifica que se hayan probado los casos donde <code>a > 5</code> es verdadero y falso, y lo mismo para <code>b < 10</code>, independientemente de la combinación.</li>
-  <li><strong>Cobertura de caminos (Path Coverage):</strong> Es el tipo de cobertura más exhaustivo, pero también el más difícil de lograr.  Se centra en probar cada posible camino de ejecución a través del código.  Para programas complejos, el número de caminos puede ser exponencial, haciendo que la cobertura de caminos sea prácticamente inalcanzable.</li>
-  <li><strong>Cobertura de funciones/métodos (Function/Method Coverage):</strong> Indica el porcentaje de funciones o métodos que se han llamado durante las pruebas.</li>
-</ul>
-
-<h3>Herramientas para medir la cobertura de código</h3>
-<p>Existen numerosas herramientas para medir la cobertura de código, tanto de código abierto como comerciales.  La elección de la herramienta dependerá del lenguaje de programación y del entorno de desarrollo. Algunos ejemplos incluyen:</p>
-<ul>
-  <li><strong>Jest (JavaScript):</strong> Una herramienta de testing popular para JavaScript que proporciona métricas de cobertura de código de forma integrada.</li>
-  <li><strong>pytest-cov (Python):</strong> Una extensión para pytest que permite medir la cobertura de código en Python.</li>
-  <li><strong>JaCoCo (Java):</strong> Una herramienta de cobertura de código para Java muy utilizada.</li>
-  <li><strong>SonarQube:</strong> Una plataforma de análisis de código que incluye la medición de la cobertura de código entre otras muchas métricas.</li>
-</ul>
-
-<h3>Ejemplo de Cobertura de Código con Jest (JavaScript)</h3>
-<p>Supongamos que tenemos la siguiente función en JavaScript:</p>
-<pre><code class="language-javascript">
-function suma(a, b) {
-  if (a > 0 && b > 0) {
-    return a + b;
-  } else {
-    return 0;
-  }
-}
-</code></pre>
-<p>Un test con Jest que busca una alta cobertura podría ser:</p>
-<pre><code class="language-javascript">
-test('Suma dos números positivos', () => {
-  expect(suma(5, 3)).toBe(8);
-});
-
-test('Suma con un número negativo', () => {
-  expect(suma(-5, 3)).toBe(0);
-});
-
-test('Suma con dos números negativos', () => {
-  expect(suma(-5, -3)).toBe(0);
-});
-
-test('Suma con cero', () => {
-  expect(suma(0, 3)).toBe(0);
-});
-</code></pre>
-<p>Ejecutar este test con Jest generará un reporte de cobertura, mostrando el porcentaje de líneas, ramas y condiciones cubiertas.  Este ejemplo demuestra la importancia de las pruebas para alcanzar una alta cobertura y la necesidad de pruebas que cubran diferentes escenarios.</p>
+  <h3>Directivas CSP comunes</h3>
+  <p>Existen varias directivas CSP, cada una con su propio propósito. Algunas de las más comunes incluyen:</p>
+  <ul>
+    <li><code>default-src</code>:  Define una política por defecto para todos los tipos de recursos si no se especifica otra directiva.  Es una buena práctica siempre definir esta directiva.</li>
+    <li><code>script-src</code>: Especifica las fuentes permitidas para scripts.  Esto es crucial para prevenir ataques XSS.</li>
+    <li><code>style-src</code>: Especifica las fuentes permitidas para hojas de estilo.</li>
+    <li><code>img-src</code>: Especifica las fuentes permitidas para imágenes.</li>
+    <li><code>font-src</code>: Especifica las fuentes permitidas para fuentes.</li>
+    <li><code>object-src</code>: Especifica las fuentes permitidas para objetos como <object>, <embed> y <applet>.</li>
+    <li><code>media-src</code>: Especifica las fuentes permitidas para archivos de audio y video.</li>
+    <li><code>frame-src</code>: Especifica las fuentes permitidas para iframes.</li>
+    <li><code>connect-src</code>: Especifica las fuentes permitidas para conexiones de red, incluyendo solicitudes Fetch y XMLHttpRequest.</li>
+    <li><code>base-uri</code>: Especifica las fuentes permitidas para la etiqueta <code><base></code>.</li>
+    <li><code>form-action</code>: Especifica las URLs permitidas para las acciones de los formularios.</li>
+    <li><code>frame-ancestors</code>: Especifica las fuentes permitidas que pueden incrustar la página actual en un iframe.</li>
+    <li><code>child-src</code>: (Obsoleta, reemplazada por <code>frame-src</code> y <code>worker-src</code>) Especifica las fuentes permitidas para frames, workers y otros contextos de navegación de la página.</li>
+    <li><code>worker-src</code>: Especifica las fuentes permitidas para los Web Workers.</li>
+    <li><code>manifest-src</code>: Especifica las fuentes permitidas para archivos de manifest.</li>
+    <li><code>report-uri</code>: Especifica una URL donde se enviarán los informes de violaciones de la CSP.</li>
+    <li><code>report-to</code>: Especifica un grupo de reporting para informes de violaciones de la CSP (más avanzado que `report-uri`).</li>
+    <li><code>sandbox</code>: Aplica una serie de restricciones de seguridad a la página.</li>
+    <li><code>upgrade-insecure-requests</code>: Reemplaza las solicitudes HTTP con HTTPS.</li>
+  </ul>
 
 
-<h3>Interpretando la Cobertura de Código</h3>
-<p>Un alto porcentaje de cobertura no garantiza un software sin errores, pero una baja cobertura sugiere la posibilidad de errores ocultos.  La interpretación de la cobertura de código debe ser contextualizada.  Se debe prestar atención a las áreas con baja cobertura, investigando la razón de esta baja cobertura.  ¿Son partes del código complejas que requieren más pruebas? ¿Son partes del código que rara vez se utilizan y por lo tanto tienen menor riesgo?  Una baja cobertura en áreas críticas del software es mucho más preocupante que una baja cobertura en áreas menos importantes.</p>
+  <h3>Ejemplo de implementación</h3>
+  <p>Un ejemplo simple de una CSP que permite scripts solo desde el mismo origen y las imágenes desde un CDN específico:</p>
+  <pre><code class="language-javascript">Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self' https://cdn.example.com;</code></pre>
+
+  <p>Este ejemplo utiliza la directiva <code>'self'</code>, que se refiere al mismo origen de la página.  Es importante destacar que  <code>'self'</code>  incluye el protocolo, el nombre de dominio y el puerto.  Si la página se carga con HTTPS, solo se permitirán recursos con HTTPS.  Si se carga con HTTP, solo se permitirán recursos con HTTP.</p>
+
+  <h3>Ejemplo con Report-URI</h3>
+  <p>Para monitorear las violaciones de la CSP, es útil especificar una <code>report-uri</code>.  Esto enviará informes a la URL especificada cada vez que se produzca una violación.  Esto permite identificar y solucionar posibles problemas de configuración.</p>
+  <pre><code class="language-javascript">Content-Security-Policy: default-src 'self'; script-src 'self'; report-uri /csp-reports;</code></pre>
+  <p>En este ejemplo, los informes se enviarán a la URL <code>/csp-reports</code> en el mismo servidor.  Recuerda que necesitas implementar un endpoint para manejar estos informes.</p>
 
 
-<h2>Conclusión</h2>
-<p>La cobertura de código es una métrica valiosa para evaluar la calidad del software, pero debe utilizarse con prudencia.  No es una medida definitiva de la calidad, sino una herramienta que ayuda a identificar áreas que necesitan más atención en las pruebas.  Combinar la cobertura de código con otras métricas de calidad, como la revisión de código y las pruebas manuales, proporciona una visión más completa de la calidad del software.  El objetivo no debe ser alcanzar un porcentaje arbitrario de cobertura, sino asegurar que las partes críticas del software estén adecuadamente probadas y que se minimice el riesgo de errores.</p>
+  <h3>Consideraciones importantes</h3>
+  <ol>
+    <li><strong>Comenzar con una política restrictiva y relajarla gradualmente:</strong> Es mejor comenzar con una política muy restrictiva y luego ir relajando las directivas según sea necesario, monitoreando las violaciones a través de la <code>report-uri</code>.</li>
+    <li><strong>Pruebas exhaustivas:</strong>  Antes de implementar una CSP en producción, es crucial realizar pruebas exhaustivas para asegurar que todas las funcionalidades del sitio web funcionen correctamente.</li>
+    <li><strong>Monitoreo continuo:</strong>  Después de implementar la CSP, es importante monitorear los informes de violaciones para identificar y solucionar cualquier problema.</li>
+    <li><strong>Compatibilidad del navegador:</strong> Asegúrate de que tu CSP sea compatible con los navegadores que deseas admitir.  La compatibilidad ha mejorado significativamente, pero siempre es prudente verificar la documentación.</li>
+    <li><strong>Nonce y Hash:</strong> Para permitir scripts generados dinámicamente de forma segura, considera el uso de <code>nonce</code> o <code>hash</code> en la directiva <code>script-src</code>.</li>
+  </ol>
+
+  <h2>Conclusión</h2>
+  <p>Implementar una Content Security Policy es una práctica de seguridad esencial para cualquier sitio web.  Aunque puede requerir un esfuerzo inicial de configuración y pruebas, los beneficios en términos de seguridad superan ampliamente los costos.  Al comprender las directivas CSP y seguir las mejores prácticas, puedes proteger significativamente tu sitio web contra una variedad de ataques comunes, mejorando la seguridad y la confianza de tus usuarios.</p>
+  <p>Recuerda que una CSP bien configurada es una capa de defensa crucial, pero no la única.  Es importante combinarla con otras medidas de seguridad, como el uso de HTTPS, la validación de entradas y la gestión segura de contraseñas, para lograr una protección completa.</p>
+</main>
 
                 </article>
                 
                 <div class="article-tags">
-                    <a href="/blog/tag/javascript" class="tag">#JavaScript</a><a href="/blog/tag/python" class="tag">#Python</a><a href="/blog/tag/ia" class="tag">#IA</a><a href="/blog/tag/testing" class="tag">#Testing</a> 
+                    <a href="/blog/tag/javascript" class="tag">#JavaScript</a><a href="/blog/tag/seguridad" class="tag">#Seguridad</a><a href="/blog/tag/ia" class="tag">#IA</a> 
                 </div>
                 
                 <div class="share-buttons mb-5">
@@ -767,7 +755,7 @@ test('Suma con cero', () => {
             /*
             document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
                 const onclick = link.getAttribute('onclick');
-                link.setAttribute('onclick', onclick.replace(/https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html/g, window.location.href));
+                link.setAttribute('onclick', onclick.replace(/https://www.hgaruna.org/blog/content-security-policy-csp.html/g, window.location.href));
             });
             */
 
