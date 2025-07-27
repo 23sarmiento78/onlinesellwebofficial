@@ -223,4 +223,25 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/vs-code-extensiones-esenciales.html</loc>
+    <lastmod>2025-07-27T06:51:03.878Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/postgresql-16-nuevas-funcionalidades.html</loc>
+    <lastmod>2025-07-27T06:51:15.044Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/sql-vs-nosql-decisiones-de-arquitectura.html</loc>
+    <lastmod>2025-07-27T06:51:26.173Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
