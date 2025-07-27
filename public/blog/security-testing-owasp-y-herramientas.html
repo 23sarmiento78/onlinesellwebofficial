@@ -6,27 +6,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introducción</title>
-    <meta name="description" content="En el mundo del desarrollo web, la velocidad y la eficiencia son cruciales para la satisfacción del usuario.  Una página web lenta puede llevar a alta...">
-    <meta name="keywords" content="JavaScript, Performance">
+    <meta name="description" content="Las pruebas de seguridad son cruciales para garantizar la integridad y la confidencialidad de cualquier aplicación web.  En un mundo cada vez más digi...">
+    <meta name="keywords" content="JavaScript">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://hgaruna.org/blog/performance-testing-lighthouse-y-webpagetest.html">
+    <meta property="og:url" content="https://hgaruna.org/blog/security-testing-owasp-y-herramientas.html">
     <meta property="og:title" content="Introducción">
-    <meta property="og:description" content="En el mundo del desarrollo web, la velocidad y la eficiencia son cruciales para la satisfacción del usuario.  Una página web lenta puede llevar a alta...">
+    <meta property="og:description" content="Las pruebas de seguridad son cruciales para garantizar la integridad y la confidencialidad de cualquier aplicación web.  En un mundo cada vez más digi...">
     <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://hgaruna.org/blog/performance-testing-lighthouse-y-webpagetest.html">
+    <meta property="twitter:url" content="https://hgaruna.org/blog/security-testing-owasp-y-herramientas.html">
     <meta property="twitter:title" content="Introducción">
-    <meta property="twitter:description" content="En el mundo del desarrollo web, la velocidad y la eficiencia son cruciales para la satisfacción del usuario.  Una página web lenta puede llevar a alta...">
+    <meta property="twitter:description" content="Las pruebas de seguridad son cruciales para garantizar la integridad y la confidencialidad de cualquier aplicación web.  En un mundo cada vez más digi...">
     <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://hgaruna.org/blog/performance-testing-lighthouse-y-webpagetest.html">
+    <link rel="canonical" href="https://hgaruna.org/blog/security-testing-owasp-y-herramientas.html">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -431,7 +431,7 @@
                     <h1 class="article-title">Introducción</h1>
                     <div class="article-meta justify-content-center">
                         <span><i class="far fa-calendar-alt"></i> {{PUBLICATION_DATE}}</span>
-                        <span><i class="far fa-clock"></i> 5 min de lectura</span>
+                        <span><i class="far fa-clock"></i> 4 min de lectura</span>
                         <span><i class="far fa-user"></i> Por hgaruna</span>
                     </div>
                 </div>
@@ -451,66 +451,53 @@
                 <!-- Contenido del artículo -->
                 <article class="article-content">
                     <h2>Introducción</h2>
-<p>En el mundo del desarrollo web, la velocidad y la eficiencia son cruciales para la satisfacción del usuario.  Una página web lenta puede llevar a altas tasas de rebote, una mala experiencia de usuario y, en última instancia, a la pérdida de ingresos.  Para garantizar que un sitio web funcione de manera óptima, las pruebas de rendimiento son esenciales.  Este artículo explorará dos herramientas populares y potentes para realizar pruebas de rendimiento: Lighthouse y WebPageTest.  Ambas ofrecen una variedad de métricas para identificar cuellos de botella y optimizar el rendimiento de tu sitio web.</p>
+<p>Las pruebas de seguridad son cruciales para garantizar la integridad y la confidencialidad de cualquier aplicación web.  En un mundo cada vez más digital, la vulnerabilidad a ataques cibernéticos representa un riesgo significativo para empresas y usuarios.  Este artículo explorará las mejores prácticas en pruebas de seguridad web, centrándose en el Proyecto Open Web Application Security Project (OWASP) y las herramientas disponibles para realizar estas pruebas de forma efectiva.</p>
 
 <h2>Sección Principal</h2>
-<p>Lighthouse y WebPageTest son herramientas complementarias que proporcionan diferentes perspectivas sobre el rendimiento de una página web. Lighthouse, integrado en las herramientas para desarrolladores de Chrome, ofrece una auditoría exhaustiva de diversos aspectos, incluyendo rendimiento, accesibilidad, SEO y mejores prácticas. WebPageTest, por otro lado, proporciona un análisis más profundo y detallado, ofreciendo información granular sobre el tiempo de carga, la utilización de recursos y la experiencia de usuario en diferentes ubicaciones geográficas y tipos de conexión.</p>
+<p>OWASP es una organización sin fines de lucro dedicada a mejorar la seguridad de las aplicaciones web.  Proporciona una valiosa guía, incluyendo el Top 10 de vulnerabilidades web, que cataloga las amenazas más comunes y peligrosas.  Comprender este Top 10 es fundamental para cualquier desarrollador o tester de seguridad.  Las pruebas de seguridad, en el contexto de OWASP, involucran una variedad de técnicas para identificar y mitigar estas vulnerabilidades antes de que una aplicación se implemente en producción.</p>
 
-<h3>Lighthouse: Una auditoría integral</h3>
-<p>Lighthouse es una herramienta fácil de usar que genera un informe completo sobre el rendimiento de una página web.  Proporciona puntuaciones para diferentes aspectos, incluyendo el <strong>Performance Score</strong>, que es una métrica clave que resume el rendimiento general.  Este score se basa en varias métricas, como:</p>
+<h3>Tipos de pruebas de seguridad</h3>
+<p>Existen varios tipos de pruebas de seguridad, cada una con sus propios enfoques y objetivos:</p>
 <ul>
-  <li><strong>Largest Contentful Paint (LCP):</strong> Mide el tiempo que tarda en cargar el elemento más grande de la página visible.</li>
-  <li><strong>First Input Delay (FID):</strong> Mide la capacidad de respuesta de la página a las interacciones del usuario.</li>
-  <li><strong>Cumulative Layout Shift (CLS):</strong> Mide la estabilidad visual de la página, penalizando los cambios inesperados en el diseño.</li>
-  <li><strong>Time to Interactive (TTI):</strong> Mide el tiempo que tarda la página en ser totalmente interactiva para el usuario.</li>
+  <li><strong>Pruebas de penetración (Pentesting):</strong> Simulan ataques reales para identificar vulnerabilidades en la aplicación.  Esto puede incluir ataques de inyección SQL, XSS (Cross-Site Scripting), CSRF (Cross-Site Request Forgery), etc.</li>
+  <li><strong>Análisis estático de código (Static Application Security Testing - SAST):</strong> Analiza el código fuente sin ejecutarlo, buscando posibles vulnerabilidades basándose en patrones y reglas predefinidas.</li>
+  <li><strong>Análisis dinámico de código (Dynamic Application Security Testing - DAST):</strong> Analiza la aplicación mientras se ejecuta, identificando vulnerabilidades en tiempo real a través de la interacción con la interfaz de usuario.</li>
+  <li><strong>Pruebas de seguridad automatizadas:</strong> Utilizan herramientas automatizadas para escanear la aplicación en busca de vulnerabilidades comunes.  Estas herramientas pueden ser tanto SAST como DAST.</li>
+  <li><strong>Pruebas de seguridad manuales:</strong> Implican un análisis manual de la aplicación por parte de expertos en seguridad, buscando vulnerabilidades que las herramientas automatizadas podrían pasar por alto.</li>
 </ul>
-<p>Lighthouse también proporciona sugerencias de optimización para mejorar cada una de estas métricas. Por ejemplo, puede recomendar la optimización de imágenes, la reducción del tamaño del código JavaScript o la implementación de la caché del navegador.</p>
-<p><strong>Ejemplo de uso de Lighthouse en la consola de desarrolladores de Chrome:</strong></p>
-<ol>
-  <li>Abrir las herramientas para desarrolladores (Ctrl+Shift+I o Cmd+Opt+I).</li>
-  <li>Navegar a la pestaña "Lighthouse".</li>
-  <li>Seleccionar las auditorías deseadas (Performance, Accessibility, Best Practices, SEO, PWA).</li>
-  <li>Hacer clic en "Generar reporte".</li>
-</ol>
-<p>El reporte generado proporciona una puntuación detallada y sugerencias para mejorar el rendimiento de la página.</p>
 
-
-<h3>WebPageTest: Un análisis profundo y personalizado</h3>
-<p>WebPageTest ofrece un análisis mucho más profundo y granular del rendimiento de una página web. Permite realizar pruebas desde diferentes ubicaciones geográficas, utilizando diferentes navegadores y conexiones a internet (3G, 4G, etc.).  Esto proporciona una visión completa del rendimiento de la página para una amplia gama de usuarios.</p>
-<p><strong>Características clave de WebPageTest:</strong></p>
+<h3>Herramientas OWASP para pruebas de seguridad</h3>
+<p>OWASP ofrece una variedad de herramientas y recursos para facilitar las pruebas de seguridad.  Algunas de las más populares incluyen:</p>
 <ul>
-  <li><strong>Análisis detallado del tiempo de carga:</strong> Desglosa el tiempo de carga en diferentes fases, identificando los cuellos de botella.</li>
-  <li><strong>Waterfall chart:</strong> Ofrece una representación visual del tiempo de carga de cada recurso.</li>
-  <li><strong>Análisis de la utilización de recursos:</strong> Muestra el consumo de CPU, memoria y red.</li>
-  <li><strong>Comparación de resultados:</strong> Permite comparar el rendimiento de la página a lo largo del tiempo o entre diferentes versiones.</li>
+  <li><strong>OWASP ZAP (Zed Attack Proxy):</strong> Una herramienta de prueba de penetración gratuita y de código abierto que permite realizar escaneos automatizados y manuales de vulnerabilidades. Es una herramienta DAST muy popular.</li>
+  <li><strong>OWASP Dependency-Check:</strong> Una herramienta que analiza las dependencias de un proyecto (librerías, frameworks, etc.) para identificar vulnerabilidades conocidas en esas dependencias.  Esto es crucial para la gestión de riesgos de software de terceros.</li>
+  <li><strong>OWASP ModSecurity Core Rule Set (CRS):</strong> Un conjunto de reglas para el módulo ModSecurity de Apache HTTP Server y Nginx, que ayuda a proteger servidores web contra una amplia gama de ataques.</li>
 </ul>
-<p>WebPageTest es una herramienta ideal para identificar problemas específicos de rendimiento que Lighthouse puede no detectar. Por ejemplo, puede ayudar a identificar problemas de rendimiento relacionados con la red o con la configuración del servidor.</p>
-<p><strong>Ejemplo de una métrica importante en WebPageTest:</strong>  El <em>Fully Loaded Time</em>, que representa el tiempo total que tarda la página en cargar completamente todos sus recursos.</p>
 
-<h3>Integración y Automatización</h3>
-<p>Tanto Lighthouse como WebPageTest pueden integrarse en flujos de trabajo de desarrollo continuo (CI/CD).  Esto permite automatizar las pruebas de rendimiento y detectar problemas de rendimiento antes de que se lancen al público.  La integración con herramientas como Jenkins o CircleCI facilita la automatización de estas pruebas como parte del proceso de integración continua.</p>
-<p>Ejemplo de un fragmento de código Javascript (conceptual) para integrar Lighthouse en una tarea de CI/CD (requiere librerías adicionales):</p>
+<h3>Ejemplo de uso de OWASP ZAP</h3>
+<p>OWASP ZAP puede utilizarse para realizar escaneos automatizados de vulnerabilidades.  Tras instalar y configurar ZAP, simplemente se debe apuntar la herramienta a la URL de la aplicación web a probar.  ZAP explorará la aplicación y realizará un escaneo activo, identificando potenciales vulnerabilidades.  Los resultados se presentan en un informe detallado, incluyendo la gravedad y la ubicación de cada vulnerabilidad.</p>
+
+<h3>Ejemplo de código (JavaScript - simulación de una vulnerabilidad XSS):</h3>
+<p>El siguiente ejemplo muestra una vulnerabilidad de Cross-Site Scripting (XSS) reflejada.  <strong>Nunca</strong> se debe implementar código como este en una aplicación real.</p>
 <pre><code class="language-javascript">
-// Este código es un ejemplo conceptual y requiere librerías adicionales para su funcionamiento.
-const lighthouse = require('lighthouse'); // Requiere la instalación de la librería lighthouse
-const chromeLauncher = require('chrome-launcher');
-
-async function runLighthouse(url) {
-  const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-  const options = {logLevel: 'info', output: 'html', port: chrome.port};
-  const runnerResult = await lighthouse(url, options);
-  await chrome.kill();
-  return runnerResult.report;
-}
-
-runLighthouse('https://www.ejemplo.com').then(report => {
-  console.log(report); // Procesar el reporte de Lighthouse
-});
+// Código vulnerable a XSS reflejada
+let userInput = document.getElementById("userInput").value;
+document.getElementById("output").innerHTML = userInput;
 </code></pre>
+<p>Este código simplemente muestra el valor ingresado por el usuario directamente en la página.  Un atacante podría inyectar código JavaScript malicioso en el campo de entrada, que luego sería ejecutado por el navegador del usuario.</p>
 
+<h3>Ejemplo de código (mitigación de XSS):</h3>
+<p>Para mitigar la vulnerabilidad XSS, se debe escapar o codificar la entrada del usuario antes de mostrarla en la página.</p>
+<pre><code class="language-javascript">
+// Código con mitigación XSS
+let userInput = document.getElementById("userInput").value;
+let safeOutput = DOMPurify.sanitize(userInput); // usando una librería de sanitización
+document.getElementById("output").innerHTML = safeOutput;
+</code></pre>
+<p>Este ejemplo utiliza la librería DOMPurify para sanitizar la entrada del usuario, eliminando cualquier código JavaScript malicioso antes de mostrarlo en la página.</p>
 
 <h2>Conclusión</h2>
-<p>Lighthouse y WebPageTest son herramientas esenciales para cualquier desarrollador web que se preocupe por el rendimiento de sus sitios web.  Lighthouse proporciona una auditoría rápida y completa, mientras que WebPageTest ofrece un análisis más profundo y personalizado.  Utilizando ambas herramientas en conjunto, puedes obtener una visión completa del rendimiento de tu sitio web y tomar medidas para optimizarlo y mejorar la experiencia del usuario.  La integración de estas herramientas en tus flujos de trabajo de CI/CD es fundamental para garantizar un rendimiento óptimo a lo largo del ciclo de vida del desarrollo.</p>
+<p>Las pruebas de seguridad son un componente esencial del ciclo de vida de desarrollo de software.  Utilizar las herramientas y las guías proporcionadas por OWASP, junto con una combinación de pruebas manuales y automatizadas, permite identificar y mitigar las vulnerabilidades de seguridad, protegiendo a las aplicaciones web y a sus usuarios de posibles ataques.  Recordar que la seguridad es un proceso continuo que requiere un compromiso constante con la actualización y la mejora de las prácticas de seguridad.</p>
 
                 </article>
                 
@@ -624,7 +611,7 @@ runLighthouse('https://www.ejemplo.com').then(report => {
             const currentUrl = window.location.href;
             document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
                 const onclick = link.getAttribute('onclick');
-                link.setAttribute('onclick', onclick.replace(/https://hgaruna.org/blog/performance-testing-lighthouse-y-webpagetest.html/g, currentUrl));
+                link.setAttribute('onclick', onclick.replace(/https://hgaruna.org/blog/security-testing-owasp-y-herramientas.html/g, currentUrl));
             });
         });
         

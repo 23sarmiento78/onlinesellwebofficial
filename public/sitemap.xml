@@ -209,4 +209,18 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/security-testing-owasp-y-herramientas.html</loc>
+    <lastmod>2025-07-27T06:15:36.221Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/code-coverage-metricas-de-calidad.html</loc>
+    <lastmod>2025-07-27T06:16:00.937Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
