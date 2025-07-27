@@ -271,7 +271,7 @@ IMPORTANTE:
 - No incluyas estilos CSS, solo estructura HTML semántica.
 
 Formato requerido:
-- Usa solo etiquetas HTML: <h2>, <h3>, <p>, <ul>, <ol>, <li>, <blockquote>, <code>, <pre>.
+- Usa solo etiquetas HTML: <h2>, <h3>, <p>, <ul>, <ol>, <li>, blockquote, <code>, <pre>.
 - Incluye ejemplos prácticos y casos de uso cuando sea relevante.
 - Mantén un tono profesional pero accesible.
 - Escribe entre 800-1200 palabras.
@@ -331,7 +331,7 @@ function extractMetadata(content, fallbackTitle) {
 
   // Extraer el primer párrafo como resumen
   const summaryMatch = content.match(/<p[^>]*>([^<]+)<\/p>/i);
-  const summary = summaryMatch ? summaryMatch[1].trim().substring(0, 150) + '...' : `Artículo sobre ${fallbackTitle}.`;
+  const summary = summaryMatch ? summaryMatch[1].trim().substring(0, 160) + '...' : `Artículo sobre ${fallbackTitle}.`; // Aumentado a 160 para SEO
 
   // Generar tags basados en palabras clave comunes en el contenido
   const textContent = content.toLowerCase();
@@ -376,13 +376,13 @@ async function fillTemplate(articleData) {
   const templatePath = path.join(__dirname, '../templates/article-template.html');
   let template = await fs.readFile(templatePath, 'utf8');
 
-  // Asegurar la meta etiqueta de categoría
-  const categoryMetaTag = `<meta name="category" content="${category}">`;
-  if (!template.includes('<meta name="category"')) {
-    template = template.replace(/<head>/i, `<head>\n    ${categoryMetaTag}`);
-  } else {
-    template = template.replace(/<meta name="category"[^>]*>/i, categoryMetaTag);
-  }
+  // Asegurar la meta etiqueta de categoría (ejemplo de cómo se podría inyectar si no estuviera en la plantilla)
+  // const categoryMetaTag = `<meta name="category" content="${category}">`;
+  // if (!template.includes('<meta name="category"')) {
+  //   template = template.replace(/<head>/i, `<head>\n    ${categoryMetaTag}`);
+  // } else {
+  //   template = template.replace(/<meta name="category"[^>]*>/i, categoryMetaTag);
+  // }
 
   // Asegurar la etiqueta de Google Site Verification
   const googleVerificationTag = '<meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />';
@@ -390,12 +390,13 @@ async function fillTemplate(articleData) {
   if (googleVerificationRegex.test(template)) {
     template = template.replace(googleVerificationRegex, googleVerificationTag);
   } else {
-    template = template.replace(/<head>/i, `<head>\n    ${googleVerificationTag}`);
+    // Si no está, lo insertamos después de la meta charset para que sea de las primeras
+    template = template.replace(/<meta charset="UTF-8">/i, `<meta charset="UTF-8">\n    ${googleVerificationTag}`);
   }
 
   // Asegurar el script de AdSense
   const adsenseScript = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>';
-  if (!template.includes('adsbygoogle.js')) {
+  if (!template.includes('adsbygoogle.js')) { // Verificar si el script ya existe para no duplicar
     template = template.replace('</head>', `    ${adsenseScript}\n</head>`);
   }
 
@@ -412,7 +413,7 @@ async function fillTemplate(articleData) {
     '{{SEO_DESCRIPTION}}': summary.substring(0, 160),
     '{{SEO_KEYWORDS}}': tags.join(', '),
     '{{CANONICAL_URL}}': `${SITE_URL}/blog/${slug}.html`,
-    '{{TAGS_HTML}}': tags.map(tag => `<span class="tag">#${tag}</span>`).join(''),
+    '{{TAGS_HTML}}': tags.map(tag => `<a href="/blog/tag/${generateSlug(tag)}" class="tag">#${tag}</a>`).join(''), // Tags ahora son enlaces
     '{{READING_TIME}}': readingTime.toString(),
     '{{WORD_COUNT}}': wordCount.toString()
   };
@@ -520,7 +521,9 @@ async function main() {
     const numberOfArticlesToGenerate = 3; // Puedes hacer esto configurable si lo deseas
 
     for (let i = 0; i < numberOfArticlesToGenerate; i++) {
-      console(`\n--- Intentando generar artículo ${i + 1} de ${numberOfArticlesToGenerate} ---`);
+      // *** LÍNEA CORREGIDA AQUÍ: 'console' a 'console.log' ***
+      console.log(`\n--- Intentando generar artículo ${i + 1} de ${numberOfArticlesToGenerate} ---`);
+      // ******************************************************
       const topicInfo = getRandomUnpublishedTopic(postedArticlesSlugs);
 
       if (!topicInfo) {
@@ -554,7 +557,9 @@ async function main() {
         console.log(`  - "${article.title}" (${article.filename}) [Categoría: ${article.category}]`);
       });
     } else {
+      // *** MENSAJE DE CONSOLA CORREGIDO AQUÍ ***
       console.log('ℹ️ No se generaron nuevos artículos en esta ejecución.');
+      // ****************************************
     }
 
     console.log('\n🎉 Proceso de generación HTML completado.');
