@@ -248,36 +248,33 @@ function getRandomUnpublishedTopic(postedArticlesSlugs) {
  * @returns {Promise<string>} Contenido HTML generado.
  */
 async function callGeminiApi(topic, category) {
-  const prompt = `Eres un experto desarrollador web y escritor técnico. Tu tarea es crear un artículo HTML completo sobre "${topic}" para la categoría "${category}".
+  const prompt = `Eres un experto desarrollador web y escritor técnico. Tu tarea es crear el contenido HTML para un artículo sobre "${topic}" para la categoría "${category}".
 
 IMPORTANTE:
-- Genera SOLO el contenido HTML que va dentro del <main> (sin etiquetas <body>, <head>, etc.).
-- Usa la siguiente estructura:
-  <h2>Introducción</h2>
-  <p>Breve introducción al tema...</p>
-  
-  <h2>Sección Principal</h2>
+- Genera SOLO el contenido HTML que va dentro de la etiqueta <article> de un blog (sin etiquetas <body>, <head>, <h1> principal, etc.).
+- El artículo ya tendrá un título principal (<h1>) proporcionado por la plantilla. Tu contenido debe comenzar directamente con un párrafo de introducción.
+- Usa la siguiente estructura para las secciones internas:
+  <h2>Título de Sección</h2>
   <p>Contenido detallado...</p>
   
-  <h3>Subsección</h3>
+  <h3>Subtítulo de Sección</h3>
   <p>Más detalles...</p>
   
-  <h2>Conclusión</h2>
-  <p>Resumen y cierre...</p>
+  <blockquote>Cita relevante.</blockquote>
 
-- Incluye ejemplos de código con <pre><code class="language-javascript"> o el lenguaje apropiado.
+- Incluye ejemplos de código con <pre><code class="language-javascript"> o el lenguaje apropiado, con comentarios si es útil.
 - Usa <ul> y <ol> para listas.
 - Añade <strong> y <em> para énfasis.
 - No incluyas estilos CSS, solo estructura HTML semántica.
 
 Formato requerido:
-- Usa solo etiquetas HTML: <h2>, <h3>, <p>, <ul>, <ol>, <li>, blockquote, <code>, <pre>.
+- Usa solo etiquetas HTML: <p>, <h2>, <h3>, <ul>, <ol>, <li>, blockquote, <code>, <pre>.
 - Incluye ejemplos prácticos y casos de uso cuando sea relevante.
 - Mantén un tono profesional pero accesible.
 - Escribe entre 800-1200 palabras.
 - Incluye al menos 2 ejemplos de código si es relevante.
 
-Genera SOLO el contenido HTML que va dentro del <main>, sin backticks ni estructura adicional.`;
+Genera SOLO el contenido HTML que va dentro de la etiqueta <article>, sin backticks ni estructura adicional.`;
 
   try {
     console.log(`🔄 Solicitando contenido a Gemini para: ${topic} (${category})...`);
@@ -321,37 +318,40 @@ Genera SOLO el contenido HTML que va dentro del <main>, sin backticks ni estruct
 
 /**
  * Extrae metadatos básicos del contenido HTML generado.
- * @param {string} content
- * @param {string} fallbackTitle
+ * @param {string} content El contenido HTML generado por Gemini.
+ * @param {string} articleTopic El tema principal del artículo, que será el título real.
  * @returns {{title: string, summary: string, tags: string[]}}
  */
-function extractMetadata(content, fallbackTitle) {
-  const titleMatch = content.match(/<h1[^>]*>([^<]+)<\/h1>/i) || content.match(/<h2[^>]*>([^<]+)<\/h2>/i);
-  const title = titleMatch ? titleMatch[1].trim() : fallbackTitle;
+function extractMetadata(content, articleTopic) {
+  // El título principal (h1) se toma directamente del 'articleTopic'
+  const title = articleTopic;
 
   // Extraer el primer párrafo como resumen
-  const summaryMatch = content.match(/<p[^>]*>([^<]+)<\/p>/i);
-  const summary = summaryMatch ? summaryMatch[1].trim().substring(0, 160) + '...' : `Artículo sobre ${fallbackTitle}.`; // Aumentado a 160 para SEO
+  // Buscamos el primer <p> en el contenido de Gemini
+  const summaryMatch = content.match(/<p[^>]*>([\s\S]+?)<\/p>/i); // Usamos [\s\S]+? para que coincida con cualquier caracter (incluyendo saltos de línea) de forma no-greedy
+  const summary = summaryMatch 
+    ? summaryMatch[1].replace(/<[^>]*>/g, '').trim().substring(0, 160) + '...' // Limpiamos cualquier HTML anidado en el párrafo
+    : `Artículo sobre ${articleTopic}.`; // Fallback si no hay ningún párrafo
 
-  // Generar tags basados en palabras clave comunes en el contenido
-  const textContent = content.toLowerCase();
+  // Generar tags basados en palabras clave comunes en el contenido y el tema
+  const combinedText = (content + ' ' + articleTopic).toLowerCase();
   const tags = new Set();
-  if (textContent.includes('javascript') || textContent.includes('js')) tags.add('JavaScript');
-  if (textContent.includes('react')) tags.add('React');
-  if (textContent.includes('angular')) tags.add('Angular');
-  if (textContent.includes('vue')) tags.add('Vue.js');
-  if (textContent.includes('node.js') || textContent.includes('nodejs')) tags.add('Node.js');
-  if (textContent.includes('python')) tags.add('Python');
-  if (textContent.includes('aws')) tags.add('AWS');
-  if (textContent.includes('docker')) tags.add('Docker');
-  if (textContent.includes('kubernetes')) tags.add('Kubernetes');
-  if (textContent.includes('api')) tags.add('API');
-  if (textContent.includes('seguridad')) tags.add('Seguridad');
-  if (textContent.includes('rendimiento') || textContent.includes('performance')) tags.add('Performance');
-  if (textContent.includes('inteligencia artificial') || textContent.includes('ia') || textContent.includes('ai')) tags.add('IA');
-  if (textContent.includes('bases de datos')) tags.add('Bases de Datos');
-  if (textContent.includes('testing')) tags.add('Testing');
-  if (textContent.includes('devops')) tags.add('DevOps');
+  if (combinedText.includes('javascript') || combinedText.includes('js')) tags.add('JavaScript');
+  if (combinedText.includes('react')) tags.add('React');
+  if (combinedText.includes('angular')) tags.add('Angular');
+  if (combinedText.includes('vue')) tags.add('Vue.js');
+  if (combinedText.includes('node.js') || combinedText.includes('nodejs')) tags.add('Node.js');
+  if (combinedText.includes('python')) tags.add('Python');
+  if (combinedText.includes('aws')) tags.add('AWS');
+  if (combinedText.includes('docker')) tags.add('Docker');
+  if (combinedText.includes('kubernetes')) tags.add('Kubernetes');
+  if (combinedText.includes('api')) tags.add('API');
+  if (combinedText.includes('seguridad')) tags.add('Seguridad');
+  if (combinedText.includes('rendimiento') || combinedText.includes('performance')) tags.add('Performance');
+  if (combinedText.includes('inteligencia artificial') || combinedText.includes('ia') || combinedText.includes('ai')) tags.add('IA');
+  if (combinedText.includes('bases de datos')) tags.add('Bases de Datos');
+  if (combinedText.includes('testing')) tags.add('Testing');
+  if (combinedText.includes('devops')) tags.add('DevOps');
 
   return { title, summary, tags: Array.from(tags) };
 }
@@ -376,13 +376,13 @@ async function fillTemplate(articleData) {
   const templatePath = path.join(__dirname, '../templates/article-template.html');
   let template = await fs.readFile(templatePath, 'utf8');
 
-  // Asegurar la meta etiqueta de categoría (ejemplo de cómo se podría inyectar si no estuviera en la plantilla)
-  // const categoryMetaTag = `<meta name="category" content="${category}">`;
-  // if (!template.includes('<meta name="category"')) {
-  //   template = template.replace(/<head>/i, `<head>\n    ${categoryMetaTag}`);
-  // } else {
-  //   template = template.replace(/<meta name="category"[^>]*>/i, categoryMetaTag);
-  // }
+  // Asegurar la meta etiqueta de categoría
+  const categoryMetaTag = `<meta name="category" content="${category}">`;
+  if (!template.includes('<meta name="category"')) {
+    template = template.replace(/<head>/i, `<head>\n    ${categoryMetaTag}`);
+  } else {
+    template = template.replace(/<meta name="category"[^>]*>/i, categoryMetaTag);
+  }
 
   // Asegurar la etiqueta de Google Site Verification
   const googleVerificationTag = '<meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />';
@@ -390,7 +390,6 @@ async function fillTemplate(articleData) {
   if (googleVerificationRegex.test(template)) {
     template = template.replace(googleVerificationRegex, googleVerificationTag);
   } else {
-    // Si no está, lo insertamos después de la meta charset para que sea de las primeras
     template = template.replace(/<meta charset="UTF-8">/i, `<meta charset="UTF-8">\n    ${googleVerificationTag}`);
   }
 
@@ -399,6 +398,34 @@ async function fillTemplate(articleData) {
   if (!template.includes('adsbygoogle.js')) { // Verificar si el script ya existe para no duplicar
     template = template.replace('</head>', `    ${adsenseScript}\n</head>`);
   }
+
+  // Asegurar las meta etiquetas Open Graph y Twitter Cards para compartir en redes sociales
+  const ogTags = `
+    <meta property="og:title" content="${title}">
+    <meta property="og:description" content="${summary}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="${SITE_URL}/blog/${slug}.html">
+    <meta property="og:image" content="${SITE_URL}/logos-he-imagenes/programacion.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${title}">
+    <meta name="twitter:description" content="${summary}">
+    <meta name="twitter:image" content="${SITE_URL}/logos-he-imagenes/programacion.jpeg">
+  `.trim();
+
+  // Insertar Open Graph y Twitter Cards justo antes del </head>
+  if (!template.includes('property="og:title"')) { // Evitar duplicar si ya existen
+    template = template.replace('</head>', `    ${ogTags}\n</head>`);
+  } else {
+    // Si ya existen, reemplazarlas para asegurar que estén actualizadas
+    template = template.replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${title}">`);
+    template = template.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${summary}">`);
+    template = template.replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${SITE_URL}/blog/${slug}.html">`);
+    template = template.replace(/<meta property="og:image"[^>]*>/, `<meta property="og:image" content="${SITE_URL}/logos-he-imagenes/programacion.jpeg">`);
+    template = template.replace(/<meta name="twitter:title"[^>]*>/, `<meta name="twitter:title" content="${title}">`);
+    template = template.replace(/<meta name="twitter:description"[^>]*>/, `<meta name="twitter:description" content="${summary}">`);
+    template = template.replace(/<meta name="twitter:image"[^>]*>/, `<meta name="twitter:image" content="${SITE_URL}/logos-he-imagenes/programacion.jpeg">`);
+  }
+
 
   // Reemplazar marcadores de posición en la plantilla
   const replacements = {
@@ -410,7 +437,7 @@ async function fillTemplate(articleData) {
     '{{PUBLISH_DATE}}': date,
     '{{FEATURED_IMAGE}}': '/logos-he-imagenes/programacion.jpeg', // Asegúrate de que esta ruta sea correcta y exista
     '{{SEO_TITLE}}': title,
-    '{{SEO_DESCRIPTION}}': summary.substring(0, 160),
+    '{{SEO_DESCRIPTION}}': summary, // Usamos el summary ya cortado y limpio
     '{{SEO_KEYWORDS}}': tags.join(', '),
     '{{CANONICAL_URL}}': `${SITE_URL}/blog/${slug}.html`,
     '{{TAGS_HTML}}': tags.map(tag => `<a href="/blog/tag/${generateSlug(tag)}" class="tag">#${tag}</a>`).join(''), // Tags ahora son enlaces
@@ -438,7 +465,7 @@ async function generateArticleFile(topic, category, slug) {
 
   try {
     const geminiContent = await callGeminiApi(topic, category);
-    const { title, summary, tags } = extractMetadata(geminiContent, topic);
+    const { title, summary, tags } = extractMetadata(geminiContent, topic); // Pasamos 'topic' como el título principal
 
     const articleHTML = await fillTemplate({
       title,
@@ -521,9 +548,7 @@ async function main() {
     const numberOfArticlesToGenerate = 3; // Puedes hacer esto configurable si lo deseas
 
     for (let i = 0; i < numberOfArticlesToGenerate; i++) {
-      // *** LÍNEA CORREGIDA AQUÍ: 'console' a 'console.log' ***
       console.log(`\n--- Intentando generar artículo ${i + 1} de ${numberOfArticlesToGenerate} ---`);
-      // ******************************************************
       const topicInfo = getRandomUnpublishedTopic(postedArticlesSlugs);
 
       if (!topicInfo) {
@@ -557,9 +582,7 @@ async function main() {
         console.log(`  - "${article.title}" (${article.filename}) [Categoría: ${article.category}]`);
       });
     } else {
-      // *** MENSAJE DE CONSOLA CORREGIDO AQUÍ ***
       console.log('ℹ️ No se generaron nuevos artículos en esta ejecución.');
-      // ****************************************
     }
 
     console.log('\n🎉 Proceso de generación HTML completado.');
