@@ -23,6 +23,19 @@ const TARGET_SUBREDDITS = process.env.REDDIT_SUBREDDITS
 let redditClient;
 
 /**
+ * Obtiene información del archivo (fecha de modificación)
+ */
+async function getFileStats(filePath) {
+  try {
+    const stats = await fs.stat(filePath);
+    return stats;
+  } catch (error) {
+    console.error(`Error al obtener stats de ${filePath}:`, error);
+    return { mtime: new Date(0) }; // Fecha muy antigua si hay error
+  }
+}
+
+/**
  * Publica un artículo en un subreddit
  */
 async function postToReddit(article, subreddit) {
@@ -52,6 +65,11 @@ async function postToReddit(article, subreddit) {
  */
 async function main() {
   try {
+    // Verificar credenciales
+    if (!process.env.REDDIT_CLIENT_ID || !process.env.REDDIT_CLIENT_SECRET || !process.env.REDDIT_REFRESH_TOKEN) {
+      throw new Error('Faltan credenciales de Reddit. Verifica las variables de entorno.');
+    }
+
     // Inicializar cliente de Reddit
     redditClient = new snoowrap({
       userAgent: 'hgaruna-bot/1.0',
@@ -62,7 +80,7 @@ async function main() {
 
     console.log(`📰 Iniciando publicación en ${TARGET_SUBREDDITS.length} subreddits...`);
 
-    // Obtener el artículo más reciente
+    // Obtener lista de archivos HTML
     const files = await fs.readdir(BLOG_DIR);
     const htmlFiles = files.filter(file => file.endsWith('.html'));
     
@@ -71,13 +89,20 @@ async function main() {
       return;
     }
 
+    // Obtener información de cada archivo de forma asíncrona
+    const filesWithStats = await Promise.all(
+      htmlFiles.map(async (file) => {
+        const stats = await getFileStats(path.join(BLOG_DIR, file));
+        return {
+          name: file,
+          time: stats.mtime.getTime()
+        };
+      })
+    );
+
     // Ordenar por fecha de modificación (más reciente primero)
-    const latestArticle = htmlFiles
-      .map(file => ({ 
-        name: file, 
-        time: fs.statSync(path.join(BLOG_DIR, file)).mtime.getTime() 
-      }))
-      .sort((a, b) => b.time - a.time)[0].name;
+    filesWithStats.sort((a, b) => b.time - a.time);
+    const latestArticle = filesWithStats[0].name;
 
     // Leer el contenido del artículo
     const htmlContent = await fs.readFile(path.join(BLOG_DIR, latestArticle), 'utf8');
@@ -92,13 +117,14 @@ async function main() {
     console.log(`📝 Artículo a publicar: "${article.title}"`);
 
     // Publicar en cada subreddit
-    for (const subreddit of TARGET_SUBREDDITS) {
+    for (let i = 0; i < TARGET_SUBREDDITS.length; i++) {
+      const subreddit = TARGET_SUBREDDITS[i];
       await postToReddit(article, subreddit);
       
-      // Esperar 1 minuto entre publicaciones para evitar límites de tasa
-      if (TARGET_SUBREDDITS.indexOf(subreddit) < TARGET_SUBREDDITS.length - 1) {
+      // Esperar 1 minuto entre publicaciones (excepto después de la última)
+      if (i < TARGET_SUBREDDITS.length - 1) {
         const waitTime = 60 * 1000; // 1 minuto
-        console.log(`⏳ Esperando ${waitTime/1000} segundos...`);
+        console.log(`⏳ Esperando ${waitTime/1000} segundos antes de la siguiente publicación...`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
       }
     }
@@ -106,9 +132,13 @@ async function main() {
     console.log('✅ Publicación completada en todos los subreddits');
 
   } catch (error) {
-    console.error('❌ Error en la ejecución principal:', error);
+    console.error('❌ Error en la ejecución principal:', error.message);
+    if (error.response?.body) {
+      console.error('Detalles del error:', JSON.stringify(error.response.body, null, 2));
+    }
     process.exit(1);
   }
 }
 
+// Ejecutar
 main();
