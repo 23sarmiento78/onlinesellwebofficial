@@ -258,4 +258,18 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/progressive-web-apps-pwa-en-2025.html</loc>
+    <lastmod>2025-07-27T13:14:25.953Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/clean-architecture-principios-solid.html</loc>
+    <lastmod>2025-07-27T13:14:36.591Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

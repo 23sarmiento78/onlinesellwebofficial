@@ -2,31 +2,31 @@
 <html lang="es">
 <head>
     <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
-    <meta name="category" content="Bases de Datos">
+    <meta name="category" content="Arquitectura y Patrones">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introducción</title>
-    <meta name="description" content="La elección entre una base de datos SQL y NoSQL es una decisión crucial en la arquitectura de cualquier aplicación web o sistema de información.  Amba...">
+    <meta name="description" content="La Clean Architecture, popularizada por Robert C. Martin (Uncle Bob), es un enfoque para diseñar software que prioriza la independencia de las capas y...">
     <meta name="keywords" content="JavaScript">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://hgaruna.org/blog/sql-vs-nosql-decisiones-de-arquitectura.html">
+    <meta property="og:url" content="https://hgaruna.org/blog/clean-architecture-principios-solid.html">
     <meta property="og:title" content="Introducción">
-    <meta property="og:description" content="La elección entre una base de datos SQL y NoSQL es una decisión crucial en la arquitectura de cualquier aplicación web o sistema de información.  Amba...">
+    <meta property="og:description" content="La Clean Architecture, popularizada por Robert C. Martin (Uncle Bob), es un enfoque para diseñar software que prioriza la independencia de las capas y...">
     <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://hgaruna.org/blog/sql-vs-nosql-decisiones-de-arquitectura.html">
+    <meta property="twitter:url" content="https://hgaruna.org/blog/clean-architecture-principios-solid.html">
     <meta property="twitter:title" content="Introducción">
-    <meta property="twitter:description" content="La elección entre una base de datos SQL y NoSQL es una decisión crucial en la arquitectura de cualquier aplicación web o sistema de información.  Amba...">
+    <meta property="twitter:description" content="La Clean Architecture, popularizada por Robert C. Martin (Uncle Bob), es un enfoque para diseñar software que prioriza la independencia de las capas y...">
     <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://hgaruna.org/blog/sql-vs-nosql-decisiones-de-arquitectura.html">
+    <link rel="canonical" href="https://hgaruna.org/blog/clean-architecture-principios-solid.html">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -451,46 +451,59 @@
                 <!-- Contenido del artículo -->
                 <article class="article-content">
                     <h2>Introducción</h2>
-<p>La elección entre una base de datos SQL y NoSQL es una decisión crucial en la arquitectura de cualquier aplicación web o sistema de información.  Ambas tecnologías ofrecen soluciones robustas para el almacenamiento y la gestión de datos, pero sus enfoques difieren significativamente, lo que las hace adecuadas para diferentes tipos de proyectos.  Esta guía profundiza en las consideraciones arquitectónicas clave para ayudarle a determinar qué tipo de base de datos se adapta mejor a sus necesidades.</p>
+<p>La Clean Architecture, popularizada por Robert C. Martin (Uncle Bob), es un enfoque para diseñar software que prioriza la independencia de las capas y la separación de preocupaciones.  Este enfoque se alinea perfectamente con los principios SOLID, un conjunto de cinco principios de diseño de objetos que promueven la flexibilidad, la mantenibilidad y la extensibilidad del código.  En este artículo, exploraremos la intersección de la Clean Architecture y los principios SOLID, mostrando cómo ambos trabajan juntos para crear sistemas robustos y fáciles de mantener.</p>
 
 <h2>Sección Principal</h2>
-<p>Las bases de datos SQL (Structured Query Language) son sistemas de gestión de bases de datos relacionales (RDBMS) que utilizan un esquema fijo y tablas con filas y columnas para organizar los datos.  Se caracterizan por su consistencia de datos, integridad referencial y soporte para transacciones ACID (Atomicidad, Consistencia, Aislamiento, Durabilidad).  Por otro lado, las bases de datos NoSQL (Not Only SQL) son sistemas de gestión de bases de datos no relacionales que ofrecen flexibilidad en la estructura de datos y escalabilidad horizontal.  Existen varios tipos de bases de datos NoSQL, incluyendo bases de datos clave-valor, bases de datos de documentos, bases de datos de grafos y bases de datos de columnas.</p>
+<p>La Clean Architecture se caracteriza por su estructura en capas concéntricas.  El núcleo contiene la lógica de negocio independiente de cualquier framework, base de datos o interfaz de usuario.  Las capas externas se encargan de la interacción con el mundo exterior, como la presentación (UI), la infraestructura (bases de datos, servicios externos) y los frameworks.  Esta separación de preocupaciones permite que el núcleo permanezca inmutable ante cambios en las capas externas.</p>
 
-<h3>Consideraciones de Esquema</h3>
-<p><strong>SQL:</strong> Emplea un esquema predefinido y rígido.  Cada tabla debe definir sus columnas con sus tipos de datos correspondientes.  Esto garantiza la integridad de los datos y facilita la ejecución de consultas complejas.  Sin embargo, la modificación del esquema puede ser engorrosa y requerir tiempo de inactividad.</p>
-<p><strong>NoSQL:</strong> Ofrece esquemas flexibles o incluso sin esquema.  Esto permite una mayor agilidad para adaptarse a los cambios en los requisitos de datos.  Por ejemplo, una base de datos de documentos como MongoDB permite agregar o eliminar campos sin necesidad de modificar el esquema completo.  Sin embargo, la falta de un esquema rígido puede complicar la gestión de datos y la ejecución de consultas complejas.</p>
+<h3>Principios SOLID y Clean Architecture</h3>
+<p>Los principios SOLID son fundamentales para implementar una Clean Architecture efectiva. Veamos cómo cada principio contribuye:</p>
 
-<h3>Escalabilidad y Rendimiento</h3>
-<p><strong>SQL:</strong> Tradicionalmente, las bases de datos SQL escalan verticalmente, es decir, añadiendo más recursos (CPU, memoria, almacenamiento) a un único servidor.  Aunque existen soluciones para escalar horizontalmente, suelen ser más complejas e implican mayor coste.</p>
-<p><strong>NoSQL:</strong>  Excelen en la escalabilidad horizontal.  Los datos se pueden distribuir entre múltiples servidores, lo que permite gestionar grandes volúmenes de datos y un alto tráfico de consultas.  Esto se traduce en mayor disponibilidad y rendimiento, especialmente en entornos de alta carga.</p>
+<ol>
+  <li><strong>Principio de Responsabilidad Única (SRP):</strong> Cada clase o módulo debe tener una única razón para cambiar. En la Clean Architecture, esto se refleja en la separación de capas.  La capa de dominio (núcleo) se encarga únicamente de la lógica de negocio, mientras que las capas externas manejan la presentación, la persistencia de datos, etc.  Cada capa tiene una responsabilidad única y bien definida.</li>
+  <li><strong>Principio Abierto/Cerrado (OCP):</strong> Las entidades de software (clases, módulos, funciones) deben estar abiertas para la extensión, pero cerradas para la modificación.  La Clean Architecture facilita esto mediante la abstracción.  Las interfaces definen contratos que las capas externas implementan, permitiendo agregar nuevas funcionalidades sin modificar el núcleo.</li>
+  <li><strong>Principio de Sustitución de Liskov (LSP):</strong> Los subtipos deben ser sustituibles por sus tipos base sin alterar la corrección del programa.  En la Clean Architecture, esto se aplica al diseño de interfaces y clases.  Si una clase implementa una interfaz, debe cumplir con el contrato definido por dicha interfaz sin romper la funcionalidad.</li>
+  <li><strong>Principio de Segregación de Interfaces (ISP):</strong> Las clases no deben depender de métodos que no usan.  En la Clean Architecture, esto se traduce en interfaces pequeñas y específicas.  En lugar de una gran interfaz que hace muchas cosas, es mejor tener varias interfaces más pequeñas, cada una con una responsabilidad específica.</li>
+  <li><strong>Principio de Inversión de Dependencias (DIP):</strong> Las dependencias altas deben depender de abstracciones, no de concreciones.  Las abstracciones no deben depender de detalles. Los detalles deben depender de abstracciones.  La Clean Architecture aplica este principio al máximo.  El núcleo no depende de las capas externas, sino de abstracciones (interfaces).  Las capas externas implementan estas interfaces, proporcionando concreciones.</li>
+</ol>
 
-<h3>Transacciones y Consistencia de Datos</h3>
-<p><strong>SQL:</strong> Garantiza la consistencia de datos a través de las transacciones ACID.  Esto es crucial para aplicaciones que requieren un alto nivel de integridad de datos, como sistemas bancarios o sistemas de comercio electrónico.</p>
-<p><strong>NoSQL:</strong> La consistencia de datos varía según el tipo de base de datos NoSQL. Algunas ofrecen consistencia eventual, lo que significa que los datos pueden ser inconsistentes temporalmente mientras se propagan entre los diferentes servidores.  Otras ofrecen niveles de consistencia más fuertes, pero a costa de un rendimiento menor.</p>
-
-<h3>Casos de Uso</h3>
-<ul>
-  <li><strong>SQL:</strong> Aplicaciones que requieren alta integridad de datos, transacciones complejas y consultas estructuradas. Ejemplos: sistemas bancarios, sistemas de gestión de relaciones con clientes (CRM), sistemas de gestión de inventario.</li>
-  <li><strong>NoSQL:</strong> Aplicaciones que requieren alta escalabilidad, flexibilidad de datos y manejo de grandes volúmenes de datos no estructurados o semiestructurados. Ejemplos: redes sociales, sistemas de recomendación, análisis de datos en tiempo real.</li>
-</ul>
-
-<h3>Ejemplos de Código</h3>
-<p><strong>Ejemplo de consulta SQL (MySQL):</strong></p>
-<pre><code class="language-sql">
-SELECT * FROM usuarios WHERE edad > 25;
-</code></pre>
-
-<p><strong>Ejemplo de consulta NoSQL (MongoDB):</strong></p>
+<h3>Ejemplo de Código (JavaScript - Capa de Dominio)</h3>
+<p>Este ejemplo muestra una clase de dominio simple que calcula el precio total de un pedido, siguiendo el principio de responsabilidad única:</p>
 <pre><code class="language-javascript">
-db.users.find({ age: { $gt: 25 } });
+class Order {
+  constructor(items) {
+    this.items = items;
+  }
+
+  getTotalPrice() {
+    return this.items.reduce((total, item) => total + item.price, 0);
+  }
+}
 </code></pre>
 
-<h3>Consideraciones de Coste</h3>
-<p>El coste de una base de datos depende de varios factores, incluyendo el tipo de base de datos, el volumen de datos, el número de usuarios y la infraestructura necesaria.  Las bases de datos SQL suelen tener un coste inicial más alto, especialmente para soluciones de alta disponibilidad, pero pueden ser más económicas a largo plazo para aplicaciones con requisitos de datos relativamente pequeños y bien definidos. Las bases de datos NoSQL pueden ser más económicas para gestionar grandes volúmenes de datos y tráfico elevado, gracias a su escalabilidad horizontal.</p>
+<h3>Ejemplo de Código (JavaScript - Capa de Presentación)</h3>
+<p>Este ejemplo muestra una función que interactúa con la capa de dominio para mostrar el precio total al usuario.  Observa cómo depende de una abstracción (una interfaz, en este caso simulada):</p>
+<pre><code class="language-javascript">
+// Simulación de una interfaz para la capa de dominio
+const OrderService = {
+  calculateTotalPrice: (items) => {
+    const order = new Order(items);
+    return order.getTotalPrice();
+  }
+};
+
+function displayTotalPrice(items) {
+  const totalPrice = OrderService.calculateTotalPrice(items);
+  console.log("Total price:", totalPrice);
+}
+
+const items = [{ price: 10 }, { price: 20 }];
+displayTotalPrice(items);
+</code></pre>
 
 
 <h2>Conclusión</h2>
-<p>La elección entre SQL y NoSQL depende en gran medida de los requisitos específicos del proyecto.  Si la integridad de los datos y las transacciones ACID son primordiales, una base de datos SQL es la opción adecuada.  Si la escalabilidad, la flexibilidad y el manejo de grandes volúmenes de datos no estructurados son más importantes, una base de datos NoSQL es la mejor alternativa.  En algunos casos, una arquitectura híbrida que combina ambas tecnologías puede ser la solución óptima, aprovechando las ventajas de cada una para diferentes partes de la aplicación.  Es fundamental realizar un análisis exhaustivo de los requisitos del proyecto antes de tomar una decisión.</p>
+<p>La Clean Architecture, en conjunto con los principios SOLID, proporciona una estructura sólida y escalable para el desarrollo de software.  La separación de preocupaciones, la abstracción y la dependencia de interfaces permiten crear sistemas más mantenibles, testables y resistentes a los cambios.  Al aplicar estos principios, los desarrolladores pueden construir aplicaciones de alta calidad que se adaptan a las necesidades cambiantes del negocio.  Recuerda que la clave está en la disciplina y la comprensión profunda de los principios para lograr una arquitectura limpia y eficiente.</p>
 
                 </article>
                 
@@ -604,7 +617,7 @@ db.users.find({ age: { $gt: 25 } });
             const currentUrl = window.location.href;
             document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
                 const onclick = link.getAttribute('onclick');
-                link.setAttribute('onclick', onclick.replace(/https://hgaruna.org/blog/sql-vs-nosql-decisiones-de-arquitectura.html/g, currentUrl));
+                link.setAttribute('onclick', onclick.replace(/https://hgaruna.org/blog/clean-architecture-principios-solid.html/g, currentUrl));
             });
         });
         

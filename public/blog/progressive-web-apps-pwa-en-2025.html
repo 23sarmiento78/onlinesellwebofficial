@@ -2,31 +2,31 @@
 <html lang="es">
 <head>
     <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
-    <meta name="category" content="Bases de Datos">
+    <meta name="category" content="Frontend">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introducción</title>
-    <meta name="description" content="La elección entre una base de datos SQL y NoSQL es una decisión crucial en la arquitectura de cualquier aplicación web o sistema de información.  Amba...">
+    <meta name="description" content="Las Progressive Web Apps (PWAs) han evolucionado significativamente desde su concepción inicial. En 2025, se espera que las PWAs se consoliden aún más...">
     <meta name="keywords" content="JavaScript">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://hgaruna.org/blog/sql-vs-nosql-decisiones-de-arquitectura.html">
+    <meta property="og:url" content="https://hgaruna.org/blog/progressive-web-apps-pwa-en-2025.html">
     <meta property="og:title" content="Introducción">
-    <meta property="og:description" content="La elección entre una base de datos SQL y NoSQL es una decisión crucial en la arquitectura de cualquier aplicación web o sistema de información.  Amba...">
+    <meta property="og:description" content="Las Progressive Web Apps (PWAs) han evolucionado significativamente desde su concepción inicial. En 2025, se espera que las PWAs se consoliden aún más...">
     <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://hgaruna.org/blog/sql-vs-nosql-decisiones-de-arquitectura.html">
+    <meta property="twitter:url" content="https://hgaruna.org/blog/progressive-web-apps-pwa-en-2025.html">
     <meta property="twitter:title" content="Introducción">
-    <meta property="twitter:description" content="La elección entre una base de datos SQL y NoSQL es una decisión crucial en la arquitectura de cualquier aplicación web o sistema de información.  Amba...">
+    <meta property="twitter:description" content="Las Progressive Web Apps (PWAs) han evolucionado significativamente desde su concepción inicial. En 2025, se espera que las PWAs se consoliden aún más...">
     <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://hgaruna.org/blog/sql-vs-nosql-decisiones-de-arquitectura.html">
+    <link rel="canonical" href="https://hgaruna.org/blog/progressive-web-apps-pwa-en-2025.html">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -451,46 +451,72 @@
                 <!-- Contenido del artículo -->
                 <article class="article-content">
                     <h2>Introducción</h2>
-<p>La elección entre una base de datos SQL y NoSQL es una decisión crucial en la arquitectura de cualquier aplicación web o sistema de información.  Ambas tecnologías ofrecen soluciones robustas para el almacenamiento y la gestión de datos, pero sus enfoques difieren significativamente, lo que las hace adecuadas para diferentes tipos de proyectos.  Esta guía profundiza en las consideraciones arquitectónicas clave para ayudarle a determinar qué tipo de base de datos se adapta mejor a sus necesidades.</p>
+<p>Las Progressive Web Apps (PWAs) han evolucionado significativamente desde su concepción inicial. En 2025, se espera que las PWAs se consoliden aún más como una solución robusta y versátil para el desarrollo de aplicaciones web.  Este artículo explorará el panorama de las PWAs en 2025, analizando sus características clave, casos de uso y las tendencias que las definirán.</p>
 
 <h2>Sección Principal</h2>
-<p>Las bases de datos SQL (Structured Query Language) son sistemas de gestión de bases de datos relacionales (RDBMS) que utilizan un esquema fijo y tablas con filas y columnas para organizar los datos.  Se caracterizan por su consistencia de datos, integridad referencial y soporte para transacciones ACID (Atomicidad, Consistencia, Aislamiento, Durabilidad).  Por otro lado, las bases de datos NoSQL (Not Only SQL) son sistemas de gestión de bases de datos no relacionales que ofrecen flexibilidad en la estructura de datos y escalabilidad horizontal.  Existen varios tipos de bases de datos NoSQL, incluyendo bases de datos clave-valor, bases de datos de documentos, bases de datos de grafos y bases de datos de columnas.</p>
+<p>En 2025, las PWAs habrán superado muchas de las limitaciones percibidas en sus inicios.  La adopción de estándares web más avanzados, como WebAssembly y WebGPU, permitirá la creación de PWAs con un rendimiento comparable al de las aplicaciones nativas.  Esto, combinado con mejoras en la experiencia de usuario (UX) y la integración con sistemas operativos, las convertirá en una opción atractiva para una gama aún más amplia de aplicaciones.</p>
 
-<h3>Consideraciones de Esquema</h3>
-<p><strong>SQL:</strong> Emplea un esquema predefinido y rígido.  Cada tabla debe definir sus columnas con sus tipos de datos correspondientes.  Esto garantiza la integridad de los datos y facilita la ejecución de consultas complejas.  Sin embargo, la modificación del esquema puede ser engorrosa y requerir tiempo de inactividad.</p>
-<p><strong>NoSQL:</strong> Ofrece esquemas flexibles o incluso sin esquema.  Esto permite una mayor agilidad para adaptarse a los cambios en los requisitos de datos.  Por ejemplo, una base de datos de documentos como MongoDB permite agregar o eliminar campos sin necesidad de modificar el esquema completo.  Sin embargo, la falta de un esquema rígido puede complicar la gestión de datos y la ejecución de consultas complejas.</p>
-
-<h3>Escalabilidad y Rendimiento</h3>
-<p><strong>SQL:</strong> Tradicionalmente, las bases de datos SQL escalan verticalmente, es decir, añadiendo más recursos (CPU, memoria, almacenamiento) a un único servidor.  Aunque existen soluciones para escalar horizontalmente, suelen ser más complejas e implican mayor coste.</p>
-<p><strong>NoSQL:</strong>  Excelen en la escalabilidad horizontal.  Los datos se pueden distribuir entre múltiples servidores, lo que permite gestionar grandes volúmenes de datos y un alto tráfico de consultas.  Esto se traduce en mayor disponibilidad y rendimiento, especialmente en entornos de alta carga.</p>
-
-<h3>Transacciones y Consistencia de Datos</h3>
-<p><strong>SQL:</strong> Garantiza la consistencia de datos a través de las transacciones ACID.  Esto es crucial para aplicaciones que requieren un alto nivel de integridad de datos, como sistemas bancarios o sistemas de comercio electrónico.</p>
-<p><strong>NoSQL:</strong> La consistencia de datos varía según el tipo de base de datos NoSQL. Algunas ofrecen consistencia eventual, lo que significa que los datos pueden ser inconsistentes temporalmente mientras se propagan entre los diferentes servidores.  Otras ofrecen niveles de consistencia más fuertes, pero a costa de un rendimiento menor.</p>
-
-<h3>Casos de Uso</h3>
+<h3>Funcionalidades Avanzadas de las PWAs en 2025</h3>
+<p>Se espera que las PWAs en 2025 incorporen las siguientes funcionalidades avanzadas:</p>
 <ul>
-  <li><strong>SQL:</strong> Aplicaciones que requieren alta integridad de datos, transacciones complejas y consultas estructuradas. Ejemplos: sistemas bancarios, sistemas de gestión de relaciones con clientes (CRM), sistemas de gestión de inventario.</li>
-  <li><strong>NoSQL:</strong> Aplicaciones que requieren alta escalabilidad, flexibilidad de datos y manejo de grandes volúmenes de datos no estructurados o semiestructurados. Ejemplos: redes sociales, sistemas de recomendación, análisis de datos en tiempo real.</li>
+  <li><strong>Mayor integración con el sistema operativo:</strong>  Acceso a funcionalidades del dispositivo como Bluetooth, cámara y sensores biométricos de forma más fluida y segura.</li>
+  <li><strong>Capacidades offline mejoradas:</strong>  Almacenamiento de datos y caché más eficientes, permitiendo una experiencia offline rica y sin problemas, incluso con conexiones de red inestables.</li>
+  <li><strong>Integración con tecnologías de realidad aumentada (AR) y realidad virtual (VR):</strong>  Las PWAs podrán aprovechar las capacidades de AR y VR para ofrecer experiencias inmersivas a los usuarios.</li>
+  <li><strong>Mejoras en la seguridad:</strong>  Protocolos de seguridad más robustos y la adopción generalizada de HTTPS contribuirán a una experiencia más segura para los usuarios.</li>
+  <li><strong>Personalización avanzada:</strong>  Las PWAs podrán ofrecer experiencias altamente personalizadas basadas en el comportamiento del usuario, la ubicación y otros datos relevantes.</li>
 </ul>
 
-<h3>Ejemplos de Código</h3>
-<p><strong>Ejemplo de consulta SQL (MySQL):</strong></p>
-<pre><code class="language-sql">
-SELECT * FROM usuarios WHERE edad > 25;
-</code></pre>
+<h3>Casos de Uso en 2025</h3>
+<p>Las PWAs encontrarán aplicación en una amplia variedad de sectores en 2025:</p>
+<ol>
+  <li><strong>Comercio electrónico:</strong>  Ofrecer una experiencia de compra fluida y rápida, con acceso offline al catálogo y carrito de compras.</li>
+  <li><strong>Servicios financieros:</strong>  Proporcionar acceso seguro y confiable a cuentas bancarias y servicios financieros, incluso en áreas con conectividad limitada.</li>
+  <li><strong>Educación:</strong>  Crear plataformas de aprendizaje online accesibles y con funcionalidades offline para estudiantes en zonas rurales o con acceso limitado a internet.</li>
+  <li><strong>Salud:</strong>  Desarrollar aplicaciones de salud con acceso a registros médicos y funcionalidades de monitorización remota, asegurando la privacidad y seguridad de los datos.</li>
+  <li><strong>Juegos:</strong>  Crear juegos online y offline con gráficos avanzados y una experiencia de juego fluida, aprovechando las capacidades de WebAssembly y WebGPU.</li>
+</ol>
 
-<p><strong>Ejemplo de consulta NoSQL (MongoDB):</strong></p>
+<h3>Ejemplo de manejo de datos offline con IndexedDB</h3>
+<p>IndexedDB permite el almacenamiento de datos estructurados en el navegador, incluso sin conexión.  A continuación, un ejemplo básico de cómo almacenar y recuperar datos:</p>
 <pre><code class="language-javascript">
-db.users.find({ age: { $gt: 25 } });
+let dbPromise = idb.open('mydatabase', 1, upgradeDB => {
+  upgradeDB.createObjectStore('keyvalue');
+});
+
+dbPromise.then(db => {
+  let tx = db.transaction('keyvalue', 'readwrite');
+  let store = tx.objectStore('keyvalue');
+  store.put({ key: 'name', value: 'John Doe' });
+  return tx.complete;
+}).then(() => {
+  console.log('Data stored successfully!');
+});
+
+
+dbPromise.then(db => {
+  let tx = db.transaction('keyvalue');
+  let store = tx.objectStore('keyvalue');
+  return store.get('name');
+}).then(data => {
+  console.log('Retrieved data:', data);
+});
 </code></pre>
 
-<h3>Consideraciones de Coste</h3>
-<p>El coste de una base de datos depende de varios factores, incluyendo el tipo de base de datos, el volumen de datos, el número de usuarios y la infraestructura necesaria.  Las bases de datos SQL suelen tener un coste inicial más alto, especialmente para soluciones de alta disponibilidad, pero pueden ser más económicas a largo plazo para aplicaciones con requisitos de datos relativamente pequeños y bien definidos. Las bases de datos NoSQL pueden ser más económicas para gestionar grandes volúmenes de datos y tráfico elevado, gracias a su escalabilidad horizontal.</p>
-
+<h3>Ejemplo de uso de Service Workers para notificaciones push</h3>
+<p>Los Service Workers permiten enviar notificaciones push a los usuarios, incluso cuando la aplicación no está activa.  Este es un ejemplo básico de la configuración de un Service Worker:</p>
+<pre><code class="language-javascript">
+self.addEventListener('push', event => {
+  const notificationTitle = 'Notificación PWA';
+  const notificationOptions = {
+    body: '¡Nueva notificación!',
+    icon: '/images/icon.png'
+  };
+  event.waitUntil(self.registration.showNotification(notificationTitle, notificationOptions));
+});
+</code></pre>
 
 <h2>Conclusión</h2>
-<p>La elección entre SQL y NoSQL depende en gran medida de los requisitos específicos del proyecto.  Si la integridad de los datos y las transacciones ACID son primordiales, una base de datos SQL es la opción adecuada.  Si la escalabilidad, la flexibilidad y el manejo de grandes volúmenes de datos no estructurados son más importantes, una base de datos NoSQL es la mejor alternativa.  En algunos casos, una arquitectura híbrida que combina ambas tecnologías puede ser la solución óptima, aprovechando las ventajas de cada una para diferentes partes de la aplicación.  Es fundamental realizar un análisis exhaustivo de los requisitos del proyecto antes de tomar una decisión.</p>
+<p>Las PWAs en 2025 representarán una tecnología madura y robusta para el desarrollo de aplicaciones web.  Su capacidad para ofrecer experiencias de usuario de alta calidad, tanto online como offline, junto con su creciente integración con las funcionalidades del sistema operativo, las posicionará como una solución preferida para una amplia gama de aplicaciones y sectores.  La continua evolución de los estándares web y el desarrollo de nuevas herramientas y frameworks asegurarán que las PWAs sigan siendo una tecnología innovadora y competitiva en los próximos años.  La clave del éxito residirá en la adopción de las mejores prácticas de desarrollo, la optimización del rendimiento y la priorización de la experiencia del usuario.</p>
 
                 </article>
                 
@@ -604,7 +630,7 @@ db.users.find({ age: { $gt: 25 } });
             const currentUrl = window.location.href;
             document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
                 const onclick = link.getAttribute('onclick');
-                link.setAttribute('onclick', onclick.replace(/https://hgaruna.org/blog/sql-vs-nosql-decisiones-de-arquitectura.html/g, currentUrl));
+                link.setAttribute('onclick', onclick.replace(/https://hgaruna.org/blog/progressive-web-apps-pwa-en-2025.html/g, currentUrl));
             });
         });
         
