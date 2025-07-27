@@ -92,6 +92,15 @@ jobs:
             head -n 10 "$file" | sed 's/^/  /'
             echo "..."
           done
+          
+      - name: Actualizar índice del blog
+        run: |
+          echo "🔄 Actualizando índice del blog..."
+          node scripts/generate-blog-index.js
+          echo "✅ Índice del blog actualizado"
+          echo "📄 Contenido de index.json:"
+          cat public/blog/index.json | head -n 10
+          echo "..."
 
       - name: Asegurar carpetas para Netlify
         run: |
