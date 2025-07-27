@@ -1,114 +1,94 @@
-
 name: Generar artículos HTML y crear sitemap
-
 
 on:
   schedule:
-    # 9:00, 13:00 y 19:00 UTC (6:00, 10:00 y 16:00 ART)
-    - cron: '0 9 * * *'   # 6:00 ART
-    - cron: '0 13 * * *'  # 10:00 ART
-    - cron: '0 19 * * *'  # 16:00 ART
+    # 6:00, 10:00 y 16:00 ART
+    - cron: '0 9 * * *'
+    - cron: '0 13 * * *'
+    - cron: '0 19 * * *'
   workflow_dispatch:
 
 jobs:
   generar-articulos-html-y-sitemap:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: 📥 Clonar repositorio
         uses: actions/checkout@v4
 
-      - name: Instalar Node.js
+      - name: 🔧 Instalar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Instalar dependencias
+      - name: 📦 Instalar dependencias
         run: npm install
 
-
-      - name: Configurar entorno
+      - name: ⚙️ Configurar variables de entorno
         env:
-          SITE_URL: https://hgaruna.org
-        run: |
-          echo "SITE_URL=$SITE_URL" >> $GITHUB_ENV
+          SITE_URL: https://www.hgaruna.org
+        run: echo "SITE_URL=$SITE_URL" >> $GITHUB_ENV
 
-      - name: Generar artículos HTML con Gemini
+      - name: 🧠 Generar artículos HTML con Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SITE_URL: ${{ env.SITE_URL }}
         run: |
-          # Crear directorio de artículos si no existe
           mkdir -p public/blog
-          
-          # Ejecutar generador de artículos
           node scripts/generate-html-articles-gemini.js
 
-      - name: Publicar en Redes Sociales
+      - name: 📣 Publicar en Reddit
         if: success()
         env:
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
           REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
           REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
-          # Solo publicar en programming por ahora
           REDDIT_SUBREDDITS: 'programming'
+          REDDIT_PREFIX_TEXT: '💡 hgaruna tips y mini consejos de programación:'
           SITE_URL: ${{ env.SITE_URL }}
         run: |
-          # Verificar si el script de publicación existe
           if [ -f "scripts/publish-to-socials.js" ]; then
-            echo "📣 Publicando en redes sociales..."
+            echo "📢 Ejecutando publicación en Reddit..."
             node scripts/publish-to-socials.js
           else
-            echo "⚠️  No se encontró el script de publicación en redes sociales"
+            echo "⚠️ Script de publicación no encontrado: scripts/publish-to-socials.js"
           fi
 
-      - name: Actualizar sitemap
-        env:
-          SITE_URL: ${{ env.SITE_URL }}
+      - name: 🗺️ Actualizar sitemap
         run: |
-          # Verificar si hay artículos generados
           if [ -z "$(ls -A public/blog/*.html 2>/dev/null)" ]; then
-            echo "No se encontraron artículos para incluir en el sitemap"
+            echo "⚠️ No hay artículos HTML para el sitemap"
             exit 0
           fi
-          
-          # Actualizar sitemap
           node scripts/update_sitemap.js
-          
-          # Mostrar contenido del sitemap generado
-          echo "\n📄 Contenido del sitemap generado:"
-          cat public/sitemap.xml | head -n 20
-          echo "..."
+          echo "\n📄 Sitemap generado (primeras líneas):"
+          head -n 20 public/sitemap.xml || echo "⚠️ No se encontró sitemap.xml"
 
-      - name: Verificar artículos generados
+      - name: 🔍 Verificar artículos generados
         run: |
-          echo "📂 Contenido del directorio public/blog/:"
+          echo "📂 Archivos en public/blog:"
           ls -la public/blog/
-          
-          # Mostrar información de los artículos generados
           for file in public/blog/*.html; do
             echo "\n📄 $file:"
             echo "Tamaño: $(wc -c < "$file") bytes"
-            echo "Primeras líneas:"
             head -n 10 "$file" | sed 's/^/  /'
             echo "..."
           done
-          
-      - name: Actualizar índice del blog
-        run: |
-          echo "🔄 Actualizando índice del blog..."
-          node scripts/generate-blog-index.js
-          echo "✅ Índice del blog actualizado"
-          echo "📄 Contenido de index.json:"
-          cat public/blog/index.json | head -n 10
-          echo "..."
 
-      - name: Asegurar carpetas para Netlify
+      - name: 🧭 Actualizar índice del blog
+        run: |
+          echo "🔄 Generando índice del blog..."
+          node scripts/generate-blog-index.js
+          echo "📄 Vista previa de index.json:"
+          head -n 10 public/blog/index.json || echo "⚠️ index.json no encontrado"
+
+      - name: 📁 Asegurar carpetas para Netlify
         run: |
           mkdir -p public/blog
           touch public/blog/.keep
 
-      - name: Commit y push de artículos y sitemap
+      - name: 💾 Commit y push de artículos, sitemap e índice
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
