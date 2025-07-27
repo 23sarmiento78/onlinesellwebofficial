@@ -3,205 +3,151 @@ const path = require('path');
 const snoowrap = require('snoowrap');
 const sharp = require('sharp');
 
+// Configuración
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
-const BLOG_DIR = path.join(PUBLIC_DIR, 'blog'); // Directorio para leer los HTML
-const BLOG_INDEX_PATH = path.join(PUBLIC_DIR, 'blog', 'index.json');
+const BLOG_DIR = path.join(PUBLIC_DIR, 'blog');
 const POSTED_ARTICLES_LOG = path.join(__dirname, 'posted_articles.json');
-const IMAGES_OUTPUT_DIR = path.join(__dirname, '..', 'public', 'social-images'); // Guardar imágenes en una carpeta pública
+const SITE_URL = 'https://www.hgaruna.org';
 
-const SITE_URL = 'https://www.hgaruna.org'; // <-- CORRECCIÓN: Usar el dominio con 'www' para que coincida con el certificado SSL
+// Lista de subreddits con alto tráfico (más de 10M de miembros o populares)
+const TARGET_SUBREDDITS = [
+  'programming',        // 4.2M
+  'technology',         // 13.9M
+  'webdev',             // 1.1M
+  'coding',             // 1.7M
+  'learnprogramming',   // 4.1M
+  'javascript',         // 2.4M
+  'web_design',        // 1.3M
+  'webdevelopment',    // 1.1M
+  'frontend',          // 500K
+  'reactjs',           // 500K
+  'node',              // 400K
+  'web',               // 300K
+  'webdesign',         // 1.1M
+  'webdev',            // 1.1M
+  'codingbootcamp'     // 200K
+];
+
+// Inicializar cliente de Reddit
+const redditClient = new snoowrap({
+  userAgent: 'hgaruna-bot/1.0',
+  clientId: process.env.REDDIT_CLIENT_ID,
+  clientSecret: process.env.REDDIT_CLIENT_SECRET,
+  refreshToken: process.env.REDDIT_REFRESH_TOKEN
+});
 
 /**
- * Lee un archivo JSON de forma segura.
- * @param {string} filePath - Ruta al archivo.
- * @returns {Promise<any>} - Contenido del JSON o un array vacío si no existe.
+ * Obtiene el artículo más reciente del blog
  */
-async function readJsonFile(filePath) {
+async function getLatestArticle() {
   try {
-    const data = await fs.readFile(filePath, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    if (error.code === 'ENOENT') {
-      return []; // Si el archivo no existe, es la primera vez que se ejecuta.
+    const files = await fs.readdir(BLOG_DIR);
+    const htmlFiles = files.filter(file => file.endsWith('.html'));
+    const stats = await Promise.all(
+      htmlFiles.map(file => fs.stat(path.join(BLOG_DIR, file)))
+    );
+    
+    const filesWithStats = htmlFiles.map((file, index) => ({
+      name: file,
+      mtime: stats[index].mtime
+    }));
+
+    filesWithStats.sort((a, b) => b.mtime - a.mtime);
+    
+    if (filesWithStats.length === 0) {
+      console.log('No se encontraron artículos en el blog');
+      return null;
     }
-    throw error;
-  }
-}
 
-/**
- * Publica un artículo en Reddit.
- * @param {snoowrap} redditClient - Cliente de snoowrap.
- * @param {object} article - Objeto del artículo.
- * @param {string} subreddit - Nombre del subreddit.
- */
-async function postToReddit(redditClient, article, subreddit) {
-  const articleUrl = `${SITE_URL}/blog/${article.slug}.html`;
-  console.log(`Intentando publicar en Reddit: "${article.title}" en r/${subreddit}`);
+    const latestArticle = filesWithStats[0];
+    const articleUrl = `${SITE_URL}/blog/${latestArticle.name}`;
+    
+    // Extraer título del nombre del archivo
+    const title = latestArticle.name
+      .replace(/-/g, ' ')
+      .replace(/\.html$/, '')
+      .replace(/\b\w/g, l => l.toUpperCase());
 
-  try {
-    const submission = await redditClient.getSubreddit(subreddit).submitLink({
-      title: article.title,
+    return {
+      title: title,
       url: articleUrl,
-    });
-    console.log(`✅ Publicado en Reddit exitosamente: ${article.title}`);
-    console.log(`   URL del post: https://www.reddit.com${submission.permalink}`);
+      slug: latestArticle.name.replace('.html', '')
+    };
   } catch (error) {
-    console.error(`❌ Error al publicar en Reddit: ${error.message}`);
-    if (error.response && error.response.body) {
-      console.error('   Respuesta de la API de Reddit:', JSON.stringify(error.response.body, null, 2));
-    }
+    console.error('Error al obtener el último artículo:', error);
+    return null;
   }
 }
 
 /**
- * Genera una imagen para redes sociales a partir de un artículo.
- * @param {object} article - Objeto del artículo.
+ * Publica en múltiples subreddits
  */
-async function generateInstagramImage(article) {
-  console.log(`Generando imagen para Instagram: "${article.title}"`);
-  const width = 1080;
-  const height = 1080;
-  const outputImagePath = path.join(IMAGES_OUTPUT_DIR, `${article.slug}.png`);
-
-  // Limpia el título para que se vea bien en el SVG
-  const cleanTitle = article.title
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-
-  // Plantilla SVG para la imagen
-  const svgImage = `
-    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#4a00e0;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#8e2de2;stop-opacity:1" />
-        </linearGradient>
-        <style>
-          .title {
-            font-size: 72px;
-            font-family: 'Arial', sans-serif;
-            fill: white;
-            font-weight: bold;
-            text-anchor: middle;
-            white-space: pre-wrap;
-          }
-          .brand {
-            font-size: 40px;
-            font-family: 'Arial', sans-serif;
-            fill: #ffffff;
-            opacity: 0.8;
-            text-anchor: middle;
-          }
-        </style>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#grad)" />
-      <text x="50%" y="45%" class="title">
-        ${
-          // Simple word wrap
-          cleanTitle.split(' ').reduce((acc, word) => {
-            let lastLine = acc[acc.length - 1];
-            if (lastLine && lastLine.length + word.length + 1 < 25) {
-              acc[acc.length - 1] = lastLine + ' ' + word;
-            } else {
-              acc.push(word);
-            }
-            return acc;
-          }, []).map((line, index) => `<tspan x="50%" dy="${index === 0 ? 0 : '1.2em'}">${line}</tspan>`).join('')
-        }
-      </text>
-      <text x="50%" y="90%" class="brand">hgaruna.org</text>
-    </svg>
-  `;
-
-  try {
-    await fs.mkdir(IMAGES_OUTPUT_DIR, { recursive: true });
-    await sharp(Buffer.from(svgImage)).toFile(outputImagePath);
-    console.log(`✅ Imagen para Instagram generada en: ${outputImagePath}`);
-  } catch (error) {
-    console.error(`❌ Error al generar la imagen para Instagram: ${error.message}`);
+async function postToMultipleSubreddits(article) {
+  const postedSubreddits = [];
+  
+  for (const subreddit of TARGET_SUBREDDITS) {
+    try {
+      console.log(`Publicando en r/${subreddit}: ${article.title}`);
+      
+      await redditClient.getSubreddit(subreddit).submitLink({
+        title: article.title,
+        url: article.url,
+        sendReplies: true
+      });
+      
+      console.log(`✅ Publicado exitosamente en r/${subreddit}`);
+      postedSubreddits.push(subreddit);
+      
+      // Esperar 5 minutos entre publicaciones para evitar límites de tasa
+      await new Promise(resolve => setTimeout(resolve, 5 * 60 * 1000));
+      
+    } catch (error) {
+      console.error(`❌ Error al publicar en r/${subreddit}:`, error.message);
+      
+      // Si el error es por límite de tasa, esperar y continuar
+      if (error.message.includes('RATELIMIT')) {
+        const waitTime = error.message.match(/(\d+)\s+minutes?/i);
+        const minutes = waitTime ? parseInt(waitTime[1]) + 1 : 5;
+        console.log(`⏳ Esperando ${minutes} minutos debido al límite de tasa...`);
+        await new Promise(resolve => setTimeout(resolve, minutes * 60 * 1000));
+      }
+    }
   }
+  
+  return postedSubreddits;
 }
 
 /**
  * Función principal
  */
 async function main() {
-  // --- Lógica de Reddit ---
-  const {
-    REDDIT_CLIENT_ID,
-    REDDIT_CLIENT_SECRET,
-    REDDIT_USERNAME, // Se usa para el userAgent
-    REDDIT_REFRESH_TOKEN,
-    REDDIT_SUBREDDIT,
-  } = process.env;
-
-  const redditEnabled = REDDIT_CLIENT_ID && REDDIT_CLIENT_SECRET && REDDIT_USERNAME && REDDIT_REFRESH_TOKEN && REDDIT_SUBREDDIT;
-
-  let redditClient;
-  if (redditEnabled) {
-    redditClient = new snoowrap({
-      userAgent: 'GitHub Actions Article Publisher v1.0 by /u/' + REDDIT_USERNAME,
-      clientId: REDDIT_CLIENT_ID,
-      clientSecret: REDDIT_CLIENT_SECRET,
-      refreshToken: REDDIT_REFRESH_TOKEN,
-    });
-    console.log("Cliente de Reddit inicializado.");
-  } else {
-    console.log("Credenciales de Reddit no configuradas. Omitiendo publicación en Reddit.");
-  }
-
-  // --- Lógica para encontrar nuevos artículos ---
-  const allArticleFiles = await readJsonFile(BLOG_INDEX_PATH);
-  const postedArticleSlugs = await readJsonFile(POSTED_ARTICLES_LOG);
-  
-  // Asumimos que el `index.json` solo tiene los slugs de los archivos html
-  const allArticleSlugs = allArticleFiles.map(file => file.replace('.html', ''));
-
-  const newArticleSlugs = allArticleSlugs.filter(slug => !postedArticleSlugs.includes(slug));
-
-  if (newArticleSlugs.length === 0) {
-    console.log("No hay artículos nuevos para publicar.");
-    return;
-  }
-
-  console.log(`Se encontraron ${newArticleSlugs.length} artículos nuevos para publicar.`);
-
-  // --- CAMBIO CLAVE: Leer el título directamente del HTML ---
-  const newArticles = [];
-  for (const slug of newArticleSlugs) {
-    try {
-      const htmlPath = path.join(BLOG_DIR, `${slug}.html`);
-      const htmlContent = await fs.readFile(htmlPath, 'utf8');
-
-      // Extraer el título de la etiqueta <title> del HTML
-      const titleMatch = htmlContent.match(/<title[^>]*>([^<]+)<\/title>/i);
-      const title = titleMatch ? titleMatch[1].trim() : 'Nuevo Artículo'; // Título de respaldo
-
-      if (!titleMatch) {
-        console.warn(`   ⚠️ No se encontró la etiqueta <title> en ${slug}.html. Usando título genérico.`);
-      }
-
-      newArticles.push({ slug, title });
-      console.log(`-> Procesando artículo: "${title}" (slug: ${slug})`);
-    } catch (error) {
-      console.error(`❌ Error al leer o procesar el artículo ${slug}.html: ${error.message}`);
+  try {
+    console.log('🚀 Iniciando publicación en Reddit...');
+    
+    // Obtener el artículo más reciente
+    const article = await getLatestArticle();
+    if (!article) {
+      console.log('No se encontraron artículos para publicar');
+      return;
     }
-  }
-
-  for (const article of newArticles) {
-    if (redditEnabled) {
-      await postToReddit(redditClient, article, REDDIT_SUBREDDIT);
+    
+    console.log(`📰 Artículo a publicar: ${article.title}`);
+    console.log(`🔗 URL: ${article.url}`);
+    
+    // Publicar en múltiples subreddits
+    const postedSubreddits = await postToMultipleSubreddits(article);
+    
+    if (postedSubreddits.length > 0) {
+      console.log(`\n✅ Publicación completada en ${postedSubreddits.length} subreddits:`);
+      postedSubreddits.forEach(sub => console.log(`   - r/${sub}`));
+    } else {
+      console.log('❌ No se pudo publicar en ningún subreddit');
     }
-    await generateInstagramImage(article);
+    
+  } catch (error) {
+    console.error('Error en la ejecución principal:', error);
   }
-
-  // Actualizar el log de artículos publicados
-  const updatedPostedSlugs = [...postedArticleSlugs, ...newArticleSlugs];
-  await fs.writeFile(POSTED_ARTICLES_LOG, JSON.stringify(updatedPostedSlugs, null, 2));
-  console.log("Log de artículos publicados actualizado.");
 }
 
+// Ejecutar
 main().catch(console.error);

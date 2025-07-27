@@ -43,7 +43,7 @@ jobs:
           # Ejecutar generador de artículos
           node scripts/generate-html-articles-gemini.js
 
-      - name: Publicar en Reddit
+      - name: Publicar en redes sociales
         if: success()
         env:
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
@@ -54,11 +54,11 @@ jobs:
           SITE_URL: ${{ env.SITE_URL }}
         run: |
           # Verificar si el script de publicación existe
-          if [ -f "scripts/publish-to-reddit.js" ]; then
-            echo "📣 Publicando en Reddit..."
-            node scripts/publish-to-reddit.js
+          if [ -f "scripts/publish-to-socials.js" ]; then
+            echo "📣 Publicando en redes sociales..."
+            node scripts/publish-to-socials.js
           else
-            echo "⚠️  No se encontró el script de publicación en Reddit"
+            echo "⚠️  No se encontró el script de publicación en redes sociales"
           fi
 
       - name: Actualizar sitemap
