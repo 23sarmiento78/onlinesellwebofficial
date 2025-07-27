@@ -188,4 +188,25 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/database-optimization-consultas-eficientes.html</loc>
+    <lastmod>2025-07-27T06:07:04.731Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/performance-testing-lighthouse-y-webpagetest.html</loc>
+    <lastmod>2025-07-27T06:07:17.382Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://hgaruna.org/blog/testing-de-accesibilidad-automatizado.html</loc>
+    <lastmod>2025-07-27T06:07:28.813Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

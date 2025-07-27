@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
+    <meta name="category" content="Testing y Calidad">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción</title>
+    <meta name="description" content="El testing de accesibilidad es crucial para asegurar que las aplicaciones web sean utilizables por personas con discapacidades.  Si bien las pruebas m...">
+    <meta name="keywords" content="JavaScript">
+    <meta name="author" content="hgaruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hgaruna.org/blog/testing-de-accesibilidad-automatizado.html">
+    <meta property="og:title" content="Introducción">
+    <meta property="og:description" content="El testing de accesibilidad es crucial para asegurar que las aplicaciones web sean utilizables por personas con discapacidades.  Si bien las pruebas m...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hgaruna.org/blog/testing-de-accesibilidad-automatizado.html">
+    <meta property="twitter:title" content="Introducción">
+    <meta property="twitter:description" content="El testing de accesibilidad es crucial para asegurar que las aplicaciones web sean utilizables por personas con discapacidades.  Si bien las pruebas m...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hgaruna.org/blog/testing-de-accesibilidad-automatizado.html">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --dark-bg: #0f172a;
+            --darker-bg: #0a1122;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--dark-bg);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1140px;
+        }
+        
+        /* Header */
+        .article-header {
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            color: white;
+            padding: 6rem 0 4rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .article-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #ffffff, #a7f3d0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .article-meta i {
+            color: var(--primary);
+        }
+        
+        /* Content */
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .article-content h1, 
+        .article-content h2, 
+        .article-content h3, 
+        .article-content h4 {
+            color: var(--text-primary);
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+            display: inline-block;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .article-content h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            height: calc(100% - 1rem);
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 1.75rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px dotted var(--primary);
+        }
+        
+        .article-content a:hover {
+            color: #a7f3d0;
+            border-bottom-color: #a7f3d0;
+        }
+        
+        .article-content ul, 
+        .article-content ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        
+        .article-content ul li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .article-content ol {
+            counter-reset: item;
+        }
+        
+        .article-content ol li {
+            counter-increment: item;
+        }
+        
+        .article-content ol li::before {
+            content: counter(item) '.';
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem 2rem;
+            margin: 2.5rem 0;
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--text-primary);
+        }
+        
+        .article-content blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+        }
+        
+        .article-content pre {
+            background: var(--darker-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+        }
+        
+        .article-content code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #a7f3d0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            padding: 0;
+            border-radius: 0;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(16, 185, 129, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Back button */
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .back-button .btn {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        
+        .back-button .btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        /* Share buttons */
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .share-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .share-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .share-twitter { background: #1DA1F2; }
+        .share-facebook { background: #4267B2; }
+        .share-linkedin { background: #0077B5; }
+        .share-whatsapp { background: #25D366; }
+        
+        /* Tags */
+        .article-tags {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin: 2rem 0 3rem;
+        }
+        
+        .tag {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--primary);
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .tag:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Footer */
+        .article-footer {
+            margin-top: 4rem;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-header {
+                padding: 5rem 0 3rem;
+            }
+            
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+            }
+            
+            .back-button .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .share-buttons {
+                justify-content: center;
+            }
+            
+            .article-content {
+                font-size: 1rem;
+            }
+            
+            .article-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .article-content h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/blog" class="btn">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
+    </div>
+
+    <!-- Header del artículo -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto text-center">
+                    <h1 class="article-title">Introducción</h1>
+                    <div class="article-meta justify-content-center">
+                        <span><i class="far fa-calendar-alt"></i> {{PUBLICATION_DATE}}</span>
+                        <span><i class="far fa-clock"></i> 4 min de lectura</span>
+                        <span><i class="far fa-user"></i> Por hgaruna</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="featured-image mb-5 text-center">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="{{FEATURED_IMAGE_ALT}}" class="img-fluid rounded-3">
+                </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <h2>Introducción</h2>
+<p>El testing de accesibilidad es crucial para asegurar que las aplicaciones web sean utilizables por personas con discapacidades.  Si bien las pruebas manuales son importantes, el testing automatizado ofrece una manera eficiente y escalable de identificar una amplia gama de problemas de accesibilidad.  Este artículo explorará las técnicas y herramientas disponibles para realizar testing de accesibilidad automatizado, destacando sus ventajas y limitaciones.</p>
+
+<h2>Sección Principal</h2>
+<p>El testing de accesibilidad automatizado implica el uso de herramientas de software para analizar el código fuente de una aplicación web y detectar violaciones de las pautas de accesibilidad, como las WCAG (Web Content Accessibility Guidelines).  Estas herramientas utilizan diferentes técnicas, incluyendo análisis de código estático y simulación de discapacidades, para identificar problemas como falta de etiquetas alt en imágenes, contraste insuficiente de color, o uso incorrecto de encabezados.</p>
+
+<h3>Herramientas de Testing de Accesibilidad Automatizado</h3>
+<p>Existen varias herramientas disponibles, tanto de código abierto como comerciales, para realizar testing de accesibilidad automatizado. Algunas de las más populares incluyen:</p>
+
+<ul>
+  <li><strong>Lighthouse:</strong> Una herramienta de auditoría de código abierto integrada en Chrome DevTools.  Analiza diversos aspectos de la calidad web, incluyendo la accesibilidad, rendimiento y SEO.  Genera un informe detallado con sugerencias para mejorar la accesibilidad.</li>
+  <li><strong>axe:</strong> Una herramienta de testing de accesibilidad ampliamente utilizada, disponible como extensión de navegador, herramienta de línea de comandos y API.  Ofrece una amplia cobertura de las pautas WCAG y permite integrar el testing en el flujo de trabajo de desarrollo continuo.</li>
+  <li><strong>aXe-core:</strong> La biblioteca de JavaScript que impulsa axe, permitiendo su integración en entornos de testing automatizado como Jest y Cypress.</li>
+  <li><strong>Pa11y:</strong> Una herramienta de línea de comandos que analiza la accesibilidad de una URL especificada.  Es ideal para la integración en pipelines de CI/CD.</li>
+  <li><strong>Accessibility Insights for Web:</strong> Una extensión de navegador de Microsoft que proporciona una variedad de herramientas para evaluar la accesibilidad de un sitio web, incluyendo un análisis automatizado y pruebas manuales asistidas.</li>
+</ul>
+
+<h3>Integración en el Flujo de Trabajo de Desarrollo</h3>
+<p>La integración del testing de accesibilidad automatizado en el flujo de trabajo de desarrollo es fundamental para asegurar una alta calidad de accesibilidad.  Esto se puede lograr a través de diferentes estrategias:</p>
+
+<ol>
+  <li><strong>Integración continua/entrega continua (CI/CD):</strong>  Incorporar las herramientas de testing de accesibilidad en el pipeline de CI/CD permite la detección temprana de problemas de accesibilidad, antes de que el código sea desplegado en producción.</li>
+  <li><strong>Testing de unidad:</strong> Para componentes específicos, se pueden escribir pruebas unitarias que verifiquen la accesibilidad de los elementos individuales.</li>
+  <li><strong>Testing de integración:</strong>  Las pruebas de integración pueden verificar la accesibilidad de la interacción entre diferentes componentes de la aplicación.</li>
+  <li><strong>Testing end-to-end:</strong> Las pruebas end-to-end simulan el flujo de un usuario real y permiten detectar problemas de accesibilidad en el contexto de la aplicación completa.</li>
+</ol>
+
+
+<h3>Ejemplo de uso de axe-core con Jest</h3>
+<p>A continuación, se muestra un ejemplo de cómo usar axe-core con Jest para realizar pruebas de accesibilidad unitarias:</p>
+
+<pre><code class="language-javascript">
+const { axe } = require('axe-core');
+
+test('El componente de botón es accesible', async () => {
+  const button = document.createElement('button');
+  button.textContent = 'Haz clic aquí';
+  document.body.appendChild(button);
+
+  const results = await axe.run();
+  expect(results).toHaveNoViolations();
+});
+</code></pre>
+
+<p>Este ejemplo verifica si un simple botón cumple con las pautas de accesibilidad.  En entornos más complejos, se requerirán pruebas más exhaustivas.</p>
+
+<h3>Limitaciones del Testing de Accesibilidad Automatizado</h3>
+<p>Es importante tener en cuenta que el testing de accesibilidad automatizado no es perfecto.  Tiene algunas limitaciones significativas:</p>
+
+<ul>
+  <li><strong>Falsos positivos y falsos negativos:</strong> Las herramientas pueden reportar problemas que no son realmente problemas de accesibilidad (falsos positivos) o no detectar problemas reales (falsos negativos).</li>
+  <li><strong>Contexto y significado:</strong> Las herramientas a menudo no pueden comprender el contexto y el significado del contenido, lo que puede llevar a resultados inexactos.</li>
+  <li><strong>Pruebas de usuario:</strong> Las pruebas automatizadas no pueden reemplazar las pruebas de usuario con personas con discapacidades, que son cruciales para obtener una perspectiva real sobre la usabilidad de la aplicación.</li>
+</ul>
+
+
+<h2>Conclusión</h2>
+<p>El testing de accesibilidad automatizado es una herramienta poderosa para mejorar la accesibilidad de las aplicaciones web.  Si bien no puede reemplazar las pruebas manuales y las pruebas con usuarios, su integración en el flujo de trabajo de desarrollo permite la detección temprana de problemas y mejora la eficiencia del proceso de testing.  Es crucial seleccionar las herramientas adecuadas, comprender sus limitaciones y complementarlas con otras estrategias de testing para asegurar una experiencia web accesible para todos.</p>
+<p>Recuerda que la accesibilidad no es solo una cuestión técnica, sino también una cuestión ética y legal.  Invertir en testing de accesibilidad es invertir en la inclusión y en una mejor experiencia de usuario para todos.</p>
+
+
+                </article>
+                
+                <!-- Etiquetas -->
+                <div class="article-tags">
+                    {{#TAGS}}
+                    <a href="/blog/tag/{{.}}" class="tag">#{{.}}</a>
+                    {{/TAGS}}
+                </div>
+                
+                <!-- Botones para compartir -->
+                <div class="share-buttons mb-5">
+                    <h4 class="mb-3">Compartir este artículo:</h4>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="#" onclick="shareOnTwitter()" class="btn btn-outline-primary btn-sm">
+                            <i class="fab fa-twitter me-1"></i> Twitter
+                        </a>
+                        <a href="#" onclick="shareOnFacebook()" class="btn btn-outline-primary btn-sm">
+                            <i class="fab fa-facebook-f me-1"></i> Facebook
+                        </a>
+                        <a href="#" onclick="shareOnLinkedIn()" class="btn btn-outline-primary btn-sm">
+                            <i class="fab fa-linkedin-in me-1"></i> LinkedIn
+                        </a>
+                        <a href="#" onclick="shareOnWhatsApp()" class="btn btn-outline-primary btn-sm">
+                            <i class="fab fa-whatsapp me-1"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Autor -->
+                <div class="author-card bg-dark p-4 rounded-3 mt-5">
+                    <div class="d-flex align-items-center">
+                        <img src="/logos-he-imagenes/logo.png" alt="hgaruna" class="rounded-circle me-3" width="80" height="80">
+                        <div>
+                            <h4 class="mb-1">hgaruna</h4>
+                            <p class="text-muted mb-2">Experto en desarrollo web y tecnología</p>
+                            <div class="social-links">
+                                <a href="https://twitter.com/hgaruna" class="text-primary me-3" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-twitter fa-lg"></i>
+                                </a>
+                                <a href="https://github.com/hgaruna" class="text-primary me-3" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github fa-lg"></i>
+                                </a>
+                                <a href="https://linkedin.com/in/hgaruna" class="text-primary" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-linkedin-in fa-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="article-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h3 class="mb-4">¿Te gustó este artículo?</h3>
+                    <p class="lead mb-4">Suscríbete a nuestro boletín para recibir más contenido como este directamente en tu correo.</p>
+                    <form class="row g-3 justify-content-center">
+                        <div class="col-md-8">
+                            <input type="email" class="form-control form-control-lg" placeholder="Tu correo electrónico" required>
+                        </div>
+                        <div class="col-md-auto">
+                            <button type="submit" class="btn btn-primary btn-lg">Suscribirme</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Obtener el título y la URL actual
+        const currentUrl = encodeURIComponent(window.location.href);
+        const currentTitle = encodeURIComponent(document.title);
+        
+        // Función para compartir en Twitter
+        function shareOnTwitter() {
+            const text = `${currentTitle} por @hgaruna`;
+            window.open(`https://twitter.com/intent/tweet?url=${currentUrl}&text=${text}`, '_blank', 'width=550,height=420');
+            return false;
+        }
+        
+        // Función para compartir en Facebook
+        function shareOnFacebook() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`, '_blank', 'width=600,height=500');
+            return false;
+        }
+        
+        // Función para compartir en LinkedIn
+        function shareOnLinkedIn() {
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`, '_blank', 'width=600,height=500');
+            return false;
+        }
+        
+        // Función para compartir en WhatsApp
+        function shareOnWhatsApp() {
+            const text = `${currentTitle} - ${currentUrl}`;
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+            return false;
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                const onclick = link.getAttribute('onclick');
+                link.setAttribute('onclick', onclick.replace(/https://hgaruna.org/blog/testing-de-accesibilidad-automatizado.html/g, currentUrl));
+            });
+        });
+        
+        // Efecto de scroll suave para los enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
