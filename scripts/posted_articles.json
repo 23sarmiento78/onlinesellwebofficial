@@ -49,5 +49,8 @@
   "svelte-vs-react-comparativa-completa",
   "orm-vs-query-builder-ventajas-y-desventajas",
   "monorepo-vs-polyrepo-estrategias",
-  "backup-y-recuperacion-de-datos"
+  "backup-y-recuperacion-de-datos",
+  "owasp-top-10-vulnerabilidades-web",
+  "profiling-analisis-de-rendimiento",
+  "google-cloud-functions-plataforma-serverless"
 ]
