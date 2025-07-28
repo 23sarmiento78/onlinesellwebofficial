@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta name="category" content="Seguridad">
+    <meta name="category" content="Arquitectura y Patrones">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
-    <title>OWASP Top 10: Vulnerabilidades web</title>
-    <meta name="description" content="La seguridad web es crucial en el mundo digital actual.  Una vulnerabilidad puede tener consecuencias devastadoras, desde la pérdida de datos hasta el robo de i...">
-    <meta name="keywords" content="JavaScript, Vue.js, API, Seguridad, IA, Bases de Datos">
+    <title>Monorepo vs Polyrepo: Estrategias</title>
+    <meta name="description" content="La elección entre un monorepositorio (monorepo) y múltiples repositorios (polyrepo) es una decisión crucial en la arquitectura de un proyecto de software, con i...">
+    <meta name="keywords" content="JavaScript, IA">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.hgaruna.org/blog/owasp-top-10-vulnerabilidades-web.html">
-    <meta property="og:title" content="OWASP Top 10: Vulnerabilidades web">
-    <meta property="og:description" content="La seguridad web es crucial en el mundo digital actual.  Una vulnerabilidad puede tener consecuencias devastadoras, desde la pérdida de datos hasta el robo de i...">
+    <meta property="og:url" content="https://www.hgaruna.org/blog/monorepo-vs-polyrepo-estrategias.html">
+    <meta property="og:title" content="Monorepo vs Polyrepo: Estrategias">
+    <meta property="og:description" content="La elección entre un monorepositorio (monorepo) y múltiples repositorios (polyrepo) es una decisión crucial en la arquitectura de un proyecto de software, con i...">
     <meta property="og:image" content="https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg"> <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.hgaruna.org/blog/owasp-top-10-vulnerabilidades-web.html">
-    <meta property="twitter:title" content="OWASP Top 10: Vulnerabilidades web">
-    <meta property="twitter:description" content="La seguridad web es crucial en el mundo digital actual.  Una vulnerabilidad puede tener consecuencias devastadoras, desde la pérdida de datos hasta el robo de i...">
-    <meta property="twitter:image" content="{{SITE_URL}}/logos-he-imagenes/programacion.jpeg"> <link rel="canonical" href="https://www.hgaruna.org/blog/owasp-top-10-vulnerabilidades-web.html">
+    <meta property="twitter:url" content="https://www.hgaruna.org/blog/monorepo-vs-polyrepo-estrategias.html">
+    <meta property="twitter:title" content="Monorepo vs Polyrepo: Estrategias">
+    <meta property="twitter:description" content="La elección entre un monorepositorio (monorepo) y múltiples repositorios (polyrepo) es una decisión crucial en la arquitectura de un proyecto de software, con i...">
+    <meta property="twitter:image" content="{{SITE_URL}}/logos-he-imagenes/programacion.jpeg"> <link rel="canonical" href="https://www.hgaruna.org/blog/monorepo-vs-polyrepo-estrategias.html">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -122,89 +122,96 @@
         /* IMPORTANT: Remove h1 styling from content if you only use h1 in header */
         /* If Gemini generates h1 in content, this might be okay, but typically you have one h1 per page */
         .article-content h1 { /* This styling applies to any h1 generated in <article>
-<p>La seguridad web es crucial en el mundo digital actual.  Una vulnerabilidad puede tener consecuencias devastadoras, desde la pérdida de datos hasta el robo de información confidencial y el daño a la reputación de una organización.  La Open Web Application Security Project (OWASP) publica anualmente una lista de las diez vulnerabilidades web más críticas, la OWASP Top 10, que sirve como guía esencial para desarrolladores y profesionales de seguridad. Este artículo profundiza en cada una de estas vulnerabilidades, proporcionando ejemplos y mejores prácticas para mitigar los riesgos.</p>
+<p>La elección entre un monorepositorio (monorepo) y múltiples repositorios (polyrepo) es una decisión crucial en la arquitectura de un proyecto de software, con implicaciones significativas en la gestión del código, la colaboración y la eficiencia del equipo.  Esta decisión no tiene una respuesta correcta universal; la mejor estrategia depende de factores como el tamaño del equipo, la complejidad del proyecto, la frecuencia de las actualizaciones y las herramientas disponibles. Este artículo explorará las ventajas y desventajas de cada enfoque, proporcionando una guía para tomar una decisión informada.</p>
 
-<h2>A1: Inyección</h2>
-<p>La inyección es una de las vulnerabilidades más comunes y peligrosas. Ocurre cuando un atacante inserta código malicioso en las entradas de una aplicación web, como formularios o parámetros de URL, para ejecutar comandos no autorizados en el servidor.  Esto puede permitir a un atacante acceder a datos sensibles, modificar la base de datos o incluso tomar el control completo del servidor.</p>
+<h2>Monorepositorios (Monorepo)</h2>
+<p>Un monorepositorio es un enfoque de gestión de código donde todo el código de una organización o un gran proyecto reside en un único repositorio.  Esto incluye bibliotecas, servicios, aplicaciones web, y cualquier otro componente del sistema.</p>
 
-<h3>Ejemplos de Inyección</h3>
-<p>Los tipos más comunes de inyección incluyen:</p>
+<h3>Ventajas del Monorepo</h3>
 <ul>
-  <li><strong>Inyección SQL:</strong> El atacante inserta código SQL malicioso en un formulario para manipular las consultas a la base de datos.</li>
-  <li><strong>Inyección de comandos:</strong> El atacante inyecta comandos del sistema operativo en los parámetros de una aplicación para ejecutarlos en el servidor.</li>
-  <li><strong>Inyección XSS (Cross-Site Scripting):</strong> El atacante inyecta scripts en el sitio web para robar cookies, redirigir a los usuarios a sitios maliciosos o manipular el contenido del sitio.</li>
+  <li><strong>Facilidad de refactorización:</strong>  Cambios en una biblioteca se pueden aplicar fácilmente a todas las aplicaciones que la utilizan.  Esto simplifica la gestión de dependencias y reduce la duplicación de código.</li>
+  <li><strong>Reutilización de código:</strong>  Compartir código entre diferentes partes del proyecto es sencillo, fomentando la consistencia y reduciendo la redundancia.</li>
+  <li><strong>Simplicidad en la gestión de dependencias:</strong>  Todas las dependencias se gestionan dentro del mismo repositorio, lo que facilita la actualización y la resolución de conflictos.</li>
+  <li><strong>Colaboración mejorada:</strong>  Todos los desarrolladores tienen acceso a todo el código, lo que facilita la colaboración y el conocimiento compartido.</li>
+  <li><strong>Tests unificados:</strong>  Se pueden ejecutar pruebas a través de toda la base de código de forma sencilla, garantizando una mayor calidad del software.</li>
 </ul>
 
-<pre><code class="language-sql">
--- Ejemplo de inyección SQL:
-SELECT * FROM users WHERE username = 'admin' OR '1'='1'; -- Siempre devuelve true
-</code></pre>
-
-<blockquote>"La prevención de la inyección requiere una validación y sanitización rigurosa de todas las entradas de usuario."</blockquote>
-
-<h2>A2: Fallos de autenticación</h2>
-<p>Los fallos de autenticación permiten a los atacantes acceder a cuentas de usuario sin las credenciales adecuadas. Esto puede suceder debido a contraseñas débiles, gestión de sesiones insegura o falta de autenticación multifactor.</p>
-
-<h3>Mejores Prácticas para la Autenticación</h3>
+<h3>Desventajas del Monorepo</h3>
 <ul>
-  <li>Implementar contraseñas seguras y obligar a los usuarios a cambiarlas periódicamente.</li>
-  <li>Utilizar protocolos de autenticación robustos como OAuth 2.0 o OpenID Connect.</li>
-  <li>Implementar la autenticación multifactor para añadir una capa adicional de seguridad.</li>
+  <li><strong>Tamaño del repositorio:</strong>  El repositorio puede llegar a ser muy grande, lo que puede ralentizar las operaciones de clonación, construcción y búsqueda.</li>
+  <li><strong>Control de acceso:</strong>  Gestionar los permisos de acceso a un repositorio tan grande puede ser complejo.</li>
+  <li><strong>Curva de aprendizaje:</strong>  Se requiere un proceso de desarrollo bien establecido y el uso de herramientas adecuadas para gestionar eficientemente un monorepo.</li>
+  <li><strong>Escalabilidad:</strong>  Si el proyecto crece enormemente, la gestión del monorepo puede volverse difícil.</li>
 </ul>
 
-<h2>A3: Ruptura de autorización</h2>
-<p>Incluso con una autenticación exitosa, la ruptura de autorización permite a los atacantes acceder a recursos o funcionalidades que no deberían tener permiso para utilizar.  Esto puede ocurrir debido a una configuración incorrecta de los permisos o a la falta de validación de los roles de usuario.</p>
-
-<h3>Ejemplo de Ruptura de Autorización</h3>
-<p>Un usuario con privilegios de lectura puede intentar acceder a una función de escritura explotando una falla en la validación de roles.</p>
-
-
-<h2>A4: Exposición de información</h2>
-<p>La exposición de información ocurre cuando una aplicación web revela información sensible, como datos de usuario, claves API o información de configuración del servidor.  Esto puede ser debido a una configuración incorrecta del servidor, errores de programación o falta de manejo adecuado de las excepciones.</p>
-
-<h3>Mitigar la Exposición de Información</h3>
-<p>Es crucial implementar medidas para proteger la información sensible, incluyendo:</p>
-<ul>
-    <li>Configurar correctamente los servidores web para evitar la revelación de información innecesaria.</li>
-    <li>Manejar adecuadamente las excepciones y los errores para evitar la divulgación de información sensible.</li>
-    <li>Implementar el principio de mínimo privilegio, otorgando a los usuarios solo los permisos necesarios.</li>
-</ul>
-
-<h2>A5: Fallos de configuración de seguridad</h2>
-<p>Los fallos de configuración de seguridad son a menudo la causa raíz de muchas vulnerabilidades.  Una configuración incorrecta del servidor web, la base de datos o la aplicación misma puede exponer a la aplicación a ataques.  Esto incluye la falta de parches de seguridad, la configuración incorrecta de los firewalls o la falta de control de acceso.</p>
-
+<h3>Ejemplo de Estructura de un Monorepo</h3>
 <pre><code class="language-javascript">
-// Ejemplo de código vulnerable a inyección XSS:
-const userName = req.query.userName;
-res.send("Hola, " + userName + "!"); // Sin sanear la entrada
+// Estructura de carpetas de un monorepo típico
+my-monorepo/
+├── packages/
+│   ├── package-a/
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── ...
+│   ├── package-b/
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── ...
+│   └── package-c/
+│       ├── src/
+│       ├── package.json
+│       └── ...
+├── apps/
+│   ├── app-1/
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── ...
+│   └── app-2/
+│       ├── src/
+│       ├── package.json
+│       └── ...
+└── package.json // package.json principal para el monorepo
+
 </code></pre>
 
-<pre><code class="language-javascript">
-// Ejemplo de código seguro:
-const userName = DOMPurify.sanitize(req.query.userName); // Sanitizando la entrada
-res.send("Hola, " + userName + "!");
+
+<h2>Polirepositorios (Polyrepo)</h2>
+<p>Un polyrepo es un enfoque donde cada componente, biblioteca o aplicación tiene su propio repositorio independiente.  Esto permite una mayor autonomía y escalabilidad.</p>
+
+<h3>Ventajas del Polyrepo</h3>
+<ul>
+  <li><strong>Escalabilidad:</strong>  Es más fácil escalar el desarrollo, ya que cada equipo puede trabajar de forma independiente en su propio repositorio.</li>
+  <li><strong>Control de acceso granular:</strong>  Se pueden establecer permisos de acceso más precisos para cada repositorio.</li>
+  <li><strong>Tamaño de repositorio pequeño:</strong>  Los repositorios son más pequeños y fáciles de clonar y gestionar.</li>
+  <li><strong>Independencia de los equipos:</strong>  Los equipos pueden trabajar de forma más independiente y con mayor autonomía.</li>
+</ul>
+
+<h3>Desventajas del Polyrepo</h3>
+<ul>
+  <li><strong>Complejidad en la gestión de dependencias:</strong>  Gestionar las dependencias entre diferentes repositorios puede ser complejo y propenso a errores.</li>
+  <li><strong>Refactorización dificultosa:</strong>  Aplicar cambios a una biblioteca que se utiliza en múltiples aplicaciones requiere actualizar cada repositorio individualmente.</li>
+  <li><strong>Duplicación de código:</strong>  Es más probable la duplicación de código si no se gestiona adecuadamente la reutilización.</li>
+  <li><strong>Dificultad en la colaboración:</strong>  La colaboración entre equipos puede ser más difícil debido a la separación de los repositorios.</li>
+</ul>
+
+
+<h3>Ejemplo de Gestión de Dependencias en Polyrepo</h3>
+<p>Imaginemos que la aplicación "App A" depende de la biblioteca "Lib X" que reside en un repositorio separado.  Para actualizar "Lib X", se debe actualizar la dependencia en el archivo <code>package.json</code> de "App A" y luego realizar un nuevo despliegue.</p>
+<pre><code class="language-json">
+// package.json de App A
+{
+  "name": "app-a",
+  "version": "1.0.0",
+  "dependencies": {
+    "lib-x": "git+https://github.com/myorg/lib-x.git"
+  }
+}
 </code></pre>
 
-<h2>A6: Vulnerabilidades y errores de diseño de seguridad</h2>
-<p>Las vulnerabilidades y errores de diseño de seguridad son deficiencias en la arquitectura o el diseño de la aplicación que pueden ser explotadas por atacantes.  Esto incluye la falta de autenticación adecuada, la gestión de sesiones insegura o la falta de validación de datos.</p>
+<blockquote>"La elección entre monorepo y polyrepo no es una decisión binaria, sino un espectro.  Algunas organizaciones incluso utilizan un híbrido de ambos enfoques."</blockquote>
 
-<h2>A7: Gestión de acceso a recursos inseguros</h2>
-<p>La gestión de acceso a recursos inseguros se refiere a la falta de control sobre el acceso a recursos como archivos, directorios o bases de datos. Esto puede permitir a los atacantes acceder a información sensible o modificar datos críticos.</p>
-
-
-<h2>A8: Protección insuficiente contra XSS</h2>
-<p>El Cross-Site Scripting (XSS) permite a los atacantes inyectar scripts maliciosos en un sitio web para robar información de usuario o manipular el comportamiento del sitio. La protección insuficiente contra XSS se produce cuando la aplicación web no sanitiza adecuadamente las entradas del usuario antes de mostrarlas en la página.</p>
-
-
-<h2>A9: Uso de componentes con vulnerabilidades conocidas</h2>
-<p>Utilizar componentes de software con vulnerabilidades conocidas es una práctica peligrosa que expone a la aplicación a ataques. Es fundamental mantener actualizados todos los componentes de software y utilizar solo componentes de fuentes confiables.</p>
-
-
-<h2>A10:  Falta de control de acceso a la configuración de seguridad</h2>
-<p>La falta de control de acceso a la configuración de seguridad permite a los atacantes modificar la configuración de la aplicación, el servidor o la base de datos para obtener acceso no autorizado o comprometer la seguridad del sistema. Es crucial implementar controles de acceso adecuados para proteger la configuración de seguridad.</p>
-
-
-<p>La OWASP Top 10 proporciona una valiosa guía para mejorar la seguridad de las aplicaciones web.  Implementar las mejores prácticas descritas anteriormente es fundamental para proteger las aplicaciones de las vulnerabilidades más comunes y garantizar la seguridad de los datos y los usuarios.</p>
+<h2>Conclusión</h2>
+<p>La mejor estrategia, monorepo o polyrepo, depende del contexto específico del proyecto.  Los monorepositorios son ideales para proyectos más pequeños con equipos estrechamente colaborativos, mientras que los polyrepositorios son más adecuados para proyectos grandes y complejos con equipos más independientes.  Una cuidadosa consideración de las ventajas y desventajas de cada enfoque, junto con una evaluación de las necesidades del proyecto y del equipo, es crucial para tomar la decisión más adecuada.</p>
 </article>
  */
             font-size: 2.5rem;
@@ -602,9 +609,9 @@ res.send("Hola, " + userName + "!");
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 mx-auto text-center">
-                    <h1 class="article-title">OWASP Top 10: Vulnerabilidades web</h1>
+                    <h1 class="article-title">Monorepo vs Polyrepo: Estrategias</h1>
                     <div class="article-meta justify-content-center">
-                        <span><i class="far fa-calendar-alt" aria-hidden="true"></i> 2025-07-28</span> <span><i class="far fa-clock" aria-hidden="true"></i> 5 min de lectura</span>
+                        <span><i class="far fa-calendar-alt" aria-hidden="true"></i> 2025-07-28</span> <span><i class="far fa-clock" aria-hidden="true"></i> 4 min de lectura</span>
                         <span><i class="far fa-user" aria-hidden="true"></i> Por hgaruna</span>
                     </div>
                 </div>
@@ -616,99 +623,106 @@ res.send("Hola, " + userName + "!");
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <div class="featured-image mb-5 text-center">
-                    <img src="/logos-he-imagenes/programacion.jpeg" alt="La seguridad web es crucial en el mundo digital actual.  Una vulnerabilidad puede tener consecuencias devastadoras, desde la pérdida de datos hasta el robo de i..." class="img-fluid rounded-3"> </div>
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="La elección entre un monorepositorio (monorepo) y múltiples repositorios (polyrepo) es una decisión crucial en la arquitectura de un proyecto de software, con i..." class="img-fluid rounded-3"> </div>
                 
                 <article class="article-content">
                     <article>
-<p>La seguridad web es crucial en el mundo digital actual.  Una vulnerabilidad puede tener consecuencias devastadoras, desde la pérdida de datos hasta el robo de información confidencial y el daño a la reputación de una organización.  La Open Web Application Security Project (OWASP) publica anualmente una lista de las diez vulnerabilidades web más críticas, la OWASP Top 10, que sirve como guía esencial para desarrolladores y profesionales de seguridad. Este artículo profundiza en cada una de estas vulnerabilidades, proporcionando ejemplos y mejores prácticas para mitigar los riesgos.</p>
+<p>La elección entre un monorepositorio (monorepo) y múltiples repositorios (polyrepo) es una decisión crucial en la arquitectura de un proyecto de software, con implicaciones significativas en la gestión del código, la colaboración y la eficiencia del equipo.  Esta decisión no tiene una respuesta correcta universal; la mejor estrategia depende de factores como el tamaño del equipo, la complejidad del proyecto, la frecuencia de las actualizaciones y las herramientas disponibles. Este artículo explorará las ventajas y desventajas de cada enfoque, proporcionando una guía para tomar una decisión informada.</p>
 
-<h2>A1: Inyección</h2>
-<p>La inyección es una de las vulnerabilidades más comunes y peligrosas. Ocurre cuando un atacante inserta código malicioso en las entradas de una aplicación web, como formularios o parámetros de URL, para ejecutar comandos no autorizados en el servidor.  Esto puede permitir a un atacante acceder a datos sensibles, modificar la base de datos o incluso tomar el control completo del servidor.</p>
+<h2>Monorepositorios (Monorepo)</h2>
+<p>Un monorepositorio es un enfoque de gestión de código donde todo el código de una organización o un gran proyecto reside en un único repositorio.  Esto incluye bibliotecas, servicios, aplicaciones web, y cualquier otro componente del sistema.</p>
 
-<h3>Ejemplos de Inyección</h3>
-<p>Los tipos más comunes de inyección incluyen:</p>
+<h3>Ventajas del Monorepo</h3>
 <ul>
-  <li><strong>Inyección SQL:</strong> El atacante inserta código SQL malicioso en un formulario para manipular las consultas a la base de datos.</li>
-  <li><strong>Inyección de comandos:</strong> El atacante inyecta comandos del sistema operativo en los parámetros de una aplicación para ejecutarlos en el servidor.</li>
-  <li><strong>Inyección XSS (Cross-Site Scripting):</strong> El atacante inyecta scripts en el sitio web para robar cookies, redirigir a los usuarios a sitios maliciosos o manipular el contenido del sitio.</li>
+  <li><strong>Facilidad de refactorización:</strong>  Cambios en una biblioteca se pueden aplicar fácilmente a todas las aplicaciones que la utilizan.  Esto simplifica la gestión de dependencias y reduce la duplicación de código.</li>
+  <li><strong>Reutilización de código:</strong>  Compartir código entre diferentes partes del proyecto es sencillo, fomentando la consistencia y reduciendo la redundancia.</li>
+  <li><strong>Simplicidad en la gestión de dependencias:</strong>  Todas las dependencias se gestionan dentro del mismo repositorio, lo que facilita la actualización y la resolución de conflictos.</li>
+  <li><strong>Colaboración mejorada:</strong>  Todos los desarrolladores tienen acceso a todo el código, lo que facilita la colaboración y el conocimiento compartido.</li>
+  <li><strong>Tests unificados:</strong>  Se pueden ejecutar pruebas a través de toda la base de código de forma sencilla, garantizando una mayor calidad del software.</li>
 </ul>
 
-<pre><code class="language-sql">
--- Ejemplo de inyección SQL:
-SELECT * FROM users WHERE username = 'admin' OR '1'='1'; -- Siempre devuelve true
-</code></pre>
-
-<blockquote>"La prevención de la inyección requiere una validación y sanitización rigurosa de todas las entradas de usuario."</blockquote>
-
-<h2>A2: Fallos de autenticación</h2>
-<p>Los fallos de autenticación permiten a los atacantes acceder a cuentas de usuario sin las credenciales adecuadas. Esto puede suceder debido a contraseñas débiles, gestión de sesiones insegura o falta de autenticación multifactor.</p>
-
-<h3>Mejores Prácticas para la Autenticación</h3>
+<h3>Desventajas del Monorepo</h3>
 <ul>
-  <li>Implementar contraseñas seguras y obligar a los usuarios a cambiarlas periódicamente.</li>
-  <li>Utilizar protocolos de autenticación robustos como OAuth 2.0 o OpenID Connect.</li>
-  <li>Implementar la autenticación multifactor para añadir una capa adicional de seguridad.</li>
+  <li><strong>Tamaño del repositorio:</strong>  El repositorio puede llegar a ser muy grande, lo que puede ralentizar las operaciones de clonación, construcción y búsqueda.</li>
+  <li><strong>Control de acceso:</strong>  Gestionar los permisos de acceso a un repositorio tan grande puede ser complejo.</li>
+  <li><strong>Curva de aprendizaje:</strong>  Se requiere un proceso de desarrollo bien establecido y el uso de herramientas adecuadas para gestionar eficientemente un monorepo.</li>
+  <li><strong>Escalabilidad:</strong>  Si el proyecto crece enormemente, la gestión del monorepo puede volverse difícil.</li>
 </ul>
 
-<h2>A3: Ruptura de autorización</h2>
-<p>Incluso con una autenticación exitosa, la ruptura de autorización permite a los atacantes acceder a recursos o funcionalidades que no deberían tener permiso para utilizar.  Esto puede ocurrir debido a una configuración incorrecta de los permisos o a la falta de validación de los roles de usuario.</p>
-
-<h3>Ejemplo de Ruptura de Autorización</h3>
-<p>Un usuario con privilegios de lectura puede intentar acceder a una función de escritura explotando una falla en la validación de roles.</p>
-
-
-<h2>A4: Exposición de información</h2>
-<p>La exposición de información ocurre cuando una aplicación web revela información sensible, como datos de usuario, claves API o información de configuración del servidor.  Esto puede ser debido a una configuración incorrecta del servidor, errores de programación o falta de manejo adecuado de las excepciones.</p>
-
-<h3>Mitigar la Exposición de Información</h3>
-<p>Es crucial implementar medidas para proteger la información sensible, incluyendo:</p>
-<ul>
-    <li>Configurar correctamente los servidores web para evitar la revelación de información innecesaria.</li>
-    <li>Manejar adecuadamente las excepciones y los errores para evitar la divulgación de información sensible.</li>
-    <li>Implementar el principio de mínimo privilegio, otorgando a los usuarios solo los permisos necesarios.</li>
-</ul>
-
-<h2>A5: Fallos de configuración de seguridad</h2>
-<p>Los fallos de configuración de seguridad son a menudo la causa raíz de muchas vulnerabilidades.  Una configuración incorrecta del servidor web, la base de datos o la aplicación misma puede exponer a la aplicación a ataques.  Esto incluye la falta de parches de seguridad, la configuración incorrecta de los firewalls o la falta de control de acceso.</p>
-
+<h3>Ejemplo de Estructura de un Monorepo</h3>
 <pre><code class="language-javascript">
-// Ejemplo de código vulnerable a inyección XSS:
-const userName = req.query.userName;
-res.send("Hola, " + userName + "!"); // Sin sanear la entrada
+// Estructura de carpetas de un monorepo típico
+my-monorepo/
+├── packages/
+│   ├── package-a/
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── ...
+│   ├── package-b/
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── ...
+│   └── package-c/
+│       ├── src/
+│       ├── package.json
+│       └── ...
+├── apps/
+│   ├── app-1/
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── ...
+│   └── app-2/
+│       ├── src/
+│       ├── package.json
+│       └── ...
+└── package.json // package.json principal para el monorepo
+
 </code></pre>
 
-<pre><code class="language-javascript">
-// Ejemplo de código seguro:
-const userName = DOMPurify.sanitize(req.query.userName); // Sanitizando la entrada
-res.send("Hola, " + userName + "!");
+
+<h2>Polirepositorios (Polyrepo)</h2>
+<p>Un polyrepo es un enfoque donde cada componente, biblioteca o aplicación tiene su propio repositorio independiente.  Esto permite una mayor autonomía y escalabilidad.</p>
+
+<h3>Ventajas del Polyrepo</h3>
+<ul>
+  <li><strong>Escalabilidad:</strong>  Es más fácil escalar el desarrollo, ya que cada equipo puede trabajar de forma independiente en su propio repositorio.</li>
+  <li><strong>Control de acceso granular:</strong>  Se pueden establecer permisos de acceso más precisos para cada repositorio.</li>
+  <li><strong>Tamaño de repositorio pequeño:</strong>  Los repositorios son más pequeños y fáciles de clonar y gestionar.</li>
+  <li><strong>Independencia de los equipos:</strong>  Los equipos pueden trabajar de forma más independiente y con mayor autonomía.</li>
+</ul>
+
+<h3>Desventajas del Polyrepo</h3>
+<ul>
+  <li><strong>Complejidad en la gestión de dependencias:</strong>  Gestionar las dependencias entre diferentes repositorios puede ser complejo y propenso a errores.</li>
+  <li><strong>Refactorización dificultosa:</strong>  Aplicar cambios a una biblioteca que se utiliza en múltiples aplicaciones requiere actualizar cada repositorio individualmente.</li>
+  <li><strong>Duplicación de código:</strong>  Es más probable la duplicación de código si no se gestiona adecuadamente la reutilización.</li>
+  <li><strong>Dificultad en la colaboración:</strong>  La colaboración entre equipos puede ser más difícil debido a la separación de los repositorios.</li>
+</ul>
+
+
+<h3>Ejemplo de Gestión de Dependencias en Polyrepo</h3>
+<p>Imaginemos que la aplicación "App A" depende de la biblioteca "Lib X" que reside en un repositorio separado.  Para actualizar "Lib X", se debe actualizar la dependencia en el archivo <code>package.json</code> de "App A" y luego realizar un nuevo despliegue.</p>
+<pre><code class="language-json">
+// package.json de App A
+{
+  "name": "app-a",
+  "version": "1.0.0",
+  "dependencies": {
+    "lib-x": "git+https://github.com/myorg/lib-x.git"
+  }
+}
 </code></pre>
 
-<h2>A6: Vulnerabilidades y errores de diseño de seguridad</h2>
-<p>Las vulnerabilidades y errores de diseño de seguridad son deficiencias en la arquitectura o el diseño de la aplicación que pueden ser explotadas por atacantes.  Esto incluye la falta de autenticación adecuada, la gestión de sesiones insegura o la falta de validación de datos.</p>
+<blockquote>"La elección entre monorepo y polyrepo no es una decisión binaria, sino un espectro.  Algunas organizaciones incluso utilizan un híbrido de ambos enfoques."</blockquote>
 
-<h2>A7: Gestión de acceso a recursos inseguros</h2>
-<p>La gestión de acceso a recursos inseguros se refiere a la falta de control sobre el acceso a recursos como archivos, directorios o bases de datos. Esto puede permitir a los atacantes acceder a información sensible o modificar datos críticos.</p>
-
-
-<h2>A8: Protección insuficiente contra XSS</h2>
-<p>El Cross-Site Scripting (XSS) permite a los atacantes inyectar scripts maliciosos en un sitio web para robar información de usuario o manipular el comportamiento del sitio. La protección insuficiente contra XSS se produce cuando la aplicación web no sanitiza adecuadamente las entradas del usuario antes de mostrarlas en la página.</p>
-
-
-<h2>A9: Uso de componentes con vulnerabilidades conocidas</h2>
-<p>Utilizar componentes de software con vulnerabilidades conocidas es una práctica peligrosa que expone a la aplicación a ataques. Es fundamental mantener actualizados todos los componentes de software y utilizar solo componentes de fuentes confiables.</p>
-
-
-<h2>A10:  Falta de control de acceso a la configuración de seguridad</h2>
-<p>La falta de control de acceso a la configuración de seguridad permite a los atacantes modificar la configuración de la aplicación, el servidor o la base de datos para obtener acceso no autorizado o comprometer la seguridad del sistema. Es crucial implementar controles de acceso adecuados para proteger la configuración de seguridad.</p>
-
-
-<p>La OWASP Top 10 proporciona una valiosa guía para mejorar la seguridad de las aplicaciones web.  Implementar las mejores prácticas descritas anteriormente es fundamental para proteger las aplicaciones de las vulnerabilidades más comunes y garantizar la seguridad de los datos y los usuarios.</p>
+<h2>Conclusión</h2>
+<p>La mejor estrategia, monorepo o polyrepo, depende del contexto específico del proyecto.  Los monorepositorios son ideales para proyectos más pequeños con equipos estrechamente colaborativos, mientras que los polyrepositorios son más adecuados para proyectos grandes y complejos con equipos más independientes.  Una cuidadosa consideración de las ventajas y desventajas de cada enfoque, junto con una evaluación de las necesidades del proyecto y del equipo, es crucial para tomar la decisión más adecuada.</p>
 </article>
 
                 </article>
                 
                 <div class="article-tags">
-                    <a href="/blog/tag/javascript" class="tag">#JavaScript</a><a href="/blog/tag/vuejs" class="tag">#Vue.js</a><a href="/blog/tag/api" class="tag">#API</a><a href="/blog/tag/seguridad" class="tag">#Seguridad</a><a href="/blog/tag/ia" class="tag">#IA</a><a href="/blog/tag/bases-de-datos" class="tag">#Bases de Datos</a> 
+                    <a href="/blog/tag/javascript" class="tag">#JavaScript</a><a href="/blog/tag/ia" class="tag">#IA</a> 
                 </div>
                 
                 <div class="share-buttons mb-5">
@@ -812,7 +826,7 @@ res.send("Hola, " + userName + "!");
             /*
             document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
                 const onclick = link.getAttribute('onclick');
-                link.setAttribute('onclick', onclick.replace(/https://www.hgaruna.org/blog/owasp-top-10-vulnerabilidades-web.html/g, window.location.href));
+                link.setAttribute('onclick', onclick.replace(/https://www.hgaruna.org/blog/monorepo-vs-polyrepo-estrategias.html/g, window.location.href));
             });
             */
 
