@@ -37,23 +37,23 @@ jobs:
           mkdir -p public/blog
           node scripts/generate-html-articles-gemini.js
 
-      - name: 📣 Publicar en Reddit
-        if: success()
-        env:
-          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
-          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
-          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
-          REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
-          REDDIT_SUBREDDITS: 'programming'
-          REDDIT_PREFIX_TEXT: '💡 hgaruna tips y mini consejos de programación:'
-          SITE_URL: ${{ env.SITE_URL }}
-        run: |
-          if [ -f "scripts/publish-to-socials.js" ]; then
-            echo "📢 Ejecutando publicación en Reddit..."
-            node scripts/publish-to-socials.js
-          else
-            echo "⚠️ Script de publicación no encontrado: scripts/publish-to-socials.js"
-          fi
+      #- name: 📣 Publicar en Reddit
+       # if: success()
+       # env:
+        #  REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+        #  REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+        #  REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+        #  REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
+        #  REDDIT_SUBREDDITS: 'programming'
+        #  REDDIT_PREFIX_TEXT: '💡 hgaruna tips y mini consejos de programación:'
+        #  SITE_URL: ${{ env.SITE_URL }}
+       # run: |
+        #  if [ -f "scripts/publish-to-socials.js" ]; then
+         #   echo "📢 Ejecutando publicación en Reddit..."
+          #  node scripts/publish-to-socials.js
+         # else
+         #   echo "⚠️ Script de publicación no encontrado: scripts/publish-to-socials.js"
+         # fi
 
       - name: 🗺️ Actualizar sitemap
         run: |
