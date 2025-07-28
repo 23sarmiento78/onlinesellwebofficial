@@ -46,5 +46,8 @@
   },
   "computer-vision-en-aplicaciones-web",
   "chatbots-implementacion-practica",
-  "svelte-vs-react-comparativa-completa"
+  "svelte-vs-react-comparativa-completa",
+  "orm-vs-query-builder-ventajas-y-desventajas",
+  "monorepo-vs-polyrepo-estrategias",
+  "backup-y-recuperacion-de-datos"
 ]
