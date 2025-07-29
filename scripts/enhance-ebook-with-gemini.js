@@ -19,11 +19,15 @@ const templatePath = path.join(__dirname, 'ebook-template.html');
       process.exit(0);
     }
 
-    // Leer y unir artículos
+    // Leer y unir artículos (eliminando etiquetas <img>)
     const articulos = files.map(filename => {
       const filepath = path.join(blogDir, filename);
       const content = fs.readFileSync(filepath, 'utf-8');
-      return `<article>\n${content}\n</article>`;
+
+      // 🔴 Eliminar todas las etiquetas <img ... >
+      const contenidoLimpio = content.replace(/<img[^>]*>/gi, '');
+
+      return `<article>\n${contenidoLimpio}\n</article>`;
     }).join('\n\n');
 
     // Leer plantilla
