@@ -52,5 +52,8 @@
   "backup-y-recuperacion-de-datos",
   "owasp-top-10-vulnerabilidades-web",
   "profiling-analisis-de-rendimiento",
-  "google-cloud-functions-plataforma-serverless"
+  "google-cloud-functions-plataforma-serverless",
+  "package-managers-npm-yarn-pnpm",
+  "cdn-content-delivery-networks",
+  "indices-de-base-de-datos-optimizacion"
 ]
