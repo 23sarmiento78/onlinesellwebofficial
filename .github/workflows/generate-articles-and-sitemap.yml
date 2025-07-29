@@ -1,7 +1,7 @@
 name: Generar artículos HTML y crear sitemap
 
 on:
-   schedule:
+  schedule:
     # Lunes a Viernes: 8:00 y 16:00 (hora local Argentina)
     - cron: '0 11,19 * * 1-5'
     # Sábados y Domingos: 10:00 y 18:00 (hora local Argentina)
