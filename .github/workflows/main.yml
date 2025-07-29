@@ -1,0 +1,48 @@
+name: Generar eBook profesional
+
+on:
+  schedule:
+    - cron: '0 14 * * 2,5'  # Martes y Viernes a las 11:00 ART
+  workflow_dispatch:
+
+jobs:
+  generar-ebook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: 🔧 Instalar dependencias del sistema
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex wkhtmltopdf
+          npm install
+
+      - name: 🧠 Revisar artículos y aplicar plantilla con Gemini
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          node scripts/enhance-ebook-with-gemini.js
+
+      - name: 📘 Generar PDF con Pandoc
+        run: |
+          mkdir -p public/ebooks
+          pandoc public/blog/ebook_final.html \
+            --from=html \
+            --output=public/ebooks/hgaruna-ebook.pdf \
+            --toc \
+            --metadata title="Hgaruna eBook - Semana $(date +%V)" \
+            --pdf-engine=xelatex
+
+      - name: 📂 Verificar PDF generado
+        run: |
+          ls -lh public/ebooks/hgaruna-ebook.pdf
+
+      - name: 💾 Commit y push del eBook
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add public/ebooks/hgaruna-ebook.pdf
+          git commit -m "[bot] eBook actualizado - Semana $(date +%V)" || echo "Nada para commitear"
+          git push || echo "Nada para pushear"
