@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Hgaruna eBook</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      margin: 50px;
+      line-height: 1.6;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    header img.logo {
+      max-width: 200px;
+      margin-bottom: 20px;
+    }
+    article {
+      margin-bottom: 50px;
+      page-break-after: always;
+    }
+    footer {
+      text-align: center;
+      margin-top: 100px;
+    }
+    .closing-img {
+      max-width: 100%;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="../logos-he-imagenes/logonegro-Photoroom.png" alt="Logo Hgaruna" class="logo">
+    <h1>Consejos y artículos de programación</h1>
+    <h2>Compilación semanal de Hgaruna</h2>
+  </header>
+
+  <main>
+    {{ARTICULOS}}
+  </main>
+
+  <footer>
+    <p>Gracias por leer 💡</p>
+    <img src="../../IMG-20250428-WA0056.jpg" alt="Cierre del eBook" class="closing-img">
+  </footer>
+</body>
+</html>
