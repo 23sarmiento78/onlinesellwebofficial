@@ -28,18 +28,44 @@ jobs:
           node scripts/enhance-ebook-with-gemini.js
 
       - name: 📘 Generar PDF con wkhtmltopdf
-        # Ejecutamos wkhtmltopdf dentro de xvfb para simular un entorno gráfico
-        # y con --enable-local-file-access para permitir acceso a CSS/imágenes locales
-        # y --enable-javascript por si hay scripts en el HTML
         run: |
           mkdir -p public/ebooks
-          # Eliminamos --auto-display
-          xvfb-run wkhtmltopdf \
+          
+          echo "📄 Iniciando generación del PDF..."
+          
+          # Usamos xvfb-run para simular un entorno gráfico
+          xvfb-run --auto-servernum --server-args="-screen 0, 1024x768x24" \
+          wkhtmltopdf \
             --enable-local-file-access \
             --enable-javascript \
             --no-stop-slow-scripts \
+            --disable-smart-shrinking \
+            --dpi 150 \
+            --margin-top 15mm \
+            --margin-bottom 15mm \
+            --margin-left 10mm \
+            --margin-right 10mm \
+            --header-spacing 5 \
+            --footer-spacing 5 \
+            --print-media-type \
+            --javascript-delay 1000 \
+            --no-outline \
+            --encoding UTF-8 \
+            --page-size A4 \
+            --orientation Portrait \
+            --title "Hgaruna - Colección de Artículos" \
+            --footer-center "[page]" \
             public/blog/ebook_final.html public/ebooks/hgaruna-ebook.pdf
-        working-directory: ${{ github.workspace }} # Asegura que el comando se ejecute desde la raíz del repo
+            
+          # Verificar que el PDF se generó correctamente
+          if [ -f "public/ebooks/hgaruna-ebook.pdf" ]; then
+            echo "✅ PDF generado correctamente"
+            ls -lh public/ebooks/hgaruna-ebook.pdf
+          else
+            echo "❌ Error: No se pudo generar el PDF"
+            exit 1
+          fi
+        working-directory: ${{ github.workspace }}
 
       - name: 📂 Verificar PDF generado
         run: |

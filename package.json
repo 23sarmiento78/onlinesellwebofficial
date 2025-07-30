@@ -8,6 +8,7 @@
     "@auth0/auth0-spa-js": "^2.2.0",
     "@builder.io/react": "^8.2.5",
     "@builder.io/sdk": "^6.1.1",
+    "@google/generative-ai": "^0.24.1",
     "@grapesjs/studio-sdk": "^1.0.55",
     "auth0-spa-js": "^1.6.5",
     "bootstrap": "^5.3.3",
@@ -18,6 +19,7 @@
     "google-auth-library": "^9.4.1",
     "googleapis": "^129.0.0",
     "gray-matter": "^4.0.3",
+    "jsdom": "^23.2.0",
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.2.0",
     "marked": "^9.1.6",
@@ -28,9 +30,9 @@
     "react-icons": "^5.5.0",
     "react-markdown": "^9.1.0",
     "react-router-dom": "^7.6.3",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "^0.0.0",
     "sharp": "^0.34.3",
-    "snoowrap": "^1.23.0"
+    "snoowrap": "^1.15.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,11 +43,13 @@
     "generate-html-articles": "node scripts/generate-html-articles.js",
     "update-articles": "node scripts/update-article-list.js",
     "build-with-articles": "npm run generate-articles && npm run generate-html-articles && npm run build",
-    "update-blog": "node scripts/update-blog-articles.js"
+    "update-blog": "node scripts/update-blog-articles.js",
+    "generate-ebook": "node scripts/enhance-ebook-with-gemini.js"
   },
   "devDependencies": {
     "axios": "^1.6.5",
-    "netlify-plugin-formspree": "^1.0.1",
+    "dotenv": "^16.6.1",
+    "netlify-plugin-formspree": "^0.0.3",
     "xml2js": "^0.6.2"
   },
   "browserslist": {
