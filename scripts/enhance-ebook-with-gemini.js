@@ -8,7 +8,7 @@ require('dotenv').config();
 
 // Configuración
 const CONFIG = {
-  BATCH_SIZE: 3, // Tamaño del lote para procesamiento paralelo
+  BATCH_SIZE: 5, // Tamaño del lote para procesamiento paralelo
   DELAY_BETWEEN_BATCHES: 2000, // 2 segundos entre lotes
   MAX_RETRIES: 3, // Número máximo de reintentos para la API
   CACHE_DIR: path.resolve(__dirname, '../.cache'), // Directorio para la caché
