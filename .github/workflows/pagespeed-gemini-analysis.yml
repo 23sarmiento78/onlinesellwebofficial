@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - main
-  # Este es el disparador para el botón "Run workflow"
-  workflow_dispatch: # ¡Importante! Asegúrate de que no haya nada indentado debajo de esta línea, a menos que sean inputs.
+  workflow_dispatch:
 
 jobs:
   analyze_performance:
@@ -24,11 +23,10 @@ jobs:
       - name: Run PageSpeed Insights Analysis
         id: psi_analysis
         run: |
-          PSI_URL="https://www.googleapis.com/pagespeedinsights/v5/runPagespeed?url=${{ env.SITE_URL }}&key=${{ secrets.API_KEY }}&strategy=mobile&locale=es"
+          # ¡CORRECCIÓN AQUÍ! Cambiado 'pagespeedinsights' por 'pagespeedonline'
+          PSI_URL="https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ env.SITE_URL }}&key=${{ secrets.API_KEY }}&strategy=mobile&locale=es"
           echo "Running PSI for: ${{ env.SITE_URL }}"
           curl -s "$PSI_URL" > pagespeed_report.json
-          # Verificamos si curl tuvo un error al guardar el archivo.
-          # Si curl falla por un código de error HTTP (ej. 403, 400), no devuelve un JSON.
           if [ ! -s pagespeed_report.json ]; then
             echo "Error: pagespeed_report.json está vacío o no se generó. La llamada a la API de PSI pudo haber fallado."
             exit 1
@@ -37,16 +35,13 @@ jobs:
         env:
           API_KEY: ${{ secrets.API_KEY }}
 
-      # --- NUEVO PASO PARA INSPECCIONAR EL CONTENIDO ---
+      # --- NUEVO PASO PARA INSPECCIONAR EL CONTENIDO (mantener para futuras depuraciones) ---
       - name: Inspect Generated PSI Report
         run: |
           echo "--- Contenido de pagespeed_report.json ---"
           cat pagespeed_report.json
           echo "-----------------------------------------"
-          # Intenta validar el JSON con una herramienta básica como `jq` (si está disponible)
-          # Esto puede dar una pista más clara si no es JSON.
-          jq . pagespeed_report.json || echo "El contenido no es un JSON válido."
-        # Ejecutar este paso incluso si el anterior falló, para ver qué pasó
+          jq . pagespeed_report.json || echo "El contenido no es un JSON válido o jq no está disponible." # Mensaje más preciso
         if: always()
 
       # --- Paso 3: Enviar el Reporte a Gemini para Análisis (Ejecuta el Script Python) ---
@@ -57,7 +52,6 @@ jobs:
           python scripts/gemini_analysis.py pagespeed_report.json gemini_analysis.md
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        # Este paso solo se ejecuta si los pasos anteriores fueron exitosos
         if: success()
 
       # --- Paso 4: Publicar los Resultados de Gemini (ej. en un comentario de PR) ---
@@ -66,7 +60,7 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: 'performance-review'
-          message: | # <- Esta línea indica que el siguiente contenido es un bloque de texto multi-línea.
+          message: |
             ## 🚀 Revisión de Rendimiento por Gemini (Powered by PageSpeed Insights)
 
             Aquí tienes las sugerencias de mejora de rendimiento para este despliegue, generadas por Gemini (modelo 1.5 Flash) a partir del análisis de PageSpeed Insights para ${{ env.SITE_URL }}:
