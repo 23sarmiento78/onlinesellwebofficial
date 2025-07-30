@@ -13,22 +13,35 @@ jobs:
       - name: 📥 Clonar repositorio
         uses: actions/checkout@v4
 
-      - name: 🔧 Instalar dependencias del sistema
+      - name: 🔧 Instalar dependencias del sistema y wkhtmltopdf
         run: |
           sudo apt-get update
-          sudo apt-get install -y wkhtmltopdf
+          # xvfb es un servidor de pantalla virtual, necesario para wkhtmltopdf en entornos headless
+          sudo apt-get install -y wkhtmltopdf xvfb
           npm install
 
       - name: 🧠 Revisar artículos y aplicar plantilla con Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
+          # Asegúrate de que este script genere ebook_final.html en public/blog
           node scripts/enhance-ebook-with-gemini.js
 
-      -  name: 📘 Generar PDF con wkhtmltopdf
-         run: |
+      - name: 📘 Generar PDF con wkhtmltopdf
+        # Ejecutamos wkhtmltopdf dentro de xvfb para simular un entorno gráfico
+        # y con --enable-local-file-access para permitir acceso a CSS/imágenes locales
+        # y --enable-javascript por si hay scripts en el HTML
+        run: |
           mkdir -p public/ebooks
-          wkhtmltopdf public/blog/ebook_final.html public/ebooks/hgaruna-ebook.pdf
+          # Ejecutar wkhtmltopdf desde la raíz del repositorio para que las rutas relativas funcionen
+          # La ruta al HTML es public/blog/ebook_final.html
+          xvfb-run --auto-display wkhtmltopdf \
+            --enable-local-file-access \
+            --enable-javascript \
+            --no-stop-slow-scripts \
+            public/blog/ebook_final.html public/ebooks/hgaruna-ebook.pdf
+        working-directory: ${{ github.workspace }} # Asegura que el comando se ejecute desde la raíz del repo
+
       - name: 📂 Verificar PDF generado
         run: |
           ls -lh public/ebooks/hgaruna-ebook.pdf
