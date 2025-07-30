@@ -32,3 +32,12 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
+
+# Archivos de ebooks
+/public/ebooks/
+!/public/ebooks/.gitkeep
+public/blog/ebook_final.html
+!public/blog/ebook_final.html.example
+*.pdf
+*.epub
+*.mobi
