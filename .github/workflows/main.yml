@@ -16,7 +16,7 @@ jobs:
       - name: 🔧 Instalar dependencias del sistema
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc texlive-xetex wkhtmltopdf
+          sudo apt-get install -y wkhtmltopdf
           npm install
 
       - name: 🧠 Revisar artículos y aplicar plantilla con Gemini
@@ -25,15 +25,10 @@ jobs:
         run: |
           node scripts/enhance-ebook-with-gemini.js
 
-      - name: 📘 Generar PDF con Pandoc
+      - name: 📘 Generar PDF con wkhtmltopdf
         run: |
           mkdir -p public/ebooks
-          pandoc public/blog/ebook_final.html \
-            --from=html \
-            --output=public/ebooks/hgaruna-ebook.pdf \
-            --toc \
-            --metadata title="Hgaruna eBook - Semana $(date +%V)" \
-            --pdf-engine=xelatex
+          wkhtmltopdf public/blog/ebook_final.html public/ebooks/hgaruna-ebook.pdf
 
       - name: 📂 Verificar PDF generado
         run: |
