@@ -5,10 +5,8 @@ on:
     branches:
       - main
   # Este es el disparador para el botón "Run workflow"
-  workflow_dispatch:
-    # No debe haber nada más aquí, a menos que quieras inputs (que no es tu caso ahora)
-    # Por ejemplo, si tuviera 'inputs:', el botón aparecería, pero sin inputs definidos, puede confundir.
-    # Lo más seguro es dejarlo simplemente como 'workflow_dispatch:' sin indentar nada debajo.
+  workflow_dispatch: # ¡Importante! Asegúrate de que no haya nada indentado debajo de esta línea, a menos que sean inputs.
+
 jobs:
   analyze_performance:
     runs-on: ubuntu-latest
