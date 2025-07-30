@@ -33,9 +33,8 @@ jobs:
         # y --enable-javascript por si hay scripts en el HTML
         run: |
           mkdir -p public/ebooks
-          # Ejecutar wkhtmltopdf desde la raíz del repositorio para que las rutas relativas funcionen
-          # La ruta al HTML es public/blog/ebook_final.html
-          xvfb-run --auto-display wkhtmltopdf \
+          # Eliminamos --auto-display
+          xvfb-run wkhtmltopdf \
             --enable-local-file-access \
             --enable-javascript \
             --no-stop-slow-scripts \
