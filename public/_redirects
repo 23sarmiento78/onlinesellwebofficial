@@ -5,6 +5,6 @@
 # Archivos estáticos importantes para SEO
 /robots.txt /robots.txt 200
 /sitemap.xml /sitemap.xml 200
-
+/48c6858d54754b4eb31de08d89be2f05.txt  /48c6858d54754b4eb31de08d89be2f05.txt 200
 # Todas las demás rutas van a React Router (SPA)
 /* /index.html 200
