@@ -19,15 +19,21 @@ const templatePath = path.join(__dirname, 'ebook-template.html');
       process.exit(0);
     }
 
-    // Leer y unir artículos (eliminando etiquetas <img>)
+    // Leer y mejorar artículos
     const articulos = files.map(filename => {
       const filepath = path.join(blogDir, filename);
       const content = fs.readFileSync(filepath, 'utf-8');
 
-      // 🔴 Eliminar todas las etiquetas <img ... >
-      const contenidoLimpio = content.replace(/<img[^>]*>/gi, '');
+      // Simulación de mejora con Gemini: envolvemos con diseño
+      const mejorado = `
+        <section class="article">
+          <div class="contenido">
+            ${content}
+          </div>
+        </section>
+      `;
 
-      return `<article>\n${contenidoLimpio}\n</article>`;
+      return mejorado;
     }).join('\n\n');
 
     // Leer plantilla
