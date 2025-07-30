@@ -83,10 +83,49 @@ jobs:
           echo "📄 Vista previa de index.json:"
           head -n 10 public/blog/index.json || echo "⚠️ index.json no encontrado"
 
-      - name: 📁 Asegurar carpetas para Netlify
+      - name: 🔍 Enviar URLs a IndexNow
+        if: success()
+        env:
+          SITE_URL: ${{ env.SITE_URL }}
         run: |
-          mkdir -p public/blog
-          touch public/blog/.keep
+          echo "🔍 Instalando dependencias necesarias..."
+          npm install axios jq
+          
+          echo "🔄 Obteniendo lista de artículos..."
+          # Obtener archivos HTML de artículos
+          ARTICLES=$(find public/blog -name "*.html" ! -name "index.html" | sed 's|public/blog/||' | sed 's/.html$//')
+          
+          if [ -z "$ARTICLES" ]; then
+            echo "⚠️ No se encontraron artículos para enviar a IndexNow"
+            exit 0
+          fi
+          
+          echo "📄 Artículos encontrados:"
+          echo "$ARTICLES" | sed 's/^/  - /'
+          
+          # Crear archivo temporal con las URLs
+          echo "📝 Creando archivo temporal con URLs..."
+          echo 'const { submitToIndexNow } = require("./scripts/indexnow");' > temp-indexnow.js
+          echo 'const urls = [' >> temp-indexnow.js
+          for article in $ARTICLES; do
+            echo "  '${SITE_URL}/blog/${article}'," >> temp-indexnow.js
+          done
+          echo '];' >> temp-indexnow.js
+          echo 'submitToIndexNow(urls).then(success => process.exit(success ? 0 : 1));' >> temp-indexnow.js
+          
+          echo "🚀 Enviando URLs a IndexNow..."
+          node temp-indexnow.js
+          RESULT=$?
+          
+          # Limpiar archivo temporal
+          rm -f temp-indexnow.js
+          
+          if [ $RESULT -ne 0 ]; then
+            echo "⚠️ Hubo un error al enviar a IndexNow"
+            exit 1
+          fi
+          
+          echo "✅ URLs enviadas exitosamente a IndexNow"
 
       - name: 💾 Commit y push de artículos, sitemap e índice
         run: |

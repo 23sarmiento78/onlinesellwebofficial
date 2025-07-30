@@ -156,29 +156,53 @@ async function limpiarYMejorarHTML(html, basePath, titulo) {
 
     console.log(`📄 Procesando ${files.length} artículos...`);
     
-    // Leer y mejorar artículos
+    // Configuración de lotes
+    const BATCH_SIZE = 5; // Tamaño del lote (ajustar según sea necesario)
     const articulos = [];
     let indice = [];
     
-    for (const [index, filename] of files.entries()) {
-      try {
-        const filepath = path.join(blogDir, filename);
-        console.log(`  - Procesando: ${filename}`);
-        
-        let content = fs.readFileSync(filepath, 'utf-8');
-        
-        // Limpiar y mejorar el HTML con Gemini
-        const { contenido: contenidoMejorado, titulo } = await limpiarYMejorarHTML(content, filepath);
-        
-        // Añadir al índice
+    // Función para procesar un lote de artículos
+    const processBatch = async (batch, batchIndex) => {
+      const batchResults = [];
+      const startIndex = batchIndex * BATCH_SIZE;
+      
+      await Promise.all(batch.map(async (filename, indexInBatch) => {
+        try {
+          const fileIndex = startIndex + indexInBatch;
+          const filepath = path.join(blogDir, filename);
+          console.log(`  - Procesando: ${filename} (${fileIndex + 1}/${files.length})`);
+          
+          const content = fs.readFileSync(filepath, 'utf-8');
+          const { contenido: contenidoMejorado, titulo } = await limpiarYMejorarHTML(content, filepath);
+          
+          batchResults.push({
+            index: fileIndex,
+            titulo,
+            contenido: contenidoMejorado
+          });
+          
+        } catch (error) {
+          console.error(`❌ Error procesando ${filename}:`, error.message);
+        }
+      }));
+      
+      return batchResults;
+    };
+    
+    // Procesar todos los archivos en lotes
+    for (let i = 0; i < files.length; i += BATCH_SIZE) {
+      const batch = files.slice(i, i + BATCH_SIZE);
+      const batchResults = await processBatch(batch, i / BATCH_SIZE);
+      
+      // Procesar resultados del lote
+      batchResults.forEach(({ index, titulo, contenido }) => {
         indice.push(`<li><a href="#articulo-${index}">${titulo}</a></li>`);
         
-        // Añadir al array de artículos
         articulos.push(`
           <section id="articulo-${index}" class="article">
             <h1>${titulo}</h1>
             <div class="contenido">
-              ${contenidoMejorado}
+              ${contenido}
             </div>
             <div class="firma">
               <hr>
@@ -187,8 +211,13 @@ async function limpiarYMejorarHTML(html, basePath, titulo) {
           </section>
           <div class="page-break"></div>
         `);
-      } catch (error) {
-        console.error(`❌ Error procesando ${filename}:`, error.message);
+      });
+      
+      // Pequeña pausa entre lotes para evitar sobrecargar la API
+      if (i + BATCH_SIZE < files.length) {
+        const progress = Math.min(100, Math.round(((i + BATCH_SIZE) / files.length) * 100));
+        console.log(`⏳ Progreso: ${progress}% (${i + batch.length}/${files.length} artículos procesados)`);
+        await new Promise(resolve => setTimeout(resolve, 1000));
       }
     }
 
