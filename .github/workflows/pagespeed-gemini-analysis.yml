@@ -1,0 +1,127 @@
+name: PageSpeed & Gemini Performance Analysis
+
+on:
+  # Desencadenar el workflow en cada push a la rama principal (main)
+  push:
+    branches:
+      - main
+
+  # Permite ejecutar el workflow manualmente desde la interfaz de GitHub
+  workflow_dispatch:
+
+jobs:
+  analyze_performance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --- Paso 1: Establecer la URL del sitio ---
+      - name: Set Site URL
+        id: set_url
+        run: |
+          # ¡URL específico de tu sitio!
+          echo "SITE_URL=https://hgaruna.org" >> $GITHUB_ENV
+
+      # --- Paso 2: Ejecutar PageSpeed Insights API ---
+      - name: Run PageSpeed Insights Analysis
+        id: psi_analysis
+        run: |
+          PSI_URL="https://www.googleapis.com/pagespeedinsights/v5/runPagespeed?url=${{ env.SITE_URL }}&key=${{ secrets.API_KEY }}&strategy=mobile&locale=es"
+          echo "Running PSI for: ${{ env.SITE_URL }}"
+          curl -s "$PSI_URL" > pagespeed_report.json
+          echo "PSI Report generated."
+        env:
+          API_KEY: ${{ secrets.API_KEY }} # Accede a la clave de PSI
+
+      # --- Paso 3: Enviar el Reporte a Gemini para Análisis ---
+      - name: Send PSI Report to Gemini for Analysis
+        id: gemini_analysis
+        run: |
+          pip install -q -U google-generativeai
+
+          python -c "
+import google.generativeai as genai
+import json
+import os
+
+genai.configure(api_key=os.environ['GEMINI_API_KEY'])
+
+# Cargar el reporte de PageSpeed Insights
+try:
+    with open('pagespeed_report.json', 'r') as f:
+        psi_report = json.load(f)
+except FileNotFoundError:
+    print('Error: pagespeed_report.json no encontrado.')
+    exit(1)
+
+# Extraer los datos relevantes del reporte PSI para hacer el prompt más conciso
+metrics = psi_report.get('lighthouseResult', {}).get('audits', {})
+performance_score = psi_report.get('lighthouseResult', {}).get('categories', {}).get('performance', {}).get('score')
+opportunities = []
+for audit_id, audit_data in metrics.items():
+    if audit_data.get('scoreDisplayMode') == 'metric' or audit_data.get('scoreDisplayMode') == 'opportunity':
+        if audit_data.get('details') and audit_data['details'].get('items'):
+            # Reducimos los detalles para no sobrecargar el prompt
+            simplified_details = [{k: v for k, v in item.items() if k in ['url', 'text', 'wastedMs']} for item in audit_data['details']['items'][:5]] # Limita a 5 items
+            opportunities.append({
+                'id': audit_id,
+                'title': audit_data.get('title'),
+                'description': audit_data.get('description'),
+                'displayValue': audit_data.get('displayValue'),
+                'details_summary': simplified_details
+            })
+
+# Crear el prompt para Gemini
+prompt = f\"\"\"
+Analiza el siguiente reporte de Google PageSpeed Insights para el sitio hgaruna.org.
+
+Puntuación de Rendimiento Global (móvil): {performance_score * 100 if performance_score else 'N/A'}.
+
+Principales Oportunidades y Diagnósticos (resumido para concisión y eficiencia de tokens):
+{json.dumps(opportunities, indent=2, ensure_ascii=False)[:6000]} # Aumentado el límite a 6000 caracteres
+
+Identifica las 3-5 principales oportunidades de mejora que tendrían el mayor impacto en el rendimiento.
+Para cada oportunidad:
+1.  Explica el problema en lenguaje claro y conciso.
+2.  Ofrece una solución específica a nivel de código o configuración, idealmente con ejemplos de código (para un sitio web HTML/CSS/JS).
+3.  Prioriza las soluciones por su potencial impacto.
+Considera que el sitio está desplegado en Netlify y el contenido se sirve desde una carpeta 'public'.
+
+Por favor, proporciona las sugerencias en español.
+\"\"\"
+
+# --- Usar el modelo gemini-1.5-flash ---
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+# Generar la respuesta
+try:
+    response = model.generate_content(prompt)
+    gemini_output = response.text
+except Exception as e:
+    gemini_output = f"Error al generar respuesta de Gemini: {e}"
+
+# Guardar la respuesta de Gemini en un archivo y también hacerla disponible para el siguiente paso
+with open('gemini_analysis.md', 'w') as f:
+    f.write(gemini_output)
+
+print(f'::set-output name=gemini_suggestions::{json.dumps(gemini_output)}')
+"
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      # --- Paso 4: Publicar los Resultados de Gemini (ej. en un comentario de PR) ---
+      - name: Comment on Pull Request with Gemini Suggestions
+        if: github.event_name == 'pull_request' # Solo si el workflow fue disparado por un PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: 'performance-review'
+          message: |
+            ## 🚀 Revisión de Rendimiento por Gemini (Powered by PageSpeed Insights)
+
+            Aquí tienes las sugerencias de mejora de rendimiento para este despliegue, generadas por Gemini (modelo 1.5 Flash) a partir del análisis de PageSpeed Insights para ${{ env.SITE_URL }}:
+
+            ${{ steps.gemini_analysis.outputs.gemini_suggestions }}
+
+            ---
+            *Este comentario es generado automáticamente.*
