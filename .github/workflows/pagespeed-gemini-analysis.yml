@@ -26,27 +26,42 @@ jobs:
           PSI_URL="https://www.googleapis.com/pagespeedinsights/v5/runPagespeed?url=${{ env.SITE_URL }}&key=${{ secrets.API_KEY }}&strategy=mobile&locale=es"
           echo "Running PSI for: ${{ env.SITE_URL }}"
           curl -s "$PSI_URL" > pagespeed_report.json
+          # Verificamos si curl tuvo un error al guardar el archivo.
+          # Si curl falla por un código de error HTTP (ej. 403, 400), no devuelve un JSON.
+          if [ ! -s pagespeed_report.json ]; then
+            echo "Error: pagespeed_report.json está vacío o no se generó. La llamada a la API de PSI pudo haber fallado."
+            exit 1
+          fi
           echo "PSI Report generated."
         env:
           API_KEY: ${{ secrets.API_KEY }}
+
+      # --- NUEVO PASO PARA INSPECCIONAR EL CONTENIDO ---
+      - name: Inspect Generated PSI Report
+        run: |
+          echo "--- Contenido de pagespeed_report.json ---"
+          cat pagespeed_report.json
+          echo "-----------------------------------------"
+          # Intenta validar el JSON con una herramienta básica como `jq` (si está disponible)
+          # Esto puede dar una pista más clara si no es JSON.
+          jq . pagespeed_report.json || echo "El contenido no es un JSON válido."
+        # Ejecutar este paso incluso si el anterior falló, para ver qué pasó
+        if: always()
 
       # --- Paso 3: Enviar el Reporte a Gemini para Análisis (Ejecuta el Script Python) ---
       - name: Send PSI Report to Gemini for Analysis
         id: gemini_analysis
         run: |
-          # Instala la librería de Google Generative AI
           pip install -q -U google-generativeai
-
-          # Ejecuta el script de Python, pasándole la ruta del reporte PSI
-          # y la ruta de salida para el análisis de Gemini.
-          # La clave de API de Gemini se pasa como variable de entorno.
           python scripts/gemini_analysis.py pagespeed_report.json gemini_analysis.md
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        # Este paso solo se ejecuta si los pasos anteriores fueron exitosos
+        if: success()
 
       # --- Paso 4: Publicar los Resultados de Gemini (ej. en un comentario de PR) ---
       - name: Comment on Pull Request with Gemini Suggestions
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && success()
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: 'performance-review'
@@ -60,5 +75,5 @@ jobs:
             ${{ steps.gemini_analysis.outputs.gemini_suggestions }}
             ```
 
-            ---
+           ---
             *Este comentario es generado automáticamente.*
