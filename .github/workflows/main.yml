@@ -72,9 +72,26 @@ jobs:
           ls -lh public/ebooks/hgaruna-ebook.pdf
 
       - name: 💾 Commit y push del eBook
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Configurar Git
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Agregar y hacer commit del PDF
           git add public/ebooks/hgaruna-ebook.pdf
-          git commit -m "[bot] eBook actualizado - Semana $(date +%V)" || echo "Nada para commitear"
-          git push || echo "Nada para pushear"
+          
+          # Verificar si hay cambios para hacer commit
+          if ! git diff --cached --quiet; then
+            git commit -m "[bot] eBook actualizado - $(date +'%Y-%m-%d %H:%M')"
+            
+            # Configurar el origen remoto con token de autenticación
+            git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+            
+            # Hacer push de los cambios
+            git push origin HEAD:${GITHUB_REF#refs/heads/}
+            echo "✅ PDF actualizado en el repositorio"
+          else
+            echo "ℹ️ No hay cambios en el PDF para hacer commit"
+          fi

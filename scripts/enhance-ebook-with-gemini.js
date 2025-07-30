@@ -9,10 +9,19 @@ require('dotenv').config();
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 // Rutas
-const publicDir = path.join(__dirname, '../public');
-const blogDir = path.join(publicDir, 'blog');
-const outputPath = path.join(blogDir, 'ebook_final.html');
-const templatePath = path.join(__dirname, 'ebook-template.html');
+const publicDir = path.resolve(__dirname, '../public');
+const blogDir = path.resolve(publicDir, 'blog');
+const ebooksDir = path.resolve(publicDir, 'ebooks');
+const outputPath = path.resolve(blogDir, 'ebook_final.html');
+const templatePath = path.resolve(__dirname, 'ebook-template.html');
+
+// Asegurarse de que los directorios existan
+[publicDir, blogDir, ebooksDir].forEach(dir => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+    console.log(`📂 Directorio creado: ${dir}`);
+  }
+});
 
 // Función para mejorar el contenido con Gemini
 async function mejorarContenidoConGemini(contenido, titulo) {
@@ -22,7 +31,7 @@ async function mejorarContenidoConGemini(contenido, titulo) {
   }
 
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
     
     const prompt = `Mejora el siguiente artículo para un ebook profesional. El título es: "${titulo}".
     
@@ -235,8 +244,16 @@ async function limpiarYMejorarHTML(html, basePath, titulo) {
       fs.mkdirSync(path.dirname(outputPath), { recursive: true });
       
       // Guardar resultado
-      fs.writeFileSync(outputPath, htmlMejorado);
-      console.log(`✅ eBook generado exitosamente: ${outputPath} (${Math.ceil(htmlMejorado.length / 1024)} KB)`);
+      fs.writeFileSync(outputPath, htmlMejorado, 'utf8');
+      
+      // Verificar que el archivo se creó correctamente
+      if (fs.existsSync(outputPath)) {
+        const stats = fs.statSync(outputPath);
+        console.log(`✅ eBook generado exitosamente: ${outputPath} (${Math.ceil(stats.size / 1024)} KB)`);
+        console.log(`📄 Ruta absoluta: ${path.resolve(outputPath)}`);
+      } else {
+        console.error('❌ Error: No se pudo verificar la creación del archivo');
+      }
       
     } catch (error) {
       console.warn('⚠️ El HTML generado podría tener problemas de validación:', error.message);
