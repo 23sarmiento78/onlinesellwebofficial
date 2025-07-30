@@ -19,16 +19,7 @@
 [functions.admin-api]
   included_files = ["public/data/**"]
 
-# Excluir directorios de ebooks del despliegue
-[[redirects]]
-  from = "/public/ebooks/*"
-  to = "/404.html"
-  status = 404
 
-[[redirects]]
-  from = "/blog/ebook_final.html"
-  to = "/404.html"
-  status = 404
 
 [functions.linkedin-api]
   included_files = ["public/data/**"]

@@ -1,0 +1,100 @@
+name: Generar Ebooks desde Artículos
+
+on:
+  schedule:
+    # Generar ebooks una vez por semana los domingos a las 10:00 AM (hora Argentina)
+    # cron: 'minuto hora día mes día_semana'
+    - cron: '0 13 * * 0'
+  workflow_dispatch:
+  # También se puede ejecutar manualmente desde GitHub
+
+jobs:
+  generar-ebooks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: 🔧 Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Instalar dependencias
+        run: npm install
+
+      - name: ⚙️ Configurar variables de entorno
+        env:
+          SITE_URL: https://www.hgaruna.org
+        run: echo "SITE_URL=$SITE_URL" >> $GITHUB_ENV
+
+      - name: 📚 Generar ebooks básicos (semanal)
+        env:
+          SITE_URL: ${{ env.SITE_URL }}
+        run: |
+          echo "📚 Generando ebooks básicos (ejecución semanal)..."
+          echo "📅 Fecha de ejecución: $(date '+%Y-%m-%d %H:%M:%S')"
+          npm run generate-ebooks
+
+      - name: 📚 Generar ebooks avanzados (semanal)
+        env:
+          SITE_URL: ${{ env.SITE_URL }}
+        run: |
+          echo "📚 Generando ebooks avanzados (ejecución semanal)..."
+          echo "📅 Fecha de ejecución: $(date '+%Y-%m-%d %H:%M:%S')"
+          npm run generate-advanced-ebooks
+
+      - name: 🎨 Generar ebooks con estilos modulares (semanal)
+        env:
+          SITE_URL: ${{ env.SITE_URL }}
+        run: |
+          echo "🎨 Generando ebooks con estilos modulares (ejecución semanal)..."
+          echo "📅 Fecha de ejecución: $(date '+%Y-%m-%d %H:%M:%S')"
+          npm run generate-styled-ebooks
+
+      - name: 📊 Verificar ebooks generados
+        run: |
+          echo "📁 Contenido del directorio ebooks:"
+          ls -la ebooks/ || echo "⚠️ Directorio ebooks no encontrado"
+          
+          if [ -d "ebooks" ]; then
+            echo "📄 Archivos generados:"
+            find ebooks/ -name "*.pdf" -o -name "*.html" | head -20
+            
+            echo "📊 Estadísticas de archivos:"
+            echo "PDFs: $(find ebooks/ -name "*.pdf" | wc -l)"
+            echo "HTMLs: $(find ebooks/ -name "*.html" | wc -l)"
+          fi
+
+      - name: 💾 Commit y push de ebooks
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Agregar solo archivos de ebooks
+          git add ebooks/ || echo "No hay archivos de ebooks para agregar"
+          
+          # Commit con información detallada (ejecución semanal)
+          if git diff --cached --quiet; then
+            echo "No hay cambios para commitear"
+          else
+            EBOOK_COUNT=$(find ebooks/ -name "*.pdf" 2>/dev/null | wc -l)
+            git commit -m "[bot] Ebooks generados semanalmente - $(date '+%Y-%m-%d %H:%M:%S') ART - Se generaron $EBOOK_COUNT ebooks (ejecución semanal)" || echo "Nada para commitear"
+            
+            git push || echo "Nada para pushear"
+          fi
+
+      - name: 📢 Notificación de éxito
+        if: success()
+        run: |
+          echo "✅ Ebooks generados exitosamente"
+          echo "📁 Los ebooks se encuentran en: ebooks/"
+          echo "📄 Archivos generados:"
+          find ebooks/ -name "*.pdf" -o -name "*.html" 2>/dev/null | head -10
+
+      - name: ❌ Notificación de error
+        if: failure()
+        run: |
+          echo "❌ Error en la generación de ebooks"
+          echo "🔍 Revisar logs para más detalles" 

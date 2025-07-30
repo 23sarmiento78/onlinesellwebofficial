@@ -44,12 +44,21 @@
     "update-articles": "node scripts/update-article-list.js",
     "build-with-articles": "npm run generate-articles && npm run generate-html-articles && npm run build",
     "update-blog": "node scripts/update-blog-articles.js",
-    "generate-ebook": "node scripts/enhance-ebook-with-gemini.js"
+    "generate-ebooks": "node scripts/generate-ebooks.js",
+    "generate-advanced-ebooks": "node scripts/generate-advanced-ebooks.js",
+    "generate-styled-ebooks": "node scripts/generate-styled-ebooks.js",
+    "generate-all-ebooks": "npm run generate-ebooks && npm run generate-advanced-ebooks",
+    "generate-all-styled-ebooks": "npm run generate-styled-ebooks",
+    "test-ebooks": "node scripts/test-ebook-generation.js",
+    "test-styled-ebooks": "node scripts/test-styled-ebooks.js",
+    "verify-weekly": "node scripts/verify-weekly-ebooks.js"
   },
   "devDependencies": {
     "axios": "^1.6.5",
+    "cheerio": "^1.1.2",
     "dotenv": "^16.6.1",
     "netlify-plugin-formspree": "^0.0.3",
+    "puppeteer": "^21.0.0",
     "xml2js": "^0.6.2"
   },
   "browserslist": {
