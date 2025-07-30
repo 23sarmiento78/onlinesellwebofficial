@@ -412,4 +412,18 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://www.hgaruna.org/blog/xss-prevention-cross-site-scripting.html</loc>
+    <lastmod>2025-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.hgaruna.org/blog/testing-unitario-jest-y-vitest.html</loc>
+    <lastmod>2025-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

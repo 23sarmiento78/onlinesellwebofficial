@@ -51,9 +51,11 @@
   "testing-de-accesibilidad-automatizado.html",
   "testing-de-apis-post.html",
   "testing-de-apis-postman-y-newman.html",
+  "testing-unitario-jest-y-vitest.html",
   "transacciones-distribuidas.html",
   "tree-shaking-eliminacion-de-codigo-muerto.html",
   "typescript-avanzado-.html",
   "vs-code-extensiones-esenciales.html",
-  "webassembly-rendimie.html"
+  "webassembly-rendimie.html",
+  "xss-prevention-cross-site-scripting.html"
 ]

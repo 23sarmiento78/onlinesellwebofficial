@@ -55,5 +55,7 @@
   "google-cloud-functions-plataforma-serverless",
   "package-managers-npm-yarn-pnpm",
   "cdn-content-delivery-networks",
-  "indices-de-base-de-datos-optimizacion"
+  "indices-de-base-de-datos-optimizacion",
+  "xss-prevention-cross-site-scripting",
+  "testing-unitario-jest-y-vitest"
 ]
