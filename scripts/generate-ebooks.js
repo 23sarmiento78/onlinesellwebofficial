@@ -448,12 +448,14 @@ async function generateEbooks() {
       const articlePath = path.join(BLOG_DIR, file);
       const articleContent = await extractArticleContent(articlePath);
       
-      if (articleContent) {
+      if (articleContent && articleContent.content) {
         const wordCount = articleContent.content.replace(/<[^>]*>/g, '').split(/\s+/).length;
         allArticles.push({
           ...articleContent,
           wordCount
         });
+      } else {
+        console.log(`  ⚠️ No se pudo procesar el artículo: ${file}`);
       }
     }
     
