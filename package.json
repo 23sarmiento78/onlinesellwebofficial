@@ -49,6 +49,8 @@
     "generate-styled-ebooks": "node scripts/generate-styled-ebooks.js",
     "generate-all-ebooks": "npm run generate-ebooks && npm run generate-advanced-ebooks",
     "generate-all-styled-ebooks": "npm run generate-styled-ebooks",
+    "combine-ebooks": "node scripts/combine-ebooks.js",
+    "generate-complete-guide": "npm run generate-all-ebooks && npm run combine-ebooks",
     "test-ebooks": "node scripts/test-ebook-generation.js",
     "test-styled-ebooks": "node scripts/test-styled-ebooks.js",
     "verify-weekly": "node scripts/verify-weekly-ebooks.js"

@@ -87,6 +87,7 @@ jobs:
         if: success()
         env:
           SITE_URL: ${{ env.SITE_URL }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: |
           echo "🔍 Instalando dependencias necesarias..."
           npm install axios jq

@@ -8,6 +8,10 @@ on:
   workflow_dispatch:
   # También se puede ejecutar manualmente desde GitHub
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   generar-ebooks:
     runs-on: ubuntu-latest
@@ -21,6 +25,14 @@ jobs:
         with:
           node-version: '20'
 
+      - name: ⚙️ Cache de dependencias de Node
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: 📦 Instalar dependencias
         run: npm install
 
@@ -29,61 +41,45 @@ jobs:
           SITE_URL: https://www.hgaruna.org
         run: echo "SITE_URL=$SITE_URL" >> $GITHUB_ENV
 
-      - name: 📚 Generar ebooks básicos (semanal)
+      - name: 📚 Generar todos los tipos de ebooks (semanal)
         env:
           SITE_URL: ${{ env.SITE_URL }}
         run: |
-          echo "📚 Generando ebooks básicos (ejecución semanal)..."
+          echo "📚 Generando ebooks (ejecución semanal)..."
           echo "📅 Fecha de ejecución: $(date '+%Y-%m-%d %H:%M:%S')"
+          echo "--- Generando ebooks básicos ---"
           npm run generate-ebooks
-
-      - name: 📚 Generar ebooks avanzados (semanal)
-        env:
-          SITE_URL: ${{ env.SITE_URL }}
-        run: |
-          echo "📚 Generando ebooks avanzados (ejecución semanal)..."
-          echo "📅 Fecha de ejecución: $(date '+%Y-%m-%d %H:%M:%S')"
+          echo "--- Generando ebooks avanzados ---"
           npm run generate-advanced-ebooks
-
-      - name: 🎨 Generar ebooks con estilos modulares (semanal)
-        env:
-          SITE_URL: ${{ env.SITE_URL }}
-        run: |
-          echo "🎨 Generando ebooks con estilos modulares (ejecución semanal)..."
-          echo "📅 Fecha de ejecución: $(date '+%Y-%m-%d %H:%M:%S')"
+          echo "--- Generando ebooks con estilos modulares ---"
           npm run generate-styled-ebooks
+
+      - name: 📚 Combinar y mejorar ebooks en un PDF final
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/combine-ebooks.js
 
       - name: 📊 Verificar ebooks generados
         run: |
           echo "📁 Contenido del directorio ebooks:"
           ls -la ebooks/ || echo "⚠️ Directorio ebooks no encontrado"
-          
+
           if [ -d "ebooks" ]; then
             echo "📄 Archivos generados:"
             find ebooks/ -name "*.pdf" -o -name "*.html" | head -20
-            
+
             echo "📊 Estadísticas de archivos:"
             echo "PDFs: $(find ebooks/ -name "*.pdf" | wc -l)"
             echo "HTMLs: $(find ebooks/ -name "*.html" | wc -l)"
           fi
 
-      - name: 💾 Commit y push de ebooks
+      - name: 💾 Commit y push de ebooks y guía combinada
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
-          # Agregar solo archivos de ebooks
-          git add ebooks/ || echo "No hay archivos de ebooks para agregar"
-          
-          # Commit con información detallada (ejecución semanal)
-          if git diff --cached --quiet; then
-            echo "No hay cambios para commitear"
-          else
-            EBOOK_COUNT=$(find ebooks/ -name "*.pdf" 2>/dev/null | wc -l)
-            git commit -m "[bot] Ebooks generados semanalmente - $(date '+%Y-%m-%d %H:%M:%S') ART - Se generaron $EBOOK_COUNT ebooks (ejecución semanal)" || echo "Nada para commitear"
-            
-            git push || echo "Nada para pushear"
-          fi
+          git add ebooks/
+          git commit -m "[bot] Actualización semanal de ebooks y guía combinada ($(date '+%Y-%m-%d'))" || echo "No hay cambios para commitear"
+          git push || echo "Nada para pushear"
 
       - name: 📢 Notificación de éxito
         if: success()

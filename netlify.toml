@@ -46,6 +46,13 @@
   status = 200
   force = true
 
+# Redirección para el archivo de verificación de IndexNow
+[[redirects]]
+  from = "/48c6858d54754b4eb31de08d89be2f05.txt"
+  to = "/48c6858d54754b4eb31de08d89be2f05.txt"
+  status = 200
+  force = true
+
 # Headers de seguridad y caché
 [[headers]]
   for = "/static/*"

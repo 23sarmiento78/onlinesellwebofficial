@@ -3,8 +3,9 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
-const INDEXNOW_KEY = '48c6858d54754b4eb31de08d89be2f05';
-const SITE_URL = process.env.SITE_URL || 'https://tusitio.com'; // Reemplaza con tu URL
+// Get IndexNow key from environment variables
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY;
+const SITE_URL = process.env.SITE_URL || 'https://www.hgaruna.org';
 
 async function submitToIndexNow(urls) {
   if (!Array.isArray(urls)) {
@@ -19,10 +20,19 @@ async function submitToIndexNow(urls) {
     return url;
   });
 
+  if (!INDEXNOW_KEY) {
+    console.error('❌ Error: INDEXNOW_KEY no está configurado en las variables de entorno');
+    return false;
+  }
+
+  const keyLocation = `${SITE_URL}/${INDEXNOW_KEY}.txt`;
+  console.log(`🔑 Usando clave IndexNow: ${INDEXNOW_KEY}`);
+  console.log(`🔗 Ubicación de verificación: ${keyLocation}`);
+
   const data = {
     host: new URL(SITE_URL).hostname,
     key: INDEXNOW_KEY,
-    keyLocation: `${SITE_URL}/48c6858d54754b4eb31de08d89be2f05.txt`,
+    keyLocation: keyLocation,
     urlList: urls
   };
 
