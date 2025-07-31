@@ -10,16 +10,12 @@
     "@builder.io/sdk": "^6.1.1",
     "@google/generative-ai": "^0.24.1",
     "@grapesjs/studio-sdk": "^1.0.55",
-    "auth0-spa-js": "^1.6.5",
+    "@vercel/node": "^5.3.7",
     "bootstrap": "^5.3.3",
-    "cheerio": "^1.1.2",
     "cron-parser": "^5.3.0",
-    "glob": "^11.0.3",
-    "globby": "^14.1.0",
     "google-auth-library": "^9.4.1",
     "googleapis": "^129.0.0",
     "gray-matter": "^4.0.3",
-    "jsdom": "^23.2.0",
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.2.0",
     "marked": "^9.1.6",
@@ -31,8 +27,7 @@
     "react-markdown": "^9.1.0",
     "react-router-dom": "^7.6.3",
     "react-scripts": "^0.0.0",
-    "sharp": "^0.34.3",
-    "snoowrap": "^1.15.2"
+    "sharp": "^0.34.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -59,8 +54,11 @@
     "axios": "^1.6.5",
     "cheerio": "^1.1.2",
     "dotenv": "^16.6.1",
-    "netlify-plugin-formspree": "^0.0.3",
-    "puppeteer": "^21.0.0",
+    "glob": "^11.0.3",
+    "globby": "^14.1.0",
+    "jsdom": "^23.2.0",
+    "puppeteer-core": "^22.8.1",
+    "snoowrap": "^1.15.2",
     "xml2js": "^0.6.2"
   },
   "browserslist": {

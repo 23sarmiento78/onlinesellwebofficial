@@ -344,7 +344,7 @@ async function generateHTMLArticles() {
     console.log('🚀 Iniciando generación de artículos HTML...\n');
     
     const articlesDir = path.join(__dirname, '../src/content/articulos');
-    const outputDir = path.join(__dirname, '../blog');
+    const outputDir = path.join(__dirname, '../public/blog');
     
     // Crear directorio de salida si no existe
     if (!fs.existsSync(outputDir)) {
@@ -364,6 +364,7 @@ async function generateHTMLArticles() {
     
     let generatedCount = 0;
     let errorCount = 0;
+    const allArticles = [];
     
     for (const file of files) {
       try {
@@ -394,6 +395,8 @@ async function generateHTMLArticles() {
           category: data.category || 'Programación'
         };
         
+        allArticles.push(article);
+
         // Generar HTML
         const htmlContent = articleTemplate(article);
         
@@ -415,11 +418,36 @@ async function generateHTMLArticles() {
     console.log(`   ❌ Errores: ${errorCount}`);
     console.log(`   📁 Ubicación: ${outputDir}`);
     
+    // Crear el archivo index.json con la lista de artículos
+    await createArticlesIndexJson(allArticles, outputDir);
+
     // Crear archivo index.html para el public/blog
     createBlogIndex(outputDir);
     
   } catch (error) {
     console.error('❌ Error general:', error.message);
+  }
+}
+
+/**
+ * Crea un archivo index.json con los metadatos de todos los artículos.
+ * Este archivo será consumido por la página principal del blog.
+ */
+async function createArticlesIndexJson(articles, outputDir) {
+  try {
+    // Ordenar artículos por fecha, del más nuevo al más antiguo
+    const sortedArticles = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const articlesForIndex = {
+      articles: sortedArticles.map(article => ({
+        title: article.title, slug: article.slug, summary: article.summary,
+        date: article.date, image: article.image, category: article.category,
+        author: article.author
+      }))
+    };
+    fs.writeFileSync(path.join(outputDir, 'index.json'), JSON.stringify(articlesForIndex, null, 2), 'utf8');
+    console.log('✅ Índice JSON de artículos creado en:', path.join(outputDir, 'index.json'));
+  } catch (error) {
+    console.error('❌ Error creando el índice JSON de artículos:', error.message);
   }
 }
 
@@ -526,7 +554,9 @@ function createBlogIndex(outputDir) {
     
     <script>
         // Cargar lista de artículos
-        fetch('/.netlify/functions/get-ia-articles')
+        // Se cambia la llamada a la función de Netlify por el archivo estático index.json,
+        // que es más portable y eficiente para este caso de uso.
+        fetch('/blog/index.json')
             .then(response => response.json())
             .then(data => {
                 const container = document.getElementById('articles-container');

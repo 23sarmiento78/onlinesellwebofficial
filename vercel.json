@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/public/blog/index\\.json",
+      "dest": "/public/blog/index.json",
+      "status": 200
+    },
+    {
+      "src": "/public/blog/(?<slug>[^/]+)",
+      "dest": "/public/blog/$slug",
+      "status": 200
+    },
+    {
+      "src": "/robots\\.txt",
+      "dest": "/robots.txt",
+      "status": 200
+    },
+    {
+      "src": "/sitemap\\.xml",
+      "dest": "/sitemap.xml",
+      "status": 200
+    },
+    {
+      "src": "/48c6858d54754b4eb31de08d89be2f05\\.txt",
+      "dest": "/48c6858d54754b4eb31de08d89be2f05.txt",
+      "status": 200
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html",
+      "status": 200
+    }
+  ],
+  "env": {
+    "NODE_VERSION": "18"
+  }
+}
