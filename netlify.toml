@@ -46,12 +46,20 @@
   status = 200
   force = true
 
-# Redirección para el archivo de verificación de IndexNow
+# Configuración para servir archivos estáticos directamente
 [[redirects]]
   from = "/48c6858d54754b4eb31de08d89be2f05.txt"
   to = "/48c6858d54754b4eb31de08d89be2f05.txt"
   status = 200
   force = true
+  headers = {Content-Type = "text/plain"}
+
+# Redirección para SPA (todas las demás rutas)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
 
 # Headers de seguridad y caché
 [[headers]]
