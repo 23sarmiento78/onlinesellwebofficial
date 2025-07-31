@@ -5,8 +5,8 @@ const axios = require('axios');
 const matter = require('gray-matter');
 
 // Configura tus credenciales
-const LINKEDIN_ACCESS_TOKEN = 'TU_ACCESS_TOKEN'; // Reemplaza por tu token real
-const ORGANIZATION_ID = 'TU_ORG_ID'; // O tu URN personal: 'urn:li:person:xxxx'
+const LINKEDIN_ACCESS_TOKEN = process.env.LINKEDIN_ACCESS_TOKEN; // Usar variable de entorno
+const ORGANIZATION_ID = process.env.LINKEDIN_ORGANIZATION_ID; // Usar variable de entorno
 const SITE_URL = 'https://hgaruna.org/articulos/';
 
 const articlesDir = path.resolve(__dirname, '../src/content/articulos');
@@ -21,6 +21,11 @@ const { data, content } = matter(fs.readFileSync(path.join(articlesDir, latestFi
 const postText = `${data.title}\n\n${data.summary || content.split('\n')[0].slice(0, 200) + '...'}\n\nLee más: ${SITE_URL}${latestFile.replace('.md', '')}`;
 
 async function publishToLinkedIn() {
+  if (!LINKEDIN_ACCESS_TOKEN || !ORGANIZATION_ID) {
+    console.error('Error: Faltan las variables de entorno LINKEDIN_ACCESS_TOKEN o LINKEDIN_ORGANIZATION_ID.');
+    return;
+  }
+
   try {
     const res = await axios.post(
       'https://api.linkedin.com/v2/ugcPosts',
