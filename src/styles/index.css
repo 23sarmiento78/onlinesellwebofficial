@@ -1,3 +1,6 @@
+/* Importar variables unificadas PRIMERO */
+@import './unified-variables.css';
+
 /* Importar estilos base */
 @import './base.css';
 @import './dark-theme.css';
