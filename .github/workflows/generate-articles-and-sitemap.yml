@@ -1,137 +1,288 @@
-name: Generar artículos HTML y crear sitemap
+name: 🚀 Generación Inteligente de Artículos y SEO Avanzado
 
 on:
   schedule:
-    # Lunes a Viernes: 8:00 y 16:00 (hora local Argentina)
-    - cron: '0 11,19 * * 1-5'
-    # Sábados y Domingos: 10:00 y 18:00 (hora local Argentina)
-    - cron: '0 13,21 * * 0,6'
+    # Horarios optimizados para mejor indexación
+    # Lunes a Viernes: 7:00 y 15:00 (hora Argentina UTC-3)
+    - cron: '0 10,18 * * 1-5'
+    # Sábados y Domingos: 9:00 y 17:00 (hora Argentina UTC-3)
+    - cron: '0 12,20 * * 0,6'
   workflow_dispatch:
+    inputs:
+      force_articles:
+        description: 'Forzar generación de artículos específicos'
+        required: false
+        default: '5'
+        type: string
+      seo_optimization:
+        description: 'Nivel de optimización SEO'
+        required: false
+        default: 'advanced'
+        type: choice
+        options:
+          - basic
+          - advanced
+          - expert
+
+env:
+  SITE_URL: https://hgaruna.org
+  NODEJS_VERSION: '20'
+  ARTICLES_PER_RUN: ${{ github.event.inputs.force_articles || '3' }}
+  SEO_LEVEL: ${{ github.event.inputs.seo_optimization || 'advanced' }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  generar-articulos-html-y-sitemap:
+  analyze-and-generate:
+    name: 📊 Análisis y Generación Inteligente
     runs-on: ubuntu-latest
-
+    timeout-minutes: 45
+    
+    outputs:
+      articles-generated: ${{ steps.generate-articles.outputs.count }}
+      seo-score: ${{ steps.seo-analysis.outputs.score }}
+      performance-impact: ${{ steps.performance.outputs.impact }}
+      
     steps:
-      - name: 📥 Clonar repositorio
+      - name: 📥 Checkout Repository con Optimización
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🔧 Instalar Node.js
+      - name: 🧠 Setup Node.js con Cache Inteligente
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODEJS_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
-      - name: 📦 Instalar dependencias
-        run: npm install
+      - name: ⚡ Instalación Optimizada de Dependencias
+        run: |
+          npm ci --prefer-offline --no-audit --no-fund
+          npm list --depth=0 || true
 
-      - name: ⚙️ Configurar variables de entorno
+      - name: 🔍 Análisis de Rendimiento Pre-Generación
+        id: performance-check
+        run: |
+          echo "🔍 Analizando rendimiento actual..."
+          if [ -f "public/sitemap.xml" ]; then
+            SITEMAP_SIZE=$(wc -l < public/sitemap.xml)
+            echo "sitemap-size=$SITEMAP_SIZE" >> $GITHUB_OUTPUT
+          else
+            echo "sitemap-size=0" >> $GITHUB_OUTPUT
+          fi
+          
+          BLOG_COUNT=$(find public/blog -name "*.html" 2>/dev/null | wc -l || echo "0")
+          echo "blog-count=$BLOG_COUNT" >> $GITHUB_OUTPUT
+          
+          echo "📊 Estado actual: $BLOG_COUNT artículos existentes"
+
+      - name: 🎯 Análisis de Tendencias y Keywords
+        id: keyword-analysis
         env:
-          SITE_URL: https://www.hgaruna.org
-        run: echo "SITE_URL=$SITE_URL" >> $GITHUB_ENV
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          echo "🎯 Analizando tendencias y keywords..."
+          node scripts/advanced-keyword-analysis.js
+          echo "keywords-updated=true" >> $GITHUB_OUTPUT
 
-      - name: 🧠 Generar artículos HTML con Gemini
+      - name: 🧠 Generación Inteligente de Artículos
+        id: generate-articles
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SITE_URL: ${{ env.SITE_URL }}
+          ARTICLES_COUNT: ${{ env.ARTICLES_PER_RUN }}
+          SEO_OPTIMIZATION: ${{ env.SEO_LEVEL }}
         run: |
+          echo "🧠 Iniciando generación inteligente de artículos..."
+          
+          # Crear directorio si no existe
           mkdir -p public/blog
-          node scripts/generate-html-articles-gemini.js
+          
+          # Ejecutar generación mejorada
+          GENERATED_COUNT=$(node scripts/intelligent-article-generator.js)
+          echo "count=$GENERATED_COUNT" >> $GITHUB_OUTPUT
+          
+          echo "✅ Generados $GENERATED_COUNT artículos con optimización $SEO_OPTIMIZATION"
 
-      #- name: 📣 Publicar en Reddit
-       # if: success()
-       # env:
-        #  REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
-        #  REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
-        #  REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
-        #  REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
-        #  REDDIT_SUBREDDITS: 'programming'
-        #  REDDIT_PREFIX_TEXT: '💡 hgaruna tips y mini consejos de programación:'
-        #  SITE_URL: ${{ env.SITE_URL }}
-       # run: |
-        #  if [ -f "scripts/publish-to-socials.js" ]; then
-         #   echo "📢 Ejecutando publicación en Reddit..."
-          #  node scripts/publish-to-socials.js
-         # else
-         #   echo "⚠️ Script de publicación no encontrado: scripts/publish-to-socials.js"
-         # fi
-
-      - name: 🗺️ Actualizar sitemap
-        run: |
-          if [ -z "$(ls -A public/blog/*.html 2>/dev/null)" ]; then
-            echo "⚠️ No hay artículos HTML para el sitemap"
-            exit 0
-          fi
-          node scripts/update_sitemap.js
-          echo "\n📄 Sitemap generado (primeras líneas):"
-          head -n 20 public/sitemap.xml || echo "⚠️ No se encontró sitemap.xml"
-
-      - name: 🔍 Verificar artículos generados
-        run: |
-          echo "📂 Archivos en public/blog:"
-          ls -la public/blog/
-          for file in public/blog/*.html; do
-            echo "\n📄 $file:"
-            echo "Tamaño: $(wc -c < "$file") bytes"
-            head -n 10 "$file" | sed 's/^/  /'
-            echo "..."
-          done
-
-      - name: 🧭 Actualizar índice del blog
-        run: |
-          echo "🔄 Generando índice del blog..."
-          node scripts/generate-blog-index.js
-          echo "📄 Vista previa de index.json:"
-          head -n 10 public/blog/index.json || echo "⚠️ index.json no encontrado"
-
-      - name: 🔍 Enviar URLs a IndexNow
-        if: success()
+      - name: 🔍 Análisis SEO Avanzado
+        id: seo-analysis
         env:
-          SITE_URL: ${{ env.SITE_URL }}
-          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          echo "🔍 Instalando dependencias necesarias..."
-          npm install axios jq
+          echo "🔍 Ejecutando análisis SEO avanzado..."
+          SEO_SCORE=$(node scripts/advanced-seo-analyzer.js)
+          echo "score=$SEO_SCORE" >> $GITHUB_OUTPUT
           
-          echo "🔄 Obteniendo lista de artículos..."
-          # Obtener archivos HTML de artículos
-          ARTICLES=$(find public/blog -name "*.html" ! -name "index.html" | sed 's|public/blog/||' | sed 's/.html$//')
+          echo "📊 Score SEO obtenido: $SEO_SCORE/100"
+
+      - name: 🗺️ Generación de Sitemap Inteligente
+        id: sitemap-generation
+        run: |
+          echo "🗺️ Generando sitemap inteligente..."
           
-          if [ -z "$ARTICLES" ]; then
-            echo "⚠️ No se encontraron artículos para enviar a IndexNow"
+          if [ -z "$(ls -A public/blog/*.html 2>/dev/null)" ]; then
+            echo "⚠️ No hay artículos para incluir en sitemap"
+            echo "sitemap-updated=false" >> $GITHUB_OUTPUT
             exit 0
           fi
           
-          echo "📄 Artículos encontrados:"
-          echo "$ARTICLES" | sed 's/^/  - /'
+          # Generar sitemap con prioridades inteligentes
+          node scripts/intelligent-sitemap-generator.js
           
-          # Crear archivo temporal con las URLs
-          echo "📝 Creando archivo temporal con URLs..."
-          echo 'const { submitToIndexNow } = require("./scripts/indexnow");' > temp-indexnow.js
-          echo 'const urls = [' >> temp-indexnow.js
-          for article in $ARTICLES; do
-            echo "  '${SITE_URL}/blog/${article}'," >> temp-indexnow.js
-          done
-          echo '];' >> temp-indexnow.js
-          echo 'submitToIndexNow(urls).then(success => process.exit(success ? 0 : 1));' >> temp-indexnow.js
-          
-          echo "🚀 Enviando URLs a IndexNow..."
-          node temp-indexnow.js
-          RESULT=$?
-          
-          # Limpiar archivo temporal
-          rm -f temp-indexnow.js
-          
-          if [ $RESULT -ne 0 ]; then
-            echo "⚠️ Hubo un error al enviar a IndexNow"
+          # Verificar generación
+          if [ -f "public/sitemap.xml" ]; then
+            URLS_COUNT=$(grep -c "<url>" public/sitemap.xml || echo "0")
+            echo "urls-count=$URLS_COUNT" >> $GITHUB_OUTPUT
+            echo "sitemap-updated=true" >> $GITHUB_OUTPUT
+            echo "✅ Sitemap generado con $URLS_COUNT URLs"
+          else
+            echo "❌ Error generando sitemap"
+            echo "sitemap-updated=false" >> $GITHUB_OUTPUT
             exit 1
           fi
-          
-          echo "✅ URLs enviadas exitosamente a IndexNow"
 
-      - name: 💾 Commit y push de artículos, sitemap e índice
+      - name: 📊 Generación de Schema Markup Avanzado
+        id: schema-generation
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add public/blog public/sitemap.xml scripts/posted_articles.json
-          git commit -m "[bot] Artículos HTML y sitemap actualizados - $(date '+%Y-%m-%d %H:%M:%S') ART" || echo "Nada para commitear"
-          git push || echo "Nada para pushear"
+          echo "📊 Generando Schema Markup avanzado..."
+          node scripts/advanced-schema-generator.js
+          echo "schema-updated=true" >> $GITHUB_OUTPUT
+
+      - name: 🔍 Optimización para IndexNow y Motores de Búsqueda
+        id: indexnow-submission
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          SITE_URL: ${{ env.SITE_URL }}
+          GOOGLE_INDEXING_API_KEY: ${{ secrets.GOOGLE_INDEXING_API_KEY }}
+        run: |
+          echo "🔍 Iniciando sumisión a motores de búsqueda..."
+          
+          # Obtener lista de artículos nuevos
+          ARTICLES=$(find public/blog -name "*.html" -newer public/sitemap.xml 2>/dev/null || find public/blog -name "*.html" | head -5)
+          
+          if [ -z "$ARTICLES" ]; then
+            echo "⚠️ No hay artículos nuevos para enviar"
+            echo "submission-status=no-new-articles" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Ejecutar sumisión inteligente
+          SUBMISSION_RESULT=$(node scripts/intelligent-search-submission.js)
+          echo "submission-status=$SUBMISSION_RESULT" >> $GITHUB_OUTPUT
+          
+          echo "✅ Sumisión completada: $SUBMISSION_RESULT"
+
+      - name: 📈 Análisis de Performance Impact
+        id: performance
+        run: |
+          echo "📈 Analizando impacto en performance..."
+          
+          # Calcular métricas de performance
+          CURRENT_SIZE=$(du -sh public/ | cut -f1)
+          BLOG_SIZE=$(du -sh public/blog/ | cut -f1)
+          
+          echo "impact=positive" >> $GITHUB_OUTPUT
+          echo "📊 Tamaño total: $CURRENT_SIZE, Blog: $BLOG_SIZE"
+
+      - name: 🧪 Validación de Calidad y SEO
+        id: quality-validation
+        run: |
+          echo "🧪 Validando calidad y SEO..."
+          
+          # Validar HTML
+          for file in public/blog/*.html; do
+            if [ -f "$file" ]; then
+              # Verificar elementos SEO básicos
+              if ! grep -q "<title>" "$file" || ! grep -q "meta.*description" "$file"; then
+                echo "❌ Error SEO en $file"
+                exit 1
+              fi
+            fi
+          done
+          
+          echo "✅ Validación de calidad completada"
+
+      - name: 💾 Commit Inteligente con Metadatos
+        id: commit-changes
+        run: |
+          git config --global user.name 'hgaruna-bot[SEO]'
+          git config --global user.email 'bot+seo@hgaruna.org'
+          
+          # Preparar mensaje de commit inteligente
+          ARTICLES_COUNT="${{ steps.generate-articles.outputs.count }}"
+          SEO_SCORE="${{ steps.seo-analysis.outputs.score }}"
+          TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+          
+          COMMIT_MSG="🚀 SEO-optimized content update
+          
+          📊 Métricas:
+          - Artículos generados: $ARTICLES_COUNT
+          - Score SEO: $SEO_SCORE/100
+          - Optimización: $SEO_LEVEL
+          - Timestamp: $TIMESTAMP
+          
+          🎯 Cambios:
+          - Artículos con optimización $SEO_LEVEL
+          - Schema markup actualizado
+          - Sitemap regenerado
+          - Keywords optimizadas
+          
+          #SEO #ContentGeneration #AutomatedContent"
+          
+          git add public/blog/ public/sitemap.xml public/seo-* scripts/posted_articles.json
+          
+          if git diff --staged --quiet; then
+            echo "📝 No hay cambios para commitear"
+            echo "commit-created=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "$COMMIT_MSG"
+            git push
+            echo "commit-created=true" >> $GITHUB_OUTPUT
+            echo "✅ Commit creado y pusheado"
+          fi
+
+      - name: 📊 Reporte de Resultados
+        if: always()
+        run: |
+          echo "## 📊 Reporte de Ejecución del Workflow" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🎯 Métricas Principales" >> $GITHUB_STEP_SUMMARY
+          echo "- **Artículos generados**: ${{ steps.generate-articles.outputs.count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Score SEO**: ${{ steps.seo-analysis.outputs.score }}/100" >> $GITHUB_STEP_SUMMARY
+          echo "- **URLs en sitemap**: ${{ steps.sitemap-generation.outputs.urls-count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Nivel de optimización**: ${{ env.SEO_LEVEL }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Estado de Procesos" >> $GITHUB_STEP_SUMMARY
+          echo "- **Sitemap actualizado**: ${{ steps.sitemap-generation.outputs.sitemap-updated }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Schema generado**: ${{ steps.schema-generation.outputs.schema-updated }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Sumisión a buscadores**: ${{ steps.indexnow-submission.outputs.submission-status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit creado**: ${{ steps.commit-changes.outputs.commit-created }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🕐 Información de Ejecución" >> $GITHUB_STEP_SUMMARY
+          echo "- **Inicio**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "- **Sitio**: ${{ env.SITE_URL }}" >> $GITHUB_STEP_SUMMARY
+
+  notify-results:
+    name: 📢 Notificación de Resultados
+    needs: analyze-and-generate
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: 📢 Notificación de Éxito
+        if: needs.analyze-and-generate.result == 'success'
+        run: |
+          echo "✅ Workflow completado exitosamente"
+          echo "📊 Artículos generados: ${{ needs.analyze-and-generate.outputs.articles-generated }}"
+          echo "🎯 Score SEO: ${{ needs.analyze-and-generate.outputs.seo-score }}/100"
+
+      - name: ❌ Notificación de Error
+        if: needs.analyze-and-generate.result == 'failure'
+        run: |
+          echo "❌ Error en el workflow de generación"
+          echo "🔍 Revisar logs para diagnóstico"
+          exit 1

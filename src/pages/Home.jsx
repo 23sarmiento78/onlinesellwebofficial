@@ -221,35 +221,6 @@ export default function Home() {
       {/* Recursos y Tips Gratuitos */}
       <RecursosYTips />
 
-      {/* ¿Por qué elegirnos? */}
-      <section className="why-choose-us-section">
-        <div className="container">
-          <h2 className="section-title">¿Por qué elegirnos?</h2>
-          <div className="features-grid">
-            <div className="feature-card">
-              <i className="fas fa-bolt feature-icon"></i>
-              <h3>Rápida Entrega</h3>
-              <p>Tu web lista en tiempo récord, sin sacrificar calidad.</p>
-            </div>
-            <div className="feature-card">
-              <i className="fas fa-mobile-alt feature-icon"></i>
-              <h3>Diseño Responsive</h3>
-              <p>Perfecta en cualquier dispositivo y pantalla.</p>
-            </div>
-            <div className="feature-card">
-              <i className="fas fa-search feature-icon"></i>
-              <h3>SEO Local</h3>
-              <p>Optimización para que te encuentren en tu ciudad.</p>
-            </div>
-            <div className="feature-card">
-              <i className="fas fa-handshake feature-icon"></i>
-              <h3>Atención Personalizada</h3>
-              <p>Te acompañamos en cada paso del proceso.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Sección de Servicios */}
       <section className="services">
         <div className="container">
