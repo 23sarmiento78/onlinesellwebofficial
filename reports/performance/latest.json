@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-08-04T04:11:46Z",
+  "timestamp": "2025-08-04T04:36:58Z",
   "overall_score": 0,
   "analysis_depth": "comprehensive",
   "pages_analyzed": "home,blog,planes,contacto",
-  "commit_sha": "48ecc09bc96334bd33d61aee17b8cdd8ee923122",
-  "workflow_run": "16713782233"
+  "commit_sha": "74b11eba3f54be20b5e13b438ef5e38017dd59a0",
+  "workflow_run": "16714115848"
 }
