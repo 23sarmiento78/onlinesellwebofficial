@@ -19,16 +19,16 @@ html {
 
 body {
   font-family: var(--font-sans);
-  color: var(--gray-900);
-  background-color: var(--white);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
   line-height: 1.6;
   transition: var(--transition);
   overflow-x: hidden;
 }
 
 body.dark-theme {
-  color: var(--gray-100);
-  background-color: var(--gray-900);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
 }
 
 /* Tipografía */
