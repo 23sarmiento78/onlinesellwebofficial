@@ -163,7 +163,7 @@ button:focus {
 .text-danger { color: var(--danger); }
 .text-warning { color: var(--warning); }
 .text-info { color: var(--info); }
-.text-muted { color: var(--gray-500); }
+.text-muted { color: var(--text-muted); }
 
 /* Márgenes */
 .mt-0 { margin-top: 0 !important; }
