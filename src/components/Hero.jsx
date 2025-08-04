@@ -35,7 +35,7 @@ export default function Hero({
             left: 0
           }}
         >
-          <source src="/5377684-uhd_3840_2160_25fps.mp4" type="video/mp4" />
+          <source src={`${process.env.PUBLIC_URL}/5377684-uhd_3840_2160_25fps.mp4`} type="video/mp4" />
           Tu navegador no soporta el elemento de video.
         </video>
       </div>
@@ -70,4 +70,4 @@ export default function Hero({
       </div>
     </section>
   );
-} 
+}
