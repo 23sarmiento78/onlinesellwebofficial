@@ -222,6 +222,9 @@ export default function Home() {
       {/* Recursos y Tips Gratuitos */}
       <RecursosYTips />
 
+      {/* Prueba de Estilos CSS */}
+      <StyleTest />
+
       {/* Sección de Servicios */}
       <section className="services">
         <div className="container">
