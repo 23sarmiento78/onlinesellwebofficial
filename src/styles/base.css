@@ -151,12 +151,7 @@ button:focus {
   border-radius: 2px;
 }
 
-/* Tema oscuro */
-[data-theme="dark"] {
-  --primary: #3b82f6;
-  --primary-hover: #60a5fa;
-  --secondary: #94a3b8;
-}
+/* Las variables de tema oscuro están en unified-variables.css */
 
 /* Utilidades de texto */
 .text-center { text-align: center; }
