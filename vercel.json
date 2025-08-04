@@ -2,38 +2,28 @@
   "version": 2,
   "builds": [
     {
+      "src": "public/**/*",
+      "use": "@vercel/static"
+    },
+    {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "distDir": "public"
       }
     }
   ],
   "routes": [
     {
       "src": "/static/(.*)",
+      "dest": "/public/static/$1",
       "headers": {
         "cache-control": "public, max-age=31536000, immutable"
       }
     },
     {
-      "src": "/service-worker.js",
-      "dest": "/service-worker.js",
-      "headers": {
-        "cache-control": "public, max-age=0, must-revalidate",
-        "Service-Worker-Allowed": "/"
-      }
-    },
-    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/public/$1"
     }
-  ],
-  "build": {
-    "env": {
-      "NODE_ENV": "production",
-      "GENERATE_SOURCEMAP": "false"
-    },
-    "command": "npm run build"
-  }
+  ]
 }
