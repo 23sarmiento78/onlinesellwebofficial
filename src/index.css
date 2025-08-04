@@ -21,26 +21,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* =================== VARIABLES GLOBALES =================== */
-:root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-tertiary: #181c24;
-  --text-primary: #fff;
-  --text-secondary: #e0e0e0;
-  --text-muted: #bdbdbd;
-  --accent-color: #1b5e20;
-  --accent-color-2: #2e7d32;
-  --accent-gradient: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
-  --accent-shadow: rgba(27, 94, 32, 0.3);
-  --card-shadow: 0 6px 24px rgba(0,0,0,0.22);
-  --card-hover-shadow: 0 12px 32px rgba(27,94,32,0.15);
-  --border-color: #23272f;
-  --radius-lg: 20px;
-  --radius-md: 12px;
-  --radius-sm: 6px;
-  --transition-base: all 0.3s cubic-bezier(.4,0,.2,1);
-}
+/* =================== IMPORTAR VARIABLES UNIFICADAS =================== */
+@import './styles/unified-variables.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap');
 

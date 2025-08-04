@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout';
 import Hero from '../components/Hero';
 import Card from '../components/Card';
 import RecursosYTips from '../components/RecursosYTips';
+import StyleTest from '../components/StyleTest';
 
 export default function Home() {
   return (
@@ -113,7 +114,7 @@ export default function Home() {
             "@type": "FAQPage",
             "mainEntity": [
               {"@type": "Question", "name": "¿Cuánto cuesta un sitio web en Villa Carlos Paz?", "acceptedAnswer": {"@type": "Answer", "text": "Los precios varían según las necesidades. Tenemos planes desde $150 hasta $500. Consulta gratuita disponible."}},
-              {"@type": "Question", "name": "¿Hacen SEO local para Villa Carlos Paz?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, especializamos en SEO local para que aparezcas en búsquedas de Villa Carlos Paz y alrededores."}},
+              {"@type": "Question", "name": "��Hacen SEO local para Villa Carlos Paz?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, especializamos en SEO local para que aparezcas en búsquedas de Villa Carlos Paz y alrededores."}},
               {"@type": "Question", "name": "¿Cuánto tiempo toma desarrollar un sitio web?", "acceptedAnswer": {"@type": "Answer", "text": "Depende de la complejidad. Sitios básicos en 1-2 semanas, proyectos complejos en 3-4 semanas."}},
               {"@type": "Question", "name": "¿Qué incluye el desarrollo web profesional?", "acceptedAnswer": {"@type": "Answer", "text": "Incluye diseño responsivo, optimización SEO, integración con redes sociales, panel de administración y capacitación."}},
               {"@type": "Question", "name": "¿Trabajan con empresas de Villa Carlos Paz?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, nos especializamos en negocios locales de Villa Carlos Paz y alrededores. Conocemos el mercado local."}}
@@ -220,6 +221,9 @@ export default function Home() {
 
       {/* Recursos y Tips Gratuitos */}
       <RecursosYTips />
+
+      {/* Prueba de Estilos CSS */}
+      <StyleTest />
 
       {/* Sección de Servicios */}
       <section className="services">
