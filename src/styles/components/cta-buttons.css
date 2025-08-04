@@ -1,0 +1,354 @@
+/* ===== ESTILOS DE BOTONES CTA ===== */
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  cursor: pointer;
+  border: 2px solid transparent;
+  gap: 0.5rem;
+}
+
+/* Botón primario */
+.cta-button.primary {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.cta-button.primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.cta-button.primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Botón secundario */
+.cta-button.secondary {
+  background-color: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.cta-button.secondary:hover {
+  background-color: rgba(var(--primary-rgb), 0.1);
+  transform: translateY(-2px);
+}
+
+.cta-button.secondary:active {
+  transform: translateY(0);
+}
+
+/* Botón con ícono */
+.cta-button i {
+  font-size: 1.1em;
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover i {
+  transform: translateX(3px);
+}
+
+/* Tamaños */
+.cta-button.sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.cta-button.lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* Versión outline */
+.cta-button.outline {
+  background-color: transparent;
+  border: 2px solid currentColor;
+}
+
+/* Versión blanca */
+.cta-button.white {
+  background-color: white;
+  color: var(--primary);
+}
+
+.cta-button.white:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Versión con sombra */
+.cta-button.shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.cta-button.shadow:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Versión con gradiente */
+.cta-button.gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cta-button.gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.cta-button.gradient:hover::before {
+  opacity: 1;
+}
+
+/* Versión con borde animado */
+.cta-button.border-animate {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cta-button.border-animate::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--primary);
+  border-radius: inherit;
+  animation: borderPulse 2s infinite;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.cta-button.border-animate:hover::after {
+  animation: borderPulse 2s infinite, fadeIn 0.3s forwards;
+}
+
+@keyframes borderPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Versión con icono flotante */
+.cta-button.float-icon i {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  position: absolute;
+  right: 1rem;
+  transform: translateX(-10px);
+}
+
+.cta-button.float-icon span {
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.cta-button.float-icon:hover i {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.cta-button.float-icon:hover span {
+  transform: translateX(-5px);
+}
+
+/* Versión con efecto de llenado */
+.cta-button.fill-effect {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cta-button.fill-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: width 0.5s ease;
+  z-index: -1;
+}
+
+.cta-button.fill-effect:hover::before {
+  width: 100%;
+}
+
+/* Versión con borde inferior */
+.cta-button.bottom-border {
+  border: none;
+  border-radius: 0;
+  padding: 0.5rem 0;
+  position: relative;
+  background: none;
+  color: var(--primary);
+}
+
+.cta-button.bottom-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.cta-button.bottom-border:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Versión con icono giratorio */
+.cta-button.spin-icon:hover i {
+  animation: spin 0.5s ease;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Versión con efecto de onda */
+.cta-button.wave-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button.wave-effect::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.cta-button.wave-effect:focus:not(:active)::after {
+  animation: wave 1s ease-out;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(40, 40);
+    opacity: 0;
+  }
+}
+
+/* Versión con borde que se dibuja */
+.cta-button.draw-border {
+  position: relative;
+  background: none;
+  border: none;
+  color: var(--primary);
+  padding: 0.5rem 1.5rem;
+}
+
+.cta-button.draw-border::before,
+.cta-button.draw-border::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.cta-button.draw-border::before {
+  top: 0;
+  left: 0;
+}
+
+.cta-button.draw-border::after {
+  bottom: 0;
+  right: 0;
+}
+
+.cta-button.draw-border span::before,
+.cta-button.draw-border span::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 0;
+  background: var(--primary);
+  transition: height 0.3s ease 0.3s;
+}
+
+.cta-button.draw-border span::before {
+  top: 0;
+  left: 0;
+}
+
+.cta-button.draw-border span::after {
+  bottom: 0;
+  right: 0;
+}
+
+.cta-button.draw-border:hover::before,
+.cta-button.draw-border:hover::after {
+  width: 100%;
+}
+
+.cta-button.draw-border:hover span::before,
+.cta-button.draw-border:hover span::after {
+  height: 100%;
+}
