@@ -1,3 +1,6 @@
+/* =================== IMPORTAR VARIABLES UNIFICADAS =================== */
+@import './styles/unified-variables.css';
+
 /* =================== RESET UNIVERSAL =================== */
 * {
   box-sizing: border-box;
@@ -20,9 +23,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-/* =================== IMPORTAR VARIABLES UNIFICADAS =================== */
-@import './styles/unified-variables.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap');
 
