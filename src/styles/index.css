@@ -1,18 +1,18 @@
 /* Importar estilos base */
-@import url('./base.css');
-@import url('./dark-theme.css');
-@import url('./utilities/utilities.css');
-@import url('./utilities/animations.css');
-@import url('./services-section.css');
+@import './base.css';
+@import './dark-theme.css';
+@import './utilities/utilities.css';
+@import './utilities/animations.css';
+@import './services-section.css';
 
 /* Importar componentes */
-@import url('./components/buttons.css');
-@import url('./components/cards.css');
-@import url('./components/contact-form.css');
-@import url('./components/cta-buttons.css');
-@import url('./components/features.css');
-@import url('./components/footer.css');
-@import url('./components/hero.css');
-@import url('./components/navbar.css');
-@import url('./components/navigation.css');
-@import url('./components/testimonials.css');
+@import './components/buttons.css';
+@import './components/cards.css';
+@import './components/contact-form.css';
+@import './components/cta-buttons.css';
+@import './components/features.css';
+@import './components/footer.css';
+@import './components/hero.css';
+@import './components/navbar.css';
+@import './components/navigation.css';
+@import './components/testimonials.css';
