@@ -836,14 +836,17 @@ export function useArticles() {
     return articleStorage.getRecentArticles(limit)
   }
 
-  const addArticle = (article) => {
+  const addArticle = async (article) => {
     try {
-      const newArticle = articleStorage.addArticle(article)
+      setLoading(true)
+      const newArticle = await articleStorage.addArticle(article)
       refreshArticles()
       return newArticle
     } catch (err) {
       setError(err.message)
       throw err
+    } finally {
+      setLoading(false)
     }
   }
 
