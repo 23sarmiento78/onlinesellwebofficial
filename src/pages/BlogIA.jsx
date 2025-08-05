@@ -392,13 +392,35 @@ export default function BlogIA() {
         </section>
 
         {/* Article Generator */}
-        {showGenerator && (
-          <section className="section-sm">
-            <div className="container">
+        <section id="generator" className="section-sm">
+          <div className="container">
+            {showGenerator ? (
               <ArticleGenerator onArticleGenerated={handleArticleGenerated} />
-            </div>
-          </section>
-        )}
+            ) : (
+              <div className="text-center py-8">
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-100">
+                  <div className="mb-4">
+                    <i className="fas fa-robot text-4xl text-blue-600 mb-4"></i>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    🤖 Generador de Artículos con IA
+                  </h3>
+                  <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                    Crea contenido de calidad sobre desarrollo web, programación y tecnología usando inteligencia artificial.
+                    Genera artículos optimizados para SEO en segundos.
+                  </p>
+                  <button
+                    onClick={() => setShowGenerator(true)}
+                    className="btn btn-primary btn-lg"
+                  >
+                    <i className="fas fa-magic mr-2"></i>
+                    Activar Generador IA
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
 
         {/* Trending Articles Section */}
         {filteredArticles.length > 3 && (
