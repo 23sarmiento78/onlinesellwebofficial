@@ -4,6 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { useArticles } from '@hooks/useArticles'
 import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
 import ArticleGenerator from '@components/ArticleGenerator'
+import SavedFiles from '@components/SavedFiles'
 
 export default function BlogIA() {
   const { articles, loading, getArticlesByCategory, searchArticles, addArticle } = useArticles()
