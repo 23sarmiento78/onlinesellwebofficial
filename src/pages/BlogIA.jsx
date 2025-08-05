@@ -468,10 +468,13 @@ export default function BlogIA() {
           </div>
         </section>
 
-        {/* Saved Files */}
+        {/* Saved Files & SEO Tools */}
         <section className="section-sm bg-light">
           <div className="container">
-            <SavedFiles />
+            <div className="grid lg:grid-cols-2 gap-6">
+              <SavedFiles />
+              <SitemapStatus />
+            </div>
           </div>
         </section>
 
