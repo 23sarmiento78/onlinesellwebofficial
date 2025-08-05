@@ -5,6 +5,7 @@ import { useArticles } from '@hooks/useArticles'
 import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
 import ArticleGenerator from '@components/ArticleGenerator'
 import SavedFiles from '@components/SavedFiles'
+import SitemapStatus from '@components/SitemapStatus'
 
 export default function BlogIA() {
   const { articles, loading, getArticlesByCategory, searchArticles, addArticle } = useArticles()
@@ -488,7 +489,7 @@ export default function BlogIA() {
                 <h3 className="text-2xl font-bold mb-4">No se encontraron artículos</h3>
                 <p className="text-muted mb-6">
                   {searchTerm || selectedCategory !== 'all'
-                    ? 'Intenta con otros términos de búsqueda o categor��as'
+                    ? 'Intenta con otros términos de búsqueda o categorías'
                     : 'Comienza generando algunos artículos con IA'
                   }
                 </p>
