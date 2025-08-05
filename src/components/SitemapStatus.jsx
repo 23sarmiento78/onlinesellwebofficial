@@ -71,12 +71,12 @@ export default function SitemapStatus() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-              <i className="fas fa-sitemap text-green-600"></i>
+              <i className="fas fa-search-plus text-green-600"></i>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Sitemap SEO</h3>
+              <h3 className="font-semibold text-gray-900">SEO Tools</h3>
               <p className="text-sm text-gray-600">
-                {sitemapData.totalUrls} URLs • Actualizado {formatDate(sitemapData.lastUpdated)}
+                {sitemapData.totalUrls} páginas indexadas • SEO optimizado
               </p>
             </div>
           </div>
