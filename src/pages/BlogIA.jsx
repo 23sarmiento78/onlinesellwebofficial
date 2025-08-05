@@ -469,16 +469,18 @@ export default function BlogIA() {
           </div>
         </section>
 
-        {/* Admin Tools & Status */}
-        <section className="section-sm bg-light">
-          <div className="container">
-            <div className="grid lg:grid-cols-3 gap-6">
-              <SavedFiles />
-              <SitemapStatus />
-              <StyleUpdateStatus />
+        {/* Admin Tools & Status - Only show when generator is visible */}
+        {showGenerator && (
+          <section className="section-sm bg-light">
+            <div className="container">
+              <div className="grid lg:grid-cols-3 gap-6">
+                <SavedFiles />
+                <SitemapStatus />
+                <StyleUpdateStatus />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Articles Display */}
         <section className="section">
