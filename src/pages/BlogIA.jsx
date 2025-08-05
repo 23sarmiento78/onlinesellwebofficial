@@ -385,6 +385,88 @@ export default function BlogIA() {
           </section>
         )}
 
+        {/* Trending Articles Section */}
+        {filteredArticles.length > 3 && (
+          <section className="blog-trending-section">
+            <div className="container">
+              <div className="blog-trending-content">
+                <div className="blog-trending-header">
+                  <h2 className="blog-trending-title">🔥 Artículos Trending</h2>
+                  <p className="blog-trending-subtitle">
+                    Los artículos más leídos y populares esta semana
+                  </p>
+                </div>
+                <div className="blog-trending-grid">
+                  {filteredArticles.slice(0, 3).map((article) => (
+                    <div key={article.id} className="blog-trending-card">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                          <i className={ARTICLE_CATEGORIES[article.category]?.icon || 'fas fa-star'}></i>
+                        </div>
+                        <div>
+                          <div className="text-sm opacity-80">{ARTICLE_CATEGORIES[article.category]?.name}</div>
+                          <div className="text-xs opacity-60">{formatDate(article.date)}</div>
+                        </div>
+                      </div>
+                      <h3 className="text-lg font-bold mb-2 line-clamp-2">
+                        <Link to={`/blog/${article.slug}`} className="text-white hover:text-gray-200 transition-colors">
+                          {article.title}
+                        </Link>
+                      </h3>
+                      <p className="text-sm opacity-80 mb-4 line-clamp-2">{article.excerpt}</p>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs opacity-60">{article.readTime}</span>
+                        <Link
+                          to={`/blog/${article.slug}`}
+                          className="text-white hover:text-gray-200 text-sm font-medium"
+                        >
+                          Leer más →
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Blog Stats Section */}
+        <section className="blog-stats-section">
+          <div className="container">
+            <div className="blog-stats-grid">
+              <div className="blog-stats-item">
+                <div className="blog-stats-icon">
+                  <i className="fas fa-newspaper"></i>
+                </div>
+                <div className="blog-stats-number">{articles.length}</div>
+                <div className="blog-stats-label">Artículos Publicados</div>
+              </div>
+              <div className="blog-stats-item">
+                <div className="blog-stats-icon">
+                  <i className="fas fa-tags"></i>
+                </div>
+                <div className="blog-stats-number">{Object.keys(ARTICLE_CATEGORIES).length}</div>
+                <div className="blog-stats-label">Categorías</div>
+              </div>
+              <div className="blog-stats-item">
+                <div className="blog-stats-icon">
+                  <i className="fas fa-eye"></i>
+                </div>
+                <div className="blog-stats-number">15.2k</div>
+                <div className="blog-stats-label">Lecturas Mensuales</div>
+              </div>
+              <div className="blog-stats-item">
+                <div className="blog-stats-icon">
+                  <i className="fas fa-heart"></i>
+                </div>
+                <div className="blog-stats-number">98%</div>
+                <div className="blog-stats-label">Satisfacción</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Saved Files */}
         <section className="section-sm bg-light">
           <div className="container">
