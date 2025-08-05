@@ -364,6 +364,89 @@
   }
 }
 
+/* Navigation Dropdown */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown .nav-link {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 240px;
+  background: rgba(20, 20, 20, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  padding: 0.5rem 0;
+  z-index: 1100;
+  animation: dropdownFadeIn 0.2s ease forwards;
+  margin-top: 0.5rem;
+}
+
+.nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: var(--transition-base);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.nav-dropdown-item:hover,
+.nav-dropdown-item.active {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.nav-dropdown-item i {
+  width: 16px;
+  text-align: center;
+  color: var(--accent-color);
+}
+
+.nav-dropdown-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0.5rem 0;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Update navbar nav styles for dropdown compatibility */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  position: relative;
+}
+
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
@@ -376,12 +459,12 @@
 }
 
 /* Add animation to desktop menu items */
-.main-nav li {
+.navbar-nav .nav-item {
   animation: fadeIn 0.5s ease forwards;
   opacity: 0;
 }
 
-.main-nav li:nth-child(1) { animation-delay: 0.1s; }
-.main-nav li:nth-child(2) { animation-delay: 0.2s; }
-.main-nav li:nth-child(3) { animation-delay: 0.3s; }
-.main-nav li:nth-child(4) { animation-delay: 0.4s; }
+.navbar-nav .nav-item:nth-child(1) { animation-delay: 0.1s; }
+.navbar-nav .nav-item:nth-child(2) { animation-delay: 0.2s; }
+.navbar-nav .nav-item:nth-child(3) { animation-delay: 0.3s; }
+.navbar-nav .nav-item:nth-child(4) { animation-delay: 0.4s; }
