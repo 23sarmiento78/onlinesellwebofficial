@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { generateArticle, generateArticleIdeas, ARTICLE_CATEGORIES } from '@utils/articleGenerator'
 
-export default function ArticleGenerator({ onArticleGenerated }) {
+export default function ArticleGenerator({ onArticleGenerated, defaultCategory = 'desarrollo' }) {
   const [isGenerating, setIsGenerating] = useState(false)
   const [generatedIdeas, setGeneratedIdeas] = useState([])
   const [selectedIdea, setSelectedIdea] = useState(null)
   const [customTopic, setCustomTopic] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('desarrollo')
+  const [selectedCategory, setSelectedCategory] = useState(defaultCategory)
   const [articleType, setArticleType] = useState('tutorial')
   const [difficulty, setDifficulty] = useState('intermediate')
   const [error, setError] = useState(null)
