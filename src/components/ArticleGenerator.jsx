@@ -38,9 +38,9 @@ export default function ArticleGenerator({ onArticleGenerated, defaultCategory =
         difficulty
       })
       
-      // Save article to local storage or call parent function
+      // Save article and call parent function
       if (onArticleGenerated) {
-        onArticleGenerated(articleData)
+        await onArticleGenerated(articleData)
       }
       
       // Clear form
