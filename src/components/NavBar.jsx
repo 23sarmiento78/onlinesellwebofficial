@@ -58,13 +58,45 @@ export default function NavBar() {
           {/* Desktop Navigation */}
           <ul className="navbar-nav">
             {navLinks.map((link) => (
-              <li key={link.to} className="nav-item">
-                <Link
-                  to={link.to}
-                  className={`nav-link ${location.pathname === link.to ? 'active' : ''}`}
-                >
-                  {link.label}
-                </Link>
+              <li
+                key={link.to}
+                className={`nav-item ${link.dropdown ? 'nav-dropdown' : ''}`}
+                onMouseEnter={() => link.dropdown && setShowBlogDropdown(true)}
+                onMouseLeave={() => link.dropdown && setShowBlogDropdown(false)}
+              >
+                {link.dropdown ? (
+                  <>
+                    <span className={`nav-link ${location.pathname.startsWith(link.to) ? 'active' : ''}`}>
+                      {link.label}
+                      <i className="fas fa-chevron-down ml-1"></i>
+                    </span>
+                    {showBlogDropdown && (
+                      <div className="nav-dropdown-menu">
+                        {link.items.map((item, index) => (
+                          item.type === 'divider' ? (
+                            <div key={index} className="nav-dropdown-divider"></div>
+                          ) : (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              className={`nav-dropdown-item ${location.pathname === item.to ? 'active' : ''}`}
+                            >
+                              <i className={item.icon}></i>
+                              {item.label}
+                            </Link>
+                          )
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    to={link.to}
+                    className={`nav-link ${location.pathname === link.to ? 'active' : ''}`}
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
