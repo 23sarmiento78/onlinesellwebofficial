@@ -1,66 +1,182 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react'
 
 export default function Hero({
   title,
   subtitle,
+  badge,
+  backgroundVideo,
+  backgroundImage,
   ctas = [],
-  stats = []
+  stats = [],
+  variant = 'default', // 'default', 'minimal', 'fullscreen', 'left-aligned'
+  showScrollIndicator = true,
+  showFloatingElements = true,
+  showParticles = false,
+  animated = true
 }) {
-  const videoRef = useRef(null);
+  const videoRef = useRef(null)
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
 
   useEffect(() => {
-    // Asegurarse de que el video se reproduzca correctamente
-    if (videoRef.current) {
-      videoRef.current.play().catch(error => {
-        console.log("Autoplay prevented:", error);
-      });
-    }
-  }, []);
+    if (videoRef.current && backgroundVideo) {
+      const video = videoRef.current
+      
+      const handleLoadedData = () => {
+        setIsVideoLoaded(true)
+        video.play().catch(error => {
+          console.log("Autoplay prevented:", error)
+        })
+      }
 
-  return (
-    <section className="hero-section">
-      <div className="hero-background">
-        <video 
-          ref={videoRef}
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            top: 0,
-            left: 0
-          }}
-        >
-          <source src={`${process.env.PUBLIC_URL}/5377684-uhd_3840_2160_25fps.mp4`} type="video/mp4" />
-          Tu navegador no soporta el elemento de video.
-        </video>
+      const handleError = () => {
+        console.log("Video failed to load")
+        setIsVideoLoaded(false)
+      }
+
+      video.addEventListener('loadeddata', handleLoadedData)
+      video.addEventListener('error', handleError)
+
+      return () => {
+        video.removeEventListener('loadeddata', handleLoadedData)
+        video.removeEventListener('error', handleError)
+      }
+    }
+  }, [backgroundVideo])
+
+  const scrollToContent = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    })
+  }
+
+  const heroClasses = [
+    'hero',
+    variant,
+    animated ? 'animated' : ''
+  ].filter(Boolean).join(' ')
+
+  const renderFloatingElements = () => {
+    if (!showFloatingElements) return null
+    
+    return (
+      <div className="hero-floating-elements">
+        <div className="floating-shape"></div>
+        <div className="floating-shape"></div>
+        <div className="floating-shape"></div>
+        <div className="floating-shape"></div>
       </div>
-      <div className="hero-overlay"></div>
-      <div className="hero-content">
-        <h1 className="hero-title">{title}</h1>
-        <p className="hero-subtitle">{subtitle}</p>
-        <div className="hero-cta">
-          {ctas.map((cta, i) => (
-            <a
-              key={i}
-              href={cta.href}
-              className={cta.className}
-              target={cta.target || undefined}
-              rel={cta.target ? 'noopener' : undefined}
-            >
-              {cta.icon && <i className={cta.icon}></i>}
-              {cta.text}
-            </a>
-          ))}
+    )
+  }
+
+  const renderParticles = () => {
+    if (!showParticles) return null
+    
+    const particles = Array.from({ length: 50 }, (_, i) => (
+      <div
+        key={i}
+        className="particle"
+        style={{
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          animationDelay: `${Math.random() * 4}s`
+        }}
+      />
+    ))
+    
+    return <div className="hero-particles">{particles}</div>
+  }
+
+  const renderContent = () => {
+    if (variant === 'left-aligned') {
+      return (
+        <div className="hero-content">
+          <div className="hero-text">
+            {badge && (
+              <div className="hero-badge">
+                {badge.icon && <i className={badge.icon}></i>}
+                {badge.text}
+              </div>
+            )}
+            
+            <h1 className="hero-title">
+              {typeof title === 'string' ? title : title}
+            </h1>
+            
+            {subtitle && (
+              <p className="hero-subtitle">{subtitle}</p>
+            )}
+            
+            {ctas.length > 0 && (
+              <div className="hero-cta">
+                {ctas.map((cta, index) => (
+                  <a
+                    key={index}
+                    href={cta.href}
+                    className={cta.className || 'cta-button primary'}
+                    target={cta.target}
+                    rel={cta.target === '_blank' ? 'noopener noreferrer' : undefined}
+                  >
+                    {cta.icon && <i className={cta.icon}></i>}
+                    {cta.text}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+          
+          {stats.length > 0 && (
+            <div className="hero-stats">
+              {stats.map((stat, index) => (
+                <div key={index} className="hero-stat">
+                  <span className="hero-stat-number">{stat.number}</span>
+                  <span className="hero-stat-label">{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
+      )
+    }
+
+    return (
+      <div className="hero-content">
+        {badge && (
+          <div className="hero-badge">
+            {badge.icon && <i className={badge.icon}></i>}
+            {badge.text}
+          </div>
+        )}
+        
+        <h1 className="hero-title">
+          {typeof title === 'string' ? title : title}
+        </h1>
+        
+        {subtitle && (
+          <p className="hero-subtitle">{subtitle}</p>
+        )}
+        
+        {ctas.length > 0 && (
+          <div className="hero-cta">
+            {ctas.map((cta, index) => (
+              <a
+                key={index}
+                href={cta.href}
+                className={cta.className || 'cta-button primary'}
+                target={cta.target}
+                rel={cta.target === '_blank' ? 'noopener noreferrer' : undefined}
+              >
+                {cta.icon && <i className={cta.icon}></i>}
+                {cta.text}
+              </a>
+            ))}
+          </div>
+        )}
+        
         {stats.length > 0 && (
           <div className="hero-stats">
-            {stats.map((stat, i) => (
-              <div className="hero-stat-item" key={i}>
+            {stats.map((stat, index) => (
+              <div key={index} className="hero-stat">
                 <span className="hero-stat-number">{stat.number}</span>
                 <span className="hero-stat-label">{stat.label}</span>
               </div>
@@ -68,6 +184,59 @@ export default function Hero({
           </div>
         )}
       </div>
+    )
+  }
+
+  return (
+    <section className={heroClasses}>
+      {/* Background Video */}
+      {backgroundVideo && (
+        <div className="hero-video-background">
+          <video
+            ref={videoRef}
+            className="hero-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={backgroundImage}
+          >
+            <source src={backgroundVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      )}
+
+      {/* Background Image */}
+      {backgroundImage && !backgroundVideo && (
+        <div
+          className="hero-image-background"
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        />
+      )}
+
+      {/* Overlay */}
+      <div className={`hero-overlay ${animated ? 'animated' : ''}`} />
+
+      {/* Floating Elements */}
+      {renderFloatingElements()}
+
+      {/* Particles */}
+      {renderParticles()}
+
+      {/* Content */}
+      {renderContent()}
+
+      {/* Scroll Indicator */}
+      {showScrollIndicator && (
+        <button
+          className="hero-scroll-indicator"
+          onClick={scrollToContent}
+          aria-label="Scroll to content"
+        >
+          <i className="fas fa-chevron-down"></i>
+        </button>
+      )}
     </section>
-  );
+  )
 }
