@@ -6,6 +6,7 @@ import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
 import ArticleGenerator from '@components/ArticleGenerator'
 import SavedFiles from '@components/SavedFiles'
 import SitemapStatus from '@components/SitemapStatus'
+import StyleUpdateStatus from '@components/StyleUpdateStatus'
 
 export default function BlogIA() {
   const { articles, loading, getArticlesByCategory, searchArticles, addArticle } = useArticles()
