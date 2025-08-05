@@ -34,14 +34,7 @@ export default function StyleUpdateStatus() {
   }
 
   if (!updateStatus) {
-    return (
-      <div className="style-update-status bg-blue-50 rounded-lg p-4 border border-blue-200">
-        <div className="flex items-center gap-2 text-blue-600">
-          <i className="fas fa-paint-brush animate-spin"></i>
-          <span className="text-sm font-medium">Actualizando estilos de artículos...</span>
-        </div>
-      </div>
-    )
+    return null // Don't show loading state to users
   }
 
   const successRate = updateStatus.total > 0 ? 
