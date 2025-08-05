@@ -1,260 +1,367 @@
-import React from "react";
-import BaseLayout from "../layouts/BaseLayout";
-import Hero from "../components/Hero";
-import "./Planes.css";
-
-const planes = [
-  {
-    id: 1,
-    name: "Básico",
-    price: "$200",
-    period: "USD",
-    description: "Perfecto para emprendedores que necesitan presencia online",
-    features: [
-      "Landing Page de 1 página",
-      "Diseño responsive",
-      "Formulario de contacto",
-      "Optimización SEO básica",
-      "SSL incluido",
-      "1 mes de soporte",
-    ],
-    cta: "Empezar Ahora",
-    popular: false,
-    color: "basic",
-  },
-  {
-    id: 2,
-    name: "Estándar",
-    price: "$400",
-    period: "USD",
-    description: "Ideal para pequeños negocios que buscan mayor funcionalidad",
-    features: [
-      "Sitio web de hasta 5 páginas",
-      "Diseño responsive premium",
-      "CMS para actualizar contenido",
-      "Formularios avanzados",
-      "SEO intermedio",
-      "Integración redes sociales",
-      "3 meses de soporte",
-    ],
-    cta: "Elegir Plan",
-    popular: false,
-    color: "standard",
-  },
-  {
-    id: 3,
-    name: "Profesional",
-    price: "$600",
-    period: "USD",
-    description: "Para empresas que necesitan una presencia web sólida",
-    features: [
-      "Sitio web ilimitado",
-      "Panel de administración",
-      "Blog integrado",
-      "Galería de imágenes",
-      "SEO avanzado",
-      "Analíticas web",
-      "Chat en vivo",
-      "6 meses de soporte",
-    ],
-    cta: "Más Popular",
-    popular: true,
-    color: "professional",
-  },
-  {
-    id: 4,
-    name: "E-commerce",
-    price: "$800",
-    period: "USD",
-    description: "Tienda online completa para vender tus productos",
-    features: [
-      "Tienda online completa",
-      "Carrito de compras",
-      "Pasarelas de pago",
-      "Gestión de inventario",
-      "Panel de ventas",
-      "SEO para e-commerce",
-      "Productos ilimitados",
-      "1 año de soporte",
-    ],
-    cta: "Vender Online",
-    popular: false,
-    color: "ecommerce",
-  },
-  {
-    id: 5,
-    name: "E-commerce Pro",
-    price: "$1,200",
-    period: "USD",
-    description: "Solución avanzada para negocios de alto volumen",
-    features: [
-      "E-commerce premium",
-      "Multi-pasarelas de pago",
-      "Sistema de envíos",
-      "Facturación automática",
-      "Reportes avanzados",
-      "Marketing automation",
-      "Multi-idioma",
-      "Integración ERP",
-      "1 año de soporte premium",
-    ],
-    cta: "Escalar Negocio",
-    popular: false,
-    color: "ecommerce-pro",
-  },
-  {
-    id: 6,
-    name: "Completo",
-    price: "$1,500",
-    period: "USD",
-    description: "Solución integral: Sitio web + Aplicación móvil",
-    features: [
-      "Sitio web completo",
-      "Aplicación móvil nativa",
-      "Publicación en Play Store",
-      "Panel de administración unificado",
-      "Push notifications",
-      "Sincronización en tiempo real",
-      "SEO completo",
-      "Soporte prioritario 24/7",
-      "2 años de soporte",
-    ],
-    cta: "Solución Total",
-    popular: false,
-    color: "complete",
-  },
-];
+import React from 'react'
+import { Helmet } from 'react-helmet-async'
+import Hero from '@components/Hero'
 
 export default function Planes() {
+  const heroProps = {
+    title: 'Planes de Desarrollo Web',
+    subtitle: 'Encuentra el plan perfecto para tu negocio. Precios transparentes, sin sorpresas, con todo lo que necesitas para triunfar online.',
+    variant: 'minimal',
+    backgroundImage: '/logos-he-imagenes/fondo-hero.jpg'
+  }
+
+  const planes = [
+    {
+      name: 'Básico',
+      price: '150',
+      period: 'único',
+      featured: false,
+      description: 'Perfecto para emprendedores y pequeños negocios',
+      features: [
+        'Diseño web responsivo',
+        'Hasta 5 páginas',
+        'Formulario de contacto',
+        'SEO básico',
+        'Dominio .com por 1 año',
+        'Hosting por 1 año',
+        'Certificado SSL',
+        'Soporte por email',
+        'Panel de administración',
+        'Integración redes sociales'
+      ],
+      cta: {
+        text: 'Comenzar Ahora',
+        href: '/contacto?plan=basico',
+        className: 'btn btn-outline btn-lg'
+      }
+    },
+    {
+      name: 'Profesional',
+      price: '300',
+      period: 'único',
+      featured: true,
+      description: 'La opción más popular para negocios en crecimiento',
+      features: [
+        'Todo lo del plan Básico',
+        'Hasta 10 páginas',
+        'Tienda online (hasta 20 productos)',
+        'SEO avanzado',
+        'Blog integrado',
+        'Google Analytics',
+        'Chat en vivo',
+        'Backup automático',
+        'Optimización de velocidad',
+        'Soporte prioritario',
+        'Capacitación personalizada',
+        '2 revisiones gratuitas'
+      ],
+      cta: {
+        text: '¡El Más Popular!',
+        href: '/contacto?plan=profesional',
+        className: 'btn btn-primary btn-lg'
+      }
+    },
+    {
+      name: 'Premium',
+      price: '500',
+      period: 'único',
+      featured: false,
+      description: 'Para empresas que quieren la máxima funcionalidad',
+      features: [
+        'Todo lo del plan Profesional',
+        'Páginas ilimitadas',
+        'Tienda online (hasta 100 productos)',
+        'Sistema de reservas/citas',
+        'Múltiples idiomas',
+        'Integración CRM',
+        'Email marketing',
+        'Reportes avanzados',
+        'API personalizada',
+        'Mantenimiento 3 meses',
+        'Soporte telefónico',
+        'Revisiones ilimitadas'
+      ],
+      cta: {
+        text: 'Máxima Potencia',
+        href: '/contacto?plan=premium',
+        className: 'btn btn-outline btn-lg'
+      }
+    }
+  ]
+
+  const addons = [
+    {
+      name: 'Mantenimiento Mensual',
+      price: '50',
+      period: 'mes',
+      description: 'Actualizaciones, copias de seguridad y soporte continuo',
+      icon: 'fas fa-tools'
+    },
+    {
+      name: 'Marketing Digital',
+      price: '200',
+      period: 'mes',
+      description: 'Gestión de redes sociales y campañas publicitarias',
+      icon: 'fas fa-chart-line'
+    },
+    {
+      name: 'SEO Avanzado',
+      price: '150',
+      period: 'mes',
+      description: 'Optimización continua para aparecer en Google',
+      icon: 'fas fa-search'
+    },
+    {
+      name: 'E-commerce Plus',
+      price: '100',
+      period: 'único',
+      description: 'Funcionalidades avanzadas para tu tienda online',
+      icon: 'fas fa-shopping-cart'
+    }
+  ]
+
   return (
-    <BaseLayout
-      title="Planes Desarrollo Web Villa Carlos Paz | Desde $200 | Sitios Web Profesionales"
-      description="Planes de desarrollo web profesionales en Villa Carlos Paz, Córdoba. Precios accesibles desde $200. Sitios web que convierten visitantes en clientes. E-commerce y apps móviles."
-      keywords="planes desarrollo web villa carlos paz, precios sitios web carlos paz, desarrollo web córdoba, e-commerce villa carlos paz, apps móviles villa carlos paz"
-      ogTitle="Planes Desarrollo Web Villa Carlos Paz | Desde $200"
-      ogDescription="Planes de desarrollo web profesionales en Villa Carlos Paz. Desde landing pages hasta e-commerce y apps móviles. Soporte incluido."
-      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://hgaruna.org/planes/"
-    >
-      <Hero
-        title="Planes de Desarrollo Web Villa Carlos Paz"
-        subtitle="Elige el plan perfecto para tu negocio. Desde sitios web básicos hasta e-commerce completos con app móvil. Todos nuestros planes incluyen SEO y soporte técnico."
-        backgroundImage="/logos-he-imagenes/fondo-hero.jpg"
-        ctas={[
-          {
-            href: "#planes",
-            className: "cta-button primary",
-            icon: "fas fa-eye",
-            text: "Ver Planes",
-          },
-          {
-            href: "https://wa.me/+543541237972?text=Hola%2C%20quiero%20consultar%20sobre%20los%20planes%20de%20desarrollo%20web",
-            className: "cta-button secondary",
-            icon: "fab fa-whatsapp",
-            text: "Consulta Gratuita",
-            target: "_blank",
-          },
-        ]}
-        stats={[
-          { number: "6", label: "Planes Disponibles" },
-          { number: "$200", label: "Desde" },
-          { number: "24h", label: "Respuesta" },
-        ]}
-      />
+    <>
+      <Helmet>
+        <title>Planes de Desarrollo Web Villa Carlos Paz | Precios Transparentes | hgaruna</title>
+        <meta 
+          name="description" 
+          content="Planes de desarrollo web en Villa Carlos Paz desde $150. Precios transparentes, sin sorpresas. Básico, Profesional y Premium. ¡Encuentra tu plan ideal!" 
+        />
+        <meta 
+          name="keywords" 
+          content="planes desarrollo web villa carlos paz, precios sitio web villa carlos paz, costo desarrollo web córdoba, planes web económicos, desarrollo web barato villa carlos paz" 
+        />
+      </Helmet>
 
-      <main>
-        <section id="planes" className="planes-section">
-          <div className="container">
-            <div className="section-header">
-              <h2>Nuestros Planes de Desarrollo</h2>
-              <p>Soluciones adaptadas a cada tipo de negocio y presupuesto</p>
+      {/* Hero Section */}
+      <Hero {...heroProps} />
+
+      {/* Pricing Section */}
+      <section className="section">
+        <div className="container">
+          <div className="section-header">
+            <div className="section-badge">
+              <i className="fas fa-tag"></i>
+              Precios Transparentes
             </div>
+            <h2 className="section-title">Elige el Plan Perfecto</h2>
+            <p className="section-description">
+              Sin letra chica, sin costos ocultos. Todo lo que necesitas para comenzar tu presencia digital.
+            </p>
+          </div>
 
-            <div className="planes-grid">
-              {planes.map((plan) => (
-                <div
-                  key={plan.id}
-                  className={`plan-card ${plan.color} ${plan.popular ? "popular" : ""}`}
-                >
-                  {plan.popular && (
-                    <div className="popular-badge">
-                      <i className="fas fa-star"></i>
-                      Más Elegido
-                    </div>
-                  )}
-
-                  <div className="plan-header">
-                    <h3 className="plan-name">{plan.name}</h3>
-                    <div className="plan-price">
-                      <span className="price">{plan.price}</span>
-                      <span className="period">{plan.period}</span>
-                    </div>
-                    <p className="plan-description">{plan.description}</p>
+          <div className="cards-grid cards-grid-3">
+            {planes.map((plan, index) => (
+              <div key={index} className={`card pricing-card ${plan.featured ? 'featured' : ''}`}>
+                {plan.featured && (
+                  <div className="card-badge">Más Popular</div>
+                )}
+                
+                <div className="card-header pricing-header">
+                  <h3 className="pricing-title">{plan.name}</h3>
+                  <div className="pricing-price">
+                    <span className="pricing-currency">$</span>
+                    {plan.price}
+                    <span className="pricing-period">/{plan.period}</span>
                   </div>
-
-                  <div className="plan-features">
-                    <ul>
-                      {plan.features.map((feature, index) => (
-                        <li key={index}>
-                          <i className="fas fa-check"></i>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="plan-footer">
-                    <a
-                      href={`https://wa.me/+543541237972?text=Hola%2C%20me%20interesa%20el%20plan%20${plan.name}%20de%20${plan.price}%20USD`}
-                      className={`plan-cta ${plan.popular ? "primary" : "secondary"}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="fab fa-whatsapp"></i>
-                      {plan.cta}
-                    </a>
-                  </div>
+                  <p className="pricing-description">{plan.description}</p>
                 </div>
-              ))}
-            </div>
 
-            <div className="plans-footer">
-              <div className="guarantee">
-                <h3>
-                  <i className="fas fa-shield-alt"></i> Garantía de Satisfacción
-                </h3>
-                <p>
-                  Si no estás 100% satisfecho con tu sitio web, te devolvemos tu
-                  dinero.
-                </p>
+                <div className="card-body">
+                  <ul className="pricing-features">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex}>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="card-footer pricing-footer">
+                  <a href={plan.cta.href} className={plan.cta.className}>
+                    {plan.cta.text}
+                  </a>
+                </div>
               </div>
+            ))}
+          </div>
 
-              <div className="contact-info">
-                <h3>¿Necesitas un plan personalizado?</h3>
-                <p>
-                  Contactanos para una cotización a medida de tus necesidades
-                  específicas.
-                </p>
-                <div className="contact-buttons">
-                  <a href="/contacto" className="contact-btn">
-                    <i className="fas fa-envelope"></i>
-                    Contacto
-                  </a>
-                  <a
-                    href="https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20plan%20personalizado%20para%20mi%20proyecto"
-                    className="whatsapp-btn"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i className="fab fa-whatsapp"></i>
-                    WhatsApp
-                  </a>
+          {/* Guarantee */}
+          <div className="text-center mt-12">
+            <div className="guarantee-box p-8 bg-secondary rounded-2xl border border-light">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <i className="fas fa-shield-alt text-3xl text-success"></i>
+                <h3 className="text-2xl font-bold">Garantía de Satisfacción</h3>
+              </div>
+              <p className="text-lg text-secondary mb-4">
+                Si no estás 100% satisfecho con tu sitio web, trabajamos hasta que lo estés o te devolvemos tu dinero.
+              </p>
+              <div className="flex flex-wrap gap-6 justify-center">
+                <div className="flex items-center gap-2">
+                  <i className="fas fa-check text-success"></i>
+                  <span>30 días de garantía</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <i className="fas fa-check text-success"></i>
+                  <span>Revisiones ilimitadas</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <i className="fas fa-check text-success"></i>
+                  <span>Soporte incluido</span>
                 </div>
               </div>
             </div>
           </div>
-        </section>
-      </main>
-    </BaseLayout>
-  );
+        </div>
+      </section>
+
+      {/* Add-ons Section */}
+      <section className="section section-secondary">
+        <div className="container">
+          <div className="section-header">
+            <div className="section-badge">
+              <i className="fas fa-plus"></i>
+              Servicios Adicionales
+            </div>
+            <h2 className="section-title">Potencia tu Sitio Web</h2>
+            <p className="section-description">
+              Servicios complementarios para maximizar el rendimiento de tu sitio web
+            </p>
+          </div>
+
+          <div className="cards-grid cards-grid-4">
+            {addons.map((addon, index) => (
+              <div key={index} className="card feature-card">
+                <div className="feature-icon">
+                  <i className={addon.icon}></i>
+                </div>
+                <h3 className="feature-title">{addon.name}</h3>
+                <p className="feature-text">{addon.description}</p>
+                <div className="pricing-price mb-4">
+                  <span className="pricing-currency">$</span>
+                  {addon.price}
+                  <span className="pricing-period">/{addon.period}</span>
+                </div>
+                <a href="/contacto" className="btn btn-outline">
+                  Más Información
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="section">
+        <div className="container">
+          <div className="section-header">
+            <div className="section-badge">
+              <i className="fas fa-question-circle"></i>
+              Preguntas Frecuentes
+            </div>
+            <h2 className="section-title">¿Tienes Dudas?</h2>
+            <p className="section-description">
+              Resolvemos las preguntas más comunes sobre nuestros planes
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-6">
+              <details className="group bg-secondary rounded-xl border border-light">
+                <summary className="flex items-center justify-between p-6 cursor-pointer">
+                  <h3 className="text-lg font-semibold">¿Qué incluye el hosting y dominio por 1 año?</h3>
+                  <i className="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-secondary">
+                    Incluimos el registro de tu dominio .com por un año completo y hosting en servidores confiables con 99.9% de uptime. 
+                    Después del primer año, puedes renovar por $50 anuales o transferir a otro proveedor si prefieres.
+                  </p>
+                </div>
+              </details>
+
+              <details className="group bg-secondary rounded-xl border border-light">
+                <summary className="flex items-center justify-between p-6 cursor-pointer">
+                  <h3 className="text-lg font-semibold">¿Cuánto tiempo toma desarrollar mi sitio web?</h3>
+                  <i className="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-secondary">
+                    El plan Básico toma 7-10 días, el Profesional 15-20 días, y el Premium 25-30 días. 
+                    El tiempo puede variar según la complejidad y la rapidez en la entrega de contenidos.
+                  </p>
+                </div>
+              </details>
+
+              <details className="group bg-secondary rounded-xl border border-light">
+                <summary className="flex items-center justify-between p-6 cursor-pointer">
+                  <h3 className="text-lg font-semibold">¿Puedo actualizar mi plan después?</h3>
+                  <i className="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-secondary">
+                    ¡Por supuesto! Puedes actualizar tu plan en cualquier momento pagando solo la diferencia. 
+                    También ofrecemos funcionalidades adicionales según tus necesidades.
+                  </p>
+                </div>
+              </details>
+
+              <details className="group bg-secondary rounded-xl border border-light">
+                <summary className="flex items-center justify-between p-6 cursor-pointer">
+                  <h3 className="text-lg font-semibold">¿Qué pasa si necesito más páginas?</h3>
+                  <i className="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-secondary">
+                    Puedes agregar páginas adicionales por $30 cada una. También podemos evaluar actualizar 
+                    tu plan si necesitas muchas páginas adicionales para que sea más económico.
+                  </p>
+                </div>
+              </details>
+
+              <details className="group bg-secondary rounded-xl border border-light">
+                <summary className="flex items-center justify-between p-6 cursor-pointer">
+                  <h3 className="text-lg font-semibold">¿Ofrecen soporte después de la entrega?</h3>
+                  <i className="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-secondary">
+                    Sí, todos los planes incluyen 30 días de soporte gratuito. Después puedes contratar 
+                    nuestro plan de mantenimiento mensual o soporte por horas según necesites.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="section cta-section">
+        <div className="container">
+          <div className="cta-content">
+            <h2 className="section-title">¿Listo para Comenzar?</h2>
+            <p className="section-subtitle">
+              Elige tu plan y comienza tu transformación digital hoy mismo. 
+              ¡Tu competencia no esperará!
+            </p>
+            <div className="cta-buttons">
+              <a
+                href="https://wa.me/+543541237972?text=Hola%2C%20quiero%20contratar%20un%20plan%20de%20desarrollo%20web"
+                className="cta-button primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-whatsapp"></i>
+                Consultar por WhatsApp
+              </a>
+              <a href="/contacto" className="cta-button secondary">
+                <i className="fas fa-envelope"></i>
+                Contactar por Email
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  )
 }

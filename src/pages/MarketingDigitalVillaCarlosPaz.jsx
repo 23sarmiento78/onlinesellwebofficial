@@ -1,54 +1,34 @@
-import React from 'react';
-import BaseLayout from '../layouts/BaseLayout';
-import Hero from '../components/Hero';
+import React from 'react'
+import { Helmet } from 'react-helmet-async'
+import { Link } from 'react-router-dom'
 
 export default function MarketingDigitalVillaCarlosPaz() {
   return (
-    <BaseLayout
-      title="Marketing Digital Villa Carlos Paz | SEO Local | Google Ads | Redes Sociales | hgaruna"
-      description="Marketing digital profesional en Villa Carlos Paz, Córdoba. SEO local, Google Ads, redes sociales y publicidad online. Aumenta las ventas de tu negocio local. Precios desde $150."
-      keywords="marketing digital villa carlos paz, seo local villa carlos paz, google ads villa carlos paz, redes sociales villa carlos paz, publicidad online córdoba, posicionamiento web villa carlos paz, marketing digital córdoba"
-      ogTitle="Marketing Digital Villa Carlos Paz | SEO Local | Google Ads | Redes Sociales | hgaruna"
-      ogDescription="Marketing digital profesional en Villa Carlos Paz, Córdoba. SEO local, Google Ads, redes sociales y publicidad online. Aumenta las ventas de tu negocio local."
-      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://hgaruna.org/marketing-digital-villa-carlos-paz/"
-    >
-      {/* Hero Section */}
-      <Hero
-        title="Marketing Digital Profesional Villa Carlos Paz | Aumenta tus Ventas"
-        subtitle="Lleva tu negocio al siguiente nivel con marketing digital profesional. SEO local, Google Ads, redes sociales y publicidad online. Resultados medibles y ROI garantizado."
-        backgroundImage="/logos-he-imagenes/fondo-hero.jpg"
-        ctas={[
-          {
-            href: '/planes/',
-            className: 'cta-button primary',
-            icon: 'fas fa-rocket',
-            text: '¡Quiero mi Sitio Web YA!'
-          },
-          {
-            href: 'https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz',
-            className: 'cta-button secondary',
-            icon: 'fab fa-whatsapp',
-            text: 'Consulta Gratuita',
-            target: '_blank'
-          }
-        ]}
-        stats={[
-          { number: '20+', label: 'Sitios Web Creados' },
-          { number: '100%', label: 'Clientes Satisfechos' },
-          { number: '24h', label: 'Tiempo de Respuesta' }
-        ]}
-      />
+    <>
+      <Helmet>
+        <title>Marketing Digital Villa Carlos Paz | Página en Construcción | hgaruna</title>
+        <meta name="description" content="Página en construcción - Marketing Digital especializado en Villa Carlos Paz" />
+      </Helmet>
 
-      {/* Contenido de Builder.io irá aquí */}
-      <section className="marketing-content">
-        <div className="container">
-          <div className="text-center">
-            <h2>Marketing Digital Villa Carlos Paz</h2>
-            <p>Contenido personalizado con Builder.io</p>
+      <div className="pt-20 min-h-screen flex items-center justify-center">
+        <div className="container text-center">
+          <i className="fas fa-chart-line text-6xl text-primary mb-6"></i>
+          <h1 className="text-4xl font-bold mb-4">Página en Construcción</h1>
+          <p className="text-xl text-secondary mb-8">
+            Estamos trabajando en contenido especializado sobre marketing digital en Villa Carlos Paz.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link to="/" className="btn btn-primary">
+              <i className="fas fa-home mr-2"></i>
+              Volver al Inicio
+            </Link>
+            <Link to="/contacto" className="btn btn-outline">
+              <i className="fas fa-envelope mr-2"></i>
+              Contactanos
+            </Link>
           </div>
         </div>
-      </section>
-    </BaseLayout>
-  );
-} 
+      </div>
+    </>
+  )
+}

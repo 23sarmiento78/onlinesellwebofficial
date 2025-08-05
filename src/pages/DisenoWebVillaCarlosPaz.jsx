@@ -1,54 +1,34 @@
-import React from 'react';
-import BaseLayout from '../layouts/BaseLayout';
-import Hero from '../components/Hero';
+import React from 'react'
+import { Helmet } from 'react-helmet-async'
+import { Link } from 'react-router-dom'
 
 export default function DisenoWebVillaCarlosPaz() {
   return (
-    <BaseLayout
-      title="Diseño Web Villa Carlos Paz | Diseñador Web Profesional | Sitios Web Modernos | hgaruna"
-      description="Diseño web profesional en Villa Carlos Paz, Córdoba. Diseñador web especializado en sitios web modernos y responsivos. UX/UI, branding y diseño gráfico. Precios desde $150."
-      keywords="diseño web villa carlos paz, diseñador web villa carlos paz, diseño web córdoba, ux ui villa carlos paz, diseño gráfico villa carlos paz, sitios web modernos córdoba, branding villa carlos paz"
-      ogTitle="Diseño Web Villa Carlos Paz | Diseñador Web Profesional | Sitios Web Modernos | hgaruna"
-      ogDescription="Diseño web profesional en Villa Carlos Paz, Córdoba. Diseñador web especializado en sitios web modernos y responsivos. UX/UI y branding incluido."
-      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://hgaruna.org/diseño-web-villa-carlos-paz/"
-    >
-      {/* Hero Section */}
-      <Hero
-        title="Diseño Web Profesional Villa Carlos Paz | Sitios Web Modernos"
-        subtitle="Creamos diseños web únicos y modernos que destacan tu marca. UX/UI optimizado, diseño responsivo y branding personalizado. Precios accesibles para negocios locales de Villa Carlos Paz."
-        backgroundImage="/logos-he-imagenes/fondo-hero.jpg"
-        ctas={[
-          {
-            href: '/planes/',
-            className: 'cta-button primary',
-            icon: 'fas fa-rocket',
-            text: '¡Quiero mi Sitio Web YA!'
-          },
-          {
-            href: 'https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz',
-            className: 'cta-button secondary',
-            icon: 'fab fa-whatsapp',
-            text: 'Consulta Gratuita',
-            target: '_blank'
-          }
-        ]}
-        stats={[
-          { number: '20+', label: 'Sitios Web Creados' },
-          { number: '100%', label: 'Clientes Satisfechos' },
-          { number: '24h', label: 'Tiempo de Respuesta' }
-        ]}
-      />
+    <>
+      <Helmet>
+        <title>Diseño Web Villa Carlos Paz | Página en Construcción | hgaruna</title>
+        <meta name="description" content="Página en construcción - Diseño Web especializado en Villa Carlos Paz" />
+      </Helmet>
 
-      {/* Contenido de Builder.io irá aquí */}
-      <section className="diseno-content">
-        <div className="container">
-          <div className="text-center">
-            <h2>Diseño Web Villa Carlos Paz</h2>
-            <p>Contenido personalizado con Builder.io</p>
+      <div className="pt-20 min-h-screen flex items-center justify-center">
+        <div className="container text-center">
+          <i className="fas fa-palette text-6xl text-primary mb-6"></i>
+          <h1 className="text-4xl font-bold mb-4">Página en Construcción</h1>
+          <p className="text-xl text-secondary mb-8">
+            Estamos trabajando en contenido especializado sobre diseño web en Villa Carlos Paz.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link to="/" className="btn btn-primary">
+              <i className="fas fa-home mr-2"></i>
+              Volver al Inicio
+            </Link>
+            <Link to="/contacto" className="btn btn-outline">
+              <i className="fas fa-envelope mr-2"></i>
+              Contactanos
+            </Link>
           </div>
         </div>
-      </section>
-    </BaseLayout>
-  );
-} 
+      </div>
+    </>
+  )
+}

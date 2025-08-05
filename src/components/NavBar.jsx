@@ -1,59 +1,123 @@
-import React, { useState, useEffect } from 'react';
-import './NavBar.css';
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
 
 export default function NavBar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [showBlogDropdown, setShowBlogDropdown] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      setIsScrolled(window.scrollY > 50)
+    }
 
-  const handleToggle = () => {
-    setMenuOpen(!menuOpen);
-  };
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
-  const handleClose = () => {
-    setMenuOpen(false);
-  };
+  useEffect(() => {
+    setIsOpen(false)
+  }, [location])
 
-  const handleLinkClick = () => {
-    setMenuOpen(false);
-  };
+  const toggleMenu = () => {
+    setIsOpen(!isOpen)
+  }
+
+  const navLinks = [
+    { to: '/', label: 'Inicio' },
+    { to: '/planes', label: 'Planes' },
+    {
+      to: '/blog',
+      label: 'Blog',
+      dropdown: true,
+      items: [
+        { to: '/blog', label: 'Todos los Artículos', icon: 'fas fa-list' },
+        { type: 'divider' },
+        ...Object.entries(ARTICLE_CATEGORIES).map(([key, category]) => ({
+          to: `/blog/categoria/${key}`,
+          label: category.name,
+          icon: category.icon
+        }))
+      ]
+    },
+    { to: '/contacto', label: 'Contacto' },
+  ]
 
   return (
     <>
-      <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
-        <div className="container nav-flex">
-          {/* Logo */}
-          <a className="navbar-brand" href="/">
-            <img src={`${process.env.PUBLIC_URL}/logos-he-imagenes/logo3.png`} alt="hgaruna - Desarrollo Web Profesional" style={{height: '60px'}} />
-          </a>
+      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+        <div className="navbar-container container">
+          {/* Brand */}
+          <Link to="/" className="navbar-brand">
+            <img src="/logos-he-imagenes/logo3.png" alt="hgaruna" />
+            <span>hgaruna</span>
+          </Link>
 
-          {/* Menú Desktop */}
-          <div className="navbar-menu desktop-menu">
-            <ul className="main-nav">
-              <li><a href="/" className="nav-link">Inicio</a></li>
-              <li><a href="/blog" className="nav-link">Blog IA</a></li>
-              <li><a href="/planes" className="nav-link">Planes</a></li>
-              <li><a href="/legal" className="nav-link">Legal</a></li>
-            </ul>
-            <div className="nav-actions">
-              <a href="https://wa.link/6t7cxa" className="btn-filled" target="_blank" rel="noopener">
-                <i className="fab fa-whatsapp"></i>
-                Cotizar Ahora
-              </a>
-            </div>
+          {/* Desktop Navigation */}
+          <ul className="navbar-nav">
+            {navLinks.map((link) => (
+              <li
+                key={link.to}
+                className={`nav-item ${link.dropdown ? 'nav-dropdown' : ''}`}
+                onMouseEnter={() => link.dropdown && setShowBlogDropdown(true)}
+                onMouseLeave={() => link.dropdown && setShowBlogDropdown(false)}
+              >
+                {link.dropdown ? (
+                  <>
+                    <span className={`nav-link ${location.pathname.startsWith(link.to) ? 'active' : ''}`}>
+                      {link.label}
+                      <i className="fas fa-chevron-down ml-1"></i>
+                    </span>
+                    {showBlogDropdown && (
+                      <div className="nav-dropdown-menu">
+                        {link.items.map((item, index) => (
+                          item.type === 'divider' ? (
+                            <div key={index} className="nav-dropdown-divider"></div>
+                          ) : (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              className={`nav-dropdown-item ${location.pathname === item.to ? 'active' : ''}`}
+                            >
+                              <i className={item.icon}></i>
+                              {item.label}
+                            </Link>
+                          )
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    to={link.to}
+                    className={`nav-link ${location.pathname === link.to ? 'active' : ''}`}
+                  >
+                    {link.label}
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA Button */}
+          <div className="navbar-cta">
+            <a
+              href="https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio"
+              className="btn btn-primary btn-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fab fa-whatsapp"></i>
+              Consulta Gratis
+            </a>
           </div>
 
-          {/* Botón móvil */}
-          <button 
-            className={`navbar-toggler${menuOpen ? ' active' : ''}`} 
-            onClick={handleToggle}
+          {/* Mobile Toggle */}
+          <button
+            className={`navbar-toggle ${isOpen ? 'active' : ''}`}
+            onClick={toggleMenu}
             aria-label="Toggle menu"
           >
             <span></span>
@@ -63,36 +127,38 @@ export default function NavBar() {
         </div>
       </nav>
 
-      {/* Sidebar móvil */}
-      <div className={`mobile-sidebar${menuOpen ? ' open' : ''}`}>
-        <div className="sidebar-header">
-          <div className="sidebar-logo">
-            <img src={`${process.env.PUBLIC_URL}/logos-he-imagenes/logo3.png`} alt="hgaruna - Desarrollo Web Profesional" style={{height: '60px'}} />
-          </div>
-          <button className="sidebar-close" onClick={handleClose}>
-            <i className="fas fa-times"></i>
-          </button>
-        </div>
-        
-        <div className="sidebar-content">
-          <ul className="sidebar-menu">
-            <li><a href="/" onClick={handleLinkClick}>Inicio</a></li>
-            <li><a href="/blog" onClick={handleLinkClick}>Blog IA</a></li>
-            <li><a href="/planes" onClick={handleLinkClick}>Planes</a></li>
-            <li><a href="/legal" onClick={handleLinkClick}>Legal</a></li>
-          </ul>
-          
-          <div className="sidebar-cta">
-            <a href="https://wa.link/6t7cxa" onClick={handleLinkClick} target="_blank" rel="noopener">
+      {/* Mobile Navigation */}
+      <div className={`mobile-nav ${isOpen ? 'open' : ''}`}>
+        <ul className="mobile-nav-list">
+          {navLinks.map((link) => (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                className={`nav-link ${location.pathname === link.to ? 'active' : ''}`}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <a
+              href="https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio"
+              className="nav-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fab fa-whatsapp"></i>
-              Cotizar Ahora
+              Consulta Gratis
             </a>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
 
-      {/* Overlay */}
-      <div className={`sidebar-overlay${menuOpen ? ' active' : ''}`} onClick={handleClose}></div>
+      {/* Mobile Overlay */}
+      <div
+        className={`mobile-overlay ${isOpen ? 'active' : ''}`}
+        onClick={() => setIsOpen(false)}
+      />
     </>
-  );
+  )
 }

@@ -1,0 +1,12 @@
+# SPA fallback for React Router
+/*    /index.html   200
+
+# Old URLs redirects (if needed)
+/home    /    301
+/servicios    /planes    301
+/portfolio    /    301
+
+# Security redirects
+/wp-admin/*    /    301
+/admin.php    /    301
+/wp-login.php    /    301

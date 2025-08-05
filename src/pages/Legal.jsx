@@ -1,408 +1,180 @@
-import React from "react";
-import BaseLayout from "../layouts/BaseLayout";
-import Hero from "../components/Hero";
-import "./Legal.css";
+import React from 'react'
+import { Helmet } from 'react-helmet-async'
 
 export default function Legal() {
   return (
-    <BaseLayout
-      title="Aviso Legal - Términos y Condiciones | Desarrollo Web Villa Carlos Paz | hgaruna"
-      description="Aviso legal y términos de servicio de hgaruna. Desarrollo web profesional en Villa Carlos Paz, Córdoba. Información legal, condiciones de uso y políticas de servicio."
-      keywords="aviso legal hgaruna, términos servicio desarrollo web, condiciones uso villa carlos paz, legal desarrollo web córdoba, políticas servicio hgaruna"
-      ogTitle="Aviso Legal - Términos y Condiciones | Desarrollo Web Villa Carlos Paz | hgaruna"
-      ogDescription="Aviso legal y términos de servicio de hgaruna. Desarrollo web profesional en Villa Carlos Paz, Córdoba. Información legal y condiciones de uso."
-      ogImage="https://hgaruna.org/logos-he-imagenes/logo3.png"
-      ogUrl="https://hgaruna.org/legal/"
-    >
-      {/* Hero Section */}
-      <Hero
-        title="Aviso Legal y Términos de Servicio | hgaruna"
-        subtitle="Información legal y términos de servicio de hgaruna. Desarrollo web profesional en Villa Carlos Paz, Córdoba. Conoce nuestras políticas y condiciones de trabajo."
-        backgroundImage="/logos-he-imagenes/fondo-hero.jpg"
-        ctas={[
-          {
-            href: "/planes/",
-            className: "cta-button primary",
-            icon: "fas fa-rocket",
-            text: "¡Quiero mi Sitio Web YA!",
-          },
-          {
-            href: "https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz",
-            className: "cta-button secondary",
-            icon: "fab fa-whatsapp",
-            text: "Consulta Gratuita",
-            target: "_blank",
-          },
-        ]}
-        stats={[
-          { number: "20+", label: "Sitios Web Creados" },
-          { number: "100%", label: "Clientes Satisfechos" },
-          { number: "24h", label: "Tiempo de Respuesta" },
-        ]}
-      />
+    <>
+      <Helmet>
+        <title>Términos y Condiciones | hgaruna</title>
+        <meta name="description" content="Términos y condiciones de servicio de hgaruna - Desarrollo web profesional en Villa Carlos Paz" />
+      </Helmet>
 
-      <main className="legal-content">
+      <div className="pt-20 pb-16">
         <div className="container">
-          <div className="legal-sections">
-            {/* Información de la Empresa */}
-            <section className="legal-section">
-              <h2>
-                <i className="fas fa-building"></i> Información de la Empresa
-              </h2>
-              <div className="legal-text">
-                <p>
-                  <strong>Razón Social:</strong> hgaruna - Desarrollo Web y
-                  Soluciones Digitales
+          <div className="max-w-4xl mx-auto">
+            <div className="section-header text-center mb-12">
+              <h1 className="section-title">Términos y Condiciones</h1>
+              <p className="section-description">
+                Términos de servicio para el desarrollo web profesional
+              </p>
+              <p className="text-muted">Última actualización: Enero 2024</p>
+            </div>
+
+            <div className="prose prose-lg max-w-none">
+              <h2>1. Aceptación de Términos</h2>
+              <p>
+                Al contratar nuestros servicios de desarrollo web, usted acepta estar sujeto a estos términos y condiciones. 
+                Si no está de acuerdo con alguno de estos términos, no utilice nuestros servicios.
+              </p>
+
+              <h2>2. Servicios Ofrecidos</h2>
+              <p>hgaruna ofrece servicios de:</p>
+              <ul>
+                <li>Desarrollo de sitios web personalizados</li>
+                <li>Diseño web responsivo</li>
+                <li>Optimización SEO</li>
+                <li>Mantenimiento y soporte web</li>
+                <li>Marketing digital</li>
+                <li>Desarrollo de tiendas online</li>
+              </ul>
+
+              <h2>3. Proceso de Desarrollo</h2>
+              <h3>3.1 Consulta Inicial</h3>
+              <p>
+                Ofrecemos una consulta inicial gratuita para entender sus necesidades y objetivos. 
+                Esta consulta no implica compromiso alguno para ninguna de las partes.
+              </p>
+
+              <h3>3.2 Propuesta y Cotización</h3>
+              <p>
+                Después de la consulta inicial, proporcionaremos una propuesta detallada con alcance del proyecto, 
+                cronograma y costos. Esta propuesta es válida por 30 días.
+              </p>
+
+              <h3>3.3 Contrato y Pago</h3>
+              <p>
+                El trabajo comenzará una vez firmado el contrato y recibido el pago inicial (50% del total). 
+                El 50% restante se abona al completar el proyecto.
+              </p>
+
+              <h2>4. Responsabilidades del Cliente</h2>
+              <p>El cliente se compromete a:</p>
+              <ul>
+                <li>Proporcionar contenido y materiales necesarios en tiempo oportuno</li>
+                <li>Brindar feedback constructivo y oportuno</li>
+                <li>Realizar los pagos según lo acordado</li>
+                <li>Proporcionar acceso a dominios y hosting cuando sea necesario</li>
+              </ul>
+
+              <h2>5. Propiedad Intelectual</h2>
+              <p>
+                Una vez completado el pago total, el cliente recibe la propiedad del sitio web y su contenido personalizado. 
+                Mantenemos los derechos sobre las técnicas, metodologías y código base utilizados.
+              </p>
+
+              <h2>6. Garantías y Soporte</h2>
+              <h3>6.1 Garantía de Funcionamiento</h3>
+              <p>
+                Garantizamos que el sitio web funcionará según las especificaciones acordadas por un período de 30 días 
+                después de la entrega.
+              </p>
+
+              <h3>6.2 Soporte Post-Entrega</h3>
+              <p>
+                Incluimos 30 días de soporte técnico gratuito para resolver problemas relacionados con nuestro desarrollo. 
+                No incluye cambios de contenido o nuevas funcionalidades.
+              </p>
+
+              <h2>7. Limitaciones de Responsabilidad</h2>
+              <p>
+                Nuestra responsabilidad se limita al costo del proyecto. No nos hacemos responsables por pérdidas 
+                indirectas, lucro cesante o daños consecuenciales.
+              </p>
+
+              <h2>8. Modificaciones del Servicio</h2>
+              <p>
+                Cambios en el alcance del proyecto durante el desarrollo pueden resultar en ajustes de costo y cronograma. 
+                Estos cambios deben ser aprobados por escrito por ambas partes.
+              </p>
+
+              <h2>9. Política de Reembolsos</h2>
+              <p>
+                Los reembolsos se consideran caso por caso. Si el proyecto se cancela por parte del cliente después de iniciado, 
+                los pagos realizados no son reembolsables, pero se entregará el trabajo completado hasta la fecha.
+              </p>
+
+              <h2>10. Hosting y Dominio</h2>
+              <p>
+                Cuando incluimos hosting y dominio, estos servicios son proporcionados por terceros. No nos hacemos responsables 
+                por interrupciones del servicio ajenas a nuestro control.
+              </p>
+
+              <h2>11. Confidencialidad</h2>
+              <p>
+                Mantenemos estricta confidencialidad sobre la información del cliente y su proyecto. No compartimos detalles 
+                con terceros sin autorización expresa.
+              </p>
+
+              <h2>12. Fuerza Mayor</h2>
+              <p>
+                No seremos responsables por retrasos o incumplimientos debido a circunstancias fuera de nuestro control, 
+                incluyendo pero no limitado a desastres naturales, problemas técnicos de terceros, o pandemias.
+              </p>
+
+              <h2>13. Resolución de Disputas</h2>
+              <p>
+                Cualquier disputa será resuelta primero mediante negociación directa. Si no se llega a un acuerdo, 
+                se someterá a arbitraje según las leyes de la República Argentina.
+              </p>
+
+              <h2>14. Jurisdicción</h2>
+              <p>
+                Estos términos se rigen por las leyes de la República Argentina. La jurisdicción competente será 
+                Villa Carlos Paz, Córdoba, Argentina.
+              </p>
+
+              <h2>15. Modificaciones de Términos</h2>
+              <p>
+                Nos reservamos el derecho de modificar estos términos con 30 días de aviso previo. 
+                Los cambios no afectarán proyectos ya iniciados.
+              </p>
+
+              <h2>16. Contacto</h2>
+              <p>
+                Para consultas sobre estos términos, contáctenos en:
+              </p>
+              <ul>
+                <li>Email: 23sarmiento@gmail.com</li>
+                <li>Teléfono: +54 3541 237972</li>
+                <li>WhatsApp: +54 3541 237972</li>
+              </ul>
+
+              <div className="bg-secondary p-6 rounded-xl mt-8">
+                <h3 className="text-xl font-bold mb-3">¿Tienes Preguntas?</h3>
+                <p className="mb-4">
+                  Si tienes dudas sobre estos términos o necesitas aclaraciones sobre nuestros servicios, 
+                  no dudes en contactarnos. Estamos aquí para ayudarte.
                 </p>
-                <p>
-                  <strong>Ubicación:</strong> Villa Carlos Paz, Córdoba,
-                  Argentina
-                </p>
-                <p>
-                  <strong>Contacto:</strong> +54 3541 237972
-                </p>
-                <p>
-                  <strong>Email:</strong> info@hgaruna.org
-                </p>
-                <p>
-                  <strong>Sitio Web:</strong> https://hgaruna.org
-                </p>
-                <p>
-                  <strong>Fecha de última actualización:</strong> Enero 2025
-                </p>
-              </div>
-            </section>
-
-            {/* Términos y Condiciones */}
-            <section className="legal-section">
-              <h2>
-                <i className="fas fa-file-contract"></i> Términos y Condiciones
-                de Servicio
-              </h2>
-              <div className="legal-text">
-                <h3>1. Objeto del Contrato</h3>
-                <p>
-                  hgaruna se compromete a prestar servicios de desarrollo web,
-                  diseño de sitios web, e-commerce, aplicaciones móviles y
-                  consultoría digital según los planes y características
-                  especificadas en cada propuesta comercial.
-                </p>
-
-                <h3>2. Servicios Incluidos</h3>
-                <ul>
-                  <li>Desarrollo de sitios web responsivos</li>
-                  <li>Diseño UX/UI profesional</li>
-                  <li>Optimización SEO básica/avanzada</li>
-                  <li>
-                    Integración de sistemas de gestión de contenidos (CMS)
-                  </li>
-                  <li>Desarrollo de tiendas online (e-commerce)</li>
-                  <li>Desarrollo de aplicaciones móviles</li>
-                  <li>Soporte técnico según plan contratado</li>
-                </ul>
-
-                <h3>3. Plazos de Entrega</h3>
-                <ul>
-                  <li>
-                    <strong>Plan Básico:</strong> 5-7 días hábiles
-                  </li>
-                  <li>
-                    <strong>Plan Estándar:</strong> 10-15 días hábiles
-                  </li>
-                  <li>
-                    <strong>Plan Profesional:</strong> 15-20 días hábiles
-                  </li>
-                  <li>
-                    <strong>Plan E-commerce:</strong> 20-30 días hábiles
-                  </li>
-                  <li>
-                    <strong>Plan E-commerce Pro:</strong> 30-45 días hábiles
-                  </li>
-                  <li>
-                    <strong>Plan Completo:</strong> 45-60 días hábiles
-                  </li>
-                </ul>
-
-                <h3>4. Precios y Forma de Pago</h3>
-                <p>
-                  Los precios están expresados en dólares estadounidenses (USD)
-                  y pueden abonarse en pesos argentinos al tipo de cambio
-                  oficial del día de la facturación.
-                </p>
-                <ul>
-                  <li>50% al confirmar el proyecto</li>
-                  <li>50% al finalizar y entregar el proyecto</li>
-                </ul>
-
-                <h3>5. Propiedad Intelectual</h3>
-                <p>
-                  Una vez completado el pago total, el cliente adquiere todos
-                  los derechos sobre el sitio web desarrollado. hgaruna se
-                  reserva el derecho de utilizar el proyecto como referencia en
-                  su portafolio.
-                </p>
-
-                <h3>6. Garantía</h3>
-                <p>
-                  Ofrecemos garantía de satisfacción al 100%. Si el cliente no
-                  está conforme con el resultado final, se realizarán las
-                  modificaciones necesarias sin costo adicional durante los
-                  primeros 30 días.
-                </p>
-              </div>
-            </section>
-
-            {/* Política de Privacidad */}
-            <section className="legal-section">
-              <h2>
-                <i className="fas fa-shield-alt"></i> Política de Privacidad
-              </h2>
-              <div className="legal-text">
-                <h3>1. Información que Recopilamos</h3>
-                <ul>
-                  <li>Datos de contacto (nombre, email, teléfono)</li>
-                  <li>Información del proyecto y requerimientos técnicos</li>
-                  <li>Datos de navegación web (cookies técnicas)</li>
-                </ul>
-
-                <h3>2. Uso de la Información</h3>
-                <p>La información recopilada se utiliza exclusivamente para:</p>
-                <ul>
-                  <li>Brindar los servicios contratados</li>
-                  <li>Comunicación relacionada con el proyecto</li>
-                  <li>Soporte técnico post-entrega</li>
-                  <li>Mejora de nuestros servicios</li>
-                </ul>
-
-                <h3>3. Protección de Datos</h3>
-                <p>
-                  Cumplimos con la Ley Argentina de Protección de Datos
-                  Personales (Ley 25.326). Los datos personales son tratados de
-                  forma confidencial y no se comparten con terceros sin
-                  consentimiento expreso.
-                </p>
-
-                <h3>4. Derechos del Usuario</h3>
-                <p>El usuario tiene derecho a:</p>
-                <ul>
-                  <li>Acceder a sus datos personales</li>
-                  <li>Rectificar información incorrecta</li>
-                  <li>Solicitar la eliminación de sus datos</li>
-                  <li>Oponerse al tratamiento de sus datos</li>
-                </ul>
-              </div>
-            </section>
-
-            {/* Política de Reembolsos */}
-            <section className="legal-section">
-              <h2>
-                <i className="fas fa-undo"></i> Política de Reembolsos
-              </h2>
-              <div className="legal-text">
-                <h3>1. Reembolso Completo</h3>
-                <p>
-                  Se otorgará reembolso completo en las siguientes situaciones:
-                </p>
-                <ul>
-                  <li>
-                    Incapacidad técnica comprobada para realizar el proyecto
-                  </li>
-                  <li>
-                    Cancelación del proyecto por parte del cliente antes del
-                    inicio del desarrollo
-                  </li>
-                  <li>
-                    Incumplimiento de plazos por causas atribuibles a hgaruna
-                    (más de 15 días de retraso)
-                  </li>
-                </ul>
-
-                <h3>2. Reembolso Parcial</h3>
-                <p>Se otorgará reembolso del 50% en caso de:</p>
-                <ul>
-                  <li>
-                    Cancelación del proyecto una vez iniciado el desarrollo
-                  </li>
-                  <li>
-                    Cambios sustanciales en los requerimientos que hagan
-                    inviable el proyecto original
-                  </li>
-                </ul>
-
-                <h3>3. Sin Reembolso</h3>
-                <p>No procede reembolso en casos de:</p>
-                <ul>
-                  <li>Proyecto completado según especificaciones acordadas</li>
-                  <li>
-                    Cancelación por cambio de opinión del cliente tras la
-                    entrega
-                  </li>
-                  <li>
-                    Falta de colaboración del cliente en la provisión de
-                    contenidos
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            {/* Soporte y Mantenimiento */}
-            <section className="legal-section">
-              <h2>
-                <i className="fas fa-tools"></i> Soporte y Mantenimiento
-              </h2>
-              <div className="legal-text">
-                <h3>1. Soporte Incluido</h3>
-                <p>Cada plan incluye un período de soporte técnico gratuito:</p>
-                <ul>
-                  <li>Resolución de errores técnicos</li>
-                  <li>Asistencia en el uso del CMS</li>
-                  <li>Actualizaciones de seguridad críticas</li>
-                  <li>Backup automático de contenidos</li>
-                </ul>
-
-                <h3>2. Soporte Adicional</h3>
-                <p>
-                  Tras el período de soporte incluido, se ofrecen planes de
-                  mantenimiento:
-                </p>
-                <ul>
-                  <li>
-                    <strong>Básico:</strong> $50 USD/mes
-                  </li>
-                  <li>
-                    <strong>Profesional:</strong> $100 USD/mes
-                  </li>
-                  <li>
-                    <strong>Premium:</strong> $200 USD/mes
-                  </li>
-                </ul>
-
-                <h3>3. Modificaciones</h3>
-                <p>
-                  Las modificaciones de diseño o funcionalidad fuera del alcance
-                  original se cobran por separado según la complejidad del
-                  trabajo.
-                </p>
-              </div>
-            </section>
-
-            {/* Limitación de Responsabilidad */}
-            <section className="legal-section">
-              <h2>
-                <i className="fas fa-exclamation-triangle"></i> Limitación de
-                Responsabilidad
-              </h2>
-              <div className="legal-text">
-                <h3>1. Responsabilidades de hgaruna</h3>
-                <ul>
-                  <li>
-                    Desarrollo del sitio web según especificaciones acordadas
-                  </li>
-                  <li>Cumplimiento de estándares web actuales</li>
-                  <li>Entrega en los plazos establecidos</li>
-                  <li>Soporte técnico durante el período incluido</li>
-                </ul>
-
-                <h3>2. Responsabilidades del Cliente</h3>
-                <ul>
-                  <li>Provisión de contenidos (textos, imágenes, videos)</li>
-                  <li>Pago según términos acordados</li>
-                  <li>Colaboración en procesos de revisión y aprobación</li>
-                  <li>Mantenimiento de credenciales de acceso seguras</li>
-                </ul>
-
-                <h3>3. Limitaciones</h3>
-                <p>hgaruna no se hace responsable por:</p>
-                <ul>
-                  <li>Pérdida de datos por mal uso del sistema</li>
-                  <li>Caídas de servidor de hosting externo</li>
-                  <li>Cambios en algoritmos de motores de búsqueda</li>
-                  <li>
-                    Contenido subido por el cliente que infrinja derechos de
-                    terceros
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            {/* Resolución de Conflictos */}
-            <section className="legal-section">
-              <h2>
-                <i className="fas fa-balance-scale"></i> Resolución de
-                Conflictos
-              </h2>
-              <div className="legal-text">
-                <h3>1. Mediación</h3>
-                <p>
-                  Ante cualquier conflicto, las partes se comprometen a buscar
-                  una solución amigable mediante mediación antes de recurrir a
-                  instancias judiciales.
-                </p>
-
-                <h3>2. Jurisdicción</h3>
-                <p>
-                  En caso de conflicto legal, las partes se someten a la
-                  jurisdicción de los Tribunales Ordinarios de la Ciudad de
-                  Córdoba, Argentina.
-                </p>
-
-                <h3>3. Legislación Aplicable</h3>
-                <p>
-                  Este acuerdo se rige por las leyes de la República Argentina,
-                  especialmente:
-                </p>
-                <ul>
-                  <li>Código Civil y Comercial de la Nación</li>
-                  <li>Ley de Defensa del Consumidor (24.240)</li>
-                  <li>Ley de Protección de Datos Personales (25.326)</li>
-                </ul>
-              </div>
-            </section>
-
-            {/* Contacto Legal */}
-            <section className="legal-section contact-section">
-              <h2>
-                <i className="fas fa-phone"></i> Contacto para Consultas Legales
-              </h2>
-              <div className="legal-text">
-                <p>
-                  Para cualquier consulta relacionada con estos términos
-                  legales, puedes contactarnos:
-                </p>
-                <div className="contact-grid">
-                  <div className="contact-item">
-                    <i className="fab fa-whatsapp"></i>
-                    <div>
-                      <strong>WhatsApp</strong>
-                      <a
-                        href="https://wa.me/+543541237972"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        +54 3541 237972
-                      </a>
-                    </div>
-                  </div>
-                  <div className="contact-item">
-                    <i className="fas fa-envelope"></i>
-                    <div>
-                      <strong>Email</strong>
-                      <a href="mailto:legal@hgaruna.org">legal@hgaruna.org</a>
-                    </div>
-                  </div>
-                  <div className="contact-item">
-                    <i className="fas fa-map-marker-alt"></i>
-                    <div>
-                      <strong>Ubicación</strong>
-                      <span>Villa Carlos Paz, Córdoba, Argentina</span>
-                    </div>
-                  </div>
+                <div className="flex flex-wrap gap-4">
+                  <a
+                    href="https://wa.me/+543541237972?text=Hola%2C%20tengo%20consultas%20sobre%20los%20términos%20de%20servicio"
+                    className="btn btn-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-whatsapp mr-2"></i>
+                    Consultar por WhatsApp
+                  </a>
+                  <a href="/contacto" className="btn btn-outline">
+                    <i className="fas fa-envelope mr-2"></i>
+                    Enviar Email
+                  </a>
                 </div>
               </div>
-            </section>
+            </div>
           </div>
         </div>
-      </main>
-    </BaseLayout>
-  );
+      </div>
+    </>
+  )
 }

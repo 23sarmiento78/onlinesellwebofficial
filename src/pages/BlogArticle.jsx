@@ -1,228 +1,308 @@
-import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import BaseLayout from "../layouts/BaseLayout";
-import ReactMarkdown from "react-markdown";
-import { getArticleFromHTML } from "../utils/getArticlesFromHTML.js";
-// import "../BlogIA.css"; // Removed to avoid module not found error
+import React, { useState, useEffect } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+import { useArticles } from '@hooks/useArticles'
+import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
 
 export default function BlogArticle() {
-  const { slug } = useParams();
-  const [article, setArticle] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { slug } = useParams()
+  const { getArticleBySlug, getArticlesByCategory } = useArticles()
+  const [article, setArticle] = useState(null)
+  const [relatedArticles, setRelatedArticles] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchArticle();
-  }, [slug]);
+    const loadArticle = () => {
+      try {
+        const foundArticle = getArticleBySlug(slug)
 
-  const fetchArticle = async () => {
-    try {
-      setLoading(true);
-      const article = await getArticleFromHTML(slug);
-      if (article) {
-        setArticle(article);
-      } else {
-        setError('Artículo no encontrado');
+        if (foundArticle) {
+          setArticle(foundArticle)
+
+          // Get related articles from the same category
+          const categoryArticles = getArticlesByCategory(foundArticle.category)
+            .filter(a => a.slug !== slug)
+            .slice(0, 3)
+
+          setRelatedArticles(categoryArticles)
+        }
+
+        setLoading(false)
+      } catch (error) {
+        console.error('Error loading article:', error)
+        setLoading(false)
       }
-    } catch (error) {
-      console.error('Error:', error);
-      setError('Error al cargar el artículo');
-    } finally {
-      setLoading(false);
     }
-  };
+
+    loadArticle()
+  }, [slug, getArticleBySlug, getArticlesByCategory])
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
-    });
-  };
-
-  const shareArticle = (platform) => {
-    const url = window.location.href;
-    const title = article?.title || 'Artículo de hgaruna';
-    const text = article?.summary || 'Artículo sobre programación y desarrollo web';
-
-    let shareUrl = '';
-    switch (platform) {
-      case 'twitter':
-        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-        break;
-      case 'linkedin':
-        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-        break;
-      case 'facebook':
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-        break;
-      case 'whatsapp':
-        shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
-        break;
-      default:
-        return;
-    }
-
-    window.open(shareUrl, '_blank', 'width=600,height=400');
-  };
+    })
+  }
 
   if (loading) {
     return (
-      <BaseLayout title="Cargando artículo..." description="Cargando artículo del public/blog IA">
-        <div className="container py-5">
-          <div className="text-center">
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Cargando...</span>
-            </div>
-            <p className="mt-3">Cargando artículo...</p>
-          </div>
+      <div className="pt-20 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-muted">Cargando artículo...</p>
         </div>
-      </BaseLayout>
-    );
+      </div>
+    )
   }
 
-  if (error || !article) {
+  if (!article) {
     return (
-      <BaseLayout title="Artículo no encontrado" description="El artículo solicitado no existe">
-        <div className="container py-5">
-          <div className="text-center">
-            <i className="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
-            <h2>Artículo no encontrado</h2>
-            <p className="text-muted mb-4">
-              {error || 'El artículo que buscas no existe o ha sido eliminado.'}
-            </p>
-            <Link to="/blog" className="btn btn-primary">
-              <i className="fas fa-arrow-left me-2"></i>
-              Volver al /blog
-            </Link>
-          </div>
+      <div className="pt-20 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <i className="fas fa-exclamation-triangle text-6xl text-warning mb-6"></i>
+          <h1 className="text-3xl font-bold mb-4">Artículo no encontrado</h1>
+          <p className="text-muted mb-6">El artículo que buscas no existe o ha sido movido.</p>
+          <Link to="/blog" className="btn btn-primary">
+            <i className="fas fa-arrow-left mr-2"></i>
+            Volver al Blog
+          </Link>
         </div>
-      </BaseLayout>
-    );
+      </div>
+    )
   }
 
   return (
-    <BaseLayout 
-      title={article.seo_title || article.title}
-      description={article.seo_description || article.summary}
-      keywords={article.seo_keywords?.join(', ') || article.tags?.join(', ')}
-    >
-      <div className="public/blog-article-container">
-        {/* Breadcrumb */}
-        <nav className="custom-breadcrumb">
-          <ul>
-            <li><Link to="/">Inicio</Link></li>
-            <li><Link to="/blog">Blog IA</Link></li>
-            <li className="active">{article.title}</li>
-          </ul>
+    <>
+      <Helmet>
+        <title>{article.title} | Blog hgaruna</title>
+        <meta name="description" content={article.excerpt} />
+        <meta name="keywords" content={article.tags?.join(', ')} />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content={article.title} />
+        <meta property="og:description" content={article.excerpt} />
+        <meta property="og:image" content={article.image} />
+        <meta property="og:type" content="article" />
+        
+        {/* Article Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": article.title,
+            "description": article.excerpt,
+            "image": article.image,
+            "author": {
+              "@type": "Person",
+              "name": article.author
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "hgaruna",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
+              }
+            },
+            "datePublished": article.date,
+            "dateModified": article.date
+          })}
+        </script>
+      </Helmet>
+
+      <article className="pt-20">
+        {/* Breadcrumbs */}
+        <nav className="breadcrumbs py-4 bg-secondary">
+          <div className="container">
+            <div className="breadcrumb-item">
+              <Link to="/" className="breadcrumb-link">Inicio</Link>
+            </div>
+            <div className="breadcrumb-item">
+              <Link to="/blog" className="breadcrumb-link">Blog</Link>
+            </div>
+            <div className="breadcrumb-item">
+              <span className="breadcrumb-current">{article.title}</span>
+            </div>
+          </div>
         </nav>
 
         {/* Article Header */}
-        <article className="public/blog-article-custom">
-          <header className="article-header-custom">
-            <div className="article-header-inner">
-              {/* Category and Date */}
-              <div className="meta-row">
-                {article.category && (
-                  <span className="custom-badge custom-badge-primary">{article.category}</span>
-                )}
-                <span className="custom-date">
-                  <i className="fas fa-calendar-alt"></i> {formatDate(article.date)}
-                </span>
+        <header className="section-sm">
+          <div className="container">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium mb-4">
+                  {article.category}
+                </div>
+                
+                <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+                  {article.title}
+                </h1>
+                
+                <div className="flex flex-wrap items-center justify-center gap-6 text-muted">
+                  <div className="flex items-center gap-2">
+                    <i className="fas fa-user"></i>
+                    <span>{article.author}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <i className="fas fa-calendar"></i>
+                    <span>{formatDate(article.date)}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <i className="fas fa-clock"></i>
+                    <span>{article.readTime}</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Title */}
-              <h1 className="article-title-custom">{article.title}</h1>
-
-              {/* Summary */}
-              {article.summary && (
-                <p className="article-summary-custom">{article.summary}</p>
-              )}
-
               {/* Featured Image */}
-              {article.image && (
-                <div className="article-image-custom">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="img-article-custom"
-                    style={{ maxHeight: '400px', width: '100%', objectFit: 'cover', borderRadius: '16px', boxShadow: '0 2px 16px #0002' }}
-                  />
-                </div>
-              )}
+              <div className="rounded-2xl overflow-hidden mb-8">
+                <img
+                  src={article.image}
+                  alt={article.title}
+                  className="w-full h-96 object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </header>
 
-              {/* Meta Information */}
-              <div className="article-meta-custom">
-                <div className="author-info-custom">
-                  <span className="custom-author">
-                    <i className="fas fa-user"></i> Por {article.author || 'hgaruna'}
-                  </span>
-                  <span className="custom-ai">
-                    <i className="fas fa-robot"></i> Generado por IA
-                  </span>
-                </div>
-                <div className="share-buttons-custom">
-                  <span className="custom-share-label">Compartir:</span>
-                  <button onClick={() => shareArticle('twitter')} className="custom-share-btn twitter" title="Compartir en Twitter">
-                    <i className="fab fa-twitter"></i>
-                  </button>
-                  <button onClick={() => shareArticle('linkedin')} className="custom-share-btn linkedin" title="Compartir en LinkedIn">
-                    <i className="fab fa-linkedin"></i>
-                  </button>
-                  <button onClick={() => shareArticle('facebook')} className="custom-share-btn facebook" title="Compartir en Facebook">
-                    <i className="fab fa-facebook"></i>
-                  </button>
-                  <button onClick={() => shareArticle('whatsapp')} className="custom-share-btn whatsapp" title="Compartir en WhatsApp">
-                    <i className="fab fa-whatsapp"></i>
-                  </button>
-                </div>
+        {/* Article Content */}
+        <section className="section-sm">
+          <div className="container">
+            <div className="max-w-4xl mx-auto">
+              <div className="prose prose-lg max-w-none">
+                <div dangerouslySetInnerHTML={{ __html: article.content }} />
               </div>
 
               {/* Tags */}
               {article.tags && article.tags.length > 0 && (
-                <div className="article-tags-custom">
-                  {article.tags.map((tag, index) => (
-                    <span key={index} className="custom-badge custom-badge-tag">#{tag}</span>
-                  ))}
+                <div className="mt-12 pt-8 border-t border-light">
+                  <h3 className="text-lg font-semibold mb-4">Etiquetas:</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {article.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="bg-secondary text-primary px-3 py-1 rounded-full text-sm font-medium"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               )}
-            </div>
-          </header>
 
-          {/* Article Content */}
-          <div className="article-content-custom">
-            <div className="content-wrapper-custom">
-              <ReactMarkdown 
-                className="markdown-content-custom"
-                components={{
-                  h1: ({node, ...props}) => <h1 className="custom-h1" {...props} />,
-                  h2: ({node, ...props}) => <h2 className="custom-h2" {...props} />,
-                  h3: ({node, ...props}) => <h3 className="custom-h3" {...props} />,
-                  h4: ({node, ...props}) => <h4 className="custom-h4" {...props} />,
-                  p: ({node, ...props}) => <p className="custom-p" {...props} />,
-                  ul: ({node, ...props}) => <ul className="custom-ul" {...props} />,
-                  ol: ({node, ...props}) => <ol className="custom-ol" {...props} />,
-                  li: ({node, ...props}) => <li className="custom-li" {...props} />,
-                  blockquote: ({node, ...props}) => (
-                    <blockquote className="custom-blockquote" {...props} />
-                  ),
-                  code: ({node, ...props}) => (
-                    <code className="custom-code" {...props} />
-                  ),
-                  pre: ({node, ...props}) => (
-                    <pre className="custom-pre" {...props} />
-                  ),
-                  a: ({node, ...props}) => (
-                    <a className="custom-link" target="_blank" rel="noopener noreferrer" {...props} />
-                  ),
-                }}
-              >
-                {article.content}
-              </ReactMarkdown>
+              {/* Share */}
+              <div className="mt-8 pt-8 border-t border-light">
+                <h3 className="text-lg font-semibold mb-4">Compartir artículo:</h3>
+                <div className="flex gap-3">
+                  <a
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline btn-sm"
+                  >
+                    <i className="fab fa-twitter mr-2"></i>
+                    Twitter
+                  </a>
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline btn-sm"
+                  >
+                    <i className="fab fa-facebook-f mr-2"></i>
+                    Facebook
+                  </a>
+                  <a
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline btn-sm"
+                  >
+                    <i className="fab fa-linkedin-in mr-2"></i>
+                    LinkedIn
+                  </a>
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent(`${article.title} - ${window.location.href}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline btn-sm"
+                  >
+                    <i className="fab fa-whatsapp mr-2"></i>
+                    WhatsApp
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-        </article>
-      </div>
-    </BaseLayout>
-  );
-} 
+        </section>
+
+        {/* Related Articles */}
+        {relatedArticles.length > 0 && (
+          <section className="section section-secondary">
+            <div className="container">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-2xl font-bold mb-8 text-center">Artículos Relacionados</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {relatedArticles.map((related) => (
+                    <div key={related.id} className="blog-card">
+                      <div className="blog-card-image">
+                        <img src={related.image} alt={related.title} />
+                        <div className="blog-card-badge">{related.category}</div>
+                      </div>
+                      <div className="blog-card-content">
+                        <h3 className="blog-card-title">
+                          <Link to={`/blog/${related.slug}`}>
+                            {related.title}
+                          </Link>
+                        </h3>
+                        <div className="blog-card-footer">
+                          <Link
+                            to={`/blog/${related.slug}`}
+                            className="btn btn-outline btn-sm"
+                          >
+                            Leer artículo
+                            <i className="fas fa-arrow-right ml-2"></i>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* CTA */}
+        <section className="section cta-section">
+          <div className="container">
+            <div className="cta-content">
+              <h2 className="section-title">¿Te Gustó Este Artículo?</h2>
+              <p className="section-subtitle">
+                Si necesitas ayuda con tu proyecto web, estamos aquí para ayudarte.
+              </p>
+              <div className="cta-buttons">
+                <a
+                  href="https://wa.me/+543541237972?text=Hola%2C%20leí%20su%20artículo%20y%20me%20interesa%20sus%20servicios"
+                  className="cta-button primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fab fa-whatsapp"></i>
+                  Consultar Servicios
+                </a>
+                <Link to="/blog" className="cta-button secondary">
+                  <i className="fas fa-arrow-left"></i>
+                  Volver al Blog
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+    </>
+  )
+}
