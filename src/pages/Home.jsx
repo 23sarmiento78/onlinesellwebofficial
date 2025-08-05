@@ -262,51 +262,63 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className="section process-section">
+      {/* Categories Section */}
+      <section className="section section-secondary">
         <div className="container">
           <div className="section-header">
             <div className="section-badge">
-              <i className="fas fa-cogs"></i>
-              Nuestro Proceso
+              <i className="fas fa-th-large"></i>
+              Categorías
             </div>
-            <h2 className="section-title">Cómo Trabajamos</h2>
+            <h2 className="section-title">Explora por Tema</h2>
             <p className="section-description">
-              Así es como transformamos tu idea en una solución digital exitosa
+              Encuentra contenido específico sobre los temas que más te interesan
             </p>
           </div>
-          
+
           <div className="process-steps">
             <div className="process-step">
-              <div className="step-number">1</div>
-              <h3 className="step-title">Consulta Inicial</h3>
+              <div className="step-number"><i className="fas fa-code"></i></div>
+              <h3 className="step-title">Desarrollo Web</h3>
               <p className="step-description">
-                Analizamos tus necesidades y objetivos en una reunión sin costo.
+                Tutoriales, frameworks, mejores prácticas y tendencias del desarrollo frontend y backend.
               </p>
+              <a href="/blog?category=desarrollo" className="btn btn-outline btn-sm mt-3">
+                Ver Artículos
+              </a>
             </div>
-            
+
             <div className="process-step">
-              <div className="step-number">2</div>
-              <h3 className="step-title">Propuesta Personalizada</h3>
+              <div className="step-number"><i className="fas fa-palette"></i></div>
+              <h3 className="step-title">Diseño UI/UX</h3>
               <p className="step-description">
-                Te presentamos un plan de trabajo detallado con presupuesto cerrado.
+                Principios de diseño, herramientas, tendencias y técnicas para crear interfaces excepcionales.
               </p>
+              <a href="/blog?category=diseno" className="btn btn-outline btn-sm mt-3">
+                Ver Artículos
+              </a>
             </div>
-            
+
             <div className="process-step">
-              <div className="step-number">3</div>
-              <h3 className="step-title">Diseño y Desarrollo</h3>
+              <div className="step-number"><i className="fas fa-robot"></i></div>
+              <h3 className="step-title">Inteligencia Artificial</h3>
               <p className="step-description">
-                Creamos tu sitio web con las últimas tecnologías y diseño adaptativo.
+                IA aplicada al desarrollo, machine learning, automatización y el futuro de la tecnología.
               </p>
+              <a href="/blog?category=ia" className="btn btn-outline btn-sm mt-3">
+                Ver Artículos
+              </a>
             </div>
-            
+
             <div className="process-step">
-              <div className="step-number">4</div>
-              <h3 className="step-title">Lanzamiento</h3>
+              <div className="step-number"><i className="fas fa-chart-line"></i></div>
+              <h3 className="step-title">Tecnología</h3>
               <p className="step-description">
-                Publicamos tu sitio y te capacitamos para que lo administres fácilmente.
+                Noticias tech, análisis de tendencias, nuevas herramientas y el futuro digital.
               </p>
+              <a href="/blog?category=tecnologia" className="btn btn-outline btn-sm mt-3">
+                Ver Artículos
+              </a>
             </div>
           </div>
         </div>
