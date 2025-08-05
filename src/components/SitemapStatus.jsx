@@ -62,14 +62,7 @@ export default function SitemapStatus() {
   }
 
   if (!sitemapData) {
-    return (
-      <div className="sitemap-status bg-gray-50 rounded-lg p-4 border border-gray-200">
-        <div className="flex items-center gap-2 text-gray-600">
-          <i className="fas fa-sitemap"></i>
-          <span className="text-sm">Generando sitemap...</span>
-        </div>
-      </div>
-    )
+    return null // Don't show loading state to users
   }
 
   return (
