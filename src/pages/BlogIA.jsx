@@ -247,35 +247,48 @@ export default function BlogIA() {
       </Helmet>
 
       <div>
-        {/* Hero Section */}
-        <section className="blog-hero">
-          <div className="container">
-            <div className="blog-hero-content">
-              <div className="blog-hero-badge">
-                <i className="fas fa-blog"></i>
-                Blog Tecnológico
-              </div>
-              <h1 className="blog-hero-title">Blog de Desarrollo Web</h1>
-              <p className="blog-hero-subtitle">
-                Artículos, tips y tutoriales sobre desarrollo web, diseño, SEO y las últimas tendencias tecnológicas. Tu fuente confiable de conocimiento tech.
-              </p>
-              <div className="blog-hero-stats">
-                <div className="blog-stat">
-                  <span className="blog-stat-number">{articles.length}</span>
-                  <span className="blog-stat-label">Artículos</span>
-                </div>
-                <div className="blog-stat">
-                  <span className="blog-stat-number">{Object.keys(ARTICLE_CATEGORIES).length}</span>
-                  <span className="blog-stat-label">Categorías</span>
-                </div>
-                <div className="blog-stat">
-                  <span className="blog-stat-number">5k+</span>
-                  <span className="blog-stat-label">Lectores</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Advanced Hero Section */}
+        <Hero
+          badge={{
+            icon: 'fas fa-newspaper',
+            text: 'Tu fuente de conocimiento tech'
+          }}
+          title={
+            <>
+              Blog de <span className="highlight">Desarrollo</span>
+              <br />
+              Web y <span className="highlight">Tecnología</span>
+            </>
+          }
+          subtitle="Artículos, tutoriales y tendencias sobre desarrollo web, programación, IA y las últimas innovaciones tecnológicas. Mantente actualizado con contenido de calidad desde Villa Carlos Paz."
+          backgroundVideo="/5377684-uhd_3840_2160_25fps.mp4"
+          backgroundImage="/logos-he-imagenes/fondo-hero.jpg"
+          variant="fullscreen"
+          animated={true}
+          showFloatingElements={true}
+          showParticles={true}
+          ctas={[
+            {
+              href: "#articles",
+              className: 'cta-button primary',
+              icon: 'fas fa-scroll',
+              text: 'Ver Artículos'
+            },
+            {
+              href: "#",
+              className: 'cta-button secondary',
+              icon: 'fas fa-robot',
+              text: 'Generar Contenido',
+              onClick: () => setShowGenerator(!showGenerator)
+            }
+          ]}
+          stats={[
+            { number: `${articles.length}+`, label: 'Artículos Publicados' },
+            { number: `${Object.keys(ARTICLE_CATEGORIES).length}`, label: 'Categorías Tech' },
+            { number: '15K+', label: 'Lectores Mensuales' },
+            { number: '98%', label: 'Satisfacción' }
+          ]}
+        />
 
         {/* Filters Section */}
         <section className="blog-filters-section">
