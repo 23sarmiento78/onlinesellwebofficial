@@ -239,125 +239,135 @@ export default function BlogIA() {
         />
       </Helmet>
 
-      <div className="pt-20">
-        {/* Header */}
-        <section className="section-sm section-secondary">
+      <div>
+        {/* Hero Section */}
+        <section className="blog-hero">
           <div className="container">
-            <div className="section-header">
-              <div className="section-badge">
+            <div className="blog-hero-content">
+              <div className="blog-hero-badge">
                 <i className="fas fa-blog"></i>
-                Blog
+                Blog Tecnológico
               </div>
-              <h1 className="section-title">Blog de Desarrollo Web</h1>
-              <p className="section-description">
-                Artículos, tips y tutoriales sobre desarrollo web, diseño, SEO y las últimas tendencias tecnológicas.
+              <h1 className="blog-hero-title">Blog de Desarrollo Web</h1>
+              <p className="blog-hero-subtitle">
+                Artículos, tips y tutoriales sobre desarrollo web, diseño, SEO y las últimas tendencias tecnológicas. Tu fuente confiable de conocimiento tech.
               </p>
-            </div>
-
-            {/* Search and Filters */}
-            <div className="space-y-6">
-              <div className="flex flex-col lg:flex-row gap-6 items-start justify-between">
-                {/* Search */}
-                <div className="search-form flex-1 max-w-md">
-                  <div className="relative">
-                    <i className="search-icon fas fa-search"></i>
-                    <input
-                      type="text"
-                      placeholder="Buscar artículos..."
-                      className="search-input form-input"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    {searchTerm && (
-                      <button
-                        className="search-clear"
-                        onClick={() => setSearchTerm('')}
-                        aria-label="Limpiar búsqueda"
-                      >
-                        <i className="fas fa-times"></i>
-                      </button>
-                    )}
-                  </div>
+              <div className="blog-hero-stats">
+                <div className="blog-stat">
+                  <span className="blog-stat-number">{articles.length}</span>
+                  <span className="blog-stat-label">Artículos</span>
                 </div>
-
-                {/* View Controls */}
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <label className="text-sm font-medium">Vista:</label>
-                    <div className="flex border border-light rounded-lg overflow-hidden">
-                      <button
-                        onClick={() => setViewMode('grid')}
-                        className={`px-3 py-1 text-sm ${viewMode === 'grid' ? 'bg-primary text-white' : 'bg-secondary'}`}
-                      >
-                        <i className="fas fa-th"></i>
-                      </button>
-                      <button
-                        onClick={() => setViewMode('list')}
-                        className={`px-3 py-1 text-sm ${viewMode === 'list' ? 'bg-primary text-white' : 'bg-secondary'}`}
-                      >
-                        <i className="fas fa-list"></i>
-                      </button>
-                      <button
-                        onClick={() => setViewMode('magazine')}
-                        className={`px-3 py-1 text-sm ${viewMode === 'magazine' ? 'bg-primary text-white' : 'bg-secondary'}`}
-                      >
-                        <i className="fas fa-newspaper"></i>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <label className="text-sm font-medium">Ordenar:</label>
-                    <select
-                      value={sortBy}
-                      onChange={(e) => setSortBy(e.target.value)}
-                      className="form-select text-sm"
-                    >
-                      <option value="date">Más reciente</option>
-                      <option value="title">Alfabético</option>
-                      <option value="readTime">Tiempo de lectura</option>
-                    </select>
-                  </div>
+                <div className="blog-stat">
+                  <span className="blog-stat-number">{Object.keys(ARTICLE_CATEGORIES).length}</span>
+                  <span className="blog-stat-label">Categorías</span>
+                </div>
+                <div className="blog-stat">
+                  <span className="blog-stat-number">5k+</span>
+                  <span className="blog-stat-label">Lectores</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
 
-              {/* Categories */}
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => {
-                  const categoryInfo = ARTICLE_CATEGORIES[category]
-                  const displayName = category === 'all' ? 'Todos' : categoryInfo?.name || category
+        {/* Filters Section */}
+        <section className="blog-filters-section">
+          <div className="container">
+            <div className="blog-filters-container">
 
-                  return (
+              {/* Search Bar */}
+              <div className="blog-search-bar">
+                <i className="blog-search-icon fas fa-search"></i>
+                <input
+                  type="text"
+                  placeholder="Buscar artículos, tutoriales, tips..."
+                  className="blog-search-input"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+
+              {/* Filters Row */}
+              <div className="blog-filters-row">
+                {/* Categories */}
+                <div className="blog-categories">
+                  {categories.map((category) => {
+                    const categoryInfo = ARTICLE_CATEGORIES[category]
+                    const displayName = category === 'all' ? 'Todos los Artículos' : categoryInfo?.name || category
+                    const articleCount = category === 'all' ? articles.length : getArticlesByCategory(category).length
+
+                    return (
+                      <button
+                        key={category}
+                        onClick={() => setSelectedCategory(category)}
+                        className={`blog-category-btn ${
+                          selectedCategory === category ? 'active' : ''
+                        }`}
+                      >
+                        {categoryInfo?.icon && <i className={categoryInfo.icon}></i>}
+                        {displayName}
+                        <span className="ml-1 text-xs opacity-75">({articleCount})</span>
+                      </button>
+                    )
+                  })}
+                </div>
+
+                {/* Controls */}
+                <div className="blog-controls">
+                  {/* View Switcher */}
+                  <div className="blog-view-switcher">
                     <button
-                      key={category}
-                      onClick={() => setSelectedCategory(category)}
-                      className={`btn btn-sm ${
-                        selectedCategory === category ? 'btn-primary' : 'btn-ghost'
-                      }`}
+                      onClick={() => setViewMode('grid')}
+                      className={`blog-view-btn ${viewMode === 'grid' ? 'active' : ''}`}
                     >
-                      {categoryInfo?.icon && <i className={`${categoryInfo.icon} mr-1`}></i>}
-                      {displayName}
+                      <i className="fas fa-th"></i>
                     </button>
-                  )
-                })}
+                    <button
+                      onClick={() => setViewMode('list')}
+                      className={`blog-view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                    >
+                      <i className="fas fa-list"></i>
+                    </button>
+                    <button
+                      onClick={() => setViewMode('magazine')}
+                      className={`blog-view-btn ${viewMode === 'magazine' ? 'active' : ''}`}
+                    >
+                      <i className="fas fa-newspaper"></i>
+                    </button>
+                  </div>
+
+                  {/* Sort */}
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="blog-sort-select"
+                  >
+                    <option value="date">Más reciente</option>
+                    <option value="title">Alfabético</option>
+                    <option value="readTime">Tiempo de lectura</option>
+                  </select>
+
+                  {/* Generate Button */}
+                  <button
+                    onClick={() => setShowGenerator(!showGenerator)}
+                    className="btn btn-primary"
+                  >
+                    <i className="fas fa-robot mr-2"></i>
+                    {showGenerator ? 'Ocultar' : 'Generar'} Artículo
+                  </button>
+                </div>
               </div>
 
               {/* Results Summary */}
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-muted">
-                  {loading ? 'Cargando...' : `${filteredArticles.length} artículo${filteredArticles.length !== 1 ? 's' : ''} encontrado${filteredArticles.length !== 1 ? 's' : ''}`}
-                  {searchTerm && ` para "${searchTerm}"`}
-                  {selectedCategory !== 'all' && ` en ${ARTICLE_CATEGORIES[selectedCategory]?.name || selectedCategory}`}
-                </p>
-
-                <button
-                  onClick={() => setShowGenerator(!showGenerator)}
-                  className="btn btn-sm btn-primary"
-                >
-                  <i className="fas fa-robot mr-1"></i>
-                  {showGenerator ? 'Ocultar' : 'Generar'} Artículo
-                </button>
-              </div>
+              {(searchTerm || selectedCategory !== 'all') && (
+                <div className="text-center py-4">
+                  <p className="text-muted">
+                    {loading ? 'Buscando...' : `${filteredArticles.length} artículo${filteredArticles.length !== 1 ? 's' : ''} encontrado${filteredArticles.length !== 1 ? 's' : ''}`}
+                    {searchTerm && ` para "${searchTerm}"`}
+                    {selectedCategory !== 'all' && ` en ${ARTICLE_CATEGORIES[selectedCategory]?.name || selectedCategory}`}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -422,7 +432,7 @@ export default function BlogIA() {
                 {viewMode === 'grid' && (
                   <div className="blog-grid">
                     {filteredArticles.map((article) => (
-                      <ArticleCard key={article.id} article={article} />
+                      <EnhancedArticleCard key={article.id} article={article} />
                     ))}
                   </div>
                 )}
