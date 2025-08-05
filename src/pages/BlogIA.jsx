@@ -497,7 +497,7 @@ export default function BlogIA() {
         )}
 
         {/* Articles Display */}
-        <section className="section">
+        <section id="articles" className="section">
           <div className="container">
             {loading ? (
               <div className="text-center py-16">
