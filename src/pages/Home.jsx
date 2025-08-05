@@ -162,95 +162,102 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="section services-section">
+      {/* Featured Articles Section */}
+      <section className="section">
         <div className="container">
           <div className="section-header">
             <div className="section-badge">
-              <i className="fas fa-cogs"></i>
-              Nuestros Servicios
+              <i className="fas fa-star"></i>
+              Artículos Destacados
             </div>
-            <h2 className="section-title">Soluciones Digitales Personalizadas</h2>
+            <h2 className="section-title">Lo Más Leído Esta Semana</h2>
             <p className="section-description">
-              Ofrecemos servicios completos de desarrollo web y marketing digital para hacer crecer tu negocio en Villa Carlos Paz
+              Descubre los artículos más populares sobre tecnología, desarrollo web y programación
             </p>
           </div>
-          
-          <div className="services-grid">
-            <div className="service-card">
-              <div className="service-card-inner">
-                <div className="service-card-front">
-                  <div className="service-icon">
-                    <i className="fas fa-laptop-code"></i>
-                  </div>
-                  <h3>Sitios Web Profesionales</h3>
-                  <p>Diseño web personalizado que convierte visitantes en clientes.</p>
-                  <div className="price-tag">Desde $150</div>
+
+          <div className="cards-grid cards-grid-3">
+            <article className="blog-card hover-lift">
+              <div className="blog-card-image">
+                <img src="/logos-he-imagenes/programacion.jpeg" alt="React 19 Nuevas Características" />
+                <div className="blog-card-badge">Desarrollo</div>
+              </div>
+              <div className="blog-card-content">
+                <div className="blog-card-meta">
+                  <span><i className="fas fa-calendar mr-1"></i>15 Ene 2024</span>
+                  <span><i className="fas fa-clock mr-1"></i>8 min</span>
                 </div>
-                <div className="service-card-back">
-                  <h3>Beneficios Clave</h3>
-                  <ul>
-                    <li><i className="fas fa-check"></i> Diseño 100% personalizado para tu marca</li>
-                    <li><i className="fas fa-check"></i> Optimizado para todos los dispositivos</li>
-                    <li><i className="fas fa-check"></i> Formulario de contacto integrado</li>
-                    <li><i className="fas fa-check"></i> SEO básico incluido</li>
-                    <li><i className="fas fa-check"></i> Dominio y hosting por 1 año</li>
-                    <li><i className="fas fa-check"></i> Certificado SSL gratuito</li>
-                  </ul>
-                  <a href="/contacto" className="btn btn-outline">Solicitar Cotización</a>
+                <h3 className="blog-card-title">
+                  React 19: Las Nuevas Características que Cambiarán Todo
+                </h3>
+                <p className="blog-card-excerpt">
+                  Explora las innovaciones más importantes de React 19 y cómo impactarán en el desarrollo frontend moderno.
+                </p>
+                <div className="blog-card-footer">
+                  <span className="text-sm text-muted">Por hgaruna</span>
+                  <a href="/blog/react-19-nuevas-caracteristicas" className="btn btn-outline btn-sm">
+                    Leer más <i className="fas fa-arrow-right ml-1"></i>
+                  </a>
                 </div>
               </div>
-            </div>
-            
-            <div className="service-card featured">
-              <div className="service-card-inner">
-                <div className="service-card-front">
-                  <div className="service-icon">
-                    <i className="fas fa-shopping-cart"></i>
-                  </div>
-                  <h3>Tiendas Online</h3>
-                  <p>Vende tus productos las 24 horas del día, los 7 días de la semana.</p>
-                  <div className="price-tag">Desde $300</div>
+            </article>
+
+            <article className="blog-card hover-lift">
+              <div className="blog-card-image">
+                <img src="/logos-he-imagenes/programacion.jpeg" alt="TypeScript Avanzado" />
+                <div className="blog-card-badge">Programación</div>
+              </div>
+              <div className="blog-card-content">
+                <div className="blog-card-meta">
+                  <span><i className="fas fa-calendar mr-1"></i>12 Ene 2024</span>
+                  <span><i className="fas fa-clock mr-1"></i>12 min</span>
                 </div>
-                <div className="service-card-back">
-                  <h3>Características Principales</h3>
-                  <ul>
-                    <li><i className="fas fa-check"></i> Hasta 50 productos incluidos</li>
-                    <li><i className="fas fa-check"></i> Pasarela de pagos integrada</li>
-                    <li><i className="fas fa-check"></i> Gestión de inventario</li>
-                    <li><i className="fas fa-check"></i> Carrito de compras seguro</li>
-                    <li><i className="fas fa-check"></i> Panel de administración fácil de usar</li>
-                    <li><i className="fas fa-check"></i> Integración con redes sociales</li>
-                  </ul>
-                  <a href="/contacto" className="btn btn-primary">Empezar a Vender</a>
+                <h3 className="blog-card-title">
+                  TypeScript Avanzado: Patrones y Técnicas Pro
+                </h3>
+                <p className="blog-card-excerpt">
+                  Domina TypeScript con patrones avanzados, utility types y técnicas que todo desarrollador debe conocer.
+                </p>
+                <div className="blog-card-footer">
+                  <span className="text-sm text-muted">Por hgaruna</span>
+                  <a href="/blog/typescript-avanzado-patrones" className="btn btn-outline btn-sm">
+                    Leer más <i className="fas fa-arrow-right ml-1"></i>
+                  </a>
                 </div>
               </div>
-            </div>
-            
-            <div className="service-card">
-              <div className="service-card-inner">
-                <div className="service-card-front">
-                  <div className="service-icon">
-                    <i className="fas fa-search-dollar"></i>
-                  </div>
-                  <h3>Marketing Digital</h3>
-                  <p>Estrategias efectivas para aumentar tu presencia en línea.</p>
-                  <div className="price-tag">Desde $200</div>
+            </article>
+
+            <article className="blog-card hover-lift">
+              <div className="blog-card-image">
+                <img src="/logos-he-imagenes/programacion.jpeg" alt="Inteligencia Artificial 2024" />
+                <div className="blog-card-badge">IA</div>
+              </div>
+              <div className="blog-card-content">
+                <div className="blog-card-meta">
+                  <span><i className="fas fa-calendar mr-1"></i>10 Ene 2024</span>
+                  <span><i className="fas fa-clock mr-1"></i>15 min</span>
                 </div>
-                <div className="service-card-back">
-                  <h3>Nuestro Enfoque</h3>
-                  <ul>
-                    <li><i className="fas fa-check"></i> Estrategias personalizadas SEO</li>
-                    <li><i className="fas fa-check"></i> Campañas en Google Ads</li>
-                    <li><i className="fas fa-check"></i> Publicidad en Redes Sociales</li>
-                    <li><i className="fas fa-check"></i> Email Marketing</li>
-                    <li><i className="fas fa-check"></i> Análisis de competencia</li>
-                    <li><i className="fas fa-check"></i> Informes mensuales detallados</li>
-                  </ul>
-                  <a href="/contacto" className="btn btn-outline">Potenciar mi Negocio</a>
+                <h3 className="blog-card-title">
+                  IA en el Desarrollo Web: Tendencias 2024
+                </h3>
+                <p className="blog-card-excerpt">
+                  Cómo la inteligencia artificial está transformando el desarrollo web y qué esperar este año.
+                </p>
+                <div className="blog-card-footer">
+                  <span className="text-sm text-muted">Por hgaruna</span>
+                  <a href="/blog/ia-desarrollo-web-2024" className="btn btn-outline btn-sm">
+                    Leer más <i className="fas fa-arrow-right ml-1"></i>
+                  </a>
                 </div>
               </div>
-            </div>
+            </article>
+          </div>
+
+          <div className="text-center mt-8">
+            <a href="/blog" className="btn btn-primary btn-lg">
+              <i className="fas fa-newspaper mr-2"></i>
+              Ver Todos los Artículos
+            </a>
           </div>
         </div>
       </section>
