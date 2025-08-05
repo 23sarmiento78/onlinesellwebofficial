@@ -371,6 +371,13 @@ export default function BlogIA() {
           </section>
         )}
 
+        {/* Saved Files */}
+        <section className="section-sm bg-light">
+          <div className="container">
+            <SavedFiles />
+          </div>
+        </section>
+
         {/* Articles Display */}
         <section className="section">
           <div className="container">
