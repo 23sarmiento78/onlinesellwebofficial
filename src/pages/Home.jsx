@@ -37,9 +37,9 @@ export default function Home() {
       }
     ],
     stats: [
-      { number: '50+', label: 'Sitios Web Creados' },
-      { number: '100%', label: 'Clientes Satisfechos' },
-      { number: '24h', label: 'Tiempo de Respuesta' }
+      { number: '100+', label: 'Artículos Publicados' },
+      { number: '5K+', label: 'Lectores Mensuales' },
+      { number: '24h', label: 'Actualizaciones' }
     ]
   }
 
