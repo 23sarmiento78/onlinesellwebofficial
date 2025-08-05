@@ -204,7 +204,7 @@ class GenericRepository<T extends { id: string }> implements Repository<T> {
   constructor(private collection: string) {}
   
   async find(id: string): Promise<T | null> {
-    // Implementación
+    // Implementaci��n
     return null;
   }
   
@@ -750,6 +750,9 @@ class ArticleStorage {
       this.loading = false
 
       console.log(`✅ Loaded ${this.articles.length} articles total`)
+
+      // Initialize style updates for existing articles
+      initializeStyleUpdates().catch(console.error)
 
     } catch (error) {
       console.error('Error initializing articles:', error)
