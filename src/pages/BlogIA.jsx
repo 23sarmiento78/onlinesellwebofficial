@@ -78,6 +78,160 @@ export default function BlogIA() {
     })
   }
 
+  // Article Card Component
+  const ArticleCard = ({ article }) => (
+    <article className="blog-card hover-lift">
+      <div className="blog-card-image">
+        <img src={article.image} alt={article.title} loading="lazy" />
+        <div className="blog-card-badge">
+          {ARTICLE_CATEGORIES[article.category]?.name || article.category}
+        </div>
+      </div>
+      <div className="blog-card-content">
+        <div className="blog-card-meta">
+          <span>
+            <i className="fas fa-calendar mr-1"></i>
+            {formatDate(article.date)}
+          </span>
+          <span>
+            <i className="fas fa-clock mr-1"></i>
+            {article.readTime}
+          </span>
+          <span>
+            <i className="fas fa-user mr-1"></i>
+            {article.author}
+          </span>
+        </div>
+        <h2 className="blog-card-title">
+          <Link to={`/blog/${article.slug}`}>{article.title}</Link>
+        </h2>
+        <p className="blog-card-excerpt">{article.excerpt}</p>
+        {article.tags && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {article.tags.slice(0, 3).map((tag, index) => (
+              <span key={index} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+        <div className="blog-card-footer">
+          <Link to={`/blog/${article.slug}`} className="btn btn-outline btn-sm">
+            Leer más <i className="fas fa-arrow-right ml-1"></i>
+          </Link>
+        </div>
+      </div>
+    </article>
+  )
+
+  // Article List Item Component
+  const ArticleListItem = ({ article }) => (
+    <article className="flex gap-6 p-6 bg-secondary rounded-xl border border-light hover:shadow-lg transition-all">
+      <div className="flex-shrink-0">
+        <img
+          src={article.image}
+          alt={article.title}
+          className="w-32 h-24 object-cover rounded-lg"
+          loading="lazy"
+        />
+      </div>
+      <div className="flex-1">
+        <div className="flex items-center gap-4 text-sm text-muted mb-2">
+          <span className="bg-primary text-white px-2 py-1 rounded text-xs">
+            {ARTICLE_CATEGORIES[article.category]?.name || article.category}
+          </span>
+          <span><i className="fas fa-calendar mr-1"></i>{formatDate(article.date)}</span>
+          <span><i className="fas fa-clock mr-1"></i>{article.readTime}</span>
+          <span><i className="fas fa-user mr-1"></i>{article.author}</span>
+        </div>
+        <h2 className="text-xl font-semibold mb-2">
+          <Link to={`/blog/${article.slug}`} className="hover:text-primary transition-colors">
+            {article.title}
+          </Link>
+        </h2>
+        <p className="text-secondary mb-3">{article.excerpt}</p>
+        {article.tags && (
+          <div className="flex flex-wrap gap-2">
+            {article.tags.slice(0, 4).map((tag, index) => (
+              <span key={index} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="flex-shrink-0 flex items-center">
+        <Link to={`/blog/${article.slug}`} className="btn btn-outline">
+          Leer artículo
+        </Link>
+      </div>
+    </article>
+  )
+
+  // Featured Article Component
+  const ArticleFeatured = ({ article }) => (
+    <article className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary-dark text-white">
+      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="relative z-10 p-8 lg:p-12">
+        <div className="flex items-center gap-4 mb-4">
+          <span className="bg-white/20 px-3 py-1 rounded-full text-sm">
+            {ARTICLE_CATEGORIES[article.category]?.name || article.category}
+          </span>
+          <span className="text-sm opacity-90">
+            <i className="fas fa-calendar mr-1"></i>
+            {formatDate(article.date)}
+          </span>
+          <span className="text-sm opacity-90">
+            <i className="fas fa-user mr-1"></i>
+            {article.author}
+          </span>
+        </div>
+        <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+          {article.title}
+        </h1>
+        <p className="text-lg opacity-90 mb-6 max-w-2xl">
+          {article.excerpt}
+        </p>
+        <div className="flex items-center gap-4">
+          <Link to={`/blog/${article.slug}`} className="btn btn-white">
+            Leer artículo completo
+          </Link>
+          <span className="text-sm opacity-75">
+            <i className="fas fa-clock mr-1"></i>
+            {article.readTime}
+          </span>
+        </div>
+      </div>
+    </article>
+  )
+
+  // Compact Article Component
+  const ArticleCompact = ({ article }) => (
+    <article className="bg-secondary rounded-xl p-4 border border-light hover:shadow-lg transition-all">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="bg-primary text-white px-2 py-1 rounded text-xs">
+          {ARTICLE_CATEGORIES[article.category]?.name || article.category}
+        </span>
+        <span className="text-xs text-muted">
+          <i className="fas fa-calendar mr-1"></i>
+          {formatDate(article.date)}
+        </span>
+      </div>
+      <h3 className="font-semibold mb-2 leading-tight">
+        <Link to={`/blog/${article.slug}`} className="hover:text-primary transition-colors">
+          {article.title}
+        </Link>
+      </h3>
+      <p className="text-sm text-secondary mb-3 line-clamp-2">
+        {article.excerpt}
+      </p>
+      <div className="flex items-center justify-between">
+        <span className="text-xs text-muted">Por {article.author}</span>
+        <span className="text-xs text-muted">{article.readTime}</span>
+      </div>
+    </article>
+  )
+
   return (
     <>
       <Helmet>
