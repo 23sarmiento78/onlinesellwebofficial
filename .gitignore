@@ -1,43 +1,56 @@
-# Dependencias
+# Dependencies
 node_modules/
+.pnp
+.pnp.js
 
-# Archivos de sistema
-.DS_Store
-Thumbs.db
+# Testing
+coverage/
 
-# Archivos de entorno
+# Production builds
+dist/
+build/
+
+# Environment variables
 .env
 .env.local
-.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Archivos de log
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Directorios de IDE
-.idea/
+# IDE
 .vscode/
+.idea/
 *.swp
 *.swo
 
-# Archivos de construcción
-/dist
-/build
+# OS
+.DS_Store
+Thumbs.db
 
-# Archivos temporales
-.tmp
-.temp
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Local Netlify folder
-.netlify
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
-# Archivos de ebooks
-/public/ebooks/
-!/public/ebooks/.gitkeep
-public/blog/ebook_final.html
-!public/blog/ebook_final.html.example
-*.pdf
-*.epub
-*.mobi
+# Cache
+.npm
+.eslintcache
+.stylelintcache
+
+# Vite
+.vite/
+
+# Vercel
+.vercel
+
+# Temporary folders
+tmp/
+temp/
