@@ -62,14 +62,6 @@ export default function BlogIA() {
     setShowGenerator(false)
   }
 
-  const filteredArticles = articles.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory
-    
-    return matchesSearch && matchesCategory
-  })
-
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('es-ES', {
       year: 'numeric',
