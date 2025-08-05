@@ -215,7 +215,16 @@ export default function BlogIA() {
           </div>
         </section>
 
-        {/* Articles Grid */}
+        {/* Article Generator */}
+        {showGenerator && (
+          <section className="section-sm">
+            <div className="container">
+              <ArticleGenerator onArticleGenerated={handleArticleGenerated} />
+            </div>
+          </section>
+        )}
+
+        {/* Articles Display */}
         <section className="section">
           <div className="container">
             {loading ? (
@@ -228,12 +237,12 @@ export default function BlogIA() {
                 <i className="fas fa-search text-6xl text-muted mb-6"></i>
                 <h3 className="text-2xl font-bold mb-4">No se encontraron artículos</h3>
                 <p className="text-muted mb-6">
-                  {searchTerm || selectedCategory !== 'all' 
+                  {searchTerm || selectedCategory !== 'all'
                     ? 'Intenta con otros términos de búsqueda o categorías'
-                    : 'Pronto estaremos publicando contenido interesante'
+                    : 'Comienza generando algunos artículos con IA'
                   }
                 </p>
-                {(searchTerm || selectedCategory !== 'all') && (
+                {(searchTerm || selectedCategory !== 'all') ? (
                   <button
                     onClick={() => {
                       setSearchTerm('')
@@ -243,62 +252,51 @@ export default function BlogIA() {
                   >
                     Ver todos los artículos
                   </button>
+                ) : (
+                  <button
+                    onClick={() => setShowGenerator(true)}
+                    className="btn btn-primary"
+                  >
+                    <i className="fas fa-robot mr-2"></i>
+                    Generar Primer Artículo
+                  </button>
                 )}
               </div>
             ) : (
               <>
-                <div className="blog-grid">
-                  {filteredArticles.map((article) => (
-                    <article key={article.id} className="blog-card">
-                      <div className="blog-card-image">
-                        <img
-                          src={article.image}
-                          alt={article.title}
-                          loading="lazy"
-                        />
-                        <div className="blog-card-badge">{article.category}</div>
-                      </div>
-                      
-                      <div className="blog-card-content">
-                        <div className="blog-card-meta">
-                          <span>
-                            <i className="fas fa-calendar mr-1"></i>
-                            {formatDate(article.date)}
-                          </span>
-                          <span>
-                            <i className="fas fa-clock mr-1"></i>
-                            {article.readTime}
-                          </span>
-                        </div>
-                        
-                        <h2 className="blog-card-title">
-                          <Link to={`/blog/${article.slug}`}>
-                            {article.title}
-                          </Link>
-                        </h2>
-                        
-                        <p className="blog-card-excerpt">{article.excerpt}</p>
-                        
-                        <div className="blog-card-footer">
-                          <Link
-                            to={`/blog/${article.slug}`}
-                            className="btn btn-outline btn-sm"
-                          >
-                            Leer más
-                            <i className="fas fa-arrow-right ml-2"></i>
-                          </Link>
-                        </div>
-                      </div>
-                    </article>
-                  ))}
-                </div>
+                {/* Grid View */}
+                {viewMode === 'grid' && (
+                  <div className="blog-grid">
+                    {filteredArticles.map((article) => (
+                      <ArticleCard key={article.id} article={article} />
+                    ))}
+                  </div>
+                )}
 
-                {/* Pagination would go here */}
-                <div className="text-center mt-12">
-                  <p className="text-muted">
-                    Mostrando {filteredArticles.length} artículo{filteredArticles.length !== 1 ? 's' : ''}
-                  </p>
-                </div>
+                {/* List View */}
+                {viewMode === 'list' && (
+                  <div className="space-y-6">
+                    {filteredArticles.map((article) => (
+                      <ArticleListItem key={article.id} article={article} />
+                    ))}
+                  </div>
+                )}
+
+                {/* Magazine View */}
+                {viewMode === 'magazine' && (
+                  <div className="magazine-layout">
+                    {filteredArticles.length > 0 && (
+                      <div className="featured-article mb-12">
+                        <ArticleFeatured article={filteredArticles[0]} />
+                      </div>
+                    )}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {filteredArticles.slice(1).map((article) => (
+                        <ArticleCompact key={article.id} article={article} />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </>
             )}
           </div>
