@@ -1,71 +1,59 @@
 import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
+import { useArticles } from '@hooks/useArticles'
+import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
+import ArticleGenerator from '@components/ArticleGenerator'
 
 export default function BlogIA() {
-  const [articles, setArticles] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('all')
+  const { articles, loading, getArticlesByCategory, searchArticles, addArticle } = useArticles()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '')
+  const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || 'all')
+  const [viewMode, setViewMode] = useState('grid') // 'grid', 'list', 'magazine'
+  const [sortBy, setSortBy] = useState('date') // 'date', 'readTime', 'title'
+  const [showGenerator, setShowGenerator] = useState(false)
+  const [filteredArticles, setFilteredArticles] = useState([])
 
   useEffect(() => {
-    // Simulate loading articles
-    const loadArticles = async () => {
-      try {
-        // Mock articles data
-        const mockArticles = [
-          {
-            id: 1,
-            title: 'Tendencias de Diseño UI/UX en 2024',
-            excerpt: 'Descubre las últimas tendencias en diseño de interfaces que están marcando la pauta este año.',
-            slug: 'tendencias-diseno-ui-ux-2024',
-            category: 'Diseño',
-            date: '2024-03-10',
-            image: '/logos-he-imagenes/programacion.jpeg',
-            readTime: '5 min'
-          },
-          {
-            id: 2,
-            title: 'Optimización React: Mejores Prácticas',
-            excerpt: 'Técnicas avanzadas para optimizar el rendimiento de tus aplicaciones React.',
-            slug: 'react-optimizacion-mejores-practicas',
-            category: 'Desarrollo',
-            date: '2024-03-12',
-            image: '/logos-he-imagenes/programacion.jpeg',
-            readTime: '8 min'
-          },
-          {
-            id: 3,
-            title: '10 Estrategias SEO Avanzadas para 2024',
-            excerpt: 'Estrategias de SEO que realmente funcionan para posicionar tu sitio web en Google.',
-            slug: '10-estrategias-seo-avanzadas-2024',
-            category: 'SEO',
-            date: '2024-03-15',
-            image: '/logos-he-imagenes/programacion.jpeg',
-            readTime: '12 min'
-          },
-          {
-            id: 4,
-            title: 'El Futuro de la Inteligencia Artificial en el Desarrollo Web',
-            excerpt: 'Cómo la IA está revolucionando la forma en que desarrollamos sitios web.',
-            slug: 'futuro-ia-desarrollo-web',
-            category: 'Tecnología',
-            date: '2024-03-18',
-            image: '/logos-he-imagenes/programacion.jpeg',
-            readTime: '10 min'
-          }
-        ]
-        
-        setArticles(mockArticles)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error loading articles:', error)
-        setLoading(false)
+    let result = articles
+
+    // Filter by category
+    if (selectedCategory !== 'all') {
+      result = getArticlesByCategory(selectedCategory)
+    }
+
+    // Filter by search term
+    if (searchTerm.trim()) {
+      result = searchArticles(searchTerm)
+      if (selectedCategory !== 'all') {
+        result = result.filter(article => article.category === selectedCategory)
       }
     }
 
-    loadArticles()
-  }, [])
+    // Sort articles
+    result = [...result].sort((a, b) => {
+      switch (sortBy) {
+        case 'title':
+          return a.title.localeCompare(b.title)
+        case 'readTime':
+          return parseInt(a.readTime) - parseInt(b.readTime)
+        case 'date':
+        default:
+          return new Date(b.date) - new Date(a.date)
+      }
+    })
+
+    setFilteredArticles(result)
+  }, [articles, selectedCategory, searchTerm, sortBy])
+
+  // Update URL params when filters change
+  useEffect(() => {
+    const params = new URLSearchParams()
+    if (searchTerm) params.set('search', searchTerm)
+    if (selectedCategory !== 'all') params.set('category', selectedCategory)
+    setSearchParams(params)
+  }, [searchTerm, selectedCategory, setSearchParams])
 
   const categories = ['all', 'Desarrollo', 'Diseño', 'SEO', 'Tecnología', 'Marketing']
 
