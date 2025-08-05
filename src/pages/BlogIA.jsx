@@ -275,11 +275,10 @@ export default function BlogIA() {
               text: 'Ver Artículos'
             },
             {
-              href: "#",
+              href: "#generator",
               className: 'cta-button secondary',
               icon: 'fas fa-robot',
-              text: 'Generar Contenido',
-              onClick: () => setShowGenerator(!showGenerator)
+              text: 'Generar Contenido'
             }
           ]}
           stats={[
