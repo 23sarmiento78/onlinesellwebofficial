@@ -108,43 +108,108 @@ export default function BlogIA() {
             </div>
 
             {/* Search and Filters */}
-            <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
-              {/* Search */}
-              <div className="search-form flex-1 max-w-md">
-                <div className="relative">
-                  <i className="search-icon fas fa-search"></i>
-                  <input
-                    type="text"
-                    placeholder="Buscar artículos..."
-                    className="search-input form-input"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                  {searchTerm && (
-                    <button
-                      className="search-clear"
-                      onClick={() => setSearchTerm('')}
-                      aria-label="Limpiar búsqueda"
+            <div className="space-y-6">
+              <div className="flex flex-col lg:flex-row gap-6 items-start justify-between">
+                {/* Search */}
+                <div className="search-form flex-1 max-w-md">
+                  <div className="relative">
+                    <i className="search-icon fas fa-search"></i>
+                    <input
+                      type="text"
+                      placeholder="Buscar artículos..."
+                      className="search-input form-input"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    {searchTerm && (
+                      <button
+                        className="search-clear"
+                        onClick={() => setSearchTerm('')}
+                        aria-label="Limpiar búsqueda"
+                      >
+                        <i className="fas fa-times"></i>
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* View Controls */}
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium">Vista:</label>
+                    <div className="flex border border-light rounded-lg overflow-hidden">
+                      <button
+                        onClick={() => setViewMode('grid')}
+                        className={`px-3 py-1 text-sm ${viewMode === 'grid' ? 'bg-primary text-white' : 'bg-secondary'}`}
+                      >
+                        <i className="fas fa-th"></i>
+                      </button>
+                      <button
+                        onClick={() => setViewMode('list')}
+                        className={`px-3 py-1 text-sm ${viewMode === 'list' ? 'bg-primary text-white' : 'bg-secondary'}`}
+                      >
+                        <i className="fas fa-list"></i>
+                      </button>
+                      <button
+                        onClick={() => setViewMode('magazine')}
+                        className={`px-3 py-1 text-sm ${viewMode === 'magazine' ? 'bg-primary text-white' : 'bg-secondary'}`}
+                      >
+                        <i className="fas fa-newspaper"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium">Ordenar:</label>
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="form-select text-sm"
                     >
-                      <i className="fas fa-times"></i>
-                    </button>
-                  )}
+                      <option value="date">Más reciente</option>
+                      <option value="title">Alfabético</option>
+                      <option value="readTime">Tiempo de lectura</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
               {/* Categories */}
               <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`btn btn-sm ${
-                      selectedCategory === category ? 'btn-primary' : 'btn-ghost'
-                    }`}
-                  >
-                    {category === 'all' ? 'Todos' : category}
-                  </button>
-                ))}
+                {categories.map((category) => {
+                  const categoryInfo = ARTICLE_CATEGORIES[category]
+                  const displayName = category === 'all' ? 'Todos' : categoryInfo?.name || category
+
+                  return (
+                    <button
+                      key={category}
+                      onClick={() => setSelectedCategory(category)}
+                      className={`btn btn-sm ${
+                        selectedCategory === category ? 'btn-primary' : 'btn-ghost'
+                      }`}
+                    >
+                      {categoryInfo?.icon && <i className={`${categoryInfo.icon} mr-1`}></i>}
+                      {displayName}
+                    </button>
+                  )
+                })}
+              </div>
+
+              {/* Results Summary */}
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-muted">
+                  {loading ? 'Cargando...' : `${filteredArticles.length} artículo${filteredArticles.length !== 1 ? 's' : ''} encontrado${filteredArticles.length !== 1 ? 's' : ''}`}
+                  {searchTerm && ` para "${searchTerm}"`}
+                  {selectedCategory !== 'all' && ` en ${ARTICLE_CATEGORIES[selectedCategory]?.name || selectedCategory}`}
+                </p>
+
+                <button
+                  onClick={() => setShowGenerator(!showGenerator)}
+                  className="btn btn-sm btn-primary"
+                >
+                  <i className="fas fa-robot mr-1"></i>
+                  {showGenerator ? 'Ocultar' : 'Generar'} Artículo
+                </button>
               </div>
             </div>
           </div>
