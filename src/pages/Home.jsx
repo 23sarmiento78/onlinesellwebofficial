@@ -24,17 +24,16 @@ export default function Home() {
     showParticles: true,
     ctas: [
       {
-        href: '/planes',
+        href: '/blog',
         className: 'cta-button primary',
-        icon: 'fas fa-rocket',
-        text: '¡Quiero mi Sitio Web YA!'
+        icon: 'fas fa-newspaper',
+        text: 'Explorar Artículos'
       },
       {
-        href: 'https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz',
+        href: '/contacto',
         className: 'cta-button secondary',
-        icon: 'fab fa-whatsapp',
-        text: 'Consulta Gratuita',
-        target: '_blank'
+        icon: 'fas fa-envelope',
+        text: 'Solicitar Proyecto'
       }
     ],
     stats: [
