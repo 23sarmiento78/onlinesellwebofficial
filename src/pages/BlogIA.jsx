@@ -71,51 +71,55 @@ export default function BlogIA() {
     })
   }
 
-  // Article Card Component
-  const ArticleCard = ({ article }) => (
-    <article className="blog-card hover-lift">
-      <div className="blog-card-image">
+  // Enhanced Article Card Component
+  const EnhancedArticleCard = ({ article }) => (
+    <article className="blog-article-card animate-fade-in-up">
+      <div className="blog-article-image">
         <img src={article.image} alt={article.title} loading="lazy" />
-        <div className="blog-card-badge">
+        <div className="blog-article-category">
           {ARTICLE_CATEGORIES[article.category]?.name || article.category}
         </div>
       </div>
-      <div className="blog-card-content">
-        <div className="blog-card-meta">
-          <span>
-            <i className="fas fa-calendar mr-1"></i>
+      <div className="blog-article-content">
+        <div className="blog-article-meta">
+          <div className="blog-article-meta-item">
+            <i className="fas fa-calendar"></i>
             {formatDate(article.date)}
-          </span>
-          <span>
-            <i className="fas fa-clock mr-1"></i>
+          </div>
+          <div className="blog-article-meta-item">
+            <i className="fas fa-clock"></i>
             {article.readTime}
-          </span>
-          <span>
-            <i className="fas fa-user mr-1"></i>
+          </div>
+          <div className="blog-article-meta-item">
+            <i className="fas fa-user"></i>
             {article.author}
-          </span>
+          </div>
         </div>
-        <h2 className="blog-card-title">
+        <h2 className="blog-article-title">
           <Link to={`/blog/${article.slug}`}>{article.title}</Link>
         </h2>
-        <p className="blog-card-excerpt">{article.excerpt}</p>
+        <p className="blog-article-excerpt">{article.excerpt}</p>
         {article.tags && (
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="blog-article-tags">
             {article.tags.slice(0, 3).map((tag, index) => (
-              <span key={index} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+              <span key={index} className="blog-article-tag">
                 #{tag}
               </span>
             ))}
           </div>
         )}
-        <div className="blog-card-footer">
-          <Link to={`/blog/${article.slug}`} className="btn btn-outline btn-sm">
-            Leer más <i className="fas fa-arrow-right ml-1"></i>
+        <div className="blog-article-footer">
+          <Link to={`/blog/${article.slug}`} className="blog-read-more">
+            Leer artículo completo
+            <i className="fas fa-arrow-right"></i>
           </Link>
         </div>
       </div>
     </article>
   )
+
+  // Keep original for compatibility
+  const ArticleCard = ({ article }) => <EnhancedArticleCard article={article} />
 
   // Article List Item Component
   const ArticleListItem = ({ article }) => (
