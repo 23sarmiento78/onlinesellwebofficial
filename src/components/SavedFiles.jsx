@@ -70,10 +70,10 @@ export default function SavedFiles() {
     return (
       <div className="saved-files-empty">
         <div className="text-center p-6 bg-secondary rounded-lg border border-light">
-          <i className="fas fa-folder-open text-4xl text-muted mb-3"></i>
-          <h3 className="text-lg font-semibold mb-2">No hay archivos guardados</h3>
+          <i className="fas fa-file-download text-4xl text-muted mb-3"></i>
+          <h3 className="text-lg font-semibold mb-2">Archivos Descargables</h3>
           <p className="text-muted text-sm">
-            Los artículos generados se guardarán automáticamente y aparecerán aquí.
+            Cuando generes artículos, podrás descargar los archivos HTML aquí.
           </p>
         </div>
       </div>
