@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false)
