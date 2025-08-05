@@ -712,25 +712,53 @@ La clave está en aprender a colaborar efectivamente con estas herramientas, man
 class ArticleStorage {
   constructor() {
     this.storageKey = 'hgaruna_articles'
-    this.articles = this.loadArticles()
+    this.articles = []
+    this.loading = true
+    this.initializeArticles()
+  }
+
+  async initializeArticles() {
+    try {
+      // Check if we already have articles loaded
+      const stored = localStorage.getItem(this.storageKey)
+      const existingArticles = stored ? JSON.parse(stored) : []
+
+      if (existingArticles.length > 10) {
+        // We already have articles loaded, use them
+        this.articles = existingArticles
+        this.loading = false
+        return
+      }
+
+      console.log('🔄 Loading existing articles from blog directory...')
+
+      // Initialize with existing HTML articles
+      const allArticles = await initializeArticles()
+
+      // Add mock articles if we don't have enough variety
+      if (allArticles.length < 3) {
+        const mockWithUniqueIds = MOCK_ARTICLES.map(article => ({
+          ...article,
+          id: Date.now() + Math.random()
+        }))
+        allArticles.unshift(...mockWithUniqueIds)
+      }
+
+      this.articles = allArticles
+      this.saveArticles(this.articles)
+      this.loading = false
+
+      console.log(`✅ Loaded ${this.articles.length} articles total`)
+
+    } catch (error) {
+      console.error('Error initializing articles:', error)
+      this.articles = MOCK_ARTICLES
+      this.loading = false
+    }
   }
 
   loadArticles() {
-    try {
-      const stored = localStorage.getItem(this.storageKey)
-      const articles = stored ? JSON.parse(stored) : []
-      
-      // Merge with mock articles if storage is empty
-      if (articles.length === 0) {
-        this.saveArticles(MOCK_ARTICLES)
-        return MOCK_ARTICLES
-      }
-      
-      return articles
-    } catch (error) {
-      console.error('Error loading articles:', error)
-      return MOCK_ARTICLES
-    }
+    return this.articles
   }
 
   saveArticles(articles) {
