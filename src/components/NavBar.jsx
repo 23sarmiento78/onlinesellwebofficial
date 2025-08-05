@@ -28,7 +28,20 @@ export default function NavBar() {
   const navLinks = [
     { to: '/', label: 'Inicio' },
     { to: '/planes', label: 'Planes' },
-    { to: '/blog', label: 'Blog' },
+    {
+      to: '/blog',
+      label: 'Blog',
+      dropdown: true,
+      items: [
+        { to: '/blog', label: 'Todos los Artículos', icon: 'fas fa-list' },
+        { type: 'divider' },
+        ...Object.entries(ARTICLE_CATEGORIES).map(([key, category]) => ({
+          to: `/blog/categoria/${key}`,
+          label: category.name,
+          icon: category.icon
+        }))
+      ]
+    },
     { to: '/contacto', label: 'Contacto' },
   ]
 
