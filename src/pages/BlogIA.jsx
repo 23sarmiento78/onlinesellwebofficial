@@ -55,7 +55,12 @@ export default function BlogIA() {
     setSearchParams(params)
   }, [searchTerm, selectedCategory, setSearchParams])
 
-  const categories = ['all', 'Desarrollo', 'Diseño', 'SEO', 'Tecnología', 'Marketing']
+  const categories = ['all', ...Object.keys(ARTICLE_CATEGORIES)]
+
+  const handleArticleGenerated = (article) => {
+    addArticle(article)
+    setShowGenerator(false)
+  }
 
   const filteredArticles = articles.filter(article => {
     const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
