@@ -10,12 +10,12 @@ export default function Home() {
     },
     title: (
       <>
-        Desarrollo Web Profesional en <span className="highlight">Villa Carlos Paz</span>
+        <span className="highlight">hgaruna</span> Digital
         <br />
-        Sitios Web que <span className="highlight">Venden</span>
+        Tecnología y <span className="highlight">Desarrollo</span>
       </>
     ),
-    subtitle: '¿Tu competencia ya tiene sitio web y tú no? No te quedes atrás. Creamos sitios web profesionales que convierten visitantes en clientes. Precios accesibles para negocios locales de Villa Carlos Paz y Córdoba.',
+    subtitle: 'Tu fuente confiable de noticias, tutoriales y tendencias sobre desarrollo web, tecnología y programación. Mantente actualizado con el mundo digital desde Villa Carlos Paz.',
     backgroundVideo: '/5377684-uhd_3840_2160_25fps.mp4',
     backgroundImage: '/logos-he-imagenes/fondo-hero.jpg',
     variant: 'fullscreen',
