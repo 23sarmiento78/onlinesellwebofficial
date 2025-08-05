@@ -797,6 +797,10 @@ class ArticleStorage {
     if (index !== -1) {
       this.articles[index] = { ...this.articles[index], ...updates }
       this.saveArticles(this.articles)
+
+      // Auto-update sitemap
+      autoUpdateSitemap(this.articles).catch(console.error)
+
       return this.articles[index]
     }
     return null
@@ -805,6 +809,9 @@ class ArticleStorage {
   deleteArticle(id) {
     this.articles = this.articles.filter(article => article.id !== id)
     this.saveArticles(this.articles)
+
+    // Auto-update sitemap
+    autoUpdateSitemap(this.articles).catch(console.error)
   }
 
   searchArticles(query) {
