@@ -857,9 +857,29 @@ class ArticleStorage {
 const articleStorage = new ArticleStorage()
 
 export function useArticles() {
-  const [articles, setArticles] = useState(articleStorage.getAllArticles())
-  const [loading, setLoading] = useState(false)
+  const [articles, setArticles] = useState([])
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const initializeData = async () => {
+      setLoading(true)
+
+      // Wait for articleStorage to initialize
+      const checkInitialization = () => {
+        if (!articleStorage.loading) {
+          setArticles(articleStorage.getAllArticles())
+          setLoading(false)
+        } else {
+          setTimeout(checkInitialization, 100)
+        }
+      }
+
+      checkInitialization()
+    }
+
+    initializeData()
+  }, [])
 
   const refreshArticles = () => {
     setArticles(articleStorage.getAllArticles())
