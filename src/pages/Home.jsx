@@ -314,7 +314,7 @@ export default function Home() {
               <div className="step-number"><i className="fas fa-chart-line"></i></div>
               <h3 className="step-title">Tecnología</h3>
               <p className="step-description">
-                Noticias tech, análisis de tendencias, nuevas herramientas y el futuro digital.
+                Noticias tech, an��lisis de tendencias, nuevas herramientas y el futuro digital.
               </p>
               <a href="/blog?category=tecnologia" className="btn btn-outline btn-sm mt-3">
                 Ver Artículos
@@ -324,58 +324,75 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="section stats-section">
+      {/* Newsletter Section */}
+      <section className="section">
         <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Números que Hablan</h2>
-            <p className="section-subtitle">
-              Resultados comprobados que respaldan nuestro trabajo
-            </p>
-          </div>
-          
-          <div className="stats-grid">
-            <div className="stat-item">
-              <span className="stat-number">50+</span>
-              <span className="stat-label">Proyectos Completados</span>
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="section-header">
+              <div className="section-badge">
+                <i className="fas fa-envelope"></i>
+                Newsletter
+              </div>
+              <h2 className="section-title">Mantente Actualizado</h2>
+              <p className="section-description">
+                Recibe los últimos artículos, tutoriales y noticias tech directamente en tu email. Sin spam, solo contenido de calidad.
+              </p>
             </div>
-            <div className="stat-item">
-              <span className="stat-number">100%</span>
-              <span className="stat-label">Clientes Satisfechos</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">5</span>
-              <span className="stat-label">Años de Experiencia</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">24h</span>
-              <span className="stat-label">Tiempo de Respuesta</span>
+
+            <div className="bg-secondary rounded-2xl p-8 border border-light">
+              <form className="newsletter-form max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
+                <div className="flex gap-3">
+                  <input
+                    type="email"
+                    placeholder="tu@email.com"
+                    className="form-input flex-1"
+                    required
+                  />
+                  <button type="submit" className="btn btn-primary">
+                    <i className="fas fa-paper-plane mr-2"></i>
+                    Suscribirse
+                  </button>
+                </div>
+                <p className="text-sm text-muted mt-3">
+                  Únete a más de 5,000 desarrolladores que ya reciben nuestro newsletter
+                </p>
+              </form>
+
+              <div className="flex flex-wrap justify-center gap-6 mt-8 text-sm text-secondary">
+                <div className="flex items-center gap-2">
+                  <i className="fas fa-check text-success"></i>
+                  <span>Artículos semanales</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <i className="fas fa-check text-success"></i>
+                  <span>Tutoriales exclusivos</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <i className="fas fa-check text-success"></i>
+                  <span>Sin spam</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact CTA Section */}
+      {/* Project CTA Section */}
       <section className="section cta-section">
         <div className="container">
           <div className="cta-content">
-            <h2 className="section-title">¿Listo para Hacer Crecer tu Negocio?</h2>
+            <h2 className="section-title">¿Necesitas un Proyecto Web?</h2>
             <p className="section-subtitle">
-              No dejes que tu competencia te gane. Contáctanos hoy mismo y comienza tu transformación digital.
+              Si tienes una idea o proyecto en mente, estamos aquí para ayudarte a hacerlo realidad. Solicita una cotización personalizada.
             </p>
             <div className="cta-buttons">
-              <a
-                href="https://wa.me/+543541237972?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20servicios%20de%20desarrollo%20web%20para%20mi%20negocio%20en%20Villa%20Carlos%20Paz"
-                className="cta-button primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fab fa-whatsapp"></i>
-                ¡Chatear Ahora!
-              </a>
-              <a href="/contacto" className="cta-button secondary">
+              <a href="/contacto" className="cta-button primary">
                 <i className="fas fa-envelope"></i>
-                Enviar Mensaje
+                Solicitar Cotización
+              </a>
+              <a href="/planes" className="cta-button secondary">
+                <i className="fas fa-eye"></i>
+                Ver Planes
               </a>
             </div>
           </div>
