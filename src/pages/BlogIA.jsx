@@ -1,284 +1,278 @@
-import React, { useState, useEffect } from "react";
-import BaseLayout from "../layouts/BaseLayout";
-import { getArticlesFromHTML } from "../utils/getArticlesFromHTML.js";
-// El CSS de BlogIA se debe enlazar en public/index.html con:
-// <link rel="stylesheet" href="/BlogIA.css" />
+import React, { useState, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
+import { Link } from 'react-router-dom'
 
 export default function BlogIA() {
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [categories, setCategories] = useState([]);
-  const [trendingTopics, setTrendingTopics] = useState([]);
-
-  const articlesPerPage = 6;
+  const [articles, setArticles] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('all')
 
   useEffect(() => {
-    fetchArticles();
-  }, []);
-
-  useEffect(() => {
-    if (articles.length > 0) {
-      // Extraer categorías únicas, reales y no vacías
-      const uniqueCategories = [...new Set(articles.map(article => article.category).filter(Boolean))];
-      setCategories(uniqueCategories);
-
-      // Generar temas de tendencia basados en tags
-      const allTags = articles.flatMap(article => article.tags || []);
-      const tagCounts = {};
-      allTags.forEach(tag => {
-        tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-      });
-      const trending = Object.entries(tagCounts)
-        .sort(([,a], [,b]) => b - a)
-        .slice(0, 10)
-        .map(([tag, count]) => ({ tag, count }));
-      setTrendingTopics(trending);
+    // Simulate loading articles
+    const loadArticles = async () => {
+      try {
+        // Mock articles data
+        const mockArticles = [
+          {
+            id: 1,
+            title: 'Tendencias de Diseño UI/UX en 2024',
+            excerpt: 'Descubre las últimas tendencias en diseño de interfaces que están marcando la pauta este año.',
+            slug: 'tendencias-diseno-ui-ux-2024',
+            category: 'Diseño',
+            date: '2024-03-10',
+            image: '/logos-he-imagenes/programacion.jpeg',
+            readTime: '5 min'
+          },
+          {
+            id: 2,
+            title: 'Optimización React: Mejores Prácticas',
+            excerpt: 'Técnicas avanzadas para optimizar el rendimiento de tus aplicaciones React.',
+            slug: 'react-optimizacion-mejores-practicas',
+            category: 'Desarrollo',
+            date: '2024-03-12',
+            image: '/logos-he-imagenes/programacion.jpeg',
+            readTime: '8 min'
+          },
+          {
+            id: 3,
+            title: '10 Estrategias SEO Avanzadas para 2024',
+            excerpt: 'Estrategias de SEO que realmente funcionan para posicionar tu sitio web en Google.',
+            slug: '10-estrategias-seo-avanzadas-2024',
+            category: 'SEO',
+            date: '2024-03-15',
+            image: '/logos-he-imagenes/programacion.jpeg',
+            readTime: '12 min'
+          },
+          {
+            id: 4,
+            title: 'El Futuro de la Inteligencia Artificial en el Desarrollo Web',
+            excerpt: 'Cómo la IA está revolucionando la forma en que desarrollamos sitios web.',
+            slug: 'futuro-ia-desarrollo-web',
+            category: 'Tecnología',
+            date: '2024-03-18',
+            image: '/logos-he-imagenes/programacion.jpeg',
+            readTime: '10 min'
+          }
+        ]
+        
+        setArticles(mockArticles)
+        setLoading(false)
+      } catch (error) {
+        console.error('Error loading articles:', error)
+        setLoading(false)
+      }
     }
-  }, [articles]);
 
-  const fetchArticles = async () => {
-    try {
-      setLoading(true);
-      const fetchedArticles = await getArticlesFromHTML();
-      setArticles(fetchedArticles);
-    } catch (error) {
-      console.error('Error:', error);
-      setError('Error al cargar los artículos');
-    } finally {
-      setLoading(false);
-    }
-  };
+    loadArticles()
+  }, [])
+
+  const categories = ['all', 'Desarrollo', 'Diseño', 'SEO', 'Tecnología', 'Marketing']
+
+  const filteredArticles = articles.filter(article => {
+    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         article.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory
+    
+    return matchesSearch && matchesCategory
+  })
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('es-ES', {
       year: 'numeric',
-      month: 'short',
+      month: 'long',
       day: 'numeric'
-    });
-  };
-
-  const filteredArticles = articles.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         (article.tags && article.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
-    
-    const matchesCategory = !selectedCategory || article.category === selectedCategory;
-    
-    return matchesSearch && matchesCategory;
-  });
-
-  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
-  const startIndex = (currentPage - 1) * articlesPerPage;
-  const paginatedArticles = filteredArticles.slice(startIndex, startIndex + articlesPerPage);
-
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(selectedCategory === category ? "" : category);
-    setCurrentPage(1);
-  };
-
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
-
-  if (loading) {
-    return (
-      <BaseLayout title="Blog IA" description="Artículos sobre desarrollo web e inteligencia artificial">
-        <div className="blogia-loading">
-          <div className="blogia-spinner"></div>
-          <p className="blogia-loading-text">Cargando artículos...</p>
-        </div>
-      </BaseLayout>
-    );
-  }
-
-  if (error) {
-    return (
-      <BaseLayout title="Blog IA" description="Artículos sobre desarrollo web e inteligencia artificial">
-        <div className="blogia-error">
-          <div className="blogia-error-icon"></div>
-          <h2>Error al cargar artículos</h2>
-          <p className="blogia-error-text">{error}</p>
-          <button onClick={fetchArticles} className="blogia-btn blogia-btn-primary">
-            Reintentar
-          </button>
-        </div>
-      </BaseLayout>
-    );
+    })
   }
 
   return (
-    <BaseLayout title="Blog IA" description="Artículos sobre desarrollo web e inteligencia artificial">
-      <div className="blogia-main">
-        {/* Header del Blog */}
-        <header className="blogia-header">
-          <div className="blogia-header-icon"><i className="fas fa-robot"></i></div>
-          <div>
-            <h1 className="blogia-title">Blog IA</h1>
-            <p className="blogia-subtitle">Artículos generados por IA sobre desarrollo web, programación y tecnología</p>
-          </div>
-        </header>
+    <>
+      <Helmet>
+        <title>Blog de Desarrollo Web | Tips y Tutoriales | hgaruna</title>
+        <meta 
+          name="description" 
+          content="Blog con artículos, tips y tutoriales sobre desarrollo web, diseño, SEO y tecnología. Aprende con los expertos de hgaruna." 
+        />
+        <meta 
+          name="keywords" 
+          content="blog desarrollo web, tutoriales web, tips seo, diseño web, programación, marketing digital, villa carlos paz" 
+        />
+      </Helmet>
 
-        <div className="blogia-content">
-          {/* Sidebar */}
-          <aside className="blogia-sidebar">
-            {/* Categorías */}
-            <section className="blogia-plugin blogia-categories">
-              <h3 className="blogia-plugin-title"><i className="fas fa-tags"></i> Categorías</h3>
-              <div className="blogia-category-list">
-                <button
-                  className={`blogia-category-chip${selectedCategory === "" ? " selected" : ""}`}
-                  onClick={() => handleCategoryClick("")}
-                >
-                  <i className="fas fa-globe"></i> Todas
-                  <span className="blogia-category-count">{articles.length}</span>
-                </button>
-                {categories.map(category => {
-                  const count = articles.filter(article => article.category === category).length;
-                  return (
+      <div className="pt-20">
+        {/* Header */}
+        <section className="section-sm section-secondary">
+          <div className="container">
+            <div className="section-header">
+              <div className="section-badge">
+                <i className="fas fa-blog"></i>
+                Blog
+              </div>
+              <h1 className="section-title">Blog de Desarrollo Web</h1>
+              <p className="section-description">
+                Artículos, tips y tutoriales sobre desarrollo web, diseño, SEO y las últimas tendencias tecnológicas.
+              </p>
+            </div>
+
+            {/* Search and Filters */}
+            <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
+              {/* Search */}
+              <div className="search-form flex-1 max-w-md">
+                <div className="relative">
+                  <i className="search-icon fas fa-search"></i>
+                  <input
+                    type="text"
+                    placeholder="Buscar artículos..."
+                    className="search-input form-input"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  {searchTerm && (
                     <button
-                      key={category}
-                      className={`blogia-category-chip${selectedCategory === category ? " selected" : ""}`}
-                      onClick={() => handleCategoryClick(category)}
+                      className="search-clear"
+                      onClick={() => setSearchTerm('')}
+                      aria-label="Limpiar búsqueda"
                     >
-                      <i className="fas fa-folder"></i> {category}
-                      <span className="blogia-category-count">{count}</span>
+                      <i className="fas fa-times"></i>
                     </button>
-                  );
-                })}
-              </div>
-            </section>
-
-            {/* Temas de tendencia */}
-            <section className="blogia-plugin blogia-trending">
-              <h3 className="blogia-plugin-title"><i className="fas fa-fire"></i> Tendencias</h3>
-              <ul className="blogia-trending-list">
-                {trendingTopics.map((topic, index) => (
-                  <li key={topic.tag} className="blogia-trending-item">
-                    <span className="blogia-trending-rank">#{index + 1}</span>
-                    <span className="blogia-trending-tag">{topic.tag}</span>
-                    <span className="blogia-trending-count">{topic.count}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            {/* Estadísticas */}
-            <section className="blogia-plugin blogia-stats">
-              <h3 className="blogia-plugin-title"><i className="fas fa-chart-bar"></i> Estadísticas</h3>
-              <div className="blogia-stats-list">
-                <div className="blogia-stats-box">
-                  <div className="blogia-stats-icon"><i className="fas fa-file-alt"></i></div>
-                  <div className="blogia-stats-value">{articles.length}</div>
-                  <div className="blogia-stats-label">Artículos</div>
-                </div>
-                <div className="blogia-stats-box">
-                  <div className="blogia-stats-icon"><i className="fas fa-folder"></i></div>
-                  <div className="blogia-stats-value">{categories.length}</div>
-                  <div className="blogia-stats-label">Categorías</div>
-                </div>
-                <div className="blogia-stats-box">
-                  <div className="blogia-stats-icon"><i className="fas fa-fire"></i></div>
-                  <div className="blogia-stats-value">{trendingTopics.length}</div>
-                  <div className="blogia-stats-label">Tendencias</div>
+                  )}
                 </div>
               </div>
-            </section>
-          </aside>
 
-          {/* Feed de artículos */}
-          <main className="blogia-feed">
-            {/* Barra de búsqueda */}
-            <div className="blogia-searchbar">
-              <input
-                type="text"
-                className="blogia-search-input"
-                placeholder="Buscar artículos..."
-                value={searchTerm}
-                onChange={handleSearch}
-              />
-            </div>
-
-            {/* Feed de artículos en tarjetas */}
-            <div className="blogia-feed-grid">
-              {paginatedArticles.map((article) => (
-                <div key={article.slug} className="blogia-card">
-                  <div className="blogia-card-img-wrap">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      className="blogia-card-img"
-                    />
-                    <div className="blogia-card-category">{article.category}</div>
-                  </div>
-                  <div className="blogia-card-content">
-                    <h2 className="blogia-card-title">
-                      <a href={`/blog/${article.slug}.html`} className="blogia-card-link">
-                        {article.title}
-                      </a>
-                    </h2>
-                    <p className="blogia-card-summary">{article.summary}</p>
-                    <div className="blogia-card-tags">
-                      {article.tags && article.tags.slice(0, 3).map((tag, index) => (
-                        <span key={index} className="blogia-tag">#{tag}</span>
-                      ))}
-                    </div>
-                    <div className="blogia-card-meta">
-                      <span className="blogia-card-date"><i className="fas fa-calendar-alt"></i> {formatDate(article.date)}</span>
-                      <span className="blogia-card-author"><i className="fas fa-user"></i> {article.author}</span>
-                    </div>
-                    <a href={`/blog/${article.slug}.html`} className="blogia-btn blogia-btn-primary blogia-card-btn">
-                      Leer más
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Paginación */}
-            {totalPages > 1 && (
-              <nav className="blogia-pagination">
-                <button
-                  className="blogia-pagination-btn"
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                  disabled={currentPage === 1}
-                >
-                  &lt;
-                </button>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+              {/* Categories */}
+              <div className="flex flex-wrap gap-2">
+                {categories.map((category) => (
                   <button
-                    key={page}
-                    className={`blogia-pagination-btn${currentPage === page ? " active" : ""}`}
-                    onClick={() => setCurrentPage(page)}
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`btn btn-sm ${
+                      selectedCategory === category ? 'btn-primary' : 'btn-ghost'
+                    }`}
                   >
-                    {page}
+                    {category === 'all' ? 'Todos' : category}
                   </button>
                 ))}
-                <button
-                  className="blogia-pagination-btn"
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                >
-                  &gt;
-                </button>
-              </nav>
-            )}
-
-            {/* Mensaje si no hay artículos */}
-            {paginatedArticles.length === 0 && (
-              <div className="blogia-no-articles">
-                <div className="blogia-no-articles-icon"></div>
-                <h3>No se encontraron artículos</h3>
-                <p>Intenta con otros términos de búsqueda o categorías</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Articles Grid */}
+        <section className="section">
+          <div className="container">
+            {loading ? (
+              <div className="text-center py-16">
+                <div className="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+                <p className="text-muted">Cargando artículos...</p>
+              </div>
+            ) : filteredArticles.length === 0 ? (
+              <div className="text-center py-16">
+                <i className="fas fa-search text-6xl text-muted mb-6"></i>
+                <h3 className="text-2xl font-bold mb-4">No se encontraron artículos</h3>
+                <p className="text-muted mb-6">
+                  {searchTerm || selectedCategory !== 'all' 
+                    ? 'Intenta con otros términos de búsqueda o categorías'
+                    : 'Pronto estaremos publicando contenido interesante'
+                  }
+                </p>
+                {(searchTerm || selectedCategory !== 'all') && (
+                  <button
+                    onClick={() => {
+                      setSearchTerm('')
+                      setSelectedCategory('all')
+                    }}
+                    className="btn btn-primary"
+                  >
+                    Ver todos los artículos
+                  </button>
+                )}
+              </div>
+            ) : (
+              <>
+                <div className="blog-grid">
+                  {filteredArticles.map((article) => (
+                    <article key={article.id} className="blog-card">
+                      <div className="blog-card-image">
+                        <img
+                          src={article.image}
+                          alt={article.title}
+                          loading="lazy"
+                        />
+                        <div className="blog-card-badge">{article.category}</div>
+                      </div>
+                      
+                      <div className="blog-card-content">
+                        <div className="blog-card-meta">
+                          <span>
+                            <i className="fas fa-calendar mr-1"></i>
+                            {formatDate(article.date)}
+                          </span>
+                          <span>
+                            <i className="fas fa-clock mr-1"></i>
+                            {article.readTime}
+                          </span>
+                        </div>
+                        
+                        <h2 className="blog-card-title">
+                          <Link to={`/blog/${article.slug}`}>
+                            {article.title}
+                          </Link>
+                        </h2>
+                        
+                        <p className="blog-card-excerpt">{article.excerpt}</p>
+                        
+                        <div className="blog-card-footer">
+                          <Link
+                            to={`/blog/${article.slug}`}
+                            className="btn btn-outline btn-sm"
+                          >
+                            Leer más
+                            <i className="fas fa-arrow-right ml-2"></i>
+                          </Link>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                {/* Pagination would go here */}
+                <div className="text-center mt-12">
+                  <p className="text-muted">
+                    Mostrando {filteredArticles.length} artículo{filteredArticles.length !== 1 ? 's' : ''}
+                  </p>
+                </div>
+              </>
             )}
-          </main>
-        </div>
+          </div>
+        </section>
+
+        {/* Newsletter CTA */}
+        <section className="section cta-section">
+          <div className="container">
+            <div className="cta-content">
+              <h2 className="section-title">¿Te Gusta Nuestro Contenido?</h2>
+              <p className="section-subtitle">
+                Suscríbete a nuestro newsletter y recibe los últimos artículos directamente en tu email.
+              </p>
+              <div className="cta-buttons">
+                <div className="newsletter-form max-w-md mx-auto">
+                  <div className="flex gap-3">
+                    <input
+                      type="email"
+                      placeholder="tu@email.com"
+                      className="newsletter-input flex-1"
+                    />
+                    <button className="newsletter-button">
+                      <i className="fas fa-paper-plane mr-2"></i>
+                      Suscribirse
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-    </BaseLayout>
-  );
-} 
+    </>
+  )
+}
