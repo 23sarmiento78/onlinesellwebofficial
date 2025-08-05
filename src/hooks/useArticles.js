@@ -762,13 +762,22 @@ class ArticleStorage {
       .slice(0, limit)
   }
 
-  addArticle(article) {
+  async addArticle(article) {
     const newArticle = {
       ...article,
       id: Date.now(),
-      date: article.date || new Date().toISOString().split('T')[0]
+      date: article.date || new Date().toISOString().split('T')[0],
+      slug: article.slug || generateSlug(article.title)
     }
-    
+
+    // Save to file system
+    try {
+      await saveArticleToFile(newArticle, 'html')
+      console.log(`Artículo guardado en archivo: ${newArticle.slug}.html`)
+    } catch (error) {
+      console.error('Error guardando artículo en archivo:', error)
+    }
+
     this.articles.unshift(newArticle)
     this.saveArticles(this.articles)
     return newArticle
