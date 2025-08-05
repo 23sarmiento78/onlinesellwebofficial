@@ -781,6 +781,14 @@ class ArticleStorage {
 
     this.articles.unshift(newArticle)
     this.saveArticles(this.articles)
+
+    // Auto-update sitemap
+    try {
+      await autoUpdateSitemap(this.articles)
+    } catch (error) {
+      console.error('Error updating sitemap:', error)
+    }
+
     return newArticle
   }
 
