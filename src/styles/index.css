@@ -13,6 +13,7 @@
 @import './components/hero.css';
 @import './components/sections.css';
 @import './components/footer.css';
+@import './components/blog.css';
 
 /* ===== GLOBAL ANIMATIONS ===== */
 @keyframes fadeIn {
