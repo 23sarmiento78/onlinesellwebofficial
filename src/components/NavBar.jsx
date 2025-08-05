@@ -5,6 +5,7 @@ import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [showBlogDropdown, setShowBlogDropdown] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
