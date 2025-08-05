@@ -488,7 +488,7 @@ export default function BlogIA() {
                 <h3 className="text-2xl font-bold mb-4">No se encontraron artículos</h3>
                 <p className="text-muted mb-6">
                   {searchTerm || selectedCategory !== 'all'
-                    ? 'Intenta con otros términos de búsqueda o categorías'
+                    ? 'Intenta con otros términos de búsqueda o categor��as'
                     : 'Comienza generando algunos artículos con IA'
                   }
                 </p>
@@ -552,28 +552,30 @@ export default function BlogIA() {
           </div>
         </section>
 
-        {/* Newsletter CTA */}
-        <section className="section cta-section">
+        {/* Enhanced Newsletter Section */}
+        <section className="blog-newsletter-section">
           <div className="container">
-            <div className="cta-content">
-              <h2 className="section-title">¿Te Gusta Nuestro Contenido?</h2>
-              <p className="section-subtitle">
-                Suscríbete a nuestro newsletter y recibe los últimos artículos directamente en tu email.
+            <div className="blog-newsletter-content">
+              <h2 className="blog-newsletter-title">📧 ¡Mantente Actualizado!</h2>
+              <p className="blog-newsletter-subtitle">
+                Únete a más de 5,000 desarrolladores que reciben nuestros mejores artículos, tips y recursos directamente en su email. Sin spam, solo contenido de calidad.
               </p>
-              <div className="cta-buttons">
-                <div className="newsletter-form max-w-md mx-auto">
-                  <div className="flex gap-3">
-                    <input
-                      type="email"
-                      placeholder="tu@email.com"
-                      className="newsletter-input flex-1"
-                    />
-                    <button className="newsletter-button">
-                      <i className="fas fa-paper-plane mr-2"></i>
-                      Suscribirse
-                    </button>
-                  </div>
-                </div>
+              <form className="blog-newsletter-form" onSubmit={(e) => e.preventDefault()}>
+                <input
+                  type="email"
+                  placeholder="tu@email.com"
+                  className="blog-newsletter-input"
+                  required
+                />
+                <button type="submit" className="blog-newsletter-btn">
+                  <i className="fas fa-paper-plane mr-2"></i>
+                  Suscribirse Gratis
+                </button>
+              </form>
+              <div className="text-center mt-4">
+                <p className="text-sm opacity-80">
+                  ✓ Contenido exclusivo &nbsp;&nbsp; ✓ Tips semanales &nbsp;&nbsp; ✓ Recursos gratuitos
+                </p>
               </div>
             </div>
           </div>
