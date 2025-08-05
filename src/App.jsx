@@ -31,6 +31,7 @@ function App() {
           <Route path="/legal" element={<Legal />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/blog" element={<BlogIA />} />
+          <Route path="/blog/categoria/:category" element={<CategoryPage />} />
           <Route path="/blog/:slug" element={<BlogArticle />} />
           <Route path="/desarrollo-web-villa-carlos-paz" element={<DesarrolloWebVillaCarlosPaz />} />
           <Route path="/diseño-web-villa-carlos-paz" element={<DisenoWebVillaCarlosPaz />} />
