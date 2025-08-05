@@ -1,70 +1,32 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
+import { useArticles } from '@hooks/useArticles'
+import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
 
 export default function BlogArticle() {
   const { slug } = useParams()
+  const { getArticleBySlug, getArticlesByCategory } = useArticles()
   const [article, setArticle] = useState(null)
   const [relatedArticles, setRelatedArticles] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const loadArticle = async () => {
+    const loadArticle = () => {
       try {
-        // Mock article data based on slug
-        const mockArticle = {
-          id: 1,
-          title: 'Tendencias de Diseño UI/UX en 2024',
-          content: `
-            <p>El diseño de interfaces de usuario y la experiencia del usuario continúan evolucionando rápidamente en 2024. En este artículo, exploramos las tendencias más importantes que están definiendo el futuro del diseño digital.</p>
-            
-            <h2>1. Diseño Minimalista Extremo</h2>
-            <p>La tendencia hacia la simplicidad se intensifica este año. Los diseñadores están adoptando enfoques aún más minimalistas, eliminando elementos innecesarios y focalizándose en la funcionalidad pura.</p>
-            
-            <h2>2. Colores Vibrantes y Gradientes</h2>
-            <p>Después de años de paletas neutras, 2024 ve el retorno de colores vibrantes y gradientes audaces que capturan la atención y transmiten energía.</p>
-            
-            <h2>3. Tipografía Como Elemento Visual</h2>
-            <p>La tipografía se convierte en el héroe visual de muchos diseños, con fuentes custom y tratamientos tipográficos únicos que definen la personalidad de la marca.</p>
-            
-            <h2>4. Microinteracciones Sofisticadas</h2>
-            <p>Las microinteracciones se vuelven más sofisticadas y contextualmente relevantes, mejorando la usabilidad y creando momentos de deleite para el usuario.</p>
-            
-            <h2>5. Diseño Inclusivo y Accesible</h2>
-            <p>La accesibilidad ya no es opcional. Los diseñadores están integrando principios de diseño inclusivo desde el inicio del proceso de diseño.</p>
-            
-            <h2>Conclusión</h2>
-            <p>Estas tendencias reflejan un cambio hacia diseños más humanos, accesibles y funcionalmente superiores. La clave está en adoptarlas de manera que sirvan a los objetivos del negocio y mejoren la experiencia del usuario.</p>
-          `,
-          excerpt: 'Descubre las últimas tendencias en diseño de interfaces que están marcando la pauta este año.',
-          slug: 'tendencias-diseno-ui-ux-2024',
-          category: 'Diseño',
-          date: '2024-03-10',
-          image: '/logos-he-imagenes/programacion.jpeg',
-          readTime: '5 min',
-          author: 'Hernán Sarmiento',
-          tags: ['UI/UX', 'Diseño Web', 'Tendencias', 'Frontend']
+        const foundArticle = getArticleBySlug(slug)
+
+        if (foundArticle) {
+          setArticle(foundArticle)
+
+          // Get related articles from the same category
+          const categoryArticles = getArticlesByCategory(foundArticle.category)
+            .filter(a => a.slug !== slug)
+            .slice(0, 3)
+
+          setRelatedArticles(categoryArticles)
         }
 
-        const mockRelated = [
-          {
-            id: 2,
-            title: 'Optimización React: Mejores Prácticas',
-            slug: 'react-optimizacion-mejores-practicas',
-            category: 'Desarrollo',
-            image: '/logos-he-imagenes/programacion.jpeg'
-          },
-          {
-            id: 3,
-            title: '10 Estrategias SEO Avanzadas para 2024',
-            slug: '10-estrategias-seo-avanzadas-2024',
-            category: 'SEO',
-            image: '/logos-he-imagenes/programacion.jpeg'
-          }
-        ]
-        
-        setArticle(mockArticle)
-        setRelatedArticles(mockRelated)
         setLoading(false)
       } catch (error) {
         console.error('Error loading article:', error)
@@ -73,7 +35,7 @@ export default function BlogArticle() {
     }
 
     loadArticle()
-  }, [slug])
+  }, [slug, getArticleBySlug, getArticlesByCategory])
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('es-ES', {
