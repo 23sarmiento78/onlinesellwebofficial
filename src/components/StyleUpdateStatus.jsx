@@ -55,9 +55,9 @@ export default function StyleUpdateStatus() {
               }`}></i>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Estilos Modernos</h3>
+              <h3 className="font-semibold text-gray-900">Diseño Optimizado</h3>
               <p className="text-sm text-gray-600">
-                {updateStatus.updated}/{updateStatus.total} artículos actualizados • {successRate}% completado
+                {updateStatus.updated} artículos con diseño moderno • {successRate === 100 ? 'Completado' : 'Optimizando'}
               </p>
             </div>
           </div>
