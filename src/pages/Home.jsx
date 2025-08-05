@@ -46,25 +46,26 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>Desarrollo Web Villa Carlos Paz | Programador Web Profesional | hgaruna</title>
-        <meta 
-          name="description" 
-          content="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten visitantes en clientes. E-commerce, SEO local y marketing digital." 
+        <title>hgaruna Digital | Blog de Tecnología y Desarrollo Web</title>
+        <meta
+          name="description"
+          content="Tu fuente confiable de artículos sobre desarrollo web, programación, IA y tecnología. Tutoriales, noticias y tendencias desde Villa Carlos Paz."
         />
-        <meta 
-          name="keywords" 
-          content="desarrollo web villa carlos paz, programador web villa carlos paz, diseñador web villa carlos paz, crear sitio web villa carlos paz, desarrollo de software villa carlos paz, web developer villa carlos paz, programación web córdoba, e-commerce villa carlos paz, seo local villa carlos paz, marketing digital villa carlos paz" 
+        <meta
+          name="keywords"
+          content="blog tecnología, desarrollo web, programación, react, typescript, javascript, inteligencia artificial, tutoriales programación, noticias tech, hgaruna"
         />
-        
+
         {/* Open Graph */}
-        <meta property="og:title" content="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | hgaruna" />
-        <meta property="og:description" content="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten visitantes en clientes. E-commerce y SEO local incluido." />
+        <meta property="og:title" content="hgaruna Digital | Blog de Tecnología y Desarrollo Web" />
+        <meta property="og:description" content="Tu fuente confiable de artículos sobre desarrollo web, programación, IA y tecnología. Tutoriales, noticias y tendencias." />
         <meta property="og:image" content="https://hgaruna.org/logos-he-imagenes/logo3.png" />
         <meta property="og:url" content="https://hgaruna.org/" />
-        
+        <meta property="og:type" content="website" />
+
         {/* Twitter */}
-        <meta property="twitter:title" content="Desarrollo Web Villa Carlos Paz | Programador Web Profesional | hgaruna" />
-        <meta property="twitter:description" content="Desarrollo web profesional en Villa Carlos Paz, Córdoba. Programador web especializado en sitios web que convierten visitantes en clientes." />
+        <meta property="twitter:title" content="hgaruna Digital | Blog de Tecnología y Desarrollo Web" />
+        <meta property="twitter:description" content="Tu fuente confiable de artículos sobre desarrollo web, programación, IA y tecnología." />
         <meta property="twitter:image" content="https://hgaruna.org/logos-he-imagenes/logo3.png" />
         
         {/* JSON-LD Schema */}
@@ -314,7 +315,7 @@ export default function Home() {
               <div className="step-number"><i className="fas fa-chart-line"></i></div>
               <h3 className="step-title">Tecnología</h3>
               <p className="step-description">
-                Noticias tech, an��lisis de tendencias, nuevas herramientas y el futuro digital.
+                Noticias tech, análisis de tendencias, nuevas herramientas y el futuro digital.
               </p>
               <a href="/blog?category=tecnologia" className="btn btn-outline btn-sm mt-3">
                 Ver Artículos
