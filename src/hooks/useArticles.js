@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { saveArticleToFile, getSavedArticleFiles, generateSlug } from '@utils/articleFileSystem'
 import { autoUpdateSitemap } from '@utils/sitemapUpdater'
+import { initializeArticles } from '@utils/articleLoader'
 
 // Mock articles database (in a real app, this would be a database or API)
 const MOCK_ARTICLES = [
