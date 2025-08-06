@@ -522,7 +522,8 @@
 
         /* Code Blocks */
         .article-content pre {
-            background: var(--bg-code);
+            background: #181c24 !important;
+            color: #e5e7eb !important;
             border-radius: var(--radius-lg);
             padding: var(--space-lg);
             margin: var(--space-xl) 0;
@@ -533,17 +534,17 @@
 
         .article-content code {
             font-family: var(--font-mono);
-            font-size: 0.9em;
-            background: var(--bg-tertiary);
+            font-size: 0.95em;
+            background: #23272f !important;
+            color: #a7ffeb !important;
             padding: 0.2em 0.4em;
             border-radius: var(--radius-sm);
-            color: var(--primary-light);
         }
 
         .article-content pre code {
-            background: none;
+            background: none !important;
+            color: #e5e7eb !important;
             padding: 0;
-            color: var(--text-secondary);
         }
 
         /* Blockquotes */
@@ -1177,45 +1178,7 @@
             </div>
         </section>
 
-        <!-- Related Articles -->
-        <section class="related-articles fade-in">
-            <h2 class="related-title">Artículos Relacionados</h2>
-            <div class="related-grid">
-                <!-- These will be populated dynamically -->
-                <a href="/blog/{{RELATED_1_SLUG}}" class="related-card">
-                    <div class="related-image">
-                        <img src="{{RELATED_1_IMAGE}}" alt="{{RELATED_1_TITLE}}" loading="lazy">
-                    </div>
-                    <div class="related-content">
-                        <div class="related-category">{{RELATED_1_CATEGORY}}</div>
-                        <h3 class="related-title-card">{{RELATED_1_TITLE}}</h3>
-                        <p class="related-excerpt">{{RELATED_1_EXCERPT}}</p>
-                    </div>
-                </a>
-                
-                <a href="/blog/{{RELATED_2_SLUG}}" class="related-card">
-                    <div class="related-image">
-                        <img src="{{RELATED_2_IMAGE}}" alt="{{RELATED_2_TITLE}}" loading="lazy">
-                    </div>
-                    <div class="related-content">
-                        <div class="related-category">{{RELATED_2_CATEGORY}}</div>
-                        <h3 class="related-title-card">{{RELATED_2_TITLE}}</h3>
-                        <p class="related-excerpt">{{RELATED_2_EXCERPT}}</p>
-                    </div>
-                </a>
-                
-                <a href="/blog/{{RELATED_3_SLUG}}" class="related-card">
-                    <div class="related-image">
-                        <img src="{{RELATED_3_IMAGE}}" alt="{{RELATED_3_TITLE}}" loading="lazy">
-                    </div>
-                    <div class="related-content">
-                        <div class="related-category">{{RELATED_3_CATEGORY}}</div>
-                        <h3 class="related-title-card">{{RELATED_3_TITLE}}</h3>
-                        <p class="related-excerpt">{{RELATED_3_EXCERPT}}</p>
-                    </div>
-                </a>
-            </div>
-        </section>
+        <!-- Related Articles (eliminado del template base, solo incluir dinámicamente si se requiere) -->
 
         <!-- Article Footer -->
         <footer class="article-footer">

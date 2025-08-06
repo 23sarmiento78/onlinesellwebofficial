@@ -1,41 +1,74 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import React, { useState, useEffect, useMemo } from 'react'
+import { useParams, Link, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { useArticles } from '@hooks/useArticles'
-import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
+import { useSimpleArticles } from '@hooks/useSimpleArticles'
+
+// Función para extraer solo el contenido principal del HTML
+const extractMainContent = (html) => {
+  if (!html) return '';
+  
+  // Crear un elemento temporal para el parsing
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+  
+  // Intentar encontrar el contenido principal
+  const content = temp.querySelector('article') || 
+                 temp.querySelector('.article-content') || 
+                 temp.querySelector('.post-content') ||
+                 temp;
+  
+  // Limpiar elementos no deseados
+  const elementsToRemove = content.querySelectorAll('script, style, iframe, noscript, .ad, .ads, .advertisement, .comments, .related-posts, .social-share, .share-buttons, .post-meta, .post-tags, .author-box, .post-navigation, .pagination, .wp-caption, .wp-block-embed, .wp-block-image');
+  elementsToRemove.forEach(el => el.remove());
+  
+  // Corregir rutas de imágenes
+  const images = content.querySelectorAll('img');
+  images.forEach(img => {
+    const src = img.getAttribute('src');
+    if (src && !src.startsWith('http') && !src.startsWith('//')) {
+      img.src = `/blog/${src}`;
+    }
+  });
+  
+  return content.innerHTML;
+};
 
 export default function BlogArticle() {
-  const { slug } = useParams()
-  const { getArticleBySlug, getArticlesByCategory } = useArticles()
-  const [article, setArticle] = useState(null)
-  const [relatedArticles, setRelatedArticles] = useState([])
-  const [loading, setLoading] = useState(true)
+  const { slug } = useParams();
+  const location = useLocation();
+  const { articles, loading, error } = useSimpleArticles();
+  const [article, setArticle] = useState(null);
+  const [htmlContent, setHtmlContent] = useState(null); // HTML real del archivo
+  const [fetchError, setFetchError] = useState(false);
 
   useEffect(() => {
-    const loadArticle = () => {
-      try {
-        const foundArticle = getArticleBySlug(slug)
-
-        if (foundArticle) {
-          setArticle(foundArticle)
-
-          // Get related articles from the same category
-          const categoryArticles = getArticlesByCategory(foundArticle.category)
-            .filter(a => a.slug !== slug)
-            .slice(0, 3)
-
-          setRelatedArticles(categoryArticles)
-        }
-
-        setLoading(false)
-      } catch (error) {
-        console.error('Error loading article:', error)
-        setLoading(false)
+    if (!loading && articles.length > 0) {
+      const foundArticle = articles.find(a => a.slug === slug);
+      setArticle(foundArticle || null);
+      setHtmlContent(null);
+      setFetchError(false);
+      if (foundArticle && foundArticle.file) {
+        // Intentar cargar el HTML completo
+        fetch(`/blog/${foundArticle.file}`)
+          .then(res => {
+            if (!res.ok) throw new Error('No se pudo cargar el HTML');
+            return res.text();
+          })
+          .then(html => {
+            setHtmlContent(html);
+          })
+          .catch(() => {
+            setFetchError(true);
+          });
       }
     }
+  }, [loading, articles, slug]);
 
-    loadArticle()
-  }, [slug, getArticleBySlug, getArticlesByCategory])
+  // Calcular artículos relacionados cuando cambie el artículo
+  const relatedArticles = useMemo(() => {
+    if (!article || !article.category) return [];
+    return articles.filter(a => a.category === article.category && a.slug !== slug).slice(0, 3);
+  }, [article, articles, slug]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('es-ES', {
@@ -45,6 +78,60 @@ export default function BlogArticle() {
     })
   }
 
+  // Función para renderizar el contenido HTML de forma segura
+  const renderArticleContent = (htmlContent) => {
+    if (!htmlContent) return { __html: '<p>No hay contenido disponible para mostrar.</p>' };
+    const content = typeof htmlContent === 'string' ? htmlContent : '';
+    const styledContent = `
+      <div class="prose prose-lg max-w-none">
+        <div class="article-content">
+          ${content}
+        </div>
+      </div>
+      <style>
+        .article-content {
+          line-height: 1.6;
+          color: #333;
+        }
+        .article-content img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 8px;
+          margin: 1.5rem 0;
+        }
+        .article-content h2, 
+        .article-content h3, 
+        .article-content h4 {
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+          color: #111;
+        }
+        .article-content p {
+          margin-bottom: 1.25rem;
+        }
+        .article-content a {
+          color: #3b82f6;
+          text-decoration: none;
+        }
+        .article-content a:hover {
+          text-decoration: underline;
+        }
+        .article-content pre {
+          background: #f5f5f5;
+          padding: 1rem;
+          border-radius: 6px;
+          overflow-x: auto;
+          margin: 1.5rem 0;
+        }
+        .article-content code {
+          font-family: 'Fira Code', 'Consolas', monospace;
+          font-size: 0.9em;
+        }
+      </style>
+    `;
+    return { __html: styledContent };
+  };
+
   if (loading) {
     return (
       <div className="pt-20 min-h-screen flex items-center justify-center">
@@ -53,20 +140,37 @@ export default function BlogArticle() {
           <p className="text-muted">Cargando artículo...</p>
         </div>
       </div>
-    )
+    );
   }
-
-  if (!article) {
+  if (error) {
     return (
       <div className="pt-20 min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <i className="fas fa-exclamation-triangle text-6xl text-warning mb-6"></i>
+          <p className="text-red-500">Error: {error}</p>
+        </div>
+      </div>
+    );
+  }
+  if (!article) {
+    return (
+      <div className="pt-20 min-h-screen flex items-center justify-center">
+        <div className="text-center max-w-md mx-4">
+          <i className="fas fa-exclamation-triangle text-6xl text-yellow-500 mb-6"></i>
           <h1 className="text-3xl font-bold mb-4">Artículo no encontrado</h1>
-          <p className="text-muted mb-6">El artículo que buscas no existe o ha sido movido.</p>
-          <Link to="/blog" className="btn btn-primary">
-            <i className="fas fa-arrow-left mr-2"></i>
-            Volver al Blog
-          </Link>
+          <p className="text-gray-600 mb-6">
+            Lo sentimos, el artículo que buscas no está disponible en este momento. 
+            Puede que la URL sea incorrecta o el artículo haya sido movido.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/blog" className="btn btn-primary">
+              <i className="fas fa-arrow-left mr-2"></i>
+              Volver al Blog
+            </Link>
+            <Link to="/" className="btn btn-outline">
+              <i className="fas fa-home mr-2"></i>
+              Ir al Inicio
+            </Link>
+          </div>
         </div>
       </div>
     )
@@ -172,8 +276,46 @@ export default function BlogArticle() {
         <section className="section-sm">
           <div className="container">
             <div className="max-w-4xl mx-auto">
-              <div className="prose prose-lg max-w-none">
-                <div dangerouslySetInnerHTML={{ __html: article.content }} />
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                {htmlContent ? (
+                  <div
+                    className="prose prose-lg max-w-none"
+                    dangerouslySetInnerHTML={renderArticleContent(htmlContent)}
+                  />
+                ) : article && article.excerpt && (article.file || fetchError) ? (
+                  <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <svg className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div className="ml-3">
+                        <p className="text-sm text-yellow-700">
+                          No se pudo cargar el contenido completo del artículo. Estamos mostrando una vista previa.
+                        </p>
+                        <div className="mt-2 text-sm text-yellow-600">
+                          <p>{article.excerpt}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <svg className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div className="ml-3">
+                        <p className="text-sm text-yellow-700">
+                          No hay contenido disponible para mostrar.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Tags */}

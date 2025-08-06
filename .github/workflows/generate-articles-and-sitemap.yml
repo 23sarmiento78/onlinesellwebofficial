@@ -108,7 +108,13 @@ jobs:
           
           echo "✅ Generados $GENERATED_COUNT artículos con optimización $SEO_OPTIMIZATION"
 
-      - name: 🔍 Análisis SEO Avanzado
+      - name: �️ Actualizar index.json de artículos
+        run: |
+          echo "🗂️ Actualizando index.json de artículos..."
+          node scripts/generate-blog-index.cjs
+          echo "✅ index.json actualizado"
+
+      - name: �🔍 Análisis SEO Avanzado
         id: seo-analysis
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

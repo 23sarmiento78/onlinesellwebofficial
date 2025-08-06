@@ -115,94 +115,39 @@ const generateTagsFromContent = (title, content) => {
  */
 export const loadExistingArticles = async () => {
   try {
-    // Get list of HTML files
-    const articleFiles = [
-      'angular-18-nuevas-fu.html',
-      'ansible-automatizaci.html',
-      'backup-y-recuperacion-de-datos.html',
-      'cdn-content-delivery-networks.html',
-      'chatbots-implementacion-practica.html',
-      'cicd-automatizacin-d.html',
-      'clean-architecture-principios-solid.html',
-      'code-coverage-metricas-de-calidad.html',
-      'code-splitting-divis.html',
-      'computer-vision-en-aplicaciones-web.html',
-      'content-security-policy-csp.html',
-      'cqrs-command-query-r.html',
-      'database-optimization-consultas-eficientes.html',
-      'design-patterns-patrones-de-diseno.html',
-      'docker-contenedores-.html',
-      'edge-computing-compu.html',
-      'estrategias-de-cach-.html',
-      'google-cloud-functions-plataforma-serverless.html',
-      'graphql-vs-rest-cund.html',
-      'indices-de-base-de-datos-optimizacion.html',
-      'jamstack-javascript-.html',
-      'kubernetes-orquestacion-de-contenedores.html',
-      'lazy-loading-carga-d.html',
-      'linters-y-formatters.html',
-      'machine-learning-par.html',
-      'microservices-arquitectura-distribuida.html',
-      'migrations-gestin-de.html',
-      'monorepo-vs-polyrepo-estrategias.html',
-      'nlp-procesamiento-de.html',
-      'nodejs-22-nuevas-caracteristicas.html',
-      'orm-vs-query-builder-ventajas-y-desventajas.html',
-      'owasp-top-10-vulnerabilidades-web.html',
-      'package-managers-npm-yarn-pnpm.html',
-      'performance-testing-lighthouse-y-webpagetest.html',
-      'postgresql-16-nuevas-funcionalidades.html',
-      'profiling-analisis-de-rendimiento.html',
-      'progressive-web-apps-pwa-en-2025.html',
-      'react-19-nuevas-cara.html',
-      'security-testing-owasp-y-herramientas.html',
-      'sql-injection-preven.html',
-      'sql-vs-nosql-decisiones-de-arquitectura.html',
-      'svelte-vs-react-comparativa-completa.html',
-      'terraform-infrastruc.html',
-      'testing-de-accesibilidad-automatizado.html',
-      'testing-de-apis-postman-y-newman.html',
-      'testing-unitario-jest-y-vitest.html',
-      'transacciones-distribuidas.html',
-      'tree-shaking-eliminacion-de-codigo-muerto.html',
-      'typescript-avanzado-.html',
-      'vs-code-extensiones-esenciales.html',
-      'webassembly-rendimie.html',
-      'xss-prevention-cross-site-scripting.html'
-    ]
-
-    const articles = []
-    
-    // Load articles in batches to avoid overwhelming the browser
-    for (let i = 0; i < articleFiles.length; i += 5) {
-      const batch = articleFiles.slice(i, i + 5)
-      
-      const batchPromises = batch.map(async (filename) => {
-        try {
-          const response = await fetch(`/blog/${filename}`)
-          if (response.ok) {
-            const html = await response.text()
-            return parseArticleFromHTML(html, filename)
-          }
-          return null
-        } catch (error) {
-          console.warn(`Failed to load article: ${filename}`, error)
-          return null
+    // Cargar index.json con los metadatos de los artículos
+    const response = await fetch('/blog/index.json')
+    if (response.ok) {
+      let articles = await response.json()
+      // Normalizar los campos para compatibilidad con la vista
+      articles = articles.map(article => {
+        // Asegurar que la ruta de la imagen sea correcta
+        let imagePath = article.image;
+        if (imagePath && !imagePath.startsWith('http') && !imagePath.startsWith('/')) {
+          imagePath = `/${imagePath}`;
+        } else if (!imagePath) {
+          imagePath = '/logos-he-imagenes/programacion.jpeg';
         }
-      })
+        
+        return {
+          ...article,
+          id: article.slug,
+          readTime: article.readTime || '5 min',
+          featured: article.featured || false,
+          content: article.excerpt, // Solo preview, el contenido completo se carga aparte
+          image: imagePath, // Usar la ruta de imagen corregida
+          file: article.file // Mantener el campo file para carga completa
+        };
+      });
       
-      const batchResults = await Promise.all(batchPromises)
-      articles.push(...batchResults.filter(article => article !== null))
-      
-      // Small delay between batches
-      await new Promise(resolve => setTimeout(resolve, 100))
+      console.log(`✅ Loaded ${articles.length} articles from index.json`);
+      return articles;
+    } else {
+      console.error('No se pudo cargar index.json');
+      return [];
     }
-    
-    console.log(`✅ Loaded ${articles.length} existing articles`)
-    return articles
-    
   } catch (error) {
-    console.error('Error loading existing articles:', error)
+    console.error('Error loading articles from index.json:', error)
     return []
   }
 }

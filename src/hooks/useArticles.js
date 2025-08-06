@@ -778,8 +778,137 @@ class ArticleStorage {
     return this.articles
   }
 
-  getArticleBySlug(slug) {
-    return this.articles.find(article => article.slug === slug)
+  async getArticleBySlug(slug) {
+    console.log('🔍 Buscando artículo con slug:', slug);
+    
+    try {
+      // Primero buscamos el artículo en la lista en memoria
+      const article = this.articles.find(a => a.slug === slug);
+      
+      if (!article) {
+        console.log('❌ Artículo no encontrado en la memoria con slug:', slug);
+        return null;
+      }
+      
+      console.log('✅ Artículo encontrado en memoria:', article.title);
+      
+      // Si ya tenemos el contenido completo, lo devolvemos directamente
+      if (article.content && article.content.length > 100) {
+        console.log('📄 Usando contenido ya cargado del artículo');
+        return article;
+      }
+      
+      // Si no hay archivo definido, devolvemos el artículo tal cual
+      if (!article.file) {
+        console.log('ℹ️ No hay archivo definido para el artículo, usando vista previa');
+        return article;
+      }
+      
+      console.log('📂 Intentando cargar el archivo del artículo:', article.file);
+      
+      try {
+        // Construir la ruta al archivo
+        const filePath = `/blog/${article.file}`;
+        console.log('📄 Ruta del archivo:', filePath);
+        
+        // Intentar cargar el archivo del artículo
+        const response = await fetch(filePath, {
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
+        }
+        
+        const html = await response.text();
+        console.log('✅ Archivo HTML cargado correctamente');
+        
+        // Crear un documento temporal para analizar el HTML
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // Intentar encontrar el contenido principal
+        let contentElement = doc.querySelector('article') || 
+                            doc.querySelector('main') || 
+                            doc.querySelector('.article-content') || 
+                            doc.querySelector('.blog-content') ||
+                            doc.body;
+        
+        if (!contentElement) {
+          console.log('No se encontró un contenedor principal, usando body');
+          contentElement = doc.body;
+        }
+        
+        // Clonar el nodo para no modificar el original
+        const contentClone = contentElement.cloneNode(true);
+        
+        // Eliminar elementos no deseados
+        const elementsToRemove = contentClone.querySelectorAll(
+          'header, footer, nav, .back-button, .article-meta, .article-tags, ' +
+          '.article-share, script, style, link, .ad, .ads, .advertisement, ' +
+          '.comments, .related-posts, .author-box, .social-share, iframe'
+        );
+        
+        elementsToRemove.forEach(el => el.remove());
+        
+        // Obtener el HTML limpio
+        let content = contentClone.innerHTML.trim();
+        
+        // Si el contenido está vacío o es muy corto, intentar con el cuerpo completo
+        if (content.length < 100) {
+          console.log('Contenido principal muy corto, usando todo el cuerpo');
+          content = doc.body.innerHTML;
+        }
+        
+        // Limpiar el contenido final
+        content = content
+          .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Eliminar scripts
+          .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '') // Eliminar estilos
+          .replace(/<!--[\s\S]*?-->/g, '') // Eliminar comentarios
+          .replace(/\s+/g, ' ') // Eliminar espacios en blanco múltiples
+          .replace(/<\/?(html|head|body|!DOCTYPE)[^>]*>/gi, '') // Eliminar etiquetas HTML/HEAD/BODY
+          .trim();
+        
+        // Corregir rutas de imágenes relativas
+        content = content.replace(/(<img[^>]+src=["'])(?!http|\/)([^"']+)/g, `$1/blog/$2`);
+        
+        // Si después de limpiar el contenido está vacío, usar el extracto
+        if (!content || content.length < 50) {
+          console.log('Contenido vacío después de limpiar, usando extracto');
+          content = article.excerpt || 'Contenido no disponible';
+        }
+        
+        // Crear una versión mejorada del artículo con el contenido completo
+        const enhancedArticle = {
+          ...article,
+          content: content,
+          fullContentLoaded: true
+        };
+        
+        console.log('✅ Contenido del artículo procesado correctamente');
+        return enhancedArticle;
+        
+      } catch (fileError) {
+        console.error('❌ Error cargando el archivo del artículo:', fileError);
+        // Si hay un error, devolvemos el artículo con la vista previa y un mensaje de error
+        return {
+          ...article,
+          content: `<div class="alert alert-warning">
+            <p>No se pudo cargar el contenido completo del artículo. Mostrando vista previa.</p>
+            <p>${article.excerpt || 'Contenido no disponible'}</p>
+            <p><small>Error: ${fileError.message}</small></p>
+          </div>`,
+          fullContentLoaded: false
+        };
+      }
+      
+    } catch (error) {
+      console.error('❌ Error en getArticleBySlug:', error);
+      return null;
+    }
   }
 
   getArticlesByCategory(category) {

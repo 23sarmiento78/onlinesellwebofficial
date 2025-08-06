@@ -212,7 +212,7 @@ export const saveArticleToFile = async (article, format = 'html') => {
     
     // In a real implementation, you would use Node.js fs or a server endpoint
     // For now, we'll simulate the save and provide the content
-    
+
     const fileData = {
       fileName: `${fileName}.${format}`,
       content: content,
@@ -221,15 +221,25 @@ export const saveArticleToFile = async (article, format = 'html') => {
       success: true,
       message: `Artículo guardado como ${fileName}.${format}`
     }
-    
+
     // Simulate async operation
     await new Promise(resolve => setTimeout(resolve, 1000))
-    
+
     // Store in localStorage for persistence in this demo
     const savedArticles = JSON.parse(localStorage.getItem('savedArticleFiles') || '[]')
     savedArticles.push(fileData)
     localStorage.setItem('savedArticleFiles', JSON.stringify(savedArticles))
-    
+
+    // Ejecutar script para actualizar index.json (solo en entorno Node.js)
+    if (typeof require !== 'undefined') {
+      try {
+        const { execSync } = require('child_process')
+        execSync('node scripts/generate-blog-index.cjs', { stdio: 'inherit' })
+      } catch (err) {
+        console.warn('No se pudo actualizar index.json automáticamente:', err.message)
+      }
+    }
+
     return fileData
   } catch (error) {
     console.error('Error saving article to file:', error)

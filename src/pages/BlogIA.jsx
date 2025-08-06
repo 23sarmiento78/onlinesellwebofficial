@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link, useSearchParams } from 'react-router-dom'
-import { useArticles } from '@hooks/useArticles'
+import { useSimpleArticles } from '@hooks/useSimpleArticles'
 import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
 import ArticleGenerator from '@components/ArticleGenerator'
 import SavedFiles from '@components/SavedFiles'
@@ -10,7 +10,7 @@ import StyleUpdateStatus from '@components/StyleUpdateStatus'
 import Hero from '@components/Hero'
 
 export default function BlogIA() {
-  const { articles, loading, getArticlesByCategory, searchArticles, addArticle } = useArticles()
+  const { articles, loading, error } = useSimpleArticles()
   const [searchParams, setSearchParams] = useSearchParams()
   const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '')
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || 'all')
@@ -24,15 +24,16 @@ export default function BlogIA() {
 
     // Filter by category
     if (selectedCategory !== 'all') {
-      result = getArticlesByCategory(selectedCategory)
+      result = result.filter(article => article.category === selectedCategory)
     }
 
     // Filter by search term
     if (searchTerm.trim()) {
-      result = searchArticles(searchTerm)
-      if (selectedCategory !== 'all') {
-        result = result.filter(article => article.category === selectedCategory)
-      }
+      const term = searchTerm.toLowerCase()
+      result = result.filter(article =>
+        article.title.toLowerCase().includes(term) ||
+        (article.excerpt && article.excerpt.toLowerCase().includes(term))
+      )
     }
 
     // Sort articles
@@ -75,51 +76,74 @@ export default function BlogIA() {
   }
 
   // Enhanced Article Card Component
-  const EnhancedArticleCard = ({ article }) => (
-    <article className="blog-article-card animate-fade-in-up">
-      <div className="blog-article-image">
-        <img src={article.image} alt={article.title} loading="lazy" />
-        <div className="blog-article-category">
-          {ARTICLE_CATEGORIES[article.category]?.name || article.category}
+  const EnhancedArticleCard = ({ article }) => {
+    // Función para manejar errores de carga de imágenes
+    const handleImageError = (e) => {
+      e.target.onerror = null; // Prevenir bucles de error
+      e.target.src = '/logos-he-imagenes/programacion.jpeg';
+    };
+
+    // Obtener la categoría o usar 'general' por defecto
+    const category = article.category || 'general';
+    const categoryName = ARTICLE_CATEGORIES[category]?.name || category;
+    
+    // Asegurar que la imagen tenga una ruta válida
+    const imageSrc = article.image?.startsWith('http') ? article.image : 
+                    article.image?.startsWith('/') ? article.image : 
+                    `/logos-he-imagenes/programacion.jpeg`;
+
+    return (
+      <article className="blog-article-card animate-fade-in-up">
+        <div className="blog-article-image">
+          <img 
+            src={imageSrc} 
+            alt={article.title} 
+            loading="lazy" 
+            onError={handleImageError}
+            className="blog-article-img"
+          />
+          <div className="blog-article-category">
+            {categoryName}
+          </div>
         </div>
-      </div>
-      <div className="blog-article-content">
-        <div className="blog-article-meta">
-          <div className="blog-article-meta-item">
-            <i className="fas fa-calendar"></i>
-            {formatDate(article.date)}
+        <div className="blog-article-content">
+          <div className="blog-article-meta">
+            <div className="blog-article-meta-item">
+              <i className="fas fa-calendar"></i>
+              {formatDate(article.date)}
+            </div>
+            <div className="blog-article-meta-item">
+              <i className="fas fa-clock"></i>
+              {article.readTime}
+            </div>
+            <div className="blog-article-meta-item">
+              <i className="fas fa-user"></i>
+              {article.author}
+            </div>
           </div>
-          <div className="blog-article-meta-item">
-            <i className="fas fa-clock"></i>
-            {article.readTime}
-          </div>
-          <div className="blog-article-meta-item">
-            <i className="fas fa-user"></i>
-            {article.author}
+          <h2 className="blog-article-title">
+            <Link to={`/blog/${article.slug}`}>{article.title}</Link>
+          </h2>
+          <p className="blog-article-excerpt">{article.excerpt}</p>
+          {article.tags && (
+            <div className="blog-article-tags">
+              {article.tags.slice(0, 3).map((tag, index) => (
+                <span key={index} className="blog-article-tag">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
+          <div className="blog-article-footer">
+            <Link to={`/blog/${article.slug}`} className="blog-read-more">
+              Leer artículo completo
+              <i className="fas fa-arrow-right"></i>
+            </Link>
           </div>
         </div>
-        <h2 className="blog-article-title">
-          <Link to={`/blog/${article.slug}`}>{article.title}</Link>
-        </h2>
-        <p className="blog-article-excerpt">{article.excerpt}</p>
-        {article.tags && (
-          <div className="blog-article-tags">
-            {article.tags.slice(0, 3).map((tag, index) => (
-              <span key={index} className="blog-article-tag">
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
-        <div className="blog-article-footer">
-          <Link to={`/blog/${article.slug}`} className="blog-read-more">
-            Leer artículo completo
-            <i className="fas fa-arrow-right"></i>
-          </Link>
-        </div>
-      </div>
-    </article>
-  )
+      </article>
+    );
+  };
 
   // Keep original for compatibility
   const ArticleCard = ({ article }) => <EnhancedArticleCard article={article} />
@@ -435,7 +459,7 @@ export default function BlogIA() {
                 </div>
                 <div className="blog-trending-grid">
                   {filteredArticles.slice(0, 3).map((article) => (
-                    <div key={article.id} className="blog-trending-card">
+                    <div key={article.slug} className="blog-trending-card">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
                           <i className={ARTICLE_CATEGORIES[article.category]?.icon || 'fas fa-star'}></i>
@@ -525,6 +549,10 @@ export default function BlogIA() {
                 <div className="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
                 <p className="text-muted">Cargando artículos...</p>
               </div>
+            ) : error ? (
+              <div className="text-center py-16">
+                <p className="text-red-500">Error: {error}</p>
+              </div>
             ) : filteredArticles.length === 0 ? (
               <div className="text-center py-16">
                 <i className="fas fa-search text-6xl text-muted mb-6"></i>
@@ -535,25 +563,6 @@ export default function BlogIA() {
                     : 'Comienza generando algunos artículos con IA'
                   }
                 </p>
-                {(searchTerm || selectedCategory !== 'all') ? (
-                  <button
-                    onClick={() => {
-                      setSearchTerm('')
-                      setSelectedCategory('all')
-                    }}
-                    className="btn btn-primary"
-                  >
-                    Ver todos los artículos
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setShowGenerator(true)}
-                    className="btn btn-primary"
-                  >
-                    <i className="fas fa-robot mr-2"></i>
-                    Generar Primer Artículo
-                  </button>
-                )}
               </div>
             ) : (
               <>
@@ -561,7 +570,7 @@ export default function BlogIA() {
                 {viewMode === 'grid' && (
                   <div className="blog-grid">
                     {filteredArticles.map((article) => (
-                      <EnhancedArticleCard key={article.id} article={article} />
+            <EnhancedArticleCard key={article.slug} article={article} />
                     ))}
                   </div>
                 )}
@@ -570,7 +579,7 @@ export default function BlogIA() {
                 {viewMode === 'list' && (
                   <div className="space-y-6">
                     {filteredArticles.map((article) => (
-                      <ArticleListItem key={article.id} article={article} />
+                      <ArticleListItem key={article.slug} article={article} />
                     ))}
                   </div>
                 )}
@@ -585,7 +594,7 @@ export default function BlogIA() {
                     )}
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {filteredArticles.slice(1).map((article) => (
-                        <ArticleCompact key={article.id} article={article} />
+                        <ArticleCompact key={article.slug} article={article} />
                       ))}
                     </div>
                   </div>
