@@ -9,6 +9,9 @@
   overflow: hidden;
   background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 50%, var(--primary-500) 100%);
   color: white;
+  z-index: 5; /* Aseguramos que esté por debajo del menú */
+  margin-top: 72px; /* Altura del NavBar para que el hero no quede detrás */
+  min-height: calc(100vh - 72px); /* Ajustamos la altura para compensar el margen superior */
 }
 
 /* Video background */

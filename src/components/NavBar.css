@@ -392,14 +392,15 @@
 
 /* Estilo para el botón de Blog */
 .navbar .nav-dropdown > .nav-link.dropdown-toggle {
-  color: var(--text-secondary) !important;
+  color: rgba(255, 255, 255, 0.9) !important; /* Texto blanco con 90% de opacidad */
   background: transparent !important;
+  font-weight: 500 !important;
 }
 
 .navbar .nav-dropdown > .nav-link:hover,
 .navbar .nav-dropdown > .nav-link:focus,
 .navbar .nav-dropdown > .nav-link.active {
-  color: var(--text-primary) !important;
+  color: #ffffff !important; /* Blanco puro al hacer hover */
   outline: none;
   background: transparent !important;
 }
@@ -419,14 +420,9 @@
   top: 100%;
   left: 0;
   min-width: 240px;
-  background: rgba(20, 20, 20, 0.98) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
-  padding: 0.5rem 0 !important;
-  z-index: 1100 !important;
+  background: var(--bg-glass-hover);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
