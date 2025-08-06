@@ -209,21 +209,37 @@
 /* Scroll indicator */
 .hero-scroll-indicator {
   position: absolute;
-  bottom: var(--space-8);
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
   animation: bounce 2s infinite;
+  background: rgba(0, 0, 0, 0.3);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
 }
 
 .hero-scroll-indicator i {
-  font-size: var(--text-2xl);
-  color: rgba(255, 255, 255, 0.7);
-  transition: var(--transition-colors);
+  font-size: var(--text-xl);
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+.hero-scroll-indicator:hover {
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .hero-scroll-indicator:hover i {
   color: var(--primary-light);
+  transform: translateY(3px);
 }
 
 /* Floating elements */
