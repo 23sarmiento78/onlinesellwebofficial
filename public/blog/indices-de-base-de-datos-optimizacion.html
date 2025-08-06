@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta name="category" content="Herramientas y Productividad">
+<!DOCTYPE html><html lang="es"><head>
+    <meta name="category" content="desarrollo">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
+    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM">
     <title>Índices de base de datos: Optimización</title>
     <meta name="description" content="La optimización de bases de datos es crucial para el rendimiento de cualquier aplicación web.  Un aspecto fundamental de esta optimización reside en el uso efic...">
-    <meta name="keywords" content="Performance, IA, Bases de Datos">
+    <meta name="keywords" content="desarrollo">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
@@ -22,10 +20,10 @@
     <meta property="twitter:image" content="{{SITE_URL}}/logos-he-imagenes/programacion.jpeg"> <link rel="canonical" href="https://www.hgaruna.org/blog/indices-de-base-de-datos-optimizacion.html">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
     
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
 
     <style>
         :root {
@@ -611,7 +609,7 @@ SELECT * FROM productos WHERE categoria = 'Electronica' AND precio < 100;
 <p>Los índices B-Tree son el tipo de índice más común en bases de datos relacionales. Son ideales para búsquedas de rango y búsquedas exactas.  Su estructura jerárquica permite una búsqueda eficiente incluso en conjuntos de datos grandes.  La mayoría de las bases de datos los implementan de forma predeterminada.</p>
 
 <h3>Índices Hash</h3>
-<p>Los índices Hash ofrecen una búsqueda extremadamente rápida para valores específicos, con una complejidad temporal de O(1) en el mejor caso. Sin embargo, no son adecuados para búsquedas de rango o consultas con condiciones WHERE que involucren operadores como <code>></code>, <code><</code>, o <code>BETWEEN</code>.</p>
+<p>Los índices Hash ofrecen una búsqueda extremadamente rápida para valores específicos, con una complejidad temporal de O(1) en el mejor caso. Sin embargo, no son adecuados para búsquedas de rango o consultas con condiciones WHERE que involucren operadores como <code>&gt;</code>, <code>&lt;</code>, o <code>BETWEEN</code>.</p>
 
 <h3>Índices Fulltext</h3>
 <p>Los índices Fulltext están diseñados para búsquedas de texto completo, permitiendo la búsqueda de palabras clave dentro de campos de texto largo.  Son especialmente útiles para sistemas de búsqueda y recuperación de información.</p>
@@ -653,7 +651,7 @@ CREATE INDEX idx_name_age ON users (name, age);
 
 <pre><code class="language-sql">
 -- Ejemplo de consulta con índice compuesto
-SELECT * FROM productos WHERE categoria = 'Electronica' AND precio < 100;
+SELECT * FROM productos WHERE categoria = 'Electronica' AND precio &lt; 100;
 </code></pre>
 
 <p>Sin el índice compuesto, la base de datos tendría que escanear toda la tabla. Con el índice, la búsqueda se limita a una porción mucho menor de los datos.</p>
@@ -722,7 +720,7 @@ SELECT * FROM productos WHERE categoria = 'Electronica' AND precio < 100;
                     <p class="lead mb-4">Suscríbete a nuestro boletín para recibir más contenido como este directamente en tu correo.</p>
                     <form class="row g-3 justify-content-center">
                         <div class="col-md-8">
-                            <label for="newsletterEmail" class="visually-hidden">Tu correo electrónico</label> <input type="email" class="form-control form-control-lg" id="newsletterEmail" placeholder="Tu correo electrónico" required aria-label="Introduce tu correo electrónico para suscribirte">
+                            <label for="newsletterEmail" class="visually-hidden">Tu correo electrónico</label> <input type="email" class="form-control form-control-lg" id="newsletterEmail" placeholder="Tu correo electrónico" required="" aria-label="Introduce tu correo electrónico para suscribirte">
                         </div>
                         <div class="col-md-auto">
                             <button type="submit" class="btn btn-primary btn-lg">Suscribirme</button>
@@ -815,5 +813,6 @@ SELECT * FROM productos WHERE categoria = 'Electronica' AND precio < 100;
             });
         });
     </script>
-</body>
-</html>
+
+
+</body></html>

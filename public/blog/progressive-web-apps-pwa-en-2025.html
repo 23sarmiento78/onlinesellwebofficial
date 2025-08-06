@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
-    <meta name="category" content="Tendencias y Futuro">
+<!DOCTYPE html><html lang="es"><head>
+    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM">
+    <meta name="category" content="desarrollo">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introducción</title>
     <meta name="description" content="Las Progressive Web Apps (PWAs) han evolucionado significativamente desde su concepción inicial. En 2025, se espera que las PWAs se consoliden aún más...">
-    <meta name="keywords" content="JavaScript">
+    <meta name="keywords" content="desarrollo">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
@@ -33,7 +31,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -413,7 +411,7 @@
             }
         }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- Botón de regreso -->
@@ -479,25 +477,25 @@
 <h3>Ejemplo de manejo de datos offline con IndexedDB</h3>
 <p>IndexedDB permite el almacenamiento de datos estructurados en el navegador, incluso sin conexión.  A continuación, un ejemplo básico de cómo almacenar y recuperar datos:</p>
 <pre><code class="language-javascript">
-let dbPromise = idb.open('mydatabase', 1, upgradeDB => {
+let dbPromise = idb.open('mydatabase', 1, upgradeDB =&gt; {
   upgradeDB.createObjectStore('keyvalue');
 });
 
-dbPromise.then(db => {
+dbPromise.then(db =&gt; {
   let tx = db.transaction('keyvalue', 'readwrite');
   let store = tx.objectStore('keyvalue');
   store.put({ key: 'name', value: 'John Doe' });
   return tx.complete;
-}).then(() => {
+}).then(() =&gt; {
   console.log('Data stored successfully!');
 });
 
 
-dbPromise.then(db => {
+dbPromise.then(db =&gt; {
   let tx = db.transaction('keyvalue');
   let store = tx.objectStore('keyvalue');
   return store.get('name');
-}).then(data => {
+}).then(data =&gt; {
   console.log('Retrieved data:', data);
 });
 </code></pre>
@@ -505,7 +503,7 @@ dbPromise.then(db => {
 <h3>Ejemplo de uso de Service Workers para notificaciones push</h3>
 <p>Los Service Workers permiten enviar notificaciones push a los usuarios, incluso cuando la aplicación no está activa.  Este es un ejemplo básico de la configuración de un Service Worker:</p>
 <pre><code class="language-javascript">
-self.addEventListener('push', event => {
+self.addEventListener('push', event =&gt; {
   const notificationTitle = 'Notificación PWA';
   const notificationOptions = {
     body: '¡Nueva notificación!',
@@ -580,7 +578,7 @@ self.addEventListener('push', event => {
                     <p class="lead mb-4">Suscríbete a nuestro boletín para recibir más contenido como este directamente en tu correo.</p>
                     <form class="row g-3 justify-content-center">
                         <div class="col-md-8">
-                            <input type="email" class="form-control form-control-lg" placeholder="Tu correo electrónico" required>
+                            <input type="email" class="form-control form-control-lg" placeholder="Tu correo electrónico" required="">
                         </div>
                         <div class="col-md-auto">
                             <button type="submit" class="btn btn-primary btn-lg">Suscribirme</button>
@@ -648,5 +646,5 @@ self.addEventListener('push', event => {
             });
         });
     </script>
-</body>
-</html>
+
+</body></html>

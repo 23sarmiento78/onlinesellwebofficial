@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<!DOCTYPE html><html lang="es"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
+    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM">
     <title>Introducción</title>
-  <meta name="category" content="Herramientas y Productividad">
+  <meta name="category" content="desarrollo">
     <meta name="description" content="La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  ">
-    <meta name="keywords" content="JavaScript, Python, IA, Testing">
+    <meta name="keywords" content="desarrollo, Python">
     <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
@@ -22,10 +20,10 @@
     <meta property="twitter:image" content="{{SITE_URL}}/logos-he-imagenes/programacion.jpeg"> <link rel="canonical" href="https://www.hgaruna.org/blog/code-coverage-metricas-de-calidad.html">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
     
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
 
     <style>
         :root {
@@ -608,7 +606,7 @@ test('Suma con cero', () => {
 <ul>
   <li><strong>Cobertura de líneas (Line Coverage):</strong> Indica el porcentaje de líneas de código que se han ejecutado. Es la métrica más común y fácil de entender.</li>
   <li><strong>Cobertura de ramas (Branch Coverage):</strong> Mide el porcentaje de ramas de ejecución (como las condiciones <code>if</code>, <code>else</code>, <code>switch</code>) que se han probado. Es más exhaustiva que la cobertura de líneas, ya que identifica posibles caminos de ejecución no probados.</li>
-  <li><strong>Cobertura de condiciones (Condition Coverage):</strong>  Va un paso más allá de la cobertura de ramas, analizando cada condición individual dentro de una rama.  Por ejemplo, en una condición <code>if (a > 5 && b < 10)</code>, la cobertura de condiciones verifica que se hayan probado los casos donde <code>a > 5</code> es verdadero y falso, y lo mismo para <code>b < 10</code>, independientemente de la combinación.</li>
+  <li><strong>Cobertura de condiciones (Condition Coverage):</strong>  Va un paso más allá de la cobertura de ramas, analizando cada condición individual dentro de una rama.  Por ejemplo, en una condición <code>if (a &gt; 5 &amp;&amp; b &lt; 10)</code>, la cobertura de condiciones verifica que se hayan probado los casos donde <code>a &gt; 5</code> es verdadero y falso, y lo mismo para <code>b &lt; 10</code>, independientemente de la combinación.</li>
   <li><strong>Cobertura de caminos (Path Coverage):</strong> Es el tipo de cobertura más exhaustivo, pero también el más difícil de lograr.  Se centra en probar cada posible camino de ejecución a través del código.  Para programas complejos, el número de caminos puede ser exponencial, haciendo que la cobertura de caminos sea prácticamente inalcanzable.</li>
   <li><strong>Cobertura de funciones/métodos (Function/Method Coverage):</strong> Indica el porcentaje de funciones o métodos que se han llamado durante las pruebas.</li>
 </ul>
@@ -626,7 +624,7 @@ test('Suma con cero', () => {
 <p>Supongamos que tenemos la siguiente función en JavaScript:</p>
 <pre><code class="language-javascript">
 function suma(a, b) {
-  if (a > 0 && b > 0) {
+  if (a &gt; 0 &amp;&amp; b &gt; 0) {
     return a + b;
   } else {
     return 0;
@@ -635,19 +633,19 @@ function suma(a, b) {
 </code></pre>
 <p>Un test con Jest que busca una alta cobertura podría ser:</p>
 <pre><code class="language-javascript">
-test('Suma dos números positivos', () => {
+test('Suma dos números positivos', () =&gt; {
   expect(suma(5, 3)).toBe(8);
 });
 
-test('Suma con un número negativo', () => {
+test('Suma con un número negativo', () =&gt; {
   expect(suma(-5, 3)).toBe(0);
 });
 
-test('Suma con dos números negativos', () => {
+test('Suma con dos números negativos', () =&gt; {
   expect(suma(-5, -3)).toBe(0);
 });
 
-test('Suma con cero', () => {
+test('Suma con cero', () =&gt; {
   expect(suma(0, 3)).toBe(0);
 });
 </code></pre>
@@ -714,7 +712,7 @@ test('Suma con cero', () => {
                     <p class="lead mb-4">Suscríbete a nuestro boletín para recibir más contenido como este directamente en tu correo.</p>
                     <form class="row g-3 justify-content-center">
                         <div class="col-md-8">
-                            <label for="newsletterEmail" class="visually-hidden">Tu correo electrónico</label> <input type="email" class="form-control form-control-lg" id="newsletterEmail" placeholder="Tu correo electrónico" required aria-label="Introduce tu correo electrónico para suscribirte">
+                            <label for="newsletterEmail" class="visually-hidden">Tu correo electrónico</label> <input type="email" class="form-control form-control-lg" id="newsletterEmail" placeholder="Tu correo electrónico" required="" aria-label="Introduce tu correo electrónico para suscribirte">
                         </div>
                         <div class="col-md-auto">
                             <button type="submit" class="btn btn-primary btn-lg">Suscribirme</button>
@@ -807,5 +805,6 @@ test('Suma con cero', () => {
             });
         });
     </script>
-</body>
-</html>
+
+
+</body></html>

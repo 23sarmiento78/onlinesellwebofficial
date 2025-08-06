@@ -240,20 +240,7 @@ ${article.content}
         </div>
       )}
 
-      {/* API Key Notice */}
-      {!import.meta.env.VITE_GEMINI_API_KEY && (
-        <div className="bg-warning/10 border border-warning/20 rounded-xl p-4 mt-6">
-          <div className="flex items-center gap-3">
-            <i className="fas fa-key text-warning"></i>
-            <div>
-              <h4 className="font-semibold text-warning">API Key Requerida</h4>
-              <p className="text-sm text-secondary">
-                Para usar el generador de artículos, configura la variable de entorno VITE_GEMINI_API_KEY
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+
     </div>
   )
 }

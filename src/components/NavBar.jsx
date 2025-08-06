@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
+import './NavBar.css'
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -24,6 +25,26 @@ export default function NavBar() {
   const toggleMenu = () => {
     setIsOpen(!isOpen)
   }
+
+  const handleBlogButtonClick = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setShowBlogDropdown(!showBlogDropdown)
+  }
+
+  // Cerrar el menú al hacer clic fuera de él
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (showBlogDropdown && !e.target.closest('.dropdown-wrapper')) {
+        setShowBlogDropdown(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [showBlogDropdown])
 
   const navLinks = [
     { to: '/', label: 'Inicio' },
@@ -61,17 +82,21 @@ export default function NavBar() {
               <li
                 key={link.to}
                 className={`nav-item ${link.dropdown ? 'nav-dropdown' : ''}`}
-                onMouseEnter={() => link.dropdown && setShowBlogDropdown(true)}
-                onMouseLeave={() => link.dropdown && setShowBlogDropdown(false)}
               >
                 {link.dropdown ? (
-                  <>
-                    <span className={`nav-link ${location.pathname.startsWith(link.to) ? 'active' : ''}`}>
+                  <div className="dropdown-wrapper">
+                    <button 
+                      className={`nav-link ${location.pathname.startsWith(link.to) ? 'active' : ''} dropdown-toggle`}
+                      onClick={handleBlogButtonClick}
+                      aria-expanded={showBlogDropdown}
+                      aria-haspopup="true"
+                    >
                       {link.label}
-                      <i className="fas fa-chevron-down ml-1"></i>
-                    </span>
-                    {showBlogDropdown && (
-                      <div className="nav-dropdown-menu">
+                      <i className={`fas fa-chevron-down ml-1 ${showBlogDropdown ? 'rotate-180' : ''}`}></i>
+                    </button>
+                    <div 
+                      className={`nav-dropdown-menu ${showBlogDropdown ? 'show' : ''}`}
+                    >
                         {link.items.map((item, index) => (
                           item.type === 'divider' ? (
                             <div key={index} className="nav-dropdown-divider"></div>
@@ -86,9 +111,8 @@ export default function NavBar() {
                             </Link>
                           )
                         ))}
-                      </div>
-                    )}
-                  </>
+                    </div>
+                  </div>
                 ) : (
                   <Link
                     to={link.to}

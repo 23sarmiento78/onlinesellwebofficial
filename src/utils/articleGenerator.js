@@ -4,8 +4,8 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 let genAI = null
 
 const initializeGemini = () => {
-  if (!genAI && import.meta.env.VITE_GEMINI_API_KEY) {
-    genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY)
+  if (!genAI && (import.meta.env.GEMINI_API_KEY || import.meta.env.VITE_GEMINI_API_KEY)) {
+    genAI = new GoogleGenerativeAI(import.meta.env.GEMINI_API_KEY || import.meta.env.VITE_GEMINI_API_KEY)
   }
   return genAI
 }
@@ -135,7 +135,7 @@ export async function generateArticle({ topic, category, type = 'tutorial', diff
   const ai = initializeGemini()
   
   if (!ai) {
-    throw new Error('Gemini AI no está configurado. Verifica la variable VITE_GEMINI_API_KEY')
+    throw new Error('Gemini AI no está configurado. Verifica la variable GEMINI_API_KEY')
   }
 
   try {
