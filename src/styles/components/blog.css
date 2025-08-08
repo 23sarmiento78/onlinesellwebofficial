@@ -71,14 +71,26 @@
 }
 
 .blog-hero-title {
-  font-size: clamp(2.5rem, 4vw, 4rem);
-  font-weight: 800;
-  margin-bottom: 1rem;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  margin-bottom: 1.5rem;
   line-height: 1.1;
-  background: linear-gradient(45deg, #ffffff, #f0f0f0);
+  background: linear-gradient(45deg, #ffffff 0%, #e8f5e8 50%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+  }
+  100% {
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+  }
 }
 
 .blog-hero-subtitle {
