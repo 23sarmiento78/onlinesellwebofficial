@@ -1,7 +1,9 @@
-const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
-require('dotenv').config();
+import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // Get IndexNow key from environment variables
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY;
@@ -60,4 +62,4 @@ async function submitToIndexNow(urls) {
 // Ejemplo de uso:
 // submitToIndexNow(['https://tusitio.com/articulo1', 'https://tusitio.com/articulo2']);
 
-module.exports = { submitToIndexNow };
+export { submitToIndexNow };
