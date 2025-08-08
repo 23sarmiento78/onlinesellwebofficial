@@ -127,18 +127,19 @@
 
 .search-input {
   width: 100%;
-  padding: 1rem 1rem 1rem 3rem;
-  border: 2px solid var(--border);
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background: var(--background-secondary);
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-12);
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  transition: var(--transition-all);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .search-input:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
 .clear-search {
