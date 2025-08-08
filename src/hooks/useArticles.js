@@ -3,6 +3,7 @@ import { saveArticleToFile, getSavedArticleFiles, generateSlug } from '@utils/ar
 import { autoUpdateSitemap } from '@utils/sitemapUpdater'
 import { initializeArticles } from '@utils/articleLoader'
 import { initializeStyleUpdates } from '@utils/updateArticleStyles'
+import { blogWatcher } from '@utils/blogWatcher'
 
 // Mock articles database (in a real app, this would be a database or API)
 const MOCK_ARTICLES = [
@@ -1012,6 +1013,43 @@ export function useArticles() {
     }
 
     initializeData()
+
+    // Configurar vigilancia automática de nuevos artículos
+    const handleArticleChanges = (event) => {
+      console.log('🔄 Cambios detectados en artículos:', event)
+
+      if (event.type === 'articles_changed') {
+        // Esperar un momento antes de recargar para asegurar que los cambios se propaguen
+        setTimeout(async () => {
+          console.log('♻️ Recargando artículos automáticamente...')
+
+          // Reinicializar articleStorage
+          articleStorage.loading = true
+          await articleStorage.initializeArticles()
+
+          // Actualizar estado
+          setArticles(articleStorage.getAllArticles())
+
+          console.log('✅ Artículos recargados automáticamente')
+        }, 2000)
+      } else if (event.type === 'regeneration_needed') {
+        console.log('⚠️ Se requiere regeneración manual del index.json')
+        setError('Se detectaron cambios en los artículos. Por favor, regenera el index.json manualmente.')
+      }
+    }
+
+    // Registrar callback para cambios
+    blogWatcher.onArticlesChanged(handleArticleChanges)
+
+    // Iniciar vigilancia si no está activa
+    if (!blogWatcher.getStatus().isWatching) {
+      blogWatcher.startWatching(30000) // Check cada 30 segundos
+    }
+
+    // Cleanup
+    return () => {
+      blogWatcher.removeCallback(handleArticleChanges)
+    }
   }, [])
 
   const refreshArticles = () => {
