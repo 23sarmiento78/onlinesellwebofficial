@@ -5,32 +5,163 @@ import { useSimpleArticles } from '@hooks/useSimpleArticles'
 
 // Función para extraer solo el contenido principal del HTML
 const extractMainContent = (html) => {
-  if (!html) return '';
-  
+  if (!html) return '<p style="color: #333;">No hay contenido disponible.</p>';
+
   // Crear un elemento temporal para el parsing
   const temp = document.createElement('div');
   temp.innerHTML = html;
-  
+
   // Intentar encontrar el contenido principal
-  const content = temp.querySelector('article') || 
-                 temp.querySelector('.article-content') || 
-                 temp.querySelector('.post-content') ||
-                 temp;
-  
+  let content = temp.querySelector('article') ||
+                temp.querySelector('.article-content') ||
+                temp.querySelector('.post-content') ||
+                temp.querySelector('main') ||
+                temp.querySelector('body') ||
+                temp;
+
+  // Si encontramos body, buscar contenido más específico dentro
+  if (content.tagName === 'BODY') {
+    const betterContent = content.querySelector('article') ||
+                         content.querySelector('.content') ||
+                         content.querySelector('.post') ||
+                         content.querySelector('main') ||
+                         content;
+    content = betterContent;
+  }
+
   // Limpiar elementos no deseados
-  const elementsToRemove = content.querySelectorAll('script, style, iframe, noscript, .ad, .ads, .advertisement, .comments, .related-posts, .social-share, .share-buttons, .post-meta, .post-tags, .author-box, .post-navigation, .pagination, .wp-caption, .wp-block-embed, .wp-block-image');
+  const elementsToRemove = content.querySelectorAll(`
+    script, style, link[rel="stylesheet"], meta, title, head,
+    iframe, noscript, .ad, .ads, .advertisement, .comments,
+    .related-posts, .social-share, .share-buttons, .post-meta,
+    .post-tags, .author-box, .post-navigation, .pagination,
+    .wp-caption, .wp-block-embed, .wp-block-image, header,
+    footer, nav, .sidebar, .widget, .header, .footer, .nav
+  `);
   elementsToRemove.forEach(el => el.remove());
-  
+
   // Corregir rutas de imágenes
   const images = content.querySelectorAll('img');
   images.forEach(img => {
     const src = img.getAttribute('src');
-    if (src && !src.startsWith('http') && !src.startsWith('//')) {
+    if (src && !src.startsWith('http') && !src.startsWith('//') && !src.startsWith('/')) {
       img.src = `/blog/${src}`;
     }
   });
-  
-  return content.innerHTML;
+
+  // Aplicar estilos CSS directamente al contenido
+  const styledContent = `
+    <div class="article-content-wrapper">
+      ${content.innerHTML}
+    </div>
+    <style>
+      .article-content-wrapper {
+        line-height: 1.7;
+        color: #2d3748 !important;
+        font-size: 1.1rem;
+        max-width: none;
+      }
+      .article-content-wrapper * {
+        color: inherit !important;
+      }
+      .article-content-wrapper h1,
+      .article-content-wrapper h2,
+      .article-content-wrapper h3,
+      .article-content-wrapper h4,
+      .article-content-wrapper h5,
+      .article-content-wrapper h6 {
+        color: #1a202c !important;
+        font-weight: 600;
+        margin: 2rem 0 1rem 0;
+        line-height: 1.3;
+      }
+      .article-content-wrapper h1 { font-size: 2rem; }
+      .article-content-wrapper h2 { font-size: 1.75rem; }
+      .article-content-wrapper h3 { font-size: 1.5rem; }
+      .article-content-wrapper h4 { font-size: 1.25rem; }
+      .article-content-wrapper h5 { font-size: 1.125rem; }
+      .article-content-wrapper h6 { font-size: 1rem; }
+      .article-content-wrapper p {
+        margin-bottom: 1.5rem;
+        color: #2d3748 !important;
+        text-align: justify;
+      }
+      .article-content-wrapper a {
+        color: #4caf50 !important;
+        text-decoration: underline;
+        font-weight: 500;
+      }
+      .article-content-wrapper a:hover {
+        color: #388e3c !important;
+      }
+      .article-content-wrapper img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 2rem 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .article-content-wrapper pre {
+        background: #f7fafc;
+        border: 1px solid #e2e8f0;
+        padding: 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 2rem 0;
+        color: #2d3748 !important;
+      }
+      .article-content-wrapper code {
+        font-family: 'Fira Code', 'Consolas', monospace;
+        font-size: 0.9em;
+        background: #f7fafc;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        color: #2d3748 !important;
+      }
+      .article-content-wrapper pre code {
+        background: none;
+        padding: 0;
+      }
+      .article-content-wrapper blockquote {
+        border-left: 4px solid #4caf50;
+        padding: 1rem 1.5rem;
+        margin: 2rem 0;
+        background: #f7fafc;
+        font-style: italic;
+        color: #4a5568 !important;
+      }
+      .article-content-wrapper ul,
+      .article-content-wrapper ol {
+        margin: 1.5rem 0;
+        padding-left: 2rem;
+      }
+      .article-content-wrapper li {
+        margin: 0.5rem 0;
+        color: #2d3748 !important;
+      }
+      .article-content-wrapper table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .article-content-wrapper th,
+      .article-content-wrapper td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+        color: #2d3748 !important;
+      }
+      .article-content-wrapper th {
+        background: #f7fafc;
+        font-weight: 600;
+      }
+    </style>
+  `;
+
+  return styledContent;
 };
 
 export default function BlogArticle() {
