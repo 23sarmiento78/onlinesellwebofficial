@@ -75,7 +75,7 @@ export default function BlogFilters({
           {/* Ordenamiento */}
           <div className="filter-group">
             <label className="filter-label">
-              <FiSortAsc className="filter-icon" />
+              <FiChevronDown className="filter-icon" />
               Ordenar por
             </label>
             <select
