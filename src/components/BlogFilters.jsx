@@ -52,23 +52,25 @@ export default function BlogFilters({
         {/* Filtros */}
         <div className="filters-controls">
           {/* Filtro por categoría */}
-          <div className="filter-group">
-            <label className="filter-label">
-              <FiFilter className="filter-icon" />
-              Categoría
-            </label>
-            <select
-              className="filter-select"
-              value={selectedCategory}
-              onChange={(e) => onCategoryChange(e.target.value)}
-            >
-              {categories.map(category => (
-                <option key={category.id} value={category.id}>
-                  {category.name} {category.count > 0 && `(${category.count})`}
-                </option>
-              ))}
-            </select>
-          </div>
+          {!hideCategoryFilter && (
+            <div className="filter-group">
+              <label className="filter-label">
+                <FiFilter className="filter-icon" />
+                Categoría
+              </label>
+              <select
+                className="filter-select"
+                value={selectedCategory}
+                onChange={(e) => onCategoryChange(e.target.value)}
+              >
+                {categories.map(category => (
+                  <option key={category.id} value={category.id}>
+                    {category.name} {category.count > 0 && `(${category.count})`}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
           {/* Ordenamiento */}
           <div className="filter-group">
