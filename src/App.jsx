@@ -37,7 +37,7 @@ function App() {
           <Route path="/contacto" element={<Contacto />} />
 
           {/* Nuevo sistema de blog */}
-          <Route path="/blog" element={<BlogSimple />} />
+          <Route path="/blog" element={<BlogTest />} />
           <Route path="/blog/categoria/:category" element={<BlogCategory />} />
           <Route path="/blog/:slug" element={<BlogArticleNew />} />
 
