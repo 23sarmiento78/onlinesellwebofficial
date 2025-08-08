@@ -298,14 +298,46 @@
   letter-spacing: 0.05em;
 }
 
-.category-desarrollo { background: #e3f2fd; color: #1565c0; }
-.category-programación { background: #f3e5f5; color: #7b1fa2; }
-.category-inteligencia-artificial { background: #e8f5e8; color: #2e7d32; }
-.category-frontend { background: #fff3e0; color: #f57c00; }
-.category-backend { background: #fce4ec; color: #c2185b; }
-.category-devops { background: #e0f2f1; color: #00695c; }
-.category-seguridad { background: #ffebee; color: #d32f2f; }
-.category-bases-de-datos { background: #f1f8e9; color: #558b2f; }
+.category-desarrollo {
+  background: var(--info-light);
+  color: var(--info-dark);
+  border: 1px solid var(--info);
+}
+.category-programación {
+  background: #f3e5f5;
+  color: #6a1b9a;
+  border: 1px solid #9c27b0;
+}
+.category-inteligencia-artificial {
+  background: var(--success-light);
+  color: var(--success-dark);
+  border: 1px solid var(--success);
+}
+.category-frontend {
+  background: var(--warning-light);
+  color: var(--warning-dark);
+  border: 1px solid var(--warning);
+}
+.category-backend {
+  background: #fce4ec;
+  color: #ad1457;
+  border: 1px solid #e91e63;
+}
+.category-devops {
+  background: #e0f2f1;
+  color: #00695c;
+  border: 1px solid #009688;
+}
+.category-seguridad {
+  background: var(--error-light);
+  color: var(--error-dark);
+  border: 1px solid var(--error);
+}
+.category-bases-de-datos {
+  background: #f1f8e9;
+  color: #33691e;
+  border: 1px solid #689f38;
+}
 
 .card-content {
   padding: 1.5rem;
