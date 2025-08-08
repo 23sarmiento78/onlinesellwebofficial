@@ -10,7 +10,7 @@
       "desarrollo",
       "Angular"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "angular-18-nuevas-funcionalidades.html"
   },
   {
@@ -23,7 +23,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "ansible-automatizacin-de-configuracin.html"
   },
   {
@@ -37,7 +37,7 @@
       "desarrollo",
       "Bases de Datos"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "backup-y-recuperacin-de-datos.html"
   },
   {
@@ -52,7 +52,7 @@
       "API",
       "Seguridad"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "cdn-content-delivery-networks.html"
   },
   {
@@ -67,7 +67,7 @@
       "Python",
       "API"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "chatbots-implementacin-prctica.html"
   },
   {
@@ -83,11 +83,11 @@
       "programación",
       "tecnología"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "cicd-automatizacin-de-despliegues.html"
   },
   {
-    "slug": "code-coverage-metricas-de-calidad",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "La cobertura de código es una métrica crucial en el desarrollo de software que indica la proporción del código fuente que se ha ejecutado durante las pruebas.  ",
     "author": "hgaruna",
@@ -97,7 +97,7 @@
       "desarrollo",
       "Python"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "{{SITE_URL}}/logos-he-imagenes/programacion.jpeg",
     "file": "code-coverage-metricas-de-calidad.html"
   },
   {
@@ -110,7 +110,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "code-splitting-divisin-de-bundles.html"
   },
   {
@@ -125,11 +125,11 @@
       "JavaScript",
       "API"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "computer-vision-en-aplicaciones-web.html"
   },
   {
-    "slug": "content-security-policy-csp",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "La Content Security Policy (CSP) es un mecanismo de seguridad HTTP que permite a los desarrolladores web controlar los recursos que el navegador puede cargar pa",
     "author": "hgaruna",
@@ -139,7 +139,7 @@
       "programacion",
       "JavaScript"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "{{SITE_URL}}/logos-he-imagenes/programacion.jpeg",
     "file": "content-security-policy-csp.html"
   },
   {
@@ -155,11 +155,11 @@
       "programación",
       "tecnología"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "cqrs-command-query-responsibility-segregation.html"
   },
   {
-    "slug": "database-optimization-consultas-eficientes",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "La optimización de bases de datos es crucial para el rendimiento de cualquier aplicación web.  Una consulta ineficiente puede ralentizar significativa...",
     "author": "hgaruna",
@@ -168,27 +168,22 @@
     "tags": [
       "programacion"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "database-optimization-consultas-eficientes.html"
   },
   {
     "slug": "databaseoptimizatio",
-    "title": "Databaseoptimizatio",
-    "excerpt": "Sin contenido...",
+    "title": "databaseoptimizatio",
+    "excerpt": "",
     "author": "hgaruna",
     "date": "2025-08-06",
-    "category": "General",
-    "tags": [
-      "General",
-      "API",
-      "Database",
-      "Performance"
-    ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "category": "desarrollo",
+    "tags": [],
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "databaseoptimizatio.html"
   },
   {
-    "slug": "design-patterns-patrones-de-diseno",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "Los patrones de diseño son soluciones reutilizables a problemas comunes de diseño de software.  Representan las mejores prácticas y experiencias acumuladas por ",
     "author": "hgaruna",
@@ -197,7 +192,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "{{SITE_URL}}/logos-he-imagenes/programacion.jpeg",
     "file": "design-patterns-patrones-de-diseno.html"
   },
   {
@@ -213,7 +208,7 @@
       "programación",
       "tecnología"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "docker-contenedores-para-desarrolladores.html"
   },
   {
@@ -229,7 +224,7 @@
       "programación",
       "tecnología"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "edge-computing-computacin-en-el-borde.html"
   },
   {
@@ -242,7 +237,7 @@
     "tags": [
       "programacion"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "estrategias-de-cach-optimizando-el-rendimiento-web.html"
   },
   {
@@ -258,7 +253,7 @@
       "Python",
       "API"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "google-cloud-functions-plataforma-serverless.html"
   },
   {
@@ -274,7 +269,7 @@
       "programación",
       "tecnología"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "graphql-vs-rest-cundo-usar-cada-uno.html"
   },
   {
@@ -287,7 +282,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "introduccin.html"
   },
   {
@@ -303,11 +298,11 @@
       "React",
       "AWS"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "jamstack-javascript-apis-markup.html"
   },
   {
-    "slug": "kubernetes-orquestacion-de-contenedores",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "En el dinámico mundo del desarrollo de software, la gestión eficiente de aplicaciones se ha convertido en una necesidad imperativa.  La virtualización y la cont",
     "author": "hgaruna",
@@ -317,7 +312,7 @@
       "desarrollo",
       "API"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "{{SITE_URL}}/logos-he-imagenes/programacion.jpeg",
     "file": "kubernetes-orquestacion-de-contenedores.html"
   },
   {
@@ -330,7 +325,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "lazy-loading-carga-diferida-de-recursos.html"
   },
   {
@@ -344,7 +339,7 @@
       "programacion",
       "ESLint"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "linters-y-formatters-eslint-y-prettier.html"
   },
   {
@@ -358,11 +353,11 @@
       "ia",
       "JavaScript"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "machine-learning-para-desarrolladores-web.html"
   },
   {
-    "slug": "microservices-arquitectura-distribuida",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "En el dinámico mundo del desarrollo de software, la elección de la arquitectura adecuada es crucial para el éxito de un proyecto.  Una arquitectura bi...",
     "author": "hgaruna",
@@ -371,7 +366,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "microservices-arquitectura-distribuida.html"
   },
   {
@@ -387,7 +382,7 @@
       "programación",
       "tecnología"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "migrations-gestin-de-esquemas-de-base-de-datos.html"
   },
   {
@@ -400,7 +395,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "monorepo-vs-polyrepo-estrategias.html"
   },
   {
@@ -413,7 +408,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "ndices-de-base-de-datos-optimizacin.html"
   },
   {
@@ -429,11 +424,11 @@
       "programación",
       "tecnología"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "nlp-procesamiento-del-lenguaje-natural.html"
   },
   {
-    "slug": "nodejs-22-nuevas-caracteristicas",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "Node.js 22 representa una iteración significativa en la plataforma de tiempo de ejecución de JavaScript de lado del servidor.  Esta versión trae consi...",
     "author": "hgaruna",
@@ -442,7 +437,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "nodejs-22-nuevas-caracteristicas.html"
   },
   {
@@ -455,7 +450,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "nodejs-22-nuevas-caractersticas.html"
   },
   {
@@ -471,7 +466,7 @@
       "Performance",
       "Bases de Datos"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "orm-vs-query-builder-ventajas-y-desventajas.html"
   },
   {
@@ -488,7 +483,7 @@
       "API",
       "Bases de Datos"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "owasp-top-10-vulnerabilidades-web.html"
   },
   {
@@ -502,7 +497,7 @@
       "desarrollo",
       "Seguridad"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "package-managers-npm-yarn-pnpm.html"
   },
   {
@@ -515,11 +510,11 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "package-managers-npm-yarn-y-pnpm.html"
   },
   {
-    "slug": "performance-testing-lighthouse-y-webpagetest",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "En el mundo del desarrollo web, la velocidad y la eficiencia son cruciales para la satisfacción del usuario.  Una página web lenta puede llevar a alta...",
     "author": "hgaruna",
@@ -528,11 +523,11 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "performance-testing-lighthouse-y-webpagetest.html"
   },
   {
-    "slug": "postgresql-16-nuevas-funcionalidades",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "PostgreSQL 16, la última versión estable de este popular sistema de gestión de bases de datos (SGBD) relacional, llega cargada de nuevas funcionalidad...",
     "author": "hgaruna",
@@ -541,7 +536,7 @@
     "tags": [
       "programacion"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "postgresql-16-nuevas-funcionalidades.html"
   },
   {
@@ -554,11 +549,11 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "profiling-anlisis-de-rendimiento.html"
   },
   {
-    "slug": "profiling-anlisis-de",
+    "slug": "profiling-anlisis-de-rendimiento",
     "title": "Profiling: Análisis de Rendimiento",
     "excerpt": "El profiling, o análisis de rendimiento, es una técnica crucial en el desarrollo de software que permite identificar las partes de un programa que con...",
     "author": "hgaruna",
@@ -567,11 +562,11 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "profiling-anlisis-de.html"
   },
   {
-    "slug": "progressive-web-apps-pwa-en-2025",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "Las Progressive Web Apps (PWAs) han evolucionado significativamente desde su concepción inicial. En 2025, se espera que las PWAs se consoliden aún más...",
     "author": "hgaruna",
@@ -580,11 +575,11 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "progressive-web-apps-pwa-en-2025.html"
   },
   {
-    "slug": "progressive-web-apps",
+    "slug": "progressive-web-apps-pwa-en-2025",
     "title": "Progressive Web Apps (PWA) en 2025",
     "excerpt": "Las Progressive Web Apps (PWA) han evolucionado significativamente desde su concepción. En 2025, se consolidan como una tecnología clave en el desarro...",
     "author": "hgaruna",
@@ -596,7 +591,7 @@
       "programación",
       "tecnología"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "progressive-web-apps.html"
   },
   {
@@ -611,11 +606,11 @@
       "JavaScript",
       "React"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "react-19-nuevas-caractersticas-y-mejoras.html"
   },
   {
-    "slug": "security-testing-owa",
+    "slug": "security-testing-owasp-y-herramientas",
     "title": "Security Testing: OWASP y Herramientas",
     "excerpt": "Las pruebas de seguridad son cruciales para asegurar la integridad y la confiabilidad de cualquier aplicación web.  En un panorama de amenazas cada ve...",
     "author": "hgaruna",
@@ -624,11 +619,11 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "security-testing-owa.html"
   },
   {
-    "slug": "security-testing-owasp-y-herramientas",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "Las pruebas de seguridad son cruciales para garantizar la integridad y la confidencialidad de cualquier aplicación web.  En un mundo cada vez más digi...",
     "author": "hgaruna",
@@ -637,7 +632,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "security-testing-owasp-y-herramientas.html"
   },
   {
@@ -653,11 +648,11 @@
       "programación",
       "tecnología"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "sql-injection-prevencin-y-deteccin.html"
   },
   {
-    "slug": "sql-vs-nosql-decisiones-de-arquitectura",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "La elección entre una base de datos SQL y NoSQL es una decisión crucial en la arquitectura de cualquier aplicación web o sistema de información.  Amba...",
     "author": "hgaruna",
@@ -666,7 +661,7 @@
     "tags": [
       "programacion"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "sql-vs-nosql-decisiones-de-arquitectura.html"
   },
   {
@@ -682,7 +677,7 @@
       "React",
       "Performance"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "svelte-vs-react-comparativa-completa.html"
   },
   {
@@ -695,11 +690,11 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "terraform-infrastructure-as-code.html"
   },
   {
-    "slug": "testing-de-accesibilidad-automatizado",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "El testing de accesibilidad es crucial para asegurar que las aplicaciones web sean utilizables por personas con discapacidades.  Si bien las pruebas m...",
     "author": "hgaruna",
@@ -708,11 +703,11 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "testing-de-accesibilidad-automatizado.html"
   },
   {
-    "slug": "testing-de-apis-post",
+    "slug": "testing-de-apis-postman-y-newman",
     "title": "Testing de APIs: Postman y Newman",
     "excerpt": "El testing de APIs es crucial para asegurar la calidad y la fiabilidad de cualquier aplicación moderna.  Este proceso implica verificar que las interf...",
     "author": "hgaruna",
@@ -724,11 +719,11 @@
       "programación",
       "tecnología"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "testing-de-apis-post.html"
   },
   {
-    "slug": "testing-de-apis-postman-y-newman",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "En el desarrollo de software moderno, las APIs (Application Programming Interfaces) son el corazón de la comunicación entre diferentes sistemas.  Gara...",
     "author": "hgaruna",
@@ -737,7 +732,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "testing-de-apis-postman-y-newman.html"
   },
   {
@@ -751,11 +746,11 @@
       "desarrollo",
       "Vue.js"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "testing-unitario-jest-y-vitest.html"
   },
   {
-    "slug": "transacciones-distribuidas",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "Las transacciones distribuidas son un componente crucial en el desarrollo de aplicaciones modernas que requieren acceso a datos distribuidos en múltiples bases ",
     "author": "hgaruna",
@@ -767,11 +762,11 @@
       "Performance",
       "Bases de Datos"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "{{SITE_URL}}/logos-he-imagenes/programacion.jpeg",
     "file": "transacciones-distribuidas.html"
   },
   {
-    "slug": "tree-shaking-eliminacion-de-codigo-muerto",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "Artículo sobre Tree shaking: Eliminación de código muerto.",
     "author": "hgaruna",
@@ -780,7 +775,7 @@
     "tags": [
       "desarrollo"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "{{SITE_URL}}/logos-he-imagenes/programacion.jpeg",
     "file": "tree-shaking-eliminacion-de-codigo-muerto.html"
   },
   {
@@ -794,11 +789,11 @@
       "desarrollo",
       "JavaScript"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "typescript-avanzado-patrones-y-mejores-prcticas.html"
   },
   {
-    "slug": "vs-code-extensiones-esenciales",
+    "slug": "introduccin",
     "title": "Introducción",
     "excerpt": "Visual Studio Code (VS Code) se ha convertido en el editor de código favorito de muchos desarrolladores gracias a su flexibilidad, extensibilidad y gr...",
     "author": "hgaruna",
@@ -808,7 +803,7 @@
       "desarrollo",
       "ESLint"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "vs-code-extensiones-esenciales.html"
   },
   {
@@ -822,7 +817,7 @@
       "desarrollo",
       "JavaScript"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "/logos-he-imagenes/programacion.jpeg",
     "file": "webassembly-rendimiento-nativo-en-el-navegador.html"
   },
   {
@@ -839,7 +834,7 @@
       "Angular",
       "Vue.js"
     ],
-    "image": "/logos-he-imagenes/logo3.png",
+    "image": "https://www.hgaruna.org/logos-he-imagenes/programacion.jpeg",
     "file": "xss-prevention-crosssite-scripting.html"
   }
 ]
