@@ -35,9 +35,17 @@ function App() {
           <Route path="/planes" element={<Planes />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/contacto" element={<Contacto />} />
-          <Route path="/blog" element={<BlogIA />} />
-          <Route path="/blog/categoria/:category" element={<CategoryPage />} />
-          <Route path="/blog/:slug" element={<BlogArticle />} />
+
+          {/* Nuevo sistema de blog */}
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/categoria/:category" element={<BlogCategory />} />
+          <Route path="/blog/:slug" element={<BlogArticleNew />} />
+
+          {/* Rutas legacy para compatibilidad */}
+          <Route path="/blog-legacy" element={<BlogIA />} />
+          <Route path="/blog-legacy/categoria/:category" element={<CategoryPage />} />
+          <Route path="/blog-legacy/:slug" element={<BlogArticle />} />
+
           <Route path="/desarrollo-web-villa-carlos-paz" element={<DesarrolloWebVillaCarlosPaz />} />
           <Route path="/diseño-web-villa-carlos-paz" element={<DisenoWebVillaCarlosPaz />} />
           <Route path="/marketing-digital-villa-carlos-paz" element={<MarketingDigitalVillaCarlosPaz />} />
