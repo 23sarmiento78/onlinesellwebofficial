@@ -343,7 +343,7 @@ class IntelligentSitemapGenerator {
   }
   
   async analyzeURLs() {
-    console.log('���� Analizando contenido de URLs...');
+    console.log('🔍 Analizando contenido de URLs...');
     
     for (let i = 0; i < this.urls.length; i++) {
       const urlData = this.urls[i];
@@ -654,7 +654,7 @@ async function main() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
 
