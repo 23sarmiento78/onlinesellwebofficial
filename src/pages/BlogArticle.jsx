@@ -80,56 +80,12 @@ export default function BlogArticle() {
 
   // Función para renderizar el contenido HTML de forma segura
   const renderArticleContent = (htmlContent) => {
-    if (!htmlContent) return { __html: '<p>No hay contenido disponible para mostrar.</p>' };
+    if (!htmlContent) return { __html: '<p style="color: #333;">No hay contenido disponible para mostrar.</p>' };
+
     const content = typeof htmlContent === 'string' ? htmlContent : '';
-    const styledContent = `
-      <div class="prose prose-lg max-w-none">
-        <div class="article-content">
-          ${content}
-        </div>
-      </div>
-      <style>
-        .article-content {
-          line-height: 1.6;
-          color: #333;
-        }
-        .article-content img {
-          max-width: 100%;
-          height: auto;
-          border-radius: 8px;
-          margin: 1.5rem 0;
-        }
-        .article-content h2, 
-        .article-content h3, 
-        .article-content h4 {
-          margin-top: 2rem;
-          margin-bottom: 1rem;
-          color: #111;
-        }
-        .article-content p {
-          margin-bottom: 1.25rem;
-        }
-        .article-content a {
-          color: #3b82f6;
-          text-decoration: none;
-        }
-        .article-content a:hover {
-          text-decoration: underline;
-        }
-        .article-content pre {
-          background: #f5f5f5;
-          padding: 1rem;
-          border-radius: 6px;
-          overflow-x: auto;
-          margin: 1.5rem 0;
-        }
-        .article-content code {
-          font-family: 'Fira Code', 'Consolas', monospace;
-          font-size: 0.9em;
-        }
-      </style>
-    `;
-    return { __html: styledContent };
+    const cleanedContent = extractMainContent(content);
+
+    return { __html: cleanedContent };
   };
 
   if (loading) {
