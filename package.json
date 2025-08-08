@@ -10,7 +10,9 @@
     "serve": "vite preview",
     "update-categories": "node scripts/updateArticleCategories.js",
     "regenerate-blog-index": "node scripts/auto-regenerate-blog-index.cjs",
-    "regenerate-blog-index-force": "node scripts/auto-regenerate-blog-index.cjs --force"
+    "regenerate-blog-index-force": "node scripts/auto-regenerate-blog-index.cjs --force",
+    "generate-articles": "node scripts/generate-articles-from-keywords.js",
+    "analyze-keywords": "node scripts/advanced-keyword-analysis.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
