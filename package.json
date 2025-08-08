@@ -9,8 +9,8 @@
     "preview": "vite preview",
     "serve": "vite preview",
     "update-categories": "node scripts/updateArticleCategories.js",
-    "regenerate-blog-index": "node scripts/auto-regenerate-blog-index.js",
-    "regenerate-blog-index-force": "node scripts/auto-regenerate-blog-index.js --force"
+    "regenerate-blog-index": "node scripts/auto-regenerate-blog-index.cjs",
+    "regenerate-blog-index-force": "node scripts/auto-regenerate-blog-index.cjs --force"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
