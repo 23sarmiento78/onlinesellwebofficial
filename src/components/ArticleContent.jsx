@@ -14,6 +14,24 @@ export default function ArticleContent({ content }) {
     const container = contentRef.current
     if (!container) return
 
+    // Remover elementos no deseados (head, meta, scripts, etc.)
+    const unwantedElements = container.querySelectorAll('head, meta, title, script, style, link[rel="stylesheet"]')
+    unwantedElements.forEach(el => el.remove())
+
+    // Remover comentarios HTML
+    const walker = document.createTreeWalker(
+      container,
+      NodeFilter.SHOW_COMMENT,
+      null,
+      false
+    )
+    const comments = []
+    let node
+    while (node = walker.nextNode()) {
+      comments.push(node)
+    }
+    comments.forEach(comment => comment.remove())
+
     // Añadir clases a los elementos para mejor styling
     const headings = container.querySelectorAll('h1, h2, h3, h4, h5, h6')
     headings.forEach((heading, index) => {
