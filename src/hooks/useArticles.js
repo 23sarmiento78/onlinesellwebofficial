@@ -3,6 +3,7 @@ import { saveArticleToFile, getSavedArticleFiles, generateSlug } from '@utils/ar
 import { autoUpdateSitemap } from '@utils/sitemapUpdater'
 import { initializeArticles } from '@utils/articleLoader'
 import { initializeStyleUpdates } from '@utils/updateArticleStyles'
+import { blogWatcher } from '@utils/blogWatcher'
 
 // Mock articles database (in a real app, this would be a database or API)
 const MOCK_ARTICLES = [
