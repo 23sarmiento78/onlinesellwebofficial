@@ -6,12 +6,12 @@
 
 /* Article Top Navigation */
 .article-top-nav {
-  background: white;
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid var(--border-light);
+  padding: var(--space-4) 0;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: var(--z-sticky);
   backdrop-filter: blur(10px);
 }
 
