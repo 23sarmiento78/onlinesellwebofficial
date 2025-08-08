@@ -6,9 +6,9 @@
 
 /* Blog Header */
 .blog-header {
-  padding: 2rem 0;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-  color: white;
+  padding: var(--space-8) 0;
+  background: var(--gradient-primary);
+  color: var(--text-inverse);
   position: relative;
   overflow: hidden;
 }
