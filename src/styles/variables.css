@@ -83,6 +83,10 @@
   --bg-overlay: rgba(0, 0, 0, 0.6);
   --bg-glass: rgba(255, 255, 255, 0.9);
   --bg-glass-dark: rgba(0, 0, 0, 0.8);
+
+  /* Legacy compatibility */
+  --background: var(--bg-secondary);
+  --background-secondary: var(--bg-tertiary);
   
   /* ===== BORDERS ===== */
   --border-light: var(--gray-200);
