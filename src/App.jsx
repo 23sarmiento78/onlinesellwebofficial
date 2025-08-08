@@ -29,28 +29,26 @@ function App() {
         <html lang="es" data-theme="light" />
       </Helmet>
       
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/planes" element={<Planes />} />
-          <Route path="/legal" element={<Legal />} />
-          <Route path="/contacto" element={<Contacto />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/planes" element={<Planes />} />
+        <Route path="/legal" element={<Legal />} />
+        <Route path="/contacto" element={<Contacto />} />
 
-          {/* Nuevo sistema de blog */}
-          <Route path="/blog" element={<BlogTest />} />
-          <Route path="/blog/categoria/:category" element={<BlogCategory />} />
-          <Route path="/blog/:slug" element={<BlogArticleNew />} />
+        {/* Nuevo sistema de blog */}
+        <Route path="/blog" element={<BlogTest />} />
+        <Route path="/blog/categoria/:category" element={<BlogCategory />} />
+        <Route path="/blog/:slug" element={<BlogArticleNew />} />
 
-          {/* Rutas legacy para compatibilidad */}
-          <Route path="/blog-legacy" element={<BlogIA />} />
-          <Route path="/blog-legacy/categoria/:category" element={<CategoryPage />} />
-          <Route path="/blog-legacy/:slug" element={<BlogArticle />} />
+        {/* Rutas legacy para compatibilidad */}
+        <Route path="/blog-legacy" element={<BlogIA />} />
+        <Route path="/blog-legacy/categoria/:category" element={<CategoryPage />} />
+        <Route path="/blog-legacy/:slug" element={<BlogArticle />} />
 
-          <Route path="/desarrollo-web-villa-carlos-paz" element={<DesarrolloWebVillaCarlosPaz />} />
-          <Route path="/diseño-web-villa-carlos-paz" element={<DisenoWebVillaCarlosPaz />} />
-          <Route path="/marketing-digital-villa-carlos-paz" element={<MarketingDigitalVillaCarlosPaz />} />
-        </Routes>
-      </MainLayout>
+        <Route path="/desarrollo-web-villa-carlos-paz" element={<DesarrolloWebVillaCarlosPaz />} />
+        <Route path="/diseño-web-villa-carlos-paz" element={<DisenoWebVillaCarlosPaz />} />
+        <Route path="/marketing-digital-villa-carlos-paz" element={<MarketingDigitalVillaCarlosPaz />} />
+      </Routes>
     </>
   )
 }
