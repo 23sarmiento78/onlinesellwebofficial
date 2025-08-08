@@ -190,6 +190,29 @@ export class BlogLoader {
     }))
   }
 
+  cleanHTMLContent(htmlString) {
+    // Crear un parser temporal
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(htmlString, 'text/html')
+
+    // Remover elementos no deseados
+    const unwantedSelectors = [
+      'head', 'meta', 'title', 'script', 'style', 'link[rel="stylesheet"]',
+      'noscript', 'base', 'object', 'embed', 'iframe[src*="ads"]'
+    ]
+
+    unwantedSelectors.forEach(selector => {
+      const elements = doc.querySelectorAll(selector)
+      elements.forEach(el => el.remove())
+    })
+
+    // Extraer solo el contenido del body si existe, o todo el documento
+    const body = doc.querySelector('body')
+    const content = body ? body.innerHTML : doc.documentElement.innerHTML
+
+    return content
+  }
+
   clearCache() {
     this.articlesCache = null
     this.lastFetch = null
