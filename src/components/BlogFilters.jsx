@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiSearch, FiFilter, FiGrid, FiList, FiSortAsc } from 'react-icons/fi'
+import { FiSearch, FiFilter, FiGrid, FiList, FiChevronDown } from 'react-icons/fi'
 
 export default function BlogFilters({
   searchTerm,
