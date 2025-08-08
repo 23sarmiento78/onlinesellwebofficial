@@ -44,7 +44,9 @@ export default function BlogArticleNew() {
       const contentResponse = await fetch(articleData.htmlUrl)
       if (contentResponse.ok) {
         const htmlContent = await contentResponse.text()
-        setArticleContent(htmlContent)
+        // Limpiar el contenido HTML
+        const cleanedContent = blogLoader.cleanHTMLContent(htmlContent)
+        setArticleContent(cleanedContent)
       } else {
         setArticleContent('<p>Contenido no disponible</p>')
       }
