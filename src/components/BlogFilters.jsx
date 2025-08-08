@@ -11,7 +11,8 @@ export default function BlogFilters({
   onSearch,
   onCategoryChange,
   onSortChange,
-  onViewModeChange
+  onViewModeChange,
+  hideCategoryFilter = false
 }) {
   
   function handleSearchChange(e) {
