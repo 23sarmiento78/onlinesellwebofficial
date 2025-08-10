@@ -12,35 +12,12 @@
     "regenerate-blog-index": "node scripts/auto-regenerate-blog-index.cjs",
     "regenerate-blog-index-force": "node scripts/auto-regenerate-blog-index.cjs --force",
     "generate-articles": "node scripts/generate-articles-from-keywords.js",
-<<<<<<< HEAD
-    "analyze-keywords": "node scripts/advanced-keyword-analysis.js",
-    "adsense-system": "node run-adsense-system.js",
-    "adsense-system-full": "node run-adsense-system.js --full",
-    "adsense-generate": "node run-adsense-system.js --generate",
-    "adsense-improve": "node run-adsense-system.js --improve",
-    "adsense-integrate": "node run-adsense-system.js --integrate",
-    "adsense-validate": "node run-adsense-system.js --validate",
-    "adsense-test": "node run-adsense-system.js --test --full",
-    "generate-premium": "node scripts/enhanced-article-generator-adsense.js",
-    "improve-articles": "node scripts/improve-existing-articles.js",
-    "integrate-adsense": "node scripts/integrate-adsense-all-articles.js",
-    "validate-adsense": "node scripts/adsense-validation-test.js",
-    "master-adsense": "node scripts/master-adsense-content-system.js",
-    "github-generate": "node scripts/github-action-article-generator.js",
-    "monitor-system": "node scripts/monitor-system-status.js",
-    "verify-integration": "node scripts/verify-integration.js"
-=======
     "analyze-keywords": "node scripts/advanced-keyword-analysis.js"
->>>>>>> eb3a742d3ae413fa634691398a4c5b42316ec52b
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "axios": "^1.11.0",
     "dotenv": "^17.2.1",
-<<<<<<< HEAD
-    "glob": "^10.3.10",
-=======
->>>>>>> eb3a742d3ae413fa634691398a4c5b42316ec52b
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
