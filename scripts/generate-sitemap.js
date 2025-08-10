@@ -1,6 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const { globSync } = require('glob');
+import fs from 'fs';
+import path from 'path';
+import { globSync } from 'glob';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const SITE_URL = 'https://hgaruna.org'; // URL base de tu sitio (sin www para consistencia)
 
@@ -15,7 +19,7 @@ const staticPages = [
 ];
 
 // 2. Encontrar dinámicamente todos los artículos del blog
-const blogArticles = globSync('public/blog/*.html');
+const blogArticles = globSync(path.join(__dirname, '../public/blog/*.html'));
 
 // 3. Construir el contenido del sitemap en formato XML
 let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -54,7 +58,7 @@ sitemapXml += `
 </urlset>`;
 
 // 4. Escribir el archivo en la carpeta `public` con el nombre estándar
-const sitemapPath = path.join('public', 'sitemap.xml');
+const sitemapPath = path.join(__dirname, '../public', 'sitemap.xml');
 try {
   fs.writeFileSync(sitemapPath, sitemapXml);
   console.log(`Sitemap generado exitosamente en ${sitemapPath}`);
