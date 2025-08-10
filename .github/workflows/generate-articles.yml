@@ -81,6 +81,12 @@ jobs:
           node scripts/generate-sitemap.js
           echo "✅ Sitemap actualizado"
 
+      - name: 🔍 Verificar integración
+        run: |
+          echo "🔍 Verificando que todo esté correctamente integrado..."
+          node scripts/verify-integration.js
+          echo "✅ Integración verificada"
+
       - name: 📊 Generar resumen
         run: |
           echo "📋 Generando resumen de cambios..."
