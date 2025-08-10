@@ -306,13 +306,13 @@ export default function BlogArticle() {
         {/* Breadcrumbs */}
         <nav className="breadcrumbs py-4 bg-secondary">
           <div className="container">
-            <div className="breadcrumb-item">
+            <div key="breadcrumb-home" className="breadcrumb-item">
               <Link to="/" className="breadcrumb-link">Inicio</Link>
             </div>
-            <div className="breadcrumb-item">
+            <div key="breadcrumb-blog" className="breadcrumb-item">
               <Link to="/blog" className="breadcrumb-link">Blog</Link>
             </div>
-            <div className="breadcrumb-item">
+            <div key="breadcrumb-current" className="breadcrumb-item">
               <span className="breadcrumb-current">{article.title}</span>
             </div>
           </div>
