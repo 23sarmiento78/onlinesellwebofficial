@@ -317,6 +317,8 @@ Genera SOLO el contenido HTML para la sección del artículo, con headers H2, H3
           console.log(`⚠️ Artículo muy corto (${wordCount} palabras), regenerando...`);
           if (attempt < maxRetries) {
             continue; // Intentar de nuevo
+          } else {
+            console.log(`⚠️ Artículo aceptado en el último intento (${wordCount} palabras) - continuando...`);
           }
         }
         
