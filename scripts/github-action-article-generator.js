@@ -302,6 +302,8 @@ Genera SOLO el contenido HTML para la sección del artículo, con headers H2, H3
 
     const maxRetries = 3;
     let lastError = null;
+    let bestContent = null;
+    let bestWordCount = 0;
     
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
@@ -309,29 +311,45 @@ Genera SOLO el contenido HTML para la sección del artículo, con headers H2, H3
         
         const result = await model.generateContent(prompt);
         const content = result.response.text();
-        
-        // Validar calidad básica
         const wordCount = this.getWordCount(content);
         
-        if (wordCount < CONFIG.MIN_WORD_COUNT) {
-          console.log(`⚠️ Artículo muy corto (${wordCount} palabras), regenerando...`);
-          if (attempt < maxRetries) {
-            continue; // Intentar de nuevo
-          } else {
-            console.log(`⚠️ Artículo aceptado en el último intento (${wordCount} palabras) - continuando...`);
-          }
+        // Guardar el mejor contenido hasta ahora
+        if (wordCount > bestWordCount) {
+          bestContent = content;
+          bestWordCount = wordCount;
         }
         
-        console.log(`✅ Contenido generado: ${wordCount} palabras`);
+        // Si cumple con el mínimo, aceptar inmediatamente
+        if (wordCount >= CONFIG.MIN_WORD_COUNT) {
+          console.log(`✅ Contenido generado: ${wordCount} palabras (cumple mínimo)`);
+          return {
+            content: content,
+            wordCount: wordCount,
+            topic: topicData.topic,
+            category: topicData.category,
+            keywords: topicData.keywords,
+            generationDate: new Date().toISOString()
+          };
+        }
         
-        return {
-          content: content,
-          wordCount: wordCount,
-          topic: topicData.topic,
-          category: topicData.category,
-          keywords: topicData.keywords,
-          generationDate: new Date().toISOString()
-        };
+        // Si no cumple el mínimo
+        console.log(`⚠️ Artículo muy corto (${wordCount} palabras), intento ${attempt}/${maxRetries}`);
+        
+        // Si es el último intento, aceptar el mejor contenido generado
+        if (attempt === maxRetries) {
+          console.log(`⚠️ Último intento alcanzado. Aceptando mejor contenido: ${bestWordCount} palabras`);
+          return {
+            content: bestContent,
+            wordCount: bestWordCount,
+            topic: topicData.topic,
+            category: topicData.category,
+            keywords: topicData.keywords,
+            generationDate: new Date().toISOString()
+          };
+        }
+        
+        // Si no es el último intento, continuar
+        console.log(`⏳ Continuando con siguiente intento...`);
         
       } catch (error) {
         lastError = error;
