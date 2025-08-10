@@ -12,16 +12,20 @@
  * - Predicción de performance
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const axios = require('axios');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // === CONFIGURACIÓN ===
 const CONFIG = {
   GEMINI_API_KEY: process.env.GEMINI_API_KEY,
   SITE_URL: process.env.SITE_URL || 'https://hgaruna.org',
   OUTPUT_DIR: path.resolve(__dirname, '../public/seo-data'),
+  BLOG_OUTPUT_DIR: path.resolve(__dirname, '../public/blog'),
   TRENDS_API_KEY: process.env.GOOGLE_TRENDS_API_KEY,
   
   // Configuración local Villa Carlos Paz
@@ -387,12 +391,167 @@ Genera una estrategia de contenido detallada en JSON:
     };
   }
   
+  // === GENERACIÓN DE ARTÍCULOS ===
+  async generateArticlesFromKeywords() {
+    console.log('📝 Generando artículos basados en keywords...');
+
+    // Crear directorio de blog si no existe
+    await fs.mkdir(CONFIG.BLOG_OUTPUT_DIR, { recursive: true });
+
+    const topKeywords = [
+      ...this.keywordData.trending.filter(t => t.opportunity_score > 70).slice(0, 3),
+      ...this.keywordData.opportunities.filter(o => o.business_potential === 'alto').slice(0, 2)
+    ];
+
+    const generatedArticles = [];
+
+    for (const keywordData of topKeywords) {
+      try {
+        const keyword = keywordData.keyword;
+        const article = await this.generateSingleArticle(keyword, keywordData);
+
+        if (article) {
+          generatedArticles.push(article);
+          console.log(`✅ Artículo generado para: ${keyword}`);
+        }
+
+        // Pausa entre generaciones para evitar rate limiting
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+      } catch (error) {
+        console.error(`❌ Error generando artículo para ${keywordData.keyword}:`, error.message);
+      }
+    }
+
+    console.log(`✅ Se generaron ${generatedArticles.length} artículos`);
+    return generatedArticles;
+  }
+
+  async generateSingleArticle(keyword, keywordData) {
+    const articlePrompt = `
+Crea un artículo completo y profesional en HTML sobre: "${keyword}"
+
+Contexto:
+- Empresa: Desarrollo web en Villa Carlos Paz, Córdoba
+- Categoría: ${keywordData.category || 'tecnología'}
+- Público objetivo: Empresarios y emprendedores locales
+- Nivel de dificultad SEO: ${keywordData.difficulty || 5}/10
+
+El artículo debe:
+1. Tener entre 1500-2000 palabras
+2. Incluir título optimizado para SEO
+3. Meta descripción atractiva
+4. Estructura con H2 y H3 apropiados
+5. Llamadas a la acción (CTA) locales
+6. Keywords relacionadas naturalmente integradas
+7. Información práctica y actualizada
+8. Enfoque local (Villa Carlos Paz, Córdoba)
+
+Devuelve SOLO el HTML completo del artículo con esta estructura:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[TÍTULO OPTIMIZADO SEO]</title>
+    <meta name="description" content="[META DESCRIPCIÓN]">
+    <meta name="keywords" content="[KEYWORDS SEPARADAS POR COMAS]">
+    <link rel="stylesheet" href="../blogia-custom.css">
+</head>
+<body>
+    <article class="blog-article">
+        <header class="article-header">
+            <h1>[TÍTULO PRINCIPAL]</h1>
+            <div class="article-meta">
+                <time datetime="${new Date().toISOString().split('T')[0]}">${new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                <span class="category">${keywordData.category || 'Tecnología'}</span>
+            </div>
+        </header>
+
+        <div class="article-content">
+            [CONTENIDO COMPLETO DEL ARTÍCULO CON H2, H3, P, ETC.]
+        </div>
+
+        <footer class="article-footer">
+            <div class="cta-section">
+                <h3>¿Necesitas desarrollo web en Villa Carlos Paz?</h3>
+                <p>Contacta con nuestro equipo de expertos para crear la solución digital perfecta para tu negocio.</p>
+                <a href="/contacto" class="cta-button">Solicitar Cotización</a>
+            </div>
+        </footer>
+    </article>
+</body>
+</html>
+`;
+
+    try {
+      const result = await model.generateContent(articlePrompt);
+      const htmlContent = result.response.text();
+
+      // Limpiar el contenido y extraer solo el HTML
+      const cleanHtml = this.extractAndCleanHTML(htmlContent);
+
+      // Generar nombre de archivo seguro
+      const fileName = this.generateSafeFileName(keyword);
+      const filePath = path.join(CONFIG.BLOG_OUTPUT_DIR, fileName);
+
+      // Guardar el artículo
+      await fs.writeFile(filePath, cleanHtml, 'utf-8');
+
+      return {
+        keyword,
+        fileName,
+        filePath,
+        title: this.extractTitle(cleanHtml),
+        category: keywordData.category || 'tecnología'
+      };
+
+    } catch (error) {
+      console.error(`Error generando artículo para "${keyword}":`, error.message);
+      return null;
+    }
+  }
+
+  extractAndCleanHTML(content) {
+    // Extraer contenido HTML y limpiar markdown
+    let html = content;
+
+    // Buscar bloques de HTML
+    const htmlMatch = html.match(/<!DOCTYPE html[\s\S]*<\/html>/i);
+    if (htmlMatch) {
+      html = htmlMatch[0];
+    }
+
+    // Limpiar caracteres problemáticos
+    html = html.replace(/```html\s*/gi, '').replace(/```\s*$/gi, '');
+
+    return html;
+  }
+
+  extractTitle(html) {
+    const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
+    return titleMatch ? titleMatch[1] : 'Artículo sin título';
+  }
+
+  generateSafeFileName(keyword) {
+    const date = new Date().toISOString().split('T')[0];
+    const safeName = keyword
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim()
+      .substring(0, 50);
+
+    return `${safeName}.html`;
+  }
+
   // === GUARDADO DE RESULTADOS ===
   async saveResults() {
     console.log('💾 Guardando resultados...');
-    
+
     const timestamp = new Date().toISOString();
-    
+
     // Análisis completo
     const fullAnalysis = {
       timestamp,
@@ -408,13 +567,13 @@ Genera una estrategia de contenido detallada en JSON:
       content_strategy: await this.generateContentStrategy(),
       search_intent_analysis: await this.analyzeSearchIntent()
     };
-    
+
     // Guardar análisis completo
     await fs.writeFile(
       path.join(CONFIG.OUTPUT_DIR, 'keyword-analysis-complete.json'),
       JSON.stringify(fullAnalysis, null, 2)
     );
-    
+
     // Guardar keywords optimizadas para uso directo
     const optimizedKeywords = {
       timestamp,
@@ -432,21 +591,21 @@ Genera una estrategia de contenido detallada en JSON:
         .filter(l => l.conversion_potential > 70)
         .map(l => l.keyword || l.question)
     };
-    
+
     await fs.writeFile(
       path.join(CONFIG.OUTPUT_DIR, 'optimized-keywords.json'),
       JSON.stringify(optimizedKeywords, null, 2)
     );
-    
+
     // Generar reporte CSV para análisis externo
     const csvData = this.generateCSVReport();
     await fs.writeFile(
       path.join(CONFIG.OUTPUT_DIR, 'keyword-report.csv'),
       csvData
     );
-    
+
     console.log('✅ Resultados guardados en:', CONFIG.OUTPUT_DIR);
-    
+
     return {
       total_keywords: Object.values(this.keywordData).flat().length,
       high_priority_count: optimizedKeywords.high_priority.length,
@@ -493,17 +652,21 @@ Genera una estrategia de contenido detallada en JSON:
       
       // Ejecutar análisis secuenciales
       await this.generateLongTailKeywords();
-      
+
+      // Generar artículos basados en keywords
+      const articles = await this.generateArticlesFromKeywords();
+
       // Guardar resultados
       const summary = await this.saveResults();
-      
-      console.log('\n🎉 Análisis de keywords completado exitosamente');
+
+      console.log('\n🎉 Análisis de keywords y generación de artículos completado');
       console.log(`📊 Resumen:`);
       console.log(`   - Total keywords analizadas: ${summary.total_keywords}`);
       console.log(`   - Keywords alta prioridad: ${summary.high_priority_count}`);
       console.log(`   - Oportunidades locales: ${summary.local_opportunities}`);
-      
-      return summary;
+      console.log(`   - Artículos generados: ${articles.length}`);
+
+      return { ...summary, articles_generated: articles.length, articles };
       
     } catch (error) {
       console.error('❌ Error en análisis de keywords:', error);
@@ -529,8 +692,8 @@ async function main() {
 }
 
 // Ejecutar si es llamado directamente
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
 
-module.exports = { AdvancedKeywordAnalyzer };
+export { AdvancedKeywordAnalyzer };

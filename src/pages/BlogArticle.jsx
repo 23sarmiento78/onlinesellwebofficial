@@ -5,32 +5,163 @@ import { useSimpleArticles } from '@hooks/useSimpleArticles'
 
 // Función para extraer solo el contenido principal del HTML
 const extractMainContent = (html) => {
-  if (!html) return '';
-  
+  if (!html) return '<p style="color: #333;">No hay contenido disponible.</p>';
+
   // Crear un elemento temporal para el parsing
   const temp = document.createElement('div');
   temp.innerHTML = html;
-  
+
   // Intentar encontrar el contenido principal
-  const content = temp.querySelector('article') || 
-                 temp.querySelector('.article-content') || 
-                 temp.querySelector('.post-content') ||
-                 temp;
-  
+  let content = temp.querySelector('article') ||
+                temp.querySelector('.article-content') ||
+                temp.querySelector('.post-content') ||
+                temp.querySelector('main') ||
+                temp.querySelector('body') ||
+                temp;
+
+  // Si encontramos body, buscar contenido más específico dentro
+  if (content.tagName === 'BODY') {
+    const betterContent = content.querySelector('article') ||
+                         content.querySelector('.content') ||
+                         content.querySelector('.post') ||
+                         content.querySelector('main') ||
+                         content;
+    content = betterContent;
+  }
+
   // Limpiar elementos no deseados
-  const elementsToRemove = content.querySelectorAll('script, style, iframe, noscript, .ad, .ads, .advertisement, .comments, .related-posts, .social-share, .share-buttons, .post-meta, .post-tags, .author-box, .post-navigation, .pagination, .wp-caption, .wp-block-embed, .wp-block-image');
+  const elementsToRemove = content.querySelectorAll(`
+    script, style, link[rel="stylesheet"], meta, title, head,
+    iframe, noscript, .ad, .ads, .advertisement, .comments,
+    .related-posts, .social-share, .share-buttons, .post-meta,
+    .post-tags, .author-box, .post-navigation, .pagination,
+    .wp-caption, .wp-block-embed, .wp-block-image, header,
+    footer, nav, .sidebar, .widget, .header, .footer, .nav
+  `);
   elementsToRemove.forEach(el => el.remove());
-  
+
   // Corregir rutas de imágenes
   const images = content.querySelectorAll('img');
   images.forEach(img => {
     const src = img.getAttribute('src');
-    if (src && !src.startsWith('http') && !src.startsWith('//')) {
+    if (src && !src.startsWith('http') && !src.startsWith('//') && !src.startsWith('/')) {
       img.src = `/blog/${src}`;
     }
   });
-  
-  return content.innerHTML;
+
+  // Aplicar estilos CSS directamente al contenido
+  const styledContent = `
+    <div class="article-content-wrapper">
+      ${content.innerHTML}
+    </div>
+    <style>
+      .article-content-wrapper {
+        line-height: 1.7;
+        color: #2d3748 !important;
+        font-size: 1.1rem;
+        max-width: none;
+      }
+      .article-content-wrapper * {
+        color: inherit !important;
+      }
+      .article-content-wrapper h1,
+      .article-content-wrapper h2,
+      .article-content-wrapper h3,
+      .article-content-wrapper h4,
+      .article-content-wrapper h5,
+      .article-content-wrapper h6 {
+        color: #1a202c !important;
+        font-weight: 600;
+        margin: 2rem 0 1rem 0;
+        line-height: 1.3;
+      }
+      .article-content-wrapper h1 { font-size: 2rem; }
+      .article-content-wrapper h2 { font-size: 1.75rem; }
+      .article-content-wrapper h3 { font-size: 1.5rem; }
+      .article-content-wrapper h4 { font-size: 1.25rem; }
+      .article-content-wrapper h5 { font-size: 1.125rem; }
+      .article-content-wrapper h6 { font-size: 1rem; }
+      .article-content-wrapper p {
+        margin-bottom: 1.5rem;
+        color: #2d3748 !important;
+        text-align: justify;
+      }
+      .article-content-wrapper a {
+        color: #4caf50 !important;
+        text-decoration: underline;
+        font-weight: 500;
+      }
+      .article-content-wrapper a:hover {
+        color: #388e3c !important;
+      }
+      .article-content-wrapper img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 2rem 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .article-content-wrapper pre {
+        background: #f7fafc;
+        border: 1px solid #e2e8f0;
+        padding: 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 2rem 0;
+        color: #2d3748 !important;
+      }
+      .article-content-wrapper code {
+        font-family: 'Fira Code', 'Consolas', monospace;
+        font-size: 0.9em;
+        background: #f7fafc;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        color: #2d3748 !important;
+      }
+      .article-content-wrapper pre code {
+        background: none;
+        padding: 0;
+      }
+      .article-content-wrapper blockquote {
+        border-left: 4px solid #4caf50;
+        padding: 1rem 1.5rem;
+        margin: 2rem 0;
+        background: #f7fafc;
+        font-style: italic;
+        color: #4a5568 !important;
+      }
+      .article-content-wrapper ul,
+      .article-content-wrapper ol {
+        margin: 1.5rem 0;
+        padding-left: 2rem;
+      }
+      .article-content-wrapper li {
+        margin: 0.5rem 0;
+        color: #2d3748 !important;
+      }
+      .article-content-wrapper table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .article-content-wrapper th,
+      .article-content-wrapper td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+        color: #2d3748 !important;
+      }
+      .article-content-wrapper th {
+        background: #f7fafc;
+        font-weight: 600;
+      }
+    </style>
+  `;
+
+  return styledContent;
 };
 
 export default function BlogArticle() {
@@ -80,56 +211,12 @@ export default function BlogArticle() {
 
   // Función para renderizar el contenido HTML de forma segura
   const renderArticleContent = (htmlContent) => {
-    if (!htmlContent) return { __html: '<p>No hay contenido disponible para mostrar.</p>' };
+    if (!htmlContent) return { __html: '<p style="color: #333;">No hay contenido disponible para mostrar.</p>' };
+
     const content = typeof htmlContent === 'string' ? htmlContent : '';
-    const styledContent = `
-      <div class="prose prose-lg max-w-none">
-        <div class="article-content">
-          ${content}
-        </div>
-      </div>
-      <style>
-        .article-content {
-          line-height: 1.6;
-          color: #333;
-        }
-        .article-content img {
-          max-width: 100%;
-          height: auto;
-          border-radius: 8px;
-          margin: 1.5rem 0;
-        }
-        .article-content h2, 
-        .article-content h3, 
-        .article-content h4 {
-          margin-top: 2rem;
-          margin-bottom: 1rem;
-          color: #111;
-        }
-        .article-content p {
-          margin-bottom: 1.25rem;
-        }
-        .article-content a {
-          color: #3b82f6;
-          text-decoration: none;
-        }
-        .article-content a:hover {
-          text-decoration: underline;
-        }
-        .article-content pre {
-          background: #f5f5f5;
-          padding: 1rem;
-          border-radius: 6px;
-          overflow-x: auto;
-          margin: 1.5rem 0;
-        }
-        .article-content code {
-          font-family: 'Fira Code', 'Consolas', monospace;
-          font-size: 0.9em;
-        }
-      </style>
-    `;
-    return { __html: styledContent };
+    const cleanedContent = extractMainContent(content);
+
+    return { __html: cleanedContent };
   };
 
   if (loading) {
@@ -219,13 +306,13 @@ export default function BlogArticle() {
         {/* Breadcrumbs */}
         <nav className="breadcrumbs py-4 bg-secondary">
           <div className="container">
-            <div className="breadcrumb-item">
+            <div key="breadcrumb-home" className="breadcrumb-item">
               <Link to="/" className="breadcrumb-link">Inicio</Link>
             </div>
-            <div className="breadcrumb-item">
+            <div key="breadcrumb-blog" className="breadcrumb-item">
               <Link to="/blog" className="breadcrumb-link">Blog</Link>
             </div>
-            <div className="breadcrumb-item">
+            <div key="breadcrumb-current" className="breadcrumb-item">
               <span className="breadcrumb-current">{article.title}</span>
             </div>
           </div>
@@ -245,15 +332,15 @@ export default function BlogArticle() {
                 </h1>
                 
                 <div className="flex flex-wrap items-center justify-center gap-6 text-muted">
-                  <div className="flex items-center gap-2">
+                  <div key="meta-author" className="flex items-center gap-2">
                     <i className="fas fa-user"></i>
                     <span>{article.author}</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div key="meta-date" className="flex items-center gap-2">
                     <i className="fas fa-calendar"></i>
                     <span>{formatDate(article.date)}</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div key="meta-readtime" className="flex items-center gap-2">
                     <i className="fas fa-clock"></i>
                     <span>{article.readTime}</span>
                   </div>
@@ -276,17 +363,17 @@ export default function BlogArticle() {
         <section className="section-sm">
           <div className="container">
             <div className="max-w-4xl mx-auto">
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              <div className="article-content-container">
                 {htmlContent ? (
                   <div
-                    className="prose prose-lg max-w-none"
+                    className="article-content-main"
                     dangerouslySetInnerHTML={renderArticleContent(htmlContent)}
                   />
                 ) : article && article.excerpt && (article.file || fetchError) ? (
                   <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
                     <div className="flex">
                       <div className="flex-shrink-0">
-                        <svg className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <svg key="warning-icon-preview" className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                         </svg>
                       </div>
@@ -304,7 +391,7 @@ export default function BlogArticle() {
                   <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
                     <div className="flex">
                       <div className="flex-shrink-0">
-                        <svg className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <svg key="warning-icon-fallback" className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                         </svg>
                       </div>
@@ -325,7 +412,7 @@ export default function BlogArticle() {
                   <div className="flex flex-wrap gap-2">
                     {article.tags.map((tag, index) => (
                       <span
-                        key={index}
+                        key={`tag-${index}-${tag}`}
                         className="bg-secondary text-primary px-3 py-1 rounded-full text-sm font-medium"
                       >
                         #{tag}
@@ -340,6 +427,7 @@ export default function BlogArticle() {
                 <h3 className="text-lg font-semibold mb-4">Compartir artículo:</h3>
                 <div className="flex gap-3">
                   <a
+                    key="share-twitter"
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -349,6 +437,7 @@ export default function BlogArticle() {
                     Twitter
                   </a>
                   <a
+                    key="share-facebook"
                     href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -358,6 +447,7 @@ export default function BlogArticle() {
                     Facebook
                   </a>
                   <a
+                    key="share-linkedin"
                     href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -367,6 +457,7 @@ export default function BlogArticle() {
                     LinkedIn
                   </a>
                   <a
+                    key="share-whatsapp"
                     href={`https://wa.me/?text=${encodeURIComponent(`${article.title} - ${window.location.href}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"

@@ -5,8 +5,8 @@
  * Mejora el SEO del sitio enviando el sitemap a Google, Bing y otros motores
  */
 
-const https = require('https');
-const http = require('http');
+import https from 'https';
+import http from 'http';
 
 const SITEMAP_URL = 'https://hgaruna.org/sitemap.xml';
 const SITE_URL = 'https://hgaruna.org/';
@@ -98,8 +98,8 @@ async function submitSitemap() {
   return results;
 }
 
-// Ejecutar si se llama directamente
-if (require.main === module) {
+// Ejecutar si es llamado directamente
+if (import.meta.url === `file://${process.argv[1]}`) {
   submitSitemap()
     .then(() => {
       console.log('✅ Proceso completado');
@@ -111,4 +111,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = { submitSitemap, SUBMISSION_URLS }; 
+export { submitSitemap, SUBMISSION_URLS };

@@ -14,6 +14,10 @@
 @import './components/sections.css';
 @import './components/footer.css';
 @import './components/blog.css';
+@import './components/blog-improved.css';
+@import './components/blog-new.css';
+@import './components/article-page.css';
+@import './components/article-content.css';
 
 /* ===== GLOBAL ANIMATIONS ===== */
 @keyframes fadeIn {

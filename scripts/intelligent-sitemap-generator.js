@@ -12,9 +12,14 @@
  * - Integración con Google Search Console
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // === CONFIGURACIÓN ===
 const CONFIG = {
@@ -649,8 +654,8 @@ async function main() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
 
-module.exports = { IntelligentSitemapGenerator, PriorityCalculator, ContentAnalyzer };
+export { IntelligentSitemapGenerator, PriorityCalculator, ContentAnalyzer };

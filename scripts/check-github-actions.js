@@ -1,9 +1,9 @@
 // scripts/check-github-actions.js
 // Script para monitorear el estado de las GitHub Actions y verificar la generación de artículos
 
-const fs = require('fs');
-const path = require('path');
-const axios = require('axios');
+import fs from 'fs';
+import path from 'path';
+import axios from 'axios';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const REPO_OWNER = 'hgaruna'; // Cambiar por tu usuario de GitHub
@@ -202,8 +202,8 @@ async function main() {
 }
 
 // Ejecutar si es llamado directamente
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
 
-module.exports = { checkGitHubActions, checkRecentRuns }; 
+export { checkGitHubActions, checkRecentRuns };
