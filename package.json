@@ -12,7 +12,19 @@
     "regenerate-blog-index": "node scripts/auto-regenerate-blog-index.cjs",
     "regenerate-blog-index-force": "node scripts/auto-regenerate-blog-index.cjs --force",
     "generate-articles": "node scripts/generate-articles-from-keywords.js",
-    "analyze-keywords": "node scripts/advanced-keyword-analysis.js"
+    "analyze-keywords": "node scripts/advanced-keyword-analysis.js",
+    "adsense-system": "node run-adsense-system.js",
+    "adsense-system-full": "node run-adsense-system.js --full",
+    "adsense-generate": "node run-adsense-system.js --generate",
+    "adsense-improve": "node run-adsense-system.js --improve",
+    "adsense-integrate": "node run-adsense-system.js --integrate",
+    "adsense-validate": "node run-adsense-system.js --validate",
+    "adsense-test": "node run-adsense-system.js --test --full",
+    "generate-premium": "node scripts/enhanced-article-generator-adsense.js",
+    "improve-articles": "node scripts/improve-existing-articles.js",
+    "integrate-adsense": "node scripts/integrate-adsense-all-articles.js",
+    "validate-adsense": "node scripts/adsense-validation-test.js",
+    "master-adsense": "node scripts/master-adsense-content-system.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
