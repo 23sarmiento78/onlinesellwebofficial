@@ -87,6 +87,24 @@ Cada ejecución genera:
 └── 📂 .github/workflows/    # Configuración Actions
 ```
 
+### 🔄 Integración Automática
+El sistema se integra automáticamente con tu sitio web:
+
+**📋 Índice del Blog (`/blog/index.json`)**
+- Se actualiza automáticamente con cada nueva generación
+- Los artículos aparecen inmediatamente en la página `/blog`
+- Incluye metadata completa (título, fecha, categoría, etc.)
+
+**🗺️ Sitemap (`/sitemap.xml`)**
+- Se regenera con todos los nuevos artículos
+- Incluye fechas de modificación actualizadas
+- Mejora el SEO y indexación en Google
+
+**✅ Sin Intervención Manual**
+- Los artículos están disponibles automáticamente
+- El sitio web los detecta y muestra inmediatamente
+- Los buscadores pueden indexarlos al día siguiente
+
 ## 🎯 Características del Contenido
 
 ### Calidad Garantizada
