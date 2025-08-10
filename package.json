@@ -26,7 +26,8 @@
     "validate-adsense": "node scripts/adsense-validation-test.js",
     "master-adsense": "node scripts/master-adsense-content-system.js",
     "github-generate": "node scripts/github-action-article-generator.js",
-    "monitor-system": "node scripts/monitor-system-status.js"
+    "monitor-system": "node scripts/monitor-system-status.js",
+    "verify-integration": "node scripts/verify-integration.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
