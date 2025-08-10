@@ -37,12 +37,17 @@ jobs:
       - name: 🟢 Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
       - name: 📦 Instalar dependencias
         run: |
-          npm ci
+          # Limpiar cache y node_modules si existe
+          rm -rf node_modules package-lock.json || true
+          
+          # Instalar dependencias
+          npm install
+          
           # Instalar dependencias específicas si no están
           npm install glob @google/generative-ai
 
@@ -54,6 +59,11 @@ jobs:
           echo "GEMINI_API_KEY configurada: ${{ secrets.GEMINI_API_KEY != '' }}"
           echo "Directorio actual: $(pwd)"
           ls -la scripts/ || echo "Directorio scripts no encontrado"
+          
+          # Verificar que las dependencias críticas estén instaladas
+          echo "📦 Verificando dependencias críticas..."
+          node -e "console.log('✅ @google/generative-ai:', require('@google/generative-ai').version || 'instalado')" || echo "❌ @google/generative-ai no disponible"
+          node -e "console.log('✅ glob:', require('glob').version || 'instalado')" || echo "❌ glob no disponible"
 
       - name: 🚀 Generar artículos automáticamente
         env:
