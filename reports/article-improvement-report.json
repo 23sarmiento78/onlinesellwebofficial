@@ -1,0 +1,614 @@
+{
+  "timestamp": "2025-08-10T02:36:04.412Z",
+  "summary": {
+    "totalArticles": 54,
+    "improved": 54,
+    "alreadyGood": 0,
+    "errors": 0,
+    "totalWordCount": 180487
+  },
+  "improvements": {
+    "contentEnhanced": 0,
+    "seoOptimized": 0,
+    "structureImproved": 1,
+    "adsenseCompliant": 54
+  },
+  "processedArticles": [
+    {
+      "file": "tree-shaking-eliminacion-de-codigo-muerto.html",
+      "originalWordCount": 3031,
+      "improvedWordCount": 1591,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Estructura mejorada con headers",
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "transacciones-distribuidas.html",
+      "originalWordCount": 3166,
+      "improvedWordCount": 3473,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "testing-unitario-jest-y-vitest.html",
+      "originalWordCount": 3029,
+      "improvedWordCount": 3344,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "testing-de-apis-postman-y-newman.html",
+      "originalWordCount": 3058,
+      "improvedWordCount": 3365,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "testing-de-apis-post.html",
+      "originalWordCount": 2989,
+      "improvedWordCount": 3306,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "testing-de-accesibilidad-automatizado.html",
+      "originalWordCount": 3100,
+      "improvedWordCount": 3407,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "terraform-infrastructure-as-code.html",
+      "originalWordCount": 2999,
+      "improvedWordCount": 3312,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "svelte-vs-react-comparativa-completa.html",
+      "originalWordCount": 3107,
+      "improvedWordCount": 3422,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "sql-vs-nosql-decisiones-de-arquitectura.html",
+      "originalWordCount": 3123,
+      "improvedWordCount": 3430,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "sql-injection-prevencin-y-deteccin.html",
+      "originalWordCount": 3090,
+      "improvedWordCount": 3405,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "security-testing-owasp-y-herramientas.html",
+      "originalWordCount": 3073,
+      "improvedWordCount": 3380,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "security-testing-owa.html",
+      "originalWordCount": 3199,
+      "improvedWordCount": 3514,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "react-19-nuevas-caractersticas-y-mejoras.html",
+      "originalWordCount": 3077,
+      "improvedWordCount": 3394,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "progressive-web-apps.html",
+      "originalWordCount": 3033,
+      "improvedWordCount": 3350,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "progressive-web-apps-pwa-en-2025.html",
+      "originalWordCount": 3002,
+      "improvedWordCount": 3309,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "profiling-anlisis-de.html",
+      "originalWordCount": 3165,
+      "improvedWordCount": 3478,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "profiling-anlisis-de-rendimiento.html",
+      "originalWordCount": 3143,
+      "improvedWordCount": 3456,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "postgresql-16-nuevas-funcionalidades.html",
+      "originalWordCount": 3112,
+      "improvedWordCount": 3419,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "performance-testing-lighthouse-y-webpagetest.html",
+      "originalWordCount": 3168,
+      "improvedWordCount": 3475,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "package-managers-npm-yarn-y-pnpm.html",
+      "originalWordCount": 2974,
+      "improvedWordCount": 3291,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "package-managers-npm-yarn-pnpm.html",
+      "originalWordCount": 3078,
+      "improvedWordCount": 3393,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "owasp-top-10-vulnerabilidades-web.html",
+      "originalWordCount": 3318,
+      "improvedWordCount": 3633,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "orm-vs-query-builder-ventajas-y-desventajas.html",
+      "originalWordCount": 3081,
+      "improvedWordCount": 3400,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "nodejs-22-nuevas-caractersticas.html",
+      "originalWordCount": 3056,
+      "improvedWordCount": 3369,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "nodejs-22-nuevas-caracteristicas.html",
+      "originalWordCount": 3119,
+      "improvedWordCount": 3426,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "nlp-procesamiento-del-lenguaje-natural.html",
+      "originalWordCount": 2974,
+      "improvedWordCount": 3289,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "ndices-de-base-de-datos-optimizacin.html",
+      "originalWordCount": 3126,
+      "improvedWordCount": 3443,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "migrations-gestin-de-esquemas-de-base-de-datos.html",
+      "originalWordCount": 3088,
+      "improvedWordCount": 3409,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "microservices-arquitectura-distribuida.html",
+      "originalWordCount": 3132,
+      "improvedWordCount": 3439,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "machine-learning-para-desarrolladores-web.html",
+      "originalWordCount": 3005,
+      "improvedWordCount": 3320,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "linters-y-formatters-eslint-y-prettier.html",
+      "originalWordCount": 3092,
+      "improvedWordCount": 3409,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "lazy-loading-carga-diferida-de-recursos.html",
+      "originalWordCount": 3126,
+      "improvedWordCount": 3443,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "kubernetes-orquestacion-de-contenedores.html",
+      "originalWordCount": 3011,
+      "improvedWordCount": 3318,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "jamstack-javascript-apis-markup.html",
+      "originalWordCount": 3044,
+      "improvedWordCount": 3357,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "introduccin.html",
+      "originalWordCount": 3026,
+      "improvedWordCount": 3333,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "graphql-vs-rest-cundo-usar-cada-uno.html",
+      "originalWordCount": 3066,
+      "improvedWordCount": 3385,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "google-cloud-functions-plataforma-serverless.html",
+      "originalWordCount": 3132,
+      "improvedWordCount": 3447,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "estrategias-de-cach-optimizando-el-rendimiento-web.html",
+      "originalWordCount": 3060,
+      "improvedWordCount": 3379,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "edge-computing-computacin-en-el-borde.html",
+      "originalWordCount": 3177,
+      "improvedWordCount": 3494,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "docker-contenedores-para-desarrolladores.html",
+      "originalWordCount": 2901,
+      "improvedWordCount": 3214,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "design-patterns-patrones-de-diseno.html",
+      "originalWordCount": 3004,
+      "improvedWordCount": 3311,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "databaseoptimizatio.html",
+      "originalWordCount": 2303,
+      "improvedWordCount": 2612,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "database-optimization-consultas-eficientes.html",
+      "originalWordCount": 3101,
+      "improvedWordCount": 3408,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "cqrs-command-query-responsibility-segregation.html",
+      "originalWordCount": 3135,
+      "improvedWordCount": 3450,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "content-security-policy-csp.html",
+      "originalWordCount": 3196,
+      "improvedWordCount": 3503,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "computer-vision-en-aplicaciones-web.html",
+      "originalWordCount": 3087,
+      "improvedWordCount": 3402,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "code-splitting-divisin-de-bundles.html",
+      "originalWordCount": 2794,
+      "improvedWordCount": 3109,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "code-coverage-metricas-de-calidad.html",
+      "originalWordCount": 3211,
+      "improvedWordCount": 3518,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "cicd-automatizacin-de-despliegues.html",
+      "originalWordCount": 3087,
+      "improvedWordCount": 3400,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "chatbots-implementacin-prctica.html",
+      "originalWordCount": 3099,
+      "improvedWordCount": 3410,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "cdn-content-delivery-networks.html",
+      "originalWordCount": 3011,
+      "improvedWordCount": 3324,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "backup-y-recuperacin-de-datos.html",
+      "originalWordCount": 3260,
+      "improvedWordCount": 3575,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "ansible-automatizacin-de-configuracin.html",
+      "originalWordCount": 2948,
+      "improvedWordCount": 3261,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    },
+    {
+      "file": "angular-18-nuevas-funcionalidades.html",
+      "originalWordCount": 2870,
+      "improvedWordCount": 3183,
+      "qualityImprovement": 0.3,
+      "improvements": [
+        "Contenido local añadido",
+        "AdSense integrado"
+      ],
+      "status": "improved"
+    }
+  ],
+  "errors": []
+}
