@@ -824,8 +824,6 @@ ${articleData.content
     console.log('📋 Actualizando índice del blog...');
 
     try {
-      const { execSync } = await import('child_process');
-
       // Ejecutar el script de regeneración del índice
       execSync('node scripts/auto-regenerate-blog-index.cjs', {
         stdio: 'inherit',
