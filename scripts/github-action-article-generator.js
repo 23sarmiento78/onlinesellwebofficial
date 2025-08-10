@@ -818,51 +818,75 @@ ${articleData.content
     console.log('='.repeat(60));
   }
 
+  // === ACTUALIZAR ÍNDICE DEL BLOG ===
+  async updateBlogIndex() {
+    console.log('📋 Actualizando índice del blog...');
+
+    try {
+      const { execSync } = await import('child_process');
+
+      // Ejecutar el script de regeneración del índice
+      execSync('node scripts/auto-regenerate-blog-index.cjs', {
+        stdio: 'inherit',
+        cwd: path.resolve(__dirname, '..')
+      });
+
+      console.log('✅ Índice del blog actualizado exitosamente');
+
+    } catch (error) {
+      console.error('❌ Error actualizando índice del blog:', error.message);
+      // No fallar por esto, solo advertir
+    }
+  }
+
   // === EJECUTAR GENERACIÓN COMPLETA ===
   async execute() {
     try {
       await this.initialize();
-      
+
       // Seleccionar temas del día
       const dailyTopics = this.selectDailyTopics();
-      
+
       console.log(`\n🚀 Generando ${CONFIG.ARTICLES_PER_RUN} artículos...`);
-      
+
       // Generar cada artículo
       for (let i = 0; i < dailyTopics.length; i++) {
         const topic = dailyTopics[i];
-        
+
         console.log(`\n[${i + 1}/${dailyTopics.length}] Procesando: ${topic.topic.substring(0, 60)}...`);
-        
+
         try {
           // Generar contenido
           const articleData = await this.generateOptimizedArticle(topic);
-          
+
           // Crear artículo completo
           await this.createCompleteArticle(articleData);
-          
+
           // Pausa entre generaciones para evitar rate limiting
           if (i < dailyTopics.length - 1) {
             console.log('⏸️ Pausa de 3 segundos...');
             await new Promise(resolve => setTimeout(resolve, 3000));
           }
-          
+
         } catch (error) {
           console.error(`❌ Error con artículo ${i + 1}: ${error.message}`);
-          
+
           // Continuar con los siguientes artículos
           continue;
         }
       }
-      
+
+      // Actualizar índice del blog después de generar artículos
+      await this.updateBlogIndex();
+
       // Generar reporte
       const report = await this.generateDailyReport();
-      
+
       // Mostrar resumen
       this.displaySummary(report);
-      
+
       return report;
-      
+
     } catch (error) {
       console.error('❌ Error fatal en generación:', error);
       throw error;
