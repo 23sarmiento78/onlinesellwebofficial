@@ -9,7 +9,7 @@ const BLOG_DIR = path.join(__dirname, '..', 'public', 'blog');
 const CATEGORIES = [
   { name: 'Backend', weight: 2, keywords: ['node', 'api', 'server', 'backend', 'express', 'nestjs', 'graphql', 'rest', 'microservices', 'spring', 'django', 'flask', 'laravel', 'php'] },
   { name: 'Frontend', weight: 5, keywords: ['react', 'angular', 'vue', 'frontend', 'ui', 'ux', 'component', 'svelte', 'typescript', 'javascript', 'next.js', 'gatsby', 'html', 'css', 'sass', 'web components'] },
-  { name: 'Testing y Calidad', weight: 2, keywords: ['test', 'testing', 'tdd', 'bdd', 'jest', 'cypress', 'mocha', 'unit test', 'e2e', 'jasmine', 'testing library', 'sonarqube'] },
+  { name: 'Testing y Calidad', weight: 2, keywords: ['test', 'testing', 'tdd', 'bdd', 'jest', 'cypress', 'mocha', 'unit test', 'e2e', 'jasmine', 'testing library'] },
   { name: 'DevOps y Cloud', weight: 4, keywords: ['devops', 'cloud', 'aws', 'azure', 'gcp', 'docker', 'kubernetes', 'ci/cd', 'github actions', 'gitlab ci', 'jenkins', 'ansible', 'terraform', 'serverless'] },
   { name: 'Bases de Datos', weight: 1, keywords: ['database', 'sql', 'nosql', 'mongodb', 'postgresql', 'mysql', 'redis', 'orm', 'dynamodb', 'cassandra', 'firebase', 'prisma'] },
   { name: 'Herramientas y Productividad', weight: 3, keywords: ['tools', 'productivity', 'vscode', 'git', 'npm', 'yarn', 'webpack', 'babel', 'docker', 'vite', 'eslint', 'prettier', 'figma', 'jira'] },

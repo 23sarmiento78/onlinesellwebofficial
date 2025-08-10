@@ -26,7 +26,7 @@ function testAutoDetection() {
     'microfrontends-arquitectura-escalable',
     'quantum-computing-el-futuro-de-la-computacin',
     'rate-limiting-proteccin-de-apis',
-    'static-analysis-eslint-y-sonarqube',
+  
     'web-performance-core-web-vitals',
     'websockets-vs-serversent-events-choosing-the-right',
     'automatizacin-con-scripts-aumenta-tu-productividad',

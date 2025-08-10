@@ -26,7 +26,7 @@ function testFixedLoading() {
     '2025-07-19-microfrontends-arquitectura-escalable.html',
     '2025-07-19-quantum-computing-el-futuro-de-la-computacin.html',
     '2025-07-19-rate-limiting-proteccin-de-apis.html',
-    '2025-07-19-static-analysis-eslint-y-sonarqube.html',
+  
     '2025-07-19-web-performance-core-web-vitals.html',
     '2025-07-19-websockets-vs-serversent-events-choosing-the-right.html'
   ];

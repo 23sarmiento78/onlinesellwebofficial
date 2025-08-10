@@ -67,7 +67,7 @@ const categoriesToTopics = {
     'Testing E2E: Cypress y Playwright',
     'Testing de APIs: Postman y Newman',
     'Code coverage: Métricas de calidad',
-    'Static analysis: ESLint y SonarQube',
+    'Static analysis: ESLint',
     'Performance testing: Lighthouse y WebPageTest',
     'Security testing: OWASP y herramientas',
     'Accessibility testing: WCAG guidelines',

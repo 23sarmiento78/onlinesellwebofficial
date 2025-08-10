@@ -35,7 +35,7 @@ function testDynamicLoading() {
       'react-19-nuevas-caracteristicas-y-mejoras',
       'angular-18-nuevas-funcionalidades',
       'aws-lambda-computacin-sin-servidores',
-      'static-analysis-eslint-y-sonarqube',
+    
       'web-performance-core-web-vitals',
       'low-codeno-code-plataformas-de-desarrollo',
       'microfrontends-arquitectura-escalable',
