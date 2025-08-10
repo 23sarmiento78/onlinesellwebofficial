@@ -24,7 +24,9 @@
     "improve-articles": "node scripts/improve-existing-articles.js",
     "integrate-adsense": "node scripts/integrate-adsense-all-articles.js",
     "validate-adsense": "node scripts/adsense-validation-test.js",
-    "master-adsense": "node scripts/master-adsense-content-system.js"
+    "master-adsense": "node scripts/master-adsense-content-system.js",
+    "github-generate": "node scripts/github-action-article-generator.js",
+    "monitor-system": "node scripts/monitor-system-status.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
