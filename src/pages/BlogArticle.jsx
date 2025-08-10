@@ -427,6 +427,7 @@ export default function BlogArticle() {
                 <h3 className="text-lg font-semibold mb-4">Compartir artículo:</h3>
                 <div className="flex gap-3">
                   <a
+                    key="share-twitter"
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -436,6 +437,7 @@ export default function BlogArticle() {
                     Twitter
                   </a>
                   <a
+                    key="share-facebook"
                     href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -445,6 +447,7 @@ export default function BlogArticle() {
                     Facebook
                   </a>
                   <a
+                    key="share-linkedin"
                     href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -454,6 +457,7 @@ export default function BlogArticle() {
                     LinkedIn
                   </a>
                   <a
+                    key="share-whatsapp"
                     href={`https://wa.me/?text=${encodeURIComponent(`${article.title} - ${window.location.href}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
