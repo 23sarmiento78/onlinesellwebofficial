@@ -63,11 +63,23 @@ jobs:
         run: |
           echo "🎯 Iniciando generación de $ARTICLE_COUNT artículos..."
           echo "📅 Fecha: $(date '+%Y-%m-%d %H:%M:%S %Z')"
-          
+
           # Ejecutar el script de generación automática
           node scripts/github-action-article-generator.js
-          
+
           echo "✅ Generación completada"
+
+      - name: 📋 Actualizar índice del blog
+        run: |
+          echo "📋 Actualizando índice del blog..."
+          node scripts/auto-regenerate-blog-index.cjs
+          echo "✅ Índice del blog actualizado"
+
+      - name: 🗺️ Actualizar sitemap
+        run: |
+          echo "🗺️ Generando sitemap actualizado..."
+          node scripts/generate-sitemap.js
+          echo "✅ Sitemap actualizado"
 
       - name: 📊 Generar resumen
         run: |
