@@ -74,9 +74,9 @@ jobs:
           echo "🎯 Iniciando generación de $ARTICLE_COUNT artículos..."
           echo "📅 Fecha: $(date '+%Y-%m-%d %H:%M:%S %Z')"
 
-          # Ejecutar el script de generación automática
-          # El script ahora maneja errores de cuota y siempre retorna exit code 0
-          node scripts/github-action-article-generator.js
+          # Ejecutar el script de generación automática con template moderno
+          # El script ahora usa modern-article-template.html
+          node scripts/github-action-article-generator-modern.js
 
           echo "✅ Generación completada (con manejo de errores mejorado)"
 

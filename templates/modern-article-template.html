@@ -1002,6 +1002,74 @@
             }
         }
 
+        /* AdSense Containers Optimized */
+        .adsense-container {
+            margin: var(--space-2xl) 0;
+            padding: var(--space-lg);
+            background: var(--bg-glass);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 1px solid var(--border-primary);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .adsense-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0.7;
+        }
+
+        .adsense-top {
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-3xl);
+        }
+
+        .adsense-in-article {
+            margin: var(--space-3xl) 0;
+            padding: var(--space-xl);
+            background: linear-gradient(135deg, var(--bg-glass), var(--bg-card));
+        }
+
+        .adsense-end-article {
+            margin-top: var(--space-3xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .adsense-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* AdSense Responsive Optimization */
+        @media (min-width: 768px) {
+            .adsense-container {
+                padding: var(--space-xl);
+            }
+
+            .adsense-in-article {
+                margin: var(--space-3xl) auto;
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .adsense-container {
+                margin: var(--space-lg) 0;
+                padding: var(--space-md);
+            }
+        }
+
         /* Utility Classes */
         .fade-in {
             animation: fadeIn 0.6s ease-out;
@@ -1115,6 +1183,20 @@
             </div>
         </div>
 
+        <!-- AdSense: Top Article Ad (High Performance) -->
+        <div class="adsense-container adsense-top">
+            <div class="adsense-label">Publicidad</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-7772175009790237"
+                 data-ad-slot="{{ADSENSE_TOP_SLOT}}"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
         <!-- Article Content -->
         <article class="article-content fade-in" itemscope itemtype="https://schema.org/Article">
             <meta itemprop="headline" content="{{SEO_TITLE}}">
@@ -1123,11 +1205,39 @@
             <meta itemprop="dateModified" content="{{MODIFIED_DATE}}">
             <meta itemprop="wordCount" content="{{WORD_COUNT}}">
             <meta itemprop="inLanguage" content="es-AR">
-            
+
             <div itemprop="articleBody">
                 {{ARTICLE_CONTENT}}
+
+                <!-- AdSense: In-Article Ad (Inserted dynamically) -->
+                <div class="adsense-container adsense-in-article">
+                    <div class="adsense-label">Publicidad</div>
+                    <ins class="adsbygoogle"
+                         style="display:block; text-align:center;"
+                         data-ad-layout="in-article"
+                         data-ad-format="fluid"
+                         data-ad-client="ca-pub-7772175009790237"
+                         data-ad-slot="{{ADSENSE_IN_ARTICLE_SLOT}}"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
             </div>
         </article>
+
+        <!-- AdSense: End of Article Ad -->
+        <div class="adsense-container adsense-end-article">
+            <div class="adsense-label">Publicidad</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-7772175009790237"
+                 data-ad-slot="{{ADSENSE_END_SLOT}}"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
 
         <!-- Author Bio -->
         <section class="author-bio fade-in" itemscope itemtype="https://schema.org/Person">

@@ -9,7 +9,7 @@ import MainLayout from '@layouts/MainLayout'
 import Home from '@pages/Home'
 import Planes from '@pages/Planes'
 import Legal from '@pages/Legal'
-import BlogIA from '@pages/BlogIA_Simple'
+import BlogModern from '@pages/BlogModern'
 import BlogArticle from '@pages/BlogArticle'
 import CategoryPage from '@pages/CategoryPage'
 import Contacto from '@pages/Contacto'
@@ -30,7 +30,7 @@ function App() {
           <Route path="/planes" element={<Planes />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/contacto" element={<Contacto />} />
-          <Route path="/blog" element={<BlogIA />} />
+          <Route path="/blog" element={<BlogModern />} />
           <Route path="/blog/categoria/:category" element={<CategoryPage />} />
           <Route path="/blog/:slug" element={<BlogArticle />} />
           <Route path="/desarrollo-web-villa-carlos-paz" element={<DesarrolloWebVillaCarlosPaz />} />

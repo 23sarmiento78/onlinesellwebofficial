@@ -356,6 +356,18 @@ Genera SOLO el contenido HTML para la sección del artículo, con headers H2, H3
     return null;
   }
 
+  // === CARGAR TEMPLATE MODERNO ===
+  async loadModernTemplate() {
+    const templatePath = path.resolve(__dirname, '../templates/modern-article-template.html');
+    try {
+      const template = await fs.readFile(templatePath, 'utf8');
+      return template;
+    } catch (error) {
+      console.error('❌ Error cargando template moderno:', error.message);
+      throw new Error('No se puede cargar modern-article-template.html');
+    }
+  }
+
   // === CREAR ARTÍCULO COMPLETO CON TEMPLATE ===
   async createCompleteArticle(articleData) {
     const today = new Date();
