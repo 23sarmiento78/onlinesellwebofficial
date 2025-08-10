@@ -332,15 +332,15 @@ export default function BlogArticle() {
                 </h1>
                 
                 <div className="flex flex-wrap items-center justify-center gap-6 text-muted">
-                  <div className="flex items-center gap-2">
+                  <div key="meta-author" className="flex items-center gap-2">
                     <i className="fas fa-user"></i>
                     <span>{article.author}</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div key="meta-date" className="flex items-center gap-2">
                     <i className="fas fa-calendar"></i>
                     <span>{formatDate(article.date)}</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div key="meta-readtime" className="flex items-center gap-2">
                     <i className="fas fa-clock"></i>
                     <span>{article.readTime}</span>
                   </div>
