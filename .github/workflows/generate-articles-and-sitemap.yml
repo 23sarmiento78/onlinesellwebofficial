@@ -1,0 +1,83 @@
+
+name: Generar artículos HTML y crear sitemap
+
+
+on:
+  schedule:
+    # 9:00, 13:00 y 19:00 UTC (6:00, 10:00 y 16:00 ART)
+    - cron: '0 9 * * *'   # 6:00 ART
+    - cron: '0 13 * * *'  # 10:00 ART
+    - cron: '0 19 * * *'  # 16:00 ART
+  workflow_dispatch:
+
+jobs:
+  generar-articulos-html-y-sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install
+
+
+      - name: Generar 3 artículos HTML con Gemini
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/generate-html-articles-gemini.js --count=3
+
+
+      - name: Copiar artículos HTML generados a public/blog
+        run: |
+          mkdir -p public/blog
+          cp -u scripts/generated-html/*.html public/blog/ 2>/dev/null || echo "No hay archivos nuevos para copiar"
+
+      - name: Agregar meta categoría a los HTML
+        run: node scripts/add-category-meta.js
+
+      - name: Generar índice de artículos (index.json)
+        run: node scripts/generate-blog-index.js
+
+      - name: Publicar en Redes Sociales
+        env:
+          # Configura estos secretos en tu repositorio de GitHub
+          # -> Settings > Secrets and variables > Actions
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
+          REDDIT_SUBREDDIT: 'r/programming' # <-- Cambia esto por tu subreddit
+        run: node scripts/publish-to-socials.js
+
+      - name: Subir imágenes para redes sociales como Artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: social-media-images
+          path: public/social-images/
+
+
+      - name: Actualizar sitemap
+        run: node scripts/update_sitemap.js
+
+      - name: Copiar sitemap.xml a build/
+        run: |
+          mkdir -p build
+          cp public/sitemap.xml build/sitemap.xml
+
+      - name: Asegurar carpetas para Netlify
+        run: |
+          mkdir -p public/blog
+          touch public/blog/.keep
+
+      - name: Commit y push de artículos HTML y sitemap
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add public/blog public/sitemap.xml scripts/posted_articles.json
+          git commit -m "[bot] Artículos HTML y sitemap actualizados - $(date '+%Y-%m-%d %H:%M:%S') ART" || echo "Nada para commitear"
+          git push || echo "Nada para pushear"

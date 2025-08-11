@@ -1,541 +1,228 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import { useParams, Link, useLocation } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
-import { useSimpleArticles } from '@hooks/useSimpleArticles'
-
-// Función para extraer solo el contenido principal del HTML
-const extractMainContent = (html) => {
-  if (!html) return '<p style="color: #333;">No hay contenido disponible.</p>';
-
-  // Crear un elemento temporal para el parsing
-  const temp = document.createElement('div');
-  temp.innerHTML = html;
-
-  // Intentar encontrar el contenido principal
-  let content = temp.querySelector('article') ||
-                temp.querySelector('.article-content') ||
-                temp.querySelector('.post-content') ||
-                temp.querySelector('main') ||
-                temp.querySelector('body') ||
-                temp;
-
-  // Si encontramos body, buscar contenido más específico dentro
-  if (content.tagName === 'BODY') {
-    const betterContent = content.querySelector('article') ||
-                         content.querySelector('.content') ||
-                         content.querySelector('.post') ||
-                         content.querySelector('main') ||
-                         content;
-    content = betterContent;
-  }
-
-  // Limpiar elementos no deseados
-  const elementsToRemove = content.querySelectorAll(`
-    script, style, link[rel="stylesheet"], meta, title, head,
-    iframe, noscript, .ad, .ads, .advertisement, .comments,
-    .related-posts, .social-share, .share-buttons, .post-meta,
-    .post-tags, .author-box, .post-navigation, .pagination,
-    .wp-caption, .wp-block-embed, .wp-block-image, header,
-    footer, nav, .sidebar, .widget, .header, .footer, .nav
-  `);
-  elementsToRemove.forEach(el => el.remove());
-
-  // Corregir rutas de imágenes
-  const images = content.querySelectorAll('img');
-  images.forEach(img => {
-    const src = img.getAttribute('src');
-    if (src && !src.startsWith('http') && !src.startsWith('//') && !src.startsWith('/')) {
-      img.src = `/blog/${src}`;
-    }
-  });
-
-  // Aplicar estilos CSS directamente al contenido
-  const styledContent = `
-    <div class="article-content-wrapper">
-      ${content.innerHTML}
-    </div>
-    <style>
-      .article-content-wrapper {
-        line-height: 1.7;
-        color: #2d3748 !important;
-        font-size: 1.1rem;
-        max-width: none;
-      }
-      .article-content-wrapper * {
-        color: inherit !important;
-      }
-      .article-content-wrapper h1,
-      .article-content-wrapper h2,
-      .article-content-wrapper h3,
-      .article-content-wrapper h4,
-      .article-content-wrapper h5,
-      .article-content-wrapper h6 {
-        color: #1a202c !important;
-        font-weight: 600;
-        margin: 2rem 0 1rem 0;
-        line-height: 1.3;
-      }
-      .article-content-wrapper h1 { font-size: 2rem; }
-      .article-content-wrapper h2 { font-size: 1.75rem; }
-      .article-content-wrapper h3 { font-size: 1.5rem; }
-      .article-content-wrapper h4 { font-size: 1.25rem; }
-      .article-content-wrapper h5 { font-size: 1.125rem; }
-      .article-content-wrapper h6 { font-size: 1rem; }
-      .article-content-wrapper p {
-        margin-bottom: 1.5rem;
-        color: #2d3748 !important;
-        text-align: justify;
-      }
-      .article-content-wrapper a {
-        color: #4caf50 !important;
-        text-decoration: underline;
-        font-weight: 500;
-      }
-      .article-content-wrapper a:hover {
-        color: #388e3c !important;
-      }
-      .article-content-wrapper img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        margin: 2rem 0;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      .article-content-wrapper pre {
-        background: #f7fafc;
-        border: 1px solid #e2e8f0;
-        padding: 1.5rem;
-        border-radius: 8px;
-        overflow-x: auto;
-        margin: 2rem 0;
-        color: #2d3748 !important;
-      }
-      .article-content-wrapper code {
-        font-family: 'Fira Code', 'Consolas', monospace;
-        font-size: 0.9em;
-        background: #f7fafc;
-        padding: 0.25rem 0.5rem;
-        border-radius: 4px;
-        color: #2d3748 !important;
-      }
-      .article-content-wrapper pre code {
-        background: none;
-        padding: 0;
-      }
-      .article-content-wrapper blockquote {
-        border-left: 4px solid #4caf50;
-        padding: 1rem 1.5rem;
-        margin: 2rem 0;
-        background: #f7fafc;
-        font-style: italic;
-        color: #4a5568 !important;
-      }
-      .article-content-wrapper ul,
-      .article-content-wrapper ol {
-        margin: 1.5rem 0;
-        padding-left: 2rem;
-      }
-      .article-content-wrapper li {
-        margin: 0.5rem 0;
-        color: #2d3748 !important;
-      }
-      .article-content-wrapper table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 2rem 0;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        overflow: hidden;
-      }
-      .article-content-wrapper th,
-      .article-content-wrapper td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid #e2e8f0;
-        color: #2d3748 !important;
-      }
-      .article-content-wrapper th {
-        background: #f7fafc;
-        font-weight: 600;
-      }
-    </style>
-  `;
-
-  return styledContent;
-};
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import BaseLayout from "../layouts/BaseLayout";
+import ReactMarkdown from "react-markdown";
+import { getArticleFromHTML } from "../utils/getArticlesFromHTML.js";
+// import "../BlogIA.css"; // Removed to avoid module not found error
 
 export default function BlogArticle() {
   const { slug } = useParams();
-  const location = useLocation();
-  const { articles, loading, error } = useSimpleArticles();
   const [article, setArticle] = useState(null);
-  const [htmlContent, setHtmlContent] = useState(null); // HTML real del archivo
-  const [fetchError, setFetchError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!loading && articles.length > 0) {
-      const foundArticle = articles.find(a => a.slug === slug);
-      setArticle(foundArticle || null);
-      setHtmlContent(null);
-      setFetchError(false);
-      if (foundArticle && foundArticle.file) {
-        // Intentar cargar el HTML completo
-        fetch(`/blog/${foundArticle.file}`)
-          .then(res => {
-            if (!res.ok) throw new Error('No se pudo cargar el HTML');
-            return res.text();
-          })
-          .then(html => {
-            setHtmlContent(html);
-          })
-          .catch(() => {
-            setFetchError(true);
-          });
-      }
-    }
-  }, [loading, articles, slug]);
+    fetchArticle();
+  }, [slug]);
 
-  // Calcular artículos relacionados cuando cambie el artículo
-  const relatedArticles = useMemo(() => {
-    if (!article || !article.category) return [];
-    return articles.filter(a => a.category === article.category && a.slug !== slug).slice(0, 3);
-  }, [article, articles, slug]);
+  const fetchArticle = async () => {
+    try {
+      setLoading(true);
+      const article = await getArticleFromHTML(slug);
+      if (article) {
+        setArticle(article);
+      } else {
+        setError('Artículo no encontrado');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setError('Error al cargar el artículo');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
-    })
-  }
+    });
+  };
 
-  // Función para renderizar el contenido HTML de forma segura
-  const renderArticleContent = (htmlContent) => {
-    if (!htmlContent) return { __html: '<p style="color: #333;">No hay contenido disponible para mostrar.</p>' };
+  const shareArticle = (platform) => {
+    const url = window.location.href;
+    const title = article?.title || 'Artículo de hgaruna';
+    const text = article?.summary || 'Artículo sobre programación y desarrollo web';
 
-    const content = typeof htmlContent === 'string' ? htmlContent : '';
-    const cleanedContent = extractMainContent(content);
+    let shareUrl = '';
+    switch (platform) {
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+        break;
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+        break;
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+        break;
+      case 'whatsapp':
+        shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
+        break;
+      default:
+        return;
+    }
 
-    return { __html: cleanedContent };
+    window.open(shareUrl, '_blank', 'width=600,height=400');
   };
 
   if (loading) {
     return (
-      <div className="pt-20 min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-muted">Cargando artículo...</p>
+      <BaseLayout title="Cargando artículo..." description="Cargando artículo del public/blog IA">
+        <div className="container py-5">
+          <div className="text-center">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Cargando...</span>
+            </div>
+            <p className="mt-3">Cargando artículo...</p>
+          </div>
         </div>
-      </div>
+      </BaseLayout>
     );
   }
-  if (error) {
+
+  if (error || !article) {
     return (
-      <div className="pt-20 min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-500">Error: {error}</p>
-        </div>
-      </div>
-    );
-  }
-  if (!article) {
-    return (
-      <div className="pt-20 min-h-screen flex items-center justify-center">
-        <div className="text-center max-w-md mx-4">
-          <i className="fas fa-exclamation-triangle text-6xl text-yellow-500 mb-6"></i>
-          <h1 className="text-3xl font-bold mb-4">Artículo no encontrado</h1>
-          <p className="text-gray-600 mb-6">
-            Lo sentimos, el artículo que buscas no está disponible en este momento. 
-            Puede que la URL sea incorrecta o el artículo haya sido movido.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <BaseLayout title="Artículo no encontrado" description="El artículo solicitado no existe">
+        <div className="container py-5">
+          <div className="text-center">
+            <i className="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+            <h2>Artículo no encontrado</h2>
+            <p className="text-muted mb-4">
+              {error || 'El artículo que buscas no existe o ha sido eliminado.'}
+            </p>
             <Link to="/blog" className="btn btn-primary">
-              <i className="fas fa-arrow-left mr-2"></i>
-              Volver al Blog
-            </Link>
-            <Link to="/" className="btn btn-outline">
-              <i className="fas fa-home mr-2"></i>
-              Ir al Inicio
+              <i className="fas fa-arrow-left me-2"></i>
+              Volver al /blog
             </Link>
           </div>
         </div>
-      </div>
-    )
+      </BaseLayout>
+    );
   }
 
   return (
-    <>
-      <Helmet>
-        <title>{article.title} | Blog hgaruna</title>
-        <meta name="description" content={article.excerpt} />
-        <meta name="keywords" content={article.tags?.join(', ')} />
-        
-        {/* Open Graph */}
-        <meta property="og:title" content={article.title} />
-        <meta property="og:description" content={article.excerpt} />
-        <meta property="og:image" content={article.image} />
-        <meta property="og:type" content="article" />
-        
-        {/* Article Schema */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": article.title,
-            "description": article.excerpt,
-            "image": article.image,
-            "author": {
-              "@type": "Person",
-              "name": article.author
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "hgaruna",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
-              }
-            },
-            "datePublished": article.date,
-            "dateModified": article.date
-          })}
-        </script>
-      </Helmet>
-
-      <article className="pt-20">
-        {/* Breadcrumbs */}
-        <nav className="breadcrumbs py-4 bg-secondary">
-          <div className="container">
-            <div key="breadcrumb-home" className="breadcrumb-item">
-              <Link to="/" className="breadcrumb-link">Inicio</Link>
-            </div>
-            <div key="breadcrumb-blog" className="breadcrumb-item">
-              <Link to="/blog" className="breadcrumb-link">Blog</Link>
-            </div>
-            <div key="breadcrumb-current" className="breadcrumb-item">
-              <span className="breadcrumb-current">{article.title}</span>
-            </div>
-          </div>
+    <BaseLayout 
+      title={article.seo_title || article.title}
+      description={article.seo_description || article.summary}
+      keywords={article.seo_keywords?.join(', ') || article.tags?.join(', ')}
+    >
+      <div className="public/blog-article-container">
+        {/* Breadcrumb */}
+        <nav className="custom-breadcrumb">
+          <ul>
+            <li><Link to="/">Inicio</Link></li>
+            <li><Link to="/blog">Blog IA</Link></li>
+            <li className="active">{article.title}</li>
+          </ul>
         </nav>
 
         {/* Article Header */}
-        <header className="section-sm">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium mb-4">
-                  {article.category}
-                </div>
-                
-                <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-                  {article.title}
-                </h1>
-                
-                <div className="flex flex-wrap items-center justify-center gap-6 text-muted">
-                  <div key="meta-author" className="flex items-center gap-2">
-                    <i className="fas fa-user"></i>
-                    <span>{article.author}</span>
-                  </div>
-                  <div key="meta-date" className="flex items-center gap-2">
-                    <i className="fas fa-calendar"></i>
-                    <span>{formatDate(article.date)}</span>
-                  </div>
-                  <div key="meta-readtime" className="flex items-center gap-2">
-                    <i className="fas fa-clock"></i>
-                    <span>{article.readTime}</span>
-                  </div>
-                </div>
+        <article className="public/blog-article-custom">
+          <header className="article-header-custom">
+            <div className="article-header-inner">
+              {/* Category and Date */}
+              <div className="meta-row">
+                {article.category && (
+                  <span className="custom-badge custom-badge-primary">{article.category}</span>
+                )}
+                <span className="custom-date">
+                  <i className="fas fa-calendar-alt"></i> {formatDate(article.date)}
+                </span>
               </div>
+
+              {/* Title */}
+              <h1 className="article-title-custom">{article.title}</h1>
+
+              {/* Summary */}
+              {article.summary && (
+                <p className="article-summary-custom">{article.summary}</p>
+              )}
 
               {/* Featured Image */}
-              <div className="rounded-2xl overflow-hidden mb-8">
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="w-full h-96 object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* Article Content */}
-        <section className="section-sm">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
-              <div className="article-content-container">
-                {htmlContent ? (
-                  <div
-                    className="article-content-main"
-                    dangerouslySetInnerHTML={renderArticleContent(htmlContent)}
+              {article.image && (
+                <div className="article-image-custom">
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className="img-article-custom"
+                    style={{ maxHeight: '400px', width: '100%', objectFit: 'cover', borderRadius: '16px', boxShadow: '0 2px 16px #0002' }}
                   />
-                ) : article && article.excerpt && (article.file || fetchError) ? (
-                  <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-                    <div className="flex">
-                      <div className="flex-shrink-0">
-                        <svg key="warning-icon-preview" className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                      <div className="ml-3">
-                        <p className="text-sm text-yellow-700">
-                          No se pudo cargar el contenido completo del artículo. Estamos mostrando una vista previa.
-                        </p>
-                        <div className="mt-2 text-sm text-yellow-600">
-                          <p>{article.excerpt}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-                    <div className="flex">
-                      <div className="flex-shrink-0">
-                        <svg key="warning-icon-fallback" className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                      <div className="ml-3">
-                        <p className="text-sm text-yellow-700">
-                          No hay contenido disponible para mostrar.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                </div>
+              )}
+
+              {/* Meta Information */}
+              <div className="article-meta-custom">
+                <div className="author-info-custom">
+                  <span className="custom-author">
+                    <i className="fas fa-user"></i> Por {article.author || 'hgaruna'}
+                  </span>
+                  <span className="custom-ai">
+                    <i className="fas fa-robot"></i> Generado por IA
+                  </span>
+                </div>
+                <div className="share-buttons-custom">
+                  <span className="custom-share-label">Compartir:</span>
+                  <button onClick={() => shareArticle('twitter')} className="custom-share-btn twitter" title="Compartir en Twitter">
+                    <i className="fab fa-twitter"></i>
+                  </button>
+                  <button onClick={() => shareArticle('linkedin')} className="custom-share-btn linkedin" title="Compartir en LinkedIn">
+                    <i className="fab fa-linkedin"></i>
+                  </button>
+                  <button onClick={() => shareArticle('facebook')} className="custom-share-btn facebook" title="Compartir en Facebook">
+                    <i className="fab fa-facebook"></i>
+                  </button>
+                  <button onClick={() => shareArticle('whatsapp')} className="custom-share-btn whatsapp" title="Compartir en WhatsApp">
+                    <i className="fab fa-whatsapp"></i>
+                  </button>
+                </div>
               </div>
 
               {/* Tags */}
               {article.tags && article.tags.length > 0 && (
-                <div className="mt-12 pt-8 border-t border-light">
-                  <h3 className="text-lg font-semibold mb-4">Etiquetas:</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {article.tags.map((tag, index) => (
-                      <span
-                        key={`tag-${index}-${tag}`}
-                        className="bg-secondary text-primary px-3 py-1 rounded-full text-sm font-medium"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Share */}
-              <div className="mt-8 pt-8 border-t border-light">
-                <h3 className="text-lg font-semibold mb-4">Compartir artículo:</h3>
-                <div className="flex gap-3">
-                  <a
-                    key="share-twitter"
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-outline btn-sm"
-                  >
-                    <i className="fab fa-twitter mr-2"></i>
-                    Twitter
-                  </a>
-                  <a
-                    key="share-facebook"
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-outline btn-sm"
-                  >
-                    <i className="fab fa-facebook-f mr-2"></i>
-                    Facebook
-                  </a>
-                  <a
-                    key="share-linkedin"
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-outline btn-sm"
-                  >
-                    <i className="fab fa-linkedin-in mr-2"></i>
-                    LinkedIn
-                  </a>
-                  <a
-                    key="share-whatsapp"
-                    href={`https://wa.me/?text=${encodeURIComponent(`${article.title} - ${window.location.href}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-outline btn-sm"
-                  >
-                    <i className="fab fa-whatsapp mr-2"></i>
-                    WhatsApp
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Related Articles */}
-        {relatedArticles.length > 0 && (
-          <section className="section section-secondary">
-            <div className="container">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="text-2xl font-bold mb-8 text-center">Artículos Relacionados</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {relatedArticles.map((related) => (
-                    <div key={related.id} className="blog-card">
-                      <div className="blog-card-image">
-                        <img src={related.image} alt={related.title} />
-                        <div className="blog-card-badge">{related.category}</div>
-                      </div>
-                      <div className="blog-card-content">
-                        <h3 className="blog-card-title">
-                          <Link to={`/blog/${related.slug}`}>
-                            {related.title}
-                          </Link>
-                        </h3>
-                        <div className="blog-card-footer">
-                          <Link
-                            to={`/blog/${related.slug}`}
-                            className="btn btn-outline btn-sm"
-                          >
-                            Leer artículo
-                            <i className="fas fa-arrow-right ml-2"></i>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
+                <div className="article-tags-custom">
+                  {article.tags.map((tag, index) => (
+                    <span key={index} className="custom-badge custom-badge-tag">#{tag}</span>
                   ))}
                 </div>
-              </div>
+              )}
             </div>
-          </section>
-        )}
+          </header>
 
-        {/* CTA */}
-        <section className="section cta-section">
-          <div className="container">
-            <div className="cta-content">
-              <h2 className="section-title">¿Te Gustó Este Artículo?</h2>
-              <p className="section-subtitle">
-                Si necesitas ayuda con tu proyecto web, estamos aquí para ayudarte.
-              </p>
-              <div className="cta-buttons">
-                <a
-                  href="https://wa.me/+543541237972?text=Hola%2C%20leí%20su%20artículo%20y%20me%20interesa%20sus%20servicios"
-                  className="cta-button primary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-whatsapp"></i>
-                  Consultar Servicios
-                </a>
-                <Link to="/blog" className="cta-button secondary">
-                  <i className="fas fa-arrow-left"></i>
-                  Volver al Blog
-                </Link>
-              </div>
+          {/* Article Content */}
+          <div className="article-content-custom">
+            <div className="content-wrapper-custom">
+              <ReactMarkdown 
+                className="markdown-content-custom"
+                components={{
+                  h1: ({node, ...props}) => <h1 className="custom-h1" {...props} />,
+                  h2: ({node, ...props}) => <h2 className="custom-h2" {...props} />,
+                  h3: ({node, ...props}) => <h3 className="custom-h3" {...props} />,
+                  h4: ({node, ...props}) => <h4 className="custom-h4" {...props} />,
+                  p: ({node, ...props}) => <p className="custom-p" {...props} />,
+                  ul: ({node, ...props}) => <ul className="custom-ul" {...props} />,
+                  ol: ({node, ...props}) => <ol className="custom-ol" {...props} />,
+                  li: ({node, ...props}) => <li className="custom-li" {...props} />,
+                  blockquote: ({node, ...props}) => (
+                    <blockquote className="custom-blockquote" {...props} />
+                  ),
+                  code: ({node, ...props}) => (
+                    <code className="custom-code" {...props} />
+                  ),
+                  pre: ({node, ...props}) => (
+                    <pre className="custom-pre" {...props} />
+                  ),
+                  a: ({node, ...props}) => (
+                    <a className="custom-link" target="_blank" rel="noopener noreferrer" {...props} />
+                  ),
+                }}
+              >
+                {article.content}
+              </ReactMarkdown>
             </div>
           </div>
-        </section>
-      </article>
-    </>
-  )
-}
+        </article>
+      </div>
+    </BaseLayout>
+  );
+} 

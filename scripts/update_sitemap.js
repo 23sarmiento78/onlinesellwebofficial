@@ -5,8 +5,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ARTICLES_DIR = path.resolve(__dirname, '../public/blog');
-const SITEMAP_PATH = path.resolve(__dirname, '../public/optimized-sitemap.xml');
-const SITE_URL = process.env.SITE_URL || 'https://hgaruna.org';
+const SITEMAP_PATH = path.resolve(__dirname, '../public/sitemap.xml');
+const SITE_URL = 'https://www.hgaruna.org'; // <-- CORRECCIÓN: Usar el dominio con 'www'
 
 function getArticleSlugs() {
   try {
@@ -19,90 +19,66 @@ function getArticleSlugs() {
   }
 }
 
-function generateSitemap(articles) {
+function generateSitemap(urls) {
   const now = new Date().toISOString();
-  const pages = [
-    { url: '/', priority: '1.0', changefreq: 'daily' },
-    { url: '/blog', priority: '0.9', changefreq: 'daily' },
-    { url: '/contacto', priority: '0.7', changefreq: 'monthly' },
-    { url: '/planes', priority: '0.8', changefreq: 'monthly' }
-  ];
-
-  // Generar entradas para páginas estáticas
-  const staticPages = pages.map(page => `
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Páginas principales -->
   <url>
-    <loc>${SITE_URL}${page.url}</loc>
+    <loc>${SITE_URL}/</loc>
     <lastmod>${now}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
-  </url>`).join('');
-
-  // Generar entradas para artículos
-  const articleEntries = articles.map(article => {
-    const lastmod = article.lastmod || now;
-    return `
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
   <url>
-    <loc>${SITE_URL}/blog/${article.slug}</loc>
-    <lastmod>${lastmod}</lastmod>
+    <loc>${SITE_URL}/public/blog</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>${SITE_URL}/contacto</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>${SITE_URL}/planes</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Artículos del public/blog -->
+${urls
+    .map( // CORRECCIÓN: La URL pública no debe incluir '/public'
+      url => `  <url>
+    <loc>${url}</loc>
+    <lastmod>${now}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>`;
-  }).join('');
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${staticPages}${articleEntries}
+  </url>`
+    )
+    .join('\n')}
 </urlset>`;
 }
 
-async function getArticleMetadata(slug) {
+function main() {
   try {
-    const filePath = path.join(ARTICLES_DIR, `${slug}.html`);
-    const content = fs.readFileSync(filePath, 'utf8');
-    const lastmod = fs.statSync(filePath).mtime.toISOString();
-    
-    // Extraer título del artículo para mejor legibilidad en logs
-    const titleMatch = content.match(/<title>(.*?)<\/title>/i);
-    const title = titleMatch ? titleMatch[1].replace('| Blog IA - hgaruna', '').trim() : slug;
-    
-    return {
-      slug: slug.replace(/\.html$/, ''),
-      lastmod,
-      title
-    };
-  } catch (error) {
-    console.error(`❌ Error procesando artículo ${slug}:`, error.message);
-    return null;
-  }
-}
-
-async function main() {
-  try {
-    console.log('🔄 Iniciando actualización del sitemap...');
-    
-    // Obtener slugs de artículos
     const slugs = getArticleSlugs();
+    const urls = slugs.map(slug => `${SITE_URL}/blog/${slug}.html`);
+    
     console.log(`📝 Encontrados ${slugs.length} artículos HTML`);
+    console.log('📄 URLs de artículos:');
+    urls.forEach(url => console.log(`  - ${url}`));
     
-    // Obtener metadatos de cada artículo
-    const articles = [];
-    for (const slug of slugs) {
-      const metadata = await getArticleMetadata(slug);
-      if (metadata) {
-        articles.push(metadata);
-        console.log(`  - ${metadata.title}`);
-      }
-    }
-    
-    // Generar sitemap
-    const sitemap = generateSitemap(articles);
+    const sitemap = generateSitemap(urls);
     fs.writeFileSync(SITEMAP_PATH, sitemap);
     
-    console.log(`\n✅ Sitemap actualizado: ${SITEMAP_PATH}`);
-    console.log(`📊 Total de URLs: ${articles.length + 4} (incluyendo páginas principales)`);
+    console.log(`✅ Sitemap actualizado: ${SITEMAP_PATH}`);
+    console.log(`📊 Total de URLs: ${urls.length + 4} (incluyendo páginas principales)`);
     
   } catch (error) {
     console.error('❌ Error actualizando sitemap:', error);
-    process.exit(1);
   }
 }
 

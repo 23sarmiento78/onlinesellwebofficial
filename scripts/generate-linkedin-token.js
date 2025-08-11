@@ -4,7 +4,7 @@ const querystring = require('querystring');
 // Configuración - Usar variables de entorno
 const CLIENT_ID = process.env.LINKEDIN_CLIENT_ID || 'TU_CLIENT_ID_AQUI';
 const CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET || 'TU_CLIENT_SECRET_AQUI';
-const REDIRECT_URI = process.env.LINKEDIN_REDIRECT_URI || 'https://tu-proyecto.vercel.app/api/linkedin-callback'; // <-- CAMBIAR A VERSEL
+const REDIRECT_URI = process.env.LINKEDIN_REDIRECT_URI || 'https://tu-dominio.netlify.app/.netlify/functions/linkedin-callback';
 
 // Función para intercambiar código por token
 function exchangeCodeForToken(authorizationCode) {

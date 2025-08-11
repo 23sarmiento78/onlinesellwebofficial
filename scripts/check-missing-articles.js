@@ -8,7 +8,7 @@ const BLOG_DIR = path.resolve(__dirname, '..//public/blog');
 
 // Lista de archivos que deberían existir (basada en la lista hardcodeada)
 const expectedFiles = [
-
+  '2025-07-19-static-analysis-eslint-y-sonarqube.html',
   '2025-07-19-web-performance-core-web-vitals.html',
   '2025-07-19-low-codeno-code-plataformas-de-desarrollo.html',
   '2025-07-19-angular-18-nuevas-funcionalidades.html',

@@ -3,317 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
     <title>{{SEO_TITLE}}</title>
     <meta name="description" content="{{SEO_DESCRIPTION}}">
     <meta name="keywords" content="{{SEO_KEYWORDS}}">
-    <meta name="author" content="{{AUTHOR}}">
+    <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
     
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="{{CANONICAL_URL}}">
     <meta property="og:title" content="{{SEO_TITLE}}">
     <meta property="og:description" content="{{SEO_DESCRIPTION}}">
-    <meta property="og:image" content="{{SITE_URL}}{{FEATURED_IMAGE}}"> <meta property="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="{{FEATURED_IMAGE}}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{CANONICAL_URL}}">
     <meta property="twitter:title" content="{{SEO_TITLE}}">
     <meta property="twitter:description" content="{{SEO_DESCRIPTION}}">
-    <meta property="twitter:image" content="{{SITE_URL}}{{FEATURED_IMAGE}}"> <link rel="canonical" href="{{CANONICAL_URL}}">
+    <meta property="twitter:image" content="{{FEATURED_IMAGE}}">
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{CANONICAL_URL}}">
     
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
-
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root {
-            --primary: #10b981;
-            --primary-dark: #059669;
-            --dark-bg: #0f172a;
-            --darker-bg: #0a1122;
-            --card-bg: #1e293b;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --border-color: #334155;
-        }
-        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.7;
-            color: var(--text-primary);
-            background-color: var(--dark-bg);
-            margin: 0;
-            padding: 0;
-            display: flex; /* For sticky footer or overall layout if needed */
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Ensure main content pushes footer down */
-        main {
-            flex: 1; /* Allow main content to grow */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
         }
         
-        .container {
-            max-width: 1140px;
-        }
-        
-        /* Header */
         .article-header {
-            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 6rem 0 4rem;
+            padding: 4rem 0;
             margin-bottom: 3rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .article-title {
-            font-size: 2.75rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            background: linear-gradient(90deg, #ffffff, #a7f3d0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         
         .article-meta {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin: 2rem 0;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
         }
         
-        .article-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .article-meta i {
-            color: var(--primary);
-        }
-        
-        /* Content */
         .article-content {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: var(--text-secondary);
-            max-width: 800px; /* Constrain width for readability */
-            margin: 0 auto; /* Center content */
-            padding: 0 15px; /* Add some horizontal padding for smaller screens */
         }
         
-        .article-content h1, 
-        .article-content h2, 
-        .article-content h3, 
-        .article-content h4 {
-            color: var(--text-primary);
-            margin-top: 2.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
         }
         
-        /* IMPORTANT: Remove h1 styling from content if you only use h1 in header */
-        /* If Gemini generates h1 in content, this might be okay, but typically you have one h1 per page */
-        .article-content h1 { /* This styling applies to any h1 generated in {{ARTICLE_CONTENT}} */
+        .article-content h1 {
             font-size: 2.5rem;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 0.75rem;
-            display: inline-block;
-            width: 100%; /* Ensure border-bottom spans full width */
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
         }
         
         .article-content h2 {
             font-size: 2rem;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-        
-        .article-content h2::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0.5rem;
-            height: calc(100% - 1rem);
-            width: 4px;
-            background: var(--primary);
-            border-radius: 2px;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
         }
         
         .article-content h3 {
             font-size: 1.5rem;
-            color: var(--primary);
+            color: #667eea;
         }
         
         .article-content p {
-            margin-bottom: 1.75rem;
-            font-size: 1.1rem;
-            line-height: 1.8;
+            margin-bottom: 1.5rem;
         }
         
-        .article-content a {
-            color: var(--primary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-bottom: 1px dotted var(--primary);
-        }
-        
-        .article-content a:hover {
-            color: #a7f3d0;
-            border-bottom-color: #a7f3d0;
-        }
-        
-        .article-content ul, 
-        .article-content ol {
-            margin-bottom: 2rem;
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
             padding-left: 2rem;
         }
         
         .article-content li {
-            margin-bottom: 0.75rem;
-            position: relative;
-        }
-        
-        .article-content ul li::before {
-            content: '•';
-            color: var(--primary);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-        }
-        
-        .article-content ol {
-            counter-reset: item;
-        }
-        
-        .article-content ol li {
-            counter-increment: item;
-        }
-        
-        .article-content ol li::before {
-            content: counter(item) '.';
-            color: var(--primary);
-            font-weight: bold;
-            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
         }
         
         .article-content blockquote {
-            border-left: 4px solid var(--primary);
-            padding: 1.5rem 2rem;
-            margin: 2.5rem 0;
-            background: rgba(16, 185, 129, 0.05);
-            border-radius: 0 8px 8px 0;
-            font-style: italic;
-            color: var(--text-primary);
-        }
-        
-        .article-content blockquote p:last-child {
-            margin-bottom: 0;
-        }
-        
-        .article-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
             margin: 2rem 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--border-color);
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
         }
         
         .article-content pre {
-            background: var(--darker-bg);
+            background: #2c3e50;
+            color: #ecf0f1;
             padding: 1.5rem;
             border-radius: 8px;
             overflow-x: auto;
             margin: 2rem 0;
-            border: 1px solid var(--border-color);
-            position: relative; /* For copy button */
-        }
-
-        /* Style for code block copy button */
-        .copy-code-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background-color: var(--primary-dark);
-            color: white;
-            border: none;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.8em;
-            cursor: pointer;
-            opacity: 0; /* Hidden by default */
-            transition: opacity 0.3s ease;
-        }
-        
-        .article-content pre:hover .copy-code-btn {
-            opacity: 1; /* Show on hover */
-        }
-        
-        .article-content code {
-            font-family: 'Fira Code', 'Courier New', monospace;
-            background: rgba(16, 185, 129, 0.1);
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.9em;
-            color: #a7f3d0;
         }
         
         .article-content pre code {
             background: none;
+            color: inherit;
             padding: 0;
-            border-radius: 0;
-            white-space: pre-wrap; /* Ensures code wraps within the pre tag */
-            word-wrap: break-word; /* For very long lines */
         }
         
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            cursor: pointer;
-            gap: 0.5rem;
+        .tags-container {
+            margin: 2rem 0;
         }
         
-        .btn-primary {
-            background: var(--primary);
+        .tag {
+            display: inline-block;
+            background: #667eea;
             color: white;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
         }
         
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-            color: white; /* Ensure text color remains white on hover */
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn-outline:hover {
-            background: rgba(16, 185, 129, 0.1);
-            transform: translateY(-2px);
-            color: var(--primary); /* Ensure text color remains primary on hover */
-        }
-        
-        /* Back button */
         .back-button {
             position: fixed;
             top: 2rem;
@@ -321,364 +146,213 @@
             z-index: 1000;
         }
         
-        .back-button .btn {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-        }
-        
-        .back-button .btn:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
-        
-        /* Share buttons */
         .share-buttons {
-            display: flex;
-            gap: 1rem;
-            margin: 3rem 0;
-            flex-wrap: wrap;
-            align-items: center; /* Align items vertically in the row */
-        }
-
-        .share-buttons h4 {
-            margin-bottom: 0; /* Remove bottom margin from h4 in share buttons */
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
         }
         
-        .share-button { /* These styles are for the old method, replaced by btn-outline-primary */
-            /* Removed as they are not used with the Bootstrap button classes */
-        }
-        
-        /* Tags */
-        .article-tags {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            margin: 2rem 0 3rem;
-            padding: 0 15px; /* Add some horizontal padding for smaller screens */
-        }
-        
-        .tag {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--primary);
-            padding: 0.35rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-        
-        .tag:hover {
-            background: var(--primary);
-            color: white;
-            text-decoration: none; /* Prevent underline on hover */
-        }
-        
-        /* Author Card */
-        .author-card {
-            background: var(--card-bg); /* Use a more appropriate background variable */
-            color: var(--text-primary);
-            padding: 2.5rem; /* Increased padding */
-            border-radius: 10px; /* More rounded corners */
-            margin-top: 4rem; /* More space above */
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Add some shadow */
-            border: 1px solid var(--border-color);
-        }
-
-        .author-card img {
-            border: 2px solid var(--primary); /* Add border to avatar */
-            flex-shrink: 0; /* Prevent image from shrinking */
-        }
-
-        .author-card .social-links a {
-            color: var(--primary);
-            transition: color 0.3s ease;
-        }
-
-        .author-card .social-links a:hover {
-            color: #a7f3d0;
-        }
-        
-        /* Footer */
-        .article-footer {
-            margin-top: 4rem;
-            padding: 3rem 0;
-            border-top: 1px solid var(--border-color);
-            background-color: var(--darker-bg); /* Give footer a distinct background */
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             text-align: center;
-        }
-
-        .article-footer .form-control-lg {
-            max-width: 400px; /* Constrain newsletter input width */
-            margin: 0 auto;
-            background-color: var(--dark-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-        }
-
-        .article-footer .form-control-lg::placeholder {
-            color: var(--text-secondary);
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
         }
         
-        /* Responsive */
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
         @media (max-width: 768px) {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
             .article-header {
-                padding: 5rem 0 3rem;
-            }
-            
-            .article-title {
-                font-size: 2rem;
-            }
-            
-            .article-meta {
-                flex-direction: column;
-                align-items: flex-start; /* Align left for better mobile appearance */
-                gap: 0.75rem;
-            }
-            
-            .back-button {
-                top: 1rem;
-                left: 1rem;
-            }
-            
-            .back-button .btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-            
-            .share-buttons {
-                justify-content: center;
-                flex-direction: column; /* Stack share buttons on small screens */
-                align-items: stretch; /* Make them full width */
-            }
-
-            .share-buttons .d-flex {
-                justify-content: center; /* Center buttons within the flex container */
-                width: 100%;
-            }
-
-            .share-buttons .btn {
-                flex-grow: 1; /* Allow buttons to expand */
-                max-width: 150px; /* Limit max width for smaller buttons */
-            }
-            
-            .article-content {
-                font-size: 1rem;
-                padding: 0 1rem; /* Adjust padding for mobile */
+                padding: 2rem 0;
             }
             
             .article-content h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .article-content h2 {
                 font-size: 1.5rem;
             }
-            
-            .article-content h3 {
-                font-size: 1.3rem;
-            }
-
-            .author-card {
-                padding: 1.5rem;
-            }
-
-            .author-card .d-flex {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .author-card img {
-                margin-bottom: 1rem;
-                margin-right: 0 !important; /* Override me-3 */
-            }
         }
-        /* Mobile specific adjustments for content width */
-        @media (max-width: 576px) {
-            .article-content {
-                padding: 0 0.5rem; /* Even tighter padding for very small screens */
-            }
-        }
-
     </style>
 </head>
 <body>
+    <!-- Botón de regreso -->
     <div class="back-button">
-        <a href="/blog" class="btn" aria-label="Volver al Blog">
-            <i class="fas fa-arrow-left" aria-hidden="true"></i> Volver al Blog
+        <a href="/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
         </a>
     </div>
-
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
     <header class="article-header">
         <div class="container">
             <div class="row">
-                <div class="col-lg-10 mx-auto text-center">
-                    <h1 class="article-title">{{ARTICLE_TITLE}}</h1>
-                    <div class="article-meta justify-content-center">
-                        <span><i class="far fa-calendar-alt" aria-hidden="true"></i> {{PUBLISH_DATE}}</span> <span><i class="far fa-clock" aria-hidden="true"></i> {{READING_TIME}} min de lectura</span>
-                        <span><i class="far fa-user" aria-hidden="true"></i> Por {{AUTHOR}}</span>
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark fs-6">{{CATEGORY}}</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">{{ARTICLE_TITLE}}</h1>
+                    <p class="lead mb-4">{{ARTICLE_SUMMARY}}</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por {{AUTHOR}}
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            {{PUBLISH_DATE}}
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
+    
+    <!-- Contenido principal -->
     <main class="container">
         <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <div class="featured-image mb-5 text-center">
-                    <img src="{{FEATURED_IMAGE}}" alt="{{SEO_DESCRIPTION}}" class="img-fluid rounded-3"> </div>
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="{{FEATURED_IMAGE}}" alt="{{ARTICLE_TITLE}}" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                </div>
                 
+                <!-- Meta información -->
+                <div class="article-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Categoría:</strong> {{CATEGORY}}<br>
+                            <strong>Autor:</strong> {{AUTHOR}}<br>
+                            <strong>Fecha:</strong> {{PUBLISH_DATE}}
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de lectura:</strong> {{READING_TIME}} min<br>
+                            <strong>Palabras:</strong> {{WORD_COUNT}}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    {{TAGS_HTML}}
+                </div>
+                
+                <!-- Contenido del artículo -->
                 <article class="article-content">
                     {{ARTICLE_CONTENT}}
                 </article>
                 
-                <div class="article-tags">
-                    {{TAGS_HTML}} 
-                </div>
-                
-                <div class="share-buttons mb-5">
-                    <h4 class="mb-3">Compartir este artículo:</h4>
-                    <div class="d-flex flex-wrap gap-2">
-                        <a href="#" onclick="shareOnTwitter(); return false;" class="btn btn-primary share-twitter"> <i class="fab fa-twitter me-1" aria-hidden="true"></i> Twitter
-                        </a>
-                        <a href="#" onclick="shareOnFacebook(); return false;" class="btn btn-primary share-facebook">
-                            <i class="fab fa-facebook-f me-1" aria-hidden="true"></i> Facebook
-                        </a>
-                        <a href="#" onclick="shareOnLinkedIn(); return false;" class="btn btn-primary share-linkedin">
-                            <i class="fab fa-linkedin-in me-1" aria-hidden="true"></i> LinkedIn
-                        </a>
-                        <a href="#" onclick="shareOnWhatsApp(); return false;" class="btn btn-primary share-whatsapp">
-                            <i class="fab fa-whatsapp me-1" aria-hidden="true"></i> WhatsApp
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="author-card bg-dark p-4 rounded-3 mt-5">
-                    <div class="d-flex align-items-center">
-                        <img src="/logos-he-imagenes/logo.png" alt="Logo de hgaruna, desarrollador web y escritor técnico" class="rounded-circle me-3" width="80" height="80" loading="lazy"> <div>
-                            <h4 class="mb-1">hgaruna</h4>
-                            <p class="text-muted mb-2">Experto en desarrollo web y tecnología</p>
-                            <div class="social-links">
-                                <a href="https://twitter.com/hgaruna" class="text-primary me-3" target="_blank" rel="noopener noreferrer nofollow" aria-label="Twitter de hgaruna"> <i class="fab fa-twitter fa-lg" aria-hidden="true"></i>
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
                                 </a>
-                                <a href="https://github.com/hgaruna" class="text-primary me-3" target="_blank" rel="noopener noreferrer nofollow" aria-label="GitHub de hgaruna">
-                                    <i class="fab fa-github fa-lg" aria-hidden="true"></i>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
                                 </a>
-                                <a href="https://linkedin.com/in/hgaruna" class="text-primary" target="_blank" rel="noopener noreferrer nofollow" aria-label="LinkedIn de hgaruna">
-                                    <i class="fab fa-linkedin-in fa-lg" aria-hidden="true"></i>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
                                 </a>
                             </div>
                         </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
+                        </div>
                     </div>
-                </div>
+                </footer>
             </div>
         </div>
     </main>
     
-    <footer class="article-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h3 class="mb-4">¿Te gustó este artículo?</h3>
-                    <p class="lead mb-4">Suscríbete a nuestro boletín para recibir más contenido como este directamente en tu correo.</p>
-                    <form class="row g-3 justify-content-center">
-                        <div class="col-md-8">
-                            <label for="newsletterEmail" class="visually-hidden">Tu correo electrónico</label> <input type="email" class="form-control form-control-lg" id="newsletterEmail" placeholder="Tu correo electrónico" required aria-label="Introduce tu correo electrónico para suscribirte">
-                        </div>
-                        <div class="col-md-auto">
-                            <button type="submit" class="btn btn-primary btn-lg">Suscribirme</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Obtener el título y la URL actual
-        const currentUrl = encodeURIComponent(window.location.href);
-        const currentTitle = encodeURIComponent(document.title);
-        
-        // Función para compartir en Twitter
+        // Funciones de compartir
         function shareOnTwitter() {
-            const text = `${currentTitle} por @hgaruna`;
-            window.open(`https://twitter.com/intent/tweet?url=${currentUrl}&text=${text}`, '_blank', 'width=550,height=420');
-            return false; // Prevent default link behavior
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('{{ARTICLE_TITLE}}');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
         }
         
-        // Función para compartir en Facebook
         function shareOnFacebook() {
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`, '_blank', 'width=600,height=500');
-            return false;
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
         }
         
-        // Función para compartir en LinkedIn
         function shareOnLinkedIn() {
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`, '_blank', 'width=600,height=500');
-            return false;
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('{{ARTICLE_TITLE}}');
+            const summary = encodeURIComponent('{{SEO_DESCRIPTION}}');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
         }
         
-        // Función para compartir en WhatsApp
         function shareOnWhatsApp() {
-            const text = `${currentTitle} - ${currentUrl}`;
-            window.open(`https://wa.me/?text=${text}`, '_blank');
-            return false;
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('{{ARTICLE_TITLE}} - {{SEO_DESCRIPTION}}');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
         }
         
-        // Add copy-to-clipboard functionality to code blocks
+        // Actualizar URLs de compartir con la URL actual
         document.addEventListener('DOMContentLoaded', function() {
-            // Apply integrity attributes to local scripts if any (not applicable here as all are external)
-            
-            // Share buttons: the onclick functions already use currentUrl, so no need for this block unless templating variables were still there.
-            // Keeping the original logic just in case, but it's redundant with the `const currentUrl = encodeURIComponent(window.location.href);`
-            // and direct calls.
-            /*
+            const currentUrl = window.location.href;
             document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
-                const onclick = link.getAttribute('onclick');
-                link.setAttribute('onclick', onclick.replace(/{{CANONICAL_URL}}/g, window.location.href));
-            });
-            */
-
-            // Copy code to clipboard
-            document.querySelectorAll('pre').forEach(function(preBlock) {
-                const button = document.createElement('button');
-                button.className = 'copy-code-btn';
-                button.textContent = 'Copiar';
-                preBlock.appendChild(button);
-
-                button.addEventListener('click', function() {
-                    const code = preBlock.querySelector('code').innerText;
-                    navigator.clipboard.writeText(code).then(function() {
-                        button.textContent = '¡Copiado!';
-                        setTimeout(function() {
-                            button.textContent = 'Copiar';
-                        }, 2000);
-                    }).catch(function(err) {
-                        console.error('Error al copiar el código:', err);
-                    });
-                });
-            });
-
-            // Smooth scroll for internal links (already present, just ensure it works)
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
+                link.href = '#';
             });
         });
     </script>
 </body>
-</html>
+</html> 

@@ -1,147 +1,60 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { ARTICLE_CATEGORIES } from '@utils/articleGenerator'
-import './NavBar.css'
+import React, { useState, useEffect } from 'react';
+import './NavBar.css';
 
 export default function NavBar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [showBlogDropdown, setShowBlogDropdown] = useState(false)
-  const location = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const handleToggle = () => {
+    setMenuOpen(!menuOpen);
+  };
 
-  useEffect(() => {
-    setIsOpen(false)
-  }, [location])
+  const handleClose = () => {
+    setMenuOpen(false);
+  };
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
-
-  const handleBlogButtonClick = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setShowBlogDropdown(!showBlogDropdown)
-  }
-
-  // Cerrar el menú al hacer clic fuera de él
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (showBlogDropdown && !e.target.closest('.dropdown-wrapper')) {
-        setShowBlogDropdown(false)
-      }
-    }
-
-    document.addEventListener('click', handleClickOutside)
-    return () => {
-      document.removeEventListener('click', handleClickOutside)
-    }
-  }, [showBlogDropdown])
-
-  const navLinks = [
-    { to: '/', label: 'Inicio' },
-    { to: '/planes', label: 'Planes' },
-    {
-      to: '/blog',
-      label: 'Blog',
-      dropdown: true,
-      items: [
-        { to: '/blog', label: 'Todos los Artículos', icon: 'fas fa-list' },
-        { type: 'divider' },
-        ...Object.entries(ARTICLE_CATEGORIES).map(([key, category]) => ({
-          to: `/blog/categoria/${key}`,
-          label: category.name,
-          icon: category.icon
-        }))
-      ]
-    },
-    { to: '/contacto', label: 'Contacto' },
-  ]
+  const handleLinkClick = () => {
+    setMenuOpen(false);
+  };
 
   return (
     <>
-      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="navbar-container container">
-          {/* Brand */}
-          <Link to="/" className="navbar-brand">
-            <img src="/logos-he-imagenes/logo3.png" alt="hgaruna" />
+      <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
+        <div className="container nav-flex">
+          {/* Logo */}
+          <a className="navbar-brand" href="/">
+            <img src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo de hgaruna" />
             <span>hgaruna</span>
-          </Link>
+          </a>
 
-          {/* Desktop Navigation */}
-          <ul className="navbar-nav">
-            {navLinks.map((link) => (
-              <li
-                key={link.to}
-                className={`nav-item ${link.dropdown ? 'nav-dropdown' : ''}`}
-              >
-                {link.dropdown ? (
-                  <div className="dropdown-wrapper">
-                    <button 
-                      className={`nav-link ${location.pathname.startsWith(link.to) ? 'active' : ''} dropdown-toggle`}
-                      onClick={handleBlogButtonClick}
-                      aria-expanded={showBlogDropdown}
-                      aria-haspopup="true"
-                    >
-                      {link.label}
-                      <i className={`fas fa-chevron-down ml-1 ${showBlogDropdown ? 'rotate-180' : ''}`}></i>
-                    </button>
-                    <div 
-                      className={`nav-dropdown-menu ${showBlogDropdown ? 'show' : ''}`}
-                    >
-                        {link.items.map((item, index) => (
-                          item.type === 'divider' ? (
-                            <div key={index} className="nav-dropdown-divider"></div>
-                          ) : (
-                            <Link
-                              key={item.to}
-                              to={item.to}
-                              className={`nav-dropdown-item ${location.pathname === item.to ? 'active' : ''}`}
-                            >
-                              <i className={item.icon}></i>
-                              {item.label}
-                            </Link>
-                          )
-                        ))}
-                    </div>
-                  </div>
-                ) : (
-                  <Link
-                    to={link.to}
-                    className={`nav-link ${location.pathname === link.to ? 'active' : ''}`}
-                  >
-                    {link.label}
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
-
-          {/* CTA Button */}
-          <div className="navbar-cta">
-            <a
-              href="https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio"
-              className="btn btn-primary btn-sm"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="fab fa-whatsapp"></i>
-              Consulta Gratis
-            </a>
+          {/* Menú Desktop */}
+          <div className="navbar-menu desktop-menu">
+            <ul className="main-nav">
+              <li><a href="/" className="nav-link">Inicio</a></li>
+              <li><a href="/blog" className="nav-link">Blog IA</a></li>
+              <li><a href="/planes" className="nav-link">Planes</a></li>
+              <li><a href="/legal" className="nav-link">Legal</a></li>
+            </ul>
+            <div className="nav-actions">
+              <a href="https://wa.link/6t7cxa" className="btn-filled" target="_blank" rel="noopener">
+                <i className="fab fa-whatsapp"></i>
+                Cotizar Ahora
+              </a>
+            </div>
           </div>
 
-          {/* Mobile Toggle */}
-          <button
-            className={`navbar-toggle ${isOpen ? 'active' : ''}`}
-            onClick={toggleMenu}
+          {/* Botón móvil */}
+          <button 
+            className={`navbar-toggler${menuOpen ? ' active' : ''}`} 
+            onClick={handleToggle}
             aria-label="Toggle menu"
           >
             <span></span>
@@ -151,38 +64,37 @@ export default function NavBar() {
         </div>
       </nav>
 
-      {/* Mobile Navigation */}
-      <div className={`mobile-nav ${isOpen ? 'open' : ''}`}>
-        <ul className="mobile-nav-list">
-          {navLinks.map((link) => (
-            <li key={link.to}>
-              <Link
-                to={link.to}
-                className={`nav-link ${location.pathname === link.to ? 'active' : ''}`}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-          <li>
-            <a
-              href="https://wa.me/+543541237972?text=Hola%2C%20necesito%20un%20sitio%20web%20para%20mi%20negocio"
-              className="nav-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+      {/* Sidebar móvil */}
+      <div className={`mobile-sidebar${menuOpen ? ' open' : ''}`}>
+        <div className="sidebar-header">
+          <div className="sidebar-logo">
+            <img src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo" />
+            <span>hgaruna</span>
+          </div>
+          <button className="sidebar-close" onClick={handleClose}>
+            <i className="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div className="sidebar-content">
+          <ul className="sidebar-menu">
+            <li><a href="/" onClick={handleLinkClick}>Inicio</a></li>
+            <li><a href="/blog" onClick={handleLinkClick}>Blog IA</a></li>
+            <li><a href="/planes" onClick={handleLinkClick}>Planes</a></li>
+            <li><a href="/legal" onClick={handleLinkClick}>Legal</a></li>
+          </ul>
+          
+          <div className="sidebar-cta">
+            <a href="https://wa.link/6t7cxa" onClick={handleLinkClick} target="_blank" rel="noopener">
               <i className="fab fa-whatsapp"></i>
-              Consulta Gratis
+              Cotizar Ahora
             </a>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
 
-      {/* Mobile Overlay */}
-      <div
-        className={`mobile-overlay ${isOpen ? 'active' : ''}`}
-        onClick={() => setIsOpen(false)}
-      />
+      {/* Overlay */}
+      <div className={`sidebar-overlay${menuOpen ? ' active' : ''}`} onClick={handleClose}></div>
     </>
-  )
-}
+  );
+} 

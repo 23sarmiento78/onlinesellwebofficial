@@ -1,41 +1,71 @@
 {
-  "name": "hgaruna-dev",
-  "version": "2.0.0",
-  "type": "module",
+  "name": "proyect",
+  "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "serve": "vite preview",
-    "update-categories": "node scripts/updateArticleCategories.js",
-    "regenerate-blog-index": "node scripts/auto-regenerate-blog-index.cjs",
-    "regenerate-blog-index-force": "node scripts/auto-regenerate-blog-index.cjs --force",
-    "generate-articles": "node scripts/generate-articles-from-keywords.js",
-    "analyze-keywords": "node scripts/advanced-keyword-analysis.js"
-  },
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
-    "axios": "^1.11.0",
-    "dotenv": "^17.2.1",
+    "@ant-design/icons": "^5.3.7",
+    "@ant-design/pro-components": "^2.6.4",
+    "@auth0/auth0-spa-js": "^2.1.3",
+    "@builder.io/react": "^3.2.7",
+    "@builder.io/sdk": "^2.2.3",
+    "bootstrap": "^5.3.3",
+    "cron-parser": "^4.9.0",
+    "globby": "^14.1.0",
+    "google-auth-library": "^9.4.1",
+    "googleapis": "^129.0.0",
+    "gray-matter": "^4.0.3",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.2.0",
+    "marked": "^12.0.2",
+    "mongodb": "^5.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
-    "react-icons": "^5.5.0",
     "react-markdown": "^9.1.0",
-    "react-router-dom": "^6.21.3",
-    "vite-plugin-static-copy": "^3.1.1"
+    "react-router-dom": "^6.23.1",
+    "react-scripts": "^0.0.0",
+    "sharp": "^0.34.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "generate-articles": "node scripts/generate-static-articles.js",
+    "generate-html-articles": "node scripts/generate-html-articles.js",
+    "update-articles": "node scripts/update-article-list.js",
+    "build-with-articles": "npm run generate-articles && npm run generate-html-articles && npm run build",
+    "publish-socials": "node scripts/publish-to-socials-modern.js",
+    "get-reddit-token": "node get_reddit_token_modern.js"
   },
   "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.7.0",
-    "cheerio": "^1.0.0-rc.12",
-    "glob": "^10.3.10",
-    "terser": "^5.31.3",
-    "vite": "^5.4.19"
+    "axios": "^1.6.5",
+    "netlify-plugin-formspree": "^0.0.3",
+    "xml2js": "^0.6.2"
   },
-  "engines": {
-    "node": ">=20.0.0"
-  }
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/23sarmiento78/onlinesellwebofficial.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/23sarmiento78/onlinesellwebofficial/issues"
+  },
+  "homepage": "/"
 }

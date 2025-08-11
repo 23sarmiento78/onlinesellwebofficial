@@ -1,56 +1,34 @@
-# Dependencies
+# Dependencias
 node_modules/
-.pnp
-.pnp.js
 
-# Testing
-coverage/
-
-# Production builds
-dist/
-build/
-
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
+# Archivos de sistema
 .DS_Store
 Thumbs.db
 
-# Logs
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Archivos de log
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
+# Directorios de IDE
+.idea/
+.vscode/
+*.swp
+*.swo
 
-# Cache
-.npm
-.eslintcache
-.stylelintcache
+# Archivos de construcción
+/dist
+/build
 
-# Vite
-.vite/
+# Archivos temporales
+.tmp
+.temp
 
-# Vercel
-.vercel
-
-# Temporary folders
-tmp/
-temp/
+# Local Netlify folder
+.netlify

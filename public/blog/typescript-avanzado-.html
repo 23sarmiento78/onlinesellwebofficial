@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="category" content="Frontend">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeScript Avanzado: Patrones y Mejores Prácticas</title>
+    <meta name="description" content="TypeScript, una superconjunto de JavaScript, ofrece ventajas significativas para el desarrollo frontend al agregar tipado estático.  Este artículo pro...">
+    <meta name="keywords" content="JavaScript">
+    <meta name="author" content="hgaruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hgaruna.com/blog/typescript-avanzado-">
+    <meta property="og:title" content="TypeScript Avanzado: Patrones y Mejores Prácticas">
+    <meta property="og:description" content="TypeScript, una superconjunto de JavaScript, ofrece ventajas significativas para el desarrollo frontend al agregar tipado estático.  Este artículo pro...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hgaruna.com/blog/typescript-avanzado-">
+    <meta property="twitter:title" content="TypeScript Avanzado: Patrones y Mejores Prácticas">
+    <meta property="twitter:description" content="TypeScript, una superconjunto de JavaScript, ofrece ventajas significativas para el desarrollo frontend al agregar tipado estático.  Este artículo pro...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hgaruna.com/blog/typescript-avanzado-">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237"
+     crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .article-meta {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .article-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .tags-container {
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
+        @media (max-width: 768px) {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
+            .article-header {
+                padding: 2rem 0;
+            }
+            
+            .article-content h1 {
+                font-size: 2rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
+    </div>
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark fs-6">Frontend</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">TypeScript Avanzado: Patrones y Mejores Prácticas</h1>
+                    <p class="lead mb-4">TypeScript, una superconjunto de JavaScript, ofrece ventajas significativas para el desarrollo frontend al agregar tipado estático.  Este artículo pro...</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por hgaruna
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            25 de julio de 2025
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="TypeScript Avanzado: Patrones y Mejores Prácticas" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Meta información -->
+                <div class="article-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Categoría:</strong> Frontend<br>
+                            <strong>Autor:</strong> hgaruna<br>
+                            <strong>Fecha:</strong> 25 de julio de 2025
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de lectura:</strong> 4 min<br>
+                            <strong>Palabras:</strong> 657
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    <span class="tag">JavaScript</span>
+                </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <main>
+  <h1>TypeScript Avanzado: Patrones y Mejores Prácticas</h1>
+  <p>TypeScript, una superconjunto de JavaScript, ofrece ventajas significativas para el desarrollo frontend al agregar tipado estático.  Este artículo profundiza en patrones y mejores prácticas de TypeScript avanzadas, más allá de los conceptos básicos, para ayudarte a construir aplicaciones frontend robustas, escalables y mantenibles.</p>
+
+  <h2>Patrones de Diseño en TypeScript</h2>
+  <p>La aplicación de patrones de diseño mejora la organización, la reutilización del código y la mantenibilidad de las aplicaciones TypeScript. Algunos patrones clave incluyen:</p>
+  <h3>Patrón Singleton</h3>
+  <p>Garantiza que una clase solo tenga una instancia y proporciona un punto de acceso global a ella.  Esto es útil para manejar recursos compartidos o configuraciones globales.</p>
+  <pre><code class="language-typescript">
+class Singleton {
+  private static instance: Singleton;
+  private constructor() {}
+
+  public static getInstance(): Singleton {
+    if (!Singleton.instance) {
+      Singleton.instance = new Singleton();
+    }
+    return Singleton.instance;
+  }
+
+  public doSomething(): void {
+    console.log('Singleton method called');
+  }
+}
+
+const instance1 = Singleton.getInstance();
+const instance2 = Singleton.getInstance();
+
+console.log(instance1 === instance2); // true
+  </code></pre>
+
+  <h3>Patrón Factory</h3>
+  <p>Define una interfaz para crear un objeto, pero deja que las subclases decidan qué clase instanciar.  Esto permite la creación de objetos de diferentes tipos sin especificar la clase concreta.</p>
+  <pre><code class="language-typescript">
+interface Shape {
+  draw(): void;
+}
+
+class Circle implements Shape {
+  draw(): void {
+    console.log('Drawing a circle');
+  }
+}
+
+class Square implements Shape {
+  draw(): void {
+    console.log('Drawing a square');
+  }
+}
+
+class ShapeFactory {
+  public static createShape(type: string): Shape {
+    switch (type) {
+      case 'circle':
+        return new Circle();
+      case 'square':
+        return new Square();
+      default:
+        throw new Error('Invalid shape type');
+    }
+  }
+}
+
+const circle = ShapeFactory.createShape('circle');
+circle.draw(); // Output: Drawing a circle
+  </code></pre>
+
+
+  <h2>Manejo de Tipos Avanzados</h2>
+  <p>TypeScript ofrece tipos avanzados que permiten modelar datos complejos con precisión.  Estos incluyen:</p>
+  <h3>Tipos Condicionales</h3>
+  <p>Permiten definir tipos que dependen de otras condiciones. Son muy útiles para manejar diferentes tipos de datos en función de un contexto específico.</p>
+  <pre><code class="language-typescript">
+type StringOrNumber = string | number;
+
+function processValue(value: StringOrNumber): string {
+  return typeof value === 'string' ? value : value.toString();
+}
+
+console.log(processValue(10)); // Output: "10"
+console.log(processValue("hola")); // Output: "hola"
+  </code></pre>
+
+  <h3>Tipos de Intersección</h3>
+  <p>Combinan múltiples tipos en uno solo, asegurando que el tipo resultante tenga todas las propiedades de los tipos originales.  Esto es útil para crear tipos que representan la unión de varias interfaces o tipos.</p>
+  <p>Ejemplo: Crear un tipo `UserAdmin` que combine las propiedades de `User` y `Admin`.</p>
+
+  <h3>Mapped Types</h3>
+  <p>Permiten transformar un tipo existente en otro nuevo, aplicando una transformación a cada propiedad del tipo original.  Esto es muy útil para crear tipos que reflejan la estructura de otro tipo, pero con modificaciones específicas.</p>
+
+
+  <h2>Mejores Prácticas para la Gestión de Código</h2>
+  <ul>
+    <li><strong>Utilizar interfaces para definir la estructura de datos:</strong>  Mejora la legibilidad y la mantenibilidad del código.</li>
+    <li><strong>Implementar la tipificación en todos los niveles:</strong> Desde variables hasta parámetros de funciones y tipos de retorno.</li>
+    <li><strong>Utilizar tipos genéricos:</strong> Permite escribir código reutilizable y más flexible.</li>
+    <li><strong>Emplear linting y formateadores de código:</strong>  Garantiza la consistencia y la calidad del código.</li>
+    <li><strong>Utilizar módulos para organizar el código:</strong>  Facilita la modularidad y la reutilización del código.</li>
+  </ul>
+
+
+  <h2>Gestión de Errores y Manejo de Excepciones</h2>
+  <p>Un manejo robusto de errores es crucial para la estabilidad de una aplicación. TypeScript permite definir tipos para representar errores y usarlos de manera efectiva.</p>
+  <ul>
+    <li><strong>Tipos de error personalizados:</strong> Crear tipos de error específicos para diferentes situaciones de error en la aplicación.</li>
+    <li><strong>Manejo de excepciones con try...catch:</strong>  Atrapar y manejar errores de forma controlada.</li>
+    <li><strong>Utilizar el operador `nullish coalescing` (??):</strong> Proporcionar valores predeterminados para variables que podrían ser nulas o indefinidas.</li>
+  </ul>
+
+
+  <h2>Conclusión</h2>
+  <p>Dominar las técnicas avanzadas de TypeScript permite construir aplicaciones frontend de alta calidad, robustas y mantenibles. La aplicación de patrones de diseño, el uso efectivo de los tipos avanzados y la adhesión a las mejores prácticas conducen a un código más limpio, eficiente y fácil de entender.  Recuerda que la clave reside en la práctica y la experimentación para aprovechar al máximo las capacidades de TypeScript.</p>
+</main>
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Funciones de compartir
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('TypeScript Avanzado: Patrones y Mejores Prácticas');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('TypeScript Avanzado: Patrones y Mejores Prácticas');
+            const summary = encodeURIComponent('TypeScript, una superconjunto de JavaScript, ofrece ventajas significativas para el desarrollo frontend al agregar tipado estático.  Este artículo pro...');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('TypeScript Avanzado: Patrones y Mejores Prácticas - TypeScript, una superconjunto de JavaScript, ofrece ventajas significativas para el desarrollo frontend al agregar tipado estático.  Este artículo pro...');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                link.href = '#';
+            });
+        });
+    </script>
+</body>
+</html> 

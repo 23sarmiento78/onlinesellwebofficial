@@ -5,8 +5,8 @@
  * Mejora el SEO del sitio enviando el sitemap a Google, Bing y otros motores
  */
 
-import https from 'https';
-import http from 'http';
+const https = require('https');
+const http = require('http');
 
 const SITEMAP_URL = 'https://hgaruna.org/sitemap.xml';
 const SITE_URL = 'https://hgaruna.org/';
@@ -15,7 +15,7 @@ const SITE_URL = 'https://hgaruna.org/';
 const SUBMISSION_URLS = {
   google: `https://www.google.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`,
   bing: `https://www.bing.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`,
-  yandex: `https://blogs.yandex.ru/pings/?url=${encodeURIComponent(SITEMAP_URL)}`,
+  yandex: `https://public/blogs.yandex.com/pings/?status=success&url=${encodeURIComponent(SITEMAP_URL)}`,
   duckduckgo: `https://duckduckgo.com/?q=site:${encodeURIComponent(SITE_URL)}`
 };
 
@@ -98,8 +98,8 @@ async function submitSitemap() {
   return results;
 }
 
-// Ejecutar si es llamado directamente
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Ejecutar si se llama directamente
+if (require.main === module) {
   submitSitemap()
     .then(() => {
       console.log('✅ Proceso completado');
@@ -111,4 +111,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     });
 }
 
-export { submitSitemap, SUBMISSION_URLS };
+module.exports = { submitSitemap, SUBMISSION_URLS }; 

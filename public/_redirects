@@ -1,12 +1,10 @@
-# SPA fallback for React Router
-/*    /index.html   200
+# Permitir acceso directo al índice de artículos del public/blog
+/public/blog/index.json /public/blog/index.json 200
+# Permitir acceso directo a los artículos HTML
+/public/blog/:slug  /public/blog/:slug  200
+# Archivos estáticos importantes para SEO
+/robots.txt /robots.txt 200
+/sitemap.xml /sitemap.xml 200
 
-# Old URLs redirects (if needed)
-/home    /    301
-/servicios    /planes    301
-/portfolio    /    301
-
-# Security redirects
-/wp-admin/*    /    301
-/admin.php    /    301
-/wp-login.php    /    301
+# Todas las demás rutas van a React Router (SPA)
+/* /index.html 200

@@ -19,7 +19,7 @@ const filesToRegenerate = [
   '2025-07-19-angular-18-nuevas-funcionalidades.html',
   '2025-07-19-low-codeno-code-plataformas-de-desarrollo.html',
   '2025-07-19-web-performance-core-web-vitals.html',
-
+  '2025-07-19-static-analysis-eslint-y-sonarqube.html',
   '2025-07-19-monorepo-vs-polyrepo-estrategias.html',
   '2025-07-19-aws-lambda-computacin-sin-servidores.html',
   '2025-07-19-machine-learning-para-web-gua-definitiva.html',
@@ -70,7 +70,7 @@ async function regenerateArticle(filename) {
     if (content.toLowerCase().includes('aws')) tags.push('AWS');
     if (content.toLowerCase().includes('performance')) tags.push('Performance');
     if (content.toLowerCase().includes('eslint')) tags.push('ESLint');
-    
+    if (content.toLowerCase().includes('sonarqube')) tags.push('SonarQube');
     if (content.toLowerCase().includes('machine learning')) tags.push('Machine Learning');
     if (content.toLowerCase().includes('ansible')) tags.push('Ansible');
     if (content.toLowerCase().includes('monorepo')) tags.push('Monorepo');

@@ -23,39 +23,5 @@
   "linters-y-formatters",
   "nodejs-22-nuevas-car",
   "terraform-infrastruc",
-  "ansible-automatizaci",
-  "graphql-vs-rest-cund",
-  "machine-learning-par",
-  {
-    "slug": "code-coverage-metricas-de-calidad",
-    "date": "2025-07-27T17:54:48.153Z"
-  },
-  "kubernetes-orquestacion-de-contenedores",
-  "tree-shaking-eliminacion-de-codigo-muerto",
-  "design-patterns-patrones-de-diseno",
-  {
-    "slug": "design-patterns-patrones-de-diseno",
-    "date": "2025-07-27T18:45:06.657Z"
-  },
-  "code-coverage-metricas-de-calidad",
-  "transacciones-distribuidas",
-  "content-security-policy-csp",
-  {
-    "slug": "content-security-policy-csp",
-    "date": "2025-07-27T19:04:33.114Z"
-  },
-  "computer-vision-en-aplicaciones-web",
-  "chatbots-implementacion-practica",
-  "svelte-vs-react-comparativa-completa",
-  "orm-vs-query-builder-ventajas-y-desventajas",
-  "monorepo-vs-polyrepo-estrategias",
-  "backup-y-recuperacion-de-datos",
-  "owasp-top-10-vulnerabilidades-web",
-  "profiling-analisis-de-rendimiento",
-  "google-cloud-functions-plataforma-serverless",
-  "package-managers-npm-yarn-pnpm",
-  "cdn-content-delivery-networks",
-  "indices-de-base-de-datos-optimizacion",
-  "xss-prevention-cross-site-scripting",
-  "testing-unitario-jest-y-vitest"
+  "ansible-automatizaci"
 ]
