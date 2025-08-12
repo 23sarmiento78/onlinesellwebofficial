@@ -1,0 +1,32 @@
+{
+  "title": "JavaScript Moderno 2024: Guía Completa para Desarrolladores",
+  "description": "Domina JavaScript desde ES6 hasta las últimas funcionalidades con ejemplos prácticos y proyectos reales.",
+  "topic": "JavaScript Moderno",
+  "chapters": 8,
+  "totalChapters": [
+    "Introducción a JavaScript Moderno",
+    "ES6+ Características Esenciales",
+    "Programación Asíncrona Avanzada",
+    "Módulos y Bundlers Modernos",
+    "Testing y Depuración",
+    "Optimización y Performance",
+    "Frameworks y Librerías",
+    "Mejores Prácticas y Patrones"
+  ],
+  "generatedAt": "2025-08-12T13:32:16.608Z",
+  "version": "1.0",
+  "author": "hgaruna.com",
+  "language": "es",
+  "paths": {
+    "full": "/home/runner/work/onlinesellwebofficial/onlinesellwebofficial/public/ebooks/javascript-moderno-1755005432092/ebook-completo.md",
+    "free": "/home/runner/work/onlinesellwebofficial/onlinesellwebofficial/public/ebooks/javascript-moderno-1755005432092/ebook-gratis.md",
+    "directory": "/home/runner/work/onlinesellwebofficial/onlinesellwebofficial/public/ebooks/javascript-moderno-1755005432092",
+    "fullPdf": "/home/runner/work/onlinesellwebofficial/onlinesellwebofficial/public/ebooks/javascript-moderno-1755005432092/ebook-completo.pdf",
+    "freePdf": "/home/runner/work/onlinesellwebofficial/onlinesellwebofficial/public/ebooks/javascript-moderno-1755005432092/ebook-gratis.pdf"
+  },
+  "stats": {
+    "fullWords": 7612,
+    "freeWords": 2147,
+    "estimatedReadingTime": 39
+  }
+}
