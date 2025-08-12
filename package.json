@@ -45,7 +45,8 @@
     "update-articles": "node scripts/update-article-list.js",
     "build-with-articles": "npm run generate-articles && npm run generate-html-articles && npm run build",
     "publish-socials": "node scripts/publish-to-socials-modern.js",
-    "get-reddit-token": "node get_reddit_token_modern.js"
+    "get-reddit-token": "node get_reddit_token_modern.js",
+    "vercel-build": "npm run build"
   },
   "browserslist": {
     "production": [
