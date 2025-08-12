@@ -6,13 +6,14 @@ import MarkdownIt from 'markdown-it';
 import highlightjs from 'markdown-it-highlightjs';
 import anchor from 'markdown-it-anchor';
 import toc from 'markdown-it-toc-done-right';
+import path from 'path';
 
 // Obtener __dirname en ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Configurar markdown parser con plugins útiles
-const mdParser = MarkdownIt({
+const mdParser = new MarkdownIt({
   html: true,
   breaks: true,
   linkify: true,
@@ -21,16 +22,6 @@ const mdParser = MarkdownIt({
   .use(highlightjs)
   .use(anchor)
   .use(toc);
-
-// Configurar markdown parser con plugins útiles
-const md = markdownIt({
-  html: true,
-  breaks: true,
-  linkify: true,
-  typographer: true
-}).use(require('markdown-it-highlightjs'))
-  .use(require('markdown-it-anchor'))
-  .use(require('markdown-it-toc-done-right'));
 
 const CSS_STYLES = `
 /* eBook PDF Styles */
@@ -445,7 +436,7 @@ async function generateEbookPDF() {
     });
     
     // Generar PDF
-    const pdfPath = path.join(latestEbookDir, 'ebook-completo.pdf');
+    const pdfPath = join(latestEbookDir, 'ebook-completo.pdf');
     await page.pdf({
       path: pdfPath,
       format: 'A4',
@@ -472,7 +463,7 @@ async function generateEbookPDF() {
     
     // Actualizar metadata con rutas de PDF
     metadata.paths.fullPdf = pdfPath;
-    metadata.paths.freePdf = path.join(latestEbookDir, 'ebook-gratis.pdf');
+    metadata.paths.freePdf = join(latestEbookDir, 'ebook-gratis.pdf');
     
     await fs.writeFile(metadataFile, JSON.stringify(metadata, null, 2));
     
@@ -525,7 +516,7 @@ function createFullHTML(content, metadata) {
 
 async function generateFreePDF(ebookDir, metadata) {
   try {
-    const freeMarkdownFile = path.join(ebookDir, 'ebook-gratis.md');
+    const freeMarkdownFile = join(ebookDir, 'ebook-gratis.md');
     const freeMarkdownContent = await fs.readFile(freeMarkdownFile, 'utf8');
     
     const freeHtmlContent = mdParser.render(freeMarkdownContent);
@@ -542,7 +533,7 @@ async function generateFreePDF(ebookDir, metadata) {
     const page = await browser.newPage();
     await page.setContent(fullHTML, { waitUntil: 'networkidle0' });
     
-    const freePdfPath = path.join(ebookDir, 'ebook-gratis.pdf');
+    const freePdfPath = join(ebookDir, 'ebook-gratis.pdf');
     await page.pdf({
       path: freePdfPath,
       format: 'A4',
@@ -574,8 +565,8 @@ async function generateFreePDF(ebookDir, metadata) {
 // Script para actualizar metadata de eBooks
 async function updateEbookMetadata() {
   try {
-    const ebooksDir = path.join(process.cwd(), 'public', 'ebooks');
-    const indexPath = path.join(ebooksDir, 'index.json');
+    const ebooksDir = join(process.cwd(), 'public', 'ebooks');
+    const indexPath = join(ebooksDir, 'index.json');
     
     let index = { ebooks: [] };
     try {
@@ -590,7 +581,7 @@ async function updateEbookMetadata() {
     const ebookDirs = dirs.filter(dir => dir.includes('-'));
     
     for (const dirName of ebookDirs) {
-      const metadataPath = path.join(ebooksDir, dirName, 'metadata.json');
+      const metadataPath = join(ebooksDir, dirName, 'metadata.json');
       
       try {
         const metadata = JSON.parse(await fs.readFile(metadataPath, 'utf8'));
