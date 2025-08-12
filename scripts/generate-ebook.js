@@ -13,7 +13,7 @@ const __dirname = dirname(__filename);
 // Configuración de la API de Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ 
-  model: "gemini-1.5-pro-latest",  // Usando el modelo gratuito más reciente
+  model: "gemini-1.5-flash-latest",  // Usando el modelo gratuito más reciente
   safetySettings: [
     {
       category: "HARM_CATEGORY_HARASSMENT",
@@ -168,7 +168,7 @@ Responde ÚNICAMENTE con el contenido del capítulo en formato markdown, sin int
     const isCI = process.env.CI === 'true';
     
     if (error.status === 404) {
-      errorMessage = 'Error al acceder al modelo gemini-1.5-pro-latest. Verifica que el modelo esté disponible en tu región.';
+      errorMessage = 'Error al acceder al modelo gemini-1.5-flash-latest. Verifica que el modelo esté disponible en tu región.';
     } else if (error.message.includes('api key')) {
       errorMessage = isCI 
         ? 'Error de autenticación con la API de Gemini. Verifica el secret GEMINI_API_KEY en GitHub Actions.'
@@ -478,7 +478,7 @@ async function validateGeminiApiKey() {
   
   try {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
     await model.generateContent("Test"); // Prueba simple para validar la API key
   } catch (error) {
     if (error.status === 404) {
