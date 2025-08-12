@@ -6,7 +6,13 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <img id="footer-logo" src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo de hgaruna" className="footer-logo" loading="lazy" />
+            <img 
+              id="footer-logo" 
+              src="/logos-he-imagenes/logonegro-Photoroom.png" 
+              alt="Logo de hgaruna" 
+              className="footer-logo" 
+              loading="lazy" 
+            />
             <h3>hgaruna</h3>
             <p className="slogan">Tu éxito en línea, nuestra misión.</p>
             <div className="social-links">
@@ -25,17 +31,33 @@ export default function Footer() {
             <h4>Navegación</h4>
             <ul>
               <li><a href="/">Inicio</a></li>
-              <li><a href="/planes/">Planes</a></li>
-              <li><a href="/legal/">Legal</a></li>
-              <li><a href="/politicas-privacidad/">Políticas de Privacidad</a></li>
-              <li><a href="https://wa.link/6t7cxa">Contacto</a></li>
+              <li><a href="/articulos/">Artículos</a></li>
+              <li><a href="/recursos/">Recursos</a></li>
+              <li><a href="/ebook/">eBook Gratis</a></li>
+              <li><a href="/contacto/">Contacto</a></li>
             </ul>
           </div>
           <div className="footer-contact">
             <h4>Contáctanos</h4>
-            <p><i className="fas fa-map-marker-alt"></i> Villa Carlos Paz, Argentina</p>
-            <p><i className="fas fa-envelope"></i> 23sarmiento@gmail.com</p>
-            <p><i className="fas fa-phone"></i> +54 3541 237972</p>
+            <div className="contact-info">
+              <p><i className="fas fa-map-marker-alt"></i> Villa Carlos Paz, Argentina</p>
+              <p><i className="fas fa-envelope"></i> 23sarmiento@gmail.com</p>
+              <p><i className="fas fa-phone"></i> +54 3541 237972</p>
+              <p><i className="fas fa-clock"></i> Lun - Vie: 9:00 - 18:00 hs</p>
+            </div>
+          </div>
+          <div className="footer-about">
+            <h4>Acerca de hgaruna</h4>
+            <p>
+              Somos un equipo especializado en desarrollo web, 
+              creando soluciones digitales innovadoras para empresas 
+              y emprendedores en Villa Carlos Paz y toda Argentina.
+            </p>
+            <div className="footer-badges">
+              <span className="badge">Desarrollo Web</span>
+              <span className="badge">Innovación</span>
+              <span className="badge">Calidad</span>
+            </div>
           </div>
         </div>
         <div className="footer-bottom">
@@ -44,11 +66,8 @@ export default function Footer() {
             <a href="/politicas-privacidad/" className="footer-bottom-link">Políticas de Privacidad</a>
             <a href="/legal/" className="footer-bottom-link">Términos Legales</a>
           </div>
-          <button id="theme-toggle" className="btn-outline theme-toggle-btn" aria-label="Alternar tema oscuro/claro">
-            <i className="fas fa-sun"></i>
-          </button>
         </div>
       </div>
     </footer>
   );
-} 
+}

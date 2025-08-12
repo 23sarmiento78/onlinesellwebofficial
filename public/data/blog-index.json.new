@@ -1,0 +1,24 @@
+[
+  {
+    "slug": "angular-18-nuevas-fu",
+    "title": "Angular 18: Nuevas Funcionalidades",
+    "excerpt": "Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las...",
+    "image": "/logos-he-imagenes/logo3.png",
+    "category": "Frontend",
+    "author": {
+      "name": "hgaruna",
+      "avatar": "/logos-he-imagenes/logo3.png",
+      "bio": "Equipo de desarrollo de hgaruna"
+    },
+    "date": "2025-08-12",
+    "readTime": "6 min",
+    "views": 3402,
+    "likes": 248,
+    "tags": [
+      "Frontend",
+      "Angular",
+      "TypeScript"
+    ],
+    "difficulty": "Avanzado"
+  }
+]

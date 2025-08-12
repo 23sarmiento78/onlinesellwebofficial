@@ -1,5 +1,15 @@
-/* ===== BOOTSTRAP OVERRIDE ===== */
-/* Asegurar que Bootstrap tenga prioridad en ciertos elementos */
+/* ===== BOOTSTRAP OVERRIDE - DARK THEME ===== */
+/* Asegurar que Bootstrap tenga prioridad con tema oscuro completo */
+
+/* Force dark theme on all elements */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  background: #0a0a0a !important;
+  color: #ffffff !important;
+}
 
 /* Container de Bootstrap */
 .container {
@@ -7,6 +17,8 @@
   margin: 0 auto !important;
   padding: 0 15px !important;
   width: 100% !important;
+  background: transparent !important;
+  color: #ffffff !important;
 }
 
 /* Row de Bootstrap */
@@ -14,6 +26,7 @@
   display: flex !important;
   flex-wrap: wrap !important;
   margin: 0 -15px !important;
+  background: transparent !important;
 }
 
 /* Columnas de Bootstrap */
@@ -30,77 +43,554 @@
   position: relative !important;
   width: 100% !important;
   padding: 0 15px !important;
+  background: transparent !important;
+  color: #ffffff !important;
 }
 
-/* Botones de Bootstrap */
+/* Botones de Bootstrap con tema oscuro */
 .btn {
-  display: inline-block !important;
-  font-weight: 400 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 700 !important;
   text-align: center !important;
   vertical-align: middle !important;
   user-select: none !important;
-  border: 1px solid transparent !important;
-  padding: 0.375rem 0.75rem !important;
+  border: 2px solid #00ff88 !important;
+  padding: 12px 24px !important;
   font-size: 1rem !important;
   line-height: 1.5 !important;
-  border-radius: 0.25rem !important;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%) !important;
+  color: #0a0a0a !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  text-shadow: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:hover, .btn:focus {
+  background: #2a2a2a !important;
+  color: #39ff14 !important;
+  border-color: #39ff14 !important;
+  box-shadow: 0 0 30px #39ff14 !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  text-decoration: none !important;
+}
+
+.btn:active {
+  transform: translateY(0) scale(1) !important;
 }
 
 .btn-primary {
-  color: #fff !important;
-  background-color: #0d6efd !important;
-  border-color: #0d6efd !important;
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%) !important;
+  color: #0a0a0a !important;
+  border-color: #00ff88 !important;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background: #39ff14 !important;
+  color: #0a0a0a !important;
+  border-color: #39ff14 !important;
+  box-shadow: 0 0 30px #39ff14 !important;
 }
 
 .btn-secondary {
-  color: #fff !important;
-  background-color: #6c757d !important;
-  border-color: #6c757d !important;
+  background: transparent !important;
+  color: #00ff88 !important;
+  border-color: #00ff88 !important;
+}
+
+.btn-secondary:hover, .btn-secondary:focus {
+  background: #00ff88 !important;
+  color: #0a0a0a !important;
+  border-color: #00ff88 !important;
 }
 
 .btn-success {
-  color: #fff !important;
-  background-color: #198754 !important;
-  border-color: #198754 !important;
+  background: linear-gradient(135deg, #00cc6a 0%, #009944 100%) !important;
+  color: #ffffff !important;
+  border-color: #00cc6a !important;
 }
 
-/* Alertas de Bootstrap */
+.btn-success:hover, .btn-success:focus {
+  background: #39ff14 !important;
+  color: #0a0a0a !important;
+  border-color: #39ff14 !important;
+  box-shadow: 0 0 20px #39ff14 !important;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff4444 0%, #cc3333 100%) !important;
+  color: #ffffff !important;
+  border-color: #ff4444 !important;
+}
+
+.btn-danger:hover, .btn-danger:focus {
+  background: #ff6666 !important;
+  color: #ffffff !important;
+  border-color: #ff6666 !important;
+  box-shadow: 0 0 20px #ff4444 !important;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #ffaa00 0%, #cc8800 100%) !important;
+  color: #0a0a0a !important;
+  border-color: #ffaa00 !important;
+}
+
+.btn-warning:hover, .btn-warning:focus {
+  background: #ffcc44 !important;
+  color: #0a0a0a !important;
+  border-color: #ffcc44 !important;
+  box-shadow: 0 0 20px #ffaa00 !important;
+}
+
+.btn-info {
+  background: linear-gradient(135deg, #00ffff 0%, #00cccc 100%) !important;
+  color: #0a0a0a !important;
+  border-color: #00ffff !important;
+}
+
+.btn-info:hover, .btn-info:focus {
+  background: #44ffff !important;
+  color: #0a0a0a !important;
+  border-color: #44ffff !important;
+  box-shadow: 0 0 20px #00ffff !important;
+}
+
+.btn-light {
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%) !important;
+  color: #0a0a0a !important;
+  border-color: #ffffff !important;
+}
+
+.btn-light:hover, .btn-light:focus {
+  background: #f0f0f0 !important;
+  color: #0a0a0a !important;
+  border-color: #f0f0f0 !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5) !important;
+}
+
+.btn-dark {
+  background: linear-gradient(135deg, #333333 0%, #1a1a1a 100%) !important;
+  color: #00ff88 !important;
+  border-color: #333333 !important;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+  background: #555555 !important;
+  color: #39ff14 !important;
+  border-color: #555555 !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3) !important;
+}
+
+/* Alertas de Bootstrap con tema oscuro */
 .alert {
   position: relative !important;
   padding: 0.75rem 1.25rem !important;
   margin-bottom: 1rem !important;
-  border: 1px solid transparent !important;
-  border-radius: 0.25rem !important;
+  border: 2px solid transparent !important;
+  border-radius: 8px !important;
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3) !important;
+}
+
+.alert-primary {
+  color: #00ff88 !important;
+  background-color: rgba(0, 255, 136, 0.1) !important;
+  border-color: #00ff88 !important;
+}
+
+.alert-secondary {
+  color: #e0e0e0 !important;
+  background-color: rgba(224, 224, 224, 0.1) !important;
+  border-color: #e0e0e0 !important;
+}
+
+.alert-success {
+  color: #00cc6a !important;
+  background-color: rgba(0, 204, 106, 0.1) !important;
+  border-color: #00cc6a !important;
+}
+
+.alert-danger {
+  color: #ff4444 !important;
+  background-color: rgba(255, 68, 68, 0.1) !important;
+  border-color: #ff4444 !important;
+}
+
+.alert-warning {
+  color: #ffaa00 !important;
+  background-color: rgba(255, 170, 0, 0.1) !important;
+  border-color: #ffaa00 !important;
 }
 
 .alert-info {
-  color: #0c5460 !important;
-  background-color: #d1ecf1 !important;
-  border-color: #bee5eb !important;
+  color: #00ffff !important;
+  background-color: rgba(0, 255, 255, 0.1) !important;
+  border-color: #00ffff !important;
 }
 
-/* Cards de Bootstrap */
+.alert-light {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: #ffffff !important;
+}
+
+.alert-dark {
+  color: #888888 !important;
+  background-color: rgba(136, 136, 136, 0.1) !important;
+  border-color: #888888 !important;
+}
+
+/* Cards de Bootstrap con tema oscuro */
 .card {
   position: relative !important;
   display: flex !important;
   flex-direction: column !important;
   min-width: 0 !important;
   word-wrap: break-word !important;
-  background-color: #fff !important;
+  background: #1a1a1a !important;
   background-clip: border-box !important;
-  border: 1px solid rgba(0, 0, 0, 0.125) !important;
-  border-radius: 0.25rem !important;
+  border: 1px solid #333333 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease !important;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00ff88, #00cc6a);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  background: #2a2a2a !important;
+  border-color: #00ff88 !important;
+  box-shadow: 0 4px 24px rgba(0, 255, 136, 0.3) !important;
+  transform: translateY(-5px) !important;
+}
+
+.card:hover::before {
+  transform: scaleX(1);
 }
 
 .card-body {
   flex: 1 1 auto !important;
   padding: 1rem !important;
+  background: transparent !important;
+  color: #ffffff !important;
 }
 
-/* Utilidades de Bootstrap */
+.card-title {
+  color: #ffffff !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
+  font-weight: 700 !important;
+}
+
+.card-text {
+  color: #e0e0e0 !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2) !important;
+}
+
+.card-header {
+  background: #2a2a2a !important;
+  border-bottom: 1px solid #00ff88 !important;
+  color: #00ff88 !important;
+  font-weight: 600 !important;
+  text-shadow: 0 0 10px #00ff88 !important;
+}
+
+.card-footer {
+  background: #2a2a2a !important;
+  border-top: 1px solid #333333 !important;
+  color: #e0e0e0 !important;
+}
+
+/* Form Controls con tema oscuro */
+.form-control {
+  background: #2a2a2a !important;
+  color: #ffffff !important;
+  border: 2px solid #333333 !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3) !important;
+}
+
+.form-control:focus {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  border-color: #00ff88 !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3) !important;
+  outline: none !important;
+  transform: scale(1.02) !important;
+}
+
+.form-control::placeholder {
+  color: #888888 !important;
+  text-shadow: none !important;
+}
+
+.form-label {
+  color: #00ff88 !important;
+  font-weight: 600 !important;
+  text-shadow: 0 0 10px #00ff88 !important;
+}
+
+.form-select {
+  background: #2a2a2a !important;
+  color: #ffffff !important;
+  border: 2px solid #333333 !important;
+  border-radius: 8px !important;
+}
+
+.form-select:focus {
+  border-color: #00ff88 !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3) !important;
+  background: #1a1a1a !important;
+}
+
+.form-check-input {
+  background-color: #2a2a2a !important;
+  border: 2px solid #333333 !important;
+}
+
+.form-check-input:checked {
+  background-color: #00ff88 !important;
+  border-color: #00ff88 !important;
+}
+
+.form-check-label {
+  color: #ffffff !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Table con tema oscuro */
+.table {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  border: 1px solid #333333 !important;
+}
+
+.table th {
+  background: #2a2a2a !important;
+  color: #00ff88 !important;
+  border-bottom: 2px solid #00ff88 !important;
+  text-shadow: 0 0 10px #00ff88 !important;
+  font-weight: 700 !important;
+}
+
+.table td {
+  border-top: 1px solid #333333 !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.2) !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background: rgba(42, 42, 42, 0.5) !important;
+}
+
+.table-hover tbody tr:hover {
+  background: rgba(0, 255, 136, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* Navigation con tema oscuro */
+.nav {
+  background: transparent !important;
+}
+
+.nav-link {
+  color: #e0e0e0 !important;
+  transition: all 0.3s ease !important;
+  padding: 8px 16px !important;
+  border-radius: 6px !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3) !important;
+}
+
+.nav-link:hover {
+  color: #00ff88 !important;
+  background: #2a2a2a !important;
+  text-shadow: 0 0 15px #00ff88 !important;
+}
+
+.nav-link.active {
+  color: #39ff14 !important;
+  background: #2a2a2a !important;
+  text-shadow: 0 0 20px #39ff14 !important;
+}
+
+/* List Group con tema oscuro */
+.list-group {
+  background: transparent !important;
+}
+
+.list-group-item {
+  background: #1a1a1a !important;
+  border: 1px solid #333333 !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3) !important;
+}
+
+.list-group-item:hover {
+  background: #2a2a2a !important;
+  border-color: #00ff88 !important;
+  color: #00ff88 !important;
+  text-shadow: 0 0 15px #00ff88 !important;
+}
+
+.list-group-item.active {
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%) !important;
+  border-color: #00ff88 !important;
+  color: #0a0a0a !important;
+  text-shadow: none !important;
+}
+
+/* Modal con tema oscuro */
+.modal-content {
+  background: #1a1a1a !important;
+  border: 2px solid #00ff88 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 24px rgba(0, 255, 136, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.modal-header {
+  background: #2a2a2a !important;
+  border-bottom: 1px solid #00ff88 !important;
+  color: #00ff88 !important;
+}
+
+.modal-title {
+  color: #00ff88 !important;
+  text-shadow: 0 0 15px #00ff88 !important;
+  font-weight: 700 !important;
+}
+
+.modal-body {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3) !important;
+}
+
+.modal-footer {
+  background: #1a1a1a !important;
+  border-top: 1px solid #333333 !important;
+}
+
+.close {
+  color: #00ff88 !important;
+  text-shadow: 0 0 10px #00ff88 !important;
+  opacity: 1 !important;
+}
+
+.close:hover {
+  color: #39ff14 !important;
+  text-shadow: 0 0 20px #39ff14 !important;
+}
+
+/* Utilidades de Bootstrap con tema oscuro */
 .text-center {
   text-align: center !important;
+}
+
+.text-primary {
+  color: #00ff88 !important;
+}
+
+.text-secondary {
+  color: #e0e0e0 !important;
+}
+
+.text-success {
+  color: #00cc6a !important;
+}
+
+.text-danger {
+  color: #ff4444 !important;
+}
+
+.text-warning {
+  color: #ffaa00 !important;
+}
+
+.text-info {
+  color: #00ffff !important;
+}
+
+.text-light {
+  color: #ffffff !important;
+}
+
+.text-dark {
+  color: #888888 !important;
+}
+
+.text-muted {
+  color: #888888 !important;
+}
+
+.bg-primary {
+  background-color: rgba(0, 255, 136, 0.2) !important;
+}
+
+.bg-secondary {
+  background-color: rgba(224, 224, 224, 0.1) !important;
+}
+
+.bg-success {
+  background-color: rgba(0, 204, 106, 0.2) !important;
+}
+
+.bg-danger {
+  background-color: rgba(255, 68, 68, 0.2) !important;
+}
+
+.bg-warning {
+  background-color: rgba(255, 170, 0, 0.2) !important;
+}
+
+.bg-info {
+  background-color: rgba(0, 255, 255, 0.2) !important;
+}
+
+.bg-light {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.bg-dark {
+  background-color: #1a1a1a !important;
 }
 
 .mb-4 {
@@ -123,15 +613,24 @@
   justify-content: center !important;
 }
 
+.align-items-center {
+  align-items: center !important;
+}
+
 .gap-3 {
   gap: 1rem !important;
 }
 
-/* Responsive utilities */
+/* Responsive utilities con ajustes para tema oscuro */
 @media (max-width: 576px) {
   .container {
     max-width: 100% !important;
     padding: 0 10px !important;
+  }
+  
+  .btn {
+    width: 100% !important;
+    margin-bottom: 0.5rem !important;
   }
 }
 
@@ -163,4 +662,117 @@
   .container {
     max-width: 1320px !important;
   }
-} 
+}
+
+/* Progress bars con tema oscuro */
+.progress {
+  background-color: #333333 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+.progress-bar {
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%) !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.3) !important;
+}
+
+/* Badges con tema oscuro */
+.badge {
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%) !important;
+  color: #0a0a0a !important;
+  border-radius: 20px !important;
+  padding: 4px 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border: 1px solid #00ff88 !important;
+  transition: all 0.3s ease !important;
+}
+
+.badge:hover {
+  background: #39ff14 !important;
+  box-shadow: 0 0 15px #39ff14 !important;
+  transform: scale(1.05) !important;
+}
+
+/* Breadcrumb con tema oscuro */
+.breadcrumb {
+  background: transparent !important;
+  padding: 0.75rem 1rem !important;
+  margin-bottom: 1rem !important;
+  border-radius: 8px !important;
+}
+
+.breadcrumb-item {
+  color: #e0e0e0 !important;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  color: #888888 !important;
+  content: "/" !important;
+}
+
+.breadcrumb-item.active {
+  color: #00ff88 !important;
+  text-shadow: 0 0 10px #00ff88 !important;
+}
+
+/* Accordion con tema oscuro */
+.accordion-item {
+  background: #1a1a1a !important;
+  border: 1px solid #333333 !important;
+  margin-bottom: 0.5rem !important;
+  border-radius: 8px !important;
+}
+
+.accordion-header {
+  background: transparent !important;
+}
+
+.accordion-button {
+  background: #2a2a2a !important;
+  color: #ffffff !important;
+  border: none !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3) !important;
+}
+
+.accordion-button:focus {
+  border-color: #00ff88 !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3) !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background: #00ff88 !important;
+  color: #0a0a0a !important;
+  text-shadow: none !important;
+}
+
+.accordion-body {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Efectos especiales para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .btn {
+    border-width: 3px !important;
+  }
+  
+  .card {
+    border-width: 2px !important;
+  }
+  
+  .form-control {
+    border-width: 3px !important;
+  }
+}

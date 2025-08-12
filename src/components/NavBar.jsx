@@ -1,100 +1,304 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './NavBar.css';
 
-export default function NavBar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+const NavBar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const location = useLocation();
+  const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 50);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleToggle = () => {
-    setMenuOpen(!menuOpen);
+  useEffect(() => {
+    // Forzar tema oscuro siempre
+    document.body.classList.add('dark-mode');
+  }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleClose = () => {
-    setMenuOpen(false);
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
-  const handleLinkClick = () => {
-    setMenuOpen(false);
+  // Cerrar menú al hacer clic en enlaces
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Prevenir scroll cuando el menú está abierto
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      setIsSearching(true);
+      try {
+        const { searchArticlesWithCache } = await import('../utils/searchArticles');
+        const results = await searchArticlesWithCache(searchTerm);
+        setSearchResults(results);
+        
+        // Redirigir a la página de artículos con los resultados
+        const searchParams = new URLSearchParams();
+        searchParams.set('q', searchTerm);
+        window.location.href = `/articulos?${searchParams.toString()}`;
+      } catch (error) {
+        console.error('Error en la búsqueda:', error);
+      } finally {
+        setIsSearching(false);
+      }
+    }
   };
+
+  // Fecha actual
+  const currentDate = new Date().toLocaleDateString('es-ES', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
   return (
     <>
-      <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
-        <div className="container nav-flex">
-          {/* Logo */}
-          <a className="navbar-brand" href="/">
-            <img src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo de hgaruna" />
-            <span>hgaruna</span>
-          </a>
+      <div className="nav-wrapper">
+        {/* Top Bar con fecha y estadísticas */}
+        <div className="top-bar">
+          <div className="container">
+            <div className="top-bar-content">
+              <div className="date-section">
+                <span className="date">
+                  <i className="fas fa-calendar"></i>
+                  {currentDate}
+                </span>
+              </div>
+              <div className="stats-section">
+                <div className="live-readers">
+                  <span className="live-indicator"></span>
+                  <span>1,247 desarrolladores conectados</span>
+                </div>
+              </div>
+              <div className="social-section">
+                <a href="#" className="social-link"><i className="fab fa-twitter"></i></a>
+                <a href="#" className="social-link"><i className="fab fa-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          {/* Menú Desktop */}
-          <div className="navbar-menu desktop-menu">
-            <ul className="main-nav">
-              <li><a href="/" className="nav-link">Inicio</a></li>
-              <li><a href="/blog" className="nav-link">Blog IA</a></li>
-              <li><a href="/planes" className="nav-link">Planes</a></li>
-              <li><a href="/legal" className="nav-link">Legal</a></li>
-            </ul>
-            <div className="nav-actions">
-              <a href="https://wa.link/6t7cxa" className="btn-filled" target="_blank" rel="noopener">
-                <i className="fab fa-whatsapp"></i>
-                Cotizar Ahora
-              </a>
+      {/* Header Principal */}
+      <header className={`main-header ${isScrolled ? 'scrolled' : ''}`}>
+        <div className="header-bg">
+          <div className="header-glow"></div>
+        </div>
+        <div className="container">
+          <div className="header-main">
+            {/* Logo Section */}
+            <div className="header-left">
+              <Link to="/" className="logo" onClick={closeMenu}>
+                <div className="logo-container">
+                  <img 
+                    src="/public/logos-he-imagenes/logo3.png" 
+                    alt="hgaruna Logo" 
+                    className="logo-image"
+                  />
+                  <div className="logo-text">
+                    <h1 className="site-title">hgaruna</h1>
+                    <div className="site-tagline">
+                      <span className="tag-item">Desarrollo</span>
+                      <span className="tag-dot"></span>
+                      <span className="tag-item">Innovación</span>
+                      <span className="tag-dot"></span>
+                      <span className="tag-item">Futuro</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+
+            {/* Navigation Section */}
+            <nav className="header-center">
+              <ul className="nav-menu">
+                <li className="nav-item">
+                  <Link 
+                    to="/" 
+                    className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+                  >
+                    <i className="fas fa-home"></i>
+                    <span>Inicio</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link 
+                    to="/articulos" 
+                    className={`nav-link ${location.pathname === '/articulos' ? 'active' : ''}`}
+                  >
+                    <i className="fas fa-newspaper"></i>
+                    <span>Artículos</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link 
+                    to="/ebook" 
+                    className={`nav-link ${location.pathname === '/ebook' ? 'active' : ''}`}
+                  >
+                    <i className="fas fa-book"></i>
+                    <span>eBook</span>
+                    <span className="nav-badge">Nuevo</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link 
+                    to="/recursos" 
+                    className={`nav-link ${location.pathname === '/recursos' ? 'active' : ''}`}
+                  >
+                    <i className="fas fa-tools"></i>
+                    <span>Recursos</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link 
+                    to="/contacto" 
+                    className={`nav-link ${location.pathname === '/contacto' ? 'active' : ''}`}
+                  >
+                    <i className="fas fa-envelope"></i>
+                    <span>Contacto</span>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+
+            {/* Actions Section */}
+            <div className="header-right">
+              <button 
+                className="search-toggle"
+                onClick={() => setShowSearch(!showSearch)}
+                aria-label="Toggle search"
+              >
+                <i className="fas fa-search"></i>
+              </button>
+
+              {/* Mobile Menu Toggle - Only shows on mobile */}
+              <button
+                className={`mobile-menu-toggle ${isMenuOpen ? 'active' : ''}`}
+                onClick={toggleMenu}
+                aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+                aria-expanded={isMenuOpen}
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
             </div>
           </div>
 
-          {/* Botón móvil */}
-          <button 
-            className={`navbar-toggler${menuOpen ? ' active' : ''}`} 
-            onClick={handleToggle}
-            aria-label="Toggle menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </nav>
-
-      {/* Sidebar móvil */}
-      <div className={`mobile-sidebar${menuOpen ? ' open' : ''}`}>
-        <div className="sidebar-header">
-          <div className="sidebar-logo">
-            <img src="/logos-he-imagenes/logonegro-Photoroom.png" alt="Logo" />
-            <span>hgaruna</span>
-          </div>
-          <button className="sidebar-close" onClick={handleClose}>
-            <i className="fas fa-times"></i>
-          </button>
-        </div>
-        
-        <div className="sidebar-content">
-          <ul className="sidebar-menu">
-            <li><a href="/" onClick={handleLinkClick}>Inicio</a></li>
-            <li><a href="/blog" onClick={handleLinkClick}>Blog IA</a></li>
-            <li><a href="/planes" onClick={handleLinkClick}>Planes</a></li>
-            <li><a href="/legal" onClick={handleLinkClick}>Legal</a></li>
-          </ul>
-          
-          <div className="sidebar-cta">
-            <a href="https://wa.link/6t7cxa" onClick={handleLinkClick} target="_blank" rel="noopener">
-              <i className="fab fa-whatsapp"></i>
-              Cotizar Ahora
-            </a>
+          {/* Search Bar - Shows/Hides based on toggle */}
+          <div className={`search-bar ${showSearch ? 'show' : ''}`}>
+            <div className="search-container">
+              <form onSubmit={handleSearch} className="search-form">
+                <i className="fas fa-search"></i>
+                <input
+                  type="text"
+                  placeholder="Buscar artículos, tutoriales, recursos..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button type="submit">
+                  <i className="fas fa-arrow-right"></i>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Overlay */}
-      <div className={`sidebar-overlay${menuOpen ? ' active' : ''}`} onClick={handleClose}></div>
+        {/* Mobile Navigation Menu */}
+        <div className={`mobile-menu ${isMenuOpen ? 'show' : ''}`}>
+          <div className="mobile-search">
+            <form onSubmit={handleSearch} className="search-form">
+              <i className="fas fa-search"></i>
+              <input
+                type="text"
+                placeholder="Buscar..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button type="submit">
+                <i className="fas fa-arrow-right"></i>
+              </button>
+            </form>
+          </div>
+          <nav className="mobile-nav">
+            <ul className="mobile-nav-menu">
+              <li>
+                <Link to="/" onClick={closeMenu}>
+                  <i className="fas fa-home"></i>
+                  <span>Inicio</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/articulos" onClick={closeMenu}>
+                  <i className="fas fa-newspaper"></i>
+                  <span>Artículos</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/ebook" onClick={closeMenu}>
+                  <i className="fas fa-book"></i>
+                  <span>eBook</span>
+                  <span className="nav-badge">Nuevo</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/recursos" onClick={closeMenu}>
+                  <i className="fas fa-tools"></i>
+                  <span>Recursos</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/contacto" onClick={closeMenu}>
+                  <i className="fas fa-envelope"></i>
+                  <span>Contacto</span>
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      {/* Overlay para cerrar menú móvil */}
+      <div className={`mobile-overlay ${isMenuOpen ? 'active' : ''}`} onClick={closeMenu}></div>
+    </div>
     </>
   );
-} 
+};
+
+export default NavBar;

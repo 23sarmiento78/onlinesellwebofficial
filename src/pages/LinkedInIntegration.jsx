@@ -12,22 +12,25 @@ export default function LinkedInIntegration() {
     >
       {/* Hero Section */}
       <section className="hero-section">
-        <div className="hero-background">
-          <img src="/logos-he-imagenes/fondo-hero.jpg" alt="Fondo hero" />
-        </div>
-        <div className="hero-overlay"></div>
+        <div className="hero-grid-background"></div>
         <div className="hero-content">
-          <h1 className="hero-title">Integración con LinkedIn</h1>
-          <p className="hero-subtitle">
-            Publica contenido automáticamente en LinkedIn desde tu CMS
-          </p>
-          <div className="hero-cta">
-            <a href="#linkedin-demo" className="cta-button primary">
+          <div className="hero-main">
+            <h1 className="hero-title">
               <i className="fab fa-linkedin"></i>
-              Probar Integración
-            </a>
+              Integración con LinkedIn
+            </h1>
+            <p className="hero-description">
+              Publica contenido automáticamente en LinkedIn desde tu CMS
+            </p>
+            <div className="hero-cta">
+              <a href="#linkedin-demo" className="hero-button primary">
+                <i className="fab fa-linkedin"></i>
+                Probar Integración
+              </a>
+            </div>
           </div>
         </div>
+        <div className="hero-glow"></div>
       </section>
 
       {/* Builder.io Content */}

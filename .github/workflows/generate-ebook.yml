@@ -1,0 +1,101 @@
+name: Generate eBook with Gemini AI
+
+on:
+  schedule:
+    # Ejecutar cada semana los lunes a las 09:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: 'Tema principal del eBook'
+        required: true
+        default: 'JavaScript Moderno'
+        type: choice
+        options:
+          - 'JavaScript Moderno'
+          - 'React Avanzado'
+          - 'Python para IA'
+          - 'DevOps Completo'
+          - 'Backend con Node.js'
+          - 'Frontend Moderno'
+      chapters:
+        description: 'Número de capítulos'
+        required: true
+        default: '8'
+        type: choice
+        options:
+          - '6'
+          - '8'
+          - '10'
+          - '12'
+
+jobs:
+  generate-ebook:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        npm install google-generative-ai
+        npm install cheerio
+        npm install markdown-it
+        npm install puppeteer
+        
+    - name: Generate eBook content
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        EBOOK_TOPIC: ${{ github.event.inputs.topic || 'JavaScript Moderno' }}
+        CHAPTERS_COUNT: ${{ github.event.inputs.chapters || '8' }}
+      run: node scripts/generate-ebook.js
+      
+    - name: Generate eBook PDF
+      run: node scripts/generate-ebook-pdf.js
+      
+    - name: Update eBook metadata
+      run: node scripts/update-ebook-metadata.js
+      
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git diff --staged --quiet || git commit -m "📚 Nuevo eBook generado: ${{ github.event.inputs.topic || 'JavaScript Moderno' }}"
+        git push
+        
+    - name: Create Release
+      if: github.event_name == 'workflow_dispatch'
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ebook-${{ github.run_number }}
+        release_name: "eBook: ${{ github.event.inputs.topic || 'JavaScript Moderno' }}"
+        body: |
+          🆕 **Nuevo eBook Disponible**
+          
+          **Tema:** ${{ github.event.inputs.topic || 'JavaScript Moderno' }}
+          **Capítulos:** ${{ github.event.inputs.chapters || '8' }}
+          **Fecha:** ${{ github.event.head_commit.timestamp }}
+          
+          ### 📋 Contenido incluido:
+          - Versión completa (PDF)
+          - Versión gratuita (primeros 3 capítulos)
+          - Código de ejemplos
+          - Recursos adicionales
+          
+          ### 📥 Descarga:
+          - [Versión Gratuita](https://hgaruna.netlify.app/ebook)
+          - Versión Completa: Contactar por WhatsApp
+          
+        draft: false
+        prerelease: false

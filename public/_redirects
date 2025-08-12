@@ -1,5 +1,6 @@
 # Permitir acceso directo al índice de artículos del public/blog
 /public/blog/index.json /public/blog/index.json 200
+/public/data/blog-index.json /public/data/blog-index.json 200
 # Permitir acceso directo a los artículos HTML
 /public/blog/:slug  /public/blog/:slug  200
 # Archivos estáticos importantes para SEO

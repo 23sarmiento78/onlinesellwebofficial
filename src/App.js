@@ -4,53 +4,47 @@ import { HelmetProvider } from "react-helmet-async";
 import "./App.css";
 import "./dark-green-theme.css";
 
+// Importar NavBar
+import NavBar from "./components/NavBar";
+
+// Importar componentes de AdSense
+import AdSenseErrorBoundary, { AdSenseInitializer } from "./components/AdSenseErrorBoundary";
+
 // Importar páginas
 import Home from "./pages/Home";
 import Contacto from "./pages/Contacto";
-import Planes from "./pages/Planes";
+import Articles from "./pages/Articles";
+import ArticleDetail from "./pages/ArticleDetail";
+import EbookPage from "./pages/EbookPage";
+import DeveloperResources from "./pages/DeveloperResources";
 import Legal from "./pages/Legal";
 import PoliticasPrivacidad from "./pages/PoliticasPrivacidad";
-import BlogIA from "./pages/BlogIA";
-import BlogArticle from "./pages/BlogArticle";
-import DesarrolloWebVillaCarlosPaz from "./pages/DesarrolloWebVillaCarlosPaz";
-import DisenoWebVillaCarlosPaz from "./pages/DisenoWebVillaCarlosPaz";
-import MarketingDigitalVillaCarlosPaz from "./pages/MarketingDigitalVillaCarlosPaz";
-// import Articulo from "./pages/articulos/[slug]"; // Eliminado porque el archivo ya no existe
-import BuilderExample from "./pages/BuilderExample";
 
 function App() {
   return (
     <HelmetProvider>
-      <Router>
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route path="/planes" element={<Planes />} />
-            <Route path="/legal" element={<Legal />} />
-            <Route
-              path="/politicas-privacidad"
-              element={<PoliticasPrivacidad />}
-            />
-            <Route path="/blog" element={<BlogIA />} />
-            <Route path="/blog/:slug" element={<BlogArticle />} />
-            <Route
-              path="/desarrollo-web-villa-carlos-paz"
-              element={<DesarrolloWebVillaCarlosPaz />}
-            />
-            <Route
-              path="/diseño-web-villa-carlos-paz"
-              element={<DisenoWebVillaCarlosPaz />}
-            />
-            <Route
-              path="/marketing-digital-villa-carlos-paz"
-              element={<MarketingDigitalVillaCarlosPaz />}
-            />
-            {/* <Route path="/articulos/:slug" element={<Articulo />} /> */}
-            <Route path="/builder-example" element={<BuilderExample />} />
-          </Routes>
-        </div>
-      </Router>
+      <AdSenseErrorBoundary>
+        <AdSenseInitializer>
+          <Router>
+            <div className="App">
+              <NavBar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/contacto" element={<Contacto />} />
+                <Route path="/articulos" element={<Articles />} />
+                <Route path="/articulos/:slug" element={<ArticleDetail />} />
+                <Route path="/ebook" element={<EbookPage />} />
+                <Route path="/recursos" element={<DeveloperResources />} />
+                <Route path="/legal" element={<Legal />} />
+                <Route
+                  path="/politicas-privacidad"
+                  element={<PoliticasPrivacidad />}
+                />
+              </Routes>
+            </div>
+          </Router>
+        </AdSenseInitializer>
+      </AdSenseErrorBoundary>
     </HelmetProvider>
   );
 }

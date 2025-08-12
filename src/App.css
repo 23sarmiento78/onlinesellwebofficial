@@ -1,23 +1,566 @@
+/* App.css - Dark Theme Complete Override */
+
 .App {
   text-align: center;
+  background: #0a0a0a !important;
+  color: #ffffff !important;
+  min-height: 100vh !important;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Inter', monospace !important;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.App * {
+  color: #ffffff !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.App::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 204, 106, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(57, 255, 20, 0.1) 0%, transparent 50%);
+  z-index: -1;
+  pointer-events: none;
+  animation: bg-shift 15s ease-in-out infinite;
+}
+
+@keyframes bg-shift {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1) rotate(1deg);
+    opacity: 0.5;
+  }
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  filter: drop-shadow(0 0 20px #00ff88);
+  animation: logo-float 6s ease-in-out infinite;
+}
+
+@keyframes logo-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: logo-spin 20s linear infinite, logo-float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%) !important;
+  min-height: 100vh !important;
+  padding: 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: calc(10px + 2vmin) !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.App-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300ff88' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.4;
+  animation: matrix-rain 10s linear infinite;
+}
+
+@keyframes matrix-rain {
+  0% { 
+    transform: translateY(-100%) rotate(0deg); 
+    opacity: 0; 
+  }
+  10% { 
+    opacity: 1; 
+  }
+  90% { 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translateY(100vh) rotate(360deg); 
+    opacity: 0; 
+  }
+}
+
+.App-header h1 {
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 50%, #39ff14 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3.5rem !important;
+  font-weight: 900 !important;
+  margin-bottom: 1rem !important;
+  animation: title-glow 3s ease-in-out infinite alternate;
+  position: relative;
+}
+
+@keyframes title-glow {
+  0% {
+    text-shadow: 0 0 10px #00ff88;
+    filter: drop-shadow(0 0 10px #00ff88);
+  }
+  100% {
+    text-shadow: 0 0 30px #00ff88, 0 0 50px #39ff14;
+    filter: drop-shadow(0 0 30px #00ff88);
+  }
+}
+
+.App-header p {
+  color: #e0e0e0 !important;
+  font-size: 1.2rem !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
+  margin-bottom: 2rem !important;
+  line-height: 1.6 !important;
+  animation: text-breathe 4s ease-in-out infinite;
+}
+
+@keyframes text-breathe {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
 }
 
 .App-link {
-  color: #61dafb;
-} 
+  color: #00ff88 !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  position: relative !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  transition: all 0.3s ease !important;
+  text-shadow: 0 0 10px #00ff88 !important;
+}
+
+.App-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  border-radius: 4px;
+}
+
+.App-link:hover::before {
+  transform: translateX(100%);
+}
+
+.App-link:hover {
+  color: #39ff14 !important;
+  text-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14 !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  background: rgba(0, 255, 136, 0.1) !important;
+}
+
+/* Botones específicos de la App */
+.App button {
+  background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%) !important;
+  color: #0a0a0a !important;
+  border: 2px solid #00ff88 !important;
+  border-radius: 8px !important;
+  padding: 12px 24px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  text-shadow: none !important;
+  font-family: inherit !important;
+  margin: 0.5rem !important;
+}
+
+.App button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.App button:hover::before {
+  left: 100%;
+}
+
+.App button:hover {
+  background: #39ff14 !important;
+  color: #0a0a0a !important;
+  border-color: #39ff14 !important;
+  box-shadow: 0 0 30px #39ff14 !important;
+  transform: translateY(-2px) scale(1.05) !important;
+}
+
+.App button:active {
+  transform: translateY(0) scale(1) !important;
+}
+
+/* Inputs específicos de la App */
+.App input {
+  background: #2a2a2a !important;
+  color: #ffffff !important;
+  border: 2px solid #333333 !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3) !important;
+  font-family: inherit !important;
+  margin: 0.5rem !important;
+}
+
+.App input:focus {
+  outline: none !important;
+  border-color: #00ff88 !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3) !important;
+  background: #1a1a1a !important;
+  transform: scale(1.02) !important;
+}
+
+.App input::placeholder {
+  color: #888888 !important;
+  text-shadow: none !important;
+}
+
+/* Secciones específicas */
+.App-section {
+  padding: 2rem !important;
+  margin: 1rem 0 !important;
+  background: rgba(26, 26, 26, 0.5) !important;
+  border: 1px solid #333333 !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(10px) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.App-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00ff88, #00cc6a);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.App-section:hover::before {
+  transform: scaleX(1);
+}
+
+.App-section:hover {
+  background: rgba(42, 42, 42, 0.7) !important;
+  border-color: #00ff88 !important;
+  box-shadow: 0 4px 24px rgba(0, 255, 136, 0.2) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* Lista específica */
+.App ul {
+  list-style: none !important;
+  padding: 0 !important;
+}
+
+.App li {
+  background: rgba(26, 26, 26, 0.8) !important;
+  border: 1px solid #333333 !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+  margin: 0.5rem 0 !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+}
+
+.App li::before {
+  content: '▶';
+  color: #00ff88 !important;
+  margin-right: 0.5rem !important;
+  text-shadow: 0 0 10px #00ff88 !important;
+}
+
+.App li:hover {
+  background: rgba(42, 42, 42, 0.9) !important;
+  border-color: #00ff88 !important;
+  transform: translateX(5px) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3) !important;
+}
+
+/* Tablas específicas */
+.App table {
+  width: 100% !important;
+  background: rgba(26, 26, 26, 0.8) !important;
+  border-collapse: collapse !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  margin: 1rem 0 !important;
+}
+
+.App th {
+  background: #2a2a2a !important;
+  color: #00ff88 !important;
+  padding: 1rem !important;
+  text-align: left !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 10px #00ff88 !important;
+  border-bottom: 2px solid #00ff88 !important;
+}
+
+.App td {
+  padding: 0.8rem 1rem !important;
+  border-bottom: 1px solid #333333 !important;
+  transition: all 0.3s ease !important;
+}
+
+.App tr:hover td {
+  background: rgba(0, 255, 136, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* Code blocks específicos */
+.App pre {
+  background: #0a0a0a !important;
+  color: #00ff88 !important;
+  border: 1px solid #333333 !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+  overflow-x: auto !important;
+  text-align: left !important;
+  text-shadow: 0 0 5px #00ff88 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+.App code {
+  background: rgba(42, 42, 42, 0.8) !important;
+  color: #00ff88 !important;
+  padding: 0.2rem 0.4rem !important;
+  border-radius: 4px !important;
+  border: 1px solid #333333 !important;
+  text-shadow: 0 0 3px #00ff88 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Cards específicas de la App */
+.App-card {
+  background: rgba(26, 26, 26, 0.9) !important;
+  border: 1px solid #333333 !important;
+  border-radius: 16px !important;
+  padding: 1.5rem !important;
+  margin: 1rem !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.App-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00ff88, #00cc6a);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.App-card:hover {
+  background: rgba(42, 42, 42, 0.9) !important;
+  border-color: #00ff88 !important;
+  box-shadow: 0 4px 24px rgba(0, 255, 136, 0.3) !important;
+  transform: translateY(-5px) scale(1.02) !important;
+}
+
+.App-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .App-header {
+    padding: 1rem !important;
+  }
+  
+  .App-header h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  .App-section {
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+  }
+  
+  .App button {
+    width: 100% !important;
+    margin: 0.25rem 0 !important;
+  }
+  
+  .App input {
+    width: 100% !important;
+    margin: 0.25rem 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .App-header h1 {
+    font-size: 2rem !important;
+  }
+  
+  .App-header p {
+    font-size: 1rem !important;
+  }
+  
+  .App-logo {
+    height: 30vmin;
+  }
+}
+
+/* Efectos de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .App-logo {
+    animation: none !important;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .App * {
+    text-shadow: 0 0 10px #00ff00 !important;
+  }
+  
+  .App button {
+    border-width: 3px !important;
+  }
+  
+  .App input {
+    border-width: 3px !important;
+  }
+  
+  .App-card {
+    border-width: 2px !important;
+  }
+}
+
+/* Animaciones adicionales */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.App-section {
+  animation: fade-in 0.8s ease-out;
+}
+
+.App-card {
+  animation: fade-in 1s ease-out;
+}
+
+/* Loading states */
+.App-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: 1.2rem;
+  color: #00ff88 !important;
+  text-shadow: 0 0 15px #00ff88 !important;
+}
+
+.App-loading::before {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 4px solid #333333;
+  border-top: 4px solid #00ff88;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 1rem;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error states */
+.App-error {
+  background: rgba(255, 68, 68, 0.1) !important;
+  border: 2px solid #ff4444 !important;
+  color: #ff4444 !important;
+  padding: 1rem !important;
+  border-radius: 8px !important;
+  margin: 1rem 0 !important;
+  text-shadow: 0 0 10px #ff4444 !important;
+}
+
+/* Success states */
+.App-success {
+  background: rgba(0, 255, 136, 0.1) !important;
+  border: 2px solid #00ff88 !important;
+  color: #00ff88 !important;
+  padding: 1rem !important;
+  border-radius: 8px !important;
+  margin: 1rem 0 !important;
+  text-shadow: 0 0 10px #00ff88 !important;
+}

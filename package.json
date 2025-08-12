@@ -1,6 +1,7 @@
 {
   "name": "proyect",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
@@ -9,6 +10,7 @@
     "@builder.io/react": "^3.2.7",
     "@builder.io/sdk": "^2.2.3",
     "bootstrap": "^5.3.3",
+    "cheerio": "^1.1.2",
     "cron-parser": "^4.9.0",
     "globby": "^14.1.0",
     "google-auth-library": "^9.4.1",
@@ -23,25 +25,27 @@
     "react-helmet-async": "^2.0.5",
     "react-markdown": "^9.1.0",
     "react-router-dom": "^6.23.1",
-    "react-scripts": "^0.0.0",
     "sharp": "^0.34.3"
   },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "axios": "^1.6.5",
+    "netlify-plugin-formspree": "^0.0.3",
+    "vite": "^5.3.4",
+    "xml2js": "^0.6.2"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "generate-articles": "node scripts/generate-static-articles.js",
     "generate-html-articles": "node scripts/generate-html-articles.js",
     "update-articles": "node scripts/update-article-list.js",
     "build-with-articles": "npm run generate-articles && npm run generate-html-articles && npm run build",
     "publish-socials": "node scripts/publish-to-socials-modern.js",
     "get-reddit-token": "node get_reddit_token_modern.js"
-  },
-  "devDependencies": {
-    "axios": "^1.6.5",
-    "netlify-plugin-formspree": "^0.0.3",
-    "xml2js": "^0.6.2"
   },
   "browserslist": {
     "production": [
@@ -55,15 +59,19 @@
       "last 1 safari version"
     ]
   },
-  "description": "",
-  "main": "index.js",
+  "description": "Desarrollo web profesional Villa Carlos Paz",
+  "keywords": [
+    "desarrollo web",
+    "villa carlos paz",
+    "react",
+    "vite"
+  ],
+  "author": "hgaruna",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/23sarmiento78/onlinesellwebofficial.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/23sarmiento78/onlinesellwebofficial/issues"
   },
