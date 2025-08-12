@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<!DOCTYPE html><html lang="es"><head>
     <meta name="category" content="Performance y Optimización">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,8 +29,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237"
-     crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -197,7 +194,26 @@
             }
         }
     </style>
-</head>
+<meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM"><meta name="monetization" content="enabled"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Code Splitting: División de Bundles",
+  "description": "El code splitting es una técnica de optimización que divide el código de una aplicación en chunks o fragmentos más pequeños. En lugar de cargar todo e...",
+  "author": {
+    "@type": "Organization",
+    "name": "hgaruna"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hgaruna",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
+    }
+  },
+  "datePublished": "2025-08-12T17:16:55.864Z",
+  "dateModified": "2025-08-12T17:16:55.864Z"
+}</script></head>
 <body>
     <!-- Botón de regreso -->
     <div class="back-button">
@@ -257,7 +273,7 @@
             <div class="col-lg-8 mx-auto">
                 <!-- Imagen destacada -->
                 <div class="text-center mb-4">
-                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Code Splitting: División de Bundles" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Code Splitting: División de Bundles" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;" loading="lazy" width="300" height="200">
                 </div>
                 
                 <!-- Meta información -->
@@ -283,13 +299,15 @@
                 <!-- Contenido del artículo -->
                 <article class="article-content">
                     <main>
-  <h1>Code Splitting: División de Bundles</h1>
-  <p>En el desarrollo web moderno, la optimización del rendimiento es crucial para una experiencia de usuario satisfactoria.  Una técnica clave para mejorar la velocidad de carga de una aplicación web es el <em>code splitting</em> o división de bundles.  Esta estrategia consiste en dividir el código de tu aplicación en múltiples bundles más pequeños, cargando solo los necesarios para la parte de la aplicación que el usuario está viendo actualmente.  Esto reduce significativamente el tiempo de carga inicial y mejora la experiencia general del usuario, especialmente en aplicaciones web grandes y complejas.</p>
+  <h2 id="code-splitting-divisi-n-de-bundles">Code Splitting: División de Bundles</h2><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+  <p>En el desarrollo web moderno, la optimización del rendimiento es crucial para una experiencia de usuario satisfactoria.  Una técnica clave para mejorar la velocidad de carga de una aplicación web es el code splitting o división de bundles.</p><p> Esta estrategia consiste en dividir el código de tu aplicación en múltiples bundles más pequeños, cargando solo los necesarios para la parte de la aplicación que el usuario está viendo actualmente.  Esto reduce significativamente el tiempo de carga inicial y mejora la experiencia general del usuario, especialmente en aplicaciones web grandes y complejas.</p>
 
-  <h2>¿Qué es Code Splitting?</h2>
-  <p>El code splitting es una técnica de optimización que divide el código de una aplicación en chunks o fragmentos más pequeños. En lugar de cargar todo el código de una vez, solo se cargan los chunks necesarios para la página inicial o la sección que el usuario está viendo.  A medida que el usuario interactúa con la aplicación, se cargan los chunks adicionales bajo demanda.  Esto resulta en tiempos de carga más rápidos, especialmente en aplicaciones que tienen una gran cantidad de código JavaScript.</p>
+  <h2 id="qu-es-code-splitting">¿Qué es Code Splitting?</h2>
+  <p>El code splitting es una técnica de optimización que divide el código de una aplicación en chunks o fragmentos más pequeños. En lugar de cargar todo el código de una vez, solo se cargan los chunks necesarios para la página inicial o la sección que el usuario está viendo.</p><p> A medida que el usuario interactúa con la aplicación, se cargan los chunks adicionales bajo demanda.  Esto resulta en tiempos de carga más rápidos, especialmente en aplicaciones que tienen una gran cantidad de código JavaScript.</p>
 
-  <h2>Beneficios del Code Splitting</h2>
+  <h2 id="beneficios-del-code-splitting">Beneficios del Code Splitting</h2>
   <ul>
     <li><strong>Rendimiento mejorado:</strong>  El tiempo de carga inicial se reduce drásticamente, lo que lleva a una mejor experiencia del usuario.</li>
     <li><strong>Experiencia de usuario más fluida:</strong> Los usuarios ven contenido más rápido y pueden interactuar con la aplicación antes.</li>
@@ -298,47 +316,47 @@
     <li><strong>Mejor manejo de errores:</strong> Si un chunk falla, el resto de la aplicación puede seguir funcionando.</li>
   </ul>
 
-  <h2>Técnicas de Code Splitting</h2>
-  <h3>Import dinámico</h3>
-  <p>El <em>import dinámico</em> es una característica de JavaScript que permite cargar módulos de forma asíncrona.  Esto significa que el módulo no se carga hasta que se necesita.  Es una forma sencilla y eficaz de implementar code splitting.</p>
-  <pre>
-    <code>
-      const getComponent = () => import('./myComponent');
+  <h2 id="t-cnicas-de-code-splitting">Técnicas de Code Splitting</h2>
+  <h3 id="import-din-mico">Import dinámico</h3>
+  <p>El <em>import dinámico</em> es una característica de JavaScript que permite cargar módulos de forma asíncrona.  Esto significa que el módulo no se carga hasta que se necesita.  Es una forma sencilla y eficaz de implementar code splitting.</p><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="5555555555" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+  </div>
+  <pre>    <code>
+      const getComponent = () =&gt; import('./myComponent');
 
-      getComponent().then(module => {
+      getComponent().then(module =&gt; {
         const MyComponent = module.default;
-        ReactDOM.render(<MyComponent />, document.getElementById('root'));
+        ReactDOM.render(<mycomponent>, document.getElementById('root'));
       });
-    </code>
+    </mycomponent></code>
   </pre>
   <p>Este ejemplo carga el componente <code>myComponent</code> solo cuando se llama a la función <code>getComponent</code>. </p>
 
 
-  <h3>React.lazy y Suspense</h3>
+  <h3 id="react-lazy-y-suspense">React.lazy y Suspense</h3>
   <p>React ofrece <code>React.lazy</code> y <code>Suspense</code> para implementar code splitting de una forma más declarativa. <code>React.lazy</code> permite cargar componentes de forma asíncrona, mientras que <code>Suspense</code> proporciona una forma de mostrar un indicador de carga mientras se carga el componente.</p>
-  <pre>
-    <code>
-      const MyComponent = React.lazy(() => import('./myComponent'));
+  <pre>    <code>
+      const MyComponent = React.lazy(() =&gt; import('./myComponent'));
 
       function MyPage() {
         return (
-          <Suspense fallback={<div>Loading...</div>}>
-            <MyComponent />
-          </Suspense>
+          <suspense fallback="{<div">Loading...</suspense></code></pre></main></article></div><code>}&gt;
+            <mycomponent>
+          
         );
       }
-    </code>
-  </pre>
+    </mycomponent></code>
+  
   <p>Este código carga <code>myComponent</code> solo cuando se renderiza <code>MyPage</code> y muestra un "Loading..." mientras se carga.</p>
 
-  <h2>Desventajas del Code Splitting</h2>
+  <h2 id="desventajas-del-code-splitting">Desventajas del Code Splitting</h2>
   <ul>
     <li><strong>Complejidad:</strong> Implementar code splitting puede añadir complejidad a la estructura del proyecto.</li>
     <li><strong>Mayor cantidad de requests:</strong> Se realizan más peticiones al servidor, aunque cada petición sea más pequeña.</li>
     <li><strong>Requiere optimización:</strong> Si no se implementa correctamente, puede incluso empeorar el rendimiento.</li>
   </ul>
 
-  <h2>Consejos para implementar Code Splitting</h2>
+  <h2 id="consejos-para-implementar-code-splitting">Consejos para implementar Code Splitting</h2>
   <ol>
     <li><strong>Identificar los chunks:</strong> Divide tu aplicación en chunks lógicos, agrupando componentes relacionados.</li>
     <li><strong>Utilizar herramientas de bundling:</strong> Webpack, Parcel, Rollup, etc., ofrecen soporte nativo para code splitting.</li>
@@ -347,11 +365,11 @@
     <li><strong>Monitorizar el rendimiento:</strong> Utiliza herramientas de monitorización para evaluar el impacto del code splitting.</li>
   </ol>
 
-  <h2>Conclusión</h2>
+  <h2 id="conclusi-n">Conclusión</h2>
   <p>El code splitting es una técnica poderosa para mejorar el rendimiento de las aplicaciones web. Aunque requiere un poco más de configuración inicial, los beneficios en términos de velocidad de carga y experiencia de usuario superan con creces los inconvenientes.  Al implementar cuidadosamente el code splitting y optimizar la estructura de los bundles, puedes crear aplicaciones web más rápidas, eficientes y agradables para tus usuarios.</p>
-</main>
+</div></main>
 
-                </article>
+                
                 
                 <!-- Footer del artículo -->
                 <footer class="mt-5 pt-4 border-top">
@@ -379,13 +397,15 @@
                                     <i class="fas fa-robot me-1"></i>
                                     Artículo generado por inteligencia artificial
                                 </small>
-                            </p>
+                            </p><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="7777777777" data-ad-format="autorelaxed" data-full-width-responsive="true"></ins>
+  </div>
                         </div>
                     </div>
                 </footer>
-            </div>
-        </div>
-    </main>
+            
+        
+    
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -424,5 +444,5 @@
             });
         });
     </script>
-</body>
-</html> 
+
+ </body></html>

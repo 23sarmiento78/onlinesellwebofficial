@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
+<!DOCTYPE html><html lang="es"><head>
+    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM">
     <meta name="category" content="DevOps y Cloud">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -197,8 +195,27 @@
             }
         }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
-</head>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
+<meta name="monetization" content="enabled"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Ansible: Automatización de Configuración",
+  "description": "Ansible es una herramienta de automatización de configuración de código abierto, ampliamente utilizada en entornos DevOps y Cloud.  Se basa en un enfo...",
+  "author": {
+    "@type": "Organization",
+    "name": "hgaruna"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hgaruna",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
+    }
+  },
+  "datePublished": "2025-08-12T17:16:55.833Z",
+  "dateModified": "2025-08-12T17:16:55.833Z"
+}</script></head>
 <body>
     <!-- Botón de regreso -->
     <div class="back-button">
@@ -258,7 +275,7 @@
             <div class="col-lg-8 mx-auto">
                 <!-- Imagen destacada -->
                 <div class="text-center mb-4">
-                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Ansible: Automatización de Configuración" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Ansible: Automatización de Configuración" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;" loading="lazy" width="300" height="200">
                 </div>
                 
                 <!-- Meta información -->
@@ -284,14 +301,16 @@
                 <!-- Contenido del artículo -->
                 <article class="article-content">
                     <main>
-  <h1>Ansible: Automatización de Configuración</h1>
+  <h2 id="ansible-automatizaci-n-de-configuraci-n">Ansible: Automatización de Configuración</h2><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
 
   <p>Ansible es una herramienta de automatización de configuración de código abierto, ampliamente utilizada en entornos DevOps y Cloud.  Se basa en un enfoque basado en agentes, lo que significa que no requiere la instalación de ningún agente en los nodos administrados.  Su simplicidad, potencia y facilidad de uso lo han convertido en una herramienta esencial para la gestión de infraestructuras a escala, permitiendo la automatización de tareas repetitivas y la gestión consistente de la configuración de servidores y aplicaciones.</p>
 
-  <h2>¿Qué es Ansible y cómo funciona?</h2>
-  <p>Ansible utiliza un lenguaje declarativo simple basado en YAML para definir la configuración deseada.  Este lenguaje es legible por humanos y facilita la creación y gestión de playbooks, que son archivos que describen las tareas a realizar en uno o más servidores.  Ansible se conecta a los servidores a través de SSH, ejecutando módulos en cada nodo para aplicar la configuración deseada.  Este proceso se realiza sin agentes, lo que simplifica la implementación y la gestión.</p>
+  <h2 id="qu-es-ansible-y-c-mo-funciona">¿Qué es Ansible y cómo funciona?</h2>
+  <p>Ansible utiliza un lenguaje declarativo simple basado en YAML para definir la configuración deseada.  Este lenguaje es legible por humanos y facilita la creación y gestión de playbooks, que son archivos que describen las tareas a realizar en uno o más servidores.</p><p> Ansible se conecta a los servidores a través de SSH, ejecutando módulos en cada nodo para aplicar la configuración deseada.  Este proceso se realiza sin agentes, lo que simplifica la implementación y la gestión.</p>
 
-  <h2>Instalación y Configuración Básica</h2>
+  <h2 id="instalaci-n-y-configuraci-n-b-sica">Instalación y Configuración Básica</h2>
   <p>La instalación de Ansible es relativamente sencilla. En sistemas basados en Linux, generalmente se realiza a través del gestor de paquetes de la distribución.  Por ejemplo, en sistemas basados en Debian o Ubuntu, se puede instalar usando:</p>
   <pre><code>sudo apt update
 sudo apt install ansible</code></pre>
@@ -299,10 +318,12 @@ sudo apt install ansible</code></pre>
   <pre><code>[webservers]
 web1 ansible_host=192.168.1.100
 web2 ansible_host=192.168.1.101</code></pre>
-  <p>Este archivo define dos servidores web, <code>web1</code> y <code>web2</code>, con sus respectivas direcciones IP.</p>
+  <p>Este archivo define dos servidores web, <code>web1</code> y <code>web2</code>, con sus respectivas direcciones IP.</p><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="5555555555" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+  </div>
 
 
-  <h2>Creación de Playbooks</h2>
+  <h2 id="creaci-n-de-playbooks">Creación de Playbooks</h2>
   <p>Los playbooks son el corazón de Ansible.  Son archivos YAML que describen las tareas a realizar en los servidores.  Un ejemplo simple que instala el paquete Apache en los servidores web definidos en el inventario:</p>
   <pre><code>---
 - hosts: webservers
@@ -315,8 +336,8 @@ web2 ansible_host=192.168.1.101</code></pre>
 </code></pre>
   <p>En este ejemplo, <code>hosts: webservers</code> especifica que las tareas se ejecutarán en los servidores definidos en el grupo <code>webservers</code> del inventario.  <code>become: true</code> permite ejecutar las tareas con privilegios de root.  <code>apt:</code> es un módulo de Ansible que gestiona los paquetes APT.</p>
 
-  <h2>Ventajas y Desventajas de Ansible</h2>
-  <h3>Ventajas:</h3>
+  <h2 id="ventajas-y-desventajas-de-ansible">Ventajas y Desventajas de Ansible</h2>
+  <h3 id="ventajas">Ventajas:</h3>
   <ul>
     <li>Fácil de aprender y usar.</li>
     <li>Sin agentes: simplifica la implementación y la gestión.</li>
@@ -324,7 +345,7 @@ web2 ansible_host=192.168.1.101</code></pre>
     <li>Amplia gama de módulos para diversas tareas.</li>
     <li>Idempotente: las tareas se pueden ejecutar varias veces sin efectos secundarios.</li>
   </ul>
-  <h3>Desventajas:</h3>
+  <h3 id="desventajas">Desventajas:</h3>
   <ul>
     <li>Puede ser menos eficiente que otras herramientas para tareas complejas.</li>
     <li>La gestión de estados complejos puede requerir playbooks más elaborados.</li>
@@ -332,7 +353,7 @@ web2 ansible_host=192.168.1.101</code></pre>
   </ul>
 
 
-  <h2>Casos de Uso y Ejemplos Avanzados</h2>
+  <h2 id="casos-de-uso-y-ejemplos-avanzados">Casos de Uso y Ejemplos Avanzados</h2>
   <p>Ansible se puede utilizar para una amplia gama de tareas, incluyendo:</p>
   <ul>
     <li>Configuración de servidores web (Apache, Nginx).</li>
@@ -343,7 +364,7 @@ web2 ansible_host=192.168.1.101</code></pre>
   </ul>
   <p>Para ejemplos más avanzados, se pueden explorar módulos para la gestión de configuraciones de red, la implementación de contenedores Docker o la gestión de servicios de nube.</p>
 
-  <h2>Conclusión</h2>
+  <h2 id="conclusi-n">Conclusión</h2>
   <p>Ansible es una herramienta poderosa y versátil para la automatización de configuración en entornos DevOps y Cloud.  Su simplicidad, eficiencia y gran comunidad lo convierten en una opción ideal para equipos que buscan mejorar la eficiencia y la consistencia en la gestión de sus infraestructuras.  A pesar de algunas limitaciones, la facilidad de uso y la amplia gama de funcionalidades hacen que Ansible sea una herramienta invaluable para cualquier profesional de DevOps.</p>
 </main>
 
@@ -375,7 +396,9 @@ web2 ansible_host=192.168.1.101</code></pre>
                                     <i class="fas fa-robot me-1"></i>
                                     Artículo generado por inteligencia artificial
                                 </small>
-                            </p>
+                            </p><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="7777777777" data-ad-format="autorelaxed" data-full-width-responsive="true"></ins>
+  </div>
                         </div>
                     </div>
                 </footer>
@@ -420,5 +443,5 @@ web2 ansible_host=192.168.1.101</code></pre>
             });
         });
     </script>
-</body>
-</html> 
+
+ </body></html>
