@@ -12,7 +12,33 @@ const __dirname = dirname(__filename);
 
 // Configuración de la API de Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+const model = genAI.getGenerativeModel({ 
+  model: "gemini-1.5-pro-latest",  // Usando el modelo gratuito más reciente
+  safetySettings: [
+    {
+      category: "HARM_CATEGORY_HARASSMENT",
+      threshold: "BLOCK_NONE"
+    },
+    {
+      category: "HARM_CATEGORY_HATE_SPEECH",
+      threshold: "BLOCK_NONE"
+    },
+    {
+      category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+      threshold: "BLOCK_NONE"
+    },
+    {
+      category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+      threshold: "BLOCK_NONE"
+    }
+  ],
+  generationConfig: {
+    temperature: 0.6,    // Más conservador para mantener coherencia
+    topK: 20,           // Reducido para mayor precisión
+    topP: 0.85,         // Más conservador
+    maxOutputTokens: 4096 // Ajustado para límites del modelo gratuito
+  }
+});
 
 const EBOOK_TOPICS = {
   'JavaScript Moderno': {
@@ -138,8 +164,18 @@ Responde ÚNICAMENTE con el contenido del capítulo en formato markdown, sin int
     const response = await result.response;
     return response.text();
   } catch (error) {
-    console.error(`❌ Error generando capítulo ${chapterNumber}:`, error);
-    return `# ${chapterTitle}\n\n*Error al generar contenido. Intentar nuevamente.*`;
+    let errorMessage = `Error al generar capítulo ${chapterNumber}`;
+    const isCI = process.env.CI === 'true';
+    
+    if (error.status === 404) {
+      errorMessage = 'Error al acceder al modelo gemini-1.5-pro-latest. Verifica que el modelo esté disponible en tu región.';
+    } else if (error.message.includes('api key')) {
+      errorMessage = isCI 
+        ? 'Error de autenticación con la API de Gemini. Verifica el secret GEMINI_API_KEY en GitHub Actions.'
+        : 'Error de autenticación con la API de Gemini. Verifica tu API key en .env.local.';
+    }
+    console.error(`❌ ${errorMessage}:`, error);
+    return `# ${chapterTitle}\n\n*${errorMessage}*`;
   }
 }
 
@@ -174,8 +210,14 @@ Responde ÚNICAMENTE con el contenido de la introducción en markdown.
     const response = await result.response;
     return response.text();
   } catch (error) {
-    console.error('❌ Error generando introducción:', error);
-    return `# Introducción\n\n*Error al generar contenido. Intentar nuevamente.*`;
+    let errorMessage = 'Error al generar la introducción';
+    if (error.status === 404) {
+      errorMessage = 'La API de Gemini v1beta no está disponible. Por favor, verifica la versión de la API.';
+    } else if (error.message.includes('api key')) {
+      errorMessage = 'Error de autenticación con la API de Gemini. Verifica tu API key.';
+    }
+    console.error(`❌ ${errorMessage}:`, error);
+    return `# Introducción\n\n*${errorMessage}*`;
   }
 }
 
@@ -205,8 +247,14 @@ Responde ÚNICAMENTE con el contenido de la conclusión en markdown.
     const response = await result.response;
     return response.text();
   } catch (error) {
-    console.error('❌ Error generando conclusión:', error);
-    return `# Conclusión\n\n*Error al generar contenido. Intentar nuevamente.*`;
+    let errorMessage = 'Error al generar la conclusión';
+    if (error.status === 404) {
+      errorMessage = 'La API de Gemini v1beta no está disponible. Por favor, verifica la versión de la API.';
+    } else if (error.message.includes('api key')) {
+      errorMessage = 'Error de autenticación con la API de Gemini. Verifica tu API key.';
+    }
+    console.error(`❌ ${errorMessage}:`, error);
+    return `# Conclusión\n\n*${errorMessage}*`;
   }
 }
 
@@ -413,11 +461,37 @@ async function updateEbooksIndex(metadata) {
   console.log('📇 Índice de eBooks actualizado');
 }
 
+async function validateGeminiApiKey() {
+  const isCI = process.env.CI === 'true';
+
+  if (!process.env.GEMINI_API_KEY) {
+    if (isCI) {
+      throw new Error('GEMINI_API_KEY no está configurada en GitHub Actions. Por favor, verifica los secrets del repositorio.');
+    } else {
+      throw new Error('GEMINI_API_KEY no está configurada. Por favor, configura la variable GEMINI_API_KEY en el archivo .env.local');
+    }
+  }
+  
+  if (!isCI && process.env.GEMINI_API_KEY === 'your_api_key_here') {
+    throw new Error('GEMINI_API_KEY tiene un valor de placeholder. Por favor, reemplaza "your_api_key_here" con tu API key real en el archivo .env.local');
+  }
+  
+  try {
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
+    await model.generateContent("Test"); // Prueba simple para validar la API key
+  } catch (error) {
+    if (error.status === 404) {
+      throw new Error('La API de Gemini v1beta no está disponible. Por favor, verifica la versión de la API o contacta al soporte de Google.');
+    }
+    throw new Error(`Error validando GEMINI_API_KEY: ${error.message}`);
+  }
+}
+
 async function main() {
   try {
-    if (!process.env.GEMINI_API_KEY) {
-      throw new Error('GEMINI_API_KEY no está configurada');
-    }
+    // Validar API key antes de continuar
+    await validateGeminiApiKey();
     
     const topic = process.env.EBOOK_TOPIC || 'JavaScript Moderno';
     const chaptersCount = process.env.CHAPTERS_COUNT || '8';

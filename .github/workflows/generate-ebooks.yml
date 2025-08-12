@@ -1,0 +1,52 @@
+name: Generate eBooks
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Cada domingo a medianoche
+  workflow_dispatch:  # Permite ejecución manual
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Generate eBooks
+        run: |
+          # Generar eBooks para diferentes temas
+          for topic in "JavaScript Moderno" "React Avanzado" "Python para IA"
+          do
+            echo "Generando eBook: $topic"
+            EBOOK_TOPIC="$topic" npm run generate:ebook
+          done
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          
+      - name: Update metadata
+        run: node scripts/update-ebook-metadata.js
+        
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add public/ebooks/
+          git commit -m "📚 Auto-generated eBooks [skip ci]" || echo "No changes to commit"
+          
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

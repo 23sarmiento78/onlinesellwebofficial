@@ -1,12 +1,17 @@
-const fs = require('fs').promises;
-const path = require('path');
+import { promises as fs } from 'fs';
+import { join } from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 async function updateEbookMetadata() {
   try {
     console.log('📊 Actualizando metadata de eBooks...');
     
-    const ebooksDir = path.join(process.cwd(), 'public', 'ebooks');
-    const indexPath = path.join(ebooksDir, 'index.json');
+    const ebooksDir = join(process.cwd(), 'public', 'ebooks');
+    const indexPath = join(ebooksDir, 'index.json');
     
     // Crear directorio si no existe
     await fs.mkdir(ebooksDir, { recursive: true });
@@ -45,8 +50,8 @@ async function updateEbookMetadata() {
       
       // Procesar cada eBook
       for (const dirName of ebookDirs) {
-        const ebookPath = path.join(ebooksDir, dirName);
-        const metadataPath = path.join(ebookPath, 'metadata.json');
+        const ebookPath = join(ebooksDir, dirName);
+        const metadataPath = join(ebookPath, 'metadata.json');
         
         try {
           // Verificar si existe metadata
@@ -341,10 +346,10 @@ function createSampleEbooks() {
 }
 
 // Ejecutar si es llamado directamente
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   updateEbookMetadata()
     .then(() => console.log('🎉 Metadata actualizada exitosamente!'))
     .catch(console.error);
 }
 
-module.exports = { updateEbookMetadata };
+export { updateEbookMetadata };
