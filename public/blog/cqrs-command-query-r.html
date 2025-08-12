@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<!DOCTYPE html><html lang="es"><head>
     <meta name="category" content="Arquitectura y Patrones">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,8 +29,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237"
-     crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -197,7 +194,26 @@
             }
         }
     </style>
-</head>
+<meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM"><meta name="monetization" content="enabled"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "CQRS: Command Query Responsibility Segregation",
+  "description": "CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (consult...",
+  "author": {
+    "@type": "Organization",
+    "name": "hgaruna"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hgaruna",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
+    }
+  },
+  "datePublished": "2025-08-12T17:16:55.901Z",
+  "dateModified": "2025-08-12T17:16:55.901Z"
+}</script></head>
 <body>
     <!-- Botón de regreso -->
     <div class="back-button">
@@ -257,7 +273,7 @@
             <div class="col-lg-8 mx-auto">
                 <!-- Imagen destacada -->
                 <div class="text-center mb-4">
-                    <img src="/logos-he-imagenes/programacion.jpeg" alt="CQRS: Command Query Responsibility Segregation" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="CQRS: Command Query Responsibility Segregation" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;" loading="lazy" width="300" height="200">
                 </div>
                 
                 <!-- Meta información -->
@@ -283,10 +299,12 @@
                 <!-- Contenido del artículo -->
                 <article class="article-content">
                     <main>
-  <h1>CQRS: Command Query Responsibility Segregation</h1>
+  <h2 id="cqrs-command-query-responsibility-segregation">CQRS: Command Query Responsibility Segregation</h2><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
   <p>CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (consultas) de las operaciones de escritura (comandos).  En lugar de usar un único modelo para ambas acciones, CQRS utiliza dos modelos separados: uno para actualizar datos (el modelo de comando) y otro para consultar datos (el modelo de consulta). Esta separación permite optimizar cada modelo para su propósito específico, mejorando el rendimiento, la escalabilidad y la mantenibilidad de la aplicación.</p>
 
-  <h2>¿Por qué usar CQRS?</h2>
+  <h2 id="por-qu-usar-cqrs">¿Por qué usar CQRS?</h2>
   <p>CQRS ofrece varias ventajas significativas sobre un enfoque monolítico tradicional.  La separación de comandos y consultas permite una mayor flexibilidad y eficiencia en el diseño y la implementación de la aplicación.</p>
   <ul>
     <li><strong>Escalabilidad mejorada:</strong> Los modelos de comando y consulta se pueden escalar de forma independiente.  Se pueden agregar más recursos al modelo de consulta para manejar un mayor volumen de lecturas sin afectar el rendimiento del modelo de comando.</li>
@@ -295,7 +313,7 @@
     <li><strong>Flexibilidad en la tecnología:</strong>  Permite usar diferentes tecnologías para cada modelo. Por ejemplo, se puede usar una base de datos relacional para el modelo de consulta y una base de datos NoSQL para el modelo de comando.</li>
   </ul>
 
-  <h2>Componentes Clave de CQRS</h2>
+  <h2 id="componentes-clave-de-cqrs">Componentes Clave de CQRS</h2>
   <p>Un sistema CQRS típico incluye los siguientes componentes:</p>
   <ul>
     <li><strong>Modelo de Comando:</strong> Responsable de la modificación de datos. Recibe comandos, valida la entrada y actualiza el estado del sistema.  Suele utilizar un enfoque transaccional para garantizar la consistencia de los datos.</li>
@@ -304,9 +322,11 @@
     <li><strong>Bus de eventos (opcional):</strong>  Un mecanismo para publicar y suscribirse a eventos generados por el modelo de comando.  Permite la implementación de patrones de integración de eventos y la creación de sistemas más resilientes y escalables.</li>
   </ul>
 
-  <h2>Ejemplo de Implementación (Simplificado)</h2>
-  <p>Imagine una aplicación de comercio electrónico.  El modelo de comando manejaría la creación de un nuevo pedido, la actualización del inventario, etc. El modelo de consulta se encargaría de mostrar la información del pedido, el historial de compras, etc.</p>
-  <h3>Modelo de Comando (Ejemplo Conceptual)</h3>
+  <h2 id="ejemplo-de-implementaci-n-simplificado">Ejemplo de Implementación (Simplificado)</h2>
+  <p>Imagine una aplicación de comercio electrónico.  El modelo de comando manejaría la creación de un nuevo pedido, la actualización del inventario, etc. El modelo de consulta se encargaría de mostrar la información del pedido, el historial de compras, etc.</p><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="5555555555" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+  </div>
+  <h3 id="modelo-de-comando-ejemplo-conceptual">Modelo de Comando (Ejemplo Conceptual)</h3>
   <pre><code>
   // Comando para crear un nuevo pedido
   public class CreateOrderCommand
@@ -324,7 +344,7 @@
       }
   }
   </code></pre>
-  <h3>Modelo de Consulta (Ejemplo Conceptual)</h3>
+  <h3 id="modelo-de-consulta-ejemplo-conceptual">Modelo de Consulta (Ejemplo Conceptual)</h3>
   <pre><code>
   // Consulta para obtener la información de un pedido
   public class GetOrderQuery
@@ -344,15 +364,15 @@
   </code></pre>
 
 
-  <h2>Ventajas y Desventajas de CQRS</h2>
-  <h3>Ventajas</h3>
+  <h2 id="ventajas-y-desventajas-de-cqrs">Ventajas y Desventajas de CQRS</h2>
+  <h3 id="ventajas">Ventajas</h3>
   <ul>
     <li>Escalabilidad y rendimiento mejorados.</li>
     <li>Mayor mantenibilidad y flexibilidad.</li>
     <li>Posibilidad de usar diferentes tecnologías para cada modelo.</li>
     <li>Mejor manejo de la concurrencia.</li>
   </ul>
-  <h3>Desventajas</h3>
+  <h3 id="desventajas">Desventajas</h3>
   <ul>
     <li>Mayor complejidad en el diseño e implementación.</li>
     <li>Requiere una comprensión profunda de los patrones de diseño.</li>
@@ -360,7 +380,7 @@
     <li>Puede ser difícil de implementar en sistemas heredados.</li>
   </ul>
 
-  <h2>Casos de Uso de CQRS</h2>
+  <h2 id="casos-de-uso-de-cqrs">Casos de Uso de CQRS</h2>
   <p>CQRS es particularmente adecuado para aplicaciones con un alto volumen de lecturas y un menor volumen de escrituras, como:</p>
   <ul>
     <li>Aplicaciones de comercio electrónico.</li>
@@ -370,7 +390,7 @@
     <li>Sistemas de gestión de inventario.</li>
   </ul>
 
-  <h2>Conclusión</h2>
+  <h2 id="conclusi-n">Conclusión</h2>
   <p>CQRS es un patrón de arquitectura poderoso que puede mejorar significativamente el rendimiento, la escalabilidad y la mantenibilidad de las aplicaciones. Sin embargo, su implementación requiere una planificación cuidadosa y una comprensión profunda de sus ventajas y desventajas.  Es importante evaluar si CQRS es la solución adecuada para su proyecto en función de las necesidades específicas y la complejidad del sistema.</p>
 
 </main>
@@ -403,7 +423,9 @@
                                     <i class="fas fa-robot me-1"></i>
                                     Artículo generado por inteligencia artificial
                                 </small>
-                            </p>
+                            </p><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="7777777777" data-ad-format="autorelaxed" data-full-width-responsive="true"></ins>
+  </div>
                         </div>
                     </div>
                 </footer>
@@ -448,5 +470,5 @@
             });
         });
     </script>
-</body>
-</html> 
+
+ </body></html>

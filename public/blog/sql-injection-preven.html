@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<!DOCTYPE html><html lang="es"><head>
     <meta name="category" content="Seguridad">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,8 +29,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237"
-     crossorigin="anonymous"></script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -197,7 +194,26 @@
             }
         }
     </style>
-</head>
+<meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM"><meta name="monetization" content="enabled"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SQL Injection: Prevención y Detección",
+  "description": "La inyección SQL es una vulnerabilidad de seguridad que permite a los atacantes inyectar código SQL malicioso en una aplicación web para manipular la ...",
+  "author": {
+    "@type": "Organization",
+    "name": "hgaruna"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hgaruna",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
+    }
+  },
+  "datePublished": "2025-08-12T17:16:56.045Z",
+  "dateModified": "2025-08-12T17:16:56.045Z"
+}</script></head>
 <body>
     <!-- Botón de regreso -->
     <div class="back-button">
@@ -257,7 +273,7 @@
             <div class="col-lg-8 mx-auto">
                 <!-- Imagen destacada -->
                 <div class="text-center mb-4">
-                    <img src="/logos-he-imagenes/programacion.jpeg" alt="SQL Injection: Prevención y Detección" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="SQL Injection: Prevención y Detección" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;" loading="lazy" width="300" height="200">
                 </div>
                 
                 <!-- Meta información -->
@@ -283,58 +299,62 @@
                 <!-- Contenido del artículo -->
                 <article class="article-content">
                     <main>
-  <h1>SQL Injection: Prevención y Detección</h1>
+  <h2 id="sql-injection-prevenci-n-y-detecci-n">SQL Injection: Prevención y Detección</h2><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
   <p>La inyección SQL es una vulnerabilidad de seguridad que permite a los atacantes inyectar código SQL malicioso en una aplicación web para manipular la base de datos subyacente.  Esto puede resultar en la exposición de datos sensibles, la modificación o eliminación de datos, y el control total del servidor de la base de datos.  Entender cómo prevenir y detectar estas inyecciones es crucial para la seguridad de cualquier aplicación web que interactúe con una base de datos.</p>
 
-  <h2>¿Cómo funciona la inyección SQL?</h2>
+  <h2 id="c-mo-funciona-la-inyecci-n-sql">¿Cómo funciona la inyección SQL?</h2>
   <p>La inyección SQL se produce cuando una aplicación web no sanitiza correctamente las entradas del usuario antes de usarlas en una consulta SQL.  Si un atacante introduce datos maliciosos en un campo de entrada, puede modificar la consulta SQL original y ejecutar código no deseado. Por ejemplo, si una consulta SQL simple es:</p>
   <pre><code>SELECT * FROM users WHERE username = '$username';</code></pre>
   <p>Y un atacante introduce <code>' OR '1'='1</code> como valor de <code>$username</code>, la consulta resultante se convierte en:</p>
   <pre><code>SELECT * FROM users WHERE username = '' OR '1'='1';</code></pre>
   <p>La condición <code>'1'='1'</code> siempre es verdadera, por lo que la consulta devolverá todos los registros de la tabla <code>users</code>, exponiendo toda la información de los usuarios.</p>
 
-  <h2>Métodos de Prevención</h2>
-  <h3>Utilizando Parámetros Preparados (Prepared Statements)</h3>
+  <h2 id="m-todos-de-prevenci-n">Métodos de Prevención</h2>
+  <h3 id="utilizando-par-metros-preparados-prepared-statements">Utilizando Parámetros Preparados (Prepared Statements)</h3>
   <p>Los parámetros preparados son la mejor forma de prevenir la inyección SQL.  En lugar de insertar directamente las entradas del usuario en la consulta SQL, se utilizan marcadores de posición que el controlador de la base de datos reemplazará de forma segura.  Esto evita que el código del usuario se interprete como parte de la consulta SQL.</p>
   <pre><code>// Ejemplo con PHP y PDO
-$stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
-$stmt->execute([$username]);</code></pre>
+$stmt = $pdo-&gt;prepare("SELECT * FROM users WHERE username = ?");
+$stmt-&gt;execute([$username]);</code></pre>
   <p>Este ejemplo muestra cómo usar parámetros preparados con PHP y PDO.  El signo de interrogación (?) es un marcador de posición que se reemplaza con el valor de <code>$username</code> de forma segura.</p>
 
-  <h3>Validación y Sanitización de Entradas</h3>
-  <p>Aunque los parámetros preparados son la mejor defensa, la validación y sanitización de las entradas del usuario son pasos adicionales cruciales.  La validación verifica que los datos sean del tipo y formato esperados, mientras que la sanitización elimina o escapa caracteres especiales que podrían ser utilizados para una inyección SQL.</p>
+  <h3 id="validaci-n-y-sanitizaci-n-de-entradas">Validación y Sanitización de Entradas</h3>
+  <p>Aunque los parámetros preparados son la mejor defensa, la validación y sanitización de las entradas del usuario son pasos adicionales cruciales.  La validación verifica que los datos sean del tipo y formato esperados, mientras que la sanitización elimina o escapa caracteres especiales que podrían ser utilizados para una inyección SQL.</p><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="5555555555" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+  </div>
   <ul>
     <li><strong>Validación:</strong> Verificar la longitud, el formato y el tipo de datos de la entrada.</li>
     <li><strong>Sanitización:</strong> Escapar o codificar caracteres especiales como comillas simples ('), comillas dobles ("), barras invertidas (\), etc.</li>
   </ul>
 
-  <h3>Principio de Mínimos Privilegios</h3>
+  <h3 id="principio-de-m-nimos-privilegios">Principio de Mínimos Privilegios</h3>
   <p>Los usuarios de la base de datos deben tener solo los permisos necesarios para realizar sus tareas.  Evita otorgar permisos de administrador a usuarios que no los necesitan.  Esto limita el daño potencial de una inyección SQL exitosa.</p>
 
-  <h2>Métodos de Detección</h2>
-  <h3>Análisis de Seguridad de Aplicaciones Web (SAST/DAST)</h3>
+  <h2 id="m-todos-de-detecci-n">Métodos de Detección</h2>
+  <h3 id="an-lisis-de-seguridad-de-aplicaciones-web-sast-dast">Análisis de Seguridad de Aplicaciones Web (SAST/DAST)</h3>
   <p>Las herramientas SAST (Static Application Security Testing) analizan el código fuente en busca de vulnerabilidades, mientras que las herramientas DAST (Dynamic Application Security Testing) analizan la aplicación en tiempo de ejecución.  Ambas pueden detectar vulnerabilidades de inyección SQL.</p>
 
-  <h3>Pruebas de Intruso</h3>
+  <h3 id="pruebas-de-intruso">Pruebas de Intruso</h3>
   <p>Las pruebas de intrusión manuales o automatizadas simulan ataques para identificar vulnerabilidades.  Se pueden utilizar herramientas como SQLmap para automatizar este proceso.</p>
 
-  <h3>Monitoreo de la Base de Datos</h3>
+  <h3 id="monitoreo-de-la-base-de-datos">Monitoreo de la Base de Datos</h3>
   <p>Monitorear la actividad de la base de datos en busca de consultas SQL inusuales o sospechosas puede ayudar a detectar intentos de inyección SQL.  Buscar patrones como consultas con una gran cantidad de caracteres especiales o consultas que acceden a datos sensibles sin autorización.</p>
 
 
-  <h2>Ventajas y Desventajas de las Técnicas de Prevención</h2>
-  <h3>Parámetros Preparados</h3>
+  <h2 id="ventajas-y-desventajas-de-las-t-cnicas-de-prevenci-n">Ventajas y Desventajas de las Técnicas de Prevención</h2>
+  <h3 id="par-metros-preparados">Parámetros Preparados</h3>
   <ul>
     <li><strong>Ventajas:</strong>  Muy eficaz, previene la mayoría de las inyecciones SQL, fácil de implementar en muchos lenguajes de programación.</li>
     <li><strong>Desventajas:</strong> Requiere un cambio en la forma de escribir consultas SQL.</li>
   </ul>
-  <h3>Validación y Sanitización</h3>
+  <h3 id="validaci-n-y-sanitizaci-n">Validación y Sanitización</h3>
   <ul>
     <li><strong>Ventajas:</strong>  Capa adicional de seguridad, puede detectar otros tipos de ataques.</li>
     <li><strong>Desventajas:</strong>  Puede ser complejo de implementar correctamente, no es una solución completa por sí sola.</li>
   </ul>
 
-  <h2>Conclusión</h2>
+  <h2 id="conclusi-n">Conclusión</h2>
   <p>La inyección SQL es una amenaza seria para la seguridad de las aplicaciones web.  La mejor defensa es una estrategia multicapa que combine parámetros preparados, validación y sanitización de entradas, el principio de mínimos privilegios y un monitoreo regular de la base de datos.  Implementar estas medidas de prevención y realizar pruebas de seguridad regulares son esenciales para proteger las aplicaciones web y los datos de los usuarios.</p>
 </main>
 
@@ -366,7 +386,9 @@ $stmt->execute([$username]);</code></pre>
                                     <i class="fas fa-robot me-1"></i>
                                     Artículo generado por inteligencia artificial
                                 </small>
-                            </p>
+                            </p><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="7777777777" data-ad-format="autorelaxed" data-full-width-responsive="true"></ins>
+  </div>
                         </div>
                     </div>
                 </footer>
@@ -411,5 +433,5 @@ $stmt->execute([$username]);</code></pre>
             });
         });
     </script>
-</body>
-</html> 
+
+ </body></html>
