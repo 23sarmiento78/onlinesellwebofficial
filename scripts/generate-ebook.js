@@ -1,4 +1,5 @@
-const { GoogleGenerativeAI } = require('google-generative-ai');
+require('dotenv').config({ path: '.env.local' });
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 const fs = require('fs').promises;
 const path = require('path');
 
