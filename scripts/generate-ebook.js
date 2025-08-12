@@ -1,7 +1,14 @@
-require('dotenv').config({ path: '.env.local' });
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-const fs = require('fs').promises;
-const path = require('path');
+import { config } from 'dotenv';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { promises as fs } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+config({ path: '.env.local' });
+
+// Obtener __dirname en ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Configuración de la API de Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -216,8 +223,8 @@ async function createEbookStructure(topic, chaptersCount) {
   console.log(`📊 Capítulos: ${selectedChapters.length}`);
   
   // Crear directorio para el eBook
-  const ebookDir = path.join(process.cwd(), 'public', 'ebooks');
-  const currentEbookDir = path.join(ebookDir, `${topic.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`);
+  const ebookDir = join(process.cwd(), 'public', 'ebooks');
+  const currentEbookDir = join(ebookDir, `${topic.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`);
   
   await fs.mkdir(ebookDir, { recursive: true });
   await fs.mkdir(currentEbookDir, { recursive: true });
@@ -270,7 +277,7 @@ async function createEbookStructure(topic, chaptersCount) {
   fullContent += `- 💬 WhatsApp: [Contactar para versión premium](https://wa.me/message/...)\n\n`;
   
   // Guardar versión completa
-  const fullEbookPath = path.join(currentEbookDir, 'ebook-completo.md');
+  const fullEbookPath = join(currentEbookDir, 'ebook-completo.md');
   await fs.writeFile(fullEbookPath, fullContent, 'utf8');
   
   // Crear versión gratuita (primeros 3 capítulos)
@@ -317,7 +324,7 @@ async function createEbookStructure(topic, chaptersCount) {
   freeContent += `*(Precio regular: $39.99)*\n\n`;
   
   // Guardar versión gratuita
-  const freeEbookPath = path.join(currentEbookDir, 'ebook-gratis.md');
+  const freeEbookPath = join(currentEbookDir, 'ebook-gratis.md');
   await fs.writeFile(freeEbookPath, freeContent, 'utf8');
   
   // Crear archivo de metadatos
@@ -343,7 +350,7 @@ async function createEbookStructure(topic, chaptersCount) {
     }
   };
   
-  const metadataPath = path.join(currentEbookDir, 'metadata.json');
+  const metadataPath = join(currentEbookDir, 'metadata.json');
   await fs.writeFile(metadataPath, JSON.stringify(metadata, null, 2), 'utf8');
   
   // Actualizar índice de eBooks
@@ -361,7 +368,7 @@ async function createEbookStructure(topic, chaptersCount) {
 }
 
 async function updateEbooksIndex(metadata) {
-  const indexPath = path.join(process.cwd(), 'public', 'ebooks', 'index.json');
+  const indexPath = join(process.cwd(), 'public', 'ebooks', 'index.json');
   
   let index = { ebooks: [] };
   try {
@@ -429,8 +436,8 @@ async function main() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
 
-module.exports = { createEbookStructure, updateEbooksIndex };
+export { createEbookStructure, updateEbooksIndex };

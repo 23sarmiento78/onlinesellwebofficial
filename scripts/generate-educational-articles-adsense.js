@@ -1,14 +1,18 @@
 // scripts/generate-educational-articles-adsense.js
 // Genera artículos educativos HTML optimizados para AdSense usando Gemini
 
-const fs = require('fs');
-const path = require('path');
-const axios = require('axios');
+import fs from 'fs';
+import { join, resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import axios from 'axios';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const TEMPLATE_PATH = path.resolve(__dirname, '../templates/educational-article-template.html');
-const OUTPUT_DIR = path.resolve(__dirname, '../public/blog');
-const EDUCATIONAL_DIR = path.resolve(__dirname, '../public/aprende-programacion');
+const TEMPLATE_PATH = resolve(__dirname, '../templates/educational-article-template.html');
+const OUTPUT_DIR = resolve(__dirname, '../public/blog');
+const EDUCATIONAL_DIR = resolve(__dirname, '../public/aprende-programacion');
 
 if (!GEMINI_API_KEY) {
   console.error('❌ Falta la variable de entorno GEMINI_API_KEY');
@@ -282,7 +286,7 @@ async function main() {
   console.log(`🚀 Iniciando generación de ${count} artículos educativos optimizados para AdSense...`);
 
   // Crear directorios necesarios
-  const outputDir = path.join(__dirname, 'generated-html');
+  const outputDir = join(__dirname, 'generated-html');
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
@@ -319,7 +323,7 @@ async function main() {
   }
 
   // Guardar índice de artículos generados
-  const indexPath = path.join(__dirname, 'generated-educational-index.json');
+  const indexPath = join(__dirname, 'generated-educational-index.json');
   fs.writeFileSync(indexPath, JSON.stringify(generatedArticles, null, 2));
 
   console.log(`✅ Generados ${generatedArticles.length} artículos educativos optimizados para AdSense`);
@@ -331,7 +335,7 @@ async function main() {
 async function generateEducationalHTML(articleData, outputDir) {
   try {
     // Leer template educativo
-    const templatePath = path.join(__dirname, '../templates/educational-article-template.html');
+    const templatePath = join(__dirname, '../templates/educational-article-template.html');
     let template = fs.readFileSync(templatePath, 'utf8');
     
     // Reemplazar placeholders
@@ -352,7 +356,7 @@ async function generateEducationalHTML(articleData, outputDir) {
 
     // Guardar archivo HTML
     const fileName = `${articleData.slug}.html`;
-    const filePath = path.join(outputDir, fileName);
+    const filePath = join(outputDir, fileName);
     fs.writeFileSync(filePath, template);
     
     console.log(`✅ Artículo educativo generado: ${fileName}`);
@@ -362,8 +366,8 @@ async function generateEducationalHTML(articleData, outputDir) {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch(console.error);
 }
 
-module.exports = { generateEducationalContent };
+export { generateEducationalContent };

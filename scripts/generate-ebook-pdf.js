@@ -1,7 +1,26 @@
-const puppeteer = require('puppeteer');
-const fs = require('fs').promises;
-const path = require('path');
-const markdownIt = require('markdown-it');
+import puppeteer from 'puppeteer';
+import { promises as fs } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import MarkdownIt from 'markdown-it';
+import highlightjs from 'markdown-it-highlightjs';
+import anchor from 'markdown-it-anchor';
+import toc from 'markdown-it-toc-done-right';
+
+// Obtener __dirname en ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Configurar markdown parser con plugins útiles
+const mdParser = MarkdownIt({
+  html: true,
+  breaks: true,
+  linkify: true,
+  typographer: true
+})
+  .use(highlightjs)
+  .use(anchor)
+  .use(toc);
 
 // Configurar markdown parser con plugins útiles
 const md = markdownIt({
@@ -388,7 +407,7 @@ async function generateEbookPDF() {
     console.log('🚀 Iniciando generación de PDF del eBook...');
     
     // Buscar el eBook más reciente
-    const ebooksDir = path.join(process.cwd(), 'public', 'ebooks');
+    const ebooksDir = join(process.cwd(), 'public', 'ebooks');
     const dirs = await fs.readdir(ebooksDir);
     const ebookDirs = dirs.filter(dir => dir.includes('-')).sort().reverse();
     
@@ -396,9 +415,9 @@ async function generateEbookPDF() {
       throw new Error('No se encontraron eBooks para generar PDF');
     }
     
-    const latestEbookDir = path.join(ebooksDir, ebookDirs[0]);
-    const markdownFile = path.join(latestEbookDir, 'ebook-completo.md');
-    const metadataFile = path.join(latestEbookDir, 'metadata.json');
+    const latestEbookDir = join(ebooksDir, ebookDirs[0]);
+    const markdownFile = join(latestEbookDir, 'ebook-completo.md');
+    const metadataFile = join(latestEbookDir, 'metadata.json');
     
     // Leer archivos
     const markdownContent = await fs.readFile(markdownFile, 'utf8');
@@ -407,7 +426,7 @@ async function generateEbookPDF() {
     console.log(`📖 Procesando: ${metadata.title}`);
     
     // Convertir markdown a HTML
-    const htmlContent = md.render(markdownContent);
+    const htmlContent = mdParser.render(markdownContent);
     
     // Crear HTML completo con estilos
     const fullHTML = createFullHTML(htmlContent, metadata);
@@ -509,7 +528,7 @@ async function generateFreePDF(ebookDir, metadata) {
     const freeMarkdownFile = path.join(ebookDir, 'ebook-gratis.md');
     const freeMarkdownContent = await fs.readFile(freeMarkdownFile, 'utf8');
     
-    const freeHtmlContent = md.render(freeMarkdownContent);
+    const freeHtmlContent = mdParser.render(freeMarkdownContent);
     const fullHTML = createFullHTML(freeHtmlContent, {
       ...metadata,
       title: metadata.title + ' - Muestra Gratuita'
@@ -631,11 +650,11 @@ async function updateEbookMetadata() {
 }
 
 // Ejecutar si es llamado directamente
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   generateEbookPDF()
     .then(() => updateEbookMetadata())
     .then(() => console.log('🎉 Proceso completado exitosamente!'))
     .catch(console.error);
 }
 
-module.exports = { generateEbookPDF, updateEbookMetadata };
+export { generateEbookPDF, updateEbookMetadata };
