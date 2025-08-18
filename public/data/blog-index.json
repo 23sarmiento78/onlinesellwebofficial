@@ -35,7 +35,7 @@
     "lastmod": "2025-08-18T03:33:21.135Z",
     "readingTime": 1,
     "path": "/blog/crea-un-cronmetro-digital-con-javascript.html",
-    "image": "{{FEATURED_IMAGE}}"
+    "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
     "id": "construyendo-un-chat-en-tiempo-real-con-react-tutorial-react",
@@ -73,7 +73,7 @@
     "lastmod": "2025-08-18T03:33:21.134Z",
     "readingTime": 1,
     "path": "/blog/construyendo-un-chat-en-tiempo-real-con-.html",
-    "image": "{{FEATURED_IMAGE}}"
+    "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
     "id": "local-storage-tu-aliado-secreto-en-el-desarrollo-web-aprende-programacion-gratis",
@@ -565,7 +565,7 @@
     "id": "code-splitting-division-de-bundles",
     "title": "Code Splitting: División de Bundles",
     "description": "El code splitting es una técnica de optimización que divide el código de una aplicación en chunks o fragmentos más pequeños. En lugar de cargar todo e...",
-    "excerpt": "En el desarrollo web moderno, la optimización del rendimiento es crucial para una experiencia de usuario satisfactoria.  Una técnica clave para mejorar la velocidad de carga de una aplicación web es el code splitting o división de bundles.",
+    "excerpt": "En el desarrollo web moderno, la optimización del rendimiento es crucial para una experiencia de usuario satisfactoria.  Una técnica clave para mejorar la velocidad de carga de una aplicación web es el code splitting o divisi��n de bundles.",
     "keywords": [
       "JavaScript",
       "React"
