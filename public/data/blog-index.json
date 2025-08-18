@@ -27,7 +27,7 @@
     "author": "hgaruna",
     "category": "Frontend",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T19:58:11.921Z",
+    "lastmod": "2025-08-18T20:02:54.082Z",
     "readingTime": 5,
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-guia-def.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -60,7 +60,7 @@
     "author": "hgaruna",
     "category": "Frontend",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T19:58:11.921Z",
+    "lastmod": "2025-08-18T20:02:54.082Z",
     "readingTime": 6,
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-una-guia-completa-para-2025.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -93,9 +93,42 @@
     "author": "hgaruna",
     "category": "Performance y Optimización",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T19:58:11.921Z",
+    "lastmod": "2025-08-18T20:02:54.082Z",
     "readingTime": 5,
     "path": "/blog/optimizacion-de-imagenes-con-webp-para-mejorar-e.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "optimizacion-de-imagenes-para-web-con-webp-y-lazy-loading",
+    "title": "Optimización de Imágenes para Web con WebP y Lazy Loading",
+    "description": "Resumen: Aprende a optimizar tus imágenes para web utilizando WebP y lazy loading, mejorando la velocidad de carga de tu sitio y la experiencia del usuario. Des",
+    "excerpt": "Resumen: Aprende a optimizar tus imágenes para web utilizando WebP y lazy loading, mejorando la velocidad de carga de tu sitio y la experiencia del usuario.  Descubre técnicas avanzadas para un rendimiento óptimo y evita errores comunes.",
+    "keywords": [
+      "Optimización de Imágenes para Web con WebP y Lazy Loading",
+      "optimización de imágenes para web con webp y lazy loading guía",
+      "optimización de imágenes para web con webp y lazy loading tutorial",
+      "optimización de imágenes para web con webp y lazy loading mejores prácticas",
+      "optimización de imágenes para web con webp y lazy loading ejemplos",
+      "optimización de imágenes para web con webp y lazy loading rendimiento",
+      "optimización de imágenes para web con webp y lazy loading principiantes",
+      "optimización de imágenes para web con webp y lazy loading 2025"
+    ],
+    "tags": [
+      "Optimización de Imágenes para Web con WebP y Lazy Loading",
+      "optimización de imágenes para web con webp y lazy loading guía",
+      "optimización de imágenes para web con webp y lazy loading tutorial",
+      "optimización de imágenes para web con webp y lazy loading mejores prácticas",
+      "optimización de imágenes para web con webp y lazy loading ejemplos",
+      "optimización de imágenes para web con webp y lazy loading rendimiento",
+      "optimización de imágenes para web con webp y lazy loading principiantes",
+      "optimización de imágenes para web con webp y lazy loading 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Performance y Optimización",
+    "datePublished": "2025-08-18",
+    "lastmod": "2025-08-18T20:03:21.785Z",
+    "readingTime": 6,
+    "path": "/blog/optimizacion-de-imagenes-para-web-con-webp-y-laz.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
@@ -126,7 +159,7 @@
     "author": "hgaruna",
     "category": "Performance y Optimización",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T19:58:42.411Z",
+    "lastmod": "2025-08-18T20:02:54.082Z",
     "readingTime": 6,
     "path": "/blog/optimizacion-de-imagenes-para-webp-mejora-del-re.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
