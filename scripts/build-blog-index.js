@@ -43,7 +43,7 @@ function inferCategory({ title = '', keywords = [] }, text = '') {
   if (/(seguridad|security|owasp|auth|jwt)/i.test(t)) return 'Seguridad';
   if (/(tendencias|trend|futuro|roadmap)/i.test(t)) return 'Tendencias y Futuro';
   return 'Todos';
-//
+}
 function processPlaceholders(text, fallbacks = {}) {
   if (!text || typeof text !== 'string') return text;
 
@@ -72,8 +72,8 @@ function processPlaceholders(text, fallbacks = {}) {
   }
 
   return processed;
-//
 }
+
 
 function extractMeta($) {
   const rawTitle = $('head > title').first().text().trim() || $('h1, h2').first().text().trim();
@@ -88,11 +88,7 @@ function extractMeta($) {
   const category = $('meta[name="category"]').attr('content')
     || $('meta[property="article:section"]').attr('content')
     || '';
-  const excerpt = $('main p').first().text().trim() || $('p').first().text().trim();
-  const contentText = $('main').text() || $('body').text();
-  const readingTime = estimateReadingTime(contentText);
-  return { title, description, keywords, author, date, category, excerpt, readingTime };
-//
+  // Eliminadas declaraciones duplicadas
   const rawExcerpt = $('main p').first().text().trim() || $('p').first().text().trim();
   const contentText = $('main').text() || $('body').text();
   const readingTime = estimateReadingTime(contentText);
@@ -104,9 +100,9 @@ function extractMeta($) {
   const author = processPlaceholders(rawAuthor, { author: 'hgaruna' });
   const excerpt = processPlaceholders(rawExcerpt, { description });
 
-  return { title, description, keywords, author, date, excerpt, readingTime };
-//
+  return { title, description, keywords, author, date, category, excerpt, readingTime };
 }
+
 
 async function main() {
   await fs.ensureDir(BLOG_DIR);
