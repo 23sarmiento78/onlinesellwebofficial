@@ -258,16 +258,22 @@ async function main() {
   try {
     const { GoogleGenerativeAI } = await import('@google/generative-ai');
     const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    const imgResp = await model.generateContent({ contents: [{ role: 'user', parts: [{ text: imagePrompt }] }], generationConfig: { responseMimeType: 'image/jpeg' } });
-    const imgData = imgResp.response.parts?.[0]?.data;
-    if (imgData) {
-      const imgBuffer = Buffer.from(imgData, 'base64');
-      const imgPath = path.join(ROOT, 'public', 'images', 'articles', `${slug}.jpg`);
-      await fs.ensureDir(path.dirname(imgPath));
-      await fs.writeFile(imgPath, imgBuffer);
-      bannerUrl = `/images/articles/${slug}.jpg`;
-      bannerAttribution = 'Generado por Gemini';
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
+    try {
+      const imgResp = await model.generateContent({ contents: [{ role: 'user', parts: [{ text: imagePrompt }] }], generationConfig: { responseMimeType: 'image/jpeg' } });
+      const imgData = imgResp.response.parts?.[0]?.data;
+      if (imgData) {
+        const imgBuffer = Buffer.from(imgData, 'base64');
+        const imgPath = path.join(ROOT, 'public', 'images', 'articles', `${slug}.jpg`);
+        await fs.ensureDir(path.dirname(imgPath));
+        await fs.writeFile(imgPath, imgBuffer);
+        bannerUrl = `/images/articles/${slug}.jpg`;
+        bannerAttribution = 'Generado por Gemini';
+      } else {
+        console.error('Gemini no devolvió datos de imagen:', imgResp);
+      }
+    } catch (err) {
+      console.error('Error al generar imagen con Gemini:', err);
     }
   } catch (e) {
     console.warn('No se pudo generar imagen con Gemini, usando imagen local.');
