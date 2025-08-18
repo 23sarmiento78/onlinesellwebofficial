@@ -31,6 +31,17 @@ function toSlug(str) {
     .slice(0, 80);
 }
 
+function shortenForSeo(title, maxLen = 60) {
+  if (!title) return '';
+  // Quitar año largo y frases redundantes
+  let t = title.replace(/\b(una\s+gu[ií]a\s+completa\s+para\s+\d{4}|gu[ií]a\s+completa\s+para\s+\d{4})\b/gi, '').replace(/\s{2,}/g, ' ').trim();
+  if (t.length <= maxLen) return t;
+  // Cortar por palabra
+  const cut = t.slice(0, maxLen + 1);
+  const lastSpace = cut.lastIndexOf(' ');
+  return (lastSpace > 40 ? cut.slice(0, lastSpace) : cut.slice(0, maxLen)).replace(/[\s,:;.-]+$/, '');
+}
+
 function tagsHtmlFromKeywords(keywords) {
   return (keywords || []).slice(0, 8)
     .map(k => `<span class="tag">#${k}</span>`) // coincide con template
@@ -61,7 +72,9 @@ async function fetchImage(topic) {
     const ii = p.imageinfo?.[0];
     if (!ii?.url) continue;
     const url = ii.url;
-    const ext = path.extname(new URL(url).pathname) || '.jpg';
+    const pathname = new URL(url).pathname;
+    const ext = (path.extname(pathname) || '').toLowerCase();
+    if (!/(\.jpe?g|\.png|\.webp)$/.test(ext)) continue; // evitar svg y formatos no raster
     const attribution = ii.extmetadata?.Artist?.value || p.title || 'Wikimedia Commons';
     return { url, ext, attribution, source: 'Wikimedia Commons' };
   }
@@ -71,14 +84,19 @@ async function fetchImage(topic) {
 
 async function downloadImageToPublic(url, slug, ext) {
   if (url.startsWith('/')) return url; // imagen local
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Image download failed ${res.status}`);
-  const buf = Buffer.from(await res.arrayBuffer());
-  const outRel = path.join('images', 'articles', `${slug}${ext}`);
-  const outAbs = path.join(ROOT, 'public', outRel);
-  await fs.ensureDir(path.dirname(outAbs));
-  await fs.writeFile(outAbs, buf);
-  return `/${outRel.replace(/\\/g, '/')}`;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Image download failed ${res.status}`);
+    const buf = Buffer.from(await res.arrayBuffer());
+    const outRel = path.join('images', 'articles', `${slug}${ext}`);
+    const outAbs = path.join(ROOT, 'public', outRel);
+    await fs.ensureDir(path.dirname(outAbs));
+    await fs.writeFile(outAbs, buf);
+    return `/${outRel.replace(/\\/g, '/')}`;
+  } catch (e) {
+    // fallback a local placeholder si descarga falla
+    return '/logos-he-imagenes/programacion.jpeg';
+  }
 }
 
 async function generateArticleWithGemini(topic, category, keywords) {
@@ -165,12 +183,15 @@ async function main() {
   const publishDate = now.toISOString().split('T')[0];
   const canonical = SITE_URL ? new URL(`/blog/${slug}.html`, SITE_URL).toString() : `/blog/${slug}.html`;
   const tagsHtml = tagsHtmlFromKeywords(keywords);
+  // SEO title corto (meta) y featured image absoluto para OG
+  const seoTitle = shortenForSeo(derivedTitle, 60);
+  const featuredForMeta = SITE_URL ? new URL(featuredImage, SITE_URL).toString() : featuredImage;
 
   const filled = applyTemplate(template, {
-    SEO_TITLE: derivedTitle,
+    SEO_TITLE: seoTitle,
     SEO_DESCRIPTION: excerpt,
     SEO_KEYWORDS: keywords.join(', '),
-    FEATURED_IMAGE: featuredImage,
+    FEATURED_IMAGE: featuredForMeta,
     CANONICAL_URL: canonical,
     CATEGORY: CATEGORY,
     EDUCATIONAL_LEVEL: 'Intermedio',
