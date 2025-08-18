@@ -377,7 +377,7 @@ function checkAdSenseCompliance($) {
 }
 
 // Ejecutar si es llamado directamente
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   optimizeArticlesForAdSense().catch(console.error);
 }
 

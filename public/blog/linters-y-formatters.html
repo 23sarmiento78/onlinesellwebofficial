@@ -1,599 +1,479 @@
 <!DOCTYPE html><html lang="es"><head>
+    <meta name="category" content="Herramientas y Productividad">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{SEO_TITLE}}</title>
-    <meta name="description" content="{{SEO_DESCRIPTION}}">
-    <meta name="keywords" content="{{SEO_KEYWORDS}}">
-    <meta name="author" content="hgaruna - Aprende Programación">
+    <title>Linters y Formatters: ESLint y Prettier</title>
+    <meta name="description" content="En el desarrollo web moderno, mantener un código limpio, consistente y libre de errores es crucial para la escalabilidad y el mantenimiento de un proy...">
+    <meta name="keywords" content="JavaScript, React, ESLint">
+    <meta name="author" content="hgaruna">
     <meta name="robots" content="index, follow">
-    <meta name="category" content="{{CATEGORY}}">
-    <meta name="educational-level" content="{{EDUCATIONAL_LEVEL}}">
-    <meta name="reading-time" content="{{READING_TIME}}">
-    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="{{CANONICAL_URL}}">
-    <meta property="og:title" content="{{SEO_TITLE}}">
-    <meta property="og:description" content="{{SEO_DESCRIPTION}}">
-    <meta property="og:image" content="{{FEATURED_IMAGE}}">
-    <meta property="article:author" content="hgaruna">
-    <meta property="article:section" content="{{CATEGORY}}">
-    <meta property="article:published_time" content="{{PUBLISH_DATE}}">
+    <meta property="og:url" content="https://www.hgaruna.org/blog/linters-y-formatters">
+    <meta property="og:title" content="Linters y Formatters: ESLint y Prettier">
+    <meta property="og:description" content="En el desarrollo web moderno, mantener un código limpio, consistente y libre de errores es crucial para la escalabilidad y el mantenimiento de un proy...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{{CANONICAL_URL}}">
-    <meta name="twitter:title" content="{{SEO_TITLE}}">
-    <meta name="twitter:description" content="{{SEO_DESCRIPTION}}">
-    <meta name="twitter:image" content="{{FEATURED_IMAGE}}">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.hgaruna.org/blog/linters-y-formatters">
+    <meta property="twitter:title" content="Linters y Formatters: ESLint y Prettier">
+    <meta property="twitter:description" content="En el desarrollo web moderno, mantener un código limpio, consistente y libre de errores es crucial para la escalabilidad y el mantenimiento de un proy...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="{{CANONICAL_URL}}">
-    
-    <!-- Educational Schema.org markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LearningResource",
-      "name": "{{TITLE}}",
-      "description": "{{SEO_DESCRIPTION}}",
-      "author": {
-        "@type": "Organization",
-        "name": "hgaruna",
-        "url": "https://hgaruna.org"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "hgaruna",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
-        }
-      },
-      "datePublished": "{{PUBLISH_DATE}}",
-      "dateModified": "{{PUBLISH_DATE}}",
-      "learningResourceType": "Tutorial",
-      "educationalLevel": "{{EDUCATIONAL_LEVEL}}",
-      "teaches": "{{CATEGORY}}",
-      "timeRequired": "PT{{READING_TIME}}M",
-      "isAccessibleForFree": true,
-      "inLanguage": "es",
-      "mainEntity": {
-        "@type": "Course",
-        "name": "{{TITLE}}",
-        "description": "{{SEO_DESCRIPTION}}"
-      }
-    }
-    </script>
-
-    <!-- FAQ Schema if applicable -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "¿Es este tutorial adecuado para principiantes?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sí, este tutorial está diseñado para ser accesible a {{EDUCATIONAL_LEVEL}}s en programación."
-          }
-        },
-        {
-          "@type": "Question", 
-          "name": "¿Qué prerequisitos necesito?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Los prerequisitos son: {{PREREQUISITES}}"
-          }
-        }
-      ]
-    }
-    </script>
+    <link rel="canonical" href="https://www.hgaruna.org/blog/linters-y-formatters">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Prism.js for code highlighting -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
-    
-    <!-- Google AdSense -->
     <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
-    
     <style>
-        :root {
-            --primary-color: #00ff41;
-            --secondary-color: #1db954;
-            --accent-color: #39ff14;
-            --bg-dark: #0a0a0a;
-            --bg-card: #181818;
-            --text-primary: #ffffff;
-            --text-secondary: #b3b3b3;
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.7;
-            color: var(--text-primary);
-            background: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(29, 185, 84, 0.08) 0%, transparent 50%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
         }
         
-        .educational-header {
+        .article-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 4rem 0;
             margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .educational-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.3;
         }
         
-        .educational-meta {
-            background: var(--bg-card);
-            border: 1px solid rgba(0, 255, 65, 0.2);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            backdrop-filter: blur(10px);
+        .article-meta {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
         }
-
-        .learning-objectives {
-            background: rgba(0, 255, 65, 0.1);
-            border-left: 4px solid var(--primary-color);
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .article-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
             padding: 1.5rem;
             border-radius: 8px;
-            margin: 2rem 0;
-        }
-
-        .code-block {
-            background: #1e1e1e;
-            border: 1px solid rgba(0, 255, 65, 0.3);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
             overflow-x: auto;
-            position: relative;
-        }
-
-        .code-block::before {
-            content: 'Código';
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            background: var(--primary-color);
-            color: var(--bg-dark);
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .educational-tip {
-            background: rgba(57, 255, 20, 0.1);
-            border: 1px solid rgba(57, 255, 20, 0.3);
-            border-radius: 12px;
-            padding: 1.5rem;
             margin: 2rem 0;
-            position: relative;
         }
-
-        .educational-tip::before {
-            content: '💡';
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            background: var(--accent-color);
-            color: var(--bg-dark);
-            padding: 4px 8px;
-            border-radius: 50%;
-            font-size: 1rem;
+        
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
         }
-
-        .progress-indicator {
+        
+        .tags-container {
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: rgba(0, 255, 65, 0.2);
+            top: 2rem;
+            left: 2rem;
             z-index: 1000;
         }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            width: 0%;
-            transition: width 0.3s ease;
+        
+        .share-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
         }
-
-        .article-navigation {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 3rem 0;
-            border: 1px solid rgba(0, 255, 65, 0.2);
-        }
-
-        .related-articles {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 3rem 0;
-            border: 1px solid rgba(0, 255, 65, 0.2);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            color: var(--bg-dark);
-            font-weight: 600;
-            padding: 12px 24px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 255, 65, 0.3);
-            color: var(--bg-dark);
-        }
-
-        .table-of-contents {
-            background: var(--bg-card);
-            border: 1px solid rgba(0, 255, 65, 0.2);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 3rem;
-            position: sticky;
-            top: 20px;
-        }
-
-        .table-of-contents ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .table-of-contents li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .table-of-contents a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .table-of-contents a:hover {
-            color: var(--primary-color);
-        }
-
-        /* AdSense placeholder styles */
-        .adsense-placeholder {
-            background: rgba(0, 255, 65, 0.05);
-            border: 2px dashed rgba(0, 255, 65, 0.3);
-            border-radius: 8px;
-            padding: 60px 20px;
+        
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             text-align: center;
-            margin: 3rem 0;
-            color: var(--text-secondary);
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
         }
-
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
         @media (max-width: 768px) {
-            .educational-header {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
+            .article-header {
                 padding: 2rem 0;
             }
             
-            .educational-meta {
-                padding: 1.5rem;
+            .article-content h1 {
+                font-size: 2rem;
             }
             
-            .table-of-contents {
-                position: static;
+            .article-content h2 {
+                font-size: 1.5rem;
             }
         }
-
-        /* Responsive ads */
-        .responsive-ad {
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        /* Highlight important sections */
-        .highlight-box {
-            background: rgba(0, 255, 65, 0.1);
-            border-left: 4px solid var(--primary-color);
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 8px;
-        }
-
-        /* Interactive elements */
-        .interactive-demo {
-            background: var(--bg-card);
-            border: 1px solid rgba(0, 255, 65, 0.3);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
     </style>
-</head>
-
+<meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM"><meta name="monetization" content="enabled"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Linters y Formatters: ESLint y Prettier",
+  "description": "En el desarrollo web moderno, mantener un código limpio, consistente y libre de errores es crucial para la escalabilidad y el mantenimiento de un proy...",
+  "author": {
+    "@type": "Organization",
+    "name": "hgaruna"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hgaruna",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
+    }
+  },
+  "datePublished": "2025-08-12T17:16:55.978Z",
+  "dateModified": "2025-08-12T17:16:55.978Z"
+}</script></head>
 <body>
-    <!-- Progress indicator -->
-    <div class="progress-indicator">
-        <div class="progress-bar" id="progressBar"></div>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
     </div>
-
-    <!-- Navigation Header -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background: var(--bg-card); backdrop-filter: blur(20px);">
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
+    <header class="article-header">
         <div class="container">
-            <a class="navbar-brand" href="/">
-                <i class="fas fa-graduation-cap me-2" style="color: var(--primary-color);"></i>
-                <span style="color: var(--primary-color);">hgaruna</span> Aprende
-            </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/aprende-programacion">🏠 Inicio</a>
-                <a class="nav-link" href="/aprende-programacion/cursos">📚 Cursos</a>
-                <a class="nav-link" href="/aprende-programacion/ejercicios">💪 Ejercicios</a>
-                <a class="nav-link" href="/blog">📰 Blog</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Educational Header -->
-    <header class="educational-header">
-        <div class="container position-relative">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
                     <div class="mb-3">
-                        <span class="badge bg-success me-2">{{CATEGORY}}</span>
-                        <span class="badge bg-info me-2">{{EDUCATIONAL_LEVEL}}</span>
-                        <span class="badge bg-warning">{{READING_TIME}} min lectura</span>
+                        <span class="badge bg-light text-dark fs-6">Herramientas y Productividad</span>
                     </div>
-                    <h1 class="display-4 fw-bold mb-4">{{TITLE}}</h1>
-                    <p class="lead mb-4">{{SEO_DESCRIPTION}}</p>
-                    <div class="d-flex align-items-center">
-                        <img src="/logos-he-imagenes/logo3.png" alt="hgaruna" class="rounded-circle me-3" width="50" height="50">
-                        <div>
-                            <h6 class="mb-0">Por hgaruna</h6>
-                            <small class="text-light opacity-75">Instructor de Programación</small>
-                        </div>
+                    <h1 class="display-4 fw-bold mb-3">Linters y Formatters: ESLint y Prettier</h1>
+                    <p class="lead mb-4">En el desarrollo web moderno, mantener un código limpio, consistente y libre de errores es crucial para la escalabilidad y el mantenimiento de un proy...</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por hgaruna
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            25 de julio de 2025
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
                     </div>
-                </div>
-                <div class="col-lg-4 text-center">
-                    <i class="fas fa-laptop-code display-1 opacity-50"></i>
                 </div>
             </div>
         </div>
     </header>
-
-    <div class="container my-5">
+    
+    <!-- Contenido principal -->
+    <main class="container">
         <div class="row">
-            <!-- Table of Contents -->
-            <div class="col-lg-3 order-lg-1 order-2">
-                <div class="table-of-contents">
-                    <h5><i class="fas fa-list me-2" style="color: var(--primary-color);"></i>Contenido</h5>
-                    <ul id="tableOfContents">
-                        <!-- Generated dynamically -->
-                    </ul>
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Linters y Formatters: ESLint y Prettier" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;" loading="lazy" width="300" height="200">
                 </div>
-
-                <!-- AdSense Sidebar -->
-                <div class="responsive-ad mt-4">
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                </div>
-            </div>
-
-            <!-- Main Content -->
-            <div class="col-lg-9 order-lg-2 order-1">
-                <!-- Educational Meta -->
-                <div class="educational-meta">
+                
+                <!-- Meta información -->
+                <div class="article-meta">
                     <div class="row">
                         <div class="col-md-6">
-                            <h6><i class="fas fa-bullseye me-2" style="color: var(--primary-color);"></i>Objetivos de Aprendizaje</h6>
-                            <ul class="list-unstyled">
-                                {{LEARNING_OBJECTIVES}}
-                            </ul>
+                            <strong>Categoría:</strong> Herramientas y Productividad<br>
+                            <strong>Autor:</strong> hgaruna<br>
+                            <strong>Fecha:</strong> 25 de julio de 2025
                         </div>
                         <div class="col-md-6">
-                            <h6><i class="fas fa-check-circle me-2" style="color: var(--primary-color);"></i>Prerequisitos</h6>
-                            <p class="mb-0">{{PREREQUISITES}}</p>
-                            
-                            <h6 class="mt-3"><i class="fas fa-clock me-2" style="color: var(--primary-color);"></i>Duración</h6>
-                            <p class="mb-0">{{READING_TIME}} minutos de lectura</p>
+                            <strong>Tiempo de lectura:</strong> 4 min<br>
+                            <strong>Palabras:</strong> 721
                         </div>
                     </div>
                 </div>
-
-                <!-- Top Article Ad -->
-                <div class="responsive-ad">
-                    <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7772175009790237" data-ad-slot="9876543210"></ins>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    <span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">ESLint</span>
                 </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <main>
+  <h2 id="linters-y-formatters-eslint-y-prettier">Linters y Formatters: ESLint y Prettier</h2><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+  <p>En el desarrollo web moderno, mantener un código limpio, consistente y libre de errores es crucial para la escalabilidad y el mantenimiento de un proyecto.  Para lograr esto, los desarrolladores recurren a herramientas poderosas como linters y formatters.  Este artículo profundiza en dos de las herramientas más populares: ESLint y Prettier, explorando sus funcionalidades, ventajas, desventajas y cómo integrarlos en tu flujo de trabajo.</p>
 
-                <!-- Main Article Content -->
-                <main class="article-content">
-                    {{CONTENT}}
-                </main>
+  <h2 id="qu-son-los-linters-y-formatters">¿Qué son los Linters y Formatters?</h2>
+  <p>Un <strong>linter</strong> es una herramienta que analiza el código fuente para identificar errores potenciales, problemas de estilo y vulnerabilidades de seguridad.  ESLint, por ejemplo, examina el código JavaScript buscando errores sintácticos, problemas semánticos y violaciones de las reglas de estilo que hayas definido.  No modifica el código, solo lo analiza y reporta los problemas encontrados.</p>
+  <p>Un <strong>formatter</strong>, por otro lado, se enfoca en la apariencia del código.  Automáticamente formatea el código para que sea consistente y legible.  Prettier es un ejemplo popular de formatter, que formatea el código según sus propias reglas, ignorando las convenciones de estilo preexistentes en el código.</p>
 
-                <!-- Middle Article Ad -->
-                <div class="responsive-ad">
-                    <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-7772175009790237" data-ad-slot="5555555555"></ins>
-                </div>
+  <h2 id="eslint-el-linter-para-javascript">ESLint: El Linter para JavaScript</h2>
+  <p>ESLint es un linter altamente configurable que te permite definir reglas personalizadas para tu proyecto.  Esto te da un control granular sobre el estilo de codificación y la detección de errores.</p>
+  <h3 id="configurando-eslint">Configurando ESLint</h3>
+  <ol>
+    <li>Instalación: <code>npm install --save-dev eslint</code></li>
+    <li>Configuración: Crea un archivo <code>.eslintrc.js</code> en la raíz de tu proyecto.</li>
+    <li>Personalización: Define las reglas que quieres aplicar.  Puedes usar configuraciones predefinidas como Airbnb o Standard, o crear tu propia configuración personalizada.</li>
+  </ol>
+  <pre><code>
+// .eslintrc.js
+module.exports = {
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"]
+  }
+};
+  </code></pre>
+  <h3 id="ventajas-de-eslint">Ventajas de ESLint</h3>
+  <ul>
+    <li>Alta configurabilidad.</li>
+    <li>Detección temprana de errores.</li>
+    <li>Mejora la consistencia del código.</li>
+    <li>Integración con IDEs.</li>
+  </ul>
+  <h3 id="desventajas-de-eslint">Desventajas de ESLint</h3>
+  <ul>
+    <li>Requiere configuración inicial.</li>
+    <li>Puede generar un gran número de advertencias si la configuración es muy estricta.</li>
+  </ul>
 
-                <!-- Practice Section -->
-                <div class="learning-objectives mt-5">
-                    <h3><i class="fas fa-dumbbell me-2"></i>¡Hora de Practicar!</h3>
-                    <p>Ahora que has aprendido los conceptos, es momento de ponerlos en práctica:</p>
-                    <ul>
-                        <li>Intenta recrear los ejemplos por tu cuenta</li>
-                        <li>Experimenta modificando el código</li>
-                        <li>Busca casos de uso adicionales</li>
-                        <li>Comparte tu progreso en redes sociales</li>
-                    </ul>
-                    <div class="text-center mt-3">
-                        <a href="/aprende-programacion/ejercicios" class="btn btn-primary">
-                            <i class="fas fa-play me-2"></i>Ver Ejercicios Relacionados
-                        </a>
-                    </div>
-                </div>
 
-                <!-- Bottom Article Ad -->
-                <div class="responsive-ad">
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                </div>
+  <h2 id="prettier-el-formatter-para-un-c-digo-impecable">Prettier: El Formatter para un Código Impecable</h2>
+  <p>Prettier es un formatter de código que se enfoca en la consistencia y la legibilidad.  Automatiza el formateo de tu código, eliminando la necesidad de discutir sobre estilos de codificación en el equipo.</p><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="5555555555" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+  </div>
+  <h3 id="configurando-prettier">Configurando Prettier</h3>
+  <ol>
+    <li>Instalación: <code>npm install --save-dev prettier</code></li>
+    <li>Configuración: Crea un archivo <code>.prettierrc</code> o usa una configuración predeterminada.</li>
+    <li>Integración: Integra Prettier con tu editor de código o con un script de compilación.</li>
+  </ol>
+  <pre><code>
+// .prettierrc
+{
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "es5"
+}
+  </code></pre>
+  <h3 id="ventajas-de-prettier">Ventajas de Prettier</h3>
+  <ul>
+    <li>Fácil de configurar.</li>
+    <li>Formatea el código de forma consistente.</li>
+    <li>Mejora la legibilidad del código.</li>
+    <li>Integración con la mayoría de los editores de código.</li>
+  </ul>
+  <h3 id="desventajas-de-prettier">Desventajas de Prettier</h3>
+  <ul>
+    <li>Menos configurable que ESLint.</li>
+    <li>Puede entrar en conflicto con algunas reglas de ESLint.</li>
+  </ul>
 
-                <!-- Article Navigation -->
-                <div class="article-navigation">
-                    <h5><i class="fas fa-compass me-2" style="color: var(--primary-color);"></i>Continúa Aprendiendo</h5>
+  <h2 id="integraci-n-de-eslint-y-prettier">Integración de ESLint y Prettier</h2>
+  <p>Para una experiencia óptima, se recomienda integrar ESLint y Prettier.  ESLint se encarga de la detección de errores y la aplicación de reglas de estilo, mientras que Prettier se encarga del formateo del código.  Para lograrlo, puedes usar el plugin <code>eslint-config-prettier</code> y <code>eslint-plugin-prettier</code>.</p>
+  <ol>
+    <li>Instalar los plugins: <code>npm install --save-dev eslint-config-prettier eslint-plugin-prettier</code></li>
+    <li>Configurar ESLint para usar Prettier:  Añadir <code>"prettier"</code> a la lista de plugins y extender <code>"eslint-config-prettier"</code> en tu archivo <code>.eslintrc.js</code>.</li>
+  </ol>
+
+  <h2 id="ejemplos-de-uso-y-casos-pr-cticos">Ejemplos de uso y Casos prácticos</h2>
+  <p>Imagina un escenario donde un desarrollador escribe código JavaScript con inconsistencias en la identación y la colocación de las llaves. ESLint detectará los problemas de estilo definidos en la configuración, mientras que Prettier automáticamente formateará el código para que sea consistente y legible.  Esto asegura un código limpio y fácil de mantener, mejorando la colaboración en equipo.</p>
+  <p>Otro ejemplo sería la detección de variables no utilizadas o posibles errores de tipo.  ESLint destacará estos problemas, permitiendo al desarrollador corregirlos antes de que se conviertan en errores más graves en tiempo de ejecución.</p>
+
+  <h2 id="conclusi-n">Conclusión</h2>
+  <p>ESLint y Prettier son herramientas esenciales para cualquier desarrollador web que busca mejorar la calidad, la consistencia y la mantenibilidad de su código.  Aunque tienen enfoques diferentes, su integración crea un flujo de trabajo potente que garantiza un código limpio, libre de errores y fácil de entender.  La inversión de tiempo en configurar estas herramientas se traduce en una mayor productividad y un código de mejor calidad a largo plazo.</p>
+</main>
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
                     <div class="row">
                         <div class="col-md-6">
-                            <a href="#" class="btn btn-outline-light w-100 mb-2">
-                                <i class="fas fa-arrow-left me-2"></i>Artículo Anterior
-                            </a>
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <a href="#" class="btn btn-outline-light w-100 mb-2">
-                                Siguiente Artículo<i class="fas fa-arrow-right ms-2"></i>
-                            </a>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p><div class="adsense-container my-4">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="7777777777" data-ad-format="autorelaxed" data-full-width-responsive="true"></ins>
+  </div>
                         </div>
                     </div>
-                    <div class="text-center mt-3">
-                        <a href="/aprende-programacion" class="btn btn-primary">
-                            <i class="fas fa-home me-2"></i>Volver al Inicio
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Related Articles -->
-                <div class="related-articles">
-                    <h5><i class="fas fa-lightbulb me-2" style="color: var(--primary-color);"></i>Artículos Relacionados</h5>
-                    <div class="row" id="relatedArticles">
-                        <!-- Generated dynamically -->
-                    </div>
-                </div>
+                </footer>
             </div>
         </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-dark py-5 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <h5 style="color: var(--primary-color);">hgaruna Aprende</h5>
-                    <p class="text-muted">Aprende programación de forma gratuita con tutoriales de calidad.</p>
-                </div>
-                <div class="col-lg-4">
-                    <h6>Categorías</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="/aprende-programacion/frontend" class="text-muted">Frontend</a></li>
-                        <li><a href="/aprende-programacion/backend" class="text-muted">Backend</a></li>
-                        <li><a href="/aprende-programacion/mobile" class="text-muted">Mobile</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4">
-                    <h6>Recursos</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="/aprende-programacion/ejercicios" class="text-muted">Ejercicios</a></li>
-                        <li><a href="/aprende-programacion/proyectos" class="text-muted">Proyectos</a></li>
-                        <li><a href="/blog" class="text-muted">Blog</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr class="my-4" style="border-color: rgba(0, 255, 65, 0.3);">
-            <div class="text-center">
-                <p class="text-muted mb-0">© 2024 hgaruna. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
-
+    </main>
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Prism.js for code highlighting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-
+    
     <script>
-        // Progress bar
-        window.addEventListener('scroll', function() {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById("progressBar").style.width = scrolled + "%";
-        });
-
-        // Generate table of contents
-        document.addEventListener('DOMContentLoaded', function() {
-            const headings = document.querySelectorAll('main h2, main h3');
-            const toc = document.getElementById('tableOfContents');
-            
-            headings.forEach((heading, index) => {
-                const id = 'heading-' + index;
-                heading.id = id;
-                
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = '#' + id;
-                a.textContent = heading.textContent;
-                a.style.paddingLeft = heading.tagName === 'H3' ? '20px' : '0';
-                li.appendChild(a);
-                toc.appendChild(li);
-            });
-
-            // Smooth scrolling for TOC links
-            toc.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    e.preventDefault();
-                    const target = document.querySelector(e.target.getAttribute('href'));
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Initialize AdSense
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-
-    <!-- Educational Analytics -->
-    <script>
-        // Track educational engagement
-        function trackProgress(section) {
-            // Analytics implementation
-            console.log('Progress tracked:', section);
+        // Funciones de compartir
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Linters y Formatters: ESLint y Prettier');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
         }
-
-        // Track scroll depth for educational content
-        let maxScroll = 0;
-        window.addEventListener('scroll', function() {
-            const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
-            if (scrollPercent > maxScroll) {
-                maxScroll = scrollPercent;
-                if (maxScroll % 25 === 0) {
-                    trackProgress(`Scroll ${maxScroll}%`);
-                }
-            }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('Linters y Formatters: ESLint y Prettier');
+            const summary = encodeURIComponent('En el desarrollo web moderno, mantener un código limpio, consistente y libre de errores es crucial para la escalabilidad y el mantenimiento de un proy...');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Linters y Formatters: ESLint y Prettier - En el desarrollo web moderno, mantener un código limpio, consistente y libre de errores es crucial para la escalabilidad y el mantenimiento de un proy...');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                link.href = '#';
+            });
         });
     </script>
 
-
-</body></html>
+ </body></html>

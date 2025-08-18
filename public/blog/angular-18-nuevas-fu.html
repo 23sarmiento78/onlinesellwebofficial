@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="es"><head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="category" content="Frontend">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{SEO_TITLE}}</title>
@@ -97,12 +100,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Prism.js for code highlighting -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
-    
-    <!-- Google AdSense -->
-    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
-    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237"
+     crossorigin="anonymous"></script>
     <style>
         :root {
             --primary-color: #00ff41;
@@ -334,7 +333,6 @@
         }
     </style>
 </head>
-
 <body>
     <!-- Progress indicator -->
     <div class="progress-indicator">
@@ -386,13 +384,10 @@
 
     <div class="container my-5">
         <div class="row">
-            <!-- Table of Contents -->
-            <div class="col-lg-3 order-lg-1 order-2">
-                <div class="table-of-contents">
-                    <h5><i class="fas fa-list me-2" style="color: var(--primary-color);"></i>Contenido</h5>
-                    <ul id="tableOfContents">
-                        <!-- Generated dynamically -->
-                    </ul>
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Angular 18: Nuevas Funcionalidades" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
                 </div>
 
                 <!-- AdSense Sidebar -->
@@ -426,52 +421,96 @@
                 <div class="responsive-ad">
                     <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7772175009790237" data-ad-slot="9876543210"></ins>
                 </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <main>
+  <h1>Angular 18: Nuevas Funcionalidades</h1>
+  <p>Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las aplicaciones y la experiencia del usuario.  Esta versión se centra en la optimización, la simplificación del desarrollo y la adopción de las últimas tecnologías.  En este artículo, exploraremos las funcionalidades más destacadas de Angular 18.</p>
 
-                <!-- Main Article Content -->
-                <main class="article-content">
-                    {{CONTENT}}
-                </main>
+  <h2>Standalone Components: Simplificando el Desarrollo</h2>
+  <p>Una de las mejoras más significativas en Angular 18 es la maduración de los componentes standalone.  Esto significa que ahora puedes crear componentes completamente independientes sin necesidad de módulos NgModule.  Esta simplificación reduce la complejidad del código y facilita el desarrollo de aplicaciones más pequeñas y modulares.</p>
+  <h3>Ventajas de los Componentes Standalone</h3>
+  <ul>
+    <li>Reducción del código boilerplate.</li>
+    <li>Mayor modularidad y facilidad de mantenimiento.</li>
+    <li>Simplificación del proceso de aprendizaje para desarrolladores nuevos.</li>
+    <li>Mejor organización del código.</li>
+  </ul>
+  <h3>Ejemplo de Componente Standalone</h3>
+  <pre><code>
+import { Component } from '@angular/core';
 
-                <!-- Middle Article Ad -->
-                <div class="responsive-ad">
-                    <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-7772175009790237" data-ad-slot="5555555555"></ins>
-                </div>
+@Component({
+  selector: 'app-my-component',
+  standalone: true,
+  template: `<h1>Hola desde un componente standalone!</h1>`,
+})
+export class MyComponent {}
+  </code></pre>
 
-                <!-- Practice Section -->
-                <div class="learning-objectives mt-5">
-                    <h3><i class="fas fa-dumbbell me-2"></i>¡Hora de Practicar!</h3>
-                    <p>Ahora que has aprendido los conceptos, es momento de ponerlos en práctica:</p>
-                    <ul>
-                        <li>Intenta recrear los ejemplos por tu cuenta</li>
-                        <li>Experimenta modificando el código</li>
-                        <li>Busca casos de uso adicionales</li>
-                        <li>Comparte tu progreso en redes sociales</li>
-                    </ul>
-                    <div class="text-center mt-3">
-                        <a href="/aprende-programacion/ejercicios" class="btn btn-primary">
-                            <i class="fas fa-play me-2"></i>Ver Ejercicios Relacionados
-                        </a>
-                    </div>
-                </div>
+  <h2>Mejoras en el Router</h2>
+  <p>El enrutador de Angular también ha recibido mejoras en esta versión.  Se ha simplificado la configuración y se ha mejorado la eficiencia.  La integración con los componentes standalone es ahora más fluida.</p>
+  <h3>Enrutamiento con Componentes Standalone</h3>
+  <p>La configuración del enrutamiento es ahora más concisa y legible, especialmente al usar componentes standalone:</p>
+  <pre><code>
+import { Route } from '@angular/router';
+import { MyComponent } from './my.component';
 
-                <!-- Bottom Article Ad -->
-                <div class="responsive-ad">
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                </div>
+const routes: Route[] = [
+  { path: '', component: MyComponent },
+];
+  </code></pre>
 
-                <!-- Article Navigation -->
-                <div class="article-navigation">
-                    <h5><i class="fas fa-compass me-2" style="color: var(--primary-color);"></i>Continúa Aprendiendo</h5>
+
+  <h2>Optimizaciones de Rendimiento</h2>
+  <p>Angular 18 incluye varias optimizaciones que mejoran el rendimiento de las aplicaciones.  Estas optimizaciones se centran en la reducción del tamaño del bundle y la mejora de la velocidad de carga.</p>
+  <ul>
+    <li>Mejoras en el proceso de compilación (AOT).</li>
+    <li>Reducción del tamaño del bundle a través de optimizaciones de código.</li>
+    <li>Mejoras en la gestión de la memoria.</li>
+  </ul>
+
+  <h2>Actualizaciones en Angular CLI</h2>
+  <p>La Angular CLI, la herramienta de línea de comandos para crear y gestionar proyectos Angular, también ha recibido actualizaciones en la versión 18.  Estas mejoras incluyen un mejor soporte para los componentes standalone y una experiencia de usuario más intuitiva.</p>
+  <h3>Nuevas opciones de la CLI</h3>
+  <ul>
+    <li>Generación de componentes standalone con la opción <code>--standalone</code>.</li>
+    <li>Mejoras en la generación de scaffolding.</li>
+    <li>Mejoras en el reporte de errores.</li>
+  </ul>
+
+  <h2>TypeScript 5 Support</h2>
+  <p>Angular 18 ahora soporta TypeScript 5, lo que permite a los desarrolladores aprovechar las nuevas características y mejoras de rendimiento de TypeScript.  Esto incluye la mejora del sistema de tipos y nuevas funcionalidades del lenguaje.</p>
+  <h3>Ventajas de usar TypeScript 5</h3>
+  <ul>
+    <li>Mejoras en la inferencia de tipos.</li>
+    <li>Nuevas características del lenguaje que simplifican el código.</li>
+    <li>Mayor seguridad de tipos.</li>
+  </ul>
+
+
+  <h2>Conclusión</h2>
+  <p>Angular 18 representa un paso significativo en la evolución de Angular, ofreciendo una serie de mejoras que simplifican el desarrollo, mejoran el rendimiento y optimizan la experiencia del usuario.  Las nuevas funcionalidades, como los componentes standalone, las optimizaciones de rendimiento y el soporte para TypeScript 5, hacen de Angular 18 una actualización importante para cualquier desarrollador que trabaje con este framework.</p>
+</main>
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
                     <div class="row">
                         <div class="col-md-6">
                             <a href="#" class="btn btn-outline-light w-100 mb-2">
                                 <i class="fas fa-arrow-left me-2"></i>Artículo Anterior
                             </a>
                         </div>
-                        <div class="col-md-6">
-                            <a href="#" class="btn btn-outline-light w-100 mb-2">
-                                Siguiente Artículo<i class="fas fa-arrow-right ms-2"></i>
-                            </a>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
                         </div>
                     </div>
                     <div class="text-center mt-3">
@@ -594,6 +633,5 @@
             }
         });
     </script>
-
-
-</body></html>
+</body>
+</html> 
