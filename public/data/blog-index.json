@@ -27,7 +27,7 @@
     "author": "hgaruna",
     "category": "Frontend",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T19:07:11.106Z",
+    "lastmod": "2025-08-18T19:58:11.921Z",
     "readingTime": 5,
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-guia-def.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -60,7 +60,7 @@
     "author": "hgaruna",
     "category": "Frontend",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T19:07:11.106Z",
+    "lastmod": "2025-08-18T19:58:11.921Z",
     "readingTime": 6,
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-una-guia-completa-para-2025.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -93,9 +93,42 @@
     "author": "hgaruna",
     "category": "Performance y Optimización",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T19:07:45.593Z",
+    "lastmod": "2025-08-18T19:58:11.921Z",
     "readingTime": 5,
     "path": "/blog/optimizacion-de-imagenes-con-webp-para-mejorar-e.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "optimizacion-de-imagenes-para-webp-mejora-del-rendimiento-y",
+    "title": "Optimización de Imágenes para WebP: Mejora del rendimiento y",
+    "description": "Resumen: Aprende a optimizar tus imágenes para WebP, un formato moderno que mejora significativamente la velocidad de carga de tu sitio web y beneficia tu posic",
+    "excerpt": "Resumen:  Aprende a optimizar tus imágenes para WebP, un formato moderno que mejora significativamente la velocidad de carga de tu sitio web y beneficia tu posicionamiento SEO. Este artículo te guiará a través del proceso, desde la conversión hasta las mejores prácticas para su implementación.",
+    "keywords": [
+      "Optimización de imágenes para WebP: Mejora del rendimiento y la SEO",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo guía",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo tutorial",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo mejores prácticas",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo ejemplos",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo rendimiento",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo principiantes",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo 2025"
+    ],
+    "tags": [
+      "Optimización de imágenes para WebP: Mejora del rendimiento y la SEO",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo guía",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo tutorial",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo mejores prácticas",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo ejemplos",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo rendimiento",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo principiantes",
+      "optimización de imágenes para webp: mejora del rendimiento y la seo 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Performance y Optimización",
+    "datePublished": "2025-08-18",
+    "lastmod": "2025-08-18T19:58:42.411Z",
+    "readingTime": 6,
+    "path": "/blog/optimizacion-de-imagenes-para-webp-mejora-del-re.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
   }
 ]
