@@ -1,0 +1,67 @@
+name: Generate Educational Article
+
+on:
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "Tema del artículo (opcional)"
+        required: false
+        default: "Buenas prácticas de React y rendimiento"
+      category:
+        description: "Categoría (Frontend, Backend, etc.)"
+        required: false
+        default: "Frontend"
+  schedule:
+    - cron: "0 9 * * 1" # Lunes 09:00 UTC (opcional)
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Preflight
+        run: |
+          test -f templates/article-template.html
+          test -f scripts/run-article-pipeline.js
+          test -f scripts/build-blog-index.js
+
+      - name: Generate article with Gemini 1.5 Flash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          ARTICLE_TOPIC: ${{ github.event.inputs.topic }}
+          ARTICLE_CATEGORY: ${{ github.event.inputs.category }}
+        run: |
+          node scripts/run-article-pipeline.js
+
+      - name: Build blog enriched index
+        run: npm run blog:index
+
+      - name: Commit and push
+        env:
+          GIT_AUTHOR_NAME: github-actions
+          GIT_AUTHOR_EMAIL: actions@github.com
+          GIT_COMMITTER_NAME: github-actions
+          GIT_COMMITTER_EMAIL: actions@github.com
+        run: |
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "feat(blog): nuevo artículo educativo y sitemap actualizado"
+            git push
+          else
+            echo "No hay cambios que commitear"
+          fi

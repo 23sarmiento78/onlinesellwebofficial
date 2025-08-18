@@ -1,358 +1,116 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{SEO_TITLE}}</title>
-    <meta name="description" content="{{SEO_DESCRIPTION}}">
-    <meta name="keywords" content="{{SEO_KEYWORDS}}">
-    <meta name="author" content="hgaruna">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="{{CANONICAL_URL}}">
-    <meta property="og:title" content="{{SEO_TITLE}}">
-    <meta property="og:description" content="{{SEO_DESCRIPTION}}">
-    <meta property="og:image" content="{{FEATURED_IMAGE}}">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{CANONICAL_URL}}">
-    <meta property="twitter:title" content="{{SEO_TITLE}}">
-    <meta property="twitter:description" content="{{SEO_DESCRIPTION}}">
-    <meta property="twitter:image" content="{{FEATURED_IMAGE}}">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="{{CANONICAL_URL}}">
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-        
-        .article-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 4rem 0;
-            margin-bottom: 3rem;
-        }
-        
-        .article-meta {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-        
-        .article-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        
-        .article-content h1, .article-content h2, .article-content h3 {
-            color: #2c3e50;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .article-content h1 {
-            font-size: 2.5rem;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 0.5rem;
-        }
-        
-        .article-content h2 {
-            font-size: 2rem;
-            border-left: 4px solid #667eea;
-            padding-left: 1rem;
-        }
-        
-        .article-content h3 {
-            font-size: 1.5rem;
-            color: #667eea;
-        }
-        
-        .article-content p {
-            margin-bottom: 1.5rem;
-        }
-        
-        .article-content ul, .article-content ol {
-            margin-bottom: 1.5rem;
-            padding-left: 2rem;
-        }
-        
-        .article-content li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .article-content blockquote {
-            border-left: 4px solid #667eea;
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            font-style: italic;
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .article-content code {
-            background: #f1f3f4;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .article-content pre {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 1.5rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 2rem 0;
-        }
-        
-        .article-content pre code {
-            background: none;
-            color: inherit;
-            padding: 0;
-        }
-        
-        .tags-container {
-            margin: 2rem 0;
-        }
-        
-        .tag {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            margin: 0.2rem;
-            font-size: 0.9rem;
-        }
-        
-        .back-button {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            z-index: 1000;
-        }
-        
-        .share-buttons {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            z-index: 1000;
-        }
-        
-        .share-btn {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 40px;
-            margin: 0 0.2rem;
-            color: white;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-        }
-        
-        .share-btn:hover {
-            transform: scale(1.1);
-            color: white;
-        }
-        
-        .share-twitter { background: #1da1f2; }
-        .share-facebook { background: #4267b2; }
-        .share-linkedin { background: #0077b5; }
-        .share-whatsapp { background: #25d366; }
-        
-        @media (max-width: 768px) {
-            .back-button, .share-buttons {
-                position: static;
-                margin: 1rem 0;
-            }
-            
-            .article-header {
-                padding: 2rem 0;
-            }
-            
-            .article-content h1 {
-                font-size: 2rem;
-            }
-            
-            .article-content h2 {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{{SEO_TITLE}}</title>
+  <meta name="description" content="{{SEO_DESCRIPTION}}" />
+  <meta name="keywords" content="{{SEO_KEYWORDS}}" />
+  <meta name="author" content="{{AUTHOR}}" />
+  <meta name="date" content="{{PUBLISH_DATE}}" />
+  <meta name="category" content="{{CATEGORY}}" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{SEO_TITLE}}" />
+  <meta property="og:description" content="{{SEO_DESCRIPTION}}" />
+  <meta property="og:image" content="{{FEATURED_IMAGE}}" />
+  <meta property="og:url" content="{{CANONICAL_URL}}" />
+  <meta property="article:published_time" content="{{PUBLISH_DATE}}" />
+  <meta property="article:author" content="{{AUTHOR}}" />
+  <meta property="article:section" content="{{CATEGORY}}" />
+  <link rel="canonical" href="{{CANONICAL_URL}}" />
+
+  <!-- JSON-LD Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{TITLE}}",
+    "description": "{{SEO_DESCRIPTION}}",
+    "image": ["{{FEATURED_IMAGE}}"],
+    "datePublished": "{{PUBLISH_DATE}}",
+    "author": {
+      "@type": "Person",
+      "name": "{{AUTHOR}}"
+    },
+    "articleSection": "{{CATEGORY}}",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{CANONICAL_URL}}"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0b132b;
+      --card: #1c2541;
+      --text: #e0e6f5;
+      --muted: #a0abc6;
+      --accent: #64ffda;
+      --accent-2: #4dabf7;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg); color: var(--text); }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+    header.article-header { margin: 24px 0 12px; }
+    .eyebrow { color: var(--accent); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; font-size: 12px; }
+    h1.title { margin: 8px 0 12px; font-size: clamp(28px, 5vw, 42px); line-height: 1.2; }
+    .meta { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 14px; flex-wrap: wrap; }
+    .meta .dot { width: 4px; height: 4px; background: var(--muted); border-radius: 50%; display: inline-block; margin: 0 6px; }
+    .cover { margin: 20px 0 28px; border-radius: 12px; overflow: hidden; border: 1px solid #223; background: #0f172a; }
+    .cover img { width: 100%; height: auto; display: block; }
+    .summary { margin: 16px 0 28px; color: var(--muted); font-size: 18px; }
+    main.article { background: var(--card); border: 1px solid #223; border-radius: 12px; padding: 28px; }
+    main.article h2 { margin-top: 28px; font-size: 24px; }
+    main.article h3 { margin-top: 22px; font-size: 20px; }
+    main.article p { line-height: 1.75; margin: 14px 0; }
+    main.article pre { background: #0f172a; color: #e6edf3; padding: 16px; border-radius: 8px; overflow-x: auto; border: 1px solid #223; }
+    main.article code { background: #0f172a; color: #e6edf3; padding: 2px 6px; border-radius: 6px; }
+    .tags { margin-top: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { background: #0f172a; color: var(--muted); border: 1px solid #223; padding: 6px 10px; border-radius: 999px; font-size: 12px; }
+    footer.article-footer { color: var(--muted); margin: 28px 0; font-size: 14px; }
+  </style>
 </head>
+
 <body>
-    <!-- Botón de regreso -->
-    <div class="back-button">
-        <a href="/blog" class="btn btn-outline-primary">
-            <i class="fas fa-arrow-left"></i> Volver al Blog
-        </a>
-    </div>
-    
-    <!-- Botones de compartir -->
-    <div class="share-buttons">
-        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
-            <i class="fab fa-twitter"></i>
-        </a>
-        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
-            <i class="fab fa-facebook"></i>
-        </a>
-        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
-            <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-    </div>
-    
-    <!-- Header del artículo -->
+  <div class="container">
     <header class="article-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <div class="mb-3">
-                        <span class="badge bg-light text-dark fs-6">{{CATEGORY}}</span>
-                    </div>
-                    <h1 class="display-4 fw-bold mb-3">{{ARTICLE_TITLE}}</h1>
-                    <p class="lead mb-4">{{ARTICLE_SUMMARY}}</p>
-                    <div class="d-flex justify-content-center align-items-center">
-                        <small class="me-4">
-                            <i class="fas fa-user me-1"></i>
-                            Por {{AUTHOR}}
-                        </small>
-                        <small class="me-4">
-                            <i class="fas fa-calendar me-1"></i>
-                            {{PUBLISH_DATE}}
-                        </small>
-                        <small>
-                            <i class="fas fa-robot me-1"></i>
-                            Generado por IA
-                        </small>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div class="eyebrow">{{CATEGORY}}</div>
+      <h1 class="title">{{ARTICLE_TITLE}}</h1>
+      <div class="meta">
+        <span>Por {{AUTHOR}}</span>
+        <span class="dot"></span>
+        <span>{{PUBLISH_DATE}}</span>
+        <span class="dot"></span>
+        <span>{{READING_TIME}}</span>
+      </div>
     </header>
-    
-    <!-- Contenido principal -->
-    <main class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <!-- Imagen destacada -->
-                <div class="text-center mb-4">
-                    <img src="{{FEATURED_IMAGE}}" alt="{{ARTICLE_TITLE}}" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
-                </div>
-                
-                <!-- Meta información -->
-                <div class="article-meta">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Categoría:</strong> {{CATEGORY}}<br>
-                            <strong>Autor:</strong> {{AUTHOR}}<br>
-                            <strong>Fecha:</strong> {{PUBLISH_DATE}}
-                        </div>
-                        <div class="col-md-6">
-                            <strong>Tiempo de lectura:</strong> {{READING_TIME}} min<br>
-                            <strong>Palabras:</strong> {{WORD_COUNT}}
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Tags -->
-                <div class="tags-container">
-                    {{TAGS_HTML}}
-                </div>
-                
-                <!-- Contenido del artículo -->
-                <article class="article-content">
-                    {{ARTICLE_CONTENT}}
-                </article>
-                
-                <!-- Footer del artículo -->
-                <footer class="mt-5 pt-4 border-top">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Compartir artículo</h5>
-                            <div class="mt-2">
-                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
-                                    <i class="fab fa-twitter"></i> Twitter
-                                </a>
-                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
-                                    <i class="fab fa-facebook"></i> Facebook
-                                </a>
-                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
-                                    <i class="fab fa-linkedin"></i> LinkedIn
-                                </a>
-                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
-                                    <i class="fab fa-whatsapp"></i> WhatsApp
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-6 text-md-end">
-                            <p class="text-muted">
-                                <small>
-                                    <i class="fas fa-robot me-1"></i>
-                                    Artículo generado por inteligencia artificial
-                                </small>
-                            </p>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
+
+    <div class="cover">
+      <img src="{{FEATURED_IMAGE}}" alt="Imagen destacada" loading="lazy" />
+    </div>
+
+    <p class="summary">{{ARTICLE_SUMMARY}}</p>
+
+    <main id="content" class="article">
+      <!-- Contenido del artículo (HTML) -->
+      {{ARTICLE_CONTENT}}
+      <!-- /Contenido del artículo -->
+
+      <div class="tags">
+        {{TAGS_HTML}}
+      </div>
     </main>
-    
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // Funciones de compartir
-        function shareOnTwitter() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('{{ARTICLE_TITLE}}');
-            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
-        }
-        
-        function shareOnFacebook() {
-            const url = encodeURIComponent(window.location.href);
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-        }
-        
-        function shareOnLinkedIn() {
-            const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent('{{ARTICLE_TITLE}}');
-            const summary = encodeURIComponent('{{SEO_DESCRIPTION}}');
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
-        }
-        
-        function shareOnWhatsApp() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('{{ARTICLE_TITLE}} - {{SEO_DESCRIPTION}}');
-            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
-        }
-        
-        // Actualizar URLs de compartir con la URL actual
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentUrl = window.location.href;
-            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
-                link.href = '#';
-            });
-        });
-    </script>
+
+    <footer class="article-footer">
+      © {{PUBLISH_DATE}} · Publicado por {{AUTHOR}} · Categoría: {{CATEGORY}}
+    </footer>
+  </div>
 </body>
-</html> 
+</html>
