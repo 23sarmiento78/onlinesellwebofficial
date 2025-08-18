@@ -7,7 +7,6 @@ const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const location = useLocation();
-  const [activeDropdown, setActiveDropdown] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,12 +27,11 @@ const NavBar = () => {
 
   const closeMenu = () => {
     setIsMenuOpen(false);
-    setActiveDropdown(null);
   };
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 1024) {
+      if (window.innerWidth > 768) {
         setIsMenuOpen(false);
       }
     };
@@ -67,129 +65,102 @@ const NavBar = () => {
     }
   };
 
-  const navItems = [
-    { path: '/', icon: 'fas fa-home', label: 'Inicio' },
-    { 
-      path: '/articulos', 
-      icon: 'fas fa-newspaper', 
-      label: 'Blog',
-      dropdown: [
-        { path: '/articulos', label: 'Todos los Artículos', icon: 'fas fa-list' },
-        { path: '/articulos?category=Frontend', label: 'Frontend', icon: 'fab fa-js' },
-        { path: '/articulos?category=Backend', label: 'Backend', icon: 'fas fa-server' },
-        { path: '/articulos?category=DevOps', label: 'DevOps', icon: 'fas fa-cogs' }
-      ]
-    },
-    { path: '/ebook', icon: 'fas fa-book-open', label: 'eBooks', badge: 'Nuevo' },
-    { path: '/recursos', icon: 'fas fa-toolbox', label: 'Recursos' },
-    { path: '/contacto', icon: 'fas fa-paper-plane', label: 'Contacto' }
-  ];
-
   return (
-    <nav className={`modern-navbar ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="navbar-container">
-        {/* Logo Section */}
-        <Link to="/" className="navbar-brand" onClick={closeMenu}>
-          <div className="brand-logo">
+    <header className={`clean-navbar ${isScrolled ? 'scrolled' : ''}`}>
+      <div className="navbar-wrapper">
+        <div className="navbar-content">
+          {/* Logo */}
+          <Link to="/" className="navbar-logo" onClick={closeMenu}>
             <div className="logo-icon">
               <i className="fas fa-code"></i>
             </div>
-            <div className="brand-text">
-              <span className="brand-name">hgaruna</span>
-              <span className="brand-tagline">dev</span>
+            <div className="logo-text">
+              <span className="logo-title">hgaruna</span>
+              <span className="logo-subtitle">dev</span>
             </div>
-          </div>
-        </Link>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <div className="navbar-nav">
-          {navItems.map((item, index) => (
-            <div 
-              key={item.path} 
-              className={`nav-item ${item.dropdown ? 'has-dropdown' : ''}`}
-              onMouseEnter={() => item.dropdown && setActiveDropdown(index)}
-              onMouseLeave={() => item.dropdown && setActiveDropdown(null)}
+          {/* Desktop Navigation */}
+          <nav className="desktop-nav">
+            <Link 
+              to="/" 
+              className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}
             >
-              <Link
-                to={item.path}
-                className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
-                onClick={closeMenu}
-              >
-                <i className={item.icon}></i>
-                <span>{item.label}</span>
-                {item.badge && <span className="nav-badge">{item.badge}</span>}
-                {item.dropdown && <i className="fas fa-chevron-down dropdown-arrow"></i>}
-              </Link>
-              
-              {item.dropdown && (
-                <div className={`dropdown-menu ${activeDropdown === index ? 'show' : ''}`}>
-                  {item.dropdown.map((dropItem) => (
-                    <Link
-                      key={dropItem.path}
-                      to={dropItem.path}
-                      className="dropdown-item"
-                      onClick={closeMenu}
-                    >
-                      <i className={dropItem.icon}></i>
-                      <span>{dropItem.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Search & Actions */}
-        <div className="navbar-actions">
-          <div className="search-container">
-            <form onSubmit={handleSearch} className="search-form">
-              <div className="search-input-wrapper">
-                <i className="fas fa-search search-icon"></i>
-                <input
-                  type="text"
-                  placeholder="Buscar..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="search-input"
-                />
-                <button type="submit" className="search-btn">
-                  <i className="fas fa-arrow-right"></i>
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <div className="action-buttons">
-            <button className="theme-toggle" title="Cambiar tema">
-              <i className="fas fa-moon"></i>
-            </button>
+              <i className="fas fa-home"></i>
+              <span>Inicio</span>
+            </Link>
             
-            <button className="notification-btn" title="Notificaciones">
-              <i className="fas fa-bell"></i>
-              <span className="notification-badge">3</span>
+            <Link 
+              to="/articulos" 
+              className={`nav-item ${location.pathname === '/articulos' ? 'active' : ''}`}
+            >
+              <i className="fas fa-newspaper"></i>
+              <span>Blog</span>
+            </Link>
+            
+            <Link 
+              to="/ebook" 
+              className={`nav-item ${location.pathname === '/ebook' ? 'active' : ''}`}
+            >
+              <i className="fas fa-book"></i>
+              <span>eBooks</span>
+              <span className="nav-badge">Nuevo</span>
+            </Link>
+            
+            <Link 
+              to="/recursos" 
+              className={`nav-item ${location.pathname === '/recursos' ? 'active' : ''}`}
+            >
+              <i className="fas fa-tools"></i>
+              <span>Recursos</span>
+            </Link>
+            
+            <Link 
+              to="/contacto" 
+              className={`nav-item ${location.pathname === '/contacto' ? 'active' : ''}`}
+            >
+              <i className="fas fa-envelope"></i>
+              <span>Contacto</span>
+            </Link>
+          </nav>
+
+          {/* Right Section */}
+          <div className="navbar-actions">
+            {/* Search */}
+            <div className="search-box">
+              <form onSubmit={handleSearch}>
+                <div className="search-wrapper">
+                  <i className="fas fa-search"></i>
+                  <input
+                    type="text"
+                    placeholder="Buscar..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+              </form>
+            </div>
+
+            {/* Mobile Toggle */}
+            <button
+              className={`mobile-menu-btn ${isMenuOpen ? 'active' : ''}`}
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
             </button>
           </div>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className={`mobile-toggle ${isMenuOpen ? 'active' : ''}`}
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-          >
-            <span className="toggle-line"></span>
-            <span className="toggle-line"></span>
-            <span className="toggle-line"></span>
-          </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
-        <div className="mobile-header">
+        <div className="mobile-menu-content">
           <div className="mobile-search">
             <form onSubmit={handleSearch}>
-              <div className="mobile-search-wrapper">
+              <div className="search-wrapper">
                 <i className="fas fa-search"></i>
                 <input
                   type="text"
@@ -200,60 +171,60 @@ const NavBar = () => {
               </div>
             </form>
           </div>
-        </div>
 
-        <div className="mobile-nav">
-          {navItems.map((item) => (
-            <div key={item.path} className="mobile-nav-item">
-              <Link
-                to={item.path}
-                className={`mobile-nav-link ${location.pathname === item.path ? 'active' : ''}`}
-                onClick={closeMenu}
-              >
-                <div className="mobile-link-content">
-                  <i className={item.icon}></i>
-                  <span>{item.label}</span>
-                  {item.badge && <span className="mobile-badge">{item.badge}</span>}
-                </div>
-              </Link>
-              
-              {item.dropdown && (
-                <div className="mobile-dropdown">
-                  {item.dropdown.map((dropItem) => (
-                    <Link
-                      key={dropItem.path}
-                      to={dropItem.path}
-                      className="mobile-dropdown-item"
-                      onClick={closeMenu}
-                    >
-                      <i className={dropItem.icon}></i>
-                      <span>{dropItem.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div className="mobile-footer">
-          <div className="mobile-social">
-            <a href="#" className="social-btn">
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a href="#" className="social-btn">
-              <i className="fab fa-linkedin"></i>
-            </a>
-            <a href="#" className="social-btn">
-              <i className="fab fa-github"></i>
-            </a>
-          </div>
+          <nav className="mobile-nav">
+            <Link 
+              to="/" 
+              className={`mobile-nav-item ${location.pathname === '/' ? 'active' : ''}`}
+              onClick={closeMenu}
+            >
+              <i className="fas fa-home"></i>
+              <span>Inicio</span>
+            </Link>
+            
+            <Link 
+              to="/articulos" 
+              className={`mobile-nav-item ${location.pathname === '/articulos' ? 'active' : ''}`}
+              onClick={closeMenu}
+            >
+              <i className="fas fa-newspaper"></i>
+              <span>Blog</span>
+            </Link>
+            
+            <Link 
+              to="/ebook" 
+              className={`mobile-nav-item ${location.pathname === '/ebook' ? 'active' : ''}`}
+              onClick={closeMenu}
+            >
+              <i className="fas fa-book"></i>
+              <span>eBooks</span>
+              <span className="mobile-badge">Nuevo</span>
+            </Link>
+            
+            <Link 
+              to="/recursos" 
+              className={`mobile-nav-item ${location.pathname === '/recursos' ? 'active' : ''}`}
+              onClick={closeMenu}
+            >
+              <i className="fas fa-tools"></i>
+              <span>Recursos</span>
+            </Link>
+            
+            <Link 
+              to="/contacto" 
+              className={`mobile-nav-item ${location.pathname === '/contacto' ? 'active' : ''}`}
+              onClick={closeMenu}
+            >
+              <i className="fas fa-envelope"></i>
+              <span>Contacto</span>
+            </Link>
+          </nav>
         </div>
       </div>
 
       {/* Mobile Overlay */}
       <div className={`mobile-overlay ${isMenuOpen ? 'active' : ''}`} onClick={closeMenu}></div>
-    </nav>
+    </header>
   );
 };
 
