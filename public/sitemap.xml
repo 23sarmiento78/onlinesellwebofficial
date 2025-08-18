@@ -31,212 +31,242 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://hgaruna.org//blog/1-introduccin-y-objetivos.html</loc>
+    <lastmod>2025-08-18T13:17:24.327Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://hgaruna.org//blog/ajax-comunicacin-asncrona-con-.html</loc>
-    <lastmod>2025-08-18T09:10:17.551Z</lastmod>
+    <lastmod>2025-08-18T13:15:55.913Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/angular-18-nuevas-fu.html</loc>
-    <lastmod>2025-08-18T09:08:41.110Z</lastmod>
+    <lastmod>2025-08-18T13:15:55.914Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/ansible-automatizaci.html</loc>
-    <lastmod>2025-08-18T09:10:17.268Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.028Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/chat-en-tiempo-real-con-react-un-tutoria.html</loc>
-    <lastmod>2025-08-18T09:10:17.557Z</lastmod>
+    <lastmod>2025-08-18T13:15:55.914Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/cicd-automatizacin-d.html</loc>
-    <lastmod>2025-08-18T09:10:17.274Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.043Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/code-splitting-divis.html</loc>
-    <lastmod>2025-08-18T09:10:17.282Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.051Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/construyendo-un-chat-en-tiempo-real-con-.html</loc>
-    <lastmod>2025-08-18T09:08:41.111Z</lastmod>
+    <lastmod>2025-08-18T13:15:55.914Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/cqrs-command-query-r.html</loc>
-    <lastmod>2025-08-18T09:10:17.299Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.068Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/crea-un-cronmetro-digital-con-javascript.html</loc>
-    <lastmod>2025-08-18T09:08:41.111Z</lastmod>
+    <lastmod>2025-08-18T13:15:55.914Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hgaruna.org//blog/crea-una-galera-de-fotos-con-react-un-tu.html</loc>
+    <lastmod>2025-08-18T13:17:24.328Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hgaruna.org//blog/css-diseo-y-estilos-para-pgina.html</loc>
+    <lastmod>2025-08-18T13:17:24.322Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/database-optimizatio.html</loc>
-    <lastmod>2025-08-18T09:10:17.314Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.077Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/debugging-cmo-encontrar-y-corr.html</loc>
-    <lastmod>2025-08-18T09:10:17.555Z</lastmod>
+    <lastmod>2025-08-18T13:15:55.914Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hgaruna.org//blog/deployment-publicar-tu-aplicac.html</loc>
+    <lastmod>2025-08-18T13:17:24.326Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/docker-contenedores-.html</loc>
-    <lastmod>2025-08-18T09:10:17.319Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.087Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/edge-computing-compu.html</loc>
-    <lastmod>2025-08-18T09:10:17.326Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.092Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/el-poder-del-estado-en-aplicac.html</loc>
-    <lastmod>2025-08-18T09:10:17.556Z</lastmod>
+    <lastmod>2025-08-18T13:15:55.915Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/estrategias-de-cach-.html</loc>
-    <lastmod>2025-08-18T09:10:17.330Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.104Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/estructuras-de-control-domina-.html</loc>
-    <lastmod>2025-08-18T09:08:41.111Z</lastmod>
+    <lastmod>2025-08-18T13:15:55.915Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/generador-de-contraseas-aleatorias-en-ja.html</loc>
-    <lastmod>2025-08-18T09:10:17.557Z</lastmod>
+    <lastmod>2025-08-18T13:15:55.915Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hgaruna.org//blog/git-y-github-control-de-versio.html</loc>
+    <lastmod>2025-08-18T13:17:24.326Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/jamstack-javascript-.html</loc>
-    <lastmod>2025-08-18T09:10:17.350Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.126Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/lazy-loading-carga-d.html</loc>
-    <lastmod>2025-08-18T09:10:17.356Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.130Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/linters-y-formatters.html</loc>
-    <lastmod>2025-08-18T09:10:17.364Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.136Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/local-storage-tu-aliado-secret.html</loc>
-    <lastmod>2025-08-18T09:08:41.112Z</lastmod>
+    <lastmod>2025-08-18T13:15:55.915Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/migrations-gestin-de.html</loc>
-    <lastmod>2025-08-18T09:10:17.381Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.146Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/nlp-procesamiento-de.html</loc>
-    <lastmod>2025-08-18T09:10:17.385Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.150Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/nodejs-22-nuevas-car.html</loc>
-    <lastmod>2025-08-18T09:10:17.389Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.154Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/package-managers-npm.html</loc>
-    <lastmod>2025-08-18T09:10:17.392Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.157Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/profiling-anlisis-de.html</loc>
-    <lastmod>2025-08-18T09:10:17.398Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.161Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/progressive-web-apps.html</loc>
-    <lastmod>2025-08-18T09:10:17.401Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.168Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/pruebas-unitarias-en-frontend-.html</loc>
-    <lastmod>2025-08-18T09:08:41.112Z</lastmod>
+    <lastmod>2025-08-18T13:15:55.916Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/react-19-nuevas-cara.html</loc>
-    <lastmod>2025-08-18T09:10:17.410Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.179Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/security-testing-owa.html</loc>
-    <lastmod>2025-08-18T09:10:17.416Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.185Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/sql-injection-preven.html</loc>
-    <lastmod>2025-08-18T09:10:17.419Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.189Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/terraform-infrastruc.html</loc>
-    <lastmod>2025-08-18T09:10:17.424Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.192Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/testing-de-apis-post.html</loc>
-    <lastmod>2025-08-18T09:10:17.428Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.196Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/typescript-avanzado-.html</loc>
-    <lastmod>2025-08-18T09:10:17.431Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.199Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hgaruna.org//blog/webassembly-rendimie.html</loc>
-    <lastmod>2025-08-18T09:10:17.436Z</lastmod>
+    <lastmod>2025-08-18T13:17:24.203Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

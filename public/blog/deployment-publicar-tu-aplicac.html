@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment: Publicar tu Aplicación Web - El Paso Final Crucial | Aprende Programación Gratis</title>
+    <meta name="description" content="El deployment es el puente entre tu código y tus usuarios. Sin él, tu aplicación web permanece invisible, un tesoro escondido en tu computadora.  Publicar tu ap...">
+    <meta name="keywords" content="aprender programación, tutorial programación, curso gratis, programación principiantes, desarrollo web, coding tutorial, React, Vue, Angular, componentes, estado, react">
+    <meta name="author" content="hgaruna - Aprende Programación">
+    <meta name="robots" content="index, follow">
+    <meta name="category" content="Frontend Frameworks">
+    <meta name="educational-level" content="Principiante">
+    <meta name="reading-time" content="5">
+    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hgaruna.org/aprende-programacion/deployment-publicar-tu-aplicac.html">
+    <meta property="og:title" content="Deployment: Publicar tu Aplicación Web - El Paso Final Crucial | Aprende Programación Gratis">
+    <meta property="og:description" content="El deployment es el puente entre tu código y tus usuarios. Sin él, tu aplicación web permanece invisible, un tesoro escondido en tu computadora.  Publicar tu ap...">
+    <meta property="og:image" content="https://hgaruna.org/logos-he-imagenes/education-deployment-publicar-tu-aplicac.jpg">
+    <meta property="article:author" content="hgaruna">
+    <meta property="article:section" content="Frontend Frameworks">
+    <meta property="article:published_time" content="2025-08-18">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://hgaruna.org/aprende-programacion/deployment-publicar-tu-aplicac.html">
+    <meta name="twitter:title" content="Deployment: Publicar tu Aplicación Web - El Paso Final Crucial | Aprende Programación Gratis">
+    <meta name="twitter:description" content="El deployment es el puente entre tu código y tus usuarios. Sin él, tu aplicación web permanece invisible, un tesoro escondido en tu computadora.  Publicar tu ap...">
+    <meta name="twitter:image" content="https://hgaruna.org/logos-he-imagenes/education-deployment-publicar-tu-aplicac.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hgaruna.org/aprende-programacion/deployment-publicar-tu-aplicac.html">
+    
+    <!-- Educational Schema.org markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "name": "Deployment: Publicar tu Aplicación Web - El Paso Final Crucial",
+      "description": "El deployment es el puente entre tu código y tus usuarios. Sin él, tu aplicación web permanece invisible, un tesoro escondido en tu computadora.  Publicar tu ap...",
+      "author": {
+        "@type": "Organization",
+        "name": "hgaruna",
+        "url": "https://hgaruna.org"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "hgaruna",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
+        }
+      },
+      "datePublished": "2025-08-18",
+      "dateModified": "2025-08-18",
+      "learningResourceType": "Tutorial",
+      "educationalLevel": "Principiante",
+      "teaches": "Frontend Frameworks",
+      "timeRequired": "PT5M",
+      "isAccessibleForFree": true,
+      "inLanguage": "es",
+      "mainEntity": {
+        "@type": "Course",
+        "name": "Deployment: Publicar tu Aplicación Web - El Paso Final Crucial",
+        "description": "El deployment es el puente entre tu código y tus usuarios. Sin él, tu aplicación web permanece invisible, un tesoro escondido en tu computadora.  Publicar tu ap..."
+      }
+    }
+    </script>
+
+    <!-- FAQ Schema if applicable -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Es este tutorial adecuado para principiantes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, este tutorial está diseñado para ser accesible a Principiantes en programación."
+          }
+        },
+        {
+          "@type": "Question", 
+          "name": "¿Qué prerequisitos necesito?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Los prerequisitos son: HTML, CSS, JavaScript básico"
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
+    
+    <style>
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #1db954;
+            --accent-color: #39ff14;
+            --bg-dark: #0a0a0a;
+            --bg-card: #181818;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(29, 185, 84, 0.08) 0%, transparent 50%);
+        }
+        
+        .educational-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .educational-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .educational-meta {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .learning-objectives {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'Código';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .educational-tip {
+            background: rgba(57, 255, 20, 0.1);
+            border: 1px solid rgba(57, 255, 20, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .educational-tip::before {
+            content: '💡';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--accent-color);
+            color: var(--bg-dark);
+            padding: 4px 8px;
+            border-radius: 50%;
+            font-size: 1rem;
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(0, 255, 65, 0.2);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .article-navigation {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .related-articles {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: var(--bg-dark);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 65, 0.3);
+            color: var(--bg-dark);
+        }
+
+        .table-of-contents {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            position: sticky;
+            top: 20px;
+        }
+
+        .table-of-contents ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .table-of-contents li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table-of-contents a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .table-of-contents a:hover {
+            color: var(--primary-color);
+        }
+
+        /* AdSense placeholder styles */
+        .adsense-placeholder {
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px dashed rgba(0, 255, 65, 0.3);
+            border-radius: 8px;
+            padding: 60px 20px;
+            text-align: center;
+            margin: 3rem 0;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .educational-header {
+                padding: 2rem 0;
+            }
+            
+            .educational-meta {
+                padding: 1.5rem;
+            }
+            
+            .table-of-contents {
+                position: static;
+            }
+        }
+
+        /* Responsive ads */
+        .responsive-ad {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        /* Highlight important sections */
+        .highlight-box {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        /* Interactive elements */
+        .interactive-demo {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Progress indicator -->
+    <div class="progress-indicator">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: var(--bg-card); backdrop-filter: blur(20px);">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-graduation-cap me-2" style="color: var(--primary-color);"></i>
+                <span style="color: var(--primary-color);">hgaruna</span> Aprende
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/aprende-programacion">🏠 Inicio</a>
+                <a class="nav-link" href="/aprende-programacion/cursos">📚 Cursos</a>
+                <a class="nav-link" href="/aprende-programacion/ejercicios">💪 Ejercicios</a>
+                <a class="nav-link" href="/blog">📰 Blog</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Educational Header -->
+    <header class="educational-header">
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="mb-3">
+                        <span class="badge bg-success me-2">Frontend Frameworks</span>
+                        <span class="badge bg-info me-2">Principiante</span>
+                        <span class="badge bg-warning">5 min lectura</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-4">Deployment: Publicar tu Aplicación Web - El Paso Final Crucial</h1>
+                    <p class="lead mb-4">El deployment es el puente entre tu código y tus usuarios. Sin él, tu aplicación web permanece invisible, un tesoro escondido en tu computadora.  Publicar tu ap...</p>
+                    <div class="d-flex align-items-center">
+                        <img src="/logos-he-imagenes/logo3.png" alt="hgaruna" class="rounded-circle me-3" width="50" height="50">
+                        <div>
+                            <h6 class="mb-0">Por hgaruna</h6>
+                            <small class="text-light opacity-75">Instructor de Programación</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-laptop-code display-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container my-5">
+        <div class="row">
+            <!-- Table of Contents -->
+            <div class="col-lg-3 order-lg-1 order-2">
+                <div class="table-of-contents">
+                    <h5><i class="fas fa-list me-2" style="color: var(--primary-color);"></i>Contenido</h5>
+                    <ul id="tableOfContents">
+                        <!-- Generated dynamically -->
+                    </ul>
+                </div>
+
+                <!-- AdSense Sidebar -->
+                <div class="responsive-ad mt-4">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-7772175009790237"
+                         data-ad-slot="1234567890"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9 order-lg-2 order-1">
+                <!-- Educational Meta -->
+                <div class="educational-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-bullseye me-2" style="color: var(--primary-color);"></i>Objetivos de Aprendizaje</h6>
+                            <ul class="list-unstyled">
+                                <li>Aplicar conceptos con ejemplos prácticos</li><li>Escribir código funcional</li><li>Desarrollar proyectos reales</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-check-circle me-2" style="color: var(--primary-color);"></i>Prerequisitos</h6>
+                            <p class="mb-0">HTML, CSS, JavaScript básico</p>
+                            
+                            <h6 class="mt-3"><i class="fas fa-clock me-2" style="color: var(--primary-color);"></i>Duración</h6>
+                            <p class="mb-0">5 minutos de lectura</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Article Ad -->
+                <div class="responsive-ad">
+                    <ins class="adsbygoogle"
+                         style="display:block; text-align:center;"
+                         data-ad-layout="in-article"
+                         data-ad-format="fluid"
+                         data-ad-client="ca-pub-7772175009790237"
+                         data-ad-slot="9876543210"></ins>
+                </div>
+
+                <!-- Main Article Content -->
+                <main class="article-content">
+                    <main>
+<h2>Deployment: Publicar tu Aplicación Web - El Paso Final Crucial</h2>
+<p>¡Felicidades! Has construido una increíble aplicación web usando tu framework frontend favorito.  Pero el trabajo no termina ahí.  Para que el mundo pueda disfrutar de tu creación, necesitas desplegarla, o publicarla, en un servidor.  Este proceso, conocido como <em>deployment</em>, es crucial para llevar tu proyecto de tu máquina local a la red global, donde millones de usuarios potenciales pueden acceder a él.  Este artículo te guiará paso a paso a través del proceso, cubriendo conceptos clave y ejemplos prácticos.</p>
+
+<h2>¿Por Qué es Importante el Deployment?</h2>
+<p>El deployment es el puente entre tu código y tus usuarios. Sin él, tu aplicación web permanece invisible, un tesoro escondido en tu computadora.  Publicar tu aplicación te permite:</p>
+<ul>
+<li><strong>Compartir tu trabajo con el mundo:</strong>  Permite que otros vean y utilicen tu aplicación.</li>
+<li><strong>Obtener feedback de usuarios reales:</strong>  Identifica áreas de mejora a partir de las experiencias de los usuarios.</li>
+<li><strong>Escalar tu aplicación:</strong>  Manejar un mayor número de usuarios y solicitudes.</li>
+<li><strong>Colaborar con otros desarrolladores:</strong>  Facilita el trabajo en equipo y la contribución de otros.</li>
+</ul>
+
+<h2>Conceptos Fundamentales del Deployment</h2>
+<h3>Hosting: El Hogar de tu Aplicación</h3>
+<p>Necesitas un <em>hosting</em>, un servicio que proporciona espacio en un servidor para almacenar los archivos de tu aplicación y hacerla accesible a través de internet.  Existen diferentes tipos de hosting, incluyendo:</p>
+<ul>
+<li><strong>Hosting compartido:</strong>  Ideal para principiantes y sitios web pequeños, varios sitios web comparten los recursos del servidor.</li>
+<li><strong>Hosting VPS (Virtual Private Server):</strong>  Proporciona más control y recursos que el hosting compartido.</li>
+<li><strong>Hosting dedicado:</strong>  Un servidor entero dedicado a tu aplicación, ofreciendo el máximo control y rendimiento.</li>
+<li><strong>Cloud hosting (AWS, Google Cloud, Azure):</strong>  Plataformas en la nube que ofrecen escalabilidad y flexibilidad.</li>
+</ul>
+
+<h3>Dominios: Tu Dirección en Internet</h3>
+<p>Un dominio es el nombre de tu sitio web (ej. www.miaplicacion.com).  Necesitas registrar un dominio para que los usuarios puedan acceder a tu aplicación a través de una URL fácil de recordar.</p>
+
+<h3>FTP (File Transfer Protocol): Transfiriendo Archivos</h3>
+<p>FTP es un protocolo que permite transferir archivos entre tu computadora y el servidor de hosting.  Muchas plataformas de hosting ofrecen interfaces gráficas para subir archivos, pero entender FTP es útil para una gestión más eficiente.</p>
+
+<h2>Ejemplos Prácticos de Deployment</h2>
+<h3>Ejemplo 1: Deploy con Netlify (Framework React)</h3>
+<p>Netlify es una plataforma popular para desplegar aplicaciones React.  Simplemente conecta tu repositorio de Git y Netlify se encargará del resto.  Aquí te mostramos un ejemplo básico:</p>
+<ol>
+<li>Crea una cuenta en Netlify.</li>
+<li>Conecta tu repositorio de Git (GitHub, GitLab, Bitbucket).</li>
+<li>Netlify detectará automáticamente tu aplicación React y la desplegará.</li>
+<li>Obtendrás una URL para acceder a tu aplicación.</li>
+</ol>
+
+<h3>Ejemplo 2: Deploy con Heroku (Framework Vue.js)</h3>
+<p>Heroku es otra plataforma popular para desplegar aplicaciones web.  Para desplegar una aplicación Vue.js, necesitarás un archivo <code>Procfile</code>:</p>
+<pre><code class="language-bash">
+web: npm run build && npm start
+</code></pre>
+<p>Este archivo le indica a Heroku como ejecutar tu aplicación.  Luego, debes conectar tu repositorio de Git y Heroku se encargará del resto.</p>
+
+<h3>Ejemplo 3: Deploy Manual con un Servidor Apache (Framework Angular)</h3>
+<p>Para un control más granular, puedes desplegar tu aplicación Angular manualmente en un servidor Apache.  Esto requiere más conocimiento técnico, pero te da mayor flexibilidad.</p>
+<ol>
+<li>Construye tu aplicación Angular: <code>ng build --prod</code></li>
+<li>Sube la carpeta <code>dist</code> a tu servidor mediante FTP.</li>
+<li>Configura el servidor Apache para servir los archivos de tu aplicación.</li>
+</ol>
+
+
+<h2>Ejercicios y Actividades</h2>
+<p>Para consolidar tu aprendizaje, intenta desplegar una aplicación simple en:</p>
+<ul>
+<li>Netlify</li>
+<li>Heroku</li>
+<li>Vercel</li>
+</ul>
+<p>Experimenta con diferentes plataformas y compara sus características.</p>
+
+<h2>Recursos Adicionales</h2>
+<ul>
+<li><strong>Documentación de Netlify:</strong> <a href="https://www.netlify.com/docs/">https://www.netlify.com/docs/</a></li>
+<li><strong>Documentación de Heroku:</strong> <a href="https://devcenter.heroku.com/">https://devcenter.heroku.com/</a></li>
+<li><strong>Documentación de AWS:</strong> <a href="https://aws.amazon.com/documentation/">https://aws.amazon.com/documentation/</a></li>
+</ul>
+
+<h2>Conclusión</h2>
+<p>El deployment es una etapa fundamental en el ciclo de vida de una aplicación web.  Dominar este proceso te permitirá compartir tu trabajo con el mundo y obtener el máximo provecho de tu desarrollo.  Recuerda explorar diferentes plataformas de hosting y elegir la que mejor se adapte a tus necesidades y conocimientos.  ¡Practica y no tengas miedo de experimentar!</p>
+
+<h2>Preguntas Frecuentes</h2>
+<h3>¿Cuál es la mejor plataforma de hosting?</h3>
+<p>No existe una "mejor" plataforma. La mejor opción depende de tus necesidades (tamaño de la aplicación, presupuesto, nivel técnico, etc.).</p>
+
+<h3>¿Cuánto cuesta desplegar una aplicación web?</h3>
+<p>El costo varía según la plataforma de hosting que elijas.  Algunas ofrecen planes gratuitos para proyectos pequeños, mientras que otras cobran por recursos utilizados.</p>
+
+<h3>¿Necesito conocimientos de servidores para desplegar mi aplicación?</h3>
+<p>No necesariamente.  Plataformas como Netlify y Heroku simplifican el proceso, pero un conocimiento básico de servidores es útil para una gestión más eficiente y para la resolución de problemas.</p>
+
+<h3>¿Qué pasa si mi aplicación se cae después de desplegarla?</h3>
+<p>Esto puede deberse a varios factores, incluyendo problemas de configuración del servidor, errores en el código o falta de recursos.  Revisa los logs de tu servidor y busca ayuda en la comunidad o en la documentación de la plataforma de hosting.</p>
+
+<blockquote><strong>Llamada a la acción:</strong> ¡Comienza a desplegar tu aplicación hoy mismo!  Elige una plataforma de hosting y sigue los pasos descritos en este artículo.  Si tienes alguna duda, no dudes en dejar un comentario.</blockquote>
+</main>
+
+                </main>
+
+                <!-- Middle Article Ad -->
+                <div class="responsive-ad">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-format="autorelaxed"
+                         data-ad-client="ca-pub-7772175009790237"
+                         data-ad-slot="5555555555"></ins>
+                </div>
+
+                <!-- Practice Section -->
+                <div class="learning-objectives mt-5">
+                    <h3><i class="fas fa-dumbbell me-2"></i>¡Hora de Practicar!</h3>
+                    <p>Ahora que has aprendido los conceptos, es momento de ponerlos en práctica:</p>
+                    <ul>
+                        <li>Intenta recrear los ejemplos por tu cuenta</li>
+                        <li>Experimenta modificando el código</li>
+                        <li>Busca casos de uso adicionales</li>
+                        <li>Comparte tu progreso en redes sociales</li>
+                    </ul>
+                    <div class="text-center mt-3">
+                        <a href="/aprende-programacion/ejercicios" class="btn btn-primary">
+                            <i class="fas fa-play me-2"></i>Ver Ejercicios Relacionados
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Bottom Article Ad -->
+                <div class="responsive-ad">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-7772175009790237"
+                         data-ad-slot="1111111111"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                </div>
+
+                <!-- Article Navigation -->
+                <div class="article-navigation">
+                    <h5><i class="fas fa-compass me-2" style="color: var(--primary-color);"></i>Continúa Aprendiendo</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-outline-light w-100 mb-2">
+                                <i class="fas fa-arrow-left me-2"></i>Artículo Anterior
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-outline-light w-100 mb-2">
+                                Siguiente Artículo<i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="/aprende-programacion" class="btn btn-primary">
+                            <i class="fas fa-home me-2"></i>Volver al Inicio
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Related Articles -->
+                <div class="related-articles">
+                    <h5><i class="fas fa-lightbulb me-2" style="color: var(--primary-color);"></i>Artículos Relacionados</h5>
+                    <div class="row" id="relatedArticles">
+                        <!-- Generated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h5 style="color: var(--primary-color);">hgaruna Aprende</h5>
+                    <p class="text-muted">Aprende programación de forma gratuita con tutoriales de calidad.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h6>Categorías</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/aprende-programacion/frontend" class="text-muted">Frontend</a></li>
+                        <li><a href="/aprende-programacion/backend" class="text-muted">Backend</a></li>
+                        <li><a href="/aprende-programacion/mobile" class="text-muted">Mobile</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6>Recursos</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/aprende-programacion/ejercicios" class="text-muted">Ejercicios</a></li>
+                        <li><a href="/aprende-programacion/proyectos" class="text-muted">Proyectos</a></li>
+                        <li><a href="/blog" class="text-muted">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(0, 255, 65, 0.3);">
+            <div class="text-center">
+                <p class="text-muted mb-0">&copy; 2024 hgaruna. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Prism.js for code highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script>
+        // Progress bar
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        });
+
+        // Generate table of contents
+        document.addEventListener('DOMContentLoaded', function() {
+            const headings = document.querySelectorAll('main h2, main h3');
+            const toc = document.getElementById('tableOfContents');
+            
+            headings.forEach((heading, index) => {
+                const id = 'heading-' + index;
+                heading.id = id;
+                
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#' + id;
+                a.textContent = heading.textContent;
+                a.style.paddingLeft = heading.tagName === 'H3' ? '20px' : '0';
+                li.appendChild(a);
+                toc.appendChild(li);
+            });
+
+            // Smooth scrolling for TOC links
+            toc.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                    const target = document.querySelector(e.target.getAttribute('href'));
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Initialize AdSense
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <!-- Educational Analytics -->
+    <script>
+        // Track educational engagement
+        function trackProgress(section) {
+            // Analytics implementation
+            console.log('Progress tracked:', section);
+        }
+
+        // Track scroll depth for educational content
+        let maxScroll = 0;
+        window.addEventListener('scroll', function() {
+            const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+            if (scrollPercent > maxScroll) {
+                maxScroll = scrollPercent;
+                if (maxScroll % 25 === 0) {
+                    trackProgress(`Scroll ${maxScroll}%`);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
