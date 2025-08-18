@@ -1,9 +1,9 @@
 [
   {
-    "id": "buenas-practicas-de-react-y-rendimiento-una-guia-completa-para-2025",
-    "title": "Buenas Prácticas de React y Rendimiento: Una Guía Completa para 2025",
+    "id": "buenas-practicas-de-react-y-rendimiento",
+    "title": "Buenas Prácticas de React y Rendimiento:",
     "description": "Este artículo proporciona una guía completa sobre las mejores prácticas de React para optimizar el rendimiento de tus aplicaciones, incluyendo ejemplos y consej",
-    "excerpt": "Este artículo proporciona una guía completa sobre las mejores prácticas de React para optimizar el rendimiento de tus aplicaciones, incluyendo ejemplos y consejos para principiantes y desarrolladores experimentados.  Cubriremos estrategias para mejorar la velocidad de carga, la eficiencia y la escalabilidad de tus proyectos React.",
+    "excerpt": "Este artículo proporciona una guía completa sobre las mejores prácticas de React para optimizar el rendimiento de tus aplicaciones, incluyendo ejemplos y consejos para principiantes y desarrolladores experimentados.  Aprenderás a evitar errores comunes y a construir aplicaciones React rápidas y eficientes, preparadas para el futuro.",
     "keywords": [
       "Buenas prácticas de React y rendimiento",
       "buenas prácticas de react y rendimiento guía",
@@ -27,8 +27,8 @@
     "author": "hgaruna",
     "category": "Frontend",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T18:24:19.825Z",
-    "readingTime": 5,
+    "lastmod": "2025-08-18T18:29:49.048Z",
+    "readingTime": 6,
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-una-guia-completa-para-2025.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
   },
@@ -60,7 +60,7 @@
     "author": "hgaruna",
     "category": "Frontend",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T18:23:52.909Z",
+    "lastmod": "2025-08-18T18:29:23.667Z",
     "readingTime": 3,
     "path": "/blog/buenas-practicas-de-react-y-rendimiento.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
