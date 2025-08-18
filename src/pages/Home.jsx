@@ -5,13 +5,7 @@ import { useBlogArticles } from '../utils/getBlogArticles';
 import './Home.css';
 
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState('Todos');
   const { articles: blogArticles, loading: articlesLoading } = useBlogArticles();
-
-  // Categorías de filtrado
-  const categories = [
-    'Todos', 'JavaScript', 'Python', 'React', 'IA', 'DevOps', 'Backend', 'Frontend', 'Mobile'
-  ];
 
   // Artículo destacado del mes
   const monthlyHighlight = {
@@ -249,7 +243,7 @@ export default function Home() {
                   <p className="article-excerpt">{article.excerpt}</p>
                   
                   <div className="article-tags">
-                    {article.tags.map(tag => (
+                    {Array.isArray(article.tags) && article.tags.map(tag => (
                       <span key={tag} className="tag">#{tag}</span>
                     ))}
                   </div>

@@ -6,6 +6,7 @@ export default function EbookPage() {
   const [currentEbook, setCurrentEbook] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
   const [downloadForm, setDownloadForm] = useState({ email: '', name: '', downloaded: false });
+  const [freePdfPath, setFreePdfPath] = useState('/ebooks/javascript-moderno-gratis.pdf');
   const [testimonials] = useState([
     {
       id: 1,
@@ -136,20 +137,42 @@ export default function EbookPage() {
 
   useEffect(() => {
     setCurrentEbook(featuredEbook);
+    // Intentar resolver la ruta real del PDF gratuito desde /ebooks/index.json
+    (async () => {
+      try {
+        const res = await fetch('/ebooks/index.json');
+        if (!res.ok) return;
+        const data = await res.json();
+        const first = Array.isArray(data.ebooks) ? data.ebooks.find(e => e.paths && e.paths.freePdf) || data.ebooks[0] : null;
+        const candidate = first?.paths?.freePdf;
+        if (candidate) setFreePdfPath(candidate);
+      } catch (_) {
+        // ignorar, mantener fallback
+      }
+    })();
   }, []);
 
-  const handleDownloadFree = (e) => {
+  const handleDownloadFree = async (e) => {
     e.preventDefault();
     if (downloadForm.email && downloadForm.name) {
-      setDownloadForm({ ...downloadForm, downloaded: true });
-      // Aquí se implementaría el envío del email
-      setTimeout(() => {
-        // Simular descarga
-        const link = document.createElement('a');
-        link.href = '/ebooks/javascript-moderno-gratis.pdf';
-        link.download = 'JavaScript-Moderno-2024-Muestra-Gratis.pdf';
-        link.click();
-      }, 1000);
+      try {
+        // Verificar disponibilidad del archivo antes de iniciar la descarga
+        const headRes = await fetch(freePdfPath, { method: 'HEAD' });
+        if (!headRes.ok) throw new Error('Archivo no disponible');
+
+        setDownloadForm({ ...downloadForm, downloaded: true });
+
+        setTimeout(() => {
+          const link = document.createElement('a');
+          link.href = freePdfPath;
+          link.download = 'JavaScript-Moderno-2024-Muestra-Gratis.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }, 500);
+      } catch (err) {
+        alert('No pudimos iniciar la descarga en este momento. Intenta nuevamente más tarde.');
+      }
     }
   };
 

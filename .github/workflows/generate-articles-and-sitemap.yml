@@ -11,6 +11,7 @@ on:
 jobs:
   generar-articulos-educativos-adsense:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -19,39 +20,49 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
 
       - name: Instalar dependencias
-        run: npm install
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
 
-      - name: Generar 3 artículos educativos optimizados para AdSense
+      - name: Asegurar directorios requeridos
+        run: |
+          mkdir -p public/blog
+          mkdir -p public/data
+
+      - name: Generar artículos educativos optimizados para AdSense
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: node scripts/generate-educational-articles-adsense.js --count=3
+          EDU_COUNT: ${{ vars.EDU_COUNT }}
+        run: |
+          COUNT=${EDU_COUNT:-3}
+          timeout 900 node scripts/generate-educational-articles-adsense.js --count=$COUNT
 
       - name: Generar artículos de programación para principiantes
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: node scripts/generate-programming-tutorials.js --count=2
-
-      - name: Copiar artículos HTML generados a public/blog
+          TUTORIAL_COUNT: ${{ vars.TUTORIAL_COUNT }}
         run: |
-          mkdir -p public/blog
-          cp -u scripts/generated-html/*.html public/blog/ 2>/dev/null || echo "No hay archivos nuevos para copiar"
+          COUNT=${TUTORIAL_COUNT:-2}
+          timeout 900 node scripts/generate-programming-tutorials.js --count=$COUNT
 
       - name: Optimizar artículos para SEO y AdSense
-        run: node scripts/optimize-articles-adsense.js
+        run: timeout 600 node scripts/optimize-articles-adsense.js
 
       - name: Agregar meta categoría y schema markup
-        run: node scripts/add-category-meta.js
+        run: timeout 300 node scripts/add-category-meta.js
 
-      - name: Generar índice de artículos educativos
-        run: node scripts/generate-educational-index.js
-
-      - name: Actualizar página de aprendizaje
-        run: node scripts/update-learning-page.js
+      - name: Generar índice de artículos (JSON)
+        run: timeout 300 node scripts/build-blog-index.js
 
       - name: Validar compliance AdSense
-        run: node scripts/validate-adsense-compliance.js
+        run: timeout 600 node scripts/validate-adsense-compliance.js
 
       - name: Publicar en Redes Sociales
         env:
@@ -60,33 +71,18 @@ jobs:
           REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
           REDDIT_REFRESH_TOKEN: ${{ secrets.REDDIT_REFRESH_TOKEN }}
           REDDIT_SUBREDDIT: 'r/learnprogramming'
-        run: node scripts/publish-educational-content.js
+        run: timeout 300 node scripts/publish-to-socials-modern.js
+        continue-on-error: true
 
-      - name: Subir imágenes educativas como artefacto
-        uses: actions/upload-artifact@v4
-        with:
-          name: educational-images
-          path: public/educational-images/
-
-      - name: Actualizar sitemap con contenido educativo
-        run: node scripts/update-educational-sitemap.js
-
-      - name: Copiar sitemap.xml a build/
-        run: |
-          mkdir -p build
-          cp public/sitemap.xml build/sitemap.xml
-
-      - name: Asegurar carpetas para Netlify
-        run: |
-          mkdir -p public/blog
-          mkdir -p public/aprende-programacion
-          touch public/blog/.keep
-          touch public/aprende-programacion/.keep
+      - name: Actualizar sitemap
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+        run: timeout 120 node scripts/update-sitemap.js
 
       - name: Commit y push de contenido educativo y sitemap
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add public/blog public/data public/aprende-programacion public/sitemap.xml scripts/posted_articles.json
+          git add public/blog public/data public/sitemap.xml
           git commit -m "[bot] Contenido educativo con AdSense actualizado - $(date '+%Y-%m-%d %H:%M:%S') ART" || echo "Nada para commitear"
           git push || echo "Nada para pushear"

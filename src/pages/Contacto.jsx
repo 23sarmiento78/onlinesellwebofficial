@@ -95,12 +95,20 @@ export default function Contacto() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+    setSubmitStatus(null);
+
     try {
-      // Aquí iría la lógica real de envío del formulario
-      // Por ahora simulamos una respuesta exitosa
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || 'No se pudo enviar el formulario');
+      }
+
       setSubmitStatus('success');
       setFormData({
         name: '',
@@ -110,6 +118,7 @@ export default function Contacto() {
         type: 'general'
       });
     } catch (error) {
+      console.error('Error enviando contacto:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);

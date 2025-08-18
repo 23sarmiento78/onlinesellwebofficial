@@ -138,9 +138,9 @@ export default function Articles() {
         case 'fecha':
           return new Date(b.date) - new Date(a.date);
         case 'popularidad':
-          return b.views - a.views;
+          return (Number(b.views) || 0) - (Number(a.views) || 0);
         case 'likes':
-          return b.likes - a.likes;
+          return (Number(b.likes) || 0) - (Number(a.likes) || 0);
         case 'titulo':
           return a.title.localeCompare(b.title);
         default:
@@ -260,7 +260,7 @@ export default function Articles() {
               </div>
               <div className="hero-stat">
                 <span className="hero-stat-number">
-                  {articlesData.reduce((sum, article) => sum + article.views, 0).toLocaleString()}
+                  {articlesData.reduce((sum, article) => sum + (Number(article.views) || 0), 0).toLocaleString()}
                 </span>
                 <span className="hero-stat-label">Lecturas</span>
               </div>
@@ -447,7 +447,7 @@ export default function Articles() {
                     <p className="article-excerpt">{article.excerpt}</p>
 
                     <div className="article-tags">
-                      {article.tags.slice(0, 3).map(tag => (
+                      {Array.isArray(article.tags) && article.tags.slice(0, 3).map(tag => (
                         <span key={tag} className="tag">#{tag}</span>
                       ))}
                     </div>
@@ -473,11 +473,11 @@ export default function Articles() {
                       <div className="article-stats">
                         <div className="stat-item">
                           <i className="fas fa-eye"></i>
-                          <span>{article.views.toLocaleString()}</span>
+                          <span>{(Number(article.views) || 0).toLocaleString()}</span>
                         </div>
                         <div className="stat-item">
                           <i className="fas fa-heart"></i>
-                          <span>{article.likes}</span>
+                          <span>{Number(article.likes) || 0}</span>
                         </div>
                         <div className="stat-item">
                           <i className="fas fa-clock"></i>
