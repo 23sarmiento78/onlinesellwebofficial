@@ -18,7 +18,70 @@
     "category": "Frontend",
     "datePublished": "2025-08-18",
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-guia-def.html",
-    "image": "https://images.pexels.com/photos/10816120/pexels-photo-10816120.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/574069/pexels-photo-574069.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "construyendo-apis-restful-seguras-con-jwt-y-spri",
+    "title": "Construyendo APIs RESTful Seguras con JWT y Spring Boot",
+    "description": "Este artículo proporciona una guía completa sobre cómo construir APIs RESTful seguras utilizando JSON Web Tokens (JWT) y el framework Spring Boot. Aprenderás la",
+    "excerpt": "Este artículo proporciona una guía completa sobre cómo construir APIs RESTful seguras utilizando JSON Web Tokens (JWT) y el framework Spring Boot.  Aprenderás las mejores prácticas para asegurar tus endpoints y evitar errores comunes en el desarrollo.",
+    "keywords": [
+      "Construyendo APIs RESTful seguras con JWT y Spring Boot",
+      "construyendo apis restful seguras con jwt y spring boot guía",
+      "construyendo apis restful seguras con jwt y spring boot tutorial",
+      "construyendo apis restful seguras con jwt y spring boot mejores prácticas",
+      "construyendo apis restful seguras con jwt y spring boot ejemplos",
+      "construyendo apis restful seguras con jwt y spring boot rendimiento",
+      "construyendo apis restful seguras con jwt y spring boot principiantes",
+      "construyendo apis restful seguras con jwt y spring boot 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Backend",
+    "datePublished": "2025-08-18",
+    "path": "/blog/construyendo-apis-restful-seguras-con-jwt-y-spri.html",
+    "image": "https://images.pexels.com/photos/965345/pexels-photo-965345.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "implementacion-de-websockets-con-react-para-chat",
+    "title": "Implementación de WebSockets con React para Chat en Tiempo",
+    "description": "Resumen: Este artículo guía al lector a través del proceso de implementación de WebSockets con React para crear una aplicación de chat en tiempo real, cubriendo",
+    "excerpt": "Resumen:  Este artículo guía al lector a través del proceso de implementación de WebSockets con React para crear una aplicación de chat en tiempo real, cubriendo desde la configuración básica hasta las mejores prácticas y la resolución de errores comunes.  Aprenderás a construir una aplicación robusta y eficiente.",
+    "keywords": [
+      "Implementación de WebSockets con React para Chat en Tiempo Real",
+      "implementación de websockets con react para chat en tiempo real guía",
+      "implementación de websockets con react para chat en tiempo real tutorial",
+      "implementación de websockets con react para chat en tiempo real mejores prácticas",
+      "implementación de websockets con react para chat en tiempo real ejemplos",
+      "implementación de websockets con react para chat en tiempo real rendimiento",
+      "implementación de websockets con react para chat en tiempo real principiantes",
+      "implementación de websockets con react para chat en tiempo real 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Frontend",
+    "datePublished": "2025-08-18",
+    "path": "/blog/implementacion-de-websockets-con-react-para-chat.html",
+    "image": "https://images.pexels.com/photos/177598/pexels-photo-177598.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "optimizacion-de-consultas-sql-con-postgresql-ind",
+    "title": "Optimización de Consultas SQL con PostgreSQL: Índices y",
+    "description": "Meta descripción: Aprende a optimizar tus consultas SQL en PostgreSQL utilizando índices y la planificación de consultas para mejorar el rendimiento de tu base ",
+    "excerpt": "Meta descripción:  Aprende a optimizar tus consultas SQL en PostgreSQL utilizando índices y la planificación de consultas para mejorar el rendimiento de tu base de datos.  Domina técnicas clave para una gestión eficiente de datos.",
+    "keywords": [
+      "Optimización de Consultas SQL con PostgreSQL: Índices y Planificación de Consultas",
+      "optimización de consultas sql con postgresql: índices y planificación de consultas guía",
+      "optimización de consultas sql con postgresql: índices y planificación de consultas tutorial",
+      "optimización de consultas sql con postgresql: índices y planificación de consultas mejores prácticas",
+      "optimización de consultas sql con postgresql: índices y planificación de consultas ejemplos",
+      "optimización de consultas sql con postgresql: índices y planificación de consultas rendimiento",
+      "optimización de consultas sql con postgresql: índices y planificación de consultas principiantes",
+      "optimización de consultas sql con postgresql: índices y planificación de consultas 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Bases de Datos",
+    "datePublished": "2025-08-18",
+    "path": "/blog/optimizacion-de-consultas-sql-con-postgresql-ind.html",
+    "image": "https://images.pexels.com/photos/16099329/pexels-photo-16099329.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "optimizacion-de-imagenes-para-sitios-web-con-web",
@@ -39,69 +102,6 @@
     "category": "Performance y Optimización",
     "datePublished": "2025-08-18",
     "path": "/blog/optimizacion-de-imagenes-para-sitios-web-con-web.html",
-    "image": "https://images.pexels.com/photos/33501794/pexels-photo-33501794.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-  },
-  {
-    "id": "optimizacion-de-imagenes-para-web-con-webp-y-laz",
-    "title": "Optimización de Imágenes para Web con WebP y Lazy Loading",
-    "description": "Resumen: Aprende a optimizar tus imágenes web con WebP y lazy loading para mejorar significativamente la velocidad de carga y la experiencia del usuario, optimi",
-    "excerpt": "Resumen:  Aprende a optimizar tus imágenes web con WebP y lazy loading para mejorar significativamente la velocidad de carga y la experiencia del usuario, optimizando el rendimiento frontend de tu sitio web.  Domina estas técnicas para un mejor posicionamiento SEO y una mayor satisfacción de tus visitantes.",
-    "keywords": [
-      "Optimización de Imágenes para Web con WebP y Lazy Loading: Mejora del Performance Frontend",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend guía",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend tutorial",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend mejores prácticas",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend ejemplos",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend rendimiento",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend principiantes",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend 2025"
-    ],
-    "author": "hgaruna",
-    "category": "Performance y Optimización",
-    "datePublished": "2025-08-18",
-    "path": "/blog/optimizacion-de-imagenes-para-web-con-webp-y-laz.html",
-    "image": "https://images.pexels.com/photos/33502751/pexels-photo-33502751.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-  },
-  {
-    "id": "optimizacion-de-imagenes-para-webp-mejora-del-re",
-    "title": "Optimización de imágenes para WebP: Mejora del rendimiento y",
-    "description": "Meta descripción: Optimiza tus imágenes para WebP y experimenta una mejora significativa en la velocidad de carga de tu sitio web, mejorando así el SEO y la exp",
-    "excerpt": "Meta descripción: Optimiza tus imágenes para WebP y experimenta una mejora significativa en la velocidad de carga de tu sitio web, mejorando así el SEO y la experiencia del usuario.  Aprende las mejores prácticas y evita errores comunes.",
-    "keywords": [
-      "Optimización de imágenes para WebP: Mejora del rendimiento y SEO",
-      "optimización de imágenes para webp: mejora del rendimiento y seo guía",
-      "optimización de imágenes para webp: mejora del rendimiento y seo tutorial",
-      "optimización de imágenes para webp: mejora del rendimiento y seo mejores prácticas",
-      "optimización de imágenes para webp: mejora del rendimiento y seo ejemplos",
-      "optimización de imágenes para webp: mejora del rendimiento y seo rendimiento",
-      "optimización de imágenes para webp: mejora del rendimiento y seo principiantes",
-      "optimización de imágenes para webp: mejora del rendimiento y seo 2025"
-    ],
-    "author": "hgaruna",
-    "category": "Performance y Optimización",
-    "datePublished": "2025-08-18",
-    "path": "/blog/optimizacion-de-imagenes-para-webp-mejora-del-re.html",
-    "image": "https://images.pexels.com/photos/33501794/pexels-photo-33501794.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-  },
-  {
-    "id": "optimizacion-de-imagenes-web-con-webp-para-una-m",
-    "title": "Optimización de Imágenes Web con WebP para una Mejor",
-    "description": "La optimización de imágenes es crucial para la velocidad de carga de un sitio web y, por ende, para la experiencia del usuario y el posicionamiento en buscadore",
-    "excerpt": "La optimización de imágenes es crucial para la velocidad de carga de un sitio web y, por ende, para la experiencia del usuario y el posicionamiento en buscadores.  En 2024, WebP se posiciona como el formato ideal para lograr una excelente performance.  Este artículo profundiza en las ventajas de WebP y te guía en su implementación para optimizar tus imágenes web.",
-    "keywords": [
-      "Optimización de Imágenes Web con WebP para una Mejor Performance en 2024",
-      "optimización de imágenes web con webp para una mejor performance en 2024 guía",
-      "optimización de imágenes web con webp para una mejor performance en 2024 tutorial",
-      "optimización de imágenes web con webp para una mejor performance en 2024 mejores prácticas",
-      "optimización de imágenes web con webp para una mejor performance en 2024 ejemplos",
-      "optimización de imágenes web con webp para una mejor performance en 2024 rendimiento",
-      "optimización de imágenes web con webp para una mejor performance en 2024 principiantes",
-      "optimización de imágenes web con webp para una mejor performance en 2024 2025"
-    ],
-    "author": "hgaruna",
-    "category": "Performance y Optimización",
-    "datePublished": "2025-08-18",
-    "path": "/blog/optimizacion-de-imagenes-web-con-webp-para-una-m.html",
     "image": "https://images.pexels.com/photos/33501798/pexels-photo-33501798.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   }
 ]
