@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { AdSenseBanner, AdSenseInArticle } from '../components/AdSenseAd';
-import { getBlogArticles } from '../utils/getBlogArticles';
+import { getBlogArticles } from '../utils/getBlogArticles2';
 import { searchArticles } from '../utils/searchArticles';
 import './Articles.css';
 import '../styles/hero.css';
