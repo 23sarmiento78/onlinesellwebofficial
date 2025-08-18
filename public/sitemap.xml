@@ -306,4 +306,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>/blog/optimizacion-de-imagenes-web-con-webp-para-una-m.html</loc>
+    <lastmod>2025-08-18T20:11:40.831Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

@@ -27,75 +27,9 @@
     "author": "hgaruna",
     "category": "Frontend",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T20:02:54.082Z",
+    "lastmod": "2025-08-18T20:11:11.007Z",
     "readingTime": 5,
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-guia-def.html",
-    "image": "/logos-he-imagenes/programacion.jpeg"
-  },
-  {
-    "id": "buenas-practicas-de-react-y-rendimiento",
-    "title": "Buenas Prácticas de React y Rendimiento:",
-    "description": "Este artículo proporciona una guía completa sobre las mejores prácticas de React para optimizar el rendimiento de tus aplicaciones, incluyendo ejemplos y consej",
-    "excerpt": "Este artículo proporciona una guía completa sobre las mejores prácticas de React para optimizar el rendimiento de tus aplicaciones, incluyendo ejemplos y consejos para principiantes y desarrolladores experimentados.  Aprenderás a evitar errores comunes y a construir aplicaciones React rápidas y eficientes, preparadas para el futuro.",
-    "keywords": [
-      "Buenas prácticas de React y rendimiento",
-      "buenas prácticas de react y rendimiento guía",
-      "buenas prácticas de react y rendimiento tutorial",
-      "buenas prácticas de react y rendimiento mejores prácticas",
-      "buenas prácticas de react y rendimiento ejemplos",
-      "buenas prácticas de react y rendimiento rendimiento",
-      "buenas prácticas de react y rendimiento principiantes",
-      "buenas prácticas de react y rendimiento 2025"
-    ],
-    "tags": [
-      "Buenas prácticas de React y rendimiento",
-      "buenas prácticas de react y rendimiento guía",
-      "buenas prácticas de react y rendimiento tutorial",
-      "buenas prácticas de react y rendimiento mejores prácticas",
-      "buenas prácticas de react y rendimiento ejemplos",
-      "buenas prácticas de react y rendimiento rendimiento",
-      "buenas prácticas de react y rendimiento principiantes",
-      "buenas prácticas de react y rendimiento 2025"
-    ],
-    "author": "hgaruna",
-    "category": "Frontend",
-    "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T20:02:54.082Z",
-    "readingTime": 6,
-    "path": "/blog/buenas-practicas-de-react-y-rendimiento-una-guia-completa-para-2025.html",
-    "image": "/logos-he-imagenes/programacion.jpeg"
-  },
-  {
-    "id": "optimizacion-de-imagenes-con-webp-para-mejorar-el",
-    "title": "Optimización de Imágenes con WebP para Mejorar el",
-    "description": "Meta descripción: Aprende a optimizar tus imágenes con el formato WebP para una carga web más rápida y una mejor experiencia de usuario. Descubre las mejores pr",
-    "excerpt": "Meta descripción:  Aprende a optimizar tus imágenes con el formato WebP para una carga web más rápida y una mejor experiencia de usuario.  Descubre las mejores prácticas y evita errores comunes para un sitio web eficiente.",
-    "keywords": [
-      "Optimización de imágenes con WebP para mejorar el rendimiento web",
-      "optimización de imágenes con webp para mejorar el rendimiento web guía",
-      "optimización de imágenes con webp para mejorar el rendimiento web tutorial",
-      "optimización de imágenes con webp para mejorar el rendimiento web mejores prácticas",
-      "optimización de imágenes con webp para mejorar el rendimiento web ejemplos",
-      "optimización de imágenes con webp para mejorar el rendimiento web rendimiento",
-      "optimización de imágenes con webp para mejorar el rendimiento web principiantes",
-      "optimización de imágenes con webp para mejorar el rendimiento web 2025"
-    ],
-    "tags": [
-      "Optimización de imágenes con WebP para mejorar el rendimiento web",
-      "optimización de imágenes con webp para mejorar el rendimiento web guía",
-      "optimización de imágenes con webp para mejorar el rendimiento web tutorial",
-      "optimización de imágenes con webp para mejorar el rendimiento web mejores prácticas",
-      "optimización de imágenes con webp para mejorar el rendimiento web ejemplos",
-      "optimización de imágenes con webp para mejorar el rendimiento web rendimiento",
-      "optimización de imágenes con webp para mejorar el rendimiento web principiantes",
-      "optimización de imágenes con webp para mejorar el rendimiento web 2025"
-    ],
-    "author": "hgaruna",
-    "category": "Performance y Optimización",
-    "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T20:02:54.082Z",
-    "readingTime": 5,
-    "path": "/blog/optimizacion-de-imagenes-con-webp-para-mejorar-e.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
@@ -126,7 +60,7 @@
     "author": "hgaruna",
     "category": "Performance y Optimización",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T20:03:21.785Z",
+    "lastmod": "2025-08-18T20:11:11.007Z",
     "readingTime": 6,
     "path": "/blog/optimizacion-de-imagenes-para-web-con-webp-y-laz.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -159,9 +93,42 @@
     "author": "hgaruna",
     "category": "Performance y Optimización",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T20:02:54.082Z",
+    "lastmod": "2025-08-18T20:11:11.007Z",
     "readingTime": 6,
     "path": "/blog/optimizacion-de-imagenes-para-webp-mejora-del-re.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "optimizacion-de-imagenes-web-con-webp-para-una-mejor",
+    "title": "Optimización de Imágenes Web con WebP para una Mejor",
+    "description": "La optimización de imágenes es crucial para la velocidad de carga de un sitio web y, por ende, para la experiencia del usuario y el posicionamiento en buscadore",
+    "excerpt": "La optimización de imágenes es crucial para la velocidad de carga de un sitio web y, por ende, para la experiencia del usuario y el posicionamiento en buscadores.  En 2024, WebP se posiciona como el formato ideal para lograr una excelente performance.  Este artículo profundiza en las ventajas de WebP y te guía en su implementación para optimizar tus imágenes web.",
+    "keywords": [
+      "Optimización de Imágenes Web con WebP para una Mejor Performance en 2024",
+      "optimización de imágenes web con webp para una mejor performance en 2024 guía",
+      "optimización de imágenes web con webp para una mejor performance en 2024 tutorial",
+      "optimización de imágenes web con webp para una mejor performance en 2024 mejores prácticas",
+      "optimización de imágenes web con webp para una mejor performance en 2024 ejemplos",
+      "optimización de imágenes web con webp para una mejor performance en 2024 rendimiento",
+      "optimización de imágenes web con webp para una mejor performance en 2024 principiantes",
+      "optimización de imágenes web con webp para una mejor performance en 2024 2025"
+    ],
+    "tags": [
+      "Optimización de Imágenes Web con WebP para una Mejor Performance en 2024",
+      "optimización de imágenes web con webp para una mejor performance en 2024 guía",
+      "optimización de imágenes web con webp para una mejor performance en 2024 tutorial",
+      "optimización de imágenes web con webp para una mejor performance en 2024 mejores prácticas",
+      "optimización de imágenes web con webp para una mejor performance en 2024 ejemplos",
+      "optimización de imágenes web con webp para una mejor performance en 2024 rendimiento",
+      "optimización de imágenes web con webp para una mejor performance en 2024 principiantes",
+      "optimización de imágenes web con webp para una mejor performance en 2024 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Performance y Optimización",
+    "datePublished": "2025-08-18",
+    "lastmod": "2025-08-18T20:11:40.829Z",
+    "readingTime": 6,
+    "path": "/blog/optimizacion-de-imagenes-web-con-webp-para-una-m.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
   }
 ]
