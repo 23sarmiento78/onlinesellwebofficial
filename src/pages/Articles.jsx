@@ -211,63 +211,128 @@ export default function Articles() {
   return (
     <div className="articles-page">
       {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-grid-background"></div>
-        <div className="hero-content">
-          <div className="hero-main">
+      <section className="modern-hero">
+        <div className="hero-background">
+          <div className="hero-grid"></div>
+          <div className="hero-gradient"></div>
+          <div className="floating-shapes">
+            <div className="shape shape-1"></div>
+            <div className="shape shape-2"></div>
+            <div className="shape shape-3"></div>
+          </div>
+        </div>
+
+        <div className="hero-container">
+          <div className="hero-content">
+            <div className="hero-badge">
+              <i className="fas fa-rocket"></i>
+              <span>Blog de Desarrollo</span>
+            </div>
+
             <h1 className="hero-title">
-              <i className="fas fa-newspaper"></i>
-              Artículos de Desarrollo
+              <span className="title-main">Artículos de</span>
+              <span className="title-highlight">Desarrollo</span>
+              <span className="title-icon">
+                <i className="fas fa-code"></i>
+              </span>
             </h1>
-            <p className="hero-description">
-              Explora nuestra colección de tutoriales, guías y artículos técnicos 
-              escritos por expertos de la industria
+
+            <p className="hero-subtitle">
+              Explora tutoriales, guías técnicas y artículos especializados
+              escritos por desarrolladores para desarrolladores
             </p>
-            
-            <div className="hero-search-container">
-              <div className="hero-search-bar">
-                <i className="fas fa-search"></i>
-                <input
-                  type="text"
-                  placeholder="Buscar artículos, tecnologías, tutoriales..."
-                  value={searchTerm}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setSearchTerm(value);
-                    setSearchParams(value ? { q: value } : {});
-                  }}
-                  className="hero-search-input"
-                />
-                {searchTerm && (
-                  <button 
-                    className="hero-search-clear"
-                    onClick={() => setSearchTerm('')}
-                  >
-                    <i className="fas fa-times"></i>
+
+            <div className="hero-search">
+              <div className="search-container">
+                <div className="search-input-group">
+                  <i className="fas fa-search search-icon"></i>
+                  <input
+                    type="text"
+                    placeholder="Buscar por tecnología, framework, concepto..."
+                    value={searchTerm}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setSearchTerm(value);
+                      setSearchParams(value ? { q: value } : {});
+                    }}
+                    className="search-input"
+                  />
+                  {searchTerm && (
+                    <button
+                      className="search-clear"
+                      onClick={() => setSearchTerm('')}
+                      type="button"
+                    >
+                      <i className="fas fa-times"></i>
+                    </button>
+                  )}
+                  <button className="search-button" type="submit">
+                    <i className="fas fa-arrow-right"></i>
                   </button>
-                )}
+                </div>
+
+                <div className="search-suggestions">
+                  <span className="suggestion-label">Populares:</span>
+                  <button className="suggestion-tag" onClick={() => setSearchTerm('React')}>React</button>
+                  <button className="suggestion-tag" onClick={() => setSearchTerm('JavaScript')}>JavaScript</button>
+                  <button className="suggestion-tag" onClick={() => setSearchTerm('Node.js')}>Node.js</button>
+                  <button className="suggestion-tag" onClick={() => setSearchTerm('CSS')}>CSS</button>
+                </div>
               </div>
             </div>
 
-            <div className="hero-stats">
-              <div className="hero-stat">
-                <span className="hero-stat-number">{articlesData.length}</span>
-                <span className="hero-stat-label">Artículos</span>
+            <div className="hero-metrics">
+              <div className="metric-card">
+                <div className="metric-icon">
+                  <i className="fas fa-newspaper"></i>
+                </div>
+                <div className="metric-content">
+                  <span className="metric-number">{articlesData.length}</span>
+                  <span className="metric-label">Artículos</span>
+                </div>
               </div>
-              <div className="hero-stat">
-                <span className="hero-stat-number">{filteredCategories.length - 1}</span>
-                <span className="hero-stat-label">Categorías</span>
+
+              <div className="metric-card">
+                <div className="metric-icon">
+                  <i className="fas fa-tags"></i>
+                </div>
+                <div className="metric-content">
+                  <span className="metric-number">{filteredCategories.length - 1}</span>
+                  <span className="metric-label">Categorías</span>
+                </div>
               </div>
-              <div className="hero-stat">
-                <span className="hero-stat-number">
-                  {articlesData.reduce((sum, article) => sum + (Number(article.views) || 0), 0).toLocaleString()}
-                </span>
-                <span className="hero-stat-label">Lecturas</span>
+
+              <div className="metric-card">
+                <div className="metric-icon">
+                  <i className="fas fa-eye"></i>
+                </div>
+                <div className="metric-content">
+                  <span className="metric-number">
+                    {Math.floor(articlesData.reduce((sum, article) => sum + (Number(article.views) || 0), 0) / 1000)}K+
+                  </span>
+                  <span className="metric-label">Lecturas</span>
+                </div>
               </div>
+
+              <div className="metric-card">
+                <div className="metric-icon live-indicator">
+                  <i className="fas fa-circle"></i>
+                </div>
+                <div className="metric-content">
+                  <span className="metric-number">Live</span>
+                  <span className="metric-label">Actualizándose</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="hero-scroll-indicator">
+              <div className="scroll-arrow">
+                <i className="fas fa-chevron-down"></i>
+              </div>
+              <span>Explorar contenido</span>
             </div>
           </div>
         </div>
-        <div className="hero-glow"></div>
       </section>
 
       {/* AdSense Banner */}
