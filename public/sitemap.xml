@@ -312,4 +312,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>/blog/optimizacion-de-imagenes-para-sitios-web-con-web.html</loc>
+    <lastmod>2025-08-18T20:24:32.513Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
