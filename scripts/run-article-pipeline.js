@@ -326,8 +326,8 @@ async function main() {
   const template = await fs.readFile(templatePath, 'utf8');
 
   // 0) Resolver tema y categoría iniciales
-  let TOPIC = process.env.ARTICLE_TOPIC || topic;
-  let initialCategory = process.env.ARTICLE_CATEGORY || category;
+  let TOPIC = process.env.ARTICLE_TOPIC || undefined;
+  let initialCategory = process.env.ARTICLE_CATEGORY || undefined;
   if (!TOPIC) {
     const proposed = await proposeTopicAndCategory();
     TOPIC = proposed.title;
