@@ -141,7 +141,7 @@ async function fetchImage(searchTerm) {
   const key = process.env.PEXELS_API_KEY;
   if (key) {
     // 1. Buscar por la categoría del artículo
-    let pres = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(searchTerm)}&per_page=5`, {
+    let pres = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(searchTerm)}&per_page=10`, {
       headers: { Authorization: key }
     });
     if (pres.ok) {
@@ -149,13 +149,19 @@ async function fetchImage(searchTerm) {
       for (const p of pj.photos || []) {
         const direct = p.src?.large2x || p.src?.large || p.src?.original;
         if (!direct) continue;
-        const ext = '.jpg';
-        const attribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
-        return { url: direct, ext, attribution, source: 'Pexels' };
+        // Validar que la URL es accesible
+        try {
+          const testRes = await fetch(direct, { method: 'HEAD' });
+          if (testRes.ok) {
+            const ext = '.jpg';
+            const attribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
+            return { url: direct, ext, attribution, source: 'Pexels' };
+          }
+        } catch {}
       }
     }
     // 2. Si no se encontró, buscar por "programación"
-    pres = await fetch(`https://api.pexels.com/v1/search?query=programación&per_page=5`, {
+    pres = await fetch(`https://api.pexels.com/v1/search?query=programación&per_page=10`, {
       headers: { Authorization: key }
     });
     if (pres.ok) {
@@ -163,9 +169,14 @@ async function fetchImage(searchTerm) {
       for (const p of pj.photos || []) {
         const direct = p.src?.large2x || p.src?.large || p.src?.original;
         if (!direct) continue;
-        const ext = '.jpg';
-        const attribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
-        return { url: direct, ext, attribution, source: 'Pexels' };
+        try {
+          const testRes = await fetch(direct, { method: 'HEAD' });
+          if (testRes.ok) {
+            const ext = '.jpg';
+            const attribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
+            return { url: direct, ext, attribution, source: 'Pexels' };
+          }
+        } catch {}
       }
     }
   }
