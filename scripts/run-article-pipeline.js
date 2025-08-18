@@ -78,17 +78,17 @@ const CATEGORY_LIST = [
 function pickCategory(title, keywords) {
   const text = `${title} ${(keywords||[]).join(' ')}`.toLowerCase();
   const rules = [
-    ['Frontend', [/react|vue|angular|svelte|css|html|vite|dom|ui|ux|frontend/]],
-    ['Backend', [/node\b|express|nest|spring|django|flask|api\b|rest\b|graphql|backend/]],
-    ['DevOps y Cloud', [/docker|kubernetes|ci\/cd|github actions|aws|azure|gcp|cloud|devops/]],
-    ['Performance y Optimización', [/rendimiento|performance|optimiza|carga|lighthouse|web vitals|memo|cache/]],
-    ['Arquitectura y Patrones', [/arquitectura|ddd|hexagonal|patrones|design pattern|microservicios/]],
-    ['Bases de Datos', [/sql|mysql|postgres|mongodb|redis|database|prisma|orm/]],
-    ['Testing y Calidad', [/test|jest|cypress|playwright|tdd|qa|calidad|coverage/]],
-    ['Herramientas y Productividad', [/productividad|herramientas|editor|vs code|cli|automatiza/]],
-    ['Inteligencia Artificial', [/ia\b|ai\b|gpt|gemini|ml\b|machine learning|llm|modelo/]],
-    ['Seguridad', [/seguridad|security|auth|jwt|csrf|xss|cifrado|owasp/]],
-    ['Tendencias y Futuro', [/tendencia|futuro|roadmap|202[4-9]|novedad|innovación/]]
+    ['Frontend', [/react|next\.js|vue|nuxt|angular|svelte|css|tailwind|sass|html\b|vite|dom\b|ui\b|ux\b|frontend/]],
+    ['Backend', [/node\b|express|nest\b|spring|django|flask|fastapi|api\b|rest\b|graphql|php|laravel|dotnet|backend/]],
+    ['DevOps y Cloud', [/docker|kubernetes|helm|terraform|ansible|ci\/cd|github actions|aws|azure|gcp|cloud|devops/]],
+    ['Performance y Optimización', [/rendimiento|performance|optimiza|carga|lighthouse|web vitals|memo|cache|profiling|bottleneck/]],
+    ['Arquitectura y Patrones', [/arquitectura|ddd|hexagonal|patrones|design pattern|microservicios|monolito|event sourcing/]],
+    ['Bases de Datos', [/sql\b|mysql|postgres|sqlite|mongodb|redis|database|prisma|orm|indexación|query plan/]],
+    ['Testing y Calidad', [/test\b|jest|cypress|playwright|tdd|bdd|qa\b|calidad|coverage|lint/]],
+    ['Herramientas y Productividad', [/productividad|herramientas|editor|vs\s?code|cli\b|automatiza|snippets|atalhos|teclas/]],
+    ['Inteligencia Artificial', [/\bia\b|\bai\b|gpt|gemini|ml\b|machine learning|llm|modelo|transformer|rnn/]],
+    ['Seguridad', [/seguridad|security|auth\b|oauth|jwt|csrf|xss|cifrado|owasp|sast|dast/]],
+    ['Tendencias y Futuro', [/tendencia|futuro|roadmap|202[4-9]|novedad|innovación|state of|encuesta/]]
   ];
   for (const [cat, pats] of rules) {
     if (pats.some(r => r.test(text))) return cat;
@@ -96,14 +96,42 @@ function pickCategory(title, keywords) {
   return 'Frontend';
 }
 
+function getImagePrefs() {
+  const order = (process.env.IMAGE_SOURCE_ORDER || 'commons,wikipedia,openverse,unsplash,pexels').split(',').map(s => s.trim());
+  const minW = parseInt(process.env.MIN_IMAGE_WIDTH || '1000', 10);
+  const minH = parseInt(process.env.MIN_IMAGE_HEIGHT || '600', 10);
+  const landscape = String(process.env.PREFER_LANDSCAPE || 'true').toLowerCase() !== 'false';
+  return { order, minW, minH, landscape };
+}
+
+function acceptableWH(w, h, prefs) {
+  if (!w || !h) return false;
+  if (w < prefs.minW || h < prefs.minH) return false;
+  if (prefs.landscape && w < h) return false;
+  return true;
+}
+
 async function fetchImage(searchTerm) {
-  // 1) Wikimedia Commons (namespace 6 = File), imágenes raster
-  const commons = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent(searchTerm)}&gsrlimit=10&prop=imageinfo&iiprop=url|extmetadata&format=json&origin=*`;
-  try {
+  const prefs = getImagePrefs();
+  const tryOrder = prefs.order;
+
+  async function fromCommons() {
+    const commons = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent(searchTerm)}&gsrlimit=15&prop=imageinfo&iiprop=url|extmetadata|size&format=json&origin=*`;
     const res = await fetch(commons);
-    if (res.ok) {
-      const json = await res.json();
-      const pages = json?.query?.pages ? Object.values(json.query.pages) : [];
+    if (!res.ok) return null;
+    const json = await res.json();
+    const pages = json?.query?.pages ? Object.values(json.query.pages) : [];
+    for (const p of pages) {
+      const ii = p.imageinfo?.[0];
+      if (!ii?.url) continue;
+      const { width, height } = ii;
+      if (!acceptableWH(width, height, prefs)) continue;
+      const url = ii.url;
+      const pathname = new URL(url).pathname;
+      const ext = (path.extname(pathname) || '').toLowerCase();
+      if (!/(\.jpe?g|\.png|\.webp)$/.test(ext)) continue;
+      const attribution = ii.extmetadata?.Artist?.value || p.title || 'Wikimedia Commons';
+      return { url, ext, attribution, source: 'Wikimedia Commons', width, height };
       for (const p of pages) {
         const ii = p.imageinfo?.[0];
         if (!ii?.url) continue;
