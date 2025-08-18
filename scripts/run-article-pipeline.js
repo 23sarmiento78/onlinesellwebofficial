@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import fetch from 'node-fetch';
 import { load as loadHtml } from 'cheerio';
+import MarkdownIt from 'markdown-it';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -99,7 +100,7 @@ Requisitos:
 
   const { response } = await model.generateContent({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
   const text = response.text();
-  return text.trim();
+  return text.trim(); // Puede venir en Markdown
 }
 
 function applyTemplate(templateHtml, data) {
@@ -137,14 +138,22 @@ async function main() {
   // 1) Keywords SEO
   const keywords = await fetchKeywords(TOPIC);
 
-  // 2) Generar artículo (cuerpo HTML) con Gemini
-  const articleHtml = await generateArticleWithGemini(TOPIC, CATEGORY, keywords);
+  // 2) Generar artículo (Markdown o HTML) con Gemini y convertir a HTML si es necesario
+  const articleBody = await generateArticleWithGemini(TOPIC, CATEGORY, keywords);
+  const md = new MarkdownIt({ html: false, linkify: true, breaks: false });
+  // Heurística: si contiene encabezados markdown o code fences, lo tratamos como MD
+  const looksLikeMd = /(^|\n)\s{0,3}(#{1,6}\s|```|\*\s|\d+\.\s)/.test(articleBody);
+  const articleHtml = looksLikeMd ? md.render(articleBody) : articleBody;
 
   // 3) Título y resumen (derivar si hace falta)
   // Extraer primer H1/H2 como título si no se provee explícito
   const $ = loadHtml(`<main>${articleHtml}</main>`);
   const derivedTitle = $('h1').first().text().trim() || $('h2').first().text().trim() || TOPIC;
-  const excerpt = $('p').first().text().trim().slice(0, 160) || `Guía sobre ${TOPIC}`;
+  // Obtener el primer párrafo significativo
+  let rawExcerpt = $('p').map((i, el) => $(el).text().trim()).get().find(t => t && t.length > 40) || $('p').first().text().trim() || '';
+  // Sanitizar: eliminar placeholders tipo {result} y prefijos como "Meta Description:"
+  rawExcerpt = rawExcerpt.replace(/\{[^}]*\}/g, '').replace(/^meta\s*description\s*:\s*/i, '').trim();
+  const excerpt = (rawExcerpt || `Guía sobre ${TOPIC}`).replace(/\s+/g, ' ').slice(0, 160);
 
   // 4) Imagen destacada y atribución
   const slug = toSlug(derivedTitle);
@@ -172,7 +181,7 @@ async function main() {
     AUTHOR: 'hgaruna',
     WORD_COUNT: '1300',
     TAGS_HTML: tagsHtml,
-    ARTICLE_CONTENT: articleHtml + `\n\n<p style="color:#a0abc6;font-size:12px">Crédito de imagen: ${imgInfo.attribution} (${imgInfo.source})</p>`,
+    ARTICLE_CONTENT: articleHtml + `\n\n<p style=\"color:#a0abc6;font-size:12px\">Crédito de imagen: ${imgInfo.attribution} (${imgInfo.source})</p>`,
     PUBLISH_DATE: publishDate
   });
 
