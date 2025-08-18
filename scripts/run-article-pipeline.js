@@ -137,120 +137,39 @@ function acceptableWH(w, h, prefs) {
 }
 
 async function fetchImage(searchTerm) {
-  const prefs = getImagePrefs();
-  const tryOrder = prefs.order;
-
-  async function fromCommons() {
-    try {
-      const commons = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent(searchTerm)}&gsrlimit=15&prop=imageinfo&iiprop=url|extmetadata|size&format=json&origin=*`;
-      const res = await fetch(commons);
-      if (!res.ok) return null;
-      const json = await res.json();
-      const pages = json?.query?.pages ? Object.values(json.query.pages) : [];
-      for (const p of pages) {
-        const ii = p.imageinfo?.[0];
-        if (!ii?.url) continue;
-        const { width, height } = ii;
-        if (!acceptableWH(width, height, prefs)) continue;
-        const url = ii.url;
-        const pathname = new URL(url).pathname;
-        const ext = (path.extname(pathname) || '').toLowerCase();
-        if (!/(\.jpe?g|\.png|\.webp)$/.test(ext)) continue;
-        const attribution = ii.extmetadata?.Artist?.value || p.title || 'Wikimedia Commons';
-        return { url, ext, attribution, source: 'Wikimedia Commons', width, height };
+  // Solo buscar en Pexels
+  const key = process.env.PEXELS_API_KEY;
+  if (key) {
+    // 1. Buscar por la categoría del artículo
+    let pres = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(searchTerm)}&per_page=5`, {
+      headers: { Authorization: key }
+    });
+    if (pres.ok) {
+      let pj = await pres.json();
+      for (const p of pj.photos || []) {
+        const direct = p.src?.large2x || p.src?.large || p.src?.original;
+        if (!direct) continue;
+        const ext = '.jpg';
+        const attribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
+        return { url: direct, ext, attribution, source: 'Pexels' };
       }
-      return null;
-    } catch (e) {
-      return null;
+    }
+    // 2. Si no se encontró, buscar por "programación"
+    pres = await fetch(`https://api.pexels.com/v1/search?query=programación&per_page=5`, {
+      headers: { Authorization: key }
+    });
+    if (pres.ok) {
+      let pj = await pres.json();
+      for (const p of pj.photos || []) {
+        const direct = p.src?.large2x || p.src?.large || p.src?.original;
+        if (!direct) continue;
+        const ext = '.jpg';
+        const attribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
+        return { url: direct, ext, attribution, source: 'Pexels' };
+      }
     }
   }
-
-  // 2) Wikipedia: buscar página relacionada y tomar imagen principal
-  try {
-    const wikiSearch = `https://es.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchTerm)}&srlimit=1&format=json&origin=*`;
-    const sres = await fetch(wikiSearch);
-    if (sres.ok) {
-      const sjson = await sres.json();
-      const pageTitle = sjson?.query?.search?.[0]?.title;
-      if (pageTitle) {
-        const imgApi = `https://es.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(pageTitle)}&prop=pageimages&pithumbsize=1200&format=json&origin=*`;
-        const ires = await fetch(imgApi);
-        if (ires.ok) {
-          const ijson = await ires.json();
-          const pages = ijson?.query?.pages ? Object.values(ijson.query.pages) : [];
-          for (const p of pages) {
-            const thumb = p?.thumbnail?.source;
-            if (thumb) {
-              const pathname = new URL(thumb).pathname;
-              const ext = (path.extname(pathname) || '.jpg').toLowerCase();
-              if (/(\.jpe?g|\.png|\.webp)$/.test(ext)) {
-                return { url: thumb, ext, attribution: pageTitle, source: 'Wikipedia' };
-              }
-            }
-          }
-        }
-      }
-    }
-  } catch {}
-
-  // 3) Openverse (sin API key)
-  try {
-    const ov = `https://api.openverse.engineering/v1/images?q=${encodeURIComponent(searchTerm)}&page_size=5`;
-    const ores = await fetch(ov);
-    if (ores.ok) {
-      const data = await ores.json();
-      for (const item of data.results || []) {
-        const direct = item.url || item.thumbnail;
-        if (!direct) continue;
-        const pathname = new URL(direct).pathname;
-        const ext = (path.extname(pathname) || '').toLowerCase();
-        if (!/(\.jpe?g|\.png|\.webp)$/.test(ext)) continue;
-        const attribution = item.creator || item.title || 'Openverse';
-        return { url: direct, ext, attribution, source: 'Openverse' };
-      }
-    }
-  } catch {}
-
-  // 4) Unsplash (opcional)
-  try {
-    const key = process.env.UNSPLASH_ACCESS_KEY;
-    if (key) {
-      const u = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(searchTerm)}&per_page=5&client_id=${key}`;
-      const ures = await fetch(u);
-      if (ures.ok) {
-        const uj = await ures.json();
-        for (const p of uj.results || []) {
-          const direct = p.urls?.regular || p.urls?.full;
-          if (!direct) continue;
-          const ext = '.jpg';
-          const attribution = p.user?.name ? `Unsplash - ${p.user.name}` : 'Unsplash';
-          return { url: direct, ext, attribution, source: 'Unsplash' };
-        }
-      }
-    }
-  } catch {}
-
-  // 5) Pexels (opcional)
-  try {
-    const key = process.env.PEXELS_API_KEY;
-    if (key) {
-      const pres = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(searchTerm)}&per_page=5`, {
-        headers: { Authorization: key }
-      });
-      if (pres.ok) {
-        const pj = await pres.json();
-        for (const p of pj.photos || []) {
-          const direct = p.src?.large2x || p.src?.large || p.src?.original;
-          if (!direct) continue;
-          const ext = '.jpg';
-          const attribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
-          return { url: direct, ext, attribution, source: 'Pexels' };
-        }
-      }
-    }
-  } catch {}
-
-  // 3) Fallback local
+  // 3. Si no se encontró nada, usar imagen local
   return { url: '/logos-he-imagenes/programacion.jpeg', ext: '.jpg', attribution: 'Default', source: 'Local' };
 }
 
