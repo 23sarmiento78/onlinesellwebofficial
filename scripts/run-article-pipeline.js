@@ -75,6 +75,31 @@ const CATEGORY_LIST = [
   'Tendencias y Futuro'
 ];
 
+// Si no se proporciona un tema, pedimos a Gemini que proponga uno y además una categoría
+async function proposeTopicAndCategory() {
+  try {
+    const { GoogleGenerativeAI } = await import('@google/generative-ai');
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const prompt = `Eres un editor técnico. Devuelve un JSON compacto con un tema atractivo y una categoría de esta lista exacta: ${CATEGORY_LIST.join(', ')}.
+Formato estricto: {"title":"...","category":"..."}
+Requisitos:
+- El título debe ser educativo, actual y específico para desarrolladores.
+- La categoría debe ser una de: ${CATEGORY_LIST.join(', ')}.`;
+    const resp = await model.generateContent(prompt);
+    const text = resp.response.text();
+    const m = text.match(/\{[\s\S]*\}/);
+    const json = m ? JSON.parse(m[0]) : JSON.parse(text);
+    if (json?.title) {
+      const cat = CATEGORY_LIST.includes(json.category) ? json.category : undefined;
+      return { title: json.title, category: cat };
+    }
+  } catch (e) {
+    // fallback silencioso
+  }
+  return { title: 'Tendencias de desarrollo web modernas', category: undefined };
+}
+
 function pickCategory(title, keywords) {
   const text = `${title} ${(keywords||[]).join(' ')}`.toLowerCase();
   const rules = [
@@ -305,35 +330,44 @@ async function main() {
   const templatePath = path.join(TEMPLATES_DIR, 'article-template.html');
   const template = await fs.readFile(templatePath, 'utf8');
 
+  // 0) Resolver tema y categoría iniciales
+  let TOPIC = process.env.ARTICLE_TOPIC || topic;
+  let initialCategory = process.env.ARTICLE_CATEGORY || category;
+  if (!TOPIC) {
+    const proposed = await proposeTopicAndCategory();
+    TOPIC = proposed.title;
+    if (!initialCategory && proposed.category) initialCategory = proposed.category;
+  }
+
   // 1) Keywords SEO
   const keywords = await fetchKeywords(TOPIC);
+  
+  // 2) Generar contenido con Gemini
+  const { text: modelText, html: geminiHtml } = await callGeminiForArticle(TOPIC);
 
-  // 2) Generar artículo (Markdown o HTML) con Gemini y convertir a HTML si es necesario
-  const articleBody = await generateArticleWithGemini(TOPIC, CATEGORY, keywords);
+  // 3) Si vino en Markdown, convertir a HTML; si vino HTML, usarlo
   const md = new MarkdownIt({ html: false, linkify: true, breaks: false });
-  // Heurística: si contiene encabezados markdown o code fences, lo tratamos como MD
-  const looksLikeMd = /(^|\n)\s{0,3}(#{1,6}\s|```|\*\s|\d+\.\s)/.test(articleBody);
-  const articleHtml = looksLikeMd ? md.render(articleBody) : articleBody;
+  const looksLikeMd = /(^|\n)\s{0,3}(#{1,6}\s|```|\*\s|\d+\.\s)/.test(modelText || '');
+  const renderedHtml = looksLikeMd ? md.render(modelText) : (geminiHtml || modelText || '');
 
   // 3) Título y resumen (derivar si hace falta)
   // Extraer primer H1/H2 como título si no se provee explícito
-  const $ = loadHtml(`<main>${articleHtml}</main>`);
+  const $ = loadHtml(`<main>${renderedHtml}</main>`);
   const derivedTitle = $('h1').first().text().trim() || $('h2').first().text().trim() || TOPIC;
   // Obtener el primer párrafo significativo
-  let rawExcerpt = $('p').map((i, el) => $(el).text().trim()).get().find(t => t && t.length > 40) || $('p').first().text().trim() || '';
-  // Sanitizar: eliminar placeholders tipo {result} y prefijos como "Meta Description:"
-  rawExcerpt = rawExcerpt.replace(/\{[^}]*\}/g, '').replace(/^meta\s*description\s*:\s*/i, '').trim();
+  let rawExcerpt = $('p').filter((_, el) => $(el).text().trim().length > 60).first().text().trim();
   const excerpt = (rawExcerpt || `Guía sobre ${TOPIC}`).replace(/\s+/g, ' ').slice(0, 160);
 
   // 4) Imagen destacada y atribución
   // Definir título SEO corto y basar el slug en él para evitar nombres de archivo demasiado largos
   const seoTitle = shortenForSeo(derivedTitle, 60);
   const slug = toSlug(seoTitle);
-  // Categoría automática si no viene de entrada
-  const autoCategory = pickCategory(derivedTitle, keywords);
-  const CATEGORY = process.env.ARTICLE_CATEGORY && CATEGORY_LIST.includes(process.env.ARTICLE_CATEGORY) ? process.env.ARTICLE_CATEGORY : autoCategory;
-  // Buscar imagen mediante la categoría
-  const imgInfo = await fetchImage(CATEGORY || TOPIC);
+  // Categoría seleccionada (preferir env > input > propuesta Gemini > heurística)
+  const envCategory = process.env.ARTICLE_CATEGORY && CATEGORY_LIST.includes(process.env.ARTICLE_CATEGORY) ? process.env.ARTICLE_CATEGORY : undefined;
+  const heuristicCategory = pickCategory(derivedTitle, keywords);
+  const selectedCategory = envCategory || initialCategory || heuristicCategory;
+  // Buscar imagen usando el nombre de la categoría
+  const imgInfo = await fetchImage(selectedCategory || TOPIC);
   const featuredImage = await downloadImageToPublic(imgInfo.url, slug, imgInfo.ext);
 
   // 5) Rellenar plantilla
@@ -351,7 +385,7 @@ async function main() {
     FEATURED_IMAGE: featuredImage,
     OG_IMAGE_URL: ogImageUrl,
     CANONICAL_URL: canonical,
-    CATEGORY: CATEGORY,
+    CATEGORY: selectedCategory,
     EDUCATIONAL_LEVEL: 'Intermedio',
     READING_TIME: '8 min',
     TITLE: derivedTitle,
@@ -360,7 +394,7 @@ async function main() {
     AUTHOR: 'hgaruna',
     WORD_COUNT: '1300',
     TAGS_HTML: tagsHtml,
-    ARTICLE_CONTENT: articleHtml + `\n\n<p style=\"color:#a0abc6;font-size:12px\">Crédito de imagen: ${imgInfo.attribution} (${imgInfo.source})</p>`,
+    ARTICLE_CONTENT: renderedHtml + `\n\n<p style=\"color:#a0abc6;font-size:12px\">Crédito de imagen: ${imgInfo.attribution} (${imgInfo.source})</p>`,
     PUBLISH_DATE: publishDate
   });
 
