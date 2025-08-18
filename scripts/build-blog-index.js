@@ -4,7 +4,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import cheerio from 'cheerio';
+import { load as loadHtml } from 'cheerio';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -54,7 +54,7 @@ async function main() {
     try {
       const full = path.join(BLOG_DIR, file);
       const html = await fs.readFile(full, 'utf8');
-      const $ = cheerio.load(html);
+      const $ = loadHtml(html);
       const meta = extractMeta($);
 
       const stat = await fs.stat(full);
@@ -87,16 +87,13 @@ async function main() {
   // Ordenar por fecha descendente
   items.sort((a, b) => (new Date(b.datePublished).getTime() || 0) - (new Date(a.datePublished).getTime() || 0));
 
-  const indexObj = {
-    generatedAt: new Date().toISOString(),
-    count: items.length,
-    articles: items
-  };
-
-  await fs.writeJson(path.join(BLOG_DIR, 'index.json'), indexObj, { spaces: 2 });
+  // Mantener el esquema histórico de public/blog/index.json como array de archivos HTML
+  const filenames = files;
+  await fs.writeJson(path.join(BLOG_DIR, 'index.json'), filenames, { spaces: 2 });
+  // Escribir el índice enriquecido solo en public/data/blog-index.json
   await fs.writeJson(path.join(DATA_DIR, 'blog-index.json'), items, { spaces: 2 });
 
-  console.log(`✅ Índices generados: ${items.length} artículos`);
+  console.log(`✅ Índices generados: blog/index.json (${filenames.length} entradas) y data/blog-index.json (${items.length} artículos)`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
