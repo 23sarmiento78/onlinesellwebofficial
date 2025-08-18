@@ -1,530 +1,424 @@
 [
   {
-    "slug": "angular-18-nuevas-fu",
-    "title": "Angular 18: Nuevas Funcionalidades",
-    "excerpt": "Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Frontend",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "6 min",
-    "views": 3402,
-    "likes": 248,
-    "tags": [
-      "Frontend",
-      "Angular",
-      "TypeScript"
+    "id": "webassembly-rendimiento-nativo-en-el-navegador",
+    "title": "WebAssembly: Rendimiento Nativo en el Navegador",
+    "description": "WebAssembly (Wasm) es una tecnología revolucionaria que permite ejecutar código compilado de forma eficiente en navegadores web.  A diferencia de Java...",
+    "excerpt": "WebAssembly (Wasm) es una tecnología revolucionaria que permite ejecutar código compilado de forma eficiente en navegadores web.  A diferencia de JavaScript, que se interpreta, Wasm se ejecuta con un rendimiento cercano al nativo, abriendo un mundo de posibilidades para aplicaciones web complejas y exigentes en términos de procesamiento.",
+    "keywords": [
+      "JavaScript"
     ],
-    "difficulty": "Avanzado"
+    "tags": [
+      "JavaScript"
+    ],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.660Z",
+    "lastmod": "2025-08-18T03:21:29.660Z",
+    "readingTime": 7,
+    "path": "/blog/webassembly-rendimie.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
-    "slug": "ansible-automatizaci",
-    "title": "Ansible: Automatización de Configuración",
-    "excerpt": "Ansible es una herramienta de automatización de configuración de código abierto, ampliamente utilizada en entornos DevOps y Cloud.  Se basa en un e...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "DevOps y Cloud",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "6 min",
-    "views": 2707,
-    "likes": 183,
+    "id": "typescript-avanzado-patrones-y-mejores-practicas",
+    "title": "TypeScript Avanzado: Patrones y Mejores Prácticas",
+    "description": "TypeScript, una superconjunto de JavaScript, ofrece ventajas significativas para el desarrollo frontend al agregar tipado estático.  Este artículo pro...",
+    "excerpt": "TypeScript, una superconjunto de JavaScript, ofrece ventajas significativas para el desarrollo frontend al agregar tipado estático.  Este artículo profundiza en patrones y mejores prácticas de TypeScript avanzadas, más allá de los conceptos básicos, para ayudarte a construir aplicaciones frontend robustas, escalables y mantenibles.",
+    "keywords": [
+      "JavaScript"
+    ],
     "tags": [
-      "DevOps y Cloud",
+      "JavaScript"
+    ],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.657Z",
+    "lastmod": "2025-08-18T03:21:29.657Z",
+    "readingTime": 7,
+    "path": "/blog/typescript-avanzado-.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "testing-de-apis-postman-y-newman",
+    "title": "Testing de APIs: Postman y Newman",
+    "description": "El testing de APIs es crucial para asegurar la calidad y la fiabilidad de cualquier aplicación moderna.  Este proceso implica verificar que las interf...",
+    "excerpt": "El testing de APIs es crucial para asegurar la calidad y la fiabilidad de cualquier aplicación moderna.  Este proceso implica verificar que las interfaces de programación de aplicaciones (APIs) funcionen correctamente, devolviendo los datos esperados en el formato correcto y manejando adecuadamente diferentes escenarios.  Postman y Newman son dos herramientas poderosas que facilitan significativamente este proceso, ofreciendo un flujo de trabajo eficiente tanto para el desarrollo como para la automatización de las pruebas.",
+    "keywords": [],
+    "tags": [],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.652Z",
+    "lastmod": "2025-08-18T03:21:29.652Z",
+    "readingTime": 7,
+    "path": "/blog/testing-de-apis-post.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "terraform-infrastructure-as-code",
+    "title": "Terraform: Infrastructure as Code",
+    "description": "Terraform es una herramienta de código abierto que permite gestionar y provisionar infraestructura de forma declarativa.  En lugar de configurar manua...",
+    "excerpt": "Terraform es una herramienta de código abierto que permite gestionar y provisionar infraestructura de forma declarativa.  En lugar de configurar manualmente servidores, redes y otros recursos en la nube o en entornos locales, Terraform utiliza archivos de configuración (escritos en el lenguaje de configuración HashiCorp Configuration Language - HCL) para definir la infraestructura deseada.  Esto facilita la automatización, la repetibilidad y la colaboración en la gestión de la infraestructura, convirtiéndolo en un pilar fundamental de las prácticas DevOps y la gestión de la nube.",
+    "keywords": [
       "AWS"
     ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "cicd-automatizacin-d",
-    "title": "CI/CD: Automatización de Despliegues",
-    "excerpt": "En el dinámico mundo del desarrollo de software, la entrega rápida y confiable de aplicaciones es crucial.  CI/CD (Integración Continua/Entrega Con...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "DevOps y Cloud",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 2801,
-    "likes": 191,
     "tags": [
-      "DevOps y Cloud"
+      "AWS"
     ],
-    "difficulty": "Principiante"
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.647Z",
+    "lastmod": "2025-08-18T03:21:29.647Z",
+    "readingTime": 7,
+    "path": "/blog/terraform-infrastruc.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
-    "slug": "code-splitting-divis",
-    "title": "Code Splitting: División de Bundles",
-    "excerpt": "El code splitting es una técnica de optimización que divide el código de una aplicación en chunks o fragmentos más pequeños. En lugar de cargar tod...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Performance y Optimización",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "6 min",
-    "views": 3659,
-    "likes": 211,
+    "id": "sql-injection-prevencion-y-deteccion",
+    "title": "SQL Injection: Prevención y Detección",
+    "description": "La inyección SQL es una vulnerabilidad de seguridad que permite a los atacantes inyectar código SQL malicioso en una aplicación web para manipular la ...",
+    "excerpt": "La inyección SQL es una vulnerabilidad de seguridad que permite a los atacantes inyectar código SQL malicioso en una aplicación web para manipular la base de datos subyacente.  Esto puede resultar en la exposición de datos sensibles, la modificación o eliminación de datos, y el control total del servidor de la base de datos.  Entender cómo prevenir y detectar estas inyecciones es crucial para la seguridad de cualquier aplicación web que interactúe con una base de datos.",
+    "keywords": [],
+    "tags": [],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.641Z",
+    "lastmod": "2025-08-18T03:21:29.641Z",
+    "readingTime": 8,
+    "path": "/blog/sql-injection-preven.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "security-testing-owasp-y-herramientas",
+    "title": "Security Testing: OWASP y Herramientas",
+    "description": "Las pruebas de seguridad son cruciales para asegurar la integridad y la confiabilidad de cualquier aplicación web.  En un panorama de amenazas cada ve...",
+    "excerpt": "Las pruebas de seguridad son cruciales para asegurar la integridad y la confiabilidad de cualquier aplicación web.  En un panorama de amenazas cada vez más complejo, es fundamental integrar prácticas de seguridad sólidas desde las etapas iniciales del desarrollo. La Open Web Application Security Project (OWASP) proporciona una guía invaluable para comprender y mitigar las vulnerabilidades más comunes, y una variedad de herramientas complementan este conocimiento para realizar pruebas efectivas.",
+    "keywords": [
+      "JavaScript"
+    ],
     "tags": [
-      "Performance y Optimización",
+      "JavaScript"
+    ],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.638Z",
+    "lastmod": "2025-08-18T03:21:29.638Z",
+    "readingTime": 9,
+    "path": "/blog/security-testing-owa.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "react-19-nuevas-caracteristicas-y-mejoras",
+    "title": "React 19: Nuevas Características y Mejoras",
+    "description": "React 19, la última versión estable de la popular biblioteca JavaScript para construir interfaces de usuario, llega cargada de nuevas características ...",
+    "excerpt": "React 19, la última versión estable de la popular biblioteca JavaScript para construir interfaces de usuario, llega cargada de nuevas características y mejoras que buscan optimizar el rendimiento, la experiencia de desarrollo y la compatibilidad.  Esta actualización se centra en la simplificación del proceso de desarrollo, la mejora de la experiencia del usuario y la corrección de errores existentes. En este artículo, exploraremos las características más destacadas de React 19 y cómo pueden beneficiar a los desarrolladores.",
+    "keywords": [
       "JavaScript",
       "React"
     ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "cqrs-command-query-r",
-    "title": "CQRS: Command Query Responsibility Segregation",
-    "excerpt": "CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (cons...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Arquitectura y Patrones",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 4473,
-    "likes": 267,
     "tags": [
-      "Arquitectura y Patrones"
-    ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "database-optimizatio",
-    "title": "Database Optimization: Consultas Eficientes",
-    "excerpt": "La optimización de consultas de bases de datos es crucial para el rendimiento de cualquier aplicación web.  Consultas mal escritas pueden ralentiza...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Performance y Optimización",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 3842,
-    "likes": 291,
-    "tags": [
-      "Performance y Optimización"
-    ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "docker-contenedores-",
-    "title": "Docker: Contenedores para Desarrolladores",
-    "excerpt": "Docker ha revolucionado el desarrollo de software al proporcionar una forma eficiente y consistente de empaquetar, distribuir y ejecutar aplicacion...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "DevOps y Cloud",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "6 min",
-    "views": 1009,
-    "likes": 55,
-    "tags": [
-      "DevOps y Cloud",
-      "DevOps",
-      "Containers",
-      "Docker"
-    ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "edge-computing-compu",
-    "title": "Edge Computing: Computación en el Borde",
-    "excerpt": "La computación en el borde se centra en procesar datos lo más cerca posible de su origen. Esto contrasta con la computación en la nube, donde los d...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Tendencias y Futuro",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 3214,
-    "likes": 213,
-    "tags": [
-      "Tendencias y Futuro"
-    ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "estrategias-de-cach-",
-    "title": "Estrategias de Caché: Optimizando el Rendimiento Web",
-    "excerpt": "En el mundo del desarrollo web, la optimización del rendimiento es crucial para ofrecer una experiencia de usuario fluida y eficiente.  Una de las ...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Performance y Optimización",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 1043,
-    "likes": 144,
-    "tags": [
-      "Performance y Optimización",
-      "JavaScript"
-    ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "jamstack-javascript-",
-    "title": "JAMstack: JavaScript, APIs, Markup",
-    "excerpt": "El corazón de JAMstack reside en la separación de la lógica del servidor (backend) de la presentación del sitio web (frontend). El contenido estáti...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Tendencias y Futuro",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 849,
-    "likes": 49,
-    "tags": [
-      "Tendencias y Futuro",
       "JavaScript",
-      "React",
-      "AWS",
-      "Frontend"
+      "React"
     ],
-    "difficulty": "Avanzado"
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.635Z",
+    "lastmod": "2025-08-18T03:21:29.635Z",
+    "readingTime": 8,
+    "path": "/blog/react-19-nuevas-cara.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
-    "slug": "lazy-loading-carga-d",
-    "title": "Lazy Loading: Carga Diferida de Recursos",
-    "excerpt": "Este atributo, soportado por la mayoría de los navegadores modernos, indica al navegador que debe cargar la imagen solo cuando sea visible en la pa...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Performance y Optimización",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 5090,
-    "likes": 321,
-    "tags": [
-      "Performance y Optimización",
+    "id": "progressive-web-apps-pwa-en-2025",
+    "title": "Progressive Web Apps (PWA) en 2025",
+    "description": "Las Progressive Web Apps (PWA) han evolucionado significativamente desde su concepción. En 2025, se consolidan como una tecnología clave en el desarro...",
+    "excerpt": "Las Progressive Web Apps (PWA) han evolucionado significativamente desde su concepción. En 2025, se consolidan como una tecnología clave en el desarrollo web, ofreciendo una experiencia de usuario fluida y potente tanto en dispositivos móviles como de escritorio.  Este artículo explorará las tendencias actuales y futuras de las PWA, analizando sus ventajas, desafíos y el panorama que nos espera.",
+    "keywords": [],
+    "tags": [],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.630Z",
+    "lastmod": "2025-08-18T03:21:29.630Z",
+    "readingTime": 4,
+    "path": "/blog/progressive-web-apps.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "profiling-analisis-de-rendimiento",
+    "title": "Profiling: Análisis de Rendimiento",
+    "description": "El profiling, o análisis de rendimiento, es una técnica crucial en el desarrollo de software que permite identificar las partes de un programa que con...",
+    "excerpt": "El profiling, o análisis de rendimiento, es una técnica crucial en el desarrollo de software que permite identificar las partes de un programa que consumen más recursos (tiempo de CPU, memoria, E/S, etc.).  Esta información es invaluable para optimizar el código, mejorar la velocidad de ejecución y la eficiencia general de la aplicación.",
+    "keywords": [
       "JavaScript"
     ],
-    "difficulty": "Avanzado"
+    "tags": [
+      "JavaScript"
+    ],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.626Z",
+    "lastmod": "2025-08-18T03:21:29.626Z",
+    "readingTime": 9,
+    "path": "/blog/profiling-anlisis-de.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
-    "slug": "linters-y-formatters",
-    "title": "Linters y Formatters: ESLint y Prettier",
-    "excerpt": "En el desarrollo web moderno, mantener un código limpio, consistente y libre de errores es crucial para la escalabilidad y el mantenimiento de un p...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Herramientas y Productividad",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 2189,
-    "likes": 206,
+    "id": "package-managers-npm-yarn-y-pnpm",
+    "title": "Package Managers: npm, Yarn, y pnpm",
+    "description": "En el desarrollo web moderno, la gestión de dependencias es crucial para la eficiencia y la reproducibilidad del proyecto. Los administradores de paqu...",
+    "excerpt": "En el desarrollo web moderno, la gestión de dependencias es crucial para la eficiencia y la reproducibilidad del proyecto. Los administradores de paquetes, como npm, Yarn y pnpm, juegan un papel fundamental en este proceso, simplificando la instalación, actualización y gestión de las bibliotecas y módulos necesarios para construir aplicaciones web. Este artículo profundiza en las características, ventajas y desventajas de cada uno de estos administradores de paquetes, ayudándote a elegir el más adecuado para tus necesidades.",
+    "keywords": [
+      "React"
+    ],
     "tags": [
-      "Herramientas y Productividad",
+      "React"
+    ],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.621Z",
+    "lastmod": "2025-08-18T03:21:29.621Z",
+    "readingTime": 7,
+    "path": "/blog/package-managers-npm.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "nodejs-22-nuevas-caracteristicas",
+    "title": "Node.js 22: Nuevas Características",
+    "description": "Node.js 22, lanzada en abril de 2023, marca un paso significativo en la evolución de este popular entorno de ejecución JavaScript del lado del servido...",
+    "excerpt": "Node.js 22, lanzada en abril de 2023, marca un paso significativo en la evolución de este popular entorno de ejecución JavaScript del lado del servidor. Esta versión llega cargada de mejoras de rendimiento, nuevas funcionalidades y correcciones de errores que la convierten en una opción aún más robusta y eficiente para el desarrollo backend.  En este artículo, exploraremos algunas de las características más destacadas de Node.js 22 y cómo pueden beneficiar a tus proyectos.",
+    "keywords": [
+      "JavaScript"
+    ],
+    "tags": [
+      "JavaScript"
+    ],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.616Z",
+    "lastmod": "2025-08-18T03:21:29.616Z",
+    "readingTime": 7,
+    "path": "/blog/nodejs-22-nuevas-car.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "nlp-procesamiento-del-lenguaje-natural",
+    "title": "NLP: Procesamiento del Lenguaje Natural",
+    "description": "El Procesamiento del Lenguaje Natural (PNL o NLP, por sus siglas en inglés) es un campo de la inteligencia artificial que se enfoca en permitir que la...",
+    "excerpt": "El Procesamiento del Lenguaje Natural (PNL o NLP, por sus siglas en inglés) es un campo de la inteligencia artificial que se enfoca en permitir que las computadoras comprendan, interpreten y generen lenguaje humano.  Esto implica una amplia gama de tareas, desde la traducción automática hasta el análisis de sentimientos y la generación de texto.  La PNL juega un papel crucial en la transformación de datos de texto no estructurados en información significativa y accionable, impulsando innovaciones en diversas industrias.",
+    "keywords": [],
+    "tags": [],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.610Z",
+    "lastmod": "2025-08-18T03:21:29.610Z",
+    "readingTime": 6,
+    "path": "/blog/nlp-procesamiento-de.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "migrations-gestion-de-esquemas-de-base-de-datos",
+    "title": "Migrations: Gestión de Esquemas de Base de Datos",
+    "description": "Las migraciones de base de datos son un componente crucial en el desarrollo de software que permite gestionar de forma eficiente y controlada los camb...",
+    "excerpt": "Las migraciones de base de datos son un componente crucial en el desarrollo de software que permite gestionar de forma eficiente y controlada los cambios en la estructura de la base de datos a lo largo del ciclo de vida de una aplicación.  En lugar de realizar modificaciones directamente en la base de datos, las migraciones ofrecen un sistema versionado, reproducible y seguro para aplicar actualizaciones, añadiendo o eliminando tablas, columnas, índices, etc.,  sin riesgo de perder datos o dañar la integridad del esquema.  Este enfoque facilita la colaboración entre desarrolladores, permite la reversión de cambios y simplifica el proceso de despliegue en diferentes entornos.",
+    "keywords": [],
+    "tags": [],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.606Z",
+    "lastmod": "2025-08-18T03:21:29.606Z",
+    "readingTime": 7,
+    "path": "/blog/migrations-gestin-de.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "linters-y-formatters-eslint-y-prettier",
+    "title": "Linters y Formatters: ESLint y Prettier",
+    "description": "En el desarrollo web moderno, mantener un código limpio, consistente y libre de errores es crucial para la escalabilidad y el mantenimiento de un proy...",
+    "excerpt": "En el desarrollo web moderno, mantener un código limpio, consistente y libre de errores es crucial para la escalabilidad y el mantenimiento de un proyecto.  Para lograr esto, los desarrolladores recurren a herramientas poderosas como linters y formatters.  Este artículo profundiza en dos de las herramientas más populares: ESLint y Prettier, explorando sus funcionalidades, ventajas, desventajas y cómo integrarlos en tu flujo de trabajo.",
+    "keywords": [
       "JavaScript",
       "React",
       "ESLint"
     ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "migrations-gestin-de",
-    "title": "Migrations: Gestión de Esquemas de Base de Datos",
-    "excerpt": "Las migraciones de base de datos son un componente crucial en el desarrollo de software que permite gestionar de forma eficiente y controlada los c...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Bases de Datos",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 3981,
-    "likes": 253,
     "tags": [
-      "Bases de Datos"
-    ],
-    "difficulty": "Intermedio"
-  },
-  {
-    "slug": "nlp-procesamiento-de",
-    "title": "NLP: Procesamiento del Lenguaje Natural",
-    "excerpt": "El Procesamiento del Lenguaje Natural (PNL o NLP, por sus siglas en inglés) es un campo de la inteligencia artificial que se enfoca en permitir que...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Inteligencia Artificial",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "6 min",
-    "views": 4795,
-    "likes": 256,
-    "tags": [
-      "Inteligencia Artificial"
-    ],
-    "difficulty": "Intermedio"
-  },
-  {
-    "slug": "nodejs-22-nuevas-car",
-    "title": "Node.js 22: Nuevas Características",
-    "excerpt": "Node.js 22, lanzada en abril de 2023, marca un paso significativo en la evolución de este popular entorno de ejecución JavaScript del lado del serv...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Backend",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 1904,
-    "likes": 143,
-    "tags": [
-      "Backend",
       "JavaScript",
-      "Node"
+      "React",
+      "ESLint"
     ],
-    "difficulty": "Avanzado"
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.601Z",
+    "lastmod": "2025-08-18T03:21:29.601Z",
+    "readingTime": 8,
+    "path": "/blog/linters-y-formatters.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
-    "slug": "package-managers-npm",
-    "title": "Package Managers: npm, Yarn, y pnpm",
-    "excerpt": "En el desarrollo web moderno, la gestión de dependencias es crucial para la eficiencia y la reproducibilidad del proyecto. Los administradores de p...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Herramientas y Productividad",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "6 min",
-    "views": 5101,
-    "likes": 258,
-    "tags": [
-      "Herramientas y Productividad",
-      "React"
-    ],
-    "difficulty": "Intermedio"
-  },
-  {
-    "slug": "profiling-anlisis-de",
-    "title": "Profiling: Análisis de Rendimiento",
-    "excerpt": "El profiling, o análisis de rendimiento, es una técnica crucial en el desarrollo de software que permite identificar las partes de un programa que ...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Herramientas y Productividad",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 4922,
-    "likes": 256,
-    "tags": [
-      "Herramientas y Productividad",
+    "id": "lazy-loading-carga-diferida-de-recursos",
+    "title": "Lazy Loading: Carga Diferida de Recursos",
+    "description": "Este atributo, soportado por la mayoría de los navegadores modernos, indica al navegador que debe cargar la imagen solo cuando sea visible en la panta...",
+    "excerpt": "La optimización del rendimiento web es crucial para una buena experiencia de usuario.  Una de las técnicas más efectivas para mejorar la velocidad de carga de una página web es el lazy loading o carga diferida de recursos.",
+    "keywords": [
       "JavaScript"
     ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "progressive-web-apps",
-    "title": "Progressive Web Apps (PWA) en 2025",
-    "excerpt": "Las Progressive Web Apps (PWA) han evolucionado significativamente desde su concepción. En 2025, se consolidan como una tecnología clave en el desa...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Frontend",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "6 min",
-    "views": 5459,
-    "likes": 274,
     "tags": [
-      "Frontend"
-    ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "react-19-nuevas-cara",
-    "title": "React 19: Nuevas Características y Mejoras",
-    "excerpt": "React 19, la última versión estable de la popular biblioteca JavaScript para construir interfaces de usuario, llega cargada de nuevas característic...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Frontend",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 4668,
-    "likes": 302,
-    "tags": [
-      "Frontend",
-      "JavaScript",
-      "React"
-    ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "security-testing-owa",
-    "title": "Security Testing: OWASP y Herramientas",
-    "excerpt": "Las pruebas de seguridad son cruciales para asegurar la integridad y la confiabilidad de cualquier aplicación web.  En un panorama de amenazas cada...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Testing y Calidad",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 5279,
-    "likes": 356,
-    "tags": [
-      "Testing y Calidad",
       "JavaScript"
     ],
-    "difficulty": "Intermedio"
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.592Z",
+    "lastmod": "2025-08-18T03:21:29.592Z",
+    "readingTime": 8,
+    "path": "/blog/lazy-loading-carga-d.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
-    "slug": "sql-injection-preven",
-    "title": "SQL Injection: Prevención y Detección",
-    "excerpt": "La inyección SQL es una vulnerabilidad de seguridad que permite a los atacantes inyectar código SQL malicioso en una aplicación web para manipular ...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Seguridad",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "7 min",
-    "views": 4216,
-    "likes": 224,
-    "tags": [
-      "Seguridad"
-    ],
-    "difficulty": "Intermedio"
-  },
-  {
-    "slug": "terraform-infrastruc",
-    "title": "Terraform: Infrastructure as Code",
-    "excerpt": "Terraform es una herramienta de código abierto que permite gestionar y provisionar infraestructura de forma declarativa.  En lugar de configurar ma...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "DevOps y Cloud",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "6 min",
-    "views": 4533,
-    "likes": 311,
-    "tags": [
-      "DevOps y Cloud",
+    "id": "jamstack-javascript-apis-markup",
+    "title": "JAMstack: JavaScript, APIs, Markup",
+    "description": "El corazón de JAMstack reside en la separación de la lógica del servidor (backend) de la presentación del sitio web (frontend). El contenido estático ...",
+    "excerpt": "JAMstack, una arquitectura de desarrollo web moderna, está revolucionando la forma en que construimos sitios web.  Este acrónimo representa JavaScript, APIs, y Markup, tres pilares fundamentales que permiten crear sitios web rápidos, escalables y seguros.",
+    "keywords": [
+      "JavaScript",
+      "React",
       "AWS"
     ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "testing-de-apis-post",
-    "title": "Testing de APIs: Postman y Newman",
-    "excerpt": "El testing de APIs es crucial para asegurar la calidad y la fiabilidad de cualquier aplicación moderna.  Este proceso implica verificar que las int...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Testing y Calidad",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "6 min",
-    "views": 4744,
-    "likes": 327,
     "tags": [
-      "Testing y Calidad"
-    ],
-    "difficulty": "Avanzado"
-  },
-  {
-    "slug": "typescript-avanzado-",
-    "title": "TypeScript Avanzado: Patrones y Mejores Prácticas",
-    "excerpt": "TypeScript, una superconjunto de JavaScript, ofrece ventajas significativas para el desarrollo frontend al agregar tipado estático.  Este artículo ...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Frontend",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "6 min",
-    "views": 4606,
-    "likes": 249,
-    "tags": [
-      "Frontend",
       "JavaScript",
-      "TypeScript"
+      "React",
+      "AWS"
     ],
-    "difficulty": "Avanzado"
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.586Z",
+    "lastmod": "2025-08-18T03:21:29.586Z",
+    "readingTime": 7,
+    "path": "/blog/jamstack-javascript-.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
-    "slug": "webassembly-rendimie",
-    "title": "WebAssembly: Rendimiento Nativo en el Navegador",
-    "excerpt": "WebAssembly (Wasm) es una tecnología revolucionaria que permite ejecutar código compilado de forma eficiente en navegadores web.  A diferencia de J...",
-    "image": "/logos-he-imagenes/programacion.jpeg",
-    "category": "Frontend",
-    "author": {
-      "name": "hgaruna",
-      "avatar": "/logos-he-imagenes/author-default.jpg",
-      "bio": "Equipo de desarrollo de hgaruna"
-    },
-    "date": "2025-08-12",
-    "readTime": "6 min",
-    "views": 4630,
-    "likes": 279,
-    "tags": [
-      "Frontend",
+    "id": "estrategias-de-cache-optimizando-el-rendimiento-web",
+    "title": "Estrategias de Caché: Optimizando el Rendimiento Web",
+    "description": "En el mundo del desarrollo web, la optimización del rendimiento es crucial para ofrecer una experiencia de usuario fluida y eficiente.  Una de las téc...",
+    "excerpt": "En el mundo del desarrollo web, la optimización del rendimiento es crucial para ofrecer una experiencia de usuario fluida y eficiente.  Una de las técnicas más efectivas para lograrlo es el uso de estrategias de caché.",
+    "keywords": [
       "JavaScript"
     ],
-    "difficulty": "Avanzado"
+    "tags": [
+      "JavaScript"
+    ],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.580Z",
+    "lastmod": "2025-08-18T03:21:29.580Z",
+    "readingTime": 7,
+    "path": "/blog/estrategias-de-cach-.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "edge-computing-computacion-en-el-borde",
+    "title": "Edge Computing: Computación en el Borde",
+    "description": "La computación en el borde se centra en procesar datos lo más cerca posible de su origen. Esto contrasta con la computación en la nube, donde los dato...",
+    "excerpt": "La computación en el borde, o edge computing, es un paradigma de computación distribuida que lleva el procesamiento de datos más cerca de la fuente de generación.  En lugar de enviar todos los datos a un centro de datos centralizado (la nube), el procesamiento se realiza en dispositivos ubicados en el \"borde\" de la red, como gateways, routers, dispositivos IoT o incluso en los propios dispositivos finales. Esto reduce la latencia, mejora la eficiencia y permite la toma de decisiones en tiempo real, abriendo un abanico de nuevas posibilidades en diversas industrias.",
+    "keywords": [],
+    "tags": [],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.573Z",
+    "lastmod": "2025-08-18T03:21:29.573Z",
+    "readingTime": 8,
+    "path": "/blog/edge-computing-compu.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "docker-contenedores-para-desarrolladores",
+    "title": "Docker: Contenedores para Desarrolladores",
+    "description": "Docker ha revolucionado el desarrollo de software al proporcionar una forma eficiente y consistente de empaquetar, distribuir y ejecutar aplicaciones....",
+    "excerpt": "Docker ha revolucionado el desarrollo de software al proporcionar una forma eficiente y consistente de empaquetar, distribuir y ejecutar aplicaciones.  Este artículo explorará los fundamentos de Docker, sus ventajas, desventajas, y cómo puede mejorar significativamente tu flujo de trabajo como desarrollador.  Aprenderás a usar contenedores para aislar tu aplicación y sus dependencias, facilitando la colaboración, la implementación y la gestión de tus proyectos.",
+    "keywords": [],
+    "tags": [],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.567Z",
+    "lastmod": "2025-08-18T03:21:29.567Z",
+    "readingTime": 6,
+    "path": "/blog/docker-contenedores-.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "database-optimization-consultas-eficientes",
+    "title": "Database Optimization: Consultas Eficientes",
+    "description": "La optimización de consultas de bases de datos es crucial para el rendimiento de cualquier aplicación web.  Consultas mal escritas pueden ralentizar s...",
+    "excerpt": "La optimización de consultas de bases de datos es crucial para el rendimiento de cualquier aplicación web.  Consultas mal escritas pueden ralentizar significativamente la aplicación, llevando a una mala experiencia de usuario y a un aumento en los costos de infraestructura. Este artículo explorará diversas técnicas y estrategias para escribir consultas eficientes, mejorando así el rendimiento de tu base de datos y la velocidad de tu aplicación.",
+    "keywords": [],
+    "tags": [],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.558Z",
+    "lastmod": "2025-08-18T03:21:29.558Z",
+    "readingTime": 8,
+    "path": "/blog/database-optimizatio.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "cqrs-command-query-responsibility-segregation",
+    "title": "CQRS: Command Query Responsibility Segregation",
+    "description": "CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (consult...",
+    "excerpt": "CQRS, o Separación de Responsabilidades de Comando y Consulta, es un patrón de arquitectura de software que separa las operaciones de lectura (consultas) de las operaciones de escritura (comandos).  En lugar de usar un único modelo para ambas acciones, CQRS utiliza dos modelos separados: uno para actualizar datos (el modelo de comando) y otro para consultar datos (el modelo de consulta). Esta separación permite optimizar cada modelo para su propósito específico, mejorando el rendimiento, la escalabilidad y la mantenibilidad de la aplicación.",
+    "keywords": [],
+    "tags": [],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.551Z",
+    "lastmod": "2025-08-18T03:21:29.551Z",
+    "readingTime": 8,
+    "path": "/blog/cqrs-command-query-r.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "code-splitting-division-de-bundles",
+    "title": "Code Splitting: División de Bundles",
+    "description": "El code splitting es una técnica de optimización que divide el código de una aplicación en chunks o fragmentos más pequeños. En lugar de cargar todo e...",
+    "excerpt": "En el desarrollo web moderno, la optimización del rendimiento es crucial para una experiencia de usuario satisfactoria.  Una técnica clave para mejorar la velocidad de carga de una aplicación web es el code splitting o división de bundles.",
+    "keywords": [
+      "JavaScript",
+      "React"
+    ],
+    "tags": [
+      "JavaScript",
+      "React"
+    ],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.540Z",
+    "lastmod": "2025-08-18T03:21:29.540Z",
+    "readingTime": 6,
+    "path": "/blog/code-splitting-divis.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "cicd-automatizacion-de-despliegues",
+    "title": "CI/CD: Automatización de Despliegues",
+    "description": "En el dinámico mundo del desarrollo de software, la entrega rápida y confiable de aplicaciones es crucial.  CI/CD (Integración Continua/Entrega Contin...",
+    "excerpt": "En el dinámico mundo del desarrollo de software, la entrega rápida y confiable de aplicaciones es crucial.  CI/CD (Integración Continua/Entrega Continua) es una práctica fundamental de DevOps que automatiza el proceso de desarrollo, pruebas y despliegue, permitiendo a los equipos lanzar actualizaciones de software con mayor frecuencia y menor riesgo.  Este artículo explorará los componentes clave de CI/CD, sus beneficios, desafíos y cómo implementar una estrategia efectiva para automatizar sus despliegues.",
+    "keywords": [],
+    "tags": [],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.532Z",
+    "lastmod": "2025-08-18T03:21:29.532Z",
+    "readingTime": 8,
+    "path": "/blog/cicd-automatizacin-d.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "ansible-automatizacion-de-configuracion",
+    "title": "Ansible: Automatización de Configuración",
+    "description": "Ansible es una herramienta de automatización de configuración de código abierto, ampliamente utilizada en entornos DevOps y Cloud.  Se basa en un enfo...",
+    "excerpt": "Ansible es una herramienta de automatización de configuración de código abierto, ampliamente utilizada en entornos DevOps y Cloud.  Se basa en un enfoque basado en agentes, lo que significa que no requiere la instalación de ningún agente en los nodos administrados.  Su simplicidad, potencia y facilidad de uso lo han convertido en una herramienta esencial para la gestión de infraestructuras a escala, permitiendo la automatización de tareas repetitivas y la gestión consistente de la configuración de servidores y aplicaciones.",
+    "keywords": [
+      "AWS"
+    ],
+    "tags": [
+      "AWS"
+    ],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:21:29.524Z",
+    "lastmod": "2025-08-18T03:21:29.524Z",
+    "readingTime": 6,
+    "path": "/blog/ansible-automatizaci.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
+    "id": "seotitle",
+    "title": "{{SEO_TITLE}}",
+    "description": "{{SEO_DESCRIPTION}}",
+    "excerpt": "Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las aplicaciones y la experiencia del usuario.  Esta versión se centra en la optimización, la simplificación del desarrollo y la adopción de las últimas tecnologías.  En este artículo, exploraremos las funcionalidades más destacadas de Angular 18.",
+    "keywords": [
+      "{{SEO_KEYWORDS}}"
+    ],
+    "tags": [
+      "{{SEO_KEYWORDS}}"
+    ],
+    "author": "hgaruna - Aprende Programación",
+    "datePublished": "2025-08-18T03:19:59.764Z",
+    "lastmod": "2025-08-18T03:19:59.764Z",
+    "readingTime": 3,
+    "path": "/blog/angular-18-nuevas-fu.html",
+    "image": "{{FEATURED_IMAGE}}"
   }
 ]
