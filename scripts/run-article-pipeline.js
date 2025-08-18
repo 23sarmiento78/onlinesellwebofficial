@@ -28,7 +28,7 @@ function toSlug(str) {
     .trim()
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
-    .slice(0, 80);
+    .slice(0, 48);
 }
 
 function shortenForSeo(title, maxLen = 60) {
@@ -62,23 +62,55 @@ async function fetchKeywords(topic) {
 }
 
 async function fetchImage(topic) {
-  // Busca en Wikimedia Commons (sin API key)
-  const api = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(topic)}&gsrlimit=5&prop=imageinfo&iiprop=url|extmetadata&format=json&origin=*`;
-  const res = await fetch(api);
-  if (!res.ok) throw new Error(`Image search failed ${res.status}`);
-  const json = await res.json();
-  const pages = json?.query?.pages ? Object.values(json.query.pages) : [];
-  for (const p of pages) {
-    const ii = p.imageinfo?.[0];
-    if (!ii?.url) continue;
-    const url = ii.url;
-    const pathname = new URL(url).pathname;
-    const ext = (path.extname(pathname) || '').toLowerCase();
-    if (!/(\.jpe?g|\.png|\.webp)$/.test(ext)) continue; // evitar svg y formatos no raster
-    const attribution = ii.extmetadata?.Artist?.value || p.title || 'Wikimedia Commons';
-    return { url, ext, attribution, source: 'Wikimedia Commons' };
-  }
-  // Fallback a una imagen local
+  // 1) Wikimedia Commons (namespace 6 = File), imágenes raster
+  const commons = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent(topic)}&gsrlimit=10&prop=imageinfo&iiprop=url|extmetadata&format=json&origin=*`;
+  try {
+    const res = await fetch(commons);
+    if (res.ok) {
+      const json = await res.json();
+      const pages = json?.query?.pages ? Object.values(json.query.pages) : [];
+      for (const p of pages) {
+        const ii = p.imageinfo?.[0];
+        if (!ii?.url) continue;
+        const url = ii.url;
+        const pathname = new URL(url).pathname;
+        const ext = (path.extname(pathname) || '').toLowerCase();
+        if (!/(\.jpe?g|\.png|\.webp)$/.test(ext)) continue;
+        const attribution = ii.extmetadata?.Artist?.value || p.title || 'Wikimedia Commons';
+        return { url, ext, attribution, source: 'Wikimedia Commons' };
+      }
+    }
+  } catch {}
+
+  // 2) Wikipedia: buscar página relacionada y tomar imagen principal
+  try {
+    const wikiSearch = `https://es.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(topic)}&srlimit=1&format=json&origin=*`;
+    const sres = await fetch(wikiSearch);
+    if (sres.ok) {
+      const sjson = await sres.json();
+      const pageTitle = sjson?.query?.search?.[0]?.title;
+      if (pageTitle) {
+        const imgApi = `https://es.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(pageTitle)}&prop=pageimages&pithumbsize=1200&format=json&origin=*`;
+        const ires = await fetch(imgApi);
+        if (ires.ok) {
+          const ijson = await ires.json();
+          const pages = ijson?.query?.pages ? Object.values(ijson.query.pages) : [];
+          for (const p of pages) {
+            const thumb = p?.thumbnail?.source;
+            if (thumb) {
+              const pathname = new URL(thumb).pathname;
+              const ext = (path.extname(pathname) || '.jpg').toLowerCase();
+              if (/(\.jpe?g|\.png|\.webp)$/.test(ext)) {
+                return { url: thumb, ext, attribution: pageTitle, source: 'Wikipedia' };
+              }
+            }
+          }
+        }
+      }
+    }
+  } catch {}
+
+  // 3) Fallback local
   return { url: '/logos-he-imagenes/programacion.jpeg', ext: '.jpg', attribution: 'Default', source: 'Local' };
 }
 
