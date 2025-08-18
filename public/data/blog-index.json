@@ -1,5 +1,215 @@
 [
   {
+    "id": "crea-un-cronometro-digital-con-javascript-tutorial-completo-tutorial-javascript",
+    "title": "Crea un Cronómetro Digital con JavaScript: Tutorial Completo | Tutorial JavaScript",
+    "description": "(Imagen conceptual: Una captura de pantalla que muestra la estructura de carpetas en un explorador de archivos, con las tres carpetas mencionadas: index.html, s...",
+    "excerpt": "Artículo generado por inteligencia artificial",
+    "keywords": [
+      "tutorial programación",
+      "proyecto programación",
+      "código paso a paso",
+      "desarrollo web",
+      "programming tutorial",
+      "javascript",
+      "js",
+      "vanilla javascript",
+      "frontend",
+      "dom",
+      "api"
+    ],
+    "tags": [
+      "tutorial programación",
+      "proyecto programación",
+      "código paso a paso",
+      "desarrollo web",
+      "programming tutorial",
+      "javascript",
+      "js",
+      "vanilla javascript",
+      "frontend",
+      "dom",
+      "api"
+    ],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:33:21.135Z",
+    "lastmod": "2025-08-18T03:33:21.135Z",
+    "readingTime": 1,
+    "path": "/blog/crea-un-cronmetro-digital-con-javascript.html",
+    "image": "{{FEATURED_IMAGE}}"
+  },
+  {
+    "id": "construyendo-un-chat-en-tiempo-real-con-react-tutorial-react",
+    "title": "Construyendo un Chat en Tiempo Real con React | Tutorial React",
+    "description": "Para pruebas más exhaustivas, podrías usar Jest y React Testing Library para probar la funcionalidad de los componentes individualmente....",
+    "excerpt": "Artículo generado por inteligencia artificial",
+    "keywords": [
+      "tutorial programación",
+      "proyecto programación",
+      "código paso a paso",
+      "desarrollo web",
+      "programming tutorial",
+      "react",
+      "react.js",
+      "components",
+      "hooks",
+      "jsx",
+      "api"
+    ],
+    "tags": [
+      "tutorial programación",
+      "proyecto programación",
+      "código paso a paso",
+      "desarrollo web",
+      "programming tutorial",
+      "react",
+      "react.js",
+      "components",
+      "hooks",
+      "jsx",
+      "api"
+    ],
+    "author": "hgaruna",
+    "datePublished": "2025-08-18T03:33:21.134Z",
+    "lastmod": "2025-08-18T03:33:21.134Z",
+    "readingTime": 1,
+    "path": "/blog/construyendo-un-chat-en-tiempo-real-con-.html",
+    "image": "{{FEATURED_IMAGE}}"
+  },
+  {
+    "id": "local-storage-tu-aliado-secreto-en-el-desarrollo-web-aprende-programacion-gratis",
+    "title": "Local Storage: Tu Aliado Secreto en el Desarrollo Web | Aprende Programación Gratis",
+    "description": "Vamos a crear un contador simple que registra la cantidad de veces que un usuario ha visitado la página....",
+    "excerpt": "Bienvenidos, futuros maestros del desarrollo web! Hoy vamos a adentrarnos en un tema fundamental para crear experiencias de usuario más ricas y dinámicas: el Local Storage.  Si alguna vez te has preguntado cómo guardar datos del usuario directamente en su navegador, sin necesidad de una base de datos externa, ¡este es tu lugar!",
+    "keywords": [
+      "aprender programación",
+      "tutorial programación",
+      "curso gratis",
+      "programación principiantes",
+      "desarrollo web",
+      "coding tutorial",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "frontend",
+      "backend",
+      "javascript",
+      "html",
+      "api",
+      "variable"
+    ],
+    "tags": [
+      "aprender programación",
+      "tutorial programación",
+      "curso gratis",
+      "programación principiantes",
+      "desarrollo web",
+      "coding tutorial",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "frontend",
+      "backend",
+      "javascript",
+      "html",
+      "api",
+      "variable"
+    ],
+    "author": "hgaruna - Aprende Programación",
+    "datePublished": "2025-08-18T03:33:21.133Z",
+    "lastmod": "2025-08-18T03:33:21.133Z",
+    "readingTime": 4,
+    "path": "/blog/local-storage-tu-aliado-secret.html",
+    "image": "https://hgaruna.org/logos-he-imagenes/education-local-storage-tu-aliado-secret.jpg"
+  },
+  {
+    "id": "pruebas-unitarias-en-frontend-la-clave-para-un-codigo-robusto-y-escalable-aprend",
+    "title": "Pruebas Unitarias en Frontend: La Clave para un Código Robusto y Escalable | Aprende Programación Gratis",
+    "description": "Las pruebas unitarias son un pilar fundamental del desarrollo de software.  Se enfocan en probar la unidad más pequeña de código, generalmente una función o com...",
+    "excerpt": "En el mundo del desarrollo frontend, la velocidad y la funcionalidad son cruciales.  Pero, ¿qué pasa cuando tu aplicación crece y se vuelve compleja?  Es aquí donde las pruebas unitarias se convierten en tu mejor aliada.  Este artículo te guiará a través del proceso de implementar pruebas unitarias en tus proyectos frontend, asegurando un código limpio, robusto y fácil de mantener.  Aprenderás los conceptos fundamentales, verás ejemplos prácticos y te proporcionaré recursos para que puedas dominar esta habilidad esencial.",
+    "keywords": [
+      "aprender programación",
+      "tutorial programación",
+      "curso gratis",
+      "programación principiantes",
+      "desarrollo web",
+      "coding tutorial",
+      "React",
+      "Vue",
+      "Angular",
+      "componentes",
+      "estado",
+      "javascript",
+      "react",
+      "api",
+      "function"
+    ],
+    "tags": [
+      "aprender programación",
+      "tutorial programación",
+      "curso gratis",
+      "programación principiantes",
+      "desarrollo web",
+      "coding tutorial",
+      "React",
+      "Vue",
+      "Angular",
+      "componentes",
+      "estado",
+      "javascript",
+      "react",
+      "api",
+      "function"
+    ],
+    "author": "hgaruna - Aprende Programación",
+    "datePublished": "2025-08-18T03:33:21.133Z",
+    "lastmod": "2025-08-18T03:33:21.133Z",
+    "readingTime": 9,
+    "path": "/blog/pruebas-unitarias-en-frontend-.html",
+    "image": "https://hgaruna.org/logos-he-imagenes/education-pruebas-unitarias-en-frontend-.jpg"
+  },
+  {
+    "id": "estructuras-de-control-domina-el-flujo-de-tu-programa-aprende-programacion-grati",
+    "title": "Estructuras de Control: Domina el Flujo de tu Programa | Aprende Programación Gratis",
+    "description": "Imagina un programa que solo ejecuta instrucciones una tras otra, sin ramificaciones ni repeticiones.  Sería extremadamente limitado.  Las estructuras de contro...",
+    "excerpt": "Bienvenidos, aspirantes a programadores! En este tutorial, vamos a explorar un concepto fundamental en cualquier lenguaje de programación: las estructuras de control.  Estas estructuras son las que nos permiten dictar el flujo de ejecución de nuestro código, decidiendo qué instrucciones se ejecutan y en qué orden.  Sin ellas, nuestros programas serían secuencias lineales y aburridas, incapaces de responder a diferentes situaciones o repetir tareas.  Aprender a usarlas eficazmente es clave para construir programas robustos, eficientes y, sobre todo, útiles.",
+    "keywords": [
+      "aprender programación",
+      "tutorial programación",
+      "curso gratis",
+      "programación principiantes",
+      "desarrollo web",
+      "coding tutorial",
+      "variables",
+      "funciones",
+      "algoritmos",
+      "lógica",
+      "sintaxis",
+      "python",
+      "variable"
+    ],
+    "tags": [
+      "aprender programación",
+      "tutorial programación",
+      "curso gratis",
+      "programación principiantes",
+      "desarrollo web",
+      "coding tutorial",
+      "variables",
+      "funciones",
+      "algoritmos",
+      "lógica",
+      "sintaxis",
+      "python",
+      "variable"
+    ],
+    "author": "hgaruna - Aprende Programación",
+    "datePublished": "2025-08-18T03:33:21.129Z",
+    "lastmod": "2025-08-18T03:33:21.129Z",
+    "readingTime": 8,
+    "path": "/blog/estructuras-de-control-domina-.html",
+    "image": "https://hgaruna.org/logos-he-imagenes/education-estructuras-de-control-domina-.jpg"
+  },
+  {
     "id": "webassembly-rendimiento-nativo-en-el-navegador",
     "title": "WebAssembly: Rendimiento Nativo en el Navegador",
     "description": "WebAssembly (Wasm) es una tecnología revolucionaria que permite ejecutar código compilado de forma eficiente en navegadores web.  A diferencia de Java...",
@@ -11,8 +221,8 @@
       "JavaScript"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.660Z",
-    "lastmod": "2025-08-18T03:21:29.660Z",
+    "datePublished": "2025-08-18T03:33:21.015Z",
+    "lastmod": "2025-08-18T03:33:21.015Z",
     "readingTime": 7,
     "path": "/blog/webassembly-rendimie.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -29,8 +239,8 @@
       "JavaScript"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.657Z",
-    "lastmod": "2025-08-18T03:21:29.657Z",
+    "datePublished": "2025-08-18T03:33:21.010Z",
+    "lastmod": "2025-08-18T03:33:21.010Z",
     "readingTime": 7,
     "path": "/blog/typescript-avanzado-.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -43,8 +253,8 @@
     "keywords": [],
     "tags": [],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.652Z",
-    "lastmod": "2025-08-18T03:21:29.652Z",
+    "datePublished": "2025-08-18T03:33:21.005Z",
+    "lastmod": "2025-08-18T03:33:21.005Z",
     "readingTime": 7,
     "path": "/blog/testing-de-apis-post.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -61,8 +271,8 @@
       "AWS"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.647Z",
-    "lastmod": "2025-08-18T03:21:29.647Z",
+    "datePublished": "2025-08-18T03:33:21.000Z",
+    "lastmod": "2025-08-18T03:33:21.000Z",
     "readingTime": 7,
     "path": "/blog/terraform-infrastruc.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -75,8 +285,8 @@
     "keywords": [],
     "tags": [],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.641Z",
-    "lastmod": "2025-08-18T03:21:29.641Z",
+    "datePublished": "2025-08-18T03:33:20.993Z",
+    "lastmod": "2025-08-18T03:33:20.993Z",
     "readingTime": 8,
     "path": "/blog/sql-injection-preven.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -93,8 +303,8 @@
       "JavaScript"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.638Z",
-    "lastmod": "2025-08-18T03:21:29.638Z",
+    "datePublished": "2025-08-18T03:33:20.991Z",
+    "lastmod": "2025-08-18T03:33:20.991Z",
     "readingTime": 9,
     "path": "/blog/security-testing-owa.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -113,8 +323,8 @@
       "React"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.635Z",
-    "lastmod": "2025-08-18T03:21:29.635Z",
+    "datePublished": "2025-08-18T03:33:20.986Z",
+    "lastmod": "2025-08-18T03:33:20.986Z",
     "readingTime": 8,
     "path": "/blog/react-19-nuevas-cara.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -127,8 +337,8 @@
     "keywords": [],
     "tags": [],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.630Z",
-    "lastmod": "2025-08-18T03:21:29.630Z",
+    "datePublished": "2025-08-18T03:33:20.982Z",
+    "lastmod": "2025-08-18T03:33:20.982Z",
     "readingTime": 4,
     "path": "/blog/progressive-web-apps.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -145,8 +355,8 @@
       "JavaScript"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.626Z",
-    "lastmod": "2025-08-18T03:21:29.626Z",
+    "datePublished": "2025-08-18T03:33:20.978Z",
+    "lastmod": "2025-08-18T03:33:20.978Z",
     "readingTime": 9,
     "path": "/blog/profiling-anlisis-de.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -163,8 +373,8 @@
       "React"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.621Z",
-    "lastmod": "2025-08-18T03:21:29.621Z",
+    "datePublished": "2025-08-18T03:33:20.972Z",
+    "lastmod": "2025-08-18T03:33:20.972Z",
     "readingTime": 7,
     "path": "/blog/package-managers-npm.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -181,8 +391,8 @@
       "JavaScript"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.616Z",
-    "lastmod": "2025-08-18T03:21:29.616Z",
+    "datePublished": "2025-08-18T03:33:20.968Z",
+    "lastmod": "2025-08-18T03:33:20.968Z",
     "readingTime": 7,
     "path": "/blog/nodejs-22-nuevas-car.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -195,8 +405,8 @@
     "keywords": [],
     "tags": [],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.610Z",
-    "lastmod": "2025-08-18T03:21:29.610Z",
+    "datePublished": "2025-08-18T03:33:20.962Z",
+    "lastmod": "2025-08-18T03:33:20.962Z",
     "readingTime": 6,
     "path": "/blog/nlp-procesamiento-de.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -209,8 +419,8 @@
     "keywords": [],
     "tags": [],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.606Z",
-    "lastmod": "2025-08-18T03:21:29.606Z",
+    "datePublished": "2025-08-18T03:33:20.956Z",
+    "lastmod": "2025-08-18T03:33:20.956Z",
     "readingTime": 7,
     "path": "/blog/migrations-gestin-de.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -231,8 +441,8 @@
       "ESLint"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.601Z",
-    "lastmod": "2025-08-18T03:21:29.601Z",
+    "datePublished": "2025-08-18T03:33:20.947Z",
+    "lastmod": "2025-08-18T03:33:20.947Z",
     "readingTime": 8,
     "path": "/blog/linters-y-formatters.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -249,8 +459,8 @@
       "JavaScript"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.592Z",
-    "lastmod": "2025-08-18T03:21:29.592Z",
+    "datePublished": "2025-08-18T03:33:20.941Z",
+    "lastmod": "2025-08-18T03:33:20.941Z",
     "readingTime": 8,
     "path": "/blog/lazy-loading-carga-d.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -271,8 +481,8 @@
       "AWS"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.586Z",
-    "lastmod": "2025-08-18T03:21:29.586Z",
+    "datePublished": "2025-08-18T03:33:20.935Z",
+    "lastmod": "2025-08-18T03:33:20.935Z",
     "readingTime": 7,
     "path": "/blog/jamstack-javascript-.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -289,8 +499,8 @@
       "JavaScript"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.580Z",
-    "lastmod": "2025-08-18T03:21:29.580Z",
+    "datePublished": "2025-08-18T03:33:20.929Z",
+    "lastmod": "2025-08-18T03:33:20.929Z",
     "readingTime": 7,
     "path": "/blog/estrategias-de-cach-.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -303,8 +513,8 @@
     "keywords": [],
     "tags": [],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.573Z",
-    "lastmod": "2025-08-18T03:21:29.573Z",
+    "datePublished": "2025-08-18T03:33:20.922Z",
+    "lastmod": "2025-08-18T03:33:20.922Z",
     "readingTime": 8,
     "path": "/blog/edge-computing-compu.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -317,8 +527,8 @@
     "keywords": [],
     "tags": [],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.567Z",
-    "lastmod": "2025-08-18T03:21:29.567Z",
+    "datePublished": "2025-08-18T03:33:20.915Z",
+    "lastmod": "2025-08-18T03:33:20.915Z",
     "readingTime": 6,
     "path": "/blog/docker-contenedores-.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -331,8 +541,8 @@
     "keywords": [],
     "tags": [],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.558Z",
-    "lastmod": "2025-08-18T03:21:29.558Z",
+    "datePublished": "2025-08-18T03:33:20.906Z",
+    "lastmod": "2025-08-18T03:33:20.906Z",
     "readingTime": 8,
     "path": "/blog/database-optimizatio.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -345,8 +555,8 @@
     "keywords": [],
     "tags": [],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.551Z",
-    "lastmod": "2025-08-18T03:21:29.551Z",
+    "datePublished": "2025-08-18T03:33:20.899Z",
+    "lastmod": "2025-08-18T03:33:20.899Z",
     "readingTime": 8,
     "path": "/blog/cqrs-command-query-r.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -365,8 +575,8 @@
       "React"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.540Z",
-    "lastmod": "2025-08-18T03:21:29.540Z",
+    "datePublished": "2025-08-18T03:33:20.888Z",
+    "lastmod": "2025-08-18T03:33:20.888Z",
     "readingTime": 6,
     "path": "/blog/code-splitting-divis.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -379,8 +589,8 @@
     "keywords": [],
     "tags": [],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.532Z",
-    "lastmod": "2025-08-18T03:21:29.532Z",
+    "datePublished": "2025-08-18T03:33:20.881Z",
+    "lastmod": "2025-08-18T03:33:20.881Z",
     "readingTime": 8,
     "path": "/blog/cicd-automatizacin-d.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -397,8 +607,8 @@
       "AWS"
     ],
     "author": "hgaruna",
-    "datePublished": "2025-08-18T03:21:29.524Z",
-    "lastmod": "2025-08-18T03:21:29.524Z",
+    "datePublished": "2025-08-18T03:33:20.874Z",
+    "lastmod": "2025-08-18T03:33:20.874Z",
     "readingTime": 6,
     "path": "/blog/ansible-automatizaci.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
@@ -415,8 +625,8 @@
       "{{SEO_KEYWORDS}}"
     ],
     "author": "hgaruna - Aprende Programación",
-    "datePublished": "2025-08-18T03:19:59.764Z",
-    "lastmod": "2025-08-18T03:19:59.764Z",
+    "datePublished": "2025-08-18T03:31:46.168Z",
+    "lastmod": "2025-08-18T03:31:46.168Z",
     "readingTime": 3,
     "path": "/blog/angular-18-nuevas-fu.html",
     "image": "{{FEATURED_IMAGE}}"
