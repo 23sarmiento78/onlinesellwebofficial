@@ -271,18 +271,19 @@ async function downloadImageToPublic(url, slug, ext) {
   }
 }
 
-async function generateArticleWithGemini(topic, category, keywords) {
+async function callGeminiForArticle(topic) {
   if (!GEMINI_API_KEY) throw new Error('GEMINI_API_KEY no está configurada');
   const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-  const prompt = `Eres un redactor técnico senior. Escribe un artículo educativo y apto para Google AdSense, con excelente SEO on-page, sobre: "${topic}".
+  // Puedes ajustar el prompt aquí para que sea extenso, variado y educativo
+  const prompt = `Eres un redactor técnico senior. Escribe un artículo educativo, extenso, variado y apto para Google AdSense, con excelente SEO on-page, sobre: "${topic}".
 
 Requisitos:
 - Tono claro y profesional, en español neutro.
 - Incluye introducción, secciones con subtítulos H2/H3, código cuando aporte valor, mejores prácticas, errores comunes y conclusión.
 - Longitud objetivo: 1200-1500 palabras.
-- Usa las siguientes palabras clave cuando sea natural: ${keywords.join(', ')}.
+- Usa palabras clave relevantes cuando sea natural.
 - Incluye un resumen breve (1-2 oraciones) que servirá para meta description.
 - No incluyas HTML <html> ni <head>; solo el cuerpo del artículo con H2/H3, p, pre/code, listas, etc.
 - No escribas metadatos, solo el contenido del artículo.
@@ -290,7 +291,8 @@ Requisitos:
 
   const { response } = await model.generateContent({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
   const text = response.text();
-  return text.trim(); // Puede venir en Markdown
+  // Devuelve tanto markdown como html (html vacío por defecto)
+  return { text: text.trim(), html: '' };
 }
 
 function applyTemplate(templateHtml, data) {
