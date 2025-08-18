@@ -89,6 +89,15 @@ export default function Articles() {
     handleSearch();
   }, [searchTerm, articlesData]);
 
+  // Función para manejar envío del formulario de búsqueda
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      // La búsqueda ya se maneja automáticamente con el useEffect
+      // pero podemos agregar lógica adicional aquí si es necesario
+    }
+  };
+
   // Artículos de fallback en caso de error
   const fallbackArticles = [
     {
