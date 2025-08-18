@@ -13,7 +13,7 @@
     "bootstrap": "^5.3.3",
     "cheerio": "^1.0.0-rc.12",
     "cron-parser": "^4.9.0",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.6.1",
     "fs-extra": "^11.3.1",
     "globby": "^14.1.0",
     "google-auth-library": "^9.4.1",
@@ -39,7 +39,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.7.0",
-    "axios": "^1.6.5",
+    "axios": "^1.11.0",
     "netlify-plugin-formspree": "^0.0.3",
     "vite": "^7.1.2",
     "xml2js": "^0.6.2"
