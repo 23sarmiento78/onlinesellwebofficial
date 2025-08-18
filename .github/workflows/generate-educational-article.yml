@@ -2,15 +2,7 @@ name: Generate Educational Article
 
 on:
   workflow_dispatch:
-    inputs:
-      topic:
-        description: "Tema del artículo (opcional)"
-        required: false
-        default: "Buenas prácticas de React y rendimiento"
-      category:
-        description: "Categoría (Frontend, Backend, etc.)"
-        required: false
-        default: "Frontend"
+    inputs: {}
   schedule:
     - cron: "0 9 * * 1" # Lunes 09:00 UTC (opcional)
 
@@ -43,8 +35,11 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SITE_URL: ${{ vars.SITE_URL }}
-          ARTICLE_TOPIC: ${{ github.event.inputs.topic }}
-          ARTICLE_CATEGORY: ${{ github.event.inputs.category }}
+          # Preferencias de imágenes (puedes ajustarlas desde el repositorio o variables del entorno)
+          IMAGE_SOURCE_ORDER: unsplash,pexels,openverse,commons,wikipedia
+          MIN_IMAGE_WIDTH: 1200
+          MIN_IMAGE_HEIGHT: 675
+          PREFER_LANDSCAPE: 'true'
         run: |
           node scripts/run-article-pipeline.js
 

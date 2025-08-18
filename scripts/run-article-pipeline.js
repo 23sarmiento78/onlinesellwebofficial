@@ -141,34 +141,29 @@ async function fetchImage(searchTerm) {
   const tryOrder = prefs.order;
 
   async function fromCommons() {
-    const commons = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent(searchTerm)}&gsrlimit=15&prop=imageinfo&iiprop=url|extmetadata|size&format=json&origin=*`;
-    const res = await fetch(commons);
-    if (!res.ok) return null;
-    const json = await res.json();
-    const pages = json?.query?.pages ? Object.values(json.query.pages) : [];
-    for (const p of pages) {
-      const ii = p.imageinfo?.[0];
-      if (!ii?.url) continue;
-      const { width, height } = ii;
-      if (!acceptableWH(width, height, prefs)) continue;
-      const url = ii.url;
-      const pathname = new URL(url).pathname;
-      const ext = (path.extname(pathname) || '').toLowerCase();
-      if (!/(\.jpe?g|\.png|\.webp)$/.test(ext)) continue;
-      const attribution = ii.extmetadata?.Artist?.value || p.title || 'Wikimedia Commons';
-      return { url, ext, attribution, source: 'Wikimedia Commons', width, height };
+    try {
+      const commons = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent(searchTerm)}&gsrlimit=15&prop=imageinfo&iiprop=url|extmetadata|size&format=json&origin=*`;
+      const res = await fetch(commons);
+      if (!res.ok) return null;
+      const json = await res.json();
+      const pages = json?.query?.pages ? Object.values(json.query.pages) : [];
       for (const p of pages) {
         const ii = p.imageinfo?.[0];
         if (!ii?.url) continue;
+        const { width, height } = ii;
+        if (!acceptableWH(width, height, prefs)) continue;
         const url = ii.url;
         const pathname = new URL(url).pathname;
         const ext = (path.extname(pathname) || '').toLowerCase();
         if (!/(\.jpe?g|\.png|\.webp)$/.test(ext)) continue;
         const attribution = ii.extmetadata?.Artist?.value || p.title || 'Wikimedia Commons';
-        return { url, ext, attribution, source: 'Wikimedia Commons' };
+        return { url, ext, attribution, source: 'Wikimedia Commons', width, height };
       }
+      return null;
+    } catch (e) {
+      return null;
     }
-  } catch {}
+  }
 
   // 2) Wikipedia: buscar página relacionada y tomar imagen principal
   try {
