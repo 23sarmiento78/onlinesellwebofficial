@@ -174,7 +174,9 @@ async function main() {
   const excerpt = (rawExcerpt || `Guía sobre ${TOPIC}`).replace(/\s+/g, ' ').slice(0, 160);
 
   // 4) Imagen destacada y atribución
-  const slug = toSlug(derivedTitle);
+  // Definir título SEO corto y basar el slug en él para evitar nombres de archivo demasiado largos
+  const seoTitle = shortenForSeo(derivedTitle, 60);
+  const slug = toSlug(seoTitle);
   const imgInfo = await fetchImage(TOPIC);
   const featuredImage = await downloadImageToPublic(imgInfo.url, slug, imgInfo.ext);
 
@@ -183,15 +185,15 @@ async function main() {
   const publishDate = now.toISOString().split('T')[0];
   const canonical = SITE_URL ? new URL(`/blog/${slug}.html`, SITE_URL).toString() : `/blog/${slug}.html`;
   const tagsHtml = tagsHtmlFromKeywords(keywords);
-  // SEO title corto (meta) y featured image absoluto para OG
-  const seoTitle = shortenForSeo(derivedTitle, 60);
-  const featuredForMeta = SITE_URL ? new URL(featuredImage, SITE_URL).toString() : featuredImage;
+  // featured img relativa para <img> y absoluta para OG
+  const ogImageUrl = SITE_URL ? new URL(featuredImage, SITE_URL).toString() : featuredImage;
 
   const filled = applyTemplate(template, {
     SEO_TITLE: seoTitle,
     SEO_DESCRIPTION: excerpt,
     SEO_KEYWORDS: keywords.join(', '),
-    FEATURED_IMAGE: featuredForMeta,
+    FEATURED_IMAGE: featuredImage,
+    OG_IMAGE_URL: ogImageUrl,
     CANONICAL_URL: canonical,
     CATEGORY: CATEGORY,
     EDUCATIONAL_LEVEL: 'Intermedio',
