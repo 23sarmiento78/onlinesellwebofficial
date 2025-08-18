@@ -114,7 +114,7 @@ async function main() {
         lastmod,
         readingTime: meta.readingTime,
         path: `/blog/${file}`,
-        image: $('meta[property="og:image"]').attr('content') || ''
+        image: processPlaceholders($('meta[property="og:image"]').attr('content') || '', { image: '/logos-he-imagenes/programacion.jpeg' })
       };
       items.push(item);
     } catch (e) {
