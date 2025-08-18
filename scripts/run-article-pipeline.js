@@ -242,41 +242,47 @@ async function main() {
   const excerpt = (rawExcerpt || `Guía sobre ${TOPIC}`).replace(/\s+/g, ' ').slice(0, 160);
 
 
-  // 4) Generar banner con Gemini
+  // 4) Buscar imagen en Pexels
   const seoTitle = shortenForSeo(derivedTitle, 60);
   const slug = toSlug(seoTitle);
   const envCategory = process.env.ARTICLE_CATEGORY && CATEGORY_LIST.includes(process.env.ARTICLE_CATEGORY) ? process.env.ARTICLE_CATEGORY : undefined;
   const heuristicCategory = pickCategory(derivedTitle, keywords);
   const selectedCategory = envCategory || initialCategory || heuristicCategory;
 
-  // Prompt para imagen
-  const imagePrompt = `Crea un banner llamativo en formato JPG para el siguiente artículo: "${derivedTitle}". El banner debe ser profesional, atractivo y representar visualmente el tema del artículo. El texto del banner debe ser: "${derivedTitle}". El estilo debe ser moderno y adecuado para una tarjeta de blog.`;
-
-  // Llamada a Gemini para generar imagen
   let bannerUrl = '/logos-he-imagenes/programacion.jpeg';
-  let bannerAttribution = 'Generado por Gemini';
-  try {
-    const { GoogleGenerativeAI } = await import('@google/generative-ai');
-    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
-    try {
-      const imgResp = await model.generateContent({ contents: [{ role: 'user', parts: [{ text: imagePrompt }] }], generationConfig: { responseMimeType: 'image/jpeg' } });
-      const imgData = imgResp.response.parts?.[0]?.data;
-      if (imgData) {
-        const imgBuffer = Buffer.from(imgData, 'base64');
-        const imgPath = path.join(ROOT, 'public', 'images', 'articles', `${slug}.jpg`);
-        await fs.ensureDir(path.dirname(imgPath));
-        await fs.writeFile(imgPath, imgBuffer);
-        bannerUrl = `/images/articles/${slug}.jpg`;
-        bannerAttribution = 'Generado por Gemini';
-      } else {
-        console.error('Gemini no devolvió datos de imagen:', imgResp);
+  let bannerAttribution = 'Pexels';
+  const pexelsKey = process.env.PEXELS_API_KEY;
+  if (pexelsKey) {
+    // 1. Buscar por la categoría del artículo
+    let pres = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(selectedCategory)}&per_page=10`, {
+      headers: { Authorization: pexelsKey }
+    });
+    if (pres.ok) {
+      let pj = await pres.json();
+      for (const p of pj.photos || []) {
+        const direct = p.src?.large2x || p.src?.large || p.src?.original;
+        if (!direct) continue;
+        bannerUrl = direct;
+        bannerAttribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
+        break;
       }
-    } catch (err) {
-      console.error('Error al generar imagen con Gemini:', err);
     }
-  } catch (e) {
-    console.warn('No se pudo generar imagen con Gemini, usando imagen local.');
+    // 2. Si no se encontró, buscar por "programación"
+    if (bannerUrl === '/logos-he-imagenes/programacion.jpeg') {
+      pres = await fetch(`https://api.pexels.com/v1/search?query=programación&per_page=10`, {
+        headers: { Authorization: pexelsKey }
+      });
+      if (pres.ok) {
+        let pj = await pres.json();
+        for (const p of pj.photos || []) {
+          const direct = p.src?.large2x || p.src?.large || p.src?.original;
+          if (!direct) continue;
+          bannerUrl = direct;
+          bannerAttribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
+          break;
+        }
+      }
+    }
   }
 
   // 5) Rellenar plantilla

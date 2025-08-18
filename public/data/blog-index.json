@@ -1,6 +1,6 @@
 [
   {
-    "id": "buenas-practicas-de-react-y-rendimiento-guia-definitiva",
+    "id": "buenas-practicas-de-react-y-rendimiento-guia-def",
     "title": "Buenas Prácticas de React y Rendimiento: Guía Definitiva",
     "description": "Optimizar el rendimiento de tus aplicaciones React es crucial para ofrecer una experiencia de usuario fluida y eficiente. Este artículo, una guía completa de bu",
     "excerpt": "Optimizar el rendimiento de tus aplicaciones React es crucial para ofrecer una experiencia de usuario fluida y eficiente.  Este artículo, una guía completa de buenas prácticas de React y rendimiento, te proporcionará las herramientas y el conocimiento necesarios para construir aplicaciones React rápidas y escalables, incluso para principiantes. Aprenderás a identificar y solucionar problemas de rendimiento comunes, convirtiendo tu desarrollo en un proceso más eficiente.",
@@ -14,26 +14,14 @@
       "buenas prácticas de react y rendimiento principiantes",
       "buenas prácticas de react y rendimiento 2025"
     ],
-    "tags": [
-      "Buenas prácticas de React y rendimiento",
-      "buenas prácticas de react y rendimiento guía",
-      "buenas prácticas de react y rendimiento tutorial",
-      "buenas prácticas de react y rendimiento mejores prácticas",
-      "buenas prácticas de react y rendimiento ejemplos",
-      "buenas prácticas de react y rendimiento rendimiento",
-      "buenas prácticas de react y rendimiento principiantes",
-      "buenas prácticas de react y rendimiento 2025"
-    ],
     "author": "hgaruna",
     "category": "Frontend",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T20:24:06.358Z",
-    "readingTime": 5,
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-guia-def.html",
-    "image": "/logos-he-imagenes/programacion.jpeg"
+    "image": "https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
-    "id": "optimizacion-de-imagenes-para-sitios-web-con-webp-y",
+    "id": "optimizacion-de-imagenes-para-sitios-web-con-web",
     "title": "Optimización de imágenes para sitios web con WebP y",
     "description": "Meta descripción: Aprende a optimizar tus imágenes web para un rendimiento superior utilizando el formato WebP y técnicas de compresión inteligente. Mejora la v",
     "excerpt": "Meta descripción: Aprende a optimizar tus imágenes web para un rendimiento superior utilizando el formato WebP y técnicas de compresión inteligente. Mejora la velocidad de carga y la experiencia del usuario.",
@@ -47,26 +35,14 @@
       "optimización de imágenes para sitios web con webp y compresión inteligente principiantes",
       "optimización de imágenes para sitios web con webp y compresión inteligente 2025"
     ],
-    "tags": [
-      "Optimización de imágenes para sitios web con WebP y compresión inteligente",
-      "optimización de imágenes para sitios web con webp y compresión inteligente guía",
-      "optimización de imágenes para sitios web con webp y compresión inteligente tutorial",
-      "optimización de imágenes para sitios web con webp y compresión inteligente mejores prácticas",
-      "optimización de imágenes para sitios web con webp y compresión inteligente ejemplos",
-      "optimización de imágenes para sitios web con webp y compresión inteligente rendimiento",
-      "optimización de imágenes para sitios web con webp y compresión inteligente principiantes",
-      "optimización de imágenes para sitios web con webp y compresión inteligente 2025"
-    ],
     "author": "hgaruna",
     "category": "Performance y Optimización",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T20:24:32.512Z",
-    "readingTime": 6,
     "path": "/blog/optimizacion-de-imagenes-para-sitios-web-con-web.html",
-    "image": "/logos-he-imagenes/programacion.jpeg"
+    "image": "https://images.pexels.com/photos/24836825/pexels-photo-24836825.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
-    "id": "optimizacion-de-imagenes-para-web-con-webp-y-lazy-loading",
+    "id": "optimizacion-de-imagenes-para-web-con-webp-y-laz",
     "title": "Optimización de Imágenes para Web con WebP y Lazy Loading",
     "description": "Resumen: Aprende a optimizar tus imágenes web con WebP y lazy loading para mejorar significativamente la velocidad de carga y la experiencia del usuario, optimi",
     "excerpt": "Resumen:  Aprende a optimizar tus imágenes web con WebP y lazy loading para mejorar significativamente la velocidad de carga y la experiencia del usuario, optimizando el rendimiento frontend de tu sitio web.  Domina estas técnicas para un mejor posicionamiento SEO y una mayor satisfacción de tus visitantes.",
@@ -80,26 +56,14 @@
       "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend principiantes",
       "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend 2025"
     ],
-    "tags": [
-      "Optimización de Imágenes para Web con WebP y Lazy Loading: Mejora del Performance Frontend",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend guía",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend tutorial",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend mejores prácticas",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend ejemplos",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend rendimiento",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend principiantes",
-      "optimización de imágenes para web con webp y lazy loading: mejora del performance frontend 2025"
-    ],
     "author": "hgaruna",
     "category": "Performance y Optimización",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T20:24:06.358Z",
-    "readingTime": 6,
     "path": "/blog/optimizacion-de-imagenes-para-web-con-webp-y-laz.html",
-    "image": "/logos-he-imagenes/programacion.jpeg"
+    "image": "https://images.pexels.com/photos/33502751/pexels-photo-33502751.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
-    "id": "optimizacion-de-imagenes-para-webp-mejora-del-rendimiento-y",
+    "id": "optimizacion-de-imagenes-para-webp-mejora-del-re",
     "title": "Optimización de Imágenes para WebP: Mejora del rendimiento y",
     "description": "Resumen: Aprende a optimizar tus imágenes para WebP, un formato moderno que mejora significativamente la velocidad de carga de tu sitio web y beneficia tu posic",
     "excerpt": "Resumen:  Aprende a optimizar tus imágenes para WebP, un formato moderno que mejora significativamente la velocidad de carga de tu sitio web y beneficia tu posicionamiento SEO. Este artículo te guiará a través del proceso, desde la conversión hasta las mejores prácticas para su implementación.",
@@ -113,26 +77,14 @@
       "optimización de imágenes para webp: mejora del rendimiento y la seo principiantes",
       "optimización de imágenes para webp: mejora del rendimiento y la seo 2025"
     ],
-    "tags": [
-      "Optimización de imágenes para WebP: Mejora del rendimiento y la SEO",
-      "optimización de imágenes para webp: mejora del rendimiento y la seo guía",
-      "optimización de imágenes para webp: mejora del rendimiento y la seo tutorial",
-      "optimización de imágenes para webp: mejora del rendimiento y la seo mejores prácticas",
-      "optimización de imágenes para webp: mejora del rendimiento y la seo ejemplos",
-      "optimización de imágenes para webp: mejora del rendimiento y la seo rendimiento",
-      "optimización de imágenes para webp: mejora del rendimiento y la seo principiantes",
-      "optimización de imágenes para webp: mejora del rendimiento y la seo 2025"
-    ],
     "author": "hgaruna",
     "category": "Performance y Optimización",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T20:24:06.358Z",
-    "readingTime": 6,
     "path": "/blog/optimizacion-de-imagenes-para-webp-mejora-del-re.html",
-    "image": "/logos-he-imagenes/programacion.jpeg"
+    "image": "https://images.pexels.com/photos/33501794/pexels-photo-33501794.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
-    "id": "optimizacion-de-imagenes-web-con-webp-para-una-mejor",
+    "id": "optimizacion-de-imagenes-web-con-webp-para-una-m",
     "title": "Optimización de Imágenes Web con WebP para una Mejor",
     "description": "La optimización de imágenes es crucial para la velocidad de carga de un sitio web y, por ende, para la experiencia del usuario y el posicionamiento en buscadore",
     "excerpt": "La optimización de imágenes es crucial para la velocidad de carga de un sitio web y, por ende, para la experiencia del usuario y el posicionamiento en buscadores.  En 2024, WebP se posiciona como el formato ideal para lograr una excelente performance.  Este artículo profundiza en las ventajas de WebP y te guía en su implementación para optimizar tus imágenes web.",
@@ -146,22 +98,10 @@
       "optimización de imágenes web con webp para una mejor performance en 2024 principiantes",
       "optimización de imágenes web con webp para una mejor performance en 2024 2025"
     ],
-    "tags": [
-      "Optimización de Imágenes Web con WebP para una Mejor Performance en 2024",
-      "optimización de imágenes web con webp para una mejor performance en 2024 guía",
-      "optimización de imágenes web con webp para una mejor performance en 2024 tutorial",
-      "optimización de imágenes web con webp para una mejor performance en 2024 mejores prácticas",
-      "optimización de imágenes web con webp para una mejor performance en 2024 ejemplos",
-      "optimización de imágenes web con webp para una mejor performance en 2024 rendimiento",
-      "optimización de imágenes web con webp para una mejor performance en 2024 principiantes",
-      "optimización de imágenes web con webp para una mejor performance en 2024 2025"
-    ],
     "author": "hgaruna",
     "category": "Performance y Optimización",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T20:24:06.359Z",
-    "readingTime": 6,
     "path": "/blog/optimizacion-de-imagenes-web-con-webp-para-una-m.html",
-    "image": "/logos-he-imagenes/programacion.jpeg"
+    "image": "https://images.pexels.com/photos/24836825/pexels-photo-24836825.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   }
 ]

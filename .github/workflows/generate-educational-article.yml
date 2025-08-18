@@ -46,6 +46,9 @@ jobs:
       - name: Build blog enriched index
         run: npm run blog:index
 
+      - name: Actualizar imágenes y blog-index
+        run: node scripts/update-images-workflow.js
+
       - name: Commit and push
         env:
           GIT_AUTHOR_NAME: github-actions
