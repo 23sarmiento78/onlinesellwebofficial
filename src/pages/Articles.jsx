@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { AdSenseBanner, AdSenseInArticle } from '../components/AdSenseAd';
-import { getBlogArticles } from '../utils/getBlogArticles';
+import { getBlogArticles } from '../utils/getBlogArticles2';
 import { searchArticles } from '../utils/searchArticles';
 import './Articles.css';
 import '../styles/hero.css';
@@ -88,6 +88,15 @@ export default function Articles() {
 
     handleSearch();
   }, [searchTerm, articlesData]);
+
+  // Función para manejar envío del formulario de búsqueda
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      // La búsqueda ya se maneja automáticamente con el useEffect
+      // pero podemos agregar lógica adicional aquí si es necesario
+    }
+  };
 
   // Artículos de fallback en caso de error
   const fallbackArticles = [
@@ -211,63 +220,110 @@ export default function Articles() {
   return (
     <div className="articles-page">
       {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-grid-background"></div>
-        <div className="hero-content">
-          <div className="hero-main">
-            <h1 className="hero-title">
-              <i className="fas fa-newspaper"></i>
-              Artículos de Desarrollo
+      <section className="blog-hero">
+        <div className="blog-hero-content">
+          <div className="hero-main-content">
+            <div className="hero-badge-section">
+              <span className="hero-badge">
+                <i className="fas fa-rocket"></i>
+                Blog de Desarrollo
+              </span>
+            </div>
+
+            <h1 className="hero-main-title">
+              Artículos de <span className="title-accent">Desarrollo</span>
             </h1>
+
             <p className="hero-description">
-              Explora nuestra colección de tutoriales, guías y artículos técnicos 
-              escritos por expertos de la industria
+              Explora tutoriales, guías técnicas y artículos especializados
+              escritos por desarrolladores para desarrolladores
             </p>
-            
-            <div className="hero-search-container">
-              <div className="hero-search-bar">
-                <i className="fas fa-search"></i>
-                <input
-                  type="text"
-                  placeholder="Buscar artículos, tecnologías, tutoriales..."
-                  value={searchTerm}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setSearchTerm(value);
-                    setSearchParams(value ? { q: value } : {});
-                  }}
-                  className="hero-search-input"
-                />
-                {searchTerm && (
-                  <button 
-                    className="hero-search-clear"
-                    onClick={() => setSearchTerm('')}
-                  >
-                    <i className="fas fa-times"></i>
-                  </button>
-                )}
+
+            <div className="hero-search-section">
+              <form onSubmit={handleSearch} className="hero-search-form">
+                <div className="search-input-container">
+                  <i className="fas fa-search"></i>
+                  <input
+                    type="text"
+                    placeholder="Buscar artículos, tecnologías, tutoriales..."
+                    value={searchTerm}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setSearchTerm(value);
+                      setSearchParams(value ? { q: value } : {});
+                    }}
+                  />
+                  {searchTerm && (
+                    <button
+                      type="button"
+                      className="search-clear-btn"
+                      onClick={() => setSearchTerm('')}
+                    >
+                      <i className="fas fa-times"></i>
+                    </button>
+                  )}
+                </div>
+                <button type="submit" className="search-submit-btn">
+                  <i className="fas fa-arrow-right"></i>
+                </button>
+              </form>
+
+              <div className="search-tags">
+                <span className="tags-label">Populares:</span>
+                <button className="search-tag" onClick={() => setSearchTerm('React')}>React</button>
+                <button className="search-tag" onClick={() => setSearchTerm('JavaScript')}>JavaScript</button>
+                <button className="search-tag" onClick={() => setSearchTerm('Node.js')}>Node.js</button>
+                <button className="search-tag" onClick={() => setSearchTerm('CSS')}>CSS</button>
               </div>
             </div>
 
-            <div className="hero-stats">
-              <div className="hero-stat">
-                <span className="hero-stat-number">{articlesData.length}</span>
-                <span className="hero-stat-label">Artículos</span>
+            <div className="hero-stats-grid">
+              <div className="stat-item">
+                <div className="stat-icon">
+                  <i className="fas fa-newspaper"></i>
+                </div>
+                <div className="stat-info">
+                  <span className="stat-number">{articlesData.length}</span>
+                  <span className="stat-label">Artículos</span>
+                </div>
               </div>
-              <div className="hero-stat">
-                <span className="hero-stat-number">{filteredCategories.length - 1}</span>
-                <span className="hero-stat-label">Categorías</span>
+
+              <div className="stat-item">
+                <div className="stat-icon">
+                  <i className="fas fa-tags"></i>
+                </div>
+                <div className="stat-info">
+                  <span className="stat-number">{filteredCategories.length - 1}</span>
+                  <span className="stat-label">Categorías</span>
+                </div>
               </div>
-              <div className="hero-stat">
-                <span className="hero-stat-number">
-                  {articlesData.reduce((sum, article) => sum + (Number(article.views) || 0), 0).toLocaleString()}
-                </span>
-                <span className="hero-stat-label">Lecturas</span>
+
+              <div className="stat-item">
+                <div className="stat-icon">
+                  <i className="fas fa-eye"></i>
+                </div>
+                <div className="stat-info">
+                  <span className="stat-number">
+                    {Math.floor(articlesData.reduce((sum, article) => sum + (Number(article.views) || 0), 0) / 1000)}K+
+                  </span>
+                  <span className="stat-label">Lecturas</span>
+                </div>
+              </div>
+
+              <div className="stat-item live-stat">
+                <div className="stat-icon">
+                  <i className="fas fa-circle"></i>
+                </div>
+                <div className="stat-info">
+                  <span className="stat-number">Live</span>
+                  <span className="stat-label">Actualizándose</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="hero-glow"></div>
+
+        <div className="hero-background-pattern"></div>
       </section>
 
       {/* AdSense Banner */}

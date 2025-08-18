@@ -28,6 +28,7 @@ function estimateReadingTime(text) {
   return Math.max(1, Math.ceil(words / 200));
 }
 
+//
 function inferCategory({ title = '', keywords = [] }, text = '') {
   const t = `${title} ${keywords.join(' ')} ${text}`.toLowerCase();
   if (/(react|vue|angular|frontend|css|html|javascript(?!\s*node))/i.test(t)) return 'Frontend';
@@ -42,17 +43,48 @@ function inferCategory({ title = '', keywords = [] }, text = '') {
   if (/(seguridad|security|owasp|auth|jwt)/i.test(t)) return 'Seguridad';
   if (/(tendencias|trend|futuro|roadmap)/i.test(t)) return 'Tendencias y Futuro';
   return 'Todos';
+//
+function processPlaceholders(text, fallbacks = {}) {
+  if (!text || typeof text !== 'string') return text;
+
+  const replacements = {
+    '{{SEO_TITLE}}': fallbacks.title || 'Artículo de Desarrollo',
+    '{{SEO_DESCRIPTION}}': fallbacks.description || 'Artículo generado por inteligencia artificial',
+    '{{SEO_KEYWORDS}}': fallbacks.keywords || 'desarrollo web, programación',
+    '{{FEATURED_IMAGE}}': fallbacks.image || '/logos-he-imagenes/programacion.jpeg',
+    '{{CANONICAL_URL}}': fallbacks.url || '#',
+    '{{CATEGORY}}': fallbacks.category || 'General',
+    '{{EDUCATIONAL_LEVEL}}': 'Intermedio',
+    '{{READING_TIME}}': fallbacks.readingTime || '5 min',
+    '{{TITLE}}': fallbacks.title || 'Artículo de Desarrollo',
+    '{{ARTICLE_TITLE}}': fallbacks.title || 'Artículo de Desarrollo',
+    '{{ARTICLE_SUMMARY}}': fallbacks.description || 'Artículo generado por inteligencia artificial',
+    '{{AUTHOR}}': fallbacks.author || 'hgaruna',
+    '{{WORD_COUNT}}': '800',
+    '{{TAGS_HTML}}': fallbacks.tagsHtml || '',
+    '{{ARTICLE_CONTENT}}': fallbacks.content || '',
+    '{{PUBLISH_DATE}}': fallbacks.date || new Date().toISOString().split('T')[0]
+  };
+
+  let processed = text;
+  for (const [placeholder, replacement] of Object.entries(replacements)) {
+    processed = processed.replaceAll(placeholder, replacement);
+  }
+
+  return processed;
+//
 }
 
 function extractMeta($) {
-  const title = $('head > title').first().text().trim() || $('h1, h2').first().text().trim();
-  const description = $('meta[name="description"]').attr('content') || $('p').first().text().trim().slice(0, 160);
-  const keywords = ($('meta[name="keywords"]').attr('content') || '')
+  const rawTitle = $('head > title').first().text().trim() || $('h1, h2').first().text().trim();
+  const rawDescription = $('meta[name="description"]').attr('content') || $('p').first().text().trim().slice(0, 160);
+  const rawKeywords = ($('meta[name="keywords"]').attr('content') || '')
     .split(',')
     .map(s => s.trim())
     .filter(Boolean);
-  const author = $('meta[name="author"]').attr('content') || 'hgaruna.com';
+  const rawAuthor = $('meta[name="author"]').attr('content') || 'hgaruna';
   const date = $('meta[name="date"]').attr('content') || $('time[datetime]').attr('datetime') || '';
+//
   const category = $('meta[name="category"]').attr('content')
     || $('meta[property="article:section"]').attr('content')
     || '';
@@ -60,6 +92,20 @@ function extractMeta($) {
   const contentText = $('main').text() || $('body').text();
   const readingTime = estimateReadingTime(contentText);
   return { title, description, keywords, author, date, category, excerpt, readingTime };
+//
+  const rawExcerpt = $('main p').first().text().trim() || $('p').first().text().trim();
+  const contentText = $('main').text() || $('body').text();
+  const readingTime = estimateReadingTime(contentText);
+
+  // Procesar placeholders
+  const title = processPlaceholders(rawTitle, { title: 'Artículo de Desarrollo' });
+  const description = processPlaceholders(rawDescription, { description: 'Artículo generado por inteligencia artificial' });
+  const keywords = rawKeywords.map(k => processPlaceholders(k, { keywords: 'desarrollo web' })).filter(k => !k.includes('{{'));
+  const author = processPlaceholders(rawAuthor, { author: 'hgaruna' });
+  const excerpt = processPlaceholders(rawExcerpt, { description });
+
+  return { title, description, keywords, author, date, excerpt, readingTime };
+//
 }
 
 async function main() {
@@ -97,7 +143,7 @@ async function main() {
         lastmod,
         readingTime: meta.readingTime,
         path: `/blog/${file}`,
-        image: $('meta[property="og:image"]').attr('content') || ''
+        image: processPlaceholders($('meta[property="og:image"]').attr('content') || '', { image: '/logos-he-imagenes/programacion.jpeg' })
       };
       items.push(item);
     } catch (e) {
