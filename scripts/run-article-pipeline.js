@@ -61,9 +61,44 @@ async function fetchKeywords(topic) {
   return Array.from(new Set([topic, ...suggestions, ...extras.map(e => `${base} ${e}`)])).slice(0, 15);
 }
 
-async function fetchImage(topic) {
+const CATEGORY_LIST = [
+  'Frontend',
+  'Backend',
+  'DevOps y Cloud',
+  'Performance y Optimización',
+  'Arquitectura y Patrones',
+  'Bases de Datos',
+  'Testing y Calidad',
+  'Herramientas y Productividad',
+  'Inteligencia Artificial',
+  'Seguridad',
+  'Tendencias y Futuro'
+];
+
+function pickCategory(title, keywords) {
+  const text = `${title} ${(keywords||[]).join(' ')}`.toLowerCase();
+  const rules = [
+    ['Frontend', [/react|vue|angular|svelte|css|html|vite|dom|ui|ux|frontend/]],
+    ['Backend', [/node\b|express|nest|spring|django|flask|api\b|rest\b|graphql|backend/]],
+    ['DevOps y Cloud', [/docker|kubernetes|ci\/cd|github actions|aws|azure|gcp|cloud|devops/]],
+    ['Performance y Optimización', [/rendimiento|performance|optimiza|carga|lighthouse|web vitals|memo|cache/]],
+    ['Arquitectura y Patrones', [/arquitectura|ddd|hexagonal|patrones|design pattern|microservicios/]],
+    ['Bases de Datos', [/sql|mysql|postgres|mongodb|redis|database|prisma|orm/]],
+    ['Testing y Calidad', [/test|jest|cypress|playwright|tdd|qa|calidad|coverage/]],
+    ['Herramientas y Productividad', [/productividad|herramientas|editor|vs code|cli|automatiza/]],
+    ['Inteligencia Artificial', [/ia\b|ai\b|gpt|gemini|ml\b|machine learning|llm|modelo/]],
+    ['Seguridad', [/seguridad|security|auth|jwt|csrf|xss|cifrado|owasp/]],
+    ['Tendencias y Futuro', [/tendencia|futuro|roadmap|202[4-9]|novedad|innovación/]]
+  ];
+  for (const [cat, pats] of rules) {
+    if (pats.some(r => r.test(text))) return cat;
+  }
+  return 'Frontend';
+}
+
+async function fetchImage(searchTerm) {
   // 1) Wikimedia Commons (namespace 6 = File), imágenes raster
-  const commons = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent(topic)}&gsrlimit=10&prop=imageinfo&iiprop=url|extmetadata&format=json&origin=*`;
+  const commons = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent(searchTerm)}&gsrlimit=10&prop=imageinfo&iiprop=url|extmetadata&format=json&origin=*`;
   try {
     const res = await fetch(commons);
     if (res.ok) {
@@ -84,7 +119,7 @@ async function fetchImage(topic) {
 
   // 2) Wikipedia: buscar página relacionada y tomar imagen principal
   try {
-    const wikiSearch = `https://es.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(topic)}&srlimit=1&format=json&origin=*`;
+    const wikiSearch = `https://es.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchTerm)}&srlimit=1&format=json&origin=*`;
     const sres = await fetch(wikiSearch);
     if (sres.ok) {
       const sjson = await sres.json();
@@ -105,6 +140,63 @@ async function fetchImage(topic) {
               }
             }
           }
+        }
+      }
+    }
+  } catch {}
+
+  // 3) Openverse (sin API key)
+  try {
+    const ov = `https://api.openverse.engineering/v1/images?q=${encodeURIComponent(searchTerm)}&page_size=5`;
+    const ores = await fetch(ov);
+    if (ores.ok) {
+      const data = await ores.json();
+      for (const item of data.results || []) {
+        const direct = item.url || item.thumbnail;
+        if (!direct) continue;
+        const pathname = new URL(direct).pathname;
+        const ext = (path.extname(pathname) || '').toLowerCase();
+        if (!/(\.jpe?g|\.png|\.webp)$/.test(ext)) continue;
+        const attribution = item.creator || item.title || 'Openverse';
+        return { url: direct, ext, attribution, source: 'Openverse' };
+      }
+    }
+  } catch {}
+
+  // 4) Unsplash (opcional)
+  try {
+    const key = process.env.UNSPLASH_ACCESS_KEY;
+    if (key) {
+      const u = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(searchTerm)}&per_page=5&client_id=${key}`;
+      const ures = await fetch(u);
+      if (ures.ok) {
+        const uj = await ures.json();
+        for (const p of uj.results || []) {
+          const direct = p.urls?.regular || p.urls?.full;
+          if (!direct) continue;
+          const ext = '.jpg';
+          const attribution = p.user?.name ? `Unsplash - ${p.user.name}` : 'Unsplash';
+          return { url: direct, ext, attribution, source: 'Unsplash' };
+        }
+      }
+    }
+  } catch {}
+
+  // 5) Pexels (opcional)
+  try {
+    const key = process.env.PEXELS_API_KEY;
+    if (key) {
+      const pres = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(searchTerm)}&per_page=5`, {
+        headers: { Authorization: key }
+      });
+      if (pres.ok) {
+        const pj = await pres.json();
+        for (const p of pj.photos || []) {
+          const direct = p.src?.large2x || p.src?.large || p.src?.original;
+          if (!direct) continue;
+          const ext = '.jpg';
+          const attribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
+          return { url: direct, ext, attribution, source: 'Pexels' };
         }
       }
     }
@@ -209,7 +301,11 @@ async function main() {
   // Definir título SEO corto y basar el slug en él para evitar nombres de archivo demasiado largos
   const seoTitle = shortenForSeo(derivedTitle, 60);
   const slug = toSlug(seoTitle);
-  const imgInfo = await fetchImage(TOPIC);
+  // Categoría automática si no viene de entrada
+  const autoCategory = pickCategory(derivedTitle, keywords);
+  const CATEGORY = process.env.ARTICLE_CATEGORY && CATEGORY_LIST.includes(process.env.ARTICLE_CATEGORY) ? process.env.ARTICLE_CATEGORY : autoCategory;
+  // Buscar imagen mediante la categoría
+  const imgInfo = await fetchImage(CATEGORY || TOPIC);
   const featuredImage = await downloadImageToPublic(imgInfo.url, slug, imgInfo.ext);
 
   // 5) Rellenar plantilla
