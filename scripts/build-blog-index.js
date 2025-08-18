@@ -28,6 +28,22 @@ function estimateReadingTime(text) {
   return Math.max(1, Math.ceil(words / 200));
 }
 
+function inferCategory({ title = '', keywords = [] }, text = '') {
+  const t = `${title} ${keywords.join(' ')} ${text}`.toLowerCase();
+  if (/(react|vue|angular|frontend|css|html|javascript(?!\s*node))/i.test(t)) return 'Frontend';
+  if (/(node|express|django|flask|spring|backend|api|graphql)/i.test(t)) return 'Backend';
+  if (/(devops|docker|kubernetes|k8s|aws|azure|gcp|cloud|ci\/cd)/i.test(t)) return 'DevOps y Cloud';
+  if (/(performance|optimiza|web vitals|lighthouse)/i.test(t)) return 'Performance y Optimización';
+  if (/(arquitectura|patrones|ddd|microservicios|clean architecture|design pattern)/i.test(t)) return 'Arquitectura y Patrones';
+  if (/(database|sql|postgres|mysql|mongodb|redis)/i.test(t)) return 'Bases de Datos';
+  if (/(test|jest|cypress|qa|quality)/i.test(t)) return 'Testing y Calidad';
+  if (/(productividad|herramientas|vscode|tips|trucos|workflow)/i.test(t)) return 'Herramientas y Productividad';
+  if (/(ia|ai|machine learning|ml|deep learning|inteligencia artificial|gemini|openai)/i.test(t)) return 'Inteligencia Artificial';
+  if (/(seguridad|security|owasp|auth|jwt)/i.test(t)) return 'Seguridad';
+  if (/(tendencias|trend|futuro|roadmap)/i.test(t)) return 'Tendencias y Futuro';
+  return 'Todos';
+}
+
 function extractMeta($) {
   const title = $('head > title').first().text().trim() || $('h1, h2').first().text().trim();
   const description = $('meta[name="description"]').attr('content') || $('p').first().text().trim().slice(0, 160);
@@ -37,10 +53,13 @@ function extractMeta($) {
     .filter(Boolean);
   const author = $('meta[name="author"]').attr('content') || 'hgaruna.com';
   const date = $('meta[name="date"]').attr('content') || $('time[datetime]').attr('datetime') || '';
+  const category = $('meta[name="category"]').attr('content')
+    || $('meta[property="article:section"]').attr('content')
+    || '';
   const excerpt = $('main p').first().text().trim() || $('p').first().text().trim();
   const contentText = $('main').text() || $('body').text();
   const readingTime = estimateReadingTime(contentText);
-  return { title, description, keywords, author, date, excerpt, readingTime };
+  return { title, description, keywords, author, date, category, excerpt, readingTime };
 }
 
 async function main() {
@@ -64,6 +83,7 @@ async function main() {
       const nameNoExt = file.replace(/\.html$/i, '');
       const slug = toSlug(meta.title) || nameNoExt;
 
+      const category = meta.category || inferCategory({ title: meta.title, keywords: meta.keywords }, $('main').text());
       const item = {
         id: slug,
         title: meta.title || nameNoExt,
@@ -72,6 +92,7 @@ async function main() {
         keywords: meta.keywords,
         tags: meta.keywords,
         author: meta.author,
+        category,
         datePublished,
         lastmod,
         readingTime: meta.readingTime,

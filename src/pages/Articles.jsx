@@ -114,18 +114,18 @@ export default function Articles() {
     }
   ];
 
+  const [filteredCategories, setFilteredCategories] = useState(categories);
+
   // Actualizar contadores de categorías
   useEffect(() => {
     const updatedCategories = categories.map(cat => ({
       ...cat,
-      count: cat.name === 'Todos' 
-        ? articlesData.length 
+      count: cat.name === 'Todos'
+        ? articlesData.length
         : articlesData.filter(article => article.category === cat.name).length
     }));
-    setCategories(updatedCategories);
+    setFilteredCategories(updatedCategories);
   }, [articlesData]);
-
-  const [filteredCategories, setCategories] = useState(categories);
 
   // Filtrar artículos
   const filteredArticles = searchResults
