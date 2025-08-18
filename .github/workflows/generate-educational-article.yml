@@ -31,17 +31,20 @@ jobs:
           test -f scripts/run-article-pipeline.js
           test -f scripts/build-blog-index.js
 
-      - name: Generate article with Gemini 1.5 Flash
+      - name: Generate 3 unique articles (batch)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SITE_URL: ${{ vars.SITE_URL }}
-          # Preferencias de imágenes (puedes ajustarlas desde el repositorio o variables del entorno)
           IMAGE_SOURCE_ORDER: unsplash,pexels,openverse,commons,wikipedia
           MIN_IMAGE_WIDTH: 1200
           MIN_IMAGE_HEIGHT: 675
           PREFER_LANDSCAPE: 'true'
         run: |
-          node scripts/run-article-pipeline.js
+          node scripts/run-article-batch.js
+
+
+      - name: Copiar artículos y datos generados a dist
+        run: node scripts/copy-generated-to-dist.js
 
       - name: Build blog enriched index
         run: npm run blog:index
