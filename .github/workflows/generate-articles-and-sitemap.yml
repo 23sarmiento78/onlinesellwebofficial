@@ -16,6 +16,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
       - name: Instalar Node.js
         uses: actions/setup-node@v4
         with:
@@ -35,6 +41,42 @@ jobs:
         run: |
           mkdir -p public/blog
           mkdir -p public/data
+
+      - name: Marcar inicio de generación
+        run: |
+          rm -f .gen_start || true
+          date -u +%Y-%m-%dT%H:%M:%SZ > .gen_start
+
+      - name: Verificar scripts necesarios
+        run: |
+          missing=0
+          for f in \
+            scripts/generate-educational-articles-adsense.js \
+            scripts/generate-programming-tutorials.js \
+            scripts/optimize-articles-adsense.js \
+            scripts/add-category-meta.js \
+            scripts/build-blog-index.js \
+            scripts/validate-adsense-compliance.mjs \
+            scripts/update-sitemap.js \
+            scripts/publish-to-socials-modern.js; do
+            if [ ! -f "$f" ]; then echo "❌ Falta $f"; missing=1; fi
+          done
+          if [ "$missing" -ne 0 ]; then
+            echo "Algunos scripts faltan. Revisa el repositorio."; exit 1
+          fi
+
+      - name: Verificar secret GEMINI_API_KEY si se van a generar artículos
+        env:
+          EDU_COUNT: ${{ vars.EDU_COUNT }}
+          TUTORIAL_COUNT: ${{ vars.TUTORIAL_COUNT }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          REQ_EDU=${EDU_COUNT:-3}
+          REQ_TUT=${TUTORIAL_COUNT:-2}
+          TOTAL_REQ=$((REQ_EDU + REQ_TUT))
+          if [ "$TOTAL_REQ" -gt 0 ] && [ -z "$GEMINI_API_KEY" ]; then
+            echo "❌ Se solicitaron $TOTAL_REQ artículos pero falta el secret GEMINI_API_KEY"; exit 1
+          fi
 
       - name: Generar artículos educativos optimizados para AdSense
         env:
@@ -61,8 +103,28 @@ jobs:
       - name: Generar índice de artículos (JSON)
         run: timeout 300 node scripts/build-blog-index.js
 
+      - name: Verificar artículos generados en public/blog
+        env:
+          EDU_COUNT: ${{ vars.EDU_COUNT }}
+          TUTORIAL_COUNT: ${{ vars.TUTORIAL_COUNT }}
+        run: |
+          REQ_EDU=${EDU_COUNT:-3}
+          REQ_TUT=${TUTORIAL_COUNT:-2}
+          TOTAL_REQ=$((REQ_EDU + REQ_TUT))
+          echo "Solicitados: $TOTAL_REQ (Edu=$REQ_EDU, Tut=$REQ_TUT)"
+          echo "Archivos nuevos desde el marcador:" 
+          # Listar y contar HTMLs nuevos desde .gen_start
+          NEW_FILES=$(find public/blog -type f -name '*.html' -newer .gen_start | sort || true)
+          echo "$NEW_FILES"
+          NEW_COUNT=$(echo "$NEW_FILES" | sed '/^$/d' | wc -l | tr -d ' ')
+          echo "Nuevos: $NEW_COUNT"
+          if [ "$TOTAL_REQ" -gt 0 ] && [ "$NEW_COUNT" -eq 0 ]; then
+            echo "❌ No se generaron nuevos artículos HTML en public/blog."
+            exit 1
+          fi
+
       - name: Validar compliance AdSense
-        run: timeout 600 node scripts/validate-adsense-compliance.js
+        run: timeout 600 node scripts/validate-adsense-compliance.mjs --verbose
 
       - name: Publicar en Redes Sociales
         env:
