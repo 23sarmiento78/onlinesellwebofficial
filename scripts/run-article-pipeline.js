@@ -136,52 +136,8 @@ function acceptableWH(w, h, prefs) {
   return true;
 }
 
-async function fetchImage(searchTerm) {
-  // Solo buscar en Pexels
-  const key = process.env.PEXELS_API_KEY;
-  if (key) {
-    // 1. Buscar por la categoría del artículo
-    let pres = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(searchTerm)}&per_page=10`, {
-      headers: { Authorization: key }
-    });
-    if (pres.ok) {
-      let pj = await pres.json();
-      for (const p of pj.photos || []) {
-        const direct = p.src?.large2x || p.src?.large || p.src?.original;
-        if (!direct) continue;
-        // Validar que la URL es accesible
-        try {
-          const testRes = await fetch(direct, { method: 'HEAD' });
-          if (testRes.ok) {
-            const ext = '.jpg';
-            const attribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
-            return { url: direct, ext, attribution, source: 'Pexels' };
-          }
-        } catch {}
-      }
-    }
-    // 2. Si no se encontró, buscar por "programación"
-    pres = await fetch(`https://api.pexels.com/v1/search?query=programación&per_page=10`, {
-      headers: { Authorization: key }
-    });
-    if (pres.ok) {
-      let pj = await pres.json();
-      for (const p of pj.photos || []) {
-        const direct = p.src?.large2x || p.src?.large || p.src?.original;
-        if (!direct) continue;
-        try {
-          const testRes = await fetch(direct, { method: 'HEAD' });
-          if (testRes.ok) {
-            const ext = '.jpg';
-            const attribution = p.photographer ? `Pexels - ${p.photographer}` : 'Pexels';
-            return { url: direct, ext, attribution, source: 'Pexels' };
-          }
-        } catch {}
-      }
-    }
-  }
-  // 3. Si no se encontró nada, usar imagen local
-  return { url: '/logos-he-imagenes/programacion.jpeg', ext: '.jpg', attribution: 'Default', source: 'Local' };
+// Eliminar función fetchImage (Pexels)
+
 }
 
 async function downloadImageToPublic(url, slug, ext) {
@@ -285,31 +241,50 @@ async function main() {
   let rawExcerpt = $('p').filter((_, el) => $(el).text().trim().length > 60).first().text().trim();
   const excerpt = (rawExcerpt || `Guía sobre ${TOPIC}`).replace(/\s+/g, ' ').slice(0, 160);
 
-  // 4) Imagen destacada y atribución
-  // Definir título SEO corto y basar el slug en él para evitar nombres de archivo demasiado largos
+
+  // 4) Generar banner con Gemini
   const seoTitle = shortenForSeo(derivedTitle, 60);
   const slug = toSlug(seoTitle);
-  // Categoría seleccionada (preferir env > input > propuesta Gemini > heurística)
   const envCategory = process.env.ARTICLE_CATEGORY && CATEGORY_LIST.includes(process.env.ARTICLE_CATEGORY) ? process.env.ARTICLE_CATEGORY : undefined;
   const heuristicCategory = pickCategory(derivedTitle, keywords);
   const selectedCategory = envCategory || initialCategory || heuristicCategory;
-  // Buscar imagen usando el nombre de la categoría
-  const imgInfo = await fetchImage(selectedCategory || TOPIC);
-  const featuredImage = await downloadImageToPublic(imgInfo.url, slug, imgInfo.ext);
+
+  // Prompt para imagen
+  const imagePrompt = `Crea un banner llamativo en formato JPG para el siguiente artículo: "${derivedTitle}". El banner debe ser profesional, atractivo y representar visualmente el tema del artículo. El texto del banner debe ser: "${derivedTitle}". El estilo debe ser moderno y adecuado para una tarjeta de blog.`;
+
+  // Llamada a Gemini para generar imagen
+  let bannerUrl = '/logos-he-imagenes/programacion.jpeg';
+  let bannerAttribution = 'Generado por Gemini';
+  try {
+    const { GoogleGenerativeAI } = await import('@google/generative-ai');
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const imgResp = await model.generateContent({ contents: [{ role: 'user', parts: [{ text: imagePrompt }] }], generationConfig: { responseMimeType: 'image/jpeg' } });
+    const imgData = imgResp.response.parts?.[0]?.data;
+    if (imgData) {
+      const imgBuffer = Buffer.from(imgData, 'base64');
+      const imgPath = path.join(ROOT, 'public', 'images', 'articles', `${slug}.jpg`);
+      await fs.ensureDir(path.dirname(imgPath));
+      await fs.writeFile(imgPath, imgBuffer);
+      bannerUrl = `/images/articles/${slug}.jpg`;
+      bannerAttribution = 'Generado por Gemini';
+    }
+  } catch (e) {
+    console.warn('No se pudo generar imagen con Gemini, usando imagen local.');
+  }
 
   // 5) Rellenar plantilla
   const now = new Date();
   const publishDate = now.toISOString().split('T')[0];
   const canonical = SITE_URL ? new URL(`/blog/${slug}.html`, SITE_URL).toString() : `/blog/${slug}.html`;
   const tagsHtml = tagsHtmlFromKeywords(keywords);
-  // featured img relativa para <img> y absoluta para OG
-  const ogImageUrl = SITE_URL ? new URL(featuredImage, SITE_URL).toString() : featuredImage;
+  const ogImageUrl = SITE_URL ? new URL(bannerUrl, SITE_URL).toString() : bannerUrl;
 
   const filled = applyTemplate(template, {
     SEO_TITLE: seoTitle,
     SEO_DESCRIPTION: excerpt,
     SEO_KEYWORDS: keywords.join(', '),
-    FEATURED_IMAGE: featuredImage,
+    FEATURED_IMAGE: bannerUrl,
     OG_IMAGE_URL: ogImageUrl,
     CANONICAL_URL: canonical,
     CATEGORY: selectedCategory,
@@ -321,7 +296,7 @@ async function main() {
     AUTHOR: 'hgaruna',
     WORD_COUNT: '1300',
     TAGS_HTML: tagsHtml,
-    ARTICLE_CONTENT: renderedHtml + `\n\n<p style=\"color:#a0abc6;font-size:12px\">Crédito de imagen: ${imgInfo.attribution} (${imgInfo.source})</p>`,
+    ARTICLE_CONTENT: renderedHtml + `\n\n<p style=\"color:#a0abc6;font-size:12px\">Crédito de imagen: ${bannerAttribution}</p>`,
     PUBLISH_DATE: publishDate
   });
 
