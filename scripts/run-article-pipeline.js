@@ -138,7 +138,7 @@ function acceptableWH(w, h, prefs) {
 
 // Eliminar función fetchImage (Pexels)
 
-}
+
 
 async function downloadImageToPublic(url, slug, ext) {
   if (url.startsWith('/')) return url; // imagen local
