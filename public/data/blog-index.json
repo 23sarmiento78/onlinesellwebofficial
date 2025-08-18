@@ -614,21 +614,31 @@
     "image": "/logos-he-imagenes/programacion.jpeg"
   },
   {
-    "id": "seotitle",
-    "title": "{{SEO_TITLE}}",
-    "description": "{{SEO_DESCRIPTION}}",
+    "id": "angular-18-nuevas-funcionalidades",
+    "title": "Angular 18: Nuevas Funcionalidades y Mejoras",
+    "description": "Descubre las nuevas características y mejoras de Angular 18 para el desarrollo web moderno. Optimización, productividad del desarrollador y mejores experiencias de usuario.",
     "excerpt": "Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las aplicaciones y la experiencia del usuario.  Esta versión se centra en la optimización, la simplificación del desarrollo y la adopción de las últimas tecnologías.  En este artículo, exploraremos las funcionalidades más destacadas de Angular 18.",
     "keywords": [
-      "{{SEO_KEYWORDS}}"
+      "Angular",
+      "JavaScript",
+      "Frontend",
+      "Desarrollo Web",
+      "Framework",
+      "TypeScript"
     ],
     "tags": [
-      "{{SEO_KEYWORDS}}"
+      "Angular",
+      "JavaScript",
+      "Frontend",
+      "Desarrollo Web",
+      "Framework",
+      "TypeScript"
     ],
     "author": "hgaruna - Aprende Programación",
     "datePublished": "2025-08-18T03:31:46.168Z",
     "lastmod": "2025-08-18T03:31:46.168Z",
     "readingTime": 3,
     "path": "/blog/angular-18-nuevas-fu.html",
-    "image": "{{FEATURED_IMAGE}}"
+    "image": "/logos-he-imagenes/programacion.jpeg"
   }
 ]
