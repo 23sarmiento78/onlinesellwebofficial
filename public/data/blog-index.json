@@ -1,5 +1,38 @@
 [
   {
+    "id": "buenas-practicas-de-react-y-rendimiento-guia-definitiva",
+    "title": "Buenas Prácticas de React y Rendimiento: Guía Definitiva",
+    "description": "Optimizar el rendimiento de tus aplicaciones React es crucial para ofrecer una experiencia de usuario fluida y eficiente. Este artículo, una guía completa de bu",
+    "excerpt": "Optimizar el rendimiento de tus aplicaciones React es crucial para ofrecer una experiencia de usuario fluida y eficiente.  Este artículo, una guía completa de buenas prácticas de React y rendimiento, te proporcionará las herramientas y el conocimiento necesarios para construir aplicaciones React rápidas y escalables, incluso para principiantes. Aprenderás a identificar y solucionar problemas de rendimiento comunes, convirtiendo tu desarrollo en un proceso más eficiente.",
+    "keywords": [
+      "Buenas prácticas de React y rendimiento",
+      "buenas prácticas de react y rendimiento guía",
+      "buenas prácticas de react y rendimiento tutorial",
+      "buenas prácticas de react y rendimiento mejores prácticas",
+      "buenas prácticas de react y rendimiento ejemplos",
+      "buenas prácticas de react y rendimiento rendimiento",
+      "buenas prácticas de react y rendimiento principiantes",
+      "buenas prácticas de react y rendimiento 2025"
+    ],
+    "tags": [
+      "Buenas prácticas de React y rendimiento",
+      "buenas prácticas de react y rendimiento guía",
+      "buenas prácticas de react y rendimiento tutorial",
+      "buenas prácticas de react y rendimiento mejores prácticas",
+      "buenas prácticas de react y rendimiento ejemplos",
+      "buenas prácticas de react y rendimiento rendimiento",
+      "buenas prácticas de react y rendimiento principiantes",
+      "buenas prácticas de react y rendimiento 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Frontend",
+    "datePublished": "2025-08-18",
+    "lastmod": "2025-08-18T18:39:51.992Z",
+    "readingTime": 5,
+    "path": "/blog/buenas-practicas-de-react-y-rendimiento-guia-def.html",
+    "image": "/logos-he-imagenes/programacion.jpeg"
+  },
+  {
     "id": "buenas-practicas-de-react-y-rendimiento",
     "title": "Buenas Prácticas de React y Rendimiento:",
     "description": "Este artículo proporciona una guía completa sobre las mejores prácticas de React para optimizar el rendimiento de tus aplicaciones, incluyendo ejemplos y consej",
@@ -27,42 +60,9 @@
     "author": "hgaruna",
     "category": "Frontend",
     "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T18:29:49.048Z",
+    "lastmod": "2025-08-18T18:39:21.915Z",
     "readingTime": 6,
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-una-guia-completa-para-2025.html",
-    "image": "/logos-he-imagenes/programacion.jpeg"
-  },
-  {
-    "id": "buenas-practicas-de-react-y-rendimiento",
-    "title": "Buenas prácticas de React y rendimiento",
-    "description": "",
-    "excerpt": "",
-    "keywords": [
-      "Buenas prácticas de React y rendimiento",
-      "buenas prácticas de react y rendimiento guía",
-      "buenas prácticas de react y rendimiento tutorial",
-      "buenas prácticas de react y rendimiento mejores prácticas",
-      "buenas prácticas de react y rendimiento ejemplos",
-      "buenas prácticas de react y rendimiento rendimiento",
-      "buenas prácticas de react y rendimiento principiantes",
-      "buenas prácticas de react y rendimiento 2025"
-    ],
-    "tags": [
-      "Buenas prácticas de React y rendimiento",
-      "buenas prácticas de react y rendimiento guía",
-      "buenas prácticas de react y rendimiento tutorial",
-      "buenas prácticas de react y rendimiento mejores prácticas",
-      "buenas prácticas de react y rendimiento ejemplos",
-      "buenas prácticas de react y rendimiento rendimiento",
-      "buenas prácticas de react y rendimiento principiantes",
-      "buenas prácticas de react y rendimiento 2025"
-    ],
-    "author": "hgaruna",
-    "category": "Frontend",
-    "datePublished": "2025-08-18",
-    "lastmod": "2025-08-18T18:29:23.667Z",
-    "readingTime": 3,
-    "path": "/blog/buenas-practicas-de-react-y-rendimiento.html",
     "image": "/logos-he-imagenes/programacion.jpeg"
   }
 ]

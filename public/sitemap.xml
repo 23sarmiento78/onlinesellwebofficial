@@ -282,4 +282,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>/blog/buenas-practicas-de-react-y-rendimiento-guia-def.html</loc>
+    <lastmod>2025-08-18T18:39:51.993Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
