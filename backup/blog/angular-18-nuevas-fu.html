@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="category" content="Frontend">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angular 18: Nuevas Funcionalidades</title>
+    <meta name="description" content="Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las ap...">
+    <meta name="keywords" content="Angular">
+    <meta name="author" content="hgaruna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hgaruna.com/blog/angular-18-nuevas-fu">
+    <meta property="og:title" content="Angular 18: Nuevas Funcionalidades">
+    <meta property="og:description" content="Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las ap...">
+    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hgaruna.com/blog/angular-18-nuevas-fu">
+    <meta property="twitter:title" content="Angular 18: Nuevas Funcionalidades">
+    <meta property="twitter:description" content="Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las ap...">
+    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hgaruna.com/blog/angular-18-nuevas-fu">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237"
+     crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .article-meta {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: #f1f3f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .article-content pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .tags-container {
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 0.2rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-linkedin { background: #0077b5; }
+        .share-whatsapp { background: #25d366; }
+        
+        @media (max-width: 768px) {
+            .back-button, .share-buttons {
+                position: static;
+                margin: 1rem 0;
+            }
+            
+            .article-header {
+                padding: 2rem 0;
+            }
+            
+            .article-content h1 {
+                font-size: 2rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="back-button">
+        <a href="/blog" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Volver al Blog
+        </a>
+    </div>
+    
+    <!-- Botones de compartir -->
+    <div class="share-buttons">
+        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    
+    <!-- Header del artículo -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark fs-6">Frontend</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">Angular 18: Nuevas Funcionalidades</h1>
+                    <p class="lead mb-4">Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las ap...</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <small class="me-4">
+                            <i class="fas fa-user me-1"></i>
+                            Por hgaruna
+                        </small>
+                        <small class="me-4">
+                            <i class="fas fa-calendar me-1"></i>
+                            25 de julio de 2025
+                        </small>
+                        <small>
+                            <i class="fas fa-robot me-1"></i>
+                            Generado por IA
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Imagen destacada -->
+                <div class="text-center mb-4">
+                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Angular 18: Nuevas Funcionalidades" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Meta información -->
+                <div class="article-meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Categoría:</strong> Frontend<br>
+                            <strong>Autor:</strong> hgaruna<br>
+                            <strong>Fecha:</strong> 25 de julio de 2025
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de lectura:</strong> 3 min<br>
+                            <strong>Palabras:</strong> 511
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="tags-container">
+                    <span class="tag">Angular</span>
+                </div>
+                
+                <!-- Contenido del artículo -->
+                <article class="article-content">
+                    <main>
+  <h1>Angular 18: Nuevas Funcionalidades</h1>
+  <p>Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las aplicaciones y la experiencia del usuario.  Esta versión se centra en la optimización, la simplificación del desarrollo y la adopción de las últimas tecnologías.  En este artículo, exploraremos las funcionalidades más destacadas de Angular 18.</p>
+
+  <h2>Standalone Components: Simplificando el Desarrollo</h2>
+  <p>Una de las mejoras más significativas en Angular 18 es la maduración de los componentes standalone.  Esto significa que ahora puedes crear componentes completamente independientes sin necesidad de módulos NgModule.  Esta simplificación reduce la complejidad del código y facilita el desarrollo de aplicaciones más pequeñas y modulares.</p>
+  <h3>Ventajas de los Componentes Standalone</h3>
+  <ul>
+    <li>Reducción del código boilerplate.</li>
+    <li>Mayor modularidad y facilidad de mantenimiento.</li>
+    <li>Simplificación del proceso de aprendizaje para desarrolladores nuevos.</li>
+    <li>Mejor organización del código.</li>
+  </ul>
+  <h3>Ejemplo de Componente Standalone</h3>
+  <pre><code>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-my-component',
+  standalone: true,
+  template: `<h1>Hola desde un componente standalone!</h1>`,
+})
+export class MyComponent {}
+  </code></pre>
+
+  <h2>Mejoras en el Router</h2>
+  <p>El enrutador de Angular también ha recibido mejoras en esta versión.  Se ha simplificado la configuración y se ha mejorado la eficiencia.  La integración con los componentes standalone es ahora más fluida.</p>
+  <h3>Enrutamiento con Componentes Standalone</h3>
+  <p>La configuración del enrutamiento es ahora más concisa y legible, especialmente al usar componentes standalone:</p>
+  <pre><code>
+import { Route } from '@angular/router';
+import { MyComponent } from './my.component';
+
+const routes: Route[] = [
+  { path: '', component: MyComponent },
+];
+  </code></pre>
+
+
+  <h2>Optimizaciones de Rendimiento</h2>
+  <p>Angular 18 incluye varias optimizaciones que mejoran el rendimiento de las aplicaciones.  Estas optimizaciones se centran en la reducción del tamaño del bundle y la mejora de la velocidad de carga.</p>
+  <ul>
+    <li>Mejoras en el proceso de compilación (AOT).</li>
+    <li>Reducción del tamaño del bundle a través de optimizaciones de código.</li>
+    <li>Mejoras en la gestión de la memoria.</li>
+  </ul>
+
+  <h2>Actualizaciones en Angular CLI</h2>
+  <p>La Angular CLI, la herramienta de línea de comandos para crear y gestionar proyectos Angular, también ha recibido actualizaciones en la versión 18.  Estas mejoras incluyen un mejor soporte para los componentes standalone y una experiencia de usuario más intuitiva.</p>
+  <h3>Nuevas opciones de la CLI</h3>
+  <ul>
+    <li>Generación de componentes standalone con la opción <code>--standalone</code>.</li>
+    <li>Mejoras en la generación de scaffolding.</li>
+    <li>Mejoras en el reporte de errores.</li>
+  </ul>
+
+  <h2>TypeScript 5 Support</h2>
+  <p>Angular 18 ahora soporta TypeScript 5, lo que permite a los desarrolladores aprovechar las nuevas características y mejoras de rendimiento de TypeScript.  Esto incluye la mejora del sistema de tipos y nuevas funcionalidades del lenguaje.</p>
+  <h3>Ventajas de usar TypeScript 5</h3>
+  <ul>
+    <li>Mejoras en la inferencia de tipos.</li>
+    <li>Nuevas características del lenguaje que simplifican el código.</li>
+    <li>Mayor seguridad de tipos.</li>
+  </ul>
+
+
+  <h2>Conclusión</h2>
+  <p>Angular 18 representa un paso significativo en la evolución de Angular, ofreciendo una serie de mejoras que simplifican el desarrollo, mejoran el rendimiento y optimizan la experiencia del usuario.  Las nuevas funcionalidades, como los componentes standalone, las optimizaciones de rendimiento y el soporte para TypeScript 5, hacen de Angular 18 una actualización importante para cualquier desarrollador que trabaje con este framework.</p>
+</main>
+
+                </article>
+                
+                <!-- Footer del artículo -->
+                <footer class="mt-5 pt-4 border-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Compartir artículo</h5>
+                            <div class="mt-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook"></i> Facebook
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-robot me-1"></i>
+                                    Artículo generado por inteligencia artificial
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Funciones de compartir
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Angular 18: Nuevas Funcionalidades');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('Angular 18: Nuevas Funcionalidades');
+            const summary = encodeURIComponent('Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las ap...');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Angular 18: Nuevas Funcionalidades - Angular 18 llega con una serie de mejoras y nuevas características diseñadas para mejorar la productividad del desarrollador, el rendimiento de las ap...');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+        
+        // Actualizar URLs de compartir con la URL actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
+                link.href = '#';
+            });
+        });
+    </script>
+</body>
+</html> 

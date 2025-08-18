@@ -1,9 +1,13 @@
 // scripts/optimize-articles-adsense.js
 // Optimiza artículos existentes para AdSense compliance y mejor SEO
 
-const fs = require('fs');
-const path = require('path');
-const cheerio = require('cheerio');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import * as cheerio from 'cheerio';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const BLOG_DIR = path.resolve(__dirname, '../public/blog');
 const EDUCATIONAL_DIR = path.resolve(__dirname, '../public/aprende-programacion');
@@ -373,8 +377,8 @@ function checkAdSenseCompliance($) {
 }
 
 // Ejecutar si es llamado directamente
-if (require.main === module) {
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
   optimizeArticlesForAdSense().catch(console.error);
 }
 
-module.exports = { optimizeArticlesForAdSense, checkAdSenseCompliance };
+export { optimizeArticlesForAdSense, checkAdSenseCompliance };

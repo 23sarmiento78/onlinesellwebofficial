@@ -1,423 +1,599 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta name="category" content="Performance y Optimización">
+<!DOCTYPE html><html lang="es"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lazy Loading: Carga Diferida de Recursos</title>
-    <meta name="description" content="Este atributo, soportado por la mayoría de los navegadores modernos, indica al navegador que debe cargar la imagen solo cuando sea visible en la panta...">
-    <meta name="keywords" content="JavaScript">
-    <meta name="author" content="hgaruna">
+    <title>{{SEO_TITLE}}</title>
+    <meta name="description" content="{{SEO_DESCRIPTION}}">
+    <meta name="keywords" content="{{SEO_KEYWORDS}}">
+    <meta name="author" content="hgaruna - Aprende Programación">
     <meta name="robots" content="index, follow">
+    <meta name="category" content="{{CATEGORY}}">
+    <meta name="educational-level" content="{{EDUCATIONAL_LEVEL}}">
+    <meta name="reading-time" content="{{READING_TIME}}">
+    <meta name="google-site-verification" content="L4e6eB4hwkgHXit54PWBHjUV5RtnOmznEPwSDbvWTlM">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.hgaruna.org/blog/lazy-loading-carga-d">
-    <meta property="og:title" content="Lazy Loading: Carga Diferida de Recursos">
-    <meta property="og:description" content="Este atributo, soportado por la mayoría de los navegadores modernos, indica al navegador que debe cargar la imagen solo cuando sea visible en la panta...">
-    <meta property="og:image" content="/logos-he-imagenes/programacion.jpeg">
+    <meta property="og:url" content="{{CANONICAL_URL}}">
+    <meta property="og:title" content="{{SEO_TITLE}}">
+    <meta property="og:description" content="{{SEO_DESCRIPTION}}">
+    <meta property="og:image" content="{{FEATURED_IMAGE}}">
+    <meta property="article:author" content="hgaruna">
+    <meta property="article:section" content="{{CATEGORY}}">
+    <meta property="article:published_time" content="{{PUBLISH_DATE}}">
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.hgaruna.org/blog/lazy-loading-carga-d">
-    <meta property="twitter:title" content="Lazy Loading: Carga Diferida de Recursos">
-    <meta property="twitter:description" content="Este atributo, soportado por la mayoría de los navegadores modernos, indica al navegador que debe cargar la imagen solo cuando sea visible en la panta...">
-    <meta property="twitter:image" content="/logos-he-imagenes/programacion.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{CANONICAL_URL}}">
+    <meta name="twitter:title" content="{{SEO_TITLE}}">
+    <meta name="twitter:description" content="{{SEO_DESCRIPTION}}">
+    <meta name="twitter:image" content="{{FEATURED_IMAGE}}">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.hgaruna.org/blog/lazy-loading-carga-d">
+    <link rel="canonical" href="{{CANONICAL_URL}}">
+    
+    <!-- Educational Schema.org markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "name": "{{TITLE}}",
+      "description": "{{SEO_DESCRIPTION}}",
+      "author": {
+        "@type": "Organization",
+        "name": "hgaruna",
+        "url": "https://hgaruna.org"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "hgaruna",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hgaruna.org/logos-he-imagenes/logo3.png"
+        }
+      },
+      "datePublished": "{{PUBLISH_DATE}}",
+      "dateModified": "{{PUBLISH_DATE}}",
+      "learningResourceType": "Tutorial",
+      "educationalLevel": "{{EDUCATIONAL_LEVEL}}",
+      "teaches": "{{CATEGORY}}",
+      "timeRequired": "PT{{READING_TIME}}M",
+      "isAccessibleForFree": true,
+      "inLanguage": "es",
+      "mainEntity": {
+        "@type": "Course",
+        "name": "{{TITLE}}",
+        "description": "{{SEO_DESCRIPTION}}"
+      }
+    }
+    </script>
+
+    <!-- FAQ Schema if applicable -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Es este tutorial adecuado para principiantes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, este tutorial está diseñado para ser accesible a {{EDUCATIONAL_LEVEL}}s en programación."
+          }
+        },
+        {
+          "@type": "Question", 
+          "name": "¿Qué prerequisitos necesito?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Los prerequisitos son: {{PREREQUISITES}}"
+          }
+        }
+      ]
+    }
+    </script>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237"
-     crossorigin="anonymous"></script>
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    
+    <!-- Google AdSense -->
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7772175009790237" crossorigin="anonymous"></script>
+    
     <style>
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #1db954;
+            --accent-color: #39ff14;
+            --bg-dark: #0a0a0a;
+            --bg-card: #181818;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(29, 185, 84, 0.08) 0%, transparent 50%);
         }
         
-        .article-header {
+        .educational-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 4rem 0;
             margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .educational-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
         }
         
-        .article-meta {
-            background: #f8f9fa;
-            padding: 1rem;
+        .educational-meta {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .learning-objectives {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
             border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-        
-        .article-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        
-        .article-content h1, .article-content h2, .article-content h3 {
-            color: #2c3e50;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .article-content h1 {
-            font-size: 2.5rem;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 0.5rem;
-        }
-        
-        .article-content h2 {
-            font-size: 2rem;
-            border-left: 4px solid #667eea;
-            padding-left: 1rem;
-        }
-        
-        .article-content h3 {
-            font-size: 1.5rem;
-            color: #667eea;
-        }
-        
-        .article-content p {
-            margin-bottom: 1.5rem;
-        }
-        
-        .article-content ul, .article-content ol {
-            margin-bottom: 1.5rem;
-            padding-left: 2rem;
-        }
-        
-        .article-content li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .article-content blockquote {
-            border-left: 4px solid #667eea;
-            padding-left: 1.5rem;
             margin: 2rem 0;
-            font-style: italic;
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 0 8px 8px 0;
         }
-        
-        .article-content code {
-            background: #f1f3f4;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .article-content pre {
-            background: #2c3e50;
-            color: #ecf0f1;
+
+        .code-block {
+            background: #1e1e1e;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 12px;
             padding: 1.5rem;
-            border-radius: 8px;
+            margin: 2rem 0;
             overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'Código';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .educational-tip {
+            background: rgba(57, 255, 20, 0.1);
+            border: 1px solid rgba(57, 255, 20, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
             margin: 2rem 0;
+            position: relative;
         }
-        
-        .article-content pre code {
-            background: none;
-            color: inherit;
-            padding: 0;
-        }
-        
-        .tags-container {
-            margin: 2rem 0;
-        }
-        
-        .tag {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            margin: 0.2rem;
-            font-size: 0.9rem;
-        }
-        
-        .back-button {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            z-index: 1000;
-        }
-        
-        .share-buttons {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            z-index: 1000;
-        }
-        
-        .share-btn {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
+
+        .educational-tip::before {
+            content: '💡';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--accent-color);
+            color: var(--bg-dark);
+            padding: 4px 8px;
             border-radius: 50%;
-            text-align: center;
-            line-height: 40px;
-            margin: 0 0.2rem;
-            color: white;
+            font-size: 1rem;
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(0, 255, 65, 0.2);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .article-navigation {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .related-articles {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: var(--bg-dark);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 65, 0.3);
+            color: var(--bg-dark);
+        }
+
+        .table-of-contents {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            position: sticky;
+            top: 20px;
+        }
+
+        .table-of-contents ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .table-of-contents li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table-of-contents a {
+            color: var(--text-secondary);
             text-decoration: none;
-            transition: transform 0.3s ease;
+            transition: color 0.3s ease;
         }
-        
-        .share-btn:hover {
-            transform: scale(1.1);
-            color: white;
+
+        .table-of-contents a:hover {
+            color: var(--primary-color);
         }
-        
-        .share-twitter { background: #1da1f2; }
-        .share-facebook { background: #4267b2; }
-        .share-linkedin { background: #0077b5; }
-        .share-whatsapp { background: #25d366; }
-        
+
+        /* AdSense placeholder styles */
+        .adsense-placeholder {
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px dashed rgba(0, 255, 65, 0.3);
+            border-radius: 8px;
+            padding: 60px 20px;
+            text-align: center;
+            margin: 3rem 0;
+            color: var(--text-secondary);
+        }
+
         @media (max-width: 768px) {
-            .back-button, .share-buttons {
-                position: static;
-                margin: 1rem 0;
-            }
-            
-            .article-header {
+            .educational-header {
                 padding: 2rem 0;
             }
             
-            .article-content h1 {
-                font-size: 2rem;
+            .educational-meta {
+                padding: 1.5rem;
             }
             
-            .article-content h2 {
-                font-size: 1.5rem;
+            .table-of-contents {
+                position: static;
             }
+        }
+
+        /* Responsive ads */
+        .responsive-ad {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        /* Highlight important sections */
+        .highlight-box {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        /* Interactive elements */
+        .interactive-demo {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
         }
     </style>
 </head>
+
 <body>
-    <!-- Botón de regreso -->
-    <div class="back-button">
-        <a href="/blog" class="btn btn-outline-primary">
-            <i class="fas fa-arrow-left"></i> Volver al Blog
-        </a>
+    <!-- Progress indicator -->
+    <div class="progress-indicator">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
-    
-    <!-- Botones de compartir -->
-    <div class="share-buttons">
-        <a href="#" class="share-btn share-twitter" onclick="shareOnTwitter()">
-            <i class="fab fa-twitter"></i>
-        </a>
-        <a href="#" class="share-btn share-facebook" onclick="shareOnFacebook()">
-            <i class="fab fa-facebook"></i>
-        </a>
-        <a href="#" class="share-btn share-linkedin" onclick="shareOnLinkedIn()">
-            <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="#" class="share-btn share-whatsapp" onclick="shareOnWhatsApp()">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-    </div>
-    
-    <!-- Header del artículo -->
-    <header class="article-header">
+
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: var(--bg-card); backdrop-filter: blur(20px);">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-graduation-cap me-2" style="color: var(--primary-color);"></i>
+                <span style="color: var(--primary-color);">hgaruna</span> Aprende
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/aprende-programacion">🏠 Inicio</a>
+                <a class="nav-link" href="/aprende-programacion/cursos">📚 Cursos</a>
+                <a class="nav-link" href="/aprende-programacion/ejercicios">💪 Ejercicios</a>
+                <a class="nav-link" href="/blog">📰 Blog</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Educational Header -->
+    <header class="educational-header">
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
                     <div class="mb-3">
-                        <span class="badge bg-light text-dark fs-6">Performance y Optimización</span>
+                        <span class="badge bg-success me-2">{{CATEGORY}}</span>
+                        <span class="badge bg-info me-2">{{EDUCATIONAL_LEVEL}}</span>
+                        <span class="badge bg-warning">{{READING_TIME}} min lectura</span>
                     </div>
-                    <h1 class="display-4 fw-bold mb-3">Lazy Loading: Carga Diferida de Recursos</h1>
-                    <p class="lead mb-4">Este atributo, soportado por la mayoría de los navegadores modernos, indica al navegador que debe cargar la imagen solo cuando sea visible en la panta...</p>
-                    <div class="d-flex justify-content-center align-items-center">
-                        <small class="me-4">
-                            <i class="fas fa-user me-1"></i>
-                            Por hgaruna
-                        </small>
-                        <small class="me-4">
-                            <i class="fas fa-calendar me-1"></i>
-                            25 de julio de 2025
-                        </small>
-                        <small>
-                            <i class="fas fa-robot me-1"></i>
-                            Generado por IA
-                        </small>
+                    <h1 class="display-4 fw-bold mb-4">{{TITLE}}</h1>
+                    <p class="lead mb-4">{{SEO_DESCRIPTION}}</p>
+                    <div class="d-flex align-items-center">
+                        <img src="/logos-he-imagenes/logo3.png" alt="hgaruna" class="rounded-circle me-3" width="50" height="50">
+                        <div>
+                            <h6 class="mb-0">Por hgaruna</h6>
+                            <small class="text-light opacity-75">Instructor de Programación</small>
+                        </div>
                     </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-laptop-code display-1 opacity-50"></i>
                 </div>
             </div>
         </div>
     </header>
-    
-    <!-- Contenido principal -->
-    <main class="container">
+
+    <div class="container my-5">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <!-- Imagen destacada -->
-                <div class="text-center mb-4">
-                    <img src="/logos-he-imagenes/programacion.jpeg" alt="Lazy Loading: Carga Diferida de Recursos" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+            <!-- Table of Contents -->
+            <div class="col-lg-3 order-lg-1 order-2">
+                <div class="table-of-contents">
+                    <h5><i class="fas fa-list me-2" style="color: var(--primary-color);"></i>Contenido</h5>
+                    <ul id="tableOfContents">
+                        <!-- Generated dynamically -->
+                    </ul>
                 </div>
-                
-                <!-- Meta información -->
-                <div class="article-meta">
+
+                <!-- AdSense Sidebar -->
+                <div class="responsive-ad mt-4">
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9 order-lg-2 order-1">
+                <!-- Educational Meta -->
+                <div class="educational-meta">
                     <div class="row">
                         <div class="col-md-6">
-                            <strong>Categoría:</strong> Performance y Optimización<br>
-                            <strong>Autor:</strong> hgaruna<br>
-                            <strong>Fecha:</strong> 25 de julio de 2025
+                            <h6><i class="fas fa-bullseye me-2" style="color: var(--primary-color);"></i>Objetivos de Aprendizaje</h6>
+                            <ul class="list-unstyled">
+                                {{LEARNING_OBJECTIVES}}
+                            </ul>
                         </div>
                         <div class="col-md-6">
-                            <strong>Tiempo de lectura:</strong> 4 min<br>
-                            <strong>Palabras:</strong> 744
+                            <h6><i class="fas fa-check-circle me-2" style="color: var(--primary-color);"></i>Prerequisitos</h6>
+                            <p class="mb-0">{{PREREQUISITES}}</p>
+                            
+                            <h6 class="mt-3"><i class="fas fa-clock me-2" style="color: var(--primary-color);"></i>Duración</h6>
+                            <p class="mb-0">{{READING_TIME}} minutos de lectura</p>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Tags -->
-                <div class="tags-container">
-                    <span class="tag">JavaScript</span>
+
+                <!-- Top Article Ad -->
+                <div class="responsive-ad">
+                    <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7772175009790237" data-ad-slot="9876543210"></ins>
                 </div>
-                
-                <!-- Contenido del artículo -->
-                <article class="article-content">
-                    <main>
-  <h1>Lazy Loading: Carga Diferida de Recursos</h1>
 
-  <p>La optimización del rendimiento web es crucial para una buena experiencia de usuario.  Una de las técnicas más efectivas para mejorar la velocidad de carga de una página web es el <em>lazy loading</em> o carga diferida de recursos.  Esta estrategia consiste en cargar los recursos (imágenes, videos, scripts, etc.) solo cuando son necesarios y visibles para el usuario, en lugar de cargarlos todos al principio.  Esto reduce significativamente el tiempo de carga inicial de la página, mejorando la percepción de velocidad y la experiencia general del usuario.</p>
+                <!-- Main Article Content -->
+                <main class="article-content">
+                    {{CONTENT}}
+                </main>
 
-  <h2>¿Qué es el Lazy Loading?</h2>
-  <p>El <em>lazy loading</em> es una técnica de optimización que retrasa la carga de ciertos elementos de una página web hasta que son necesarios.  En lugar de cargar todos los recursos al mismo tiempo, solo se cargan aquellos que están dentro del viewport del usuario o están a punto de entrar en él.  Esto es particularmente útil para páginas con muchos elementos visuales, como imágenes o videos, que pueden ser pesados y afectar negativamente el tiempo de carga inicial.</p>
+                <!-- Middle Article Ad -->
+                <div class="responsive-ad">
+                    <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-7772175009790237" data-ad-slot="5555555555"></ins>
+                </div>
 
-  <h2>Ventajas del Lazy Loading</h2>
-  <ul>
-    <li><strong>Reducción del tiempo de carga inicial:</strong>  El tiempo de carga inicial de la página se reduce drásticamente, mejorando la experiencia del usuario.</li>
-    <li><strong>Menor consumo de ancho de banda:</strong> Se reduce la cantidad de datos descargados inicialmente, lo que es especialmente beneficioso para usuarios con conexiones lentas.</li>
-    <li><strong>Mejor SEO:</strong> Los motores de búsqueda valoran la velocidad de carga de las páginas web.  El <em>lazy loading</em> puede mejorar el posicionamiento en los resultados de búsqueda.</li>
-    <li><strong>Mejora de la experiencia móvil:</strong> En dispositivos móviles, donde el ancho de banda suele ser limitado, el <em>lazy loading</em> es aún más beneficioso.</li>
-    <li><strong>Mejor rendimiento de la batería:</strong>  Se reduce el consumo de batería del dispositivo, al descargar menos recursos.</li>
-  </ul>
+                <!-- Practice Section -->
+                <div class="learning-objectives mt-5">
+                    <h3><i class="fas fa-dumbbell me-2"></i>¡Hora de Practicar!</h3>
+                    <p>Ahora que has aprendido los conceptos, es momento de ponerlos en práctica:</p>
+                    <ul>
+                        <li>Intenta recrear los ejemplos por tu cuenta</li>
+                        <li>Experimenta modificando el código</li>
+                        <li>Busca casos de uso adicionales</li>
+                        <li>Comparte tu progreso en redes sociales</li>
+                    </ul>
+                    <div class="text-center mt-3">
+                        <a href="/aprende-programacion/ejercicios" class="btn btn-primary">
+                            <i class="fas fa-play me-2"></i>Ver Ejercicios Relacionados
+                        </a>
+                    </div>
+                </div>
 
-  <h2>Desventajas del Lazy Loading</h2>
-  <ul>
-    <li><strong>Complejidad:</strong> Implementar <em>lazy loading</em> puede requerir algo de trabajo adicional en el código.</li>
-    <li><strong>Potencial para errores:</strong> Si no se implementa correctamente, puede provocar errores o problemas de visualización.</li>
-    <li><strong>Mayor carga en el navegador:</strong> Aunque se reduce la carga inicial, el navegador tiene que gestionar la carga de los recursos de forma asíncrona.</li>
-  </ul>
+                <!-- Bottom Article Ad -->
+                <div class="responsive-ad">
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7772175009790237" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                </div>
 
-
-  <h2>Implementando Lazy Loading para Imágenes</h2>
-  <p>La implementación de <em>lazy loading</em> para imágenes es relativamente sencilla.  Se puede lograr usando atributos HTML o con JavaScript.  A continuación se muestra un ejemplo usando el atributo <code>loading="lazy"</code>:</p>
-  <pre><code>&lt;img src="imagen.jpg" alt="Descripción de la imagen" loading="lazy"&gt;</code></pre>
-  <p>Este atributo, soportado por la mayoría de los navegadores modernos, indica al navegador que debe cargar la imagen solo cuando sea visible en la pantalla.</p>
-
-  <h3>Lazy Loading con JavaScript</h3>
-  <p>Para un mayor control, se puede usar JavaScript para implementar <em>lazy loading</em>.  Esta técnica permite cargar imágenes solo cuando se encuentran dentro del viewport o a una cierta distancia de él.  A continuación, un ejemplo básico:</p>
-  <pre><code>
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src;
-        observer.unobserve(img);
-      }
-    });
-  });
-
-  const images = document.querySelectorAll('img[data-src]');
-  images.forEach(img => observer.observe(img));
-  </code></pre>
-  <p>Este código utiliza la API <code>IntersectionObserver</code> para detectar cuándo una imagen entra en el viewport.  Cuando esto ocurre, se establece el atributo <code>src</code> con el valor del atributo <code>data-src</code>, y se deja de observar la imagen.</p>
-
-  <h2>Lazy Loading para otros recursos</h2>
-  <p>El <em>lazy loading</em> no se limita a las imágenes.  También se puede aplicar a otros recursos como videos, scripts y otros elementos pesados. Para los scripts, se puede utilizar la técnica de cargarlos solo cuando son necesarios, por ejemplo, utilizando la función <code>import()</code> de ES Modules o cargando los scripts de manera dinámica con <code>createElement</code>.</p>
-
-  <h2>Consejos para la Implementación</h2>
-  <ul>
-    <li>Utiliza el atributo <code>loading="lazy"</code> siempre que sea posible.</li>
-    <li>Para un mayor control y compatibilidad con navegadores antiguos, considera usar JavaScript.</li>
-    <li>Optimiza las imágenes antes de implementar <em>lazy loading</em> para reducir aún más el tamaño de los archivos.</li>
-    <li>Monitorea el rendimiento de tu página web después de implementar <em>lazy loading</em> para asegurarte de que está funcionando correctamente.</li>
-    <li>Considera usar placeholders para mejorar la experiencia del usuario mientras las imágenes se cargan.</li>
-  </ul>
-
-  <h2>Conclusión</h2>
-  <p>El <em>lazy loading</em> es una técnica poderosa para mejorar el rendimiento y la experiencia del usuario en páginas web con muchos recursos.  Aunque requiere un poco de trabajo adicional, los beneficios en términos de velocidad de carga, consumo de ancho de banda y SEO son significativos.  Al implementar correctamente el <em>lazy loading</em>, se puede lograr una mejora sustancial en la velocidad y eficiencia de la página web, llevando a una mejor experiencia para todos los usuarios.</p>
-</main>
-
-                </article>
-                
-                <!-- Footer del artículo -->
-                <footer class="mt-5 pt-4 border-top">
+                <!-- Article Navigation -->
+                <div class="article-navigation">
+                    <h5><i class="fas fa-compass me-2" style="color: var(--primary-color);"></i>Continúa Aprendiendo</h5>
                     <div class="row">
                         <div class="col-md-6">
-                            <h5>Compartir artículo</h5>
-                            <div class="mt-2">
-                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnTwitter()">
-                                    <i class="fab fa-twitter"></i> Twitter
-                                </a>
-                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnFacebook()">
-                                    <i class="fab fa-facebook"></i> Facebook
-                                </a>
-                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareOnLinkedIn()">
-                                    <i class="fab fa-linkedin"></i> LinkedIn
-                                </a>
-                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
-                                    <i class="fab fa-whatsapp"></i> WhatsApp
-                                </a>
-                            </div>
+                            <a href="#" class="btn btn-outline-light w-100 mb-2">
+                                <i class="fas fa-arrow-left me-2"></i>Artículo Anterior
+                            </a>
                         </div>
-                        <div class="col-md-6 text-md-end">
-                            <p class="text-muted">
-                                <small>
-                                    <i class="fas fa-robot me-1"></i>
-                                    Artículo generado por inteligencia artificial
-                                </small>
-                            </p>
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-outline-light w-100 mb-2">
+                                Siguiente Artículo<i class="fas fa-arrow-right ms-2"></i>
+                            </a>
                         </div>
                     </div>
-                </footer>
+                    <div class="text-center mt-3">
+                        <a href="/aprende-programacion" class="btn btn-primary">
+                            <i class="fas fa-home me-2"></i>Volver al Inicio
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Related Articles -->
+                <div class="related-articles">
+                    <h5><i class="fas fa-lightbulb me-2" style="color: var(--primary-color);"></i>Artículos Relacionados</h5>
+                    <div class="row" id="relatedArticles">
+                        <!-- Generated dynamically -->
+                    </div>
+                </div>
             </div>
         </div>
-    </main>
-    
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h5 style="color: var(--primary-color);">hgaruna Aprende</h5>
+                    <p class="text-muted">Aprende programación de forma gratuita con tutoriales de calidad.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h6>Categorías</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/aprende-programacion/frontend" class="text-muted">Frontend</a></li>
+                        <li><a href="/aprende-programacion/backend" class="text-muted">Backend</a></li>
+                        <li><a href="/aprende-programacion/mobile" class="text-muted">Mobile</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6>Recursos</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/aprende-programacion/ejercicios" class="text-muted">Ejercicios</a></li>
+                        <li><a href="/aprende-programacion/proyectos" class="text-muted">Proyectos</a></li>
+                        <li><a href="/blog" class="text-muted">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(0, 255, 65, 0.3);">
+            <div class="text-center">
+                <p class="text-muted mb-0">© 2024 hgaruna. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <!-- Prism.js for code highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
     <script>
-        // Funciones de compartir
-        function shareOnTwitter() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('Lazy Loading: Carga Diferida de Recursos');
-            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
-        }
-        
-        function shareOnFacebook() {
-            const url = encodeURIComponent(window.location.href);
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-        }
-        
-        function shareOnLinkedIn() {
-            const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent('Lazy Loading: Carga Diferida de Recursos');
-            const summary = encodeURIComponent('Este atributo, soportado por la mayoría de los navegadores modernos, indica al navegador que debe cargar la imagen solo cuando sea visible en la panta...');
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
-        }
-        
-        function shareOnWhatsApp() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('Lazy Loading: Carga Diferida de Recursos - Este atributo, soportado por la mayoría de los navegadores modernos, indica al navegador que debe cargar la imagen solo cuando sea visible en la panta...');
-            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
-        }
-        
-        // Actualizar URLs de compartir con la URL actual
+        // Progress bar
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        });
+
+        // Generate table of contents
         document.addEventListener('DOMContentLoaded', function() {
-            const currentUrl = window.location.href;
-            document.querySelectorAll('[onclick*="shareOn"]').forEach(link => {
-                link.href = '#';
+            const headings = document.querySelectorAll('main h2, main h3');
+            const toc = document.getElementById('tableOfContents');
+            
+            headings.forEach((heading, index) => {
+                const id = 'heading-' + index;
+                heading.id = id;
+                
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#' + id;
+                a.textContent = heading.textContent;
+                a.style.paddingLeft = heading.tagName === 'H3' ? '20px' : '0';
+                li.appendChild(a);
+                toc.appendChild(li);
+            });
+
+            // Smooth scrolling for TOC links
+            toc.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                    const target = document.querySelector(e.target.getAttribute('href'));
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
+
+        // Initialize AdSense
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-</body>
-</html> 
+
+    <!-- Educational Analytics -->
+    <script>
+        // Track educational engagement
+        function trackProgress(section) {
+            // Analytics implementation
+            console.log('Progress tracked:', section);
+        }
+
+        // Track scroll depth for educational content
+        let maxScroll = 0;
+        window.addEventListener('scroll', function() {
+            const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+            if (scrollPercent > maxScroll) {
+                maxScroll = scrollPercent;
+                if (maxScroll % 25 === 0) {
+                    trackProgress(`Scroll ${maxScroll}%`);
+                }
+            }
+        });
+    </script>
+
+
+</body></html>
