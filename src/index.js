@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/index.css";
+import "./styles/sobre-nosotros-footer.css";
 import "./App.css";
 import "./bootstrap-override.css";
 import "./dark-green-theme.css";
+import "./styles/nuevo-estilo-global.css";
 import App from "./App";
 
 // Inicializar Builder.io

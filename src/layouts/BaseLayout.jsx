@@ -1,7 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
 
 export default function BaseLayout({ 
   children, 
@@ -34,10 +32,8 @@ export default function BaseLayout({
         <meta property="twitter:description" content={ogDescription} />
         <meta property="twitter:image" content={ogImage} />
       </Helmet>
-      <NavBar />
-      {/* Aquí va el head, meta y estructura base migrada de BaseLayout.astro */}
       {children}
-      <Footer />
     </>
   );
-} 
+}
+ 

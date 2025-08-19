@@ -567,7 +567,7 @@
 
 .hero-button.primary {
   background: var(--primary-color);
-  color: var(--bg-dark);
+  color: var(--primary-black, #0a0a0a);
   box-shadow: 0 4px 20px rgba(var(--primary-rgb), 0.3);
 }
 
@@ -644,27 +644,34 @@
 
 /* Variantes */
 .hero-section.blog {
-  --primary-rgb: 0, 204, 255;
-  --primary-color: #00ccff;
-  --primary-dark: #00a3cc;
+  --primary-rgb: 0, 255, 136;
+  --primary-color: var(--primary-green, #00ff88);
+  --primary-dark: var(--secondary-green, #00cc6a);
 }
 
 .hero-section.articles {
-  --primary-rgb: 255, 82, 82;
-  --primary-color: #ff5252;
-  --primary-dark: #ff1a1a;
+  --primary-rgb: 0, 255, 136;
+  --primary-color: var(--primary-green, #00ff88);
+  --primary-dark: var(--secondary-green, #00cc6a);
 }
 
 .hero-section.resources {
-  --primary-rgb: 156, 39, 176;
-  --primary-color: #9c27b0;
-  --primary-dark: #7b1fa2;
+  --primary-rgb: 0, 255, 136;
+  --primary-color: var(--primary-green, #00ff88);
+  --primary-dark: var(--secondary-green, #00cc6a);
 }
 
 .hero-section.learn {
-  --primary-rgb: 76, 175, 80;
-  --primary-color: #4caf50;
-  --primary-dark: #388e3c;
+  --primary-rgb: 0, 255, 136;
+  --primary-color: var(--primary-green, #00ff88);
+  --primary-dark: var(--secondary-green, #00cc6a);
+}
+
+/* Default accent for hero sections */
+.hero-section {
+  --primary-rgb: 0, 255, 136;
+  --primary-color: var(--primary-green, #00ff88);
+  --primary-dark: var(--secondary-green, #00cc6a);
 }
 
 /* Responsivo */

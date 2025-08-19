@@ -89,7 +89,13 @@ const NavBar = () => {
               <i className="fas fa-home"></i>
               <span>Inicio</span>
             </Link>
-            
+            <Link 
+              to="/nosotros" 
+              className={`nav-item ${(location.pathname === '/nosotros' || location.pathname === '/autores') ? 'active' : ''}`}
+            >
+              <i className="fas fa-user"></i>
+              <span>Sobre mí y Autor</span>
+            </Link>
             <Link 
               to="/articulos" 
               className={`nav-item ${location.pathname === '/articulos' ? 'active' : ''}`}
@@ -97,7 +103,6 @@ const NavBar = () => {
               <i className="fas fa-newspaper"></i>
               <span>Blog</span>
             </Link>
-            
             <Link 
               to="/ebook" 
               className={`nav-item ${location.pathname === '/ebook' ? 'active' : ''}`}
@@ -106,7 +111,6 @@ const NavBar = () => {
               <span>eBooks</span>
               <span className="nav-badge">Nuevo</span>
             </Link>
-            
             <Link 
               to="/recursos" 
               className={`nav-item ${location.pathname === '/recursos' ? 'active' : ''}`}
@@ -114,7 +118,6 @@ const NavBar = () => {
               <i className="fas fa-tools"></i>
               <span>Recursos</span>
             </Link>
-            
             <Link 
               to="/contacto" 
               className={`nav-item ${location.pathname === '/contacto' ? 'active' : ''}`}
@@ -181,7 +184,14 @@ const NavBar = () => {
               <i className="fas fa-home"></i>
               <span>Inicio</span>
             </Link>
-            
+            <Link 
+              to="/nosotros" 
+              className={`mobile-nav-item ${(location.pathname === '/nosotros' || location.pathname === '/autores') ? 'active' : ''}`}
+              onClick={closeMenu}
+            >
+              <i className="fas fa-user"></i>
+              <span>Sobre mí y Autor</span>
+            </Link>
             <Link 
               to="/articulos" 
               className={`mobile-nav-item ${location.pathname === '/articulos' ? 'active' : ''}`}
@@ -190,7 +200,6 @@ const NavBar = () => {
               <i className="fas fa-newspaper"></i>
               <span>Blog</span>
             </Link>
-            
             <Link 
               to="/ebook" 
               className={`mobile-nav-item ${location.pathname === '/ebook' ? 'active' : ''}`}
@@ -200,7 +209,6 @@ const NavBar = () => {
               <span>eBooks</span>
               <span className="mobile-badge">Nuevo</span>
             </Link>
-            
             <Link 
               to="/recursos" 
               className={`mobile-nav-item ${location.pathname === '/recursos' ? 'active' : ''}`}
@@ -209,7 +217,6 @@ const NavBar = () => {
               <i className="fas fa-tools"></i>
               <span>Recursos</span>
             </Link>
-            
             <Link 
               to="/contacto" 
               className={`mobile-nav-item ${location.pathname === '/contacto' ? 'active' : ''}`}

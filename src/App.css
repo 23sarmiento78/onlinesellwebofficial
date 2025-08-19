@@ -1,4 +1,38 @@
 /* App.css - Dark Theme Complete Override */
+/* Sobre Nosotros hero styles moved to styles/sobre-nosotros-footer.css to enable full-width hero */
+
+.sobre-nosotros-hero img {
+  box-shadow: 0 0 24px #00ff8844;
+}
+
+.site-footer {
+  background: #101010 !important;
+  color: #e0e0e0 !important;
+  padding: 40px 0 16px 0;
+  margin-top: 48px;
+  border-top: 2px solid #00ff8822;
+}
+.site-footer .footer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: space-between;
+}
+.site-footer .footer-brand h3 {
+  color: #00ff88;
+}
+.site-footer .footer-bottom {
+  border-top: 1px solid #222;
+  margin-top: 32px;
+  padding-top: 16px;
+  text-align: center;
+  font-size: 15px;
+}
+.footer-bottom-link {
+  color: #00ff88 !important;
+  margin: 0 8px;
+  text-decoration: underline;
+}
 
 .App {
   text-align: center;

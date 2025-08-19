@@ -19,6 +19,7 @@ import EbookPage from "./pages/EbookPage";
 import DeveloperResources from "./pages/DeveloperResources";
 import Legal from "./pages/Legal";
 import PoliticasPrivacidad from "./pages/PoliticasPrivacidad";
+import SobreNosotros from "./pages/SobreNosotros";
 
 function App() {
   return (
@@ -36,10 +37,8 @@ function App() {
                 <Route path="/ebook" element={<EbookPage />} />
                 <Route path="/recursos" element={<DeveloperResources />} />
                 <Route path="/legal" element={<Legal />} />
-                <Route
-                  path="/politicas-privacidad"
-                  element={<PoliticasPrivacidad />}
-                />
+                <Route path="/politicas-privacidad" element={<PoliticasPrivacidad />} />
+                <Route path="/nosotros" element={<SobreNosotros />} />
               </Routes>
             </div>
           </Router>

@@ -40,12 +40,31 @@ export default function PoliticasPrivacidad() {
         ]}
       />
 
-      {/* Contenido de Builder.io irá aquí */}
       <section className="politicas-content">
         <div className="container">
           <div className="text-center">
             <h2>Políticas de Privacidad</h2>
-            <p>Contenido personalizado con Builder.io</p>
+          </div>
+          <div className="privacy-section">
+            <h3>1. Responsable del sitio</h3>
+            <p>El único responsable y autor de hgaruna.org es Fernando Larrondo, quien garantiza el cumplimiento de la normativa vigente en materia de protección de datos personales.</p>
+            <h3>2. Datos que se recopilan</h3>
+            <ul>
+              <li>Datos de contacto proporcionados por el usuario (nombre, email, mensaje).</li>
+              <li>Datos de navegación y cookies para mejorar la experiencia y analizar el uso del sitio.</li>
+            </ul>
+            <h3>3. Finalidad del tratamiento</h3>
+            <p>Los datos se utilizan exclusivamente para responder consultas, mejorar el sitio y ofrecer contenido relevante. No se comparten con terceros salvo obligación legal.</p>
+            <h3>4. Derechos del usuario</h3>
+            <p>El usuario puede ejercer sus derechos de acceso, rectificación, cancelación y oposición enviando un correo a contacto@hgaruna.com.</p>
+            <h3>5. Uso de cookies</h3>
+            <p>Este sitio utiliza cookies propias y de terceros para analizar el tráfico y personalizar la experiencia. El usuario puede configurar su navegador para rechazar las cookies.</p>
+            <h3>6. Cumplimiento legal</h3>
+            <p>hgaruna.org cumple con la Ley de Protección de Datos Personales de Argentina y el Reglamento General de Protección de Datos (GDPR) de la Unión Europea.</p>
+            <h3>7. Seguridad</h3>
+            <p>Se aplican medidas técnicas y organizativas para proteger los datos personales contra accesos no autorizados, pérdida o alteración.</p>
+            <h3>8. Cambios en la política</h3>
+            <p>Esta política puede actualizarse periódicamente. Se recomienda revisarla regularmente.</p>
           </div>
         </div>
       </section>
