@@ -18,7 +18,28 @@
     "category": "Frontend",
     "datePublished": "2025-08-18",
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-guia-def.html",
-    "image": "https://images.pexels.com/photos/574069/pexels-photo-574069.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/1089440/pexels-photo-1089440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "construyendo-apis-restful-robustas-con-spring-bo",
+    "title": "Construyendo APIs RESTful Robustas con Spring Boot y",
+    "description": "Este artículo proporciona una guía completa para desarrollar APIs RESTful robustas y escalables utilizando Spring Boot, incluyendo mejores prácticas para la val",
+    "excerpt": "Este artículo proporciona una guía completa para desarrollar APIs RESTful robustas y escalables utilizando Spring Boot, incluyendo mejores prácticas para la validación de datos y la prevención de errores comunes.  Aprenderás a implementar validación en el lado del servidor, mejorando la seguridad y la calidad de tus APIs.",
+    "keywords": [
+      "Construyendo APIs RESTful robustas con Spring Boot y validación de datos",
+      "construyendo apis restful robustas con spring boot y validación de datos guía",
+      "construyendo apis restful robustas con spring boot y validación de datos tutorial",
+      "construyendo apis restful robustas con spring boot y validación de datos mejores prácticas",
+      "construyendo apis restful robustas con spring boot y validación de datos ejemplos",
+      "construyendo apis restful robustas con spring boot y validación de datos rendimiento",
+      "construyendo apis restful robustas con spring boot y validación de datos principiantes",
+      "construyendo apis restful robustas con spring boot y validación de datos 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Arquitectura y Patrones",
+    "datePublished": "2025-08-25",
+    "path": "/blog/construyendo-apis-restful-robustas-con-spring-bo.html",
+    "image": "https://images.pexels.com/photos/31052947/pexels-photo-31052947.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "construyendo-apis-restful-seguras-con-jwt-y-spri",
@@ -39,7 +60,28 @@
     "category": "Backend",
     "datePublished": "2025-08-18",
     "path": "/blog/construyendo-apis-restful-seguras-con-jwt-y-spri.html",
-    "image": "https://images.pexels.com/photos/965345/pexels-photo-965345.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/270366/pexels-photo-270366.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "implementacion-de-autenticacion-segura-con-jwt-e",
+    "title": "Implementación de Autenticación Segura con JWT en Node.js",
+    "description": "Resumen: Este artículo proporciona una guía completa sobre la implementación de la autenticación segura usando JSON Web Tokens (JWT) en Node.js, cubriendo desde",
+    "excerpt": "Resumen: Este artículo proporciona una guía completa sobre la implementación de la autenticación segura usando JSON Web Tokens (JWT) en Node.js, cubriendo desde la generación y verificación de tokens hasta las mejores prácticas para asegurar tu aplicación. Aprenderás a integrar JWT de forma eficiente y segura en tus proyectos Node.js.",
+    "keywords": [
+      "Implementación de autenticación segura con JWT en Node.js",
+      "implementación de autenticación segura con jwt en node.js guía",
+      "implementación de autenticación segura con jwt en node.js tutorial",
+      "implementación de autenticación segura con jwt en node.js mejores prácticas",
+      "implementación de autenticación segura con jwt en node.js ejemplos",
+      "implementación de autenticación segura con jwt en node.js rendimiento",
+      "implementación de autenticación segura con jwt en node.js principiantes",
+      "implementación de autenticación segura con jwt en node.js 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Backend",
+    "datePublished": "2025-08-25",
+    "path": "/blog/implementacion-de-autenticacion-segura-con-jwt-e.html",
+    "image": "https://images.pexels.com/photos/1054397/pexels-photo-1054397.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "implementacion-de-websockets-con-react-para-chat",
@@ -60,7 +102,7 @@
     "category": "Frontend",
     "datePublished": "2025-08-18",
     "path": "/blog/implementacion-de-websockets-con-react-para-chat.html",
-    "image": "https://images.pexels.com/photos/177598/pexels-photo-177598.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/270366/pexels-photo-270366.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "optimizacion-de-consultas-sql-con-postgresql-ind",
@@ -81,27 +123,27 @@
     "category": "Bases de Datos",
     "datePublished": "2025-08-18",
     "path": "/blog/optimizacion-de-consultas-sql-con-postgresql-ind.html",
-    "image": "https://images.pexels.com/photos/16099329/pexels-photo-16099329.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/33597392/pexels-photo-33597392.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "optimizacion-de-imagenes-para-sitios-web-con-web",
-    "title": "Optimización de imágenes para sitios web con WebP y",
-    "description": "Meta descripción: Aprende a optimizar tus imágenes web para un rendimiento superior utilizando el formato WebP y técnicas de compresión inteligente. Mejora la v",
-    "excerpt": "Meta descripción: Aprende a optimizar tus imágenes web para un rendimiento superior utilizando el formato WebP y técnicas de compresión inteligente. Mejora la velocidad de carga y la experiencia del usuario.",
+    "title": "Optimización de imágenes para sitios web con WebP y Lazy",
+    "description": "Optimizar las imágenes de tu sitio web es crucial para mejorar la velocidad de carga, la experiencia del usuario y el posicionamiento SEO. En este artículo, exp",
+    "excerpt": "Optimizar las imágenes de tu sitio web es crucial para mejorar la velocidad de carga, la experiencia del usuario y el posicionamiento SEO.  En este artículo, exploraremos dos técnicas potentes: el uso del formato WebP y la implementación de lazy loading. Aprenderás cómo combinarlas para obtener resultados óptimos y un sitio web más eficiente.",
     "keywords": [
-      "Optimización de imágenes para sitios web con WebP y compresión inteligente",
-      "optimización de imágenes para sitios web con webp y compresión inteligente guía",
-      "optimización de imágenes para sitios web con webp y compresión inteligente tutorial",
-      "optimización de imágenes para sitios web con webp y compresión inteligente mejores prácticas",
-      "optimización de imágenes para sitios web con webp y compresión inteligente ejemplos",
-      "optimización de imágenes para sitios web con webp y compresión inteligente rendimiento",
-      "optimización de imágenes para sitios web con webp y compresión inteligente principiantes",
-      "optimización de imágenes para sitios web con webp y compresión inteligente 2025"
+      "Optimización de imágenes para sitios web con WebP y lazy loading",
+      "optimización de imágenes para sitios web con webp y lazy loading guía",
+      "optimización de imágenes para sitios web con webp y lazy loading tutorial",
+      "optimización de imágenes para sitios web con webp y lazy loading mejores prácticas",
+      "optimización de imágenes para sitios web con webp y lazy loading ejemplos",
+      "optimización de imágenes para sitios web con webp y lazy loading rendimiento",
+      "optimización de imágenes para sitios web con webp y lazy loading principiantes",
+      "optimización de imágenes para sitios web con webp y lazy loading 2025"
     ],
     "author": "hgaruna",
     "category": "Performance y Optimización",
-    "datePublished": "2025-08-18",
+    "datePublished": "2025-08-25",
     "path": "/blog/optimizacion-de-imagenes-para-sitios-web-con-web.html",
-    "image": "https://images.pexels.com/photos/33501798/pexels-photo-33501798.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/24836825/pexels-photo-24836825.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   }
 ]
