@@ -18,7 +18,28 @@
     "category": "Frontend",
     "datePublished": "2025-08-18",
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-guia-def.html",
-    "image": "https://images.pexels.com/photos/1089440/pexels-photo-1089440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/270366/pexels-photo-270366.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "construyendo-apis-restful-eficientes-con-nodejs-",
+    "title": "Construyendo APIs RESTful eficientes con Node.js y Express",
+    "description": "Este artículo proporciona una guía completa para construir APIs RESTful eficientes utilizando Node.js y Express, cubriendo desde los fundamentos hasta las mejor",
+    "excerpt": "Este artículo proporciona una guía completa para construir APIs RESTful eficientes utilizando Node.js y Express, cubriendo desde los fundamentos hasta las mejores prácticas para asegurar un rendimiento óptimo y una escalabilidad robusta. Aprenderás a diseñar, implementar y probar APIs que sean fáciles de mantener y ampliar.",
+    "keywords": [
+      "Construyendo APIs RESTful eficientes con Node.js y Express",
+      "construyendo apis restful eficientes con node.js y express guía",
+      "construyendo apis restful eficientes con node.js y express tutorial",
+      "construyendo apis restful eficientes con node.js y express mejores prácticas",
+      "construyendo apis restful eficientes con node.js y express ejemplos",
+      "construyendo apis restful eficientes con node.js y express rendimiento",
+      "construyendo apis restful eficientes con node.js y express principiantes",
+      "construyendo apis restful eficientes con node.js y express 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Backend",
+    "datePublished": "2025-09-01",
+    "path": "/blog/construyendo-apis-restful-eficientes-con-nodejs-.html",
+    "image": "https://images.pexels.com/photos/3861976/pexels-photo-3861976.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "construyendo-apis-restful-robustas-con-spring-bo",
@@ -39,7 +60,7 @@
     "category": "Arquitectura y Patrones",
     "datePublished": "2025-08-25",
     "path": "/blog/construyendo-apis-restful-robustas-con-spring-bo.html",
-    "image": "https://images.pexels.com/photos/31052947/pexels-photo-31052947.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/20607060/pexels-photo-20607060.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "construyendo-apis-restful-seguras-con-jwt-y-spri",
@@ -60,7 +81,7 @@
     "category": "Backend",
     "datePublished": "2025-08-18",
     "path": "/blog/construyendo-apis-restful-seguras-con-jwt-y-spri.html",
-    "image": "https://images.pexels.com/photos/270366/pexels-photo-270366.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/965345/pexels-photo-965345.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "implementacion-de-autenticacion-segura-con-jwt-e",
@@ -81,7 +102,28 @@
     "category": "Backend",
     "datePublished": "2025-08-25",
     "path": "/blog/implementacion-de-autenticacion-segura-con-jwt-e.html",
-    "image": "https://images.pexels.com/photos/1054397/pexels-photo-1054397.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/1089440/pexels-photo-1089440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "implementacion-de-autenticacion-segura-con-jwt-y",
+    "title": "Implementación de Autenticación Segura con JWT y OAuth 2.0",
+    "description": "Resumen: Este artículo proporciona una guía completa sobre la implementación de una autenticación segura utilizando JSON Web Tokens (JWT) y OAuth 2.0, cubriendo",
+    "excerpt": "Resumen: Este artículo proporciona una guía completa sobre la implementación de una autenticación segura utilizando JSON Web Tokens (JWT) y OAuth 2.0, cubriendo aspectos clave como flujos de autorización, manejo de tokens y mejores prácticas para asegurar tu aplicación.",
+    "keywords": [
+      "Implementación de autenticación segura con JWT y OAuth 2.0",
+      "implementación de autenticación segura con jwt y oauth 2.0 guía",
+      "implementación de autenticación segura con jwt y oauth 2.0 tutorial",
+      "implementación de autenticación segura con jwt y oauth 2.0 mejores prácticas",
+      "implementación de autenticación segura con jwt y oauth 2.0 ejemplos",
+      "implementación de autenticación segura con jwt y oauth 2.0 rendimiento",
+      "implementación de autenticación segura con jwt y oauth 2.0 principiantes",
+      "implementación de autenticación segura con jwt y oauth 2.0 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Seguridad",
+    "datePublished": "2025-09-01",
+    "path": "/blog/implementacion-de-autenticacion-segura-con-jwt-y.html",
+    "image": "https://images.pexels.com/photos/31439811/pexels-photo-31439811.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "implementacion-de-websockets-con-react-para-chat",
@@ -102,7 +144,7 @@
     "category": "Frontend",
     "datePublished": "2025-08-18",
     "path": "/blog/implementacion-de-websockets-con-react-para-chat.html",
-    "image": "https://images.pexels.com/photos/270366/pexels-photo-270366.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/360591/pexels-photo-360591.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "optimizacion-de-consultas-sql-con-postgresql-ind",
@@ -123,7 +165,7 @@
     "category": "Bases de Datos",
     "datePublished": "2025-08-18",
     "path": "/blog/optimizacion-de-consultas-sql-con-postgresql-ind.html",
-    "image": "https://images.pexels.com/photos/33597392/pexels-photo-33597392.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/33713068/pexels-photo-33713068.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "optimizacion-de-imagenes-para-sitios-web-con-web",
@@ -145,5 +187,26 @@
     "datePublished": "2025-08-25",
     "path": "/blog/optimizacion-de-imagenes-para-sitios-web-con-web.html",
     "image": "https://images.pexels.com/photos/24836825/pexels-photo-24836825.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "optimizacion-de-imagenes-para-web-con-webp-y-laz",
+    "title": "Optimización de Imágenes para Web con WebP y Lazy Loading",
+    "description": "Resumen: Aprende a optimizar tus imágenes web para una carga más rápida y eficiente utilizando WebP y Lazy Loading. Esta guía completa te mostrará cómo implemen",
+    "excerpt": "Resumen:  Aprende a optimizar tus imágenes web para una carga más rápida y eficiente utilizando WebP y Lazy Loading.  Esta guía completa te mostrará cómo implementar estas técnicas y mejorar el rendimiento de tu sitio web.",
+    "keywords": [
+      "Optimización de Imágenes para Web con WebP y Lazy Loading",
+      "optimización de imágenes para web con webp y lazy loading guía",
+      "optimización de imágenes para web con webp y lazy loading tutorial",
+      "optimización de imágenes para web con webp y lazy loading mejores prácticas",
+      "optimización de imágenes para web con webp y lazy loading ejemplos",
+      "optimización de imágenes para web con webp y lazy loading rendimiento",
+      "optimización de imágenes para web con webp y lazy loading principiantes",
+      "optimización de imágenes para web con webp y lazy loading 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Performance y Optimización",
+    "datePublished": "2025-09-01",
+    "path": "/blog/optimizacion-de-imagenes-para-web-con-webp-y-laz.html",
+    "image": "https://images.pexels.com/photos/33636983/pexels-photo-33636983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   }
 ]
