@@ -18,7 +18,7 @@
     "category": "Frontend",
     "datePublished": "2025-08-18",
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-guia-def.html",
-    "image": "https://images.pexels.com/photos/270366/pexels-photo-270366.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/3861976/pexels-photo-3861976.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "construyendo-apis-restful-eficientes-con-nodejs-",
@@ -39,7 +39,7 @@
     "category": "Backend",
     "datePublished": "2025-09-01",
     "path": "/blog/construyendo-apis-restful-eficientes-con-nodejs-.html",
-    "image": "https://images.pexels.com/photos/3861976/pexels-photo-3861976.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/1089440/pexels-photo-1089440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "construyendo-apis-restful-robustas-con-spring-bo",
@@ -60,7 +60,7 @@
     "category": "Arquitectura y Patrones",
     "datePublished": "2025-08-25",
     "path": "/blog/construyendo-apis-restful-robustas-con-spring-bo.html",
-    "image": "https://images.pexels.com/photos/20607060/pexels-photo-20607060.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/33681189/pexels-photo-33681189.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "construyendo-apis-restful-seguras-con-jwt-y-spri",
@@ -81,7 +81,7 @@
     "category": "Backend",
     "datePublished": "2025-08-18",
     "path": "/blog/construyendo-apis-restful-seguras-con-jwt-y-spri.html",
-    "image": "https://images.pexels.com/photos/965345/pexels-photo-965345.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/3861976/pexels-photo-3861976.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "implementacion-de-autenticacion-segura-con-jwt-e",
@@ -102,7 +102,7 @@
     "category": "Backend",
     "datePublished": "2025-08-25",
     "path": "/blog/implementacion-de-autenticacion-segura-con-jwt-e.html",
-    "image": "https://images.pexels.com/photos/1089440/pexels-photo-1089440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/2061168/pexels-photo-2061168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "implementacion-de-autenticacion-segura-con-jwt-y",
@@ -123,7 +123,28 @@
     "category": "Seguridad",
     "datePublished": "2025-09-01",
     "path": "/blog/implementacion-de-autenticacion-segura-con-jwt-y.html",
-    "image": "https://images.pexels.com/photos/31439811/pexels-photo-31439811.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/31439797/pexels-photo-31439797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "implementacion-de-seguridad-con-jwt-y-oauth-20-e",
+    "title": "Implementación de Seguridad con JWT y OAuth 2.0 en APIs REST",
+    "description": "Meta descripción: Este artículo explica cómo implementar seguridad robusta en tus APIs REST usando JSON Web Tokens (JWT) y OAuth 2.0, cubriendo mejores práctica",
+    "excerpt": "Meta descripción: Este artículo explica cómo implementar seguridad robusta en tus APIs REST usando JSON Web Tokens (JWT) y OAuth 2.0, cubriendo mejores prácticas y errores comunes para una integración segura y eficiente.",
+    "keywords": [
+      "Implementación de Seguridad con JWT y OAuth 2.0 en APIs REST",
+      "implementación de seguridad con jwt y oauth 2.0 en apis rest guía",
+      "implementación de seguridad con jwt y oauth 2.0 en apis rest tutorial",
+      "implementación de seguridad con jwt y oauth 2.0 en apis rest mejores prácticas",
+      "implementación de seguridad con jwt y oauth 2.0 en apis rest ejemplos",
+      "implementación de seguridad con jwt y oauth 2.0 en apis rest rendimiento",
+      "implementación de seguridad con jwt y oauth 2.0 en apis rest principiantes",
+      "implementación de seguridad con jwt y oauth 2.0 en apis rest 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Seguridad",
+    "datePublished": "2025-09-08",
+    "path": "/blog/implementacion-de-seguridad-con-jwt-y-oauth-20-e.html",
+    "image": "https://images.pexels.com/photos/31439800/pexels-photo-31439800.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "implementacion-de-websockets-con-react-para-chat",
@@ -144,7 +165,28 @@
     "category": "Frontend",
     "datePublished": "2025-08-18",
     "path": "/blog/implementacion-de-websockets-con-react-para-chat.html",
-    "image": "https://images.pexels.com/photos/360591/pexels-photo-360591.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/3861976/pexels-photo-3861976.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "implementacion-de-websockets-con-socketio-en-nod",
+    "title": "Implementación de WebSockets con Socket.IO en Node.js: Una",
+    "description": "Meta descripción: Aprende a implementar WebSockets con Socket.IO en Node.js para crear aplicaciones en tiempo real. Esta guía completa cubre la instalación, con",
+    "excerpt": "Meta descripción: Aprende a implementar WebSockets con Socket.IO en Node.js para crear aplicaciones en tiempo real.  Esta guía completa cubre la instalación, configuración, manejo de eventos y mejores prácticas para una implementación exitosa.",
+    "keywords": [
+      "Implementación de WebSockets con Socket.IO en Node.js",
+      "implementación de websockets con socket.io en node.js guía",
+      "implementación de websockets con socket.io en node.js tutorial",
+      "implementación de websockets con socket.io en node.js mejores prácticas",
+      "implementación de websockets con socket.io en node.js ejemplos",
+      "implementación de websockets con socket.io en node.js rendimiento",
+      "implementación de websockets con socket.io en node.js principiantes",
+      "implementación de websockets con socket.io en node.js 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Backend",
+    "datePublished": "2025-09-08",
+    "path": "/blog/implementacion-de-websockets-con-socketio-en-nod.html",
+    "image": "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "optimizacion-de-consultas-sql-con-postgresql-ind",
@@ -165,15 +207,15 @@
     "category": "Bases de Datos",
     "datePublished": "2025-08-18",
     "path": "/blog/optimizacion-de-consultas-sql-con-postgresql-ind.html",
-    "image": "https://images.pexels.com/photos/33713068/pexels-photo-33713068.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/8480883/pexels-photo-8480883.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "optimizacion-de-imagenes-para-sitios-web-con-web",
     "title": "Optimización de imágenes para sitios web con WebP y Lazy",
-    "description": "Optimizar las imágenes de tu sitio web es crucial para mejorar la velocidad de carga, la experiencia del usuario y el posicionamiento SEO. En este artículo, exp",
-    "excerpt": "Optimizar las imágenes de tu sitio web es crucial para mejorar la velocidad de carga, la experiencia del usuario y el posicionamiento SEO.  En este artículo, exploraremos dos técnicas potentes: el uso del formato WebP y la implementación de lazy loading. Aprenderás cómo combinarlas para obtener resultados óptimos y un sitio web más eficiente.",
+    "description": "Meta Descripción: Aprende a optimizar tus imágenes para una carga web ultrarrápida usando WebP y Lazy Loading. Mejora el SEO, la experiencia de usuario y la vel",
+    "excerpt": "Meta Descripción: Aprende a optimizar tus imágenes para una carga web ultrarrápida usando WebP y Lazy Loading. Mejora el SEO, la experiencia de usuario y la velocidad de tu sitio web con estas técnicas.",
     "keywords": [
-      "Optimización de imágenes para sitios web con WebP y lazy loading",
+      "Optimización de imágenes para sitios web con WebP y Lazy Loading",
       "optimización de imágenes para sitios web con webp y lazy loading guía",
       "optimización de imágenes para sitios web con webp y lazy loading tutorial",
       "optimización de imágenes para sitios web con webp y lazy loading mejores prácticas",
@@ -184,9 +226,9 @@
     ],
     "author": "hgaruna",
     "category": "Performance y Optimización",
-    "datePublished": "2025-08-25",
+    "datePublished": "2025-09-08",
     "path": "/blog/optimizacion-de-imagenes-para-sitios-web-con-web.html",
-    "image": "https://images.pexels.com/photos/24836825/pexels-photo-24836825.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/22046780/pexels-photo-22046780.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "optimizacion-de-imagenes-para-web-con-webp-y-laz",
@@ -207,6 +249,6 @@
     "category": "Performance y Optimización",
     "datePublished": "2025-09-01",
     "path": "/blog/optimizacion-de-imagenes-para-web-con-webp-y-laz.html",
-    "image": "https://images.pexels.com/photos/33636983/pexels-photo-33636983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/24836825/pexels-photo-24836825.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   }
 ]
