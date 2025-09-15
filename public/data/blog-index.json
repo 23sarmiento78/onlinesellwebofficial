@@ -18,7 +18,7 @@
     "category": "Frontend",
     "datePublished": "2025-08-18",
     "path": "/blog/buenas-practicas-de-react-y-rendimiento-guia-def.html",
-    "image": "https://images.pexels.com/photos/3861976/pexels-photo-3861976.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/574069/pexels-photo-574069.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "construyendo-apis-restful-eficientes-con-nodejs-",
@@ -39,7 +39,7 @@
     "category": "Backend",
     "datePublished": "2025-09-01",
     "path": "/blog/construyendo-apis-restful-eficientes-con-nodejs-.html",
-    "image": "https://images.pexels.com/photos/1089440/pexels-photo-1089440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/1054397/pexels-photo-1054397.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "construyendo-apis-restful-robustas-con-spring-bo",
@@ -60,7 +60,28 @@
     "category": "Arquitectura y Patrones",
     "datePublished": "2025-08-25",
     "path": "/blog/construyendo-apis-restful-robustas-con-spring-bo.html",
-    "image": "https://images.pexels.com/photos/33681189/pexels-photo-33681189.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/33667535/pexels-photo-33667535.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "construyendo-apis-restful-seguras-con-jwt-y-oaut",
+    "title": "Construyendo APIs RESTful Seguras con JWT y OAuth 2.0",
+    "description": "Resumen: Este artículo explora la construcción de APIs RESTful seguras utilizando JSON Web Tokens (JWT) y OAuth 2.0, cubriendo las mejores prácticas, errores co",
+    "excerpt": "Resumen: Este artículo explora la construcción de APIs RESTful seguras utilizando JSON Web Tokens (JWT) y OAuth 2.0, cubriendo las mejores prácticas, errores comunes y ejemplos de código para asegurar tus aplicaciones.  Aprenderás cómo proteger tus APIs y gestionar la autenticación de usuarios de forma eficiente y segura.",
+    "keywords": [
+      "Construyendo APIs RESTful seguras con JWT y OAuth 2.0",
+      "construyendo apis restful seguras con jwt y oauth 2.0 guía",
+      "construyendo apis restful seguras con jwt y oauth 2.0 tutorial",
+      "construyendo apis restful seguras con jwt y oauth 2.0 mejores prácticas",
+      "construyendo apis restful seguras con jwt y oauth 2.0 ejemplos",
+      "construyendo apis restful seguras con jwt y oauth 2.0 rendimiento",
+      "construyendo apis restful seguras con jwt y oauth 2.0 principiantes",
+      "construyendo apis restful seguras con jwt y oauth 2.0 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Seguridad",
+    "datePublished": "2025-09-15",
+    "path": "/blog/construyendo-apis-restful-seguras-con-jwt-y-oaut.html",
+    "image": "https://images.pexels.com/photos/31439800/pexels-photo-31439800.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "construyendo-apis-restful-seguras-con-jwt-y-spri",
@@ -102,7 +123,7 @@
     "category": "Backend",
     "datePublished": "2025-08-25",
     "path": "/blog/implementacion-de-autenticacion-segura-con-jwt-e.html",
-    "image": "https://images.pexels.com/photos/2061168/pexels-photo-2061168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/249798/pexels-photo-249798.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "implementacion-de-autenticacion-segura-con-jwt-y",
@@ -123,7 +144,7 @@
     "category": "Seguridad",
     "datePublished": "2025-09-01",
     "path": "/blog/implementacion-de-autenticacion-segura-con-jwt-y.html",
-    "image": "https://images.pexels.com/photos/31439797/pexels-photo-31439797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/13780558/pexels-photo-13780558.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "implementacion-de-seguridad-con-jwt-y-oauth-20-e",
@@ -149,8 +170,8 @@
   {
     "id": "implementacion-de-websockets-con-react-para-chat",
     "title": "Implementación de WebSockets con React para Chat en Tiempo",
-    "description": "Resumen: Este artículo guía al lector a través del proceso de implementación de WebSockets con React para crear una aplicación de chat en tiempo real, cubriendo",
-    "excerpt": "Resumen:  Este artículo guía al lector a través del proceso de implementación de WebSockets con React para crear una aplicación de chat en tiempo real, cubriendo desde la configuración básica hasta las mejores prácticas y la resolución de errores comunes.  Aprenderás a construir una aplicación robusta y eficiente.",
+    "description": "Meta Descripción: Este artículo detalla cómo implementar WebSockets con React para crear una aplicación de chat en tiempo real, cubriendo desde la configuración",
+    "excerpt": "Meta Descripción:  Este artículo detalla cómo implementar WebSockets con React para crear una aplicación de chat en tiempo real, cubriendo desde la configuración hasta las mejores prácticas y la resolución de problemas comunes.",
     "keywords": [
       "Implementación de WebSockets con React para Chat en Tiempo Real",
       "implementación de websockets con react para chat en tiempo real guía",
@@ -163,9 +184,9 @@
     ],
     "author": "hgaruna",
     "category": "Frontend",
-    "datePublished": "2025-08-18",
+    "datePublished": "2025-09-15",
     "path": "/blog/implementacion-de-websockets-con-react-para-chat.html",
-    "image": "https://images.pexels.com/photos/3861976/pexels-photo-3861976.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/360591/pexels-photo-360591.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "implementacion-de-websockets-con-socketio-en-nod",
@@ -186,7 +207,28 @@
     "category": "Backend",
     "datePublished": "2025-09-08",
     "path": "/blog/implementacion-de-websockets-con-socketio-en-nod.html",
-    "image": "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/33888991/pexels-photo-33888991.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+  {
+    "id": "optimizacion-de-consultas-sql-con-indices-y-part",
+    "title": "Optimización de Consultas SQL con Índices y Particionamiento",
+    "description": "La optimización de consultas SQL es crucial para el rendimiento de cualquier aplicación que interactúe con bases de datos relacionales. Una consulta mal optimiz",
+    "excerpt": "La optimización de consultas SQL es crucial para el rendimiento de cualquier aplicación que interactúe con bases de datos relacionales.  Una consulta mal optimizada puede impactar negativamente la velocidad de respuesta, la escalabilidad y el consumo de recursos.  Dos técnicas fundamentales para mejorar el rendimiento de las consultas SQL son el uso de índices y el particionamiento de tablas. Este artículo explorará en detalle ambas estrategias, explicando sus beneficios, desventajas y mejores prácticas para su implementación.",
+    "keywords": [
+      "Optimización de consultas SQL con índices y particionamiento",
+      "optimización de consultas sql con índices y particionamiento guía",
+      "optimización de consultas sql con índices y particionamiento tutorial",
+      "optimización de consultas sql con índices y particionamiento mejores prácticas",
+      "optimización de consultas sql con índices y particionamiento ejemplos",
+      "optimización de consultas sql con índices y particionamiento rendimiento",
+      "optimización de consultas sql con índices y particionamiento principiantes",
+      "optimización de consultas sql con índices y particionamiento 2025"
+    ],
+    "author": "hgaruna",
+    "category": "Bases de Datos",
+    "datePublished": "2025-09-15",
+    "path": "/blog/optimizacion-de-consultas-sql-con-indices-y-part.html",
+    "image": "https://images.pexels.com/photos/33894096/pexels-photo-33894096.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "optimizacion-de-consultas-sql-con-postgresql-ind",
@@ -207,7 +249,7 @@
     "category": "Bases de Datos",
     "datePublished": "2025-08-18",
     "path": "/blog/optimizacion-de-consultas-sql-con-postgresql-ind.html",
-    "image": "https://images.pexels.com/photos/8480883/pexels-photo-8480883.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/16099329/pexels-photo-16099329.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "optimizacion-de-imagenes-para-sitios-web-con-web",
@@ -228,7 +270,7 @@
     "category": "Performance y Optimización",
     "datePublished": "2025-09-08",
     "path": "/blog/optimizacion-de-imagenes-para-sitios-web-con-web.html",
-    "image": "https://images.pexels.com/photos/22046780/pexels-photo-22046780.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/33861763/pexels-photo-33861763.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   },
   {
     "id": "optimizacion-de-imagenes-para-web-con-webp-y-laz",
@@ -249,6 +291,6 @@
     "category": "Performance y Optimización",
     "datePublished": "2025-09-01",
     "path": "/blog/optimizacion-de-imagenes-para-web-con-webp-y-laz.html",
-    "image": "https://images.pexels.com/photos/24836825/pexels-photo-24836825.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "image": "https://images.pexels.com/photos/33870904/pexels-photo-33870904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
   }
 ]

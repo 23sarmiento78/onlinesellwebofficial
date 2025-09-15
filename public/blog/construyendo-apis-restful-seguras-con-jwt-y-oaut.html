@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Construyendo APIs RESTful Seguras con JWT y OAuth 2.0</title>
+  <meta name="description" content="Resumen: Este artículo explora la construcción de APIs RESTful seguras utilizando JSON Web Tokens (JWT) y OAuth 2.0, cubriendo las mejores prácticas, errores co" />
+  <meta name="keywords" content="Construyendo APIs RESTful seguras con JWT y OAuth 2.0, construyendo apis restful seguras con jwt y oauth 2.0 guía, construyendo apis restful seguras con jwt y oauth 2.0 tutorial, construyendo apis restful seguras con jwt y oauth 2.0 mejores prácticas, construyendo apis restful seguras con jwt y oauth 2.0 ejemplos, construyendo apis restful seguras con jwt y oauth 2.0 rendimiento, construyendo apis restful seguras con jwt y oauth 2.0 principiantes, construyendo apis restful seguras con jwt y oauth 2.0 2025" />
+  <meta name="author" content="hgaruna" />
+  <meta name="date" content="2025-09-15" />
+  <meta name="category" content="Seguridad" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Construyendo APIs RESTful Seguras con JWT y OAuth 2.0" />
+  <meta property="og:description" content="Resumen: Este artículo explora la construcción de APIs RESTful seguras utilizando JSON Web Tokens (JWT) y OAuth 2.0, cubriendo las mejores prácticas, errores co" />
+  <meta property="og:image" content="https://images.pexels.com/photos/31439800/pexels-photo-31439800.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
+  <meta property="og:url" content="/blog/construyendo-apis-restful-seguras-con-jwt-y-oaut.html" />
+  <meta property="article:published_time" content="2025-09-15" />
+  <meta property="article:author" content="hgaruna" />
+  <meta property="article:section" content="Seguridad" />
+  <link rel="canonical" href="/blog/construyendo-apis-restful-seguras-con-jwt-y-oaut.html" />
+
+  <!-- JSON-LD Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Construyendo APIs RESTful Seguras con JWT y OAuth 2.0",
+    "description": "Resumen: Este artículo explora la construcción de APIs RESTful seguras utilizando JSON Web Tokens (JWT) y OAuth 2.0, cubriendo las mejores prácticas, errores co",
+    "image": ["https://images.pexels.com/photos/31439800/pexels-photo-31439800.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"],
+    "datePublished": "2025-09-15",
+    "author": {
+      "@type": "Person",
+      "name": "hgaruna"
+    },
+    "articleSection": "Seguridad",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/blog/construyendo-apis-restful-seguras-con-jwt-y-oaut.html"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0b132b;
+      --card: #1c2541;
+      --text: #e0e6f5;
+      --muted: #a0abc6;
+      --accent: #64ffda;
+      --accent-2: #4dabf7;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg); color: var(--text); }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+    header.article-header { margin: 24px 0 12px; }
+    .eyebrow { color: var(--accent); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; font-size: 12px; }
+    h1.title { margin: 8px 0 12px; font-size: clamp(28px, 5vw, 42px); line-height: 1.2; }
+    .meta { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 14px; flex-wrap: wrap; }
+    .meta .dot { width: 4px; height: 4px; background: var(--muted); border-radius: 50%; display: inline-block; margin: 0 6px; }
+    .cover { margin: 20px 0 28px; border-radius: 12px; overflow: hidden; border: 1px solid #223; background: #0f172a; }
+    .cover img { width: 100%; height: auto; display: block; }
+    .summary { margin: 16px 0 28px; color: var(--muted); font-size: 18px; }
+    main.article { background: var(--card); border: 1px solid #223; border-radius: 12px; padding: 28px; }
+    main.article h2 { margin-top: 28px; font-size: 24px; }
+    main.article h3 { margin-top: 22px; font-size: 20px; }
+    main.article p { line-height: 1.75; margin: 14px 0; }
+    main.article pre { background: #0f172a; color: #e6edf3; padding: 16px; border-radius: 8px; overflow-x: auto; border: 1px solid #223; }
+    main.article code { background: #0f172a; color: #e6edf3; padding: 2px 6px; border-radius: 6px; }
+    .tags { margin-top: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { background: #0f172a; color: var(--muted); border: 1px solid #223; padding: 6px 10px; border-radius: 999px; font-size: 12px; }
+    footer.article-footer { color: var(--muted); margin: 28px 0; font-size: 14px; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header class="article-header">
+      <div class="eyebrow">Seguridad</div>
+      <h1 class="title">Construyendo APIs RESTful Seguras con JWT y OAuth 2.0</h1>
+      <div class="meta">
+        <span>Por hgaruna</span>
+        <span class="dot"></span>
+        <span>2025-09-15</span>
+        <span class="dot"></span>
+        <span>8 min</span>
+      </div>
+    </header>
+
+    <div class="cover">
+      <img src="https://images.pexels.com/photos/31439800/pexels-photo-31439800.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Imagen destacada" loading="lazy" />
+    </div>
+
+    <p class="summary">Resumen: Este artículo explora la construcción de APIs RESTful seguras utilizando JSON Web Tokens (JWT) y OAuth 2.0, cubriendo las mejores prácticas, errores co</p>
+
+    <main id="content" class="article">
+      <!-- Contenido del artículo (HTML) -->
+      <h2>Construyendo APIs RESTful Seguras con JWT y OAuth 2.0</h2>
+<p><strong>Resumen:</strong> Este artículo explora la construcción de APIs RESTful seguras utilizando JSON Web Tokens (JWT) y OAuth 2.0, cubriendo las mejores prácticas, errores comunes y ejemplos de código para asegurar tus aplicaciones.  Aprenderás cómo proteger tus APIs y gestionar la autenticación de usuarios de forma eficiente y segura.</p>
+<h3>Introducción</h3>
+<p>Las APIs RESTful se han convertido en el estándar de facto para la comunicación entre aplicaciones.  Sin embargo, la seguridad de estas APIs es crucial, especialmente cuando manejan datos sensibles.  En este artículo, exploraremos dos tecnologías clave para asegurar tus APIs RESTful: JSON Web Tokens (JWT) y OAuth 2.0.  Aprenderemos cómo implementarlas de manera efectiva para proteger tus recursos y garantizar la integridad de tus datos.  Cubriremos aspectos desde la configuración inicial hasta el manejo de errores, proporcionando ejemplos de código y mejores prácticas para una implementación robusta.</p>
+<h3>¿Qué son JWT y OAuth 2.0?</h3>
+<p>Antes de sumergirnos en la implementación, es importante comprender la función de cada tecnología:</p>
+<p><strong>JSON Web Tokens (JWT):</strong>  Un JWT es un estándar abierto para crear tokens de acceso que contienen una carga útil JSON firmada digitalmente.  Esta firma garantiza la integridad y autenticidad del token, permitiendo a la API verificar su validez.  Un JWT típico consta de tres partes separadas por puntos: encabezado, carga útil y firma.</p>
+<p><strong>OAuth 2.0:</strong>  OAuth 2.0 es un marco de autorización, no un protocolo de autenticación.  Permite que las aplicaciones accedan a los recursos de un usuario sin requerir las credenciales del usuario.  En lugar de ello, el usuario autoriza a la aplicación a acceder a sus recursos, y la aplicación recibe un token de acceso (a menudo un JWT) para realizar peticiones a la API.</p>
+<h3>Implementando OAuth 2.0 con JWT</h3>
+<p>Para una implementación efectiva, seguiremos un flujo típico de OAuth 2.0, utilizando JWT como tokens de acceso:</p>
+<ol>
+<li><strong>Autorización:</strong> El usuario inicia sesión en la aplicación cliente (por ejemplo, una aplicación web o móvil).</li>
+<li><strong>Solicitud de Token:</strong> La aplicación cliente realiza una solicitud al servidor de autorización, proporcionando sus credenciales de cliente y solicitando un token de acceso.  Esto suele implicar un flujo de autorización como el &quot;Authorization Code Grant&quot; o el &quot;Client Credentials Grant&quot;, dependiendo del contexto.</li>
+<li><strong>Verificación del Token:</strong>  El servidor de autorización verifica las credenciales del cliente y, si son válidas, emite un JWT como token de acceso.</li>
+<li><strong>Solicitud a la API:</strong> La aplicación cliente utiliza el JWT en el encabezado de las solicitudes a la API protegida.</li>
+<li><strong>Validación del JWT:</strong> La API verifica la firma del JWT y la validez de su carga útil (fecha de expiración, etc.) antes de procesar la solicitud.</li>
+</ol>
+<h3>Ejemplo de Flujo con Authorization Code Grant</h3>
+<p>Imaginemos una aplicación web que necesita acceder a una API protegida. El flujo sería:</p>
+<ol>
+<li><strong>Usuario inicia sesión:</strong> El usuario se autentica en la aplicación web.</li>
+<li><strong>Solicitud al servidor de autorización:</strong> La aplicación web solicita un código de autorización al servidor de autorización:</li>
+</ol>
+<pre><code>POST /oauth/token
+{
+  &quot;grant_type&quot;: &quot;authorization_code&quot;,
+  &quot;code&quot;: &quot;YOUR_AUTHORIZATION_CODE&quot;,
+  &quot;redirect_uri&quot;: &quot;YOUR_REDIRECT_URI&quot;,
+  &quot;client_id&quot;: &quot;YOUR_CLIENT_ID&quot;,
+  &quot;client_secret&quot;: &quot;YOUR_CLIENT_SECRET&quot;
+}
+</code></pre>
+<ol start="3">
+<li>
+<p><strong>Servidor de autorización emite JWT:</strong> Si todo es correcto, el servidor devuelve un JWT como token de acceso.</p>
+</li>
+<li>
+<p><strong>Aplicación accede a la API:</strong> La aplicación web incluye el JWT en el encabezado <code>Authorization: Bearer &lt;JWT&gt;</code> de cada solicitud a la API.</p>
+</li>
+<li>
+<p><strong>API valida el JWT:</strong> La API verifica la firma y la validez del JWT antes de procesar la solicitud.</p>
+</li>
+</ol>
+<h3>Mejoras de Seguridad</h3>
+<ul>
+<li><strong>Almacenamiento seguro de secretos:</strong> Nunca almacene las claves secretas directamente en el código. Utilice variables de entorno o un gestor de secretos.</li>
+<li><strong>HTTPS:</strong> Siempre utilice HTTPS para proteger la comunicación entre la aplicación cliente, el servidor de autorización y la API.</li>
+<li><strong>Refresco de Tokens:</strong> Implementar tokens de refresco para prolongar la vida útil del acceso sin solicitar nuevas credenciales al usuario constantemente.</li>
+<li><strong>Validación robusta del JWT:</strong> Verificar la expiración, la audiencia (<code>aud</code>), el emisor (<code>iss</code>) y otros reclamos para asegurar la integridad del token.</li>
+<li><strong>Limitación de intentos de acceso:</strong> Implementar mecanismos para bloquear o limitar intentos de acceso fallidos para prevenir ataques de fuerza bruta.</li>
+</ul>
+<h3>Errores Comunes</h3>
+<ul>
+<li><strong>Exposición de claves secretas:</strong> Un error común es exponer las claves secretas en el código fuente o en la configuración.</li>
+<li><strong>Falta de HTTPS:</strong> La comunicación sin HTTPS deja las solicitudes vulnerables a ataques de escucha.</li>
+<li><strong>Manejo incorrecto de errores:</strong> No proporcionar mensajes de error informativos puede dificultar la depuración.</li>
+<li><strong>JWT sin firma:</strong> Un JWT sin firmar no ofrece ninguna garantía de seguridad.</li>
+<li><strong>Falta de rotación de claves:</strong> El uso de claves secretas durante largos períodos aumenta el riesgo de compromiso.</li>
+</ul>
+<h3>Conclusión</h3>
+<p>Construir APIs RESTful seguras requiere una comprensión profunda de la seguridad y la implementación correcta de protocolos como OAuth 2.0 y el uso de tokens como JWT.  Siguiendo las mejores prácticas y evitando los errores comunes, puedes crear APIs robustas y protegidas que mantengan la integridad de tus datos y la confianza de tus usuarios.  Recuerda que la seguridad es un proceso continuo, y la actualización regular de tu sistema y el monitoreo de vulnerabilidades son cruciales para mantener la protección de tu API.  La implementación adecuada de OAuth 2.0 con JWT proporciona una solución sólida y escalable para gestionar la autenticación y autorización en tus aplicaciones.</p>
+
+
+<p style="color:#a0abc6;font-size:12px">Crédito de imagen: Pexels</p>
+      <!-- /Contenido del artículo -->
+
+      <div class="tags">
+        <span class="tag">#Construyendo APIs RESTful seguras con JWT y OAuth 2.0</span>
+        <span class="tag">#construyendo apis restful seguras con jwt y oauth 2.0 guía</span>
+        <span class="tag">#construyendo apis restful seguras con jwt y oauth 2.0 tutorial</span>
+        <span class="tag">#construyendo apis restful seguras con jwt y oauth 2.0 mejores prácticas</span>
+        <span class="tag">#construyendo apis restful seguras con jwt y oauth 2.0 ejemplos</span>
+        <span class="tag">#construyendo apis restful seguras con jwt y oauth 2.0 rendimiento</span>
+        <span class="tag">#construyendo apis restful seguras con jwt y oauth 2.0 principiantes</span>
+        <span class="tag">#construyendo apis restful seguras con jwt y oauth 2.0 2025</span>
+      </div>
+    </main>
+
+    <footer class="article-footer">
+      © 2025-09-15 · Publicado por hgaruna · Categoría: Seguridad
+    </footer>
+  </div>
+</body>
+</html>
