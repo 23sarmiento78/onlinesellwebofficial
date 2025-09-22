@@ -1,6 +1,7 @@
 [
   "buenas-practicas-de-react-y-rendimiento-guia-def.html",
   "construyendo-apis-restful-eficientes-con-nodejs-.html",
+  "construyendo-apis-restful-robustas-con-nodejs-y-.html",
   "construyendo-apis-restful-robustas-con-spring-bo.html",
   "construyendo-apis-restful-seguras-con-jwt-y-oaut.html",
   "construyendo-apis-restful-seguras-con-jwt-y-spri.html",
@@ -11,6 +12,7 @@
   "implementacion-de-websockets-con-socketio-en-nod.html",
   "optimizacion-de-consultas-sql-con-indices-y-part.html",
   "optimizacion-de-consultas-sql-con-postgresql-ind.html",
+  "optimizacion-de-imagenes-con-webp-para-mejorar-e.html",
   "optimizacion-de-imagenes-para-sitios-web-con-web.html",
   "optimizacion-de-imagenes-para-web-con-webp-y-laz.html"
 ]
